@@ -15,16 +15,26 @@
 		<template id="templateElementsLinkCard">
 			<style>
 				#faviconImg {
+					height: 1em;
+					width: 1em;
 				}
 				#titleSpan {
 					font-size: small;
 					text-overflow: clip;
+					color: initial;
+					overflow: hidden;
 				}
 				#pseudoBody {
 					/* TODO: Replace dimensions with calcs */
-					width: 200px;
-
+					width: 130px;
+					border: 1px;
+					border-style: solid;
+					border-radius: 5px;
 				}
+				#CardLink {
+					text-decoration: none;
+				}
+
 			</style>
 			<div id="pseudoBody">
 				<a id="CardLink">
