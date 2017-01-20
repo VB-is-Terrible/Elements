@@ -17,16 +17,28 @@
 				#faviconImg {
 					height: 1em;
 					width: 1em;
+					grid-area: favicon;
 				}
 				#titleSpan {
 					font-size: small;
 					text-overflow: clip;
 					color: initial;
 					overflow: hidden;
+					grid-area: title;
+				}
+				#contentDiv {
+					display: grid;
+					grid-template-columns: [c0] 20px [c1] 110px [c2];
+					grid-template-rows: [r0] 20px [r1] 130px [r2];
+					grid-template-areas: "favicon title"
+												"image image";
+					grid-auto-flow: row;
+
 				}
 				#pseudoBody {
 					/* TODO: Replace dimensions with calcs */
 					width: 130px;
+					height: 150px;
 					border: 1px;
 					border-style: solid;
 					border-radius: 5px;
@@ -34,57 +46,26 @@
 				#CardLink {
 					text-decoration: none;
 				}
-
+				#thumbImg {
+					width: 100%;
+					height: 100px;
+					grid-area: image;
+				}
 			</style>
 			<div id="pseudoBody">
 				<a id="CardLink">
-					<div id="titleDiv">
-						<div id="faviconDiv">
-							<img id="faviconImg">
-							<span id="titleSpan">
-								You should not be seeing this
-							</span>
-						</div>
-					</div>
-					<div id="thumbDiv">
-						<img id="thumbImg">
+
+					<div id="contentDiv">
+						<img id="faviconImg" src = "drive.png">
+						<span id="titleSpan">
+							You should not be seeing this
+						</span>
+						<img id="thumbImg" src = "TCF.png">
 					</div>
 				</a>
 			</div>
 		</template>
 
-		<style>
-			#faviconImg {
-				height: 1em;
-				width: 1em;
-			}
-			#titleSpan {
-				font-size: small;
-				text-overflow: clip;
-				color: initial;
-				overflow: hidden;
-			}
-			#pseudoBody {
-				/* TODO: Replace dimensions with calcs */
-				width: 130px;
-				height: 150px;
-				border: 1px;
-				border-style: solid;
-				border-radius: 5px;
-			}
-			#CardLink {
-				text-decoration: none;
-			}
-			#contentDiv {
-				display: grid;
-				grid-template-columns: [c0] 20px [c1] 110px [c2];
-				grid-template-rows: [r0] 20px [r1] 130px [r2];
-				grid-template-areas: "favicon title"
-											"image image";
-				grid-auto-flow: row;
-
-			}
-		</style>
 
 	</head>
 
@@ -92,22 +73,8 @@
 		<Elements-CardLinkHolder>
 
 		</Elements-CardLinkHolder>
-		<Elements-LinkCard src="drive.png" title="THISISATEST">
+		<Elements-LinkCard favicon="drive.png" title="THISISATEST" src="TCF.png">
 		</Elements-LinkCard>
 	</body>
 
-	<div id="pseudoBody">
-		<a id="CardLink">
-
-			<div id="contentDiv">
-				<img id="faviconImg" src = "drive.png">
-				<span id="titleSpan">
-					You should not be seeing this
-				</span>
-				<div id="thumbDiv">
-					<img id="thumbImg" src = "drive.png">
-				</div>
-			</div>
-		</a>
-	</div>
 </html>
