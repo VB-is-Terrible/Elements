@@ -53,6 +53,39 @@
 			</div>
 		</template>
 
+		<style>
+			#faviconImg {
+				height: 1em;
+				width: 1em;
+			}
+			#titleSpan {
+				font-size: small;
+				text-overflow: clip;
+				color: initial;
+				overflow: hidden;
+			}
+			#pseudoBody {
+				/* TODO: Replace dimensions with calcs */
+				width: 130px;
+				height: 150px;
+				border: 1px;
+				border-style: solid;
+				border-radius: 5px;
+			}
+			#CardLink {
+				text-decoration: none;
+			}
+			#contentDiv {
+				display: grid;
+				grid-template-columns: [c0] 20px [c1] 110px [c2];
+				grid-template-rows: [r0] 20px [r1] 130px [r2];
+				grid-template-areas: "favicon title"
+											"image image";
+				grid-auto-flow: row;
+
+			}
+		</style>
+
 	</head>
 
 	<body>
@@ -62,4 +95,19 @@
 		<Elements-LinkCard src="drive.png" title="THISISATEST">
 		</Elements-LinkCard>
 	</body>
+
+	<div id="pseudoBody">
+		<a id="CardLink">
+
+			<div id="contentDiv">
+				<img id="faviconImg" src = "drive.png">
+				<span id="titleSpan">
+					You should not be seeing this
+				</span>
+				<div id="thumbDiv">
+					<img id="thumbImg" src = "drive.png">
+				</div>
+			</div>
+		</a>
+	</div>
 </html>
