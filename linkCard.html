@@ -20,18 +20,18 @@
 					grid-area: favicon;
 				}
 				#titleSpan {
-					font-size: calc(var(--HeaderHeight) - 2px);
+					font-size: calc(var(--HeaderHeight) * .9);
 					text-overflow: clip;
 					color: initial;
 					overflow: hidden;
 					grid-area: title;
-					width: calc(100% - var(--ColGap));
+					width: calc(100%);
 					/* 1ex Prevents text overflow when the padding is small */
 				}
 				#contentDiv {
 					display: grid;
-					grid-template-columns: [c0] var(--HeaderHeight) [c1] calc(100% - var(--HeaderHeight)) [c2];
-					grid-template-rows: [r0] var(--HeaderHeight) [r1] calc(100% - var(--HeaderHeight) - var(--RowGap)) [r2];
+					grid-template-columns: [c0] var(--HeaderHeight) [c1] calc(100% - var(--HeaderHeight) - var(--ColGap)) [c2];
+					grid-template-rows: [r0] var(--HeaderHeight) [r1] 1fr [r2];
 					grid-template-areas: "favicon title"
 												"image image";
 					grid-auto-flow: row;
@@ -47,8 +47,8 @@
 					border: 1px;
 					border-style: solid;
 					border-radius: 5px;
-					--RowGap: 50px;
-					--ColGap: 0px;
+					--RowGap: 0px;
+					--ColGap: 50px;
 					--Margin: 0px;
 					--HeaderHeight: 80px;
 					padding: var(--Margin);
