@@ -41,23 +41,28 @@
 					width: 100%;
 				}
 				#pseudoBody {
-					/* TODO: Replace dimensions with calcs */
+
 					width: var(--width);
 					height: var(--height);
-					border: 1px;
-					border-style: solid;
-					border-radius: 5px;
-					--RowGap: 5px;
-					--ColGap: 10px;
-					--Margin: 50px;
 					--HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);
-					--width: 520px;
-					--height: 600px;
+					@apply --border;
 					padding: var(--Margin);
 					background-color: white;
 					box-sizing: border-box;
 				}
-
+				:host {
+					--RowGap: 5px;
+					--ColGap: 10px;
+					--Margin: 2px;
+					--width: 520px;
+					--height: calc(var(--width) / 130 * 200);
+					--border-mixin: {
+						border-width: 10px;
+						border-style: solid;
+						border-radius: 5px;
+						border-color: black;
+					};
+				}
 				#CardLink {
 					text-decoration: none;
 				}
