@@ -2,13 +2,58 @@
 	<head>
 		<script src="linkCard.js"></script>
 
-		<template id="templateElementsCardLinkHolder">
+		<template id="templateElementsLinkCardContainer">
 			<div id="pseudoBody">
 				<div id="Link Holder">
-					<Link-Holder>
-						stuff
-					</Link-Holder>
+					<!-- <Elements-LinkCardContainer>
+					</Elements-LinkCardContainer> -->
 				</div>
+			</div>
+		</template>
+
+
+
+
+		<template id="templateElementsLinkCardHolder">
+			<style>
+				:host {
+					--width: 420px;
+					--height: 600px;
+
+				}
+				#pseudoBody {
+					width: var(--width);
+					height: var(--height);
+					grid-template-columns: 210px 210px;
+					grid-template-rows: 300px 300px;
+					grid-template-areas: "a b" "c d";
+					grid-auto-flow: row;
+					border: 1px solid;
+				}
+				elements-linkcard {
+					--width:210px;
+					--height: 300px;
+				}
+
+			</style>
+
+			<div id="pseudoBody">
+				<div class="HolderDiv" style="grid-area: a;">
+					<elements-linkcard favicon="drive.png" title="THISISATEST" src="logo.svg"></elements-linkcard>
+				</div>
+
+				<div class="HolderDiv" style="grid-area: b;">
+					<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+				</div>
+
+				<div class="HolderDiv" style="grid-area: c;">
+					<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+				</div>
+
+				<div class="HolderDiv" style="grid-area: d;">
+					<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+				</div>
+
 			</div>
 		</template>
 
@@ -54,7 +99,7 @@
 					--RowGap: 10px;
 					--ColGap: 10px;
 					--Margin: 5px;
-					--width: 200px;
+					--width: 130px;
 					--height: calc(var(--width) + 2 * var(--Margin));
 					--background-color: white;
 					--border-mixin: {
@@ -93,13 +138,56 @@
 	</head>
 
 	<body>
-		<Elements-CardLinkHolder>
+		<elements-LinkCardContainer>
 
-		</Elements-CardLinkHolder>
-		<Elements-LinkCard favicon="drive.png" title="THISISATEST" src="logo.svg">
-		</Elements-LinkCard>
-		<Elements-LinkCard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg">
-		</Elements-LinkCard>
+		</elements-LinkCardContainer>
+		<elements-linkcard favicon="drive.png" title="THISISATEST" src="logo.svg">
+		</elements-linkcard>
+		<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg">
+		</elements-linkcard>
+		<style>
+			:root {
+				--width: 260px;
+				--height: 400px;
+
+			}
+			#pseudoBody {
+				width: var(--width);
+				height: var(--height);
+				grid-template-columns: 130px 130px;
+				grid-template-rows: 200px 200px;
+				grid-template-areas: "a b"
+				 							"c d";
+				grid-auto-flow: row;
+				border: 1px solid;
+			}
+			elements-linkcard {
+				--width:130px;
+			}
+
+		</style>
+
+		<div id="pseudoBody">
+			<span class="HolderDiv" style="grid-area: a;">
+				<elements-linkcard favicon="drive.png" title="THISISATEST" src="logo.svg"></elements-linkcard>
+			</span>
+
+			<span class="HolderDiv" style="grid-area: b;">
+				<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+			</span>
+
+			<span class="HolderDiv" style="grid-area: c;">
+				<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+			</span>
+
+			<span class="HolderDiv" style="grid-area: d;">
+				<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+			</span>
+
+		</div>
+
+		<elements-link_card_container>
+		</elements-link_card_container>
 
 	</body>
 

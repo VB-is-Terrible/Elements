@@ -45,19 +45,26 @@ Elements.setUpAttrPropertyLink = (object, property, inital=null, extra = ()=>{})
 	};
 };
 
+Elements.addAttributeProperty = (object, property, inital=null, extra = () => {}) => {
+	let value = Elements.checkInitProperty(object, property, inital);
+	Elements.createAttrPropertyLink(object, property, value, extra);
+};
 
-Elements.CardLinkHolderProto = Object.create(HTMLElement.prototype);
 
-Elements.CardLinkHolderProto.createdCallback = function () {
+
+
+Elements.LinkCardContainerProto = Object.create(HTMLElement.prototype);
+
+Elements.LinkCardContainerProto.createdCallback = function () {
    let shadow = this.createShadowRoot();
    let template = document.importNode(
-      document.querySelector('#templateElementsCardLinkHolder'),
+      document.querySelector('#templateElementsLinkCardContainer'),
       true);
 	shadow.appendChild(template.content)
 }
 
-Elements.CardLinkHolder = document.registerElement('Elements-CardLinkHolder', {
-    prototype: Elements.CardLinkHolderProto
+Elements.SideLinkBox = document.registerElement('elements-LinkCardContainer', {
+    prototype: Elements.LinkCardContainerProto
 });
 
 
@@ -133,6 +140,22 @@ Elements.CardLinkProto.attributeChangedCallback = function (
 	}
 };
 
-Elements.CardLink = document.registerElement('Elements-LinkCard', {
+Elements.CardLink = document.registerElement('elements-linkcard', {
     prototype: Elements.CardLinkProto
 });
+
+Elements.LinkCardHolder = class extends HTMLElement {
+	constructor () {
+		super();
+		let shadow = this.createShadowRoot();
+      let template = document.importNode(
+         document.querySelector('#templateElementsLinkCardHolder'),
+         true);
+
+      shadow.appendChild(template.content)
+
+	}
+};
+
+
+window.customElements.define('elements-link_card_container', Elements.LinkCardHolder);
