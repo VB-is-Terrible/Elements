@@ -29,29 +29,44 @@
 					grid-template-areas: "a b" "c d";
 					grid-auto-flow: row;
 					border: 1px solid;
+					display: grid;
 				}
 				elements-linkcard {
 					--width:210px;
 					--height: 300px;
+				}
+				div.HolderDiv {
+					height: calc(var(--height) / 2);
+					width: calc(var(--width) / 2);
+
+				}
+				img.test {
+					height: calc(var(--height) / 2);
+					width: calc(var(--width) / 2);
+
 				}
 
 			</style>
 
 			<div id="pseudoBody">
 				<div class="HolderDiv" style="grid-area: a;">
-					<elements-linkcard favicon="drive.png" title="THISISATEST" src="logo.svg"></elements-linkcard>
+					<elements-linkcard favicon="drive.png" title="This" src="logo.svg"></elements-linkcard>
+					<!-- <img src="logo.svg" class="test"></img> -->
 				</div>
 
 				<div class="HolderDiv" style="grid-area: b;">
-					<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+					<elements-linkcard favicon="drive.png" title="is" src="logo.svg"></elements-linkcard>
+					<!-- <img src="logo.svg" class="test"></img> -->
 				</div>
 
 				<div class="HolderDiv" style="grid-area: c;">
-					<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+					<elements-linkcard favicon="drive.png" title="A" src="logo.svg"></elements-linkcard>
+					<!-- <img src="logo.svg" class="test"></img> -->
 				</div>
 
 				<div class="HolderDiv" style="grid-area: d;">
-					<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
+					<elements-linkcard favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard>
+					<!-- <img src="logo.svg" class="test"></img> -->
 				</div>
 
 			</div>
@@ -145,7 +160,7 @@
 		</elements-linkcard>
 		<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg">
 		</elements-linkcard>
-		<style>
+		<!-- <style>
 			:root {
 				--width: 260px;
 				--height: 400px;
@@ -184,7 +199,7 @@
 				<elements-linkcard favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg"></elements-linkcard>
 			</span>
 
-		</div>
+		</div> -->
 
 		<elements-link_card_container>
 		</elements-link_card_container>
