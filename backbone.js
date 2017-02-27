@@ -48,9 +48,7 @@ if (!(Elements.initalized === false)) {
 
 	Elements.getInitProperty = (object, property) => {
 		return (() => {
-			if (object.getAttribute(property) !== null) {
-				object[property] = object.getAttribute(property);
-			} else {
+			if (object.getAttribute(property) === null) {
 				object.setAttribute(property, object[property])
 			}
 		});
