@@ -13,15 +13,15 @@ if (!(Elements.initalized === false)) {
 		constructor () {
 			super();
 
-			this.getDict = {};
+			this.getArray = {};
 			this.setDict = {};
 
 			this.attributeInit = false;
 		}
 		connectedCallback () {
 			if (this.attributeInit === false)
-			for (func of this.getDict) {
-				func();
+			for (let func in this.getDict) {
+				this.getDict[func]();
 			}
 			this.attributeInit = true;
 		}
@@ -34,8 +34,8 @@ if (!(Elements.initalized === false)) {
 
 	Elements.connectedCallbackHelper = (object) => {
 		if (object.attributeInit === false)
-		for (func of object.getDict) {
-			func();
+		for (let func in object.getDict) {
+			object.getDict[func]();
 		}
 		object.attributeInit = true;
 	};
@@ -47,11 +47,13 @@ if (!(Elements.initalized === false)) {
 	}
 
 	Elements.getInitProperty = (object, property) => {
-		return () => {
+		return (() => {
 			if (object.getAttribute(property) !== null) {
-				object[property] = object.geteAttribute(property);
+				object[property] = object.getAttribute(property);
+			} else {
+				object.setAttribute(property, object[property])
 			}
-		};
+		});
 	};
 
 	Elements.setUpAttrPropertyLink = (object, property, inital=null,
@@ -63,7 +65,7 @@ if (!(Elements.initalized === false)) {
 			if (object.attributeInit) {
 				object.setAttribute(property, value);
 			}
-			extra(value);
+			eventTrigger(value);
 		};
 
 		Object.defineProperty(object, property, {
