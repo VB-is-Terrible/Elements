@@ -8,12 +8,12 @@ if (!("Elements" in window)) {
 
 if (!(Elements.initalized === false)) {
 	Elements.elements = {};
-	
+
 	Elements.elements.backbone = class extends HTMLElement {
 		constructor () {
 			super();
 
-			this.getArray = {};
+			this.getDict = {};
 			this.setDict = {};
 
 			this.attributeInit = false;
