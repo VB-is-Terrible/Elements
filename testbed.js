@@ -15,6 +15,9 @@ let testElement1 = class extends Elements.elements.backbone {
 		super.connectedCallback();
 		console.log('test');
 	}
+	static get observedAttributes () {
+		return ['test'];
+	}
 };
 
 

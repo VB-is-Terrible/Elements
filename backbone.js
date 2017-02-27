@@ -48,9 +48,9 @@ if (!(Elements.initalized === false)) {
 
 	Elements.getInitProperty = (object, property) => {
 		return (() => {
-			if (object.getAttribute(property) !== null) {
-				object[property] = object.getAttribute(property);
-			} else {
+			// If the attribute is been written to, it should be handled by
+			// the attribute changed callback
+			if (object.getAttribute(property) === null) {
 				object.setAttribute(property, object[property])
 			}
 		});
@@ -58,6 +58,9 @@ if (!(Elements.initalized === false)) {
 
 	Elements.setUpAttrPropertyLink = (object, property, inital=null,
 			eventTrigger = () => {}) => {
+		// Sanity check
+		// console.assert(property in Object.getPrototypeOf(object).observedAttributes)
+
 		let hidden;
 		let getter = () => {return hidden;};
 		let setter = (value) => {
