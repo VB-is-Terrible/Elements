@@ -58,9 +58,6 @@ if (!(Elements.initalized === false)) {
 
 	Elements.setUpAttrPropertyLink = (object, property, inital=null,
 			eventTrigger = () => {}) => {
-		// Sanity check
-		// console.assert(property in Object.getPrototypeOf(object).observedAttributes)
-
 		let hidden;
 		let getter = () => {return hidden;};
 		let setter = (value) => {
