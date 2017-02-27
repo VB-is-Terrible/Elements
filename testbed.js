@@ -2,12 +2,6 @@ let testElement1 = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-		// TODO: Sort out inheritance
-		
-		this.getDict = {};
-		this.setDict = {};
-
-		this.attributeInit = false;
 
 		let shadow = this.createShadowRoot();
 		let template = document.importNode(
@@ -16,6 +10,10 @@ let testElement1 = class extends Elements.elements.backbone {
 
 		Elements.setUpAttrPropertyLink(this, 'test', 'bye world');
 		shadow.appendChild(template.content)
+	}
+	connectedCallback () {
+		super.connectedCallback();
+		console.log('test');
 	}
 };
 

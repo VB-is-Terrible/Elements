@@ -13,7 +13,7 @@ if (!(Elements.initalized === false)) {
 		constructor () {
 			super();
 
-			this.getArray = {};
+			this.getDict = {};
 			this.setDict = {};
 
 			this.attributeInit = false;
