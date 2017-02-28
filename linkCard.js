@@ -70,8 +70,21 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
          document.querySelector('#templateElementsLinkCardHolder'),
          true);
 
-      shadow.appendChild(template.content)
+		Elements.setUpAttrPropertyLink(this, 'rows', 2);
+		Elements.setUpAttrPropertyLink(this, 'columns', 2);
 
+		shadow.appendChild(template.content)
+	}
+	static get observedAttributes () {
+		return ['rows', 'columns'];
+	}
+	connectedCallback () {
+		super.connectedCallback();
+
+	}
+	updateDisplay () {
+		let rows = this.rows;
+		let cols = this.columns;
 	}
 };
 
