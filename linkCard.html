@@ -20,27 +20,42 @@
 				:host {
 					--width: 420px;
 					--height: 600px;
+					--padding: 10px;
+					--border-width: 1px;
+					--inner-width: calc(var(--width) - 2 * var(--padding) - 2 * var(--border-width));
+					--inner-height: calc(var(--height) - 2 * var(--padding) - 2 * var(--border-width));
 
 				}
 				#pseudoBody {
 					width: var(--width);
 					height: var(--height);
-					grid-template-columns: 210px 210px;
-					grid-template-rows: 300px 300px;
+					border: 1px solid;
+					border-width: var(--border-width);
+					border-style: solid;
+					padding: var(--padding);
+					box-sizing: border-box;
+				}
+				#gridHolder {
+					width:
+					/*grid-template-columns: calc(var(--inner-width) / 2) calc(var(--inner-width) / 2);*/
+					/*grid-template-rows: calc(var(--inner-height) / 2) calc(var(--inner-height) / 2);*/
+					grid-template-columns: 1fr 1fr;
+					grid-template-columns: 1fr 1fr;
+
 					grid-template-areas: "a b" "c d";
 					grid-auto-flow: row;
-					border: 1px solid;
 					display: grid;
-					padding: 10px;
-					box-sizing: border-box;
+
 				}
 				elements-linkcard {
 					--width:210px;
 					--height: 300px;
 				}
 				div.HolderDiv {
-					height: calc(var(--height) / 2);
-					width: calc(var(--width) / 2);
+					/*height: calc(var(--height) / 2);*/
+					/*width: calc(var(--width) / 2);*/
+					height: 100%;
+					width: 100%;
 					background-color: lightskyblue;
 					border: 3px solid;
 					box-sizing: border-box;
@@ -54,24 +69,26 @@
 			</style>
 
 			<div id="pseudoBody">
-				<div class="HolderDiv" style="grid-area: a;">
-					<elements-linkcard-link favicon="drive.png" title="This" src="logo.svg"></elements-linkcard>
-					<!-- <img src="logo.svg" class="test"></img> -->
-				</div>
+				<div id="gridHolder">
+					<div class="HolderDiv" style="grid-area: a;">
+						<elements-linkcard-link favicon="drive.png" title="This" src="logo.svg"></elements-linkcard>
+						<!-- <img src="logo.svg" class="test"></img> -->
+					</div>
 
-				<div class="HolderDiv" style="grid-area: b;">
-					<elements-linkcard-link favicon="drive.png" title="is" src="logo.svg"></elements-linkcard>
-					<!-- <img src="logo.svg" class="test"></img> -->
-				</div>
+					<div class="HolderDiv" style="grid-area: b;">
+						<elements-linkcard-link favicon="drive.png" title="is" src="logo.svg"></elements-linkcard>
+						<!-- <img src="logo.svg" class="test"></img> -->
+					</div>
 
-				<div class="HolderDiv" style="grid-area: c;">
-					<elements-linkcard-link favicon="drive.png" title="A" src="logo.svg"></elements-linkcard>
-					<!-- <img src="logo.svg" class="test"></img> -->
-				</div>
+					<div class="HolderDiv" style="grid-area: c;">
+						<elements-linkcard-link favicon="drive.png" title="A" src="logo.svg"></elements-linkcard>
+						<!-- <img src="logo.svg" class="test"></img> -->
+					</div>
 
-				<div class="HolderDiv" style="grid-area: d;">
-					<elements-linkcard-link favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard>
-					<!-- <img src="logo.svg" class="test"></img> -->
+					<div class="HolderDiv" style="grid-area: d;">
+						<elements-linkcard-link favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard>
+						<!-- <img src="logo.svg" class="test"></img> -->
+					</div>
 				</div>
 
 			</div>
