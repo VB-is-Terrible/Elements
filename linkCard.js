@@ -66,12 +66,12 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 		let shadow = this.createShadowRoot();
-      let template = document.importNode(
+		let template = document.importNode(
          document.querySelector('#templateElementsLinkCardHolder'),
          true);
 
-		Elements.setUpAttrPropertyLink(this, 'rows', 2);
-		Elements.setUpAttrPropertyLink(this, 'columns', 2);
+		Elements.setUpAttrPropertyLink(this, 'rows', 2, this.updateDisplay);
+		Elements.setUpAttrPropertyLink(this, 'columns', 2, this.updateDisplay);
 
 		shadow.appendChild(template.content)
 	}
@@ -85,6 +85,7 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	updateDisplay () {
 		let rows = this.rows;
 		let cols = this.columns;
+
 	}
 };
 
