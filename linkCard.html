@@ -22,8 +22,6 @@
 					--height: 600px;
 					--padding: 10px;
 					--border-width: 1px;
-					--inner-width: calc(var(--width) - 2 * var(--padding) - 2 * var(--border-width));
-					--inner-height: calc(var(--height) - 2 * var(--padding) - 2 * var(--border-width));
 
 				}
 				#pseudoBody {
@@ -41,7 +39,8 @@
 					/*grid-template-rows: calc(var(--inner-height) / 2) calc(var(--inner-height) / 2);*/
 					grid-template-rows: 1fr 1fr;
 					grid-template-columns: 1fr 1fr;
-
+					grid-row-gap: 10px;
+					grid-column-gap: 10px;
 					grid-template-areas: "a b" "c d";
 					grid-auto-flow: row;
 					display: grid;
@@ -68,7 +67,7 @@
 
 			<div id="pseudoBody">
 				<div id="gridHolder">
-					<div class="HolderDiv" style="grid-area: a;">
+					<div class="HolderDiv" style="grid-area: a;" id="canaryDiv">
 						<elements-linkcard-link favicon="drive.png" title="This" src="logo.svg"></elements-linkcard>
 						<!-- <img src="logo.svg" class="test"></img> -->
 					</div>
