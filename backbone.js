@@ -86,6 +86,38 @@ if (!(Elements.initalized === false)) {
 		};
 	};
 
+	Elements.setUpSanitizedAttrPropertyLink = (object, property, inital=null,
+		   eventTrigger = () => {},
+		   santizer = (value, oldValue) => {return value}) => {
+
+		let hidden;
+		let getter = () => {return hidden;};
+		let setter = (value) => {
+			value = santizer(value, hidden);
+			hidden = value;
+			if (object.attributeInit) {
+				object.setAttribute(property, value);
+			}
+			eventTrigger(value);
+		};
+
+		Object.defineProperty(object, property, {
+			enumerable: true,
+			configurable: true,
+			get: getter,
+			set: setter
+		});
+
+		object.getDict[property] = Elements.getInitProperty(object, property);
+		object.setDict[property] = setter;
+
+		setter(inital);
+
+		return {
+			get: getter,
+			set: setter
+		};
+	};
 
 	Elements.initalized = true;
 }

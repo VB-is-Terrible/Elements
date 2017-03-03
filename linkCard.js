@@ -65,13 +65,29 @@ window.customElements.define('elements-linkcard-link', Elements.elements.LinkCar
 Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	constructor () {
 		super();
-		let shadow = this.createShadowRoot();
-		let template = document.importNode(
+		const shadow = this.createShadowRoot();
+		const template = document.importNode(
          document.querySelector('#templateElementsLinkCardHolder'),
          true);
 
-		Elements.setUpAttrPropertyLink(this, 'rows', 2, this.updateDisplay);
-		Elements.setUpAttrPropertyLink(this, 'columns', 2, this.updateDisplay);
+		// Needed to bind the this value
+		let updateCallback = () => {
+			this.updateDisplay();
+		};
+
+		let santizer = (value, oldValue) => {
+			let newValue = parseInt(value);
+			if (newValue > 0 && !isNaN(newValue)) {
+				return newValue;
+			} else {
+				return oldValue;
+			}
+		}
+
+		Elements.setUpSanitizedAttrPropertyLink(this, 'rows', 2,
+		                                        updateCallback, santizer);
+		Elements.setUpSanitizedAttrPropertyLink(this, 'columns', 2,
+		                                        updateCallback, santizer);
 
 		shadow.appendChild(template.content)
 	}
@@ -83,8 +99,22 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 
 	}
 	updateDisplay () {
-		let rows = this.rows;
-		let cols = this.columns;
+		// Don't bother resizing before connection
+		if (this.attributeInit) {
+			console.log('hi!');
+			let rows = this.rows;
+			let cols = this.columns;
+
+
+
+
+			let gridElement = this.shadowRoot.querySelector('#gridHolder');
+			window.requestAnimationFrame(() => {
+				gridElement.style.gridTemplateRows = "1fr ".repeat(rows)
+				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
+			});
+		}
+
 
 	}
 };
