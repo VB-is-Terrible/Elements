@@ -22,7 +22,7 @@
 					--height: 600px;
 					--padding: 10px;
 					--border-width: 1px;
-
+					--grid-gap: 10px;
 				}
 				#pseudoBody {
 					width: var(--width);
@@ -32,6 +32,8 @@
 					border-style: solid;
 					padding: var(--padding);
 					box-sizing: border-box;
+					--item-width: 100px;
+					--item-height: 100px;
 				}
 				#gridHolder {
 					/*width:*/
@@ -39,8 +41,8 @@
 					/*grid-template-rows: calc(var(--inner-height) / 2) calc(var(--inner-height) / 2);*/
 					grid-template-rows: 1fr 1fr;
 					grid-template-columns: 1fr 1fr;
-					grid-row-gap: 10px;
-					grid-column-gap: 10px;
+					grid-row-gap: var(--grid-gap);
+					grid-column-gap: var(--grid-gap);
 					grid-template-areas: "a b" "c d";
 					grid-auto-flow: row;
 					display: grid;
@@ -54,15 +56,17 @@
 					height: 100%;
 					width: 100%;
 					background-color: lightskyblue;
-					border: 3px solid;
+					/*border: 3px solid;*/
 					box-sizing: border-box;
 				}
-				img.test {
+				/*img.test {
 					height: calc(var(--height) / 2);
 					width: calc(var(--width) / 2);
-
+				}*/
+				elements-linkcard-link {
+					--width: var(--item-width);
+					--height: var(--item-height);
 				}
-
 			</style>
 
 			<div id="pseudoBody">

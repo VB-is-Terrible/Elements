@@ -82,14 +82,30 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 			} else {
 				return oldValue;
 			}
+		};
+
+		let resizeCallback = () => {
+			this.updateGrid();
 		}
 
+		// let test = template.content.querySelector('#canaryDiv');
+
+		this.ro = new ResizeObserver((entries) => {
+			// const cr = entries[0].contentRect;
+			console.log('Firing on:', entries[0].target);
+			resizeCallback();
+
+		});
+
+
+		this.ro.observe(template.content.querySelector('#canaryDiv'));
+		this.ro.observe(template.content.querySelector('#gridHolder'));
 		Elements.setUpSanitizedAttrPropertyLink(this, 'rows', 2,
 		                                        updateCallback, santizer);
 		Elements.setUpSanitizedAttrPropertyLink(this, 'columns', 2,
 		                                        updateCallback, santizer);
 
-		shadow.appendChild(template.content)
+		shadow.appendChild(template.content);
 	}
 	static get observedAttributes () {
 		return ['rows', 'columns'];
@@ -113,10 +129,35 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 				gridElement.style.gridTemplateRows = "1fr ".repeat(rows)
 				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
 			});
+
+			// Reset the dimensions of the link elements
+
+			// The divs in elements-linkcard-link's shadowRoot prevent the
+			// HolderDivs from becoming smaller, so we can't use the layout to
+			// determine the correct string
+			this.updateGrid();
 		}
-
-
 	}
+	updateGrid () {
+		// console.log('updating grid');
+		let parent = this.shadowRoot.querySelector('#gridHolder')
+		let cr = parent.getBoundingClientRect();
+		let gap = parseInt(getComputedStyle(parent).getPropertyValue('--grid-gap').slice(0,-2));
+		console.assert(!isNaN(gap));
+		let width = (cr.width - (this.columns - 1) * gap) / this.columns;
+		let height = (cr.height - (this.rows - 1) * gap) / this.rows;
+
+
+		console.log(cr);
+		let links = this.shadowRoot.querySelectorAll('elements-linkcard-link');
+		requestAnimationFrame(() => {
+			for (let test of links) {
+				test.style.setProperty('--width', width.toString() + 'px');
+				test.style.setProperty('--height', height.toString() + 'px');
+			}
+		})
+	}
+
 };
 
 
