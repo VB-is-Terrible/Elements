@@ -98,8 +98,6 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 		});
 
 
-		this.ro.observe(template.content.querySelector('#canaryDiv'));
-		this.ro.observe(template.content.querySelector('#gridHolder'));
 		Elements.setUpSanitizedAttrPropertyLink(this, 'rows', 2,
 		                                        updateCallback, santizer);
 		Elements.setUpSanitizedAttrPropertyLink(this, 'columns', 2,
@@ -112,7 +110,12 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	}
 	connectedCallback () {
 		super.connectedCallback();
+		this.ro.observe(template.content.querySelector('#canaryDiv'))
+		this.ro.observe(template.content.querySelector('#gridHolder'));
 
+	}
+	disconnectedCallback () {
+		this.ro.disconnect
 	}
 	updateDisplay () {
 		// Don't bother resizing before connection
