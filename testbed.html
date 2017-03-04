@@ -16,24 +16,39 @@
 			<div id="body">
 				<p> This is element 1</p>
 				<div>
-					<test-element2>
+					<slot name="slot1"></slot>
+					<slot name="slot2"></slot>
 				</div>
 			</div>
 		</template>
 
 
 		<template id="template2">
-		<style>
-			#body {
-				background-color: purple;
-			}
-		</style>
-		<div id="body">
-			<p> This is element 2</p>
-			</template>
-		</div>
+			<style>
+				#body {
+					background-color: purple;
+				}
+			</style>
+			<div id="body">
+				<p> This is element 2</p>
+			</div>
+		</template>
+		<template id="template3">
+		  <style>
+			  #body {
+				  background-color: purple;
+			  }
+		  </style>
+		  <div id="body">
+			  <p> This is element 3</p>
+		  </div>
+	  </template>
 	</head>
 	<body>
-		<test-element1 test = "Hello World"></test-element1>
+		<test-element1 test = "Hello World">
+			<test-element2 slot="slot2"></test-element2>
+			<test-element3 slot="slot1"></test-element3>
+
+		</test-element1>
 	</body>
 </html>

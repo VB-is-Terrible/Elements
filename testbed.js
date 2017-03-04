@@ -3,7 +3,7 @@ let testElement1 = class extends Elements.elements.backbone {
 		super();
 
 
-		let shadow = this.createShadowRoot();
+		let shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
 					document.querySelector('#template1'),
 					true);
@@ -26,7 +26,7 @@ window.customElements.define('test-element1', testElement1);
 let testElement2 = class extends HTMLElement {
 	constructor () {
 		super();
-		let shadow = this.createShadowRoot();
+		let shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
 					document.querySelector('#template2'),
 					true);
@@ -36,3 +36,17 @@ let testElement2 = class extends HTMLElement {
 };
 
 window.customElements.define('test-element2', testElement2);
+
+let testElement3 = class extends HTMLElement {
+	constructor () {
+		super();
+		let shadow = this.attachShadow({ mode: 'open' });
+		let template = document.importNode(
+					document.querySelector('#template3'),
+					true);
+
+		shadow.appendChild(template.content)
+	}
+};
+
+window.customElements.define('test-element3', testElement3);
