@@ -12,6 +12,9 @@
 					border: 1px solid black;
 					background-color: yellow;
 				}
+				slot::slotted(.Derp) {
+					color: white;
+				}
 			</style>
 			<div id="body">
 				<p> This is element 1</p>
@@ -47,7 +50,7 @@
 	<body>
 		<test-element1 test = "Hello World">
 			<test-element2 slot="slot2"></test-element2>
-			<test-element3 slot="slot1"></test-element3>
+			<test-element3 class="Derp" id="lalalal" slot="slot1"></test-element3>
 
 		</test-element1>
 	</body>
