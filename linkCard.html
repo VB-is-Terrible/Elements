@@ -67,28 +67,28 @@
 					--width: var(--item-width);
 					--height: var(--item-height);
 				}
+				slot::slotted(.internal) {
+					--width: var(--item-width);
+					--height: var(--item-height);
+				}
 			</style>
 
 			<div id="pseudoBody">
 				<div id="gridHolder">
 					<div class="HolderDiv" style="grid-area: a;" id="canaryDiv">
-						<elements-linkcard-link favicon="drive.png" title="This" src="logo.svg"></elements-linkcard>
-						<!-- <img src="logo.svg" class="test"></img> -->
+						<slot class="link" name="s1"></slot>
 					</div>
 
 					<div class="HolderDiv" style="grid-area: b;">
-						<elements-linkcard-link favicon="drive.png" title="is" src="logo.svg"></elements-linkcard>
-						<!-- <img src="logo.svg" class="test"></img> -->
+						<slot class="link" name="s2"></slot>
 					</div>
 
 					<div class="HolderDiv" style="grid-area: c;">
-						<elements-linkcard-link favicon="drive.png" title="A" src="logo.svg"></elements-linkcard>
-						<!-- <img src="logo.svg" class="test"></img> -->
+						<slot class="link" name="s3"></slot>
 					</div>
 
 					<div class="HolderDiv" style="grid-area: d;">
-						<elements-linkcard-link favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard>
-						<!-- <img src="logo.svg" class="test"></img> -->
+						<slot class="link" name="s4"></slot>
 					</div>
 				</div>
 
@@ -185,6 +185,11 @@
 		</elements-linkcard-link>
 
 		<elements-linkcard-linkcontainer>
+			<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s4" favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard-link>
+
 		</elements-linkcard-linkcontainer>
 
 	</body>

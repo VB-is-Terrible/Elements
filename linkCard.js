@@ -4,7 +4,7 @@ Elements.elements.LinkCardContainer = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-		let shadow = this.createShadowRoot();
+		let shadow = this.attachShadow({ mode: 'open' });
 	   let template = document.importNode(
 	      document.querySelector('#templateElementsLinkCardContainer'),
 	      true);
@@ -17,7 +17,7 @@ window.customElements.define('elements-linkcard', Elements.elements.LinkCardCont
 Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 	constructor () {
 		super();
-		let shadow = this.createShadowRoot();
+		let shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
 		   document.querySelector('#templateElementsLinkCard'),
 		   true);
@@ -65,14 +65,14 @@ window.customElements.define('elements-linkcard-link', Elements.elements.LinkCar
 Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	constructor () {
 		super();
-		const shadow = this.createShadowRoot();
+		const shadow = this.attachShadow({ mode: 'open' });
 		const template = document.importNode(
          document.querySelector('#templateElementsLinkCardHolder'),
          true);
 
 		// Needed to bind the this value
 		let updateCallback = () => {
-			this.updateDisplay();
+			this.updateGrid();
 		};
 
 		let santizer = (value, oldValue) => {
@@ -85,7 +85,7 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 		};
 
 		let resizeCallback = () => {
-			this.updateGrid();
+			this.updateDisplay();
 		}
 
 		// let test = template.content.querySelector('#canaryDiv');
@@ -110,14 +110,14 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.ro.observe(template.content.querySelector('#canaryDiv'))
-		this.ro.observe(template.content.querySelector('#gridHolder'));
+		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'))
+		this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
 
 	}
 	disconnectedCallback () {
 		this.ro.disconnect
 	}
-	updateDisplay () {
+	updateGrid () {
 		// Don't bother resizing before connection
 		if (this.attributeInit) {
 			console.log('hi!');
@@ -133,32 +133,57 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
 			});
 
-			// Reset the dimensions of the link elements
 
-			// The divs in elements-linkcard-link's shadowRoot prevent the
-			// HolderDivs from becoming smaller, so we can't use the layout to
-			// determine the correct string
-			this.updateGrid();
+			this.updateDisplay();
 		}
 	}
-	updateGrid () {
+	updateDisplay () {
 		// console.log('updating grid');
+		const cssSelector = "slot::slotted(.internal)";
 		let parent = this.shadowRoot.querySelector('#gridHolder')
 		let cr = parent.getBoundingClientRect();
+
+		// The divs in elements-linkcard-link's shadowRoot prevent the
+		// HolderDivs from becoming smaller, so we can't use the layout to
+		// determine the correct size
+
 		let gap = parseInt(getComputedStyle(parent).getPropertyValue('--grid-gap').slice(0,-2));
 		console.assert(!isNaN(gap));
 		let width = (cr.width - (this.columns - 1) * gap) / this.columns;
 		let height = (cr.height - (this.rows - 1) * gap) / this.rows;
 
-
-		console.log(cr);
-		let links = this.shadowRoot.querySelectorAll('elements-linkcard-link');
-		requestAnimationFrame(() => {
-			for (let test of links) {
-				test.style.setProperty('--width', width.toString() + 'px');
-				test.style.setProperty('--height', height.toString() + 'px');
+		// Destory the old ::slotted style and insert a new style
+		let sheets = this.shadowRoot.styleSheets;
+		let position = -1;
+		let insertSheet = null;
+		for (let sheet of sheets) {
+			position = Array(...sheet.cssRules).findIndex((e) => {
+				if (e.selectorText === cssSelector) {
+					return true;
+				} else {
+					return false;
+				}
+			})
+			if (position !== -1) {
+				insertSheet = sheet;
+				break;
 			}
-		})
+		}
+		if (position === -1) {
+			console.warn(cssSelector + " not found in any stylesheets");
+		} else {
+			requestAnimationFrame(() => {
+				insertSheet.removeRule(position);
+				insertSheet.addRule(cssSelector,
+				    '--width: ' + width.toString() + 'px; ' +
+				    'width' + + width.toString() + 'px; ' +
+				    '--height: ' + height.toString() + 'px;', +
+				    'height: ' + height.toString() + 'px;', +
+				    position);
+			});
+		}
+
+
 	}
 
 };
