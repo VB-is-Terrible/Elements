@@ -57,7 +57,9 @@ if (!(Elements.initalized === false)) {
 	};
 
 	Elements.setUpAttrPropertyLink = (object, property, inital=null,
-			eventTrigger = () => {}) => {
+		   eventTrigger = () => {}) => {
+
+		console.assert(object.constructor.observedAttributes.includes(property));
 		let hidden;
 		let getter = () => {return hidden;};
 		let setter = (value) => {
@@ -89,6 +91,8 @@ if (!(Elements.initalized === false)) {
 	Elements.setUpSanitizedAttrPropertyLink = (object, property, inital=null,
 		   eventTrigger = () => {},
 		   santizer = (value, oldValue) => {return value}) => {
+
+		console.assert(object.constructor.observedAttributes.includes(property));
 
 		let hidden;
 		let getter = () => {return hidden;};
