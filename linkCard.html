@@ -73,6 +73,12 @@
 				}
 			</style>
 
+			<template id="templateHolderDiv">
+				<div class="HolderDiv" style="grid-area: default;">
+					<slot class="link" name="default"></slot>
+				</div>
+			</template>
+
 			<div id="pseudoBody">
 				<div id="gridHolder">
 					<div class="HolderDiv" style="grid-area: a;" id="canaryDiv">
@@ -90,6 +96,15 @@
 					<div class="HolderDiv" style="grid-area: d;">
 						<slot class="link" name="s4"></slot>
 					</div>
+
+					<div class="HolderDiv" style="grid-area: e;">
+						<slot class="link" name="s5"></slot>
+					</div>
+
+					<div class="HolderDiv" style="grid-area: f;">
+						<slot class="link" name="s6"></slot>
+					</div>
+
 				</div>
 
 			</div>
@@ -189,6 +204,10 @@
 			<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
 			<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
 			<elements-linkcard-link class="internal" slot="s4" favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s5" favicon="drive.png" title="Nothing" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s6" favicon="drive.png" title="but" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s7" favicon="drive.png" title="a" src="logo.svg"></elements-linkcard-link>
+			<elements-linkcard-link class="internal" slot="s8" favicon="drive.png" title="test." src="logo.svg"></elements-linkcard-link>
 
 		</elements-linkcard-linkcontainer>
 

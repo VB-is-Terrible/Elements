@@ -92,7 +92,7 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 
 		this.ro = new ResizeObserver((entries) => {
 			// const cr = entries[0].contentRect;
-			console.log('Firing on:', entries[0].target);
+			// console.log('Firing on:', entries[0].target);
 			resizeCallback();
 
 		});
@@ -112,7 +112,7 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 		super.connectedCallback();
 		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'))
 		this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
-
+		this.updateGrid();
 	}
 	disconnectedCallback () {
 		this.ro.disconnect
@@ -120,18 +120,32 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 	updateGrid () {
 		// Don't bother resizing before connection
 		if (this.attributeInit) {
-			console.log('hi!');
 			let rows = this.rows;
 			let cols = this.columns;
 
-
-
-
 			let gridElement = this.shadowRoot.querySelector('#gridHolder');
-			window.requestAnimationFrame(() => {
+
+
+			let positions = rows * cols;
+
+			let updater = () => {
 				gridElement.style.gridTemplateRows = "1fr ".repeat(rows)
 				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
-			});
+				gridElement.style.gridTemplateAreas = this.constructor.generateGridNames(rows, cols);
+
+				this.updateDivs(positions);
+
+				let holderDivs = gridElement.querySelectorAll('div.holderDiv');
+
+				for (let i = 0; i < positions; i++) {
+					holderDivs[i].style.display = 'initial';
+				}
+				for (let i = positions; i < holderDivs.length; i++) {
+					holderDivs[i].style.display = 'none';
+				}
+			};
+
+			window.requestAnimationFrame(updater);
 
 
 			this.updateDisplay();
@@ -182,8 +196,53 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 				    position);
 			});
 		}
+		this.constructor.generateGridNames(this.rows, this.columns);
 
+	}
 
+	updateDivs (amount) {
+		let insertionPoint = this.shadowRoot.querySelector('#gridHolder');
+		let count = insertionPoint.childElementCount;
+		let template = this.shadowRoot.querySelector('#templateHolderDiv');
+
+		for (;count <= amount; count++) {
+			let newDiv = document.importNode(template, true);
+			let div = newDiv.content.querySelector('div.HolderDiv');
+			let slot = newDiv.content.querySelector('slot.link');
+
+			div.style.gridArea = this.constructor.numToCharCode(count + 1);
+			slot.name = 's' + (count + 1).toString();
+			insertionPoint.appendChild(newDiv.content);
+		}
+	}
+
+	static generateGridNames (rows, columns) {
+		let i = 1;
+		let result = '';
+		for (let y = 0; y < rows; y++) {
+			result += '"';
+			for (let x = 0; x < columns; x++) {
+				result += this.numToCharCode(i) + ' ';
+				i += 1;
+			}
+			result += '"'
+		}
+		return result;
+	}
+
+	static numToCharCode (num) {
+		const base = 26;
+		let result = [];
+
+		while (num > 0) {
+			let mod = num % base;
+			result.push(mod + 96);
+			num -= mod;
+			num /= base;
+		}
+
+		result.reverse();
+		return String.fromCodePoint(...result);
 	}
 
 };
