@@ -26,7 +26,7 @@ if (!(Elements.initalized === false)) {
 			this.attributeInit = true;
 		}
 		attributeChangedCallback(attrName, oldValue, newValue) {
-			if (attrName in this.setDict) {
+			if (attrName in this.setDict && oldValue !== newValue) {
 				this.setDict[attrName](newValue);
 			}
 		}
