@@ -62,7 +62,7 @@ window.customElements.define('elements-linkcard-link', Elements.elements.LinkCar
 
 
 
-Elements.LinkCardHolder = class extends Elements.elements.backbone {
+Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 		const shadow = this.attachShadow({ mode: 'open' });
@@ -162,7 +162,10 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 		// determine the correct size
 
 		let gap = parseInt(getComputedStyle(parent).getPropertyValue('--grid-gap').slice(0,-2));
-		console.assert(!isNaN(gap));
+		// console.assert(!isNaN(gap));
+		if (isNaN(gap)) {
+			return false;
+		}
 		let width = (cr.width - (this.columns - 1) * gap) / this.columns;
 		let height = (cr.height - (this.rows - 1) * gap) / this.rows;
 
@@ -248,4 +251,4 @@ Elements.LinkCardHolder = class extends Elements.elements.backbone {
 };
 
 
-window.customElements.define('elements-linkcard-linkcontainer', Elements.LinkCardHolder);
+window.customElements.define('elements-linkcard-linkcontainer', Elements.elements.LinkCardHolder);
