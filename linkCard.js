@@ -8,7 +8,15 @@ Elements.elements.LinkCardContainer = class extends Elements.elements.backbone {
 	   let template = document.importNode(
 	      document.querySelector('#templateElementsLinkCardContainer'),
 	      true);
-		shadow.appendChild(template.content)
+
+		let ro = new ResizeObserver((entries) => {
+			for (let o of entries) {
+				console.log(o);
+			}
+		});
+
+		ro.observe(template.content.querySelector('#pseudoBody'));
+		shadow.appendChild(template.content);
 	}
 };
 
@@ -252,3 +260,17 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 
 
 window.customElements.define('elements-linkcard-linkcontainer', Elements.elements.LinkCardHolder);
+
+Elements.elements.LinkCardButtons = class extends Elements.elements.backbone {
+	constructor () {
+		super();
+		let shadow = this.attachShadow({ mode: 'open' });
+		let template = document.importNode(
+			document.querySelector('#templateElementsLinkCardButtons'),
+			true);
+
+		shadow.appendChild(template.content)
+	}
+}
+
+window.customElements.define('elements-linkcard-buttons', Elements.elements.LinkCardButtons);

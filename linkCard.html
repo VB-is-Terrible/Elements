@@ -4,15 +4,76 @@
 		<script src="linkCard.js"></script>
 
 		<template id="templateElementsLinkCardContainer">
+			<style>
+				:host {
+					--width: 540px;
+					--height: 700px;
+				}
+				#pseudoBody {
+					border: 1px solid black;
+					width: var(--width);
+					height: var(--height);
+				}
+			</style>
 			<div id="pseudoBody">
 				<div id="Link Holder">
-					<!-- <Elements-LinkCardContainer>
-					</Elements-LinkCardContainer> -->
+					<elements-linkcard-linkcontainer style="--width: 540px; height: 600px;--border-width: 0px;">
+						<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s4" favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s5" favicon="drive.png" title="Nothing" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s6" favicon="drive.png" title="but" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s7" favicon="drive.png" title="a" src="logo.svg"></elements-linkcard-link>
+						<elements-linkcard-link class="internal" slot="s8" favicon="drive.png" title="test." src="logo.svg"></elements-linkcard-link>
+
+					</elements-linkcard-linkcontainer>
+
+					<elements-linkcard-buttons>
+					</elements-linkcard-buttons>
 				</div>
 			</div>
 		</template>
 
 
+		<template id="templateElementsLinkCardButtons">
+			<style>
+				button.b {
+					background: white;
+					/*border: 0px;*/
+					/*height: 80px;*/
+					/*width: 80px;*/
+					/*font-size: 70px;*/
+				}
+				#gridHolder {
+					display: grid;
+					grid-template-rows: 1fr 1fr;
+					grid-template-columns: 1fr 1fr1 fr;
+					grid-template-areas: "a b c" "a d c";
+				}
+				#pseudoBody {
+					max-width: 400px;
+				}
+			</style>
+			<div id="pseudoBody">
+				<div id="gridHolder">
+					<button class="b" style="grid-area: a;">
+						<
+					</button>
+					<button class="b" style="grid-area: b;">
+						^
+					</button>
+					<button class="b" style="grid-area: c;">
+						v
+					</button>
+					<button class="b" style="grid-area: d;">
+						>
+					</button>
+
+				</div>
+
+			</div>
+		</template>
 
 
 		<template id="templateElementsLinkCardHolder">
