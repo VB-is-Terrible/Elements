@@ -90,6 +90,7 @@ let audio = class {
 	}
 
 	close () {
+		if (this.closed === false) {this.stop();}
 		this.closed = true;
 		this.state = "closed";
 		this._audioNode = null;
