@@ -125,3 +125,5 @@ Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 }
 
 window.customElements.define('elements-linkcard-link', Elements.elements.LinkCardLink);
+
+alert("Hi");
