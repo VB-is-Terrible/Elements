@@ -27,7 +27,7 @@ Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 		super();
 		let shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
-		   document.querySelector('#templateElementsLinkCard'),
+		   document.querySelector('#templateElementsLinkCardLink'),
 		   true);
 		//
 
@@ -92,8 +92,8 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 			}
 		};
 
-		let resizeCallback = () => {
-			this.updateDisplay();
+		let resizeCallback = (e) => {
+			this.updateDisplay(e);
 		}
 
 		// let test = template.content.querySelector('#canaryDiv');
@@ -101,7 +101,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 		this.ro = new ResizeObserver((entries) => {
 			// const cr = entries[0].contentRect;
 			// console.log('Firing on:', entries[0].target);
-			resizeCallback();
+			resizeCallback(entries);
 
 		});
 
@@ -119,7 +119,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 	connectedCallback () {
 		super.connectedCallback();
 		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'))
-		this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
+		// this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
 		this.updateGrid();
 	}
 	disconnectedCallback () {
@@ -156,26 +156,23 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 			window.requestAnimationFrame(updater);
 
 
-			this.updateDisplay();
 		}
 	}
-	updateDisplay () {
+	updateDisplay (e) {
 		// console.log('updating grid');
 		const cssSelector = "slot::slotted(.internal)";
 		let parent = this.shadowRoot.querySelector('#gridHolder')
-		let cr = parent.getBoundingClientRect();
+		let cr = e[0].contentRect;//parent.getBoundingClientRect();
 
-		// The divs in elements-linkcard-link's shadowRoot prevent the
-		// HolderDivs from becoming smaller, so we can't use the layout to
-		// determine the correct size
 
 		let gap = parseInt(getComputedStyle(parent).getPropertyValue('--grid-gap').slice(0,-2));
 		// console.assert(!isNaN(gap));
 		if (isNaN(gap)) {
 			return false;
 		}
-		let width = (cr.width - (this.columns - 1) * gap) / this.columns;
-		let height = (cr.height - (this.rows - 1) * gap) / this.rows;
+
+		let width = cr.width;
+		let height = cr.height;
 
 		// Destory the old ::slotted style and insert a new style
 		let sheets = this.shadowRoot.styleSheets;
@@ -207,7 +204,6 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 				    position);
 			});
 		}
-		this.constructor.generateGridNames(this.rows, this.columns);
 
 	}
 
@@ -257,7 +253,6 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 	}
 
 };
-
 
 window.customElements.define('elements-linkcard-linkcontainer', Elements.elements.LinkCardHolder);
 

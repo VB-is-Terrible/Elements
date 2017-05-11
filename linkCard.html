@@ -11,13 +11,13 @@
 				}
 				#pseudoBody {
 					border: 1px solid black;
-					width: var(--width);
+					max-width: var(--width);
 					height: var(--height);
 				}
 			</style>
 			<div id="pseudoBody">
 				<div id="Link Holder">
-					<elements-linkcard-linkcontainer style="--width: 540px; height: 600px;--border-width: 0px;">
+					<elements-linkcard-linkcontainer style="--width: 540px; --height: 600px;/*--border-width: 0px;*/">
 						<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
 						<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
 						<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
@@ -86,8 +86,8 @@
 					--grid-gap: 10px;
 				}
 				#pseudoBody {
-					width: var(--width);
-					height: var(--height);
+					max-width: var(--width);
+					max-height: var(--height);
 					border: 1px solid;
 					border-width: var(--border-width);
 					border-style: solid;
@@ -171,7 +171,7 @@
 			</div>
 		</template>
 
-		<template id="templateElementsLinkCard">
+		<template id="templateElementsLinkCardLink">
 			<style>
 				#faviconImg {
 					height: var(--HeaderHeight);
@@ -198,11 +198,12 @@
 					grid-column-gap: var(--ColGap);
 					height: 100%;
 					width: 100%;
+					box-sizing: border-box;
 				}
 				#pseudoBody {
-
-					width: var(--width);
-					height: var(--height);
+					overflow: hidden;
+					max-width: var(--width);
+					max-height: var(--height);
 					--HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);
 					@apply --border-mixin;
 					padding: var(--Margin);
@@ -260,7 +261,7 @@
 		<elements-linkcard-link favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg">
 		</elements-linkcard-link> -->
 
-		<elements-linkcard-linkcontainer rows="2" columns="2" style="--border-width: 0px; --width: 500px">
+		<elements-linkcard-linkcontainer rows="4" columns="1" style="/*--border-width: 0px;*/ --width: 500px">
 			<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
 			<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
 			<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
@@ -270,6 +271,10 @@
 			<elements-linkcard-link class="internal" slot="s7" favicon="drive.png" title="a" src="logo.svg"></elements-linkcard-link>
 			<elements-linkcard-link class="internal" slot="s8" favicon="drive.png" title="test." src="logo.svg"></elements-linkcard-link>
 
+			<!-- <span class="internal" slot="s1"> This </span>
+			<span class="internal" slot="s2"> is </span>
+			<span class="internal" slot="s3"> a </span>
+			<span class="internal" slot="s4"> test. </span> -->
 		</elements-linkcard-linkcontainer>
 
 	</body>
