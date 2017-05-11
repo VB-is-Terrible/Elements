@@ -19,9 +19,10 @@ if (!(Elements.initalized === false)) {
 			this.attributeInit = false;
 		}
 		connectedCallback () {
-			if (this.attributeInit === false)
-			for (let func in this.getDict) {
-				this.getDict[func]();
+			if (this.attributeInit === false){
+				for (let func in this.getDict) {
+					this.getDict[func]();
+				}
 			}
 			this.attributeInit = true;
 		}
