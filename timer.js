@@ -1342,5 +1342,5 @@ let XTimerBody = document.registerElement('x-timerBody', {
 window.onload = () => {
    document.querySelector('#timers').load();
    document.querySelector('#timers').duration = 30;
-   document.querySelector('#timers').interval = 5000;
+   document.querySelector('#timers').interval = 500;
 };
