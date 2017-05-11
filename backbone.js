@@ -8,6 +8,7 @@ if (!("Elements" in window)) {
 
 if (!(Elements.initalized === false)) {
 	Elements.elements = {};
+	Elements.loadedElements = new Set();
 
 	Elements.elements.backbone = class extends HTMLElement {
 		constructor () {
@@ -34,11 +35,12 @@ if (!(Elements.initalized === false)) {
 	};
 
 	Elements.connectedCallbackHelper = (object) => {
-		if (object.attributeInit === false)
-		for (let func in object.getDict) {
-			object.getDict[func]();
+		if (object.attributeInit === false) {
+			for (let func in object.getDict) {
+				object.getDict[func]();
+			}
+			object.attributeInit = true;
 		}
-		object.attributeInit = true;
 	};
 
 	Elements.attributeChangedHelper = (object, attrName, OldValue, newValue) => {
@@ -125,4 +127,35 @@ if (!(Elements.initalized === false)) {
 	};
 
 	Elements.initalized = true;
+
+	/**
+	 * Async fetch a HTML file, load into document.head,
+	 * then register custom element
+	 * @param  {String} templateLocation [Location of HTML file containing template]
+	 * @param  {HTMLElement} newElement       [New Custom HTMLElement]
+	 * @param  {String} HTMLname         [Name to register HTMLElement as]
+	 */
+	Elements.load = (templateLocation, newElement, HTMLname) => {
+		if (Elements.loadedElements.has(HTMLname)) {return;}
+
+		let request = fetch(templateLocation).then(
+			(response) => {
+				if (response.ok) {
+					return response.text();
+				} else {
+					throw new Error(response.url);
+				}
+			}
+		).then(
+			(template) => {
+				document.head.innerHTML += template;
+				window.customElements.define(HTMLname, newElement);
+			}
+		).catch((error) => {
+			console.log("Failed network request for: " + error.message);
+			Elements.loadedElements.delete(HTMLname);
+		})
+		Elements.loadedElements.add(HTMLname);
+	};
+
 }
