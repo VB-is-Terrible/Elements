@@ -46,12 +46,163 @@
 			  <p> This is element 3</p>
 		  </div>
 	  </template>
+
+
+
+	  <template id="templateElementsLinkCardLink">
+		  <style>
+			  #faviconImg {
+				  height: 100%;
+				  width: 100%;
+				  grid-area: favicon;
+			  }
+			  #titleSpan {
+				  /*font-size: calc(var(--HeaderHeight) * .8);*/
+				  text-overflow: clip;
+				  color: initial;
+				  overflow: hidden;
+				  grid-area: title;
+				  width: calc(100%);
+				  /* 1ex Prevents text overflow when the padding is small */
+			  }
+			  #contentDiv {
+				  display: grid;
+				  grid-template-columns: 1fr 3fr;
+				  grid-template-rows: 1fr 3fr;
+				  grid-template-areas: "favicon title"
+											  "image image";
+				  grid-auto-flow: row;
+				  grid-row-gap: var(--RowGap);
+				  grid-column-gap: var(--ColGap);
+				  height: 100%;
+				  width: 100%;
+				  box-sizing: border-box;
+			  }
+			  #pseudoBody {
+				  /*overflow: hidden;*/
+				  max-width: var(--width);
+				  max-height: var(--height);
+				  --HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);
+				  @apply --border-mixin;
+				  padding: var(--Margin);
+				  background-color: var(--background-color);
+				  box-sizing: border-box;
+			  }
+			  :host {
+				  --RowGap: 10px;
+				  --ColGap: 10px;
+				  --Margin: 5px;
+				  --width: 130px;
+				  --height: calc(var(--width) + 2 * var(--Margin));
+				  --background-color: white;
+				  --border-mixin: {
+					  border-width: 1px;
+					  border-style: solid;
+					  border-radius: 5px;
+					  border-color: black;
+				  };
+			  }
+			  #CardLink {
+				  text-decoration: none;
+			  }
+			  #thumbImg {
+				  width: calc(100%);
+				  height: calc(100%);
+				  grid-area: image;
+				  /* -  var(--RowGap)*/
+				  /*background: turquoise;*/
+			  }
+		  </style>
+		  <div id="pseudoBody">
+			  <a id="CardLink">
+
+				  <div id="contentDiv">
+					  <img id="faviconImg" src = "drive.png">
+					  <span id="titleSpan">
+						  You should not be seeing this
+					  </span>
+					  <img id="thumbImg" src = "TCF.png">
+				  </div>
+			  </a>
+		  </div>
+	  </template>
+
+
+	  <script>
+	  Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
+	  	constructor () {
+	  		super();
+	  		let shadow = this.attachShadow({ mode: 'open' });
+	  		let template = document.importNode(
+	  		   document.querySelector('#templateElementsLinkCardLink'),
+	  		   true);
+	  		//
+
+	  		let faviconImg = template.content.querySelector('#faviconImg');
+	  		let linkElem = template.content.querySelector('#CardLink');
+	  		let thumbImg = template.content.querySelector('#thumbImg');
+	  		let titleSpan = template.content.querySelector('#titleSpan');
+
+	  		let faviconChange = (value) => {
+	  			faviconImg.src = value;
+	  		};
+
+	  		let thumbChange = (value) => {
+	  			thumbImg.src = value;
+	  		};
+
+	  		let titleChange = (value) => {
+	  			if (!(value === null || value === undefined)) {
+	  				titleSpan.textContent = value;
+	  			}
+	  		};
+
+	  		let linkChange = (value) => {
+	  			linkElem.href = value;
+	  		};
+
+	  		Elements.setUpAttrPropertyLink(this, 'favicon','', faviconChange);
+	  		Elements.setUpAttrPropertyLink(this, 'title', '', titleChange);
+	  		Elements.setUpAttrPropertyLink(this, 'href', 'about:blank', linkChange);
+	  		Elements.setUpAttrPropertyLink(this, 'src', '', thumbChange);
+
+	  		shadow.appendChild(template.content)
+	  	}
+	  	static get observedAttributes () {
+	  		return ['favicon', 'title', 'href', 'src']
+	  	}
+	  }
+	  window.customElements.define('elements-linkcard-link', Elements.elements.LinkCardLink);
+
+	  </script>
 	</head>
 	<body>
-		<test-element1 test = "Hello World">
+		<!-- <test-element1 test = "Hello World">
 			<test-element2 slot="slot2"></test-element2>
 			<test-element3 class="Derp" id="lalalal" slot="slot1"></test-element3>
 
-		</test-element1>
+		</test-element1> -->
+		<style>
+			div.foo {
+				max-width: 150px;
+				max-height: 200px;
+				box-sizing: border-box;
+				border: 1px solid aquamarine;
+				padding: 10px;
+			}
+			div.innerbox {
+				height: 100%;
+				width: 100%;
+			}
+		</style>
+		<div class="foo">
+			<div class="innerbox">
+				<p>
+					test
+				</p>
+			</div>
+		</div>
+		<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
+
 	</body>
 </html>
