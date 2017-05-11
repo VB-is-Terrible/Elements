@@ -883,13 +883,20 @@ XTimerBodyProto.onLeave = function (e) {
    };
 
    let resultString = JSON.stringify(result);
-
-   window.localStorage.setItem(this.saveString, resultString);
+   try {
+      window.localStorage.setItem(this.saveString, resultString);
+   } catch (e) {
+      //pass
+   }
 };
 
 XTimerBodyProto.onLoad = function () {
-
-   let storageString = window.localStorage.getItem(this.saveString);
+   let storageString;
+   try {
+      storageString = window.localStorage.getItem(this.saveString);
+   } catch (e) {
+      storageString = null;
+   }
    if (storageString  == null) {
       storageString = '{"timers":[],"notifications":[]}';
    }
