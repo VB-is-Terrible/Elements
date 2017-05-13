@@ -14,7 +14,7 @@
 }
 #contentDiv {
 	display: grid;
-	grid-template-columns: [c0] 1fr [c1] 4fr [c2];
+	grid-template-columns: [c0] 1fr [c1] 6fr [c2];
 	grid-template-rows: [r0] 1fr [r1] 3fr [r2];
 	grid-template-areas: "favicon title"
 	                     "image image";
@@ -60,5 +60,5 @@
 	background-size: 100%;
 	grid-area: image;
 	/* -  var(--RowGap)*/
-	/*background: turquoise;*/
+	background: turquoise;
 }
