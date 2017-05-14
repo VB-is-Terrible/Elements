@@ -1,22 +1,23 @@
 #faviconImg {
 	height: var(--HeaderHeight);
 	width: var(--HeaderHeight);
-	grid-area: favicon;
+	/*grid-area: favicon;*/
 }
 #titleSpan {
 	font-size: calc(var(--HeaderHeight) * .8);
 	text-overflow: clip;
 	color: initial;
 	overflow: hidden;
-	grid-area: title;
+	/*grid-area: title;*/
 	width: calc(100%);
+	white-space: nowrap;
 	/* 1ex Prevents text overflow when the padding is small */
 }
 #contentDiv {
 	display: grid;
-	grid-template-columns: [c0] 1fr [c1] 6fr [c2];
+	grid-template-columns: [c0] 1fr [c1] 4fr [c2];
 	grid-template-rows: [r0] 1fr [r1] 3fr [r2];
-	grid-template-areas: "favicon title"
+	grid-template-areas: "title title"
 	                     "image image";
 	grid-auto-flow: row;
 	grid-row-gap: var(--RowGap);
@@ -61,4 +62,9 @@
 	grid-area: image;
 	/* -  var(--RowGap)*/
 	background: turquoise;
+}
+#topBar {
+	display: flex;
+	grid-area: title;
+	max-width: 100%;
 }
