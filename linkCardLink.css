@@ -62,6 +62,10 @@
 	grid-area: image;
 	/* -  var(--RowGap)*/
 	background: turquoise;
+	background-image: url("logo.svg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
 }
 #topBar {
 	display: flex;
