@@ -29,14 +29,16 @@
 #pseudoBody {
 	overflow: hidden;
 	max-width: var(--width);
-	max-height: calc(var(--width) + 2 * var(--Margin));
-	--HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);
+	height: var(--height);
+	/*--HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);*/
 	@apply
 	--border-mixin;
 	padding: var(--Margin);
 	background-color: var(--background-color);
 	--Margin: 17px;
 	box-sizing: border-box;
+	--height: 200px;
+	--RowGap: 10px;
 }
 :host {
 	--RowGap: 10px;
