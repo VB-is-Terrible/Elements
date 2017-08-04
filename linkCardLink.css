@@ -1,10 +1,10 @@
 #faviconImg {
-	height: var(--HeaderHeight);
-	width: var(--HeaderHeight);
+	/*height: var(--HeaderHeight);*/
+	/*width: var(--HeaderHeight);*/
 	/*grid-area: favicon;*/
 }
 #titleSpan {
-	font-size: calc(var(--HeaderHeight) * .8);
+	/*font-size: calc(var(--HeaderHeight) * .8);*/
 	text-overflow: clip;
 	color: initial;
 	overflow: hidden;
@@ -16,7 +16,7 @@
 #contentDiv {
 	display: grid;
 	grid-template-columns: [c0] 1fr [c1] 4fr [c2];
-	grid-template-rows: [r0] 1fr [r1] 3fr [r2];
+	grid-template-rows: [r0] var(--HeaderHeight) [r1] 3fr [r2];
 	grid-template-areas: "title title"
 	                     "image image";
 	grid-auto-flow: row;
@@ -30,14 +30,13 @@
 	overflow: hidden;
 	max-width: var(--width);
 	height: var(--height);
-	/*--HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);*/
+	--HeaderHeight: calc((var(--width) - 2 * var(--Margin)) / 130 * 20);
 	@apply
 	--border-mixin;
 	padding: var(--Margin);
 	background-color: var(--background-color);
 	--Margin: 17px;
 	box-sizing: border-box;
-	--height: 200px;
 	--RowGap: 10px;
 }
 :host {
@@ -45,7 +44,7 @@
 	--ColGap: 10px;
 	--Margin: 5px;
 	--width: 130px;
-	--height: calc(var(--width) + 2 * var(--Margin));
+	--height: 300px;
 	--background-color: white;
 	--border-mixin: {
 		border-width: 1px;
