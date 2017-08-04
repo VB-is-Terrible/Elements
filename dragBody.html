@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="backbone.js"></script>
+		<script src="dragBody.js"></script>
+		<script src="dragElement.js"></script>
+	</head>
+	<body>
+		<elements-drag-body>
+			<elements-drag-element id='test'>
+				<p draggable="false">HI!</p>
+			</elements-drag-element>
+			<elements-drag-element id='ing'>
+				<p draggable="false">THERE!</p>
+			</elements-drag-element>
+		</elements-drag-body>
+		<img src="TCF.png" style="left:200px;top:200px;position:absolute" draggable="false" onclick="console.log('hi');"></img>
+	</body>
+</html>
