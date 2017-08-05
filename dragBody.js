@@ -1,5 +1,9 @@
 'use strict'
 
+/**
+ * DragBody
+ * Designed to hold DragElements
+ */
 Elements.elements.DragBody = class extends Elements.elements.backbone {
 	constructor () {
 		super();

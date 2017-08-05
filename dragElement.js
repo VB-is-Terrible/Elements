@@ -1,5 +1,10 @@
 'use strict'
 
+/**
+ * DragElement
+ * Designed to hold contents to be dragged.
+ * Must be placed within a DragBody
+ */
 Elements.elements.DragElement = class extends Elements.elements.backbone {
 	constructor () {
 		super();
