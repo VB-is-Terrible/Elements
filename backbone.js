@@ -34,6 +34,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			}
 		},
 		loadedElements: new Set(),
+		requestedElements: new Set(),
 		connectedCallbackHelper: (object) => {
 			if (object.attributeInit === false) {
 				for (let func in object.getDict) {
@@ -42,12 +43,12 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				object.attributeInit = true;
 			}
 		},
-		attributeChangedHelper: (object, attrName, OldValue, newValue) => {
+		attributeChangedHelper: function (object, attrName, OldValue, newValue) {
 			if (attrName in this.setDict) {
 				this.setDict[attrName](newValue);
 			}
 		},
-		getInitProperty: (object, property) => {
+		getInitProperty: function (object, property) {
 			return (() => {
 				// If the attribute is been written to, it should be handled by
 				// the attribute changed callback
@@ -77,7 +78,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				set: setter
 			});
 
-			object.getDict[property] = Elements.getInitProperty(object, property);
+			object.getDict[property] = this.getInitProperty(object, property);
 			object.setDict[property] = setter;
 
 			setter(inital);
@@ -129,8 +130,8 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * @param  {HTMLElement} newElement       [New Custom HTMLElement]
 		 * @param  {String} HTMLname         [Name to register HTMLElement as]
 		 */
-		load: (templateLocation, newElement, HTMLname) => {
-			if (Elements.loadedElements.has(HTMLname)) {return;}
+		load: function (templateLocation, newElement, HTMLname) {
+			if (this.loadedElements.has(HTMLname)) {return;}
 
 			let request = fetch(templateLocation).then(
 				(response) => {
@@ -147,9 +148,9 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				}
 			).catch((error) => {
 				console.log("Failed network request for: " + error.message);
-				Elements.loadedElements.delete(HTMLname);
-			})
-			Elements.loadedElements.add(HTMLname);
+				this.loadedElements.delete(HTMLname);
+			});
+			this.loadedElements.add(HTMLname);
 		},
 		/**
 		 * Imports node 'templateElements' + name
@@ -159,5 +160,23 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		importTemplate: (name) => {
 			return document.importNode(document.querySelector('#templateElements' + name), true).content;
 		},
+
+		/**
+		 * Loads a custom element from js files
+		 * @param  {...String} elementNames name of element to import
+		 */
+		require: function (...elementNames) {
+			for (name of elementNames) {
+				if (!(this.requestedElements.has(name))) {
+					let script = document.createElement('script');
+					script.src = this.location + name + '.js';
+					script.async = true;
+					document.head.appendChild(script);
+					this.requestedElements.add(name);
+				}
+
+			}
+		},
+		location: '',
 	}
 }
