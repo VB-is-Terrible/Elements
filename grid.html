@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="backbone.js"></script>
+		<script>
+			Elements.require('grid');
+		</script>
+		<style>
+		#backer {
+			--width:  100%;
+			--margin: 15px;
+			top:      0px;
+			left:     0px;
+			position: absolute;
+			margin:   var(--margin);
+			width:    calc(100% - 2 * var(--margin));
+		}
+		p {
+			background: blue;
+		}
+		</style>
+	</head>
+	<body>
+		<elements-grid id="backer" rows="1" columns="3">
+			<p slot="s1"> THIS </p>
+			<p slot="s2"> IS </p>
+			<p slot="s3"> A </p>
+			<p slot="s4"> TEST </p>
+		</elements-grid>
+	</body>
+</html>
