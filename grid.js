@@ -47,7 +47,8 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'))
+		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'));
+		this.ro.observe(this.shadowRoot.querySelector('#pseudoBody'));
 		// this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
 		this.updateGrid();
 	}
@@ -89,8 +90,41 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 	}
 	updateDisplay (e) {
 		// console.log('updating grid');
-		const cssSelector = "slot::slotted(.internal)";
-		let parent = this.shadowRoot.querySelector('#gridHolder')
+		let findSheet = (cssSelector) => {
+			let sheets = this.shadowRoot.styleSheets;
+			let position = -1;
+			let insertSheet = null;
+			for (let sheet of sheets) {
+				position = Array(...sheet.cssRules).findIndex((e) => {
+					if (e.selectorText === cssSelector) {
+						return true;
+					} else {
+						return false;
+					}
+				})
+				if (position !== -1) {
+					insertSheet = sheet;
+					break;
+				}
+			}
+			if (position === -1) {
+				console.warn(cssSelector + " not found in any stylesheets");
+			}
+			return [insertSheet, position];
+		};
+		let parent = this.shadowRoot.querySelector('#gridHolder');
+		// If the grid is been expanded, e = [canaryDiv, pseudoBody]
+		// But if the grid is been shrunk and a cell refuses to shrink,
+		// e = [pseudoBody]
+		let [holderDivStyle, holderDivLocation] = findSheet("div.HolderDiv");
+		if (e.length === 1) {
+			holderDivStyle.cssRules[holderDivLocation].style.width = "20%";
+			requestAnimationFrame((e) => {
+				holderDivStyle.cssRules[holderDivLocation].style.width = "100%";
+			});
+			return;
+		} else {
+		}
 		let cr = e[0].contentRect;//parent.getBoundingClientRect();
 
 
@@ -103,36 +137,15 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		let width = cr.width;
 		let height = cr.height;
 
+		let rule = '--width: ' + width.toString() + 'px; ' +
+			'width' + + width.toString() + 'px; ' +
+			'--height: ' + height.toString() + 'px;' +
+			'height: ' + height.toString() + 'px;';
 		// Destory the old ::slotted style and insert a new style
-		let sheets = this.shadowRoot.styleSheets;
-		let position = -1;
-		let insertSheet = null;
-		for (let sheet of sheets) {
-			position = Array(...sheet.cssRules).findIndex((e) => {
-				if (e.selectorText === cssSelector) {
-					return true;
-				} else {
-					return false;
-				}
-			})
-			if (position !== -1) {
-				insertSheet = sheet;
-				break;
-			}
-		}
-		if (position === -1) {
-			console.warn(cssSelector + " not found in any stylesheets");
-		} else {
-			requestAnimationFrame(() => {
-				insertSheet.removeRule(position);
-				insertSheet.addRule(cssSelector,
-				    '--width: ' + width.toString() + 'px; ' +
-				    'width' + + width.toString() + 'px; ' +
-				    '--height: ' + height.toString() + 'px;', +
-				    'height: ' + height.toString() + 'px;', +
-				    position);
-			});
-		}
+		const cssSelector = "slot::slotted(.internal)";
+		let [insertSheet, position] = findSheet(cssSelector);
+		insertSheet.removeRule(position);
+		insertSheet.addRule(cssSelector, rule, position);
 
 	}
 
