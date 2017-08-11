@@ -3,6 +3,7 @@
 /**
  * DragBody
  * Designed to hold DragElements
+ * Make sure internal elements are also draggable
  */
 Elements.elements.DragBody = class extends Elements.elements.backbone {
 	constructor () {

@@ -15,7 +15,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let drag_start = (event) => {
 			// Pushing the element been dragged and the drag body to the
 			// top of the z-indexes is probably a good idea
-			let style = window.getComputedStyle(event.target, null);
+			let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
 			let left = (parseInt(style.getPropertyValue("left"),10) - event.clientX).toString();
 			let top = (parseInt(style.getPropertyValue("top"),10) - event.clientY).toString();
 			let id = this.id;

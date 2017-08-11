@@ -3,16 +3,21 @@
 	<head>
 		<meta charset="utf-8">
 		<script src="backbone.js"></script>
-		<script src="dragBody.js"></script>
-		<script src="dragElement.js"></script>
+		<script>
+			Elements.require('dragBody', 'dragElement');
+		</script>
 	</head>
 	<body>
 		<elements-drag-body>
 			<elements-drag-element id='test'>
-				<p draggable="false">HI!</p>
+				<div draggable="true">
+					<p>HI!</p>
+				</div>
 			</elements-drag-element>
 			<elements-drag-element id='ing'>
-				<p draggable="false">THERE!</p>
+				<div draggable="true">
+					<p>THERE!</p>
+				</div>
 			</elements-drag-element>
 		</elements-drag-body>
 		<img src="TCF.png" style="left:200px;top:200px;position:absolute" draggable="false" onclick="console.log('hi');"></img>
