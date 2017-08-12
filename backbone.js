@@ -57,8 +57,8 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				}
 			});
 		},
-		setUpAttrPropertyLink: (object, property, inital=null,
-			   eventTrigger = () => {}) => {
+		setUpAttrPropertyLink: function (object, property, inital=null,
+			   eventTrigger = () => {}) {
 
 			console.assert(object.constructor.observedAttributes.includes(property));
 			let hidden;
