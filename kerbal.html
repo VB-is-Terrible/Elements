@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>LinkCard Standalone</title>
+		<script src="backbone.js"></script>
+		<script>
+		Elements.require('kerbal', 'grid');
+		</script>
+		<style>
+		#backer {
+			--width:  100%;
+			--margin: 15px;
+			margin:   var(--margin);
+			width:    calc(100% - 2 * var(--margin));
+			/*position: absolute;*/
+			top: 0px;
+			left: 0px;
+		}
+		</style>
+	</head>
+	<body>
+		<elements-grid id="backer" rows="1" columns="3">
+			<elements-kerbal slot="s1" name="This"></elements-kerbal>
+			<elements-kerbal slot="s1" name="This"></elements-kerbal>
+			<elements-kerbal slot="s1" name="This"></elements-kerbal>
+			<elements-kerbal slot="s1" name="This"></elements-kerbal>
+			<elements-kerbal slot="s1" name="This"></elements-kerbal>
+			<elements-kerbal slot="s1" name="This"></elements-kerbal>
+			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal slot="s3" name="This"></elements-kerbal>
+			<elements-kerbal slot="s3" name="This"></elements-kerbal>
+			<elements-kerbal slot="s3" name="This"></elements-kerbal>
+
+		</elements-grid>
+
+	</body>
+</html>

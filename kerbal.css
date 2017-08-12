@@ -1,0 +1,30 @@
+#pseudoBody {
+	border: 1px solid grey;
+	border-radius: 5px;
+	display: flex;
+}
+.textBox {
+	display: flex;
+	flex-flow: column;
+}
+p {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin: 0px;
+}
+p.name {
+	font-size: large;
+}
+p.subText {
+	font-size: small;
+	margin: 0px 20px;
+	background: lightgrey;
+	border-radius: 5px;
+	padding: 0px 5px;
+}
+img {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
