@@ -9,5 +9,7 @@ div.flex {
 button {
 	width: 1em;
 	font-size: 3em;
+	border-radius: 5px;
+	border: 2px solid darkblue;
 
 }
