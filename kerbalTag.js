@@ -1,10 +1,10 @@
 'use strict'
 
-Elements.elements.Kerbal = class extends Elements.elements.backbone {
+Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-		this.name = 'Kerbal';
+		this.name = 'KerbalTag';
 
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -51,4 +51,4 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 	}
 }
 
-Elements.load('kerbalTemplate.html', Elements.elements.Kerbal, 'elements-kerbal');
+Elements.load('kerbalTagTemplate.html', Elements.elements.KerbalTag, 'elements-kerbal-tag');

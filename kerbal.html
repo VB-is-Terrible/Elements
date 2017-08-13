@@ -5,7 +5,7 @@
 		<title>KDB.js prototype</title>
 		<script src="backbone.js"></script>
 		<script>
-		Elements.require('kerbal', 'grid', 'dragDown');
+		Elements.require('kerbalTag', 'grid', 'dragDown');
 		</script>
 		<style>
 		#backer {
@@ -22,24 +22,24 @@
 	<body>
 		KDB.js progress: <progress value="20" max="100">0%</progress>
 		<elements-grid id="backer" rows="1" columns="3">
-			<elements-kerbal slot="s1" name="This"></elements-kerbal>
-			<elements-kerbal slot="s1" name="This"></elements-kerbal>
-			<elements-kerbal slot="s1" name="This"></elements-kerbal>
-			<elements-kerbal slot="s1" name="This"></elements-kerbal>
-			<elements-kerbal slot="s1" name="This"></elements-kerbal>
-			<elements-kerbal slot="s1" name="This"></elements-kerbal>
-			<elements-kerbal slot="s2" name="This"></elements-kerbal>
-			<elements-kerbal slot="s2" name="This"></elements-kerbal>
-			<elements-kerbal slot="s2" name="This"></elements-kerbal>
-			<elements-kerbal slot="s2" name="This"></elements-kerbal>
-			<elements-kerbal slot="s2" name="This"></elements-kerbal>
-			<elements-kerbal slot="s2" name="This"></elements-kerbal>
+			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
+			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
 			<elements-drag-down slot="s3">
-				<elements-kerbal slot="s1" name="I" text="Wait"></elements-kerbal>
-				<elements-kerbal name="Am" text="can't"></elements-kerbal>
-				<elements-kerbal name="Alive" text="breathe"></elements-kerbal>
+				<elements-kerbal-tag slot="s1" name="I" text="Wait"></elements-kerbal-tag>
+				<elements-kerbal-tag name="Am" text="can't"></elements-kerbal-tag>
+				<elements-kerbal-tag name="Alive" text="breathe"></elements-kerbal-tag>
 			</elements-drag-down>
-			<elements-kerbal slot="s3" name="This"></elements-kerbal>
+			<elements-kerbal-tag slot="s3" name="This"></elements-kerbal-tag>
 
 		</elements-grid>
 	</body>
