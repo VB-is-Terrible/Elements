@@ -2,10 +2,10 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>LinkCard Standalone</title>
+		<title>KDB.js prototype</title>
 		<script src="backbone.js"></script>
 		<script>
-		Elements.require('kerbal', 'grid');
+		Elements.require('kerbal', 'grid', 'dragDown');
 		</script>
 		<style>
 		#backer {
@@ -20,6 +20,7 @@
 		</style>
 	</head>
 	<body>
+		KDB.js progress: <progress value="20" max="100">0%</progress>
 		<elements-grid id="backer" rows="1" columns="3">
 			<elements-kerbal slot="s1" name="This"></elements-kerbal>
 			<elements-kerbal slot="s1" name="This"></elements-kerbal>
@@ -33,11 +34,13 @@
 			<elements-kerbal slot="s2" name="This"></elements-kerbal>
 			<elements-kerbal slot="s2" name="This"></elements-kerbal>
 			<elements-kerbal slot="s2" name="This"></elements-kerbal>
-			<elements-kerbal slot="s3" name="This"></elements-kerbal>
-			<elements-kerbal slot="s3" name="This"></elements-kerbal>
+			<elements-drag-down slot="s3">
+				<elements-kerbal slot="s1" name="I" text="Wait"></elements-kerbal>
+				<elements-kerbal name="Am" text="can't"></elements-kerbal>
+				<elements-kerbal name="Alive" text="breathe"></elements-kerbal>
+			</elements-drag-down>
 			<elements-kerbal slot="s3" name="This"></elements-kerbal>
 
 		</elements-grid>
-
 	</body>
 </html>

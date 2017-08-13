@@ -1,0 +1,13 @@
+div.down {
+	margin-left: 10%;
+}
+div.flex {
+	display: flex;
+	flex-flow: row;
+	flex-wrap: nowrap;
+}
+button {
+	width: 1em;
+	font-size: 3em;
+
+}
