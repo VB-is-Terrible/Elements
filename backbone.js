@@ -34,6 +34,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			}
 		},
 		loadedElements: new Set(),
+		loadingElements: new Set(),
 		requestedElements: new Set(),
 		connectedCallbackHelper: (object) => {
 			if (object.attributeInit === false) {
@@ -126,31 +127,49 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		/**
 		 * Async fetch a HTML file, load into document.head,
 		 * then register custom element
-		 * @param  {String} templateLocation [Location of HTML file containing template]
-		 * @param  {HTMLElement} newElement       [New Custom HTMLElement]
-		 * @param  {String} HTMLname         [Name to register HTMLElement as]
+		 * @param  {String} templateLocation Location of HTML file containing template, empty string for none
+		 * @param  {HTMLElement} newElement  New Custom HTMLElement
+		 * @param  {String} HTMLname         Name to register HTMLElement as
 		 */
 		load: function (templateLocation, newElement, HTMLname) {
-			if (this.loadedElements.has(HTMLname)) {return;}
-
-			let request = fetch(templateLocation).then(
-				(response) => {
-					if (response.ok) {
-						return response.text();
-					} else {
-						throw new Error(response.url);
+			let jsName;
+			if (HTMLname.indexOf('elements-') === 0) {
+				jsName = this.removeNSTag(HTMLname);
+			} else {
+				jsName = HTMLname;
+				HTMLname = 'elements-' + HTMLname;
+			}
+			if (this.loadedElements.has(jsName) || this.loadingElements.has(jsName)) {return;}
+			if (templateLocation !== '') {
+				let request = fetch(templateLocation).then(
+					(response) => {
+						if (response.ok) {
+							return response.text();
+						} else {
+							throw new Error(response.url);
+						}
 					}
-				}
-			).then(
-				(template) => {
-					document.head.innerHTML += template;
-					window.customElements.define(HTMLname, newElement);
-				}
-			).catch((error) => {
-				console.log("Failed network request for: " + error.message);
-				this.loadedElements.delete(HTMLname);
-			});
-			this.loadedElements.add(HTMLname);
+				).then(
+					(template) => {
+						document.head.innerHTML += template;
+						window.customElements.define(HTMLname, newElement);
+						this.loadedElements.add(jsName);
+						this.loadingElements.delete(jsName);
+						this.awaitCallback(jsName);
+					}
+				).catch((error) => {
+					console.log("Failed network request for: " + error.message);
+					this.loadingElements.delete(jsName);
+
+				});
+				this.loadingElements.add(jsName);
+			} else {
+				window.customElements.define(HTMLname, newElement);
+				this.awaitCallback(jsName);
+				// Have to wait until the template is loaded for callback,
+				// otherwise an upgrade can happen, calling the unintialized inherited element
+				this.loadedElements.add(jsName);
+			}
 		},
 		/**
 		 * Imports node 'templateElements' + name
@@ -167,6 +186,9 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 */
 		require: function (...elementNames) {
 			for (name of elementNames) {
+				if (name.indexOf('-') !== -1) {
+					name = this.captilize(name);
+				}
 				if (!(this.requestedElements.has(name))) {
 					let script = document.createElement('script');
 					script.src = this.location + name + '.js';
@@ -177,6 +199,77 @@ if (!("Elements" in window) || Elements.initalized === false) {
 
 			}
 		},
+		/**
+		 * Removes dashes from HTMLElement name and converts to JS element name
+		 * @param  {String} name HTMLElement name
+		 * @return {String}      JS Element name
+		 */
+		captilize: function (name) {
+			let l = name.split('-');
+			for (var i = 1; i < l.length; i++) {
+				l[i] = l[i].substring(0, 1).toUpperCase() + l[i].substring(1);
+			}
+			return l.join('');
+		},
+		/**
+		 * Location to prefix file requests by, i.e. location of elements folder
+		 * @type {String}
+		 */
 		location: '',
+		/**
+		 * Callback a function once required elements are loaded
+		 * @param  {Function} callback    Function to call back
+		 * @param  {...String}   moduleNames elements to wait to load first
+		 */
+		await: function (callback, ...moduleNames) {
+			let awaitObj = {
+				callback: callback,
+				awaiting: new Set(moduleNames),
+			};
+			for (let loaded of this.loadedElements) {
+				awaitObj.awaiting.delete(loaded);
+			}
+			if (awaitObj.awaiting.size === 0) {
+				callback();
+				return;
+			} else {
+				this.awaiting.push(awaitObj);
+			}
+
+		},
+		/**
+		 * Array of awaitObjs, stores of waiting callbacks from await
+		 * @type {Array}
+		 */
+		awaiting: [],
+		/**
+		 * Callback to process awaiting elements
+		 * @param  {String} loaded Name of element loaded
+		 */
+		awaitCallback: function (loaded) {
+			// Remove 'elements-'
+			loaded = this.removeNSTag(loaded);
+			let position = 0;
+			for (let awaitObj of this.awaiting) {
+				awaitObj.awaiting.delete(loaded);
+				if (awaitObj.awaiting.size === 0) {
+					this.awaiting.splice(position, 1);
+					awaitObj.callback();
+				}
+				position += 1;
+			}
+		},
+		/**
+		 * Removes the 'elements-' NS from a HTMLElement name
+		 * @param  {String} name name with 'elements-'
+		 * @return {String}      name without 'elements-'
+		 */
+		removeNSTag: function (name) {
+			if (name.indexOf('elements-') !== 0) {
+				return name;
+			} else {
+				return name.substring(9);
+			}
+		}
 	}
 }
