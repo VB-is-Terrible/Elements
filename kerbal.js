@@ -3,7 +3,7 @@
 Elements.require('drag-down');
 
 // Move this to config later
-const KerbalPlaces = ['Kerbin', 'Mun', 'Minmus', 'Eve', 'Gilly', 'Duna', 'Ike', 'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Eeloo'];
+const KerbalPlaces = ['Kerbin', 'Mun', 'Minmus', 'Eve', 'Gilly', 'Duna', 'Ike', 'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Eeloo', 'Kerbol'];
 Elements.elements.Kerbal = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -65,8 +65,30 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 			this.jobDisplay[place] = this.constructor.makeJobElement(place, value);
 			this.append(this.jobDisplay[place]);
 		} else {
-			this.jobDisplay[place].innerHTML = this.constructor.valueToJob(value);
+			this.jobDisplay[place].innerHTML = place + ' ' + this.constructor.valueToJob(value);
 		}
+	}
+	loadJob () {
+		let split = (s) => {
+			let location = s.indexOf(' ');
+			return [s.substring(0, location), s.substring(location + 1)];
+		}
+		let children = this.children;
+		for (let child of children) {
+			let [location, type] = split(child.innerHTML);
+			if (location in this.jobs) {
+				let value = this.constructor.jobToValue(type);
+				if (this.jobs[location] < value) {
+					this.jobs[location] = value;
+				}
+			}
+		}
+		for (var i = this.children.length - 1; i >= 0; i--) {
+			this.removeChild(this.children[i]);
+		}
+	}
+	displayJobs () {
+		
 	}
 	static get observedAttributes () {
 		return ['name', 'text'];
@@ -103,9 +125,30 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 		let p = document.createElement('p');
 		p.style.margin = '5px 0px';
 		p.style.borderRadius = '5px';
-		p.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);';
-		p.innerHTML = place + this.valueToJob(value);
+		p.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
+		p.innerHTML = place + ' ' + this.valueToJob(value);
 		return p;
+	}
+	static jobToValue (job) {
+		switch (value) {
+			case '':
+				return 0;
+				break;
+			case 'Fly-by':
+				return 1;
+				break;
+			case 'Sub-Orbital':
+				return 2;
+				break;
+			case 'Orbit':
+				return 3;
+				break;
+			case 'Landing':
+				return 4;
+				break;
+			default:
+				return 0;
+		}
 	}
 }
 
