@@ -31,12 +31,16 @@ if (!("Elements" in window) || Elements.initalized === false) {
 						this.setDict[attrName](newValue);
 					}
 				}
+				disconnectedCallback () {
+
+				}
 			}
 		},
 		loadedElements: new Set(),
 		loadingElements: new Set(),
 		requestedElements: new Set(),
 		connectedCallbackHelper: (object) => {
+			console.warn('Using deprecated function connectedCallbackHelper');
 			if (object.attributeInit === false) {
 				for (let func in object.getDict) {
 					object.getDict[func]();
@@ -45,6 +49,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			}
 		},
 		attributeChangedHelper: function (object, attrName, OldValue, newValue) {
+			console.warn('Using deprecated function attributeChangedHelper');
 			if (attrName in this.setDict) {
 				this.setDict[attrName](newValue);
 			}
@@ -59,12 +64,15 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			});
 		},
 		setUpAttrPropertyLink: function (object, property, inital=null,
-			   eventTrigger = () => {}) {
+			   eventTrigger = () => {},
+			   santizer = (value, oldValue) => {return value}) {
 
 			console.assert(object.constructor.observedAttributes.includes(property));
+
 			let hidden;
 			let getter = () => {return hidden;};
 			let setter = (value) => {
+				value = santizer(value, hidden);
 				hidden = value;
 				if (object.attributeInit) {
 					object.setAttribute(property, value);
@@ -89,39 +97,9 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				set: setter
 			};
 		},
-		setUpSanitizedAttrPropertyLink: (object, property, inital=null,
-			   eventTrigger = () => {},
-			   santizer = (value, oldValue) => {return value}) => {
-
-			console.assert(object.constructor.observedAttributes.includes(property));
-
-			let hidden;
-			let getter = () => {return hidden;};
-			let setter = (value) => {
-				value = santizer(value, hidden);
-				hidden = value;
-				if (object.attributeInit) {
-					object.setAttribute(property, value);
-				}
-				eventTrigger(value);
-			};
-
-			Object.defineProperty(object, property, {
-				enumerable: true,
-				configurable: true,
-				get: getter,
-				set: setter
-			});
-
-			object.getDict[property] = Elements.getInitProperty(object, property);
-			object.setDict[property] = setter;
-
-			setter(inital);
-
-			return {
-				get: getter,
-				set: setter
-			};
+		setUpSanitizedAttrPropertyLink: function (...args) {
+			console.warn('Using deprecated function setUpSanitizedAttrPropertyLink, it has now been merged with setUpAttrPropertyLink');
+			this.setUpAttrPropertyLink(...args);
 		},
 		initalized: true,
 		/**
