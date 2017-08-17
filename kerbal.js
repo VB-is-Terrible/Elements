@@ -14,20 +14,6 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
-		this.mo = new MutationObserver ((entries) => {
-			console.log(entries);
-		});
-
-		this.moConfig = {
-			childList: true,
-			attributes: false,
-			characterData: false,
-			subTree: false,
-			attributeOldValue: false,
-			characterDataOldValue: false,
-			// attributeFilter: [],
-		};
-
 		let dragDown = template.querySelector('elements-drag-down');
 		this.change = {
 			name: (value) => {
@@ -46,11 +32,8 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 
 	connectedCallback () {
 		super.connectedCallback();
-		this.mo.observe(this, this.moConfig);
-		// Any nodes already there won't be picked up by the mutation observer
-		// Add them here
-		//
-		// Then fill it out with any missing nodes
+		this.loadJob();
+		this.displayJobs();
 	}
 	disconnectedCallback () {
 		this.mo.disconnect();
@@ -61,18 +44,14 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 			return;
 		}
 		this.jobs[place] = value;
-		if (this.jobDisplay[place] === null) {
-			this.jobDisplay[place] = this.constructor.makeJobElement(place, value);
-			this.append(this.jobDisplay[place]);
-		} else {
-			this.jobDisplay[place].innerHTML = place + ' ' + this.constructor.valueToJob(value);
-		}
+		this.showJob(place);
 	}
 	loadJob () {
 		let split = (s) => {
+			s = s.trim();
 			let location = s.indexOf(' ');
 			return [s.substring(0, location), s.substring(location + 1)];
-		}
+		};
 		let children = this.children;
 		for (let child of children) {
 			let [location, type] = split(child.innerHTML);
@@ -83,12 +62,46 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 				}
 			}
 		}
+	}
+	displayJobs () {
+		this.emptyNodes();
+		for (let location of KerbalPlaces) {
+			this.showJob(location);
+		}
+	}
+	showJob (location) {
+		requestAnimationFrame(() => {
+			let value = this.jobs[location];
+			if (this.jobs[location] > 0) {
+				if (this.jobDisplay[location] === null) {
+					// A display element has not been made
+					this.jobDisplay[location] = this.constructor.makeJobElement(location, value);
+					this.appendChild(this.jobDisplay[location]);
+				} else {
+					this.jobDisplay[location].innerHTML = location + ' ' + this.constructor.valueToJob(value);
+					if (!(this.contains(this.jobDisplay[location]))) {
+						// A display element has been made, but has since been removed
+						this.appendChild(this.jobDisplay[location]);
+					}
+				}
+			} else {
+				if (this.contains(this.jobDisplay[location])) {
+					this.removeChild(this.jobDisplay[location]);
+				}
+			}
+		});
+	}
+	emptyNodes () {
 		for (var i = this.children.length - 1; i >= 0; i--) {
 			this.removeChild(this.children[i]);
 		}
 	}
-	displayJobs () {
-		
+	removeJob(location, value) {
+		if (this.jobs[location] > value) {
+			return;
+		}
+		this.jobs[location] = 0;
+		this.showJob(location);
 	}
 	static get observedAttributes () {
 		return ['name', 'text'];
@@ -106,7 +119,7 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 				return '';
 				break;
 			case 1:
-				return 'Fly-by';
+				return 'Flyby';
 				break;
 			case 2:
 				return 'Sub-Orbital';
@@ -118,7 +131,7 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 				return 'Landing'
 				break;
 			default:
-				return '';
+				return '????';
 		}
 	}
 	static makeJobElement (place, value) {
@@ -130,11 +143,11 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 		return p;
 	}
 	static jobToValue (job) {
-		switch (value) {
+		switch (job) {
 			case '':
 				return 0;
 				break;
-			case 'Fly-by':
+			case 'Flyby':
 				return 1;
 				break;
 			case 'Sub-Orbital':
