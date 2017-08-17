@@ -1,5 +1,6 @@
 'use strict'
 
+//TODO: If empty, set display to none
 Elements.elements.DragDown = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -39,7 +40,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 		this.menuVisible = open;
 		requestAnimationFrame(() => {
 			menu.style.display = open ? 'block' : 'none';
-			button.innerHTML = open ? '^' : 'v';
+			button.innerHTML = open ? '↑' : '↓';
 		});
 	}
 }
