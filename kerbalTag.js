@@ -23,7 +23,7 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 			subText: (value) => {
 				subText.innerHTML = value;
 			},
-		}
+		};
 
 		Elements.setUpAttrPropertyLink(this, 'name', 'Kerbal here', this.change.name);
 		Elements.setUpAttrPropertyLink(this, 'text', 'Desc here', this.change.subText);

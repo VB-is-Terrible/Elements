@@ -35,9 +35,9 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		});
 
 
-		Elements.setUpSanitizedAttrPropertyLink(this, 'rows', 2,
+		Elements.setUpAttrPropertyLink(this, 'rows', 2,
 		                                        updateCallback, santizer);
-		Elements.setUpSanitizedAttrPropertyLink(this, 'columns', 2,
+		Elements.setUpAttrPropertyLink(this, 'columns', 2,
 		                                        updateCallback, santizer);
 
 		shadow.appendChild(template);
