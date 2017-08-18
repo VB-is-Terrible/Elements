@@ -36,9 +36,14 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 		this.displayJobs();
 	}
 	disconnectedCallback () {
-		this.mo.disconnect();
+		this.emptyNodes();
 		// To avoid conflicts when reconnecting, empty all child nodes
 	}
+	/**
+	 * Add a job to kerbal
+	 * @param {String} place Location to visit
+	 * @param {Number} value Depth of visit
+	 */
 	addJob (place, value) {
 		if (this.jobs[place] >= value) {
 			return;
@@ -46,6 +51,9 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 		this.jobs[place] = value;
 		this.showJob(place);
 	}
+	/**
+	 * Load jobs from children
+	 */
 	loadJob () {
 		let split = (s) => {
 			s = s.trim();
@@ -63,12 +71,19 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 			}
 		}
 	}
+	/**
+	 * Displays held jobs
+	 */
 	displayJobs () {
 		this.emptyNodes();
 		for (let location of KerbalPlaces) {
 			this.showJob(location);
 		}
 	}
+	/**
+	 * Update the display for a job
+	 * @param  {String} location Location to update display
+	 */
 	showJob (location) {
 		requestAnimationFrame(() => {
 			let value = this.jobs[location];
@@ -91,11 +106,19 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 			}
 		});
 	}
+	/**
+	 * Remove all children
+	 */
 	emptyNodes () {
 		for (var i = this.children.length - 1; i >= 0; i--) {
 			this.removeChild(this.children[i]);
 		}
 	}
+	/**
+	 * Remove a job, as if the kerbal has just completed one
+	 * @param  {String} location Location visited
+	 * @param  {Number} value    Depth of visited
+	 */
 	removeJob(location, value) {
 		if (this.jobs[location] > value) {
 			return;
@@ -134,6 +157,12 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone {
 				return '????';
 		}
 	}
+	/**
+	 * Make a display element
+	 * @param  {String} place Location
+	 * @param  {Number} value Depth of visited required
+	 * @return {HTMLElement} Element representing place+value
+	 */
 	static makeJobElement (place, value) {
 		let p = document.createElement('p');
 		p.style.margin = '5px 0px';
