@@ -8,7 +8,7 @@
 		Elements.require('kerbal-tag', 'grid', 'dragDown', 'kerbal');
 		</script>
 		<style>
-		#backer {
+		#g {
 			--width:  100%;
 			--margin: 15px;
 			--height: blue;
@@ -22,7 +22,7 @@
 	</head>
 	<body>
 		KDB.js progress: <progress value="20" max="100">0%</progress>
-		<elements-grid id="backer" rows="1" columns="3">
+		<elements-grid id="g" rows="1" columns="3">
 			<!-- <elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
 			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
 			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
@@ -41,7 +41,7 @@
 				<elements-kerbal-tag name="Alive" text="breathe"></elements-kerbal-tag>
 			</elements-drag-down>
 			<elements-kerbal-tag slot="s3" name="This"></elements-kerbal-tag>
-			<elements-kerbal slot="s3">
+			<elements-kerbal id="a" slot="s3">
 				<p> Mun Landing </p>
 				<p> Minmus Flyby </p>
 			</elements-kerbal>
