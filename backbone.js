@@ -261,6 +261,13 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			} else {
 				return name.substring(9);
 			}
-		}
+		},
+		jsonIncludes: function (object, properties) {
+			let result = {}
+			for (let property of properties) {
+				result[property] = object[property];
+			}
+			return result;
+		},
 	}
 }
