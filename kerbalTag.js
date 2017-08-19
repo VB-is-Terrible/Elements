@@ -4,10 +4,10 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-		this.name = 'KerbalTag';
+		this.alias = 'KerbalTag';
 
 		let shadow = this.attachShadow({mode: 'open'});
-		let template = Elements.importTemplate(this.name);
+		let template = Elements.importTemplate(this.alias);
 
 		this.ro = new ResizeObserver((entries) => {
 			this.updateDisplay(entries);

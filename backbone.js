@@ -70,6 +70,10 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			console.assert(object.constructor.observedAttributes.includes(property));
 
 			let hidden;
+
+			if (object[property] !== undefined) {
+				inital = object[property];
+			}
 			let getter = () => {return hidden;};
 			let setter = (value) => {
 				value = santizer(value, hidden);
@@ -143,11 +147,20 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				this.loadingElements.add(jsName);
 			} else {
 				window.customElements.define(HTMLname, newElement);
-				this.awaitCallback(jsName);
 				// Have to wait until the template is loaded for callback,
 				// otherwise an upgrade can happen, calling the unintialized inherited element
 				this.loadedElements.add(jsName);
+				this.awaitCallback(jsName);
 			}
+		},
+		/**
+		 * Adds file to loadedElements, etc. as if it was registered, but without custom element logic
+		 * Useful for requiring scripts/objects
+		 * @param  {String} fileName name of file as passed to require
+		 */
+		loaded: function (fileName) {
+			this.loadedElements.add(fileName);
+			this.awaitCallback(fileName)
 		},
 		/**
 		 * Imports node 'templateElements' + name
