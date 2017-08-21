@@ -12,6 +12,7 @@ window.KNS =  {
 			this._text = "Desc";
 			this.jobs = KNS.blankPlaceList(0);
 			this.displays = [];
+			this.type = 'Kerbal';
 
 			this.getters = {
 				name: () => {
@@ -68,12 +69,12 @@ window.KNS =  {
 		 * @param  {String} location Location visited
 		 * @param  {Number} value    Depth of visited
 		 */
-		removeJob (place, value) {
+		removeJob (location, value) {
 			if (this.jobs[location] > value) {
 				return;
 			}
 			this.jobs[location] = 0;
-			this.dispatchUpdate(place);
+			this.dispatchUpdate(location);
 		}
 		makeDisplay () {
 			let display = document.createElement('elements-kerbal');
@@ -83,9 +84,15 @@ window.KNS =  {
 			return display;
 		}
 		toJSON () {
-			let result = Elements.jsonIncludes(this, ['name', 'text', 'jobs']);
-			result.type = 'Kerbal';
-			return result;
+			return Elements.jsonIncludes(this, ['name', 'text', 'jobs', 'type']);
+		}
+		static fromJSONObj (jsonObj) {
+			if (jsonObj.type !== 'Kerbal') {
+				throw new Error('Not a kerbal');
+			}
+			let kerbal = new this();
+			Object.assign(kerbal, jsonObj);
+			return kerbal;
 		}
 	},
 	blankPlaceList: function (value) {
@@ -98,54 +105,110 @@ window.KNS =  {
 	valueToJob: function (value) {
 		switch (value) {
 			case 0:
-			return '';
-			break;
+				return '';
+				break;
 			case 1:
-			return 'Flyby';
-			break;
+				return 'Flyby';
+				break;
 			case 2:
-			return 'Sub-Orbital';
-			break;
+				return 'Sub-Orbital';
+				break;
 			case 3:
-			return 'Orbit';
-			break;
+				return 'Orbit';
+				break;
 			case 4:
-			return 'Landing'
-			break;
+				return 'Landing'
+				break;
 			default:
-			return '????';
+				return '????';
 		}
 	},
 	jobToValue: function (job) {
 		switch (job) {
 			case '':
-			return 0;
-			break;
+				return 0;
+				break;
 			case 'Flyby':
-			return 1;
-			break;
+				return 1;
+				break;
 			case 'Sub-Orbital':
-			return 2;
-			break;
+				return 2;
+				break;
 			case 'Orbit':
-			return 3;
-			break;
+				return 3;
+				break;
 			case 'Landing':
-			return 4;
-			break;
+				return 4;
+				break;
 			default:
-			return 0;
+				return 0;
 		}
 	},
+	MAX_JOB_VALUE: 4,
 };
 
 let KDB = class {
 	constructor () {
-		this.kerbals = [];
-		this.kerbalObjs = new Set();
+		this.kerbals = new Set();
+		this.kerbalObjs = new Map();
+		this.type = "KDB";
+	}
+	addKerbal (kerbalObj) {
+		if (this.kerbals.has(kerbalObj.name)) {
+			throw new Error('KDB already has kerbal');
+		}
+		this.kerbals.add(kerbalObj.name);
+		this.kerbalObjs.set(kerbalObj.name, kerbalObj);
+		this.display(kerbalObj);
+	}
+	getKerbal (name) {
+		return this.kerbalObjs.get(name);
+	}
+	display (kerbalObj) {
+		let newDisplay = kerbalObj.makeDisplay();
+		newDisplay.slot = "s1";
+		g.append(newDisplay);
+	}
+	displayAll () {
+		for (let kerbalObj of this.kerbalObjs.values()) {
+			this.display(kerbalObj);
+		}
+	}
+	toJSON () {
+		// Sets and maps don't stringify well
+		let result = Elements.jsonIncludes(this, ['type']);
+		result.kerbals = Elements.setToArray(this.kerbals);
+		result.kerbalObjs = Elements.setToArray(this.kerbalObjs); // Because we only need the values, this map is close enough to a set
+		return result;
+	}
+	static fromJSONObj (jsonObj) {
+		if (jsonObj.type !== 'KDB') {
+			throw new Error('Not a KDB');
+		}
+		let kdb = new this();
+		kdb.kerbals = new Set(jsonObj.kerbals);
+		for (let kerbalObj of jsonObj.kerbalObjs) {
+			let kerbal = KNS.Kerbal.fromJSONObj(kerbalObj);
+			kdb.kerbalObjs.set(kerbal.name, kerbal);
+		}
+
+		console.assert(kdb.kerbals.size === kdb.kerbalObjs.size);
+		for (let name of kdb.kerbals) {
+			console.assert(kdb.kerbalObjs.has(name));
+		}
+		return kdb;
+	}
+	static fromJSON (json) {
+		return this.fromJSONObj(JSON.parse(json))
 	}
 };
 
+let testData = '{"type":"KDB","kerbals":["Jeb","Bob"],"kerbalObjs":[{"name":"Jeb","text":"Pilot","jobs":{"Kerbin":1,"Mun":0,"Minmus":4,"Eve":0,"Gilly":0,"Duna":0,"Ike":0,"Dres":0,"Jool":0,"Laythe":0,"Vall":0,"Tylo":0,"Bop":0,"Pol":0,"Eeloo":0,"Kerbol":0},"type":"Kerbal"},{"name":"Bob","text":"Engineer","jobs":{"Kerbin":0,"Mun":4,"Minmus":3,"Eve":0,"Gilly":0,"Duna":0,"Ike":0,"Dres":0,"Jool":0,"Laythe":0,"Vall":0,"Tylo":0,"Bop":0,"Pol":0,"Eeloo":0,"Kerbol":1},"type":"Kerbal"}]}';
+
+Elements.await(() => {
+	let kdb = KDB.fromJSON(testData);
+	kdb.displayAll();
+}, 'kerbal');
 Elements.loaded('KDB');
 
 function test () {
