@@ -1,0 +1,47 @@
+:host {
+	--width: 650px
+}
+
+#questions {
+	--border-width: 0px;
+	--width: var(--width);
+	--grid-gap: 1em;
+}
+#pseudoBody {
+	width: var(--width);
+	--font-size: large;
+	background: white
+}
+p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+input, select {
+	width: 100%;
+}
+#footer {
+	padding-right: 5px;
+}
+button, input, select, #editBody {
+	font-size: var(--font-size);
+}
+.spacer {
+	margin-left: .5em;
+}
+div.multi {
+	display: flex;
+}
+select, button, input{
+	background-color: #f6f6f6;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+.warn {
+	height: 1em;
+	width: 1em;
+	float: right;
+}
+div.right {
+	display: flex;
+	justify-content: flex-end;
+}
