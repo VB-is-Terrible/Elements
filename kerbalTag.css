@@ -2,7 +2,8 @@
 	border: 1px solid grey;
 	border-radius: 5px;
 	display: flex;
-	width: var(--width);
+	/*width: var(--width);*/
+	width: 100%
 }
 .textBox {
 	display: flex;
