@@ -1,6 +1,6 @@
 'use strict'
 
-Elements.require('drag-down', 'KDB');
+Elements.require('drag-down', 'KDB', 'kerbal-tag');
 
 // Move this to config later
 Elements.await(function () {
@@ -9,7 +9,10 @@ Elements.await(function () {
 			super();
 
 			this.alias = "Kerbal";
-			this.data = this.data || new KNS.Kerbal();
+			if (!this.data) {
+				this.data = new KNS.Kerbal();
+				this.data.displays.push(this);
+			}
 
 			let definer = (names) => {
 				for (let name of names) {
