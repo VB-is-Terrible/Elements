@@ -34,7 +34,6 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		let drag_end = (event) => {
 			let [left, top, id] = decodeData(event.dataTransfer.getData('text/plain'));
 			let target = document.getElementById(id);
-			console.log(left, top);
 			let leftStyle = (event.clientX + left) + 'px';
 			let topStyle = (event.clientY + top) + 'px';
 			// target.style.top = topStyle;

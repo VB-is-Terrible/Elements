@@ -19,7 +19,6 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			let left = (parseInt(style.getPropertyValue("left"),10) - event.clientX).toString();
 			let top = (parseInt(style.getPropertyValue("top"),10) - event.clientY).toString();
 			let id = this.id;
-			console.log(left,top);
 			let data = left + ',' + top + ',' + id;
 			event.dataTransfer.setData('text/plain', data);
 			this.parentNode.toTop(this);
