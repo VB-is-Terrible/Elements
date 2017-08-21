@@ -5,7 +5,8 @@
 		<title>KDB.js prototype</title>
 		<script src="backbone.js"></script>
 		<script>
-		Elements.require('kerbal-tag', 'grid', 'dragDown', 'kerbal');
+		Elements.require('kerbal-tag', 'grid', 'dragDown', 'kerbal', 'drag-element',
+		'drag-body', 'kerbal-editor');
 		</script>
 		<style>
 		#g {
@@ -21,7 +22,13 @@
 		</style>
 	</head>
 	<body>
-		KDB.js progress: <progress value="20" max="100">0%</progress>
+		<elements-drag-body>
+			<elements-drag-element id="drag1">
+				<elements-kerbal-editor draggable="true">
+				</elements-kerbal-editor>
+			</elements-drag-element>
+		</elements-drag-body>
+		KDB.js progress: <progress value="30" max="100">0%</progress>
 		<elements-grid id="g" rows="1" columns="3">
 			<!-- <elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
 			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
