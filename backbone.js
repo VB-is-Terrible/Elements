@@ -113,7 +113,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * @param  {HTMLElement} newElement  New Custom HTMLElement
 		 * @param  {String} HTMLname         Name to register HTMLElement as
 		 */
-		load: function (templateLocation, newElement, HTMLname) {
+		load: async function (templateLocation, newElement, HTMLname) {
 			let jsName;
 			if (HTMLname.indexOf('elements-') === 0) {
 				jsName = this.removeNSTag(HTMLname);
@@ -158,7 +158,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * Useful for requiring scripts/objects
 		 * @param  {String} fileName name of file as passed to require
 		 */
-		loaded: function (fileName) {
+		loaded: async function (fileName) {
 			this.loadedElements.add(fileName);
 			this.awaitCallback(fileName)
 		},
@@ -175,7 +175,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * Loads a custom element from js files
 		 * @param  {...String} elementNames name of element to import
 		 */
-		require: function (...elementNames) {
+		require: async function (...elementNames) {
 			for (name of elementNames) {
 				if (name.indexOf('-') !== -1) {
 					name = this.captilize(name);
@@ -212,7 +212,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * @param  {Function} callback    Function to call back
 		 * @param  {...String}   moduleNames elements to wait to load first
 		 */
-		await: function (callback, ...moduleNames) {
+		await: async function (callback, ...moduleNames) {
 			let awaitObj = {
 				callback: callback,
 				awaiting: new Set(moduleNames),
@@ -237,17 +237,19 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * Callback to process awaiting elements
 		 * @param  {String} loaded Name of element loaded
 		 */
-		awaitCallback: function (loaded) {
+		awaitCallback: async function (loaded) {
 			// Remove 'elements-'
 			loaded = this.removeNSTag(loaded);
 			let position = 0;
-			for (let awaitObj of this.awaiting) {
+			for (let awaitObj; position < this.awaiting.length;) {
+				awaitObj = this.awaiting[position];
 				awaitObj.awaiting.delete(loaded);
 				if (awaitObj.awaiting.size === 0) {
 					this.awaiting.splice(position, 1);
 					awaitObj.callback();
+				} else {
+					position += 1;
 				}
-				position += 1;
 			}
 		},
 		/**
