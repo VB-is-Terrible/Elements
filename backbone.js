@@ -271,5 +271,12 @@ if (!("Elements" in window) || Elements.initalized === false) {
 			}
 			return result;
 		},
+		setToArray: function (set) {
+			let result = [];
+			for (let entry of set.values()) {
+				result.push(entry);
+			}
+			return result;
+		},
 	}
 }
