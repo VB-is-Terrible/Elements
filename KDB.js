@@ -79,7 +79,6 @@ window.KNS =  {
 		makeDisplay () {
 			let display = document.createElement('elements-kerbal');
 			display.data = this;
-			display.updateData();
 			this.displays.push(display);
 			return display;
 		}
@@ -205,11 +204,13 @@ let KDB = class {
 
 let testData = '{"type":"KDB","kerbals":["Jeb","Bob"],"kerbalObjs":[{"name":"Jeb","text":"Pilot","jobs":{"Kerbin":1,"Mun":0,"Minmus":4,"Eve":0,"Gilly":0,"Duna":0,"Ike":0,"Dres":0,"Jool":0,"Laythe":0,"Vall":0,"Tylo":0,"Bop":0,"Pol":0,"Eeloo":0,"Kerbol":0},"type":"Kerbal"},{"name":"Bob","text":"Engineer","jobs":{"Kerbin":0,"Mun":4,"Minmus":3,"Eve":0,"Gilly":0,"Duna":0,"Ike":0,"Dres":0,"Jool":0,"Laythe":0,"Vall":0,"Tylo":0,"Bop":0,"Pol":0,"Eeloo":0,"Kerbol":1},"type":"Kerbal"}]}';
 
-Elements.await(() => {
-	let kdb = KDB.fromJSON(testData);
+{
+	window.kdb = KDB.fromJSON(testData);
 	kdb.displayAll();
-}, 'kerbal');
+}
 Elements.loaded('KDB');
+Elements.loaded('KNS');
+Elements.loaded('KNS.Kerbal');
 
 function test () {
 	window.kdb = new KDB();

@@ -10,10 +10,23 @@ Elements.await(function () {
 
 			this.alias = "Kerbal";
 			if (!this.data) {
-				this.data = new KNS.Kerbal();
-				this.data.displays.push(this);
+				this._data = new KNS.Kerbal();
+				this._data.displays.push(this);
+			} else {
+				this._data = this.data;
 			}
-
+			Object.defineProperty(this, 'data', {
+				enumerable: true,
+				configurable: true,
+				get: () => {
+					return this._data;
+				},
+				set: (value) => {
+					this._data = value;
+					this.updateData();
+					this.displayJobs();
+				},
+			});
 			let definer = (names) => {
 				for (let name of names) {
 					Object.defineProperty(this, name, {

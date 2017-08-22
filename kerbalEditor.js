@@ -80,8 +80,6 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 	newKerbal () {
 		this.data = new KNS.Kerbal();
 		this.data.displays.push(this.elements.kerbal)
-		this.elements.kerbal.updateData();
-		this.elements.kerbal.displayJobs();
 		this.nameChanged = false;
 		this.elements.nameInput.value = '';
 		this.elements.typeInput.value = '';
