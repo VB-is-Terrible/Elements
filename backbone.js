@@ -123,28 +123,16 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			if (this.loadedElements.has(jsName) || this.loadingElements.has(jsName)) {return;}
 			if (templateLocation !== '') {
-				let request = fetch(templateLocation).then(
-					(response) => {
-						if (response.ok) {
-							return response.text();
-						} else {
-							throw new Error(response.url);
-						}
-					}
-				).then(
-					(template) => {
-						document.head.innerHTML += template;
-						window.customElements.define(HTMLname, newElement);
-						this.loadedElements.add(jsName);
-						this.loadingElements.delete(jsName);
-						this.awaitCallback(jsName);
-					}
-				).catch((error) => {
-					console.log("Failed network request for: " + error.message);
+				try {
+					this.loadingElements.add(jsName);
+					await this.loadTemplate(templateLocation);
+					window.customElements.define(HTMLname, newElement);
+					this.loadedElements.add(jsName);
 					this.loadingElements.delete(jsName);
-
-				});
-				this.loadingElements.add(jsName);
+					this.awaitCallback(jsName);
+				} catch (e) {
+					this.loadingElements.delete(jsName);
+				}
 			} else {
 				window.customElements.define(HTMLname, newElement);
 				// Have to wait until the template is loaded for callback,
@@ -278,5 +266,111 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return result;
 		},
+		get: async function (...elementNames) {
+			for (let name of elementNames) {
+				if (!this.manifestLoaded) {
+					this.getBacklog.push(name);
+					this.require(name); // Slow load as well
+				} else {
+					this.__get(name);
+				}
+			}
+		},
+		__get: async function (elementName) {
+			let name = elementName;
+			if (name.includes('-')) {
+				name = this.captilize(name);
+			} else if (name.includes('.')) {
+				// Find a provider
+				name = this.findProvider(name);
+				if (name === null) {
+					throw new Error('Can not find a provider for ' + name);
+				}
+			}
+			let manifest = this.manifest[name];
+			if (manifest === undefined) {
+				// No manifest, just require it
+				this.require(name);
+			} else {
+				// Recursivly look up dependacies
+				this.require(name);
+				this.get(...manifest.requires);
+				// Pre-empt templates
+				for (let template of manifest.templates) {
+					this.loadTemplate(template);
+				}
+			}
+		},
+		__getBacklog: async function () {
+			for (let name of this.getBacklog) {
+				this.__get(name);
+			}
+			this.getBacklog = [];
+		},
+		loadManifest: async function () {
+			if (this.manifestLoaded) {return;}
+			let request;
+			try {
+				request = await this.request(this.location + 'elementsManifest.json');
+			} catch (e) {
+				console.log('Failed network request for: ' + error.message);
+				return;
+			}
+			this.manifest = JSON.parse(request);
+			this.manifestLoaded = true;
+			this.__getBacklog();
+		},
+		manifest: {},
+		manifestLoaded: false,
+		getBacklog: [],
+		request: async function (location) {
+			return fetch(location).then(
+				(response) => {
+					if (response.ok) {
+						return response.text();
+					} else {
+						throw new Error(response.url);
+					}
+				}
+			);
+		},
+		findProvider: function (name) {
+			for (let item in this.manifest) {
+				if 	(this.manifest[item].provides.includes(name)) {
+					return item;
+				}
+			}
+			return null;
+		},
+		loadingTemplates: new Map(),
+		loadedTemplates: new Set(),
+		loadTemplate: async function (location) {
+			let template;
+			if (this.loadedTemplates.has(location) || template === '') {return;}
+			if (this.loadingTemplates.has(location)) {
+				await this.loadingTemplates.get(location);
+				return;
+			}
+
+			let fetcher = async (resolve, reject) => {
+				try {
+					template = await this.request(location);
+				} catch (e) {
+					console.log('Failed network request for: ' + error.message);
+					this.loadingTemplates.delete(location);
+					throw e;
+				}
+				document.head.innerHTML += template;
+				this.loadedTemplates.add(location);
+				this.loadingTemplates.delete(location);
+				resolve(location);
+			};
+
+			let promise = new Promise(fetcher);
+
+			this.loadingTemplates.set(location, promise);
+			return promise;
+		},
 	}
+	Elements.loadManifest();
 }

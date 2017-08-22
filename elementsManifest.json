@@ -1,0 +1,67 @@
+
+{
+	"kerbalEditor": {
+		"type": "element",
+		"requires": ["kerbal", "grid", "KDB"],
+		"templates": ["kerbalEditorTemplate.html"],
+		"css": ["kerbalEditor.css"],
+		"resources": ["warning.svg"],
+		"provides": ["kerbalEditor"]
+	},
+	"KDB": {
+		"type": "module",
+		"requires": [],
+		"templates": ["kerbalEditorTemplate.html"],
+		"css": ["kerbalEditor.css"],
+		"resources": [],
+		"provides": ["KDB", "KNS", "KNS.Kerbal"]
+	},
+	"dragDown": {
+		"type": "element",
+		"requires": [],
+		"templates": ["dragDownTemplate.html"],
+		"css": ["dragDown.css"],
+		"resources": [],
+		"provides": ["dragDown"]
+	},
+	"kerbalTag": {
+		"type": "element",
+		"requires": [],
+		"templates": ["kerbalTagTemplate.html"],
+		"css": ["kerbalTag.css"],
+		"resources": [],
+		"provides": ["kerbalTag"]
+	},
+	"kerbal": {
+		"type": "element",
+		"requires": ["drag-down", "KDB", "kerbal-tag"],
+		"templates": ["kerbalTemplate.html"],
+		"css": [],
+		"resources": [],
+		"provides": ["kerbal"]
+	},
+	"grid": {
+		"type": "element",
+		"requires": [],
+		"templates": ["gridTemplate.html"],
+		"css": [],
+		"resources": [],
+		"provides": ["grid"]
+	},
+	"dragElement": {
+		"type": "element",
+		"requires": ["drag-body"],
+		"templates": ["dragElementTemplate.html"],
+		"css": ["dragElement.css"],
+		"resources": [],
+		"provides": ["kerbal"]
+	},
+	"dragBody": {
+		"type": "element",
+		"requires": [],
+		"templates": ["dragBodyTemplate.html"],
+		"css": ["dragBody.css"],
+		"resources": [],
+		"provides": ["dragBody"]
+	}
+}

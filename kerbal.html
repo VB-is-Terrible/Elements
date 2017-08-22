@@ -5,8 +5,8 @@
 		<title>KDB.js prototype</title>
 		<script src="backbone.js"></script>
 		<script>
-		Elements.require('kerbal-tag', 'grid', 'dragDown', 'kerbal', 'drag-element',
-		'drag-body', 'kerbal-editor');
+		Elements.get('grid', 'drag-element',
+		'kerbal-editor', 'kerbal');
 		</script>
 		<style>
 		#g {
@@ -42,16 +42,6 @@
 			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
 			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
 			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag> -->
-			<elements-drag-down slot="s3">
-				<elements-kerbal-tag slot="s1" name="I" text="Wait"></elements-kerbal-tag>
-				<elements-kerbal-tag name="Am" text="can't"></elements-kerbal-tag>
-				<elements-kerbal-tag name="Alive" text="breathe"></elements-kerbal-tag>
-			</elements-drag-down>
-			<elements-kerbal-tag slot="s3" name="This"></elements-kerbal-tag>
-			<elements-kerbal id="a" slot="s3">
-				<p> Mun Landing </p>
-				<p> Minmus Flyby </p>
-			</elements-kerbal>
 		</elements-grid>
 	</body>
 </html>
