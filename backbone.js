@@ -1,8 +1,8 @@
 // Elements Bootloader
-"use strict"
+'use strict'
 
 
-if (!("Elements" in window) || Elements.initalized === false) {
+if (!('Elements' in window) || Elements.initalized === false) {
 	/**
 	 * Elements namespace
 	 * @namespace
@@ -59,13 +59,13 @@ if (!("Elements" in window) || Elements.initalized === false) {
 				// If the attribute is been written to, it should be handled by
 				// the attribute changed callback
 				if (object.getAttribute(property) === null) {
-					object.setAttribute(property, object[property])
+					object.setAttribute(property, object[property]);
 				}
 			});
 		},
 		setUpAttrPropertyLink: function (object, property, inital=null,
 			   eventTrigger = () => {},
-			   santizer = (value, oldValue) => {return value}) {
+			   santizer = (value, oldValue) => {return value;}) {
 
 			console.assert(object.constructor.observedAttributes.includes(property));
 
@@ -160,7 +160,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 */
 		loaded: async function (fileName) {
 			this.loadedElements.add(fileName);
-			this.awaitCallback(fileName)
+			this.awaitCallback(fileName);
 		},
 		/**
 		 * Imports node 'templateElements' + name
@@ -176,7 +176,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 * @param  {...String} elementNames name of element to import
 		 */
 		require: async function (...elementNames) {
-			for (name of elementNames) {
+			for (let name of elementNames) {
 				if (name.indexOf('-') !== -1) {
 					name = this.captilize(name);
 				}
@@ -197,7 +197,7 @@ if (!("Elements" in window) || Elements.initalized === false) {
 		 */
 		captilize: function (name) {
 			let l = name.split('-');
-			for (var i = 1; i < l.length; i++) {
+			for (let i = 1; i < l.length; i++) {
 				l[i] = l[i].substring(0, 1).toUpperCase() + l[i].substring(1);
 			}
 			return l.join('');
