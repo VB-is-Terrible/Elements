@@ -1,5 +1,5 @@
 div.down {
-	margin-left: 10%;
+	margin-left: var(--left-shift);
 }
 div.flex {
 	display: flex;
@@ -8,8 +8,12 @@ div.flex {
 }
 button {
 	width: 1em;
-	font-size: 3em;
+	font-size: calc(var(--arrow-size) * 1em);
 	border-radius: 5px;
 	border: 2px solid darkblue;
 
+}
+:host {
+	--arrow-size: 3;
+	--left-shift: 10%;
 }
