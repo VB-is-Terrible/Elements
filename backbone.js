@@ -114,13 +114,11 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} HTMLname         Name to register HTMLElement as
 		 */
 		load: async function (templateLocation, newElement, HTMLname) {
-			let jsName;
-			if (HTMLname.indexOf('elements-') === 0) {
-				jsName = this.removeNSTag(HTMLname);
-			} else {
-				jsName = HTMLname;
+			let jsName = HTMLname;
+			if (HTMLname.indexOf('elements-') !== 0) {
 				HTMLname = 'elements-' + HTMLname;
 			}
+			jsName = this.__nameResolver(jsName);
 			if (this.loadedElements.has(jsName) || this.loadingElements.has(jsName)) {return;}
 			if (templateLocation !== '') {
 				try {
@@ -175,7 +173,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 					document.head.appendChild(script);
 					this.requestedElements.add(name);
 				}
-
+				this.__setPromise(name);
 			}
 		},
 		/**
@@ -201,6 +199,10 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {...String}   moduleNames elements to wait to load first
 		 */
 		await: async function (callback, ...moduleNames) {
+			let cleanModuleNames = [];
+			for (let name of moduleNames) {
+				cleanModuleNames.push(this.__nameResolver(name));
+			}
 			let awaitObj = {
 				callback: callback,
 				awaiting: new Set(moduleNames),
@@ -226,8 +228,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} loaded Name of element loaded
 		 */
 		awaitCallback: async function (loaded) {
-			// Remove 'elements-'
-			loaded = this.removeNSTag(loaded);
+			loaded = this.__nameResolver(loaded);
+			// New style
+			if (this.__getPromiseStore.has(loaded)) {
+				this.__getPromiseStore.get(loaded).resolve();
+			}
+			// Old style
 			let position = 0;
 			for (let awaitObj; position < this.awaiting.length;) {
 				awaitObj = this.awaiting[position];
@@ -275,18 +281,14 @@ if (!('Elements' in window) || Elements.initalized === false) {
 					this.__get(name);
 				}
 			}
+			return this.__getPromise(...elementNames);
 		},
 		__get: async function (elementName) {
-			let name = elementName;
-			if (name.includes('-')) {
-				name = this.captilize(name);
-			} else if (name.includes('.')) {
-				// Find a provider
-				name = this.findProvider(name);
-				if (name === null) {
-					throw new Error('Can not find a provider for ' + name);
-				}
+			let name = this.__nameResolver(elementName);
+			if (this.__getPromiseStore.has(name)) {
+				return this.__setPromise(name);
 			}
+			let result = this.__setPromise(name);
 			let manifest = this.manifest[name];
 			if (manifest === undefined) {
 				// No manifest, just require it
@@ -300,12 +302,52 @@ if (!('Elements' in window) || Elements.initalized === false) {
 					this.loadTemplate(template);
 				}
 			}
+			return result;
 		},
 		__getBacklog: async function () {
 			for (let name of this.getBacklog) {
 				this.__get(name);
 			}
 			this.getBacklog = [];
+		},
+		__getPromiseStore: new Map(),
+		__getPromise: function (...jsName) {
+			let promises = [];
+			for (let name of jsName) {
+				name = this.__nameResolver(name);
+				promises.push(this.__setPromise(name));
+			}
+			return Promise.all(promises);
+		},
+		__setPromise: function (jsName) {
+			if (this.__getPromiseStore.has(jsName)) {
+				return this.__getPromiseStore.get(jsName).promise;
+			}
+			let outerResolve, outerReject;
+			let result = new Promise((resolve, reject) => {
+				outerResolve = resolve;
+				outerReject = reject;
+			});
+			this.__getPromiseStore.set(jsName,
+			{
+				promise: result,
+				resolve: outerResolve,
+				reject: outerReject,
+			});
+			return result;
+		},
+		__nameResolver: function (name) {
+			name = this.removeNSTag(name);
+			if (name.includes('-')) {
+				name = this.captilize(name);
+			} else if (name.includes('.')) {
+				// Find a provider
+				name = this.findProvider(name);
+				if (name === null) {
+					throw new Error('Can not find a provider for ' + name);
+				}
+			}
+			return name;
 		},
 		loadManifest: async function () {
 			if (this.manifestLoaded) {return;}

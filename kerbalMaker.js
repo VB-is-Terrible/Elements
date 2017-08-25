@@ -2,11 +2,11 @@
 
 Elements.require('kerbal', 'grid', 'KDB');
 Elements.await(() => {
-Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
+Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-		this.name = 'KerbalEditor';
+		this.name = 'KerbalMaker';
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let elements = {};
@@ -89,5 +89,5 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 	}
 }
 
-Elements.load('kerbalEditorTemplate.html', Elements.elements.KerbalEditor, 'elements-kerbal-editor');
+Elements.load('kerbalMakerTemplate.html', Elements.elements.KerbalMaker, 'elements-kerbal-maker');
 }, 'KDB');
