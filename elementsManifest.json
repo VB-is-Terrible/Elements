@@ -1,8 +1,16 @@
 
 {
-	"kerbalEditor": {
+	"kerbalMaker": {
 		"type": "element",
 		"requires": ["kerbal", "grid", "KDB"],
+		"templates": ["kerbalMakerTemplate.html"],
+		"css": ["kerbalMaker.css"],
+		"resources": ["warning.svg"],
+		"provides": ["kerbalMaker"]
+	},
+	"kerbalMaker": {
+		"type": "element",
+		"requires": ["kerbal", "grid", "KDB", "dragDown"],
 		"templates": ["kerbalEditorTemplate.html"],
 		"css": ["kerbalEditor.css"],
 		"resources": ["warning.svg"],
@@ -11,10 +19,18 @@
 	"KDB": {
 		"type": "module",
 		"requires": [],
-		"templates": ["kerbalEditorTemplate.html"],
-		"css": ["kerbalEditor.css"],
+		"templates": [],
+		"css": [],
 		"resources": [],
 		"provides": ["KDB", "KNS", "KNS.Kerbal"]
+	},
+	"KNS": {
+		"type": "meta",
+		"requires": ["KDB"],
+		"templates": [],
+		"css": [],
+		"resources": [],
+		"provides": ["KNS", "KNS.Kerbal"]
 	},
 	"dragDown": {
 		"type": "element",
@@ -50,7 +66,7 @@
 	},
 	"dragElement": {
 		"type": "element",
-		"requires": ["drag-body"],
+		"requires": ["dragBody"],
 		"templates": ["dragElementTemplate.html"],
 		"css": ["dragElement.css"],
 		"resources": [],
