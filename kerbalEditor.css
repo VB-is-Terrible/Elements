@@ -1,0 +1,84 @@
+:host {
+	--width: 650px
+}
+
+elements-grid.questions {
+	--border-width: 0px;
+	--width: 100%;
+	--grid-gap: 1em;
+}
+#pseudoBody {
+	width: var(--width);
+	--font-size: large;
+	background: rgba(255,255,255,.5);
+}
+p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+input, select {
+	width: 100%;
+}
+#footer {
+	padding-right: 5px;
+	padding-top: 10px;
+}
+button, input, select, #editBody {
+	font-size: var(--font-size);
+}
+.spacer {
+	margin-left: .5em;
+}
+div.multi {
+	display: flex;
+}
+select, button, input{
+	background-color: #f6f6f6;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+.warn {
+	height: 1em;
+	width: 1em;
+	float: right;
+}
+div.right {
+	display: flex;
+	justify-content: flex-end;
+}
+elements-drag-down.danger {
+	--left-shift: 0px;
+	--arrow-size: 1.5;
+}
+#line {
+	height: 2px;
+	margin: 0px 20px;
+	background: black;
+}
+#lineContain {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	flex-direction: column;
+	height: 100%;
+	position: absolute;
+}
+div.dangerContain {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	position: absolute;
+}
+div.dangerLine {
+	width: 100%;
+	position: relative;
+}
+p.textOverlay {
+	background: white;
+	padding: 0px 10px;
+}
+#insideDrag {
+	--padding: 10px 10px 0px 10px;
+}

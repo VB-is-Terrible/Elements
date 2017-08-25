@@ -1,0 +1,116 @@
+<template id="templateElementsKerbalEditor">
+	<link rel="stylesheet" type="text/css" href="kerbalEditor.css">
+	<div id="pseudoBody" draggable="true">
+        <elements-kerbal></elements-kerbal>
+		<div id="editBody">
+			<elements-grid rows="1" columns="2" class="questions">
+				<!-- Questions -->
+				<p slot="s1">
+					Remove Job
+				</p>
+				<!-- Answers -->
+				<div class="multi" slot="s2">
+					<select id="AnsRemovePlace">
+						<option value="Kerbin"> Kerbin </option>
+						<option value="Mun"> Mun </option>
+						<option value="Minmus"> Minmus </option>
+						<option value="Eve"> Eve </option>
+						<option value="Gilly"> Gilly </option>
+						<option value="Duna"> Duna </option>
+						<option value="Ike"> Ike </option>
+						<option value="Dres"> Dres </option>
+						<option value="Jool"> Jool </option>
+						<option value="Laythe"> Laythe </option>
+						<option value="Vall"> Vall </option>
+						<option value="Tylo"> Tylo </option>
+						<option value="Bop"> Bop </option>
+						<option value="Pol"> Pol </option>
+						<option value="Eeloo"> Eeloo </option>
+						<option value="Kerbol"> Kerbol </option>
+					</select>
+					<button id="AnsRemoveConfirm" class="spacer">
+						Remove
+					</button>
+				</div>
+			</elements-grid>
+			<elements-drag-down class="danger">
+				<div slot="s1" class="dangerLine">
+					<div id="lineContain">
+						<div id="line"> </div>
+					</div>
+					<div class="dangerContain">
+						<p class="textOverlay"> Sudo mode </p>
+					</div>
+				</div>
+				<elements-grid rows="4" columns="2" class="questions" id="insideDrag">
+					<!--Questions-->
+					<div slot="s1">
+						<p>
+							Name
+							<img class="warn" src="warning.svg" title="Kerbal already exists"></img>
+						</p>
+					</div>
+					<p slot="s3">
+						Type
+					</p>
+					<p slot="s5">
+						Add/Change Job
+					</p>
+					<p slot="s7">
+						Delete kerbal
+					</p>
+					<!--Answers-->
+					<input slot="s2" id="AnsName" draggable="false">
+					</input>
+					<select slot="s4" id="AnsText">
+						<option value="" selected disabled hidden> </option>
+						<option value="Pilot"> Pilot </option>
+						<option value="Scientist"> Scientist </option>
+						<option value="Engineer"> Engineer </option>
+						<option value="Tourist"> Tourist </option>
+					</select>
+					<div class="multi" slot="s6">
+						<select id="AnsAddPlace">
+							<option value="Kerbin"> Kerbin </option>
+							<option value="Mun"> Mun </option>
+							<option value="Minmus"> Minmus </option>
+							<option value="Eve"> Eve </option>
+							<option value="Gilly"> Gilly </option>
+							<option value="Duna"> Duna </option>
+							<option value="Ike"> Ike </option>
+							<option value="Dres"> Dres </option>
+							<option value="Jool"> Jool </option>
+							<option value="Laythe"> Laythe </option>
+							<option value="Vall"> Vall </option>
+							<option value="Tylo"> Tylo </option>
+							<option value="Bop"> Bop </option>
+							<option value="Pol"> Pol </option>
+							<option value="Eeloo"> Eeloo </option>
+							<option value="Kerbol"> Kerbol </option>
+						</select>
+						<select id="AnsAddValue" class="spacer">
+							<option value="1">Flyby</option>
+							<option value="2">Sub-Orbital</option>
+							<option value="3">Orbit</option>
+							<option value="4">Landing</option>
+						</select>
+						<button id="AnsAddConfirm" class="spacer">
+							Add
+						</button>
+					</div>
+					<div class="multi" slot="s8">
+						<button id="DeleteKerbal">
+							-> -> Go Go Go -> ->
+						</button>
+					</div>
+				</elements-grid>
+			</elements-drag-down>
+		</div>
+		<div id="footer" class="right">
+			<button id="Done" class="spacer">
+				Done
+			</button>
+
+		</div>
+	</div>
+</template>
