@@ -83,6 +83,9 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		body.style.height = '0px';
 
 	}
+	getDragImage () {
+		return this.shadowRoot.querySelector('#empty');
+	}
 };
 
 Elements.load('dragBodyTemplate.html', Elements.elements.DragBody, 'elements-drag-body');
