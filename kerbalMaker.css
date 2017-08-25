@@ -4,13 +4,13 @@
 
 #questions {
 	--border-width: 0px;
-	--width: var(--width);
+	--width: 100%;
 	--grid-gap: 1em;
 }
 #pseudoBody {
 	width: var(--width);
 	--font-size: large;
-	background: white
+	background: rgba(255,255,255,.5);
 }
 p {
 	margin-top: 0px;
