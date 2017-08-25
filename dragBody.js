@@ -10,12 +10,27 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		super();
 
 		this.name = 'DragBody';
+		this.drag = {
+			left: 0,
+			top: 0,
+			id: '',
+		};
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.zIndexCount = template.querySelector('#pseudoBody').style.zIndex;
 
 		let drag_over = (event) => {
 			event.preventDefault();
+			let target = document.getElementById(this.drag.id);
+			let leftStyle = (event.clientX + parseInt(this.drag.left)) + 'px';
+			let topStyle = (event.clientY + parseInt(this.drag.top)) + 'px';
+			requestAnimationFrame(() => {
+				// target.style.top = topStyle;
+				target.style.setProperty('--top', topStyle);
+				// target.style.left = leftStyle;
+				target.style.setProperty('--left', leftStyle);
+				// this.toBottom();
+			});
 			return false;
 		};
 

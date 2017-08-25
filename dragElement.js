@@ -22,7 +22,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			let id = this.id;
 			let data = left + ',' + top + ',' + id;
 			event.dataTransfer.setData('text/plain', data);
+			event.dataTransfer.setDragImage(this.parentNode.getDragImage(), 0, 0);
 			this.parentNode.toTop(this);
+			this.parentNode.drag.left = left;
+			this.parentNode.drag.top = top;
+			this.parentNode.drag.id = id;
 		};
 		template.querySelector('#pseudoBody').addEventListener('dragstart', drag_start);
 		shadow.appendChild(template);
