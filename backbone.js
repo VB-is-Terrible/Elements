@@ -401,7 +401,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				try {
 					template = await this.request(location);
 				} catch (e) {
-					console.log('Failed network request for: ' + error.message);
+					console.log('Failed network request for: ' + e.message);
 					this.loadingTemplates.delete(location);
 					throw e;
 				}
