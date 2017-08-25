@@ -272,6 +272,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return result;
 		},
+		__gottenElements: new Set(),
 		get: async function (...elementNames) {
 			for (let name of elementNames) {
 				if (!this.manifestLoaded) {
@@ -285,8 +286,10 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		},
 		__get: async function (elementName) {
 			let name = this.__nameResolver(elementName);
-			if (this.__getPromiseStore.has(name)) {
+			if (this.__gottenElements.has(name)) {
 				return this.__setPromise(name);
+			} else {
+				this.__gottenElements.add(name);
 			}
 			let result = this.__setPromise(name);
 			let manifest = this.manifest[name];
