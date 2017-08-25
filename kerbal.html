@@ -5,8 +5,8 @@
 		<title>KDB.js prototype</title>
 		<script src="backbone.js"></script>
 		<script>
-		Elements.get('grid', 'drag-element',
-		'kerbal-editor', 'kerbal');
+		Elements.get('drag-element', 'grid',
+		'kerbal-maker', 'kerbal', 'kerbal-editor', 'KNS');
 		</script>
 		<style>
 		#g {
@@ -24,24 +24,16 @@
 	<body>
 		<elements-drag-body>
 			<elements-drag-element id="drag1">
-				<elements-kerbal-editor draggable="true">
-				</elements-kerbal-editor>
+				<elements-kerbal-maker draggable="true">
+				</elements-kerbal-maker>
 			</elements-drag-element>
+			<elements-drag-element id="drag2">
+                <elements-kerbal-editor>
+                </elements-kerbal-editor>
+            </elements-drag-element>
 		</elements-drag-body>
 		KDB.js progress: <progress value="30" max="100">0%</progress>
 		<elements-grid id="g" rows="1" columns="3">
-			<!-- <elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s1" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag>
-			<elements-kerbal-tag slot="s2" name="This"></elements-kerbal-tag> -->
 		</elements-grid>
 	</body>
 </html>
