@@ -83,3 +83,16 @@ p.textOverlay {
 #insideDrag {
 	--padding: 10px 10px 0px 10px;
 }
+#title {
+	margin-bottom: 5px;
+}
+#titleContain {
+	width: 100%;
+}
+#Cancel {
+	margin-right: 2em;
+}
+#Close {
+	float: right;
+	margin-right: 1em;
+}

@@ -1,6 +1,16 @@
 <template id="templateElementsKerbalEditor">
 	<link rel="stylesheet" type="text/css" href="kerbalEditor.css">
 	<div id="pseudoBody" draggable="true">
+		<div id="title" class="multi">
+			<div id="titleContain">
+				<span>
+					Kerbal Editor
+				</span>
+				<span id="Close">
+					X
+				</span>
+			</div>
+		</div>
         <elements-kerbal></elements-kerbal>
 		<div id="editBody">
 			<elements-grid rows="1" columns="2" class="questions">
@@ -33,7 +43,7 @@
 					</button>
 				</div>
 			</elements-grid>
-			<elements-drag-down class="danger">
+			<elements-drag-down class="danger" menuvisible="false">
 				<div slot="s1" class="dangerLine">
 					<div id="lineContain">
 						<div id="line"> </div>
@@ -107,6 +117,9 @@
 			</elements-drag-down>
 		</div>
 		<div id="footer" class="right">
+			<button id="Cancel" class="spacer">
+				Cancel
+			</button>
 			<button id="Done" class="spacer">
 				Done
 			</button>
