@@ -8,6 +8,7 @@ Elements.await(function () {
 		constructor () {
 			super();
 
+			const self = this;
 			this.alias = "Kerbal";
 			if (!this.data) {
 				this._data = new KNS.Kerbal();
@@ -22,6 +23,11 @@ Elements.await(function () {
 					return this._data;
 				},
 				set: (value) => {
+					if (value === null) {
+						value = new KNS.Kerbal();
+						value.name = '';
+						value.text = '';
+					}
 					this._data = value;
 					this.updateData();
 					this.displayJobs();
@@ -29,11 +35,11 @@ Elements.await(function () {
 			});
 			let definer = (names) => {
 				for (let name of names) {
-					Object.defineProperty(this, name, {
+					Object.defineProperty(self, name, {
 						enumerable: true,
 						configurable: false,
 						get: () => {
-							return this.data[name];
+							return self.data[name];
 						},
 						set: (value) => {
 							console.warn('Cannot set ' + name);
