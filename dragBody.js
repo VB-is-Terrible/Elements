@@ -9,6 +9,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
+		const self = this;
 		this.name = 'DragBody';
 		this.drag = {
 			left: 0,
@@ -21,9 +22,9 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 
 		let drag_over = (event) => {
 			event.preventDefault();
-			let target = document.getElementById(this.drag.id);
-			let leftStyle = (event.clientX + parseInt(this.drag.left)) + 'px';
-			let topStyle = (event.clientY + parseInt(this.drag.top)) + 'px';
+			let target = document.getElementById(self.drag.id);
+			let leftStyle = (event.clientX + parseInt(self.drag.left)) + 'px';
+			let topStyle = (event.clientY + parseInt(self.drag.top)) + 'px';
 			requestAnimationFrame(() => {
 				// target.style.top = topStyle;
 				target.style.setProperty('--top', topStyle);
