@@ -5,11 +5,26 @@
 if (!('Elements' in window) || Elements.initalized === false) {
 	/**
 	 * Elements namespace
-	 * @namespace
+	 * @namespace Elements
 	 */
 	window.Elements = {
+		/**
+		 * Store for actual custom elements
+		 * @memberof Elements
+		 * @namespace Elements.elements
+		 */
 		elements: {
+			/**
+			 * Base class for elements
+			 * @memberof Elements.elements
+			 * @property {Function} constructor
+			 */
 			backbone: class extends HTMLElement {
+				/**
+				 * Make a new element
+				 * @memberof! Elements.elements.backbone
+				 * @alias Elements.elements.backbone.constructor
+				 */
 				constructor () {
 					super();
 
@@ -17,7 +32,13 @@ if (!('Elements' in window) || Elements.initalized === false) {
 					this.setDict = {};
 
 					this.attributeInit = false;
+					return this;
 				}
+				/**
+				 * Called once inserted into DOM
+				 * @memberof! Elements.elements.backbone
+
+				 */
 				connectedCallback () {
 					if (this.attributeInit === false){
 						for (let func in this.getDict) {
@@ -26,16 +47,28 @@ if (!('Elements' in window) || Elements.initalized === false) {
 					}
 					this.attributeInit = true;
 				}
+				/**
+				 * Called when a attribute changes
+				 * @param  {String} attrName name of attribute changed
+				 * @param  {String} oldValue Value before change
+				 * @param  {String} newValue Value after change
+				 * @memberof! Elements.elements.backbone
+				 */
 				attributeChangedCallback(attrName, oldValue, newValue) {
 					if (attrName in this.setDict && oldValue !== newValue) {
 						this.setDict[attrName](newValue);
 					}
 				}
-				disconnectedCallback () {
-
-				}
-			}
+				// disconnectedCallback () {
+				//
+				// }
+			},
 		},
+		/**
+		 * Set of loaded element names
+		 * @type {Set}
+		 * @memberof! Elements
+		 */
 		loadedElements: new Set(),
 		loadingElements: new Set(),
 		requestedElements: new Set(),
@@ -112,6 +145,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} templateLocation Location of HTML file containing template, empty string for none
 		 * @param  {HTMLElement} newElement  New Custom HTMLElement
 		 * @param  {String} HTMLname         Name to register HTMLElement as
+		 * @memberof! Elements
 		 */
 		load: async function (templateLocation, newElement, HTMLname) {
 			let jsName = HTMLname;
@@ -143,6 +177,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Adds file to loadedElements, etc. as if it was registered, but without custom element logic
 		 * Useful for requiring scripts/objects
 		 * @param  {String} fileName name of file as passed to require
+		 * @memberof! Elements
 		 */
 		loaded: async function (fileName) {
 			this.loadedElements.add(fileName);
@@ -152,6 +187,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Imports node 'templateElements' + name
 		 * @param  {String} name name of element
 		 * @return {Node}      imported Node
+		 * @memberof! Elements
 		 */
 		importTemplate: (name) => {
 			return document.importNode(document.querySelector('#templateElements' + name), true).content;
@@ -160,6 +196,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		/**
 		 * Loads a custom element from js files
 		 * @param  {...String} elementNames name of element to import
+		 * @memberof! Elements
 		 */
 		require: async function (...elementNames) {
 			for (let name of elementNames) {
@@ -180,6 +217,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Removes dashes from HTMLElement name and converts to JS element name
 		 * @param  {String} name HTMLElement name
 		 * @return {String}      JS Element name
+		 * @memberof! Elements
 		 */
 		captilize: function (name) {
 			let l = name.split('-');
@@ -191,12 +229,14 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		/**
 		 * Location to prefix file requests by, i.e. location of elements folder
 		 * @type {String}
+		 * @memberof! Elements
 		 */
 		location: '',
 		/**
 		 * Callback a function once required elements are loaded
 		 * @param  {Function} callback    Function to call back
 		 * @param  {...String}   moduleNames elements to wait to load first
+		 * @memberof! Elements
 		 */
 		await: async function (callback, ...moduleNames) {
 			let cleanModuleNames = [];
@@ -221,11 +261,13 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		/**
 		 * Array of awaitObjs, stores of waiting callbacks from await
 		 * @type {Array}
+		 * @memberof! Elements
 		 */
 		awaiting: [],
 		/**
 		 * Callback to process awaiting elements
 		 * @param  {String} loaded Name of element loaded
+		 * @memberof! Elements
 		 */
 		awaitCallback: async function (loaded) {
 			loaded = this.__nameResolver(loaded);
@@ -250,6 +292,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Removes the 'elements-' NS from a HTMLElement name
 		 * @param  {String} name name with 'elements-'
 		 * @return {String}      name without 'elements-'
+		 * @memberof! Elements
 		 */
 		removeNSTag: function (name) {
 			if (name.indexOf('elements-') !== 0) {
