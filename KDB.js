@@ -1,3 +1,5 @@
+'use strict'
+
 Elements.require('kerbal');
 
 window.KNS =  {
@@ -163,6 +165,18 @@ let KDB = class {
 	getKerbal (name) {
 		return this.kerbalObjs.get(name);
 	}
+	renameKerbal (oldName, newName) {
+		let kerbal = this.getKerbal(oldName);
+		if (this.kerbals.has(newName)) {
+			throw new Error('KDB already has kerbal');
+		} else if (kerbal !== null) {
+			kerbal.name = newName;
+			this.kerbals.delete(oldName);
+			this.kerbals.add(newName);
+		} else {
+			throw new Error('Kerbal not found');
+		}
+	}
 	display (kerbalObj) {
 		let newDisplay = kerbalObj.makeDisplay();
 		newDisplay.slot = "s1";
@@ -212,7 +226,7 @@ Elements.loaded('KDB');
 Elements.loaded('KNS');
 Elements.loaded('KNS.Kerbal');
 
-function test () {
+function tester () {
 	window.kdb = new KDB();
 	let a = new KNS.Kerbal();
 	a.name = "Jeb";
