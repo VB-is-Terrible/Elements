@@ -239,31 +239,27 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @memberof! Elements
 		 */
 		await: async function (callback, ...moduleNames) {
-			let cleanModuleNames = [];
-			for (let name of moduleNames) {
-				cleanModuleNames.push(this.__nameResolver(name));
-			}
-			let awaitObj = {
-				callback: callback,
-				awaiting: new Set(moduleNames),
-			};
-			for (let loaded of this.loadedElements) {
-				awaitObj.awaiting.delete(loaded);
-			}
-			if (awaitObj.awaiting.size === 0) {
-				callback();
-				return;
-			} else {
-				this.awaiting.push(awaitObj);
-			}
+			// let cleanModuleNames = [];
+			// for (let name of moduleNames) {
+			// 	cleanModuleNames.push(this.__nameResolver(name));
+			// }
+			// let awaitObj = {
+			// 	callback: callback,
+			// 	awaiting: new Set(moduleNames),
+			// };
+			// for (let loaded of this.loadedElements) {
+			// 	awaitObj.awaiting.delete(loaded);
+			// }
+			// if (awaitObj.awaiting.size === 0) {
+			// 	callback();
+			// 	return;
+			// } else {
+			// 	this.awaiting.push(awaitObj);
+			// }
+			await this.get(...moduleNames);
+			callback();
 
 		},
-		/**
-		 * Array of awaitObjs, stores of waiting callbacks from await
-		 * @type {Array}
-		 * @memberof! Elements
-		 */
-		awaiting: [],
 		/**
 		 * Callback to process awaiting elements
 		 * @param  {String} loaded Name of element loaded
@@ -274,18 +270,6 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			// New style
 			if (this.__getPromiseStore.has(loaded)) {
 				this.__getPromiseStore.get(loaded).resolve();
-			}
-			// Old style
-			let position = 0;
-			for (let awaitObj; position < this.awaiting.length;) {
-				awaitObj = this.awaiting[position];
-				awaitObj.awaiting.delete(loaded);
-				if (awaitObj.awaiting.size === 0) {
-					this.awaiting.splice(position, 1);
-					awaitObj.callback();
-				} else {
-					position += 1;
-				}
 			}
 		},
 		/**
