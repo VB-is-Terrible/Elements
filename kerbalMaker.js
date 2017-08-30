@@ -2,10 +2,18 @@
 
 Elements.require('kerbal', 'grid', 'KDB');
 Elements.await(() => {
+/**
+ * UI to make a KNS.Kerbal
+ * @type {Object}
+ * @property {Object} elements Store of useful UI elements
+ * @property {KNS.Kerbal} data Kerbal been made
+ * @augments Elements.elements.backbone
+ */
 Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
+		const self = this;
 		this.name = 'KerbalMaker';
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -48,31 +56,31 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 				elements.warn.style.display = 'block';
 				elements.nameInput.style.color = 'red';
 			} else {
-				this.data.name = elements.nameInput.value;
+				self.data.name = elements.nameInput.value;
 				elements.warn.style.display = 'none';
 				elements.nameInput.style.color = 'initial';
-				this.nameChanged = true;
+				self.nameChanged = true;
 			}
 		});
 		applyEL('typeInput', 'change', (e) => {
-			this.data.text = elements.typeInput.value;
+			self.data.text = elements.typeInput.value;
 		});
 		applyEL('AnsAddConfirm', 'click', (e) => {
 			let location = elements.AnsAddPlace.value;
 			let value = parseInt(elements.AnsAddValue.value);
-			this.data.removeJob(location, KNS.MAX_JOB_VALUE);
-			this.data.addJob(location, value);
+			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
+			self.data.addJob(location, value);
 		});
 		applyEL('AnsRemoveConfirm', 'click', (e) => {
 			let location = elements.AnsRemovePlace.value;
-			this.data.removeJob(location, KNS.MAX_JOB_VALUE);
+			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
 		});
 		applyEL('updater', 'click', (e) => {
-			if (!(this.nameChanged && !(elements.nameInput.value === ''))) {
+			if (!(self.nameChanged && !(elements.nameInput.value === ''))) {
 				return;
 			}
-			kdb.addKerbal(this.data);
-			this.newKerbal();
+			kdb.addKerbal(self.data);
+			self.newKerbal();
 		});
 		this.elements = elements;
 		shadow.appendChild(template);
