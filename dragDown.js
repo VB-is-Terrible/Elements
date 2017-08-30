@@ -5,13 +5,11 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
+		const self = this;
 		this.name = 'DragDown';
 
-		/**
-		 * Toggles whether the drop down is active, without agruements toggles state
-		 * @param  {Boolean} [open] Explicit state to change to
-		 */
-		this.menuVisible = true;
+        this.__menuVisible = true;
+
 
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -19,11 +17,23 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 		let button = template.querySelector('button');
 		// Arrow function for this binding
 		let buttonHandler = (event) => {
-			this.toggleState();
+			self.menuvisible = !self.menuvisible;
 		};
 		button.addEventListener('click', buttonHandler);
-		//Fancy code goes here
+
 		shadow.appendChild(template);
+
+		let menuChange = (value) => {
+			self.toggleState(value);
+		};
+
+		let booleaner = (value) => {
+			if (typeof(value) == 'boolean') {
+				return value;
+			}
+			return !(value === 'false')
+		};
+		Elements.setUpAttrPropertyLink(this, 'menuvisible', true, menuChange, booleaner);
 	}
 	/**
 	 * Toggles whether the drop down is active, without agruements toggles state
@@ -31,18 +41,21 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 	 */
 	toggleState (open) {
 		if (open === undefined) {
-			open = !this.menuVisible;
-		} else if (open === this.menuVisible)  {
+			open = !this.__menuVisible;
+		} else if (open === this.__menuVisible)  {
 			return;
 		}
 		let menu = this.shadowRoot.querySelector('div.down');
 		let button = this.shadowRoot.querySelector('button');
-		this.menuVisible = open;
+		this.__menuVisible = open;
 		requestAnimationFrame(() => {
 			menu.style.display = open ? 'block' : 'none';
 			button.innerHTML = open ? '↑' : '↓';
 		});
 	}
+	static get observedAttributes () {
+        return ['menuvisible'];
+    }
 }
 
 Elements.load('dragDownTemplate.html', Elements.elements.DragDown, 'elements-drag-down');
