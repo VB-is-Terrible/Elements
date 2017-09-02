@@ -3,6 +3,7 @@
 Elements.elements.$1 = class extends Elements.elements.backbone {
 	constructor () {
 		super();
+		const self = this;
 
 		this.name = '$1';
 		let shadow = this.attachShadow({mode: 'open'});
