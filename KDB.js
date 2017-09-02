@@ -2,11 +2,22 @@
 
 Elements.require('kerbal');
 
-window.KNS =  {
+/**
+ * Kerbal NameSpace
+ * @namespace KNS
+ */
+let KNS =  {
+	/**
+	 * Array of names of all the places in KSP
+	 * @constant
+	 * @type {Array}
+	 * @memberof KNS
+	 */
 	places: ['Kerbin', 'Mun', 'Minmus', 'Eve', 'Gilly', 'Duna', 'Ike', 'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Eeloo', 'Kerbol'],
 	/**
 	 * Kerbal backend type
-	 * @type {[type]}
+	 * @type {Object}
+	 * @memberof KNS
 	 */
 	Kerbal: class {
 		constructor () {

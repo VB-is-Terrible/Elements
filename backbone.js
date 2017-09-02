@@ -70,7 +70,17 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @memberof! Elements
 		 */
 		loadedElements: new Set(),
+		/**
+		 * Storage set of loading elements
+		 * @type {Set}
+		 * @memberof! Elements
+		 */
 		loadingElements: new Set(),
+		/**
+		 * Storage set of elements requested but not yet loaded
+		 * @type {Set}
+		 * @memberof! Elements
+		 */
 		requestedElements: new Set(),
 		connectedCallbackHelper: (object) => {
 			console.warn('Using deprecated function connectedCallbackHelper');
@@ -87,6 +97,13 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				this.setDict[attrName](newValue);
 			}
 		},
+		/**
+		 * Helper function to generate function to perform attribute overwrite
+		 * @param  {HTMLElement} object   object to observe attribute on
+		 * @param  {String} property property to observe
+		 * @return {Function}          function to set value to attribute if it exists
+		 * @memberof! Elements
+		 */
 		getInitProperty: function (object, property) {
 			return (() => {
 				// If the attribute is been written to, it should be handled by
@@ -96,6 +113,18 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				}
 			});
 		},
+		/**
+		 * Sets up a linked object property/attribute, as if the property and attribute
+		 * were the same. Does things like copy attribute value to property value
+		 * once inserted into DOM, checking if the property already has a value.
+		 * @param  {HTMLElement} object      Element to set up link on
+		 * @param  {String} property         property/attribute to link
+		 * @param  {*} [inital=null]         value to intialize the type as
+		 * @param  {Function} [eventTrigger] function to call after property has been set
+		 * @param  {Function} [santizer]     function passed (new value, old value) before value is set. returns value to set property to.
+		 * @return {{get: Function, set: Function}} The get and set function for the property
+		 * @memberof! Elements
+		 */
 		setUpAttrPropertyLink: function (object, property, inital=null,
 			   eventTrigger = () => {},
 			   santizer = (value, oldValue) => {return value;}) {
@@ -268,6 +297,13 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				return name.substring(9);
 			}
 		},
+		/**
+		 * Helper to reduce an object to only properties needed to stringify
+		 * @param  {Object} object     object to reduce
+		 * @param  {String[]} properties Properties to include
+		 * @return {Object}            new object with properties copied over
+		 * @memberof! Elements
+		 */
 		jsonIncludes: function (object, properties) {
 			let result = {}
 			for (let property of properties) {
@@ -275,6 +311,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return result;
 		},
+		/**
+		 * Converts a set to array, for stringification
+		 * @param  {Set} set Set to convert to array
+		 * @return {Array}   Array version of set
+		 * @memberof! Elements
+		 */
 		setToArray: function (set) {
 			let result = [];
 			for (let entry of set.values()) {
@@ -282,7 +324,19 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return result;
 		},
+		/**
+		 * Set of gotten elements (requested through get, not require)
+		 * @type {Set}
+		 * @memberof! Elements
+		 */
 		__gottenElements: new Set(),
+		/**
+		 * loads requested custom elements, modules etc.
+		 * May preemptively loaded dependacies as shown in the manifest
+		 * @param  {...String} elementNames names of things to load
+		 * @return {Promise}                A promise that resolves when all requested things are loaded (await this)
+		 * @memberof! Elements
+		 */
 		get: async function (...elementNames) {
 			for (let name of elementNames) {
 				if (!this.manifestLoaded) {
@@ -294,6 +348,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return this.__getPromise(...elementNames);
 		},
+		/**
+		 * Implementation of get for a single request
+		 * @param  {String} elementName name of module requested
+		 * @return {Promise}            Promise resolving on load of module
+		 * @memberof! Elements
+		 */
 		__get: async function (elementName) {
 			let name = this.__nameResolver(elementName);
 			if (this.__gottenElements.has(name)) {
@@ -317,13 +377,28 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return result;
 		},
+		/**
+		 * execute get requests that weren't possible before the manifest loaded
+		 * @memberof! Elements
+		 */
 		__getBacklog: async function () {
 			for (let name of this.getBacklog) {
 				this.__get(name);
 			}
 			this.getBacklog = [];
 		},
+		/**
+		 * Map to the promise for each request
+		 * @type {Map}
+		 * @memberof! Elements
+		 */
 		__getPromiseStore: new Map(),
+		/**
+		 * Helper function to get a promise.all on all requests
+		 * @param  {...String} jsName names of requested files
+		 * @return {Promise}          Promise resolving upon load of all requests
+		 * @memberof! Elements
+		 */
 		__getPromise: function (...jsName) {
 			let promises = [];
 			for (let name of jsName) {
@@ -332,6 +407,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return Promise.all(promises);
 		},
+		/**
+		 * Generates a new promise for request, returns existing one if it exists
+		 * @param  {String} jsName Name of file been requested
+		 * @return {Promise}       Promise resolving on load of request
+		 * @memberof! Elements
+		 */
 		__setPromise: function (jsName) {
 			if (this.__getPromiseStore.has(jsName)) {
 				return this.__getPromiseStore.get(jsName).promise;
@@ -349,6 +430,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			});
 			return result;
 		},
+		/**
+		 * Transforms a request into the .js file that provides it
+		 * @param  {String} name name of request e.g. elements-drag-down, drag-down, dragDown
+		 * @return {String}      name of .js for name e.g. dragDown
+		 * @memberof! Elements
+		 */
 		__nameResolver: function (name) {
 			name = this.removeNSTag(name);
 			if (name.includes('-')) {
@@ -362,6 +449,10 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return name;
 		},
+		/**
+		 * Load the elements manifest from network
+		 * @memberof! Elements
+		 */
 		loadManifest: async function () {
 			if (this.manifestLoaded) {return;}
 			let request;
@@ -375,9 +466,30 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			this.manifestLoaded = true;
 			this.__getBacklog();
 		},
+		/**
+		 * The elements manifest. Contains information about modules and their dependacies
+		 * @type {Object}
+		 * @memberof! Elements
+		 */
 		manifest: {},
+		/**
+		 * flag for if the manifest has loaded
+		 * @type {Boolean}
+		 * @memberof! Elements
+		 */
 		manifestLoaded: false,
+		/**
+		 * Backlog of request awaiting the manifest to load
+		 * @type {Array}
+		 * @memberof! Elements
+		 */
 		getBacklog: [],
+		/**
+		 * Make an async network request, returning response body
+		 * @param  {String} location location of file. Note: will not prefix .location for you
+		 * @return {Promise}         Promise that resolves to the respone body, can error
+		 * @memberof! Elements
+		 */
 		request: async function (location) {
 			return fetch(location).then(
 				(response) => {
@@ -389,6 +501,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				}
 			);
 		},
+		/**
+		 * Find a module that provides the request
+		 * @param  {String} name Name of submodule
+		 * @return {String}      Name of module that contains the submodule
+		 * @memberof! Elements
+		 */
 		findProvider: function (name) {
 			for (let item in this.manifest) {
 				if 	(this.manifest[item].provides.includes(name)) {
@@ -397,8 +515,24 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return null;
 		},
+		/**
+		 * Map to loading template requests
+		 * @type {Map}
+		 * @memberof! Elements
+		 */
 		loadingTemplates: new Map(),
+		/**
+		 * Set of locations of loaded templates
+		 * @type {Set}
+		 * @memberof! Elements
+		 */
 		loadedTemplates: new Set(),
+		/**
+		 * Loads template from location
+		 * @param  {String} location Location of template. Note: does not prefix location or append .html
+		 * @return {Promise}         Promise that resolves once template is received
+		 * @memberof! Elements
+		 */
 		loadTemplate: async function (location) {
 			let template;
 			if (this.loadedTemplates.has(location) || template === '') {return;}
@@ -426,6 +560,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			this.loadingTemplates.set(location, promise);
 			return promise;
 		},
+		/**
+		 * Function to santize boolean attributes
+		 * @param  {Boolean|String} value A boolean or a string representing a boolean
+		 * @return {Boolean}              Input converted to boolean
+		 * @memberof! Elements
+		 */
 		booleaner: (value) => {
 			if (typeof(value) == 'boolean') {
 				return value;
