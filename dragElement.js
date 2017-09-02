@@ -31,6 +31,70 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		};
 		template.querySelector('#pseudoBody').addEventListener('dragstart', drag_start);
 		shadow.appendChild(template);
+		this.touch = {
+			left: 0,
+			top: 0,
+			touchID: 0,
+		};
+		this.events = {
+			start: (e) => {self.touch_start(e);},
+			end: (e) => {self.touch_end(e);},
+			move: (e) => {self.touch_move(e);},
+			dStart: (e) => {self.drag_start(e);},
+			dEnd: (e) => {self.drag_end(e);},
+			dMove: (e) => {self.drag_move(e);},
+		};
+		this.drag = {
+			left: 0,
+			top: 0,
+		};
+	}
+	connectedCallback () {
+		super.connectedCallback();
+		this.touch_reset();
+	}
+	touch_start (event) {
+		let touchEvent = event.changedTouches[0];
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let style = window.getComputedStyle(body, null);
+		this.touch.touchID = touchEvent.identifier;
+		this.touch.left = (parseInt(style.getPropertyValue("left"),10) - touchEvent.clientX)
+		this.touch.top = (parseInt(style.getPropertyValue("top"),10) - touchEvent.clientY);
+		body.addEventListener('touchmove', this.events.move, true);
+		body.addEventListener('touchcancel', this.events.end, true);
+		body.addEventListener('touchend', this.events.end, true);
+		body.removeEventListener('touchstart', this.events.start, true);
+		this.parentNode.toTop(this);
+		this.parentNode.toBottom(this);
+	}
+	touch_move (event) {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		for (let touch of event.changedTouches) {
+			if (touch.identifier === this.touch.touchID) {
+				event.preventDefault();
+				let leftStyle = (touch.clientX + this.touch.left).toString() + 'px';
+				let topStyle = (touch.clientY + this.touch.top).toString() + 'px';
+				requestAnimationFrame(() => {
+					// target.style.top = topStyle;
+					this.style.setProperty('--top', topStyle);
+					// target.style.left = leftStyle;
+					this.style.setProperty('--left', leftStyle);
+					// this.toBottom();
+				});
+				return false;
+			}
+		}
+	}
+	touch_end (event) {
+		this.touch_reset();
+	}
+	touch_reset () {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.addEventListener('touchstart', this.events.start, true);
+		body.removeEventListener('touchmove', this.events.move, true);
+		body.removeEventListener('touchend', this.events.end, true);
+		body.removeEventListener('touchcancel', this.events.end, true);
+	}
 
 	}
 };
