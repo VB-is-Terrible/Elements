@@ -426,6 +426,12 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			this.loadingTemplates.set(location, promise);
 			return promise;
 		},
+		booleaner: (value) => {
+			if (typeof(value) == 'boolean') {
+				return value;
+			}
+			return !(value === 'false')
+		},
 	}
 	Elements.loadManifest();
 }

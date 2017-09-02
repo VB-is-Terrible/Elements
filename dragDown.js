@@ -27,13 +27,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 			self.toggleState(value);
 		};
 
-		let booleaner = (value) => {
-			if (typeof(value) == 'boolean') {
-				return value;
-			}
-			return !(value === 'false')
-		};
-		Elements.setUpAttrPropertyLink(this, 'menuvisible', true, menuChange, booleaner);
+		Elements.setUpAttrPropertyLink(this, 'menuvisible', true, menuChange, Elements.booleaner);
 	}
 	/**
 	 * Toggles whether the drop down is active, without agruements toggles state
