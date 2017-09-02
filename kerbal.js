@@ -20,7 +20,7 @@ Elements.await(function () {
 				enumerable: true,
 				configurable: true,
 				get: () => {
-					return this._data;
+					return self._data;
 				},
 				set: (value) => {
 					if (value === null) {
@@ -28,9 +28,9 @@ Elements.await(function () {
 						value.name = '';
 						value.text = '';
 					}
-					this._data = value;
-					this.updateData();
-					this.displayJobs();
+					self._data = value;
+					self.updateData();
+					self.displayJobs();
 				},
 			});
 			let definer = (names) => {

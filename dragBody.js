@@ -56,7 +56,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 			target.style.setProperty('--top', topStyle);
 			// target.style.left = leftStyle;
 			target.style.setProperty('--left', leftStyle);
-			this.toBottom();
+			self.toBottom();
 			event.preventDefault();
 			return false;
 		}

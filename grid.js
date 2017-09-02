@@ -3,13 +3,14 @@
 Elements.elements.Grid = class extends Elements.elements.backbone {
 	constructor () {
 		super();
+		const self = this;
 		this.name = "Grid";
 		const shadow = this.attachShadow({ mode: 'open' });
 		const template = Elements.importTemplate(this.name);
 
 		// Needed to bind the this value
 		let updateCallback = () => {
-			this.updateGrid();
+			self.updateGrid();
 		};
 
 		let santizer = (value, oldValue) => {
@@ -22,7 +23,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		};
 
 		let resizeCallback = (e) => {
-			this.updateDisplay(e);
+			self.updateDisplay(e);
 		};
 
 		// let test = template.content.querySelector('#canaryDiv');
