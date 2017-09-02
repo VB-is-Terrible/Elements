@@ -1,0 +1,7 @@
+p {
+	margin: 5px 0px;
+	border-radius: 5px;
+	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

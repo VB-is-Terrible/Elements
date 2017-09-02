@@ -91,22 +91,23 @@ Elements.await(function () {
 		*/
 		showJob (location) {
 			requestAnimationFrame(() => {
+				let insertLocation = this.shadowRoot.querySelector('#jobs');
 				let value = this.jobs[location];
 				if (this.jobs[location] > 0) {
 					if (this.jobDisplay[location] === null) {
 						// A display element has not been made
 						this.jobDisplay[location] = this.constructor.makeJobElement(location, value);
-						this.appendChild(this.jobDisplay[location]);
+						insertLocation.appendChild(this.jobDisplay[location]);
 					} else {
 						this.jobDisplay[location].innerHTML = location + ' ' + KNS.valueToJob(value);
-						if (!(this.contains(this.jobDisplay[location]))) {
+						if (!(insertLocation.contains(this.jobDisplay[location]))) {
 							// A display element has been made, but has since been removed
-							this.appendChild(this.jobDisplay[location]);
+							insertLocation.appendChild(this.jobDisplay[location]);
 						}
 					}
 				} else {
-					if (this.contains(this.jobDisplay[location])) {
-						this.removeChild(this.jobDisplay[location]);
+					if (insertLocation.contains(this.jobDisplay[location])) {
+						insertLocation.removeChild(this.jobDisplay[location]);
 					}
 				}
 			});
@@ -137,9 +138,6 @@ Elements.await(function () {
 		*/
 		static makeJobElement (place, value) {
 			let p = document.createElement('p');
-			p.style.margin = '5px 0px';
-			p.style.borderRadius = '5px';
-			p.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
 			p.innerHTML = place + ' ' + KNS.valueToJob(value);
 			return p;
 		}
