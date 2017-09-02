@@ -34,16 +34,16 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 
 		});
 
-
 		Elements.setUpAttrPropertyLink(this, 'rows', 2,
 		                                        updateCallback, santizer);
 		Elements.setUpAttrPropertyLink(this, 'columns', 2,
 		                                        updateCallback, santizer);
-
+		Elements.setUpAttrPropertyLink(this, 'coordnaming', false,
+		                                        updateCallback, Elements.booleaner);
 		shadow.appendChild(template);
 	}
 	static get observedAttributes () {
-		return ['rows', 'columns'];
+		return ['rows', 'columns', 'coordnaming'];
 	}
 	connectedCallback () {
 		super.connectedCallback();
@@ -71,7 +71,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
 				gridElement.style.gridTemplateAreas = this.constructor.generateGridNames(rows, cols);
 
-				this.updateDivs(positions);
+				this.updateDivs(rows, cols);
 
 				let holderDivs = gridElement.querySelectorAll('div.HolderDiv');
 
@@ -149,19 +149,50 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 
 	}
 
-	updateDivs (amount) {
+	updateDivs (rows, columns) {
 		let insertionPoint = this.shadowRoot.querySelector('#gridHolder');
-		let count = insertionPoint.childElementCount;
+		let current = insertionPoint.childElementCount;
 		let template = this.shadowRoot.querySelector('#templateHolderDiv');
+		let slots = insertionPoint.querySelectorAll('slot')
+		let amount = rows * columns;
+		if (this.coordnaming) {
+			let currentRow = 1;
+			let currentCol = 1;
+			let next = () => {
+				currentCol += 1;
+				if (currentCol > columns) {
+					currentCol = 1;
+					currentRow += 1;
+				}
+			};
+			for (let slot of slots) {
+				slot.name = currentRow.toString() + '-' + currentCol.toString();
+				next();
+			}
+			for (let count = current; count <= amount; count++) {
+				let newDiv = document.importNode(template, true);
+				let div = newDiv.content.querySelector('div.HolderDiv');
+				let slot = newDiv.content.querySelector('slot.link');
 
-		for (;count <= amount; count++) {
-			let newDiv = document.importNode(template, true);
-			let div = newDiv.content.querySelector('div.HolderDiv');
-			let slot = newDiv.content.querySelector('slot.link');
+				div.style.gridArea = this.constructor.numToCharCode(count + 1);
+				slot.name = currentRow.toString() + '-' + currentCol.toString();
+				insertionPoint.appendChild(newDiv.content);
+				next()
+			}
+		} else {
+			let count = 0;
+			for (; count < current; count++) {
+				slots[count].name = 's' + (count + 1).toString();
+			}
+			for (;count <= amount; count++) {
+				let newDiv = document.importNode(template, true);
+				let div = newDiv.content.querySelector('div.HolderDiv');
+				let slot = newDiv.content.querySelector('slot.link');
 
-			div.style.gridArea = this.constructor.numToCharCode(count + 1);
-			slot.name = 's' + (count + 1).toString();
-			insertionPoint.appendChild(newDiv.content);
+				div.style.gridArea = this.constructor.numToCharCode(count + 1);
+				slot.name = 's' + (count + 1).toString();
+				insertionPoint.appendChild(newDiv.content);
+			}
 		}
 	}
 
