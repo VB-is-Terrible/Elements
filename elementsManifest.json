@@ -8,6 +8,14 @@
 		"resources": ["warning.svg"],
 		"provides": ["kerbalMaker"]
 	},
+	"kerbalSearcher": {
+		"type": "element",
+		"requires": ["kerbal", "grid", "KDB", "dragDown"],
+		"templates": ["kerbalSearcherTemplate.html"],
+		"css": ["kerbalSearcher.css"],
+		"resources": [],
+		"provides": ["kerbalSearcher"]
+	},
 	"kerbalMaker": {
 		"type": "element",
 		"requires": ["kerbal", "grid", "KDB", "dragDown"],
