@@ -18,7 +18,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		};
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-		this.zIndexCount = template.querySelector('#pseudoBody').style.zIndex;
+		this.zIndexCount = parseInt(template.querySelector('#pseudoBody').style.zIndex) || 0;
 
 		let drag_over = (event) => {
 			event.preventDefault();
@@ -70,7 +70,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	toTop (childNode) {
 		// Place childNode on top of other floating elements
 		this.zIndexCount += 1;
-		childNode.style.zIndex = this.zIndexCount;
+		childNode.style.zIndex = this.zIndexCount.toString();
 		// Place pseudoBody on top of everything else
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		body.style.width = window.innerWidth + 'px';
