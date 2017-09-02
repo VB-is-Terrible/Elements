@@ -54,7 +54,9 @@ Elements.await(function () {
 			let template = Elements.importTemplate(this.alias);
 
 			let dragDown = template.querySelector('elements-drag-down');
-
+			Elements.setUpAttrPropertyLink(this, 'menuvisible', true,
+			                               (value) => {dragDown.menuvisible = value;},
+									       Elements.booleaner);
 			shadow.appendChild(template);
 			this.updateData();
 		}
@@ -118,7 +120,7 @@ Elements.await(function () {
 			}
 		}
 		static get observedAttributes () {
-			return ['name', 'text'];
+			return ['menuvisible'];
 		}
 		static blankPlaceList (value) {
 			let placeList = {};
