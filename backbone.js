@@ -239,23 +239,6 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @memberof! Elements
 		 */
 		await: async function (callback, ...moduleNames) {
-			// let cleanModuleNames = [];
-			// for (let name of moduleNames) {
-			// 	cleanModuleNames.push(this.__nameResolver(name));
-			// }
-			// let awaitObj = {
-			// 	callback: callback,
-			// 	awaiting: new Set(moduleNames),
-			// };
-			// for (let loaded of this.loadedElements) {
-			// 	awaitObj.awaiting.delete(loaded);
-			// }
-			// if (awaitObj.awaiting.size === 0) {
-			// 	callback();
-			// 	return;
-			// } else {
-			// 	this.awaiting.push(awaitObj);
-			// }
 			await this.get(...moduleNames);
 			callback();
 
