@@ -50,7 +50,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 		this.__menuVisible = open;
 		requestAnimationFrame(() => {
 			menu.style.display = open ? 'block' : 'none';
-			button.innerHTML = open ? '↑' : '↓';
+			button.innerHTML = open ? '&#x25b2;' : '&#x25bc;';
 		});
 	}
 	static get observedAttributes () {
