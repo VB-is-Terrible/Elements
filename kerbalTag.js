@@ -9,10 +9,6 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.alias);
 
-		this.ro = new ResizeObserver((entries) => {
-			this.updateDisplay(entries);
-		});
-
 		let title = template.querySelector('p.name');
 		let subText = template.querySelector('p.subText');
 
@@ -33,21 +29,11 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 
 	connectedCallback () {
 		super.connectedCallback();
-		this.ro.observe(this.shadowRoot.querySelector('#pseudoBody'))
 	}
 	disconnectedCallback () {
-		this.ro.disconnect();
 	}
 	static get observedAttributes () {
 		return ['name', 'text'];
-	}
-	updateDisplay (e) {
-		let cr = e[0].contentRect;
-		let width = cr.width;
-		let height = cr.height;
-		let img = this.shadowRoot.querySelector('img');
-		let textBox = this.shadowRoot.querySelector('.textBox');
-		textBox.style.width = (width - img.width).toString() + 'px';
 	}
 }
 

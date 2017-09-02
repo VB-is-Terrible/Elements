@@ -8,6 +8,8 @@
 .textBox {
 	display: flex;
 	flex-flow: column;
+	width: 100%;
+	overflow: hidden;
 }
 p {
 	overflow: hidden;
@@ -29,4 +31,7 @@ img {
 	display: block;
 	max-width: 100%;
 	height: auto;
+}
+:host {
+	width: 100%;
 }
