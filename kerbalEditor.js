@@ -8,7 +8,7 @@
 {
 const temp = (async () => {
 
-Elements.get('kerbal', 'grid', 'drag-down', 'KDB');
+await Elements.get('kerbal', 'grid', 'drag-down', 'KDB');
 
 /**
  * UI to edit a KNS.Kerbal
@@ -80,7 +80,8 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 					self.__data = new KNS.Kerbal();
 					self.__data.name = '';
 					self.__data.text = '';
-
+					UI.kerbal.data = this.data;
+					this.data.displays.push(UI.kerbal);
 				}
 			},
 		});
@@ -162,6 +163,9 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 		this.data = null;
 		this.newChangeQueue();
 	}
+	/**
+	 * Applies queued changes
+	 */
 	applyChanges () {
 		let kerbal = this.__oldValue;
 		if (this.__changeQueue.name !== null) {
@@ -170,10 +174,13 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 		if (this.__changeQueue.text !== null) {
 			kerbal.text = this.__changeQueue.text;
 		}
-		for (updater of this.__changeQueue.changes) {
+		for (let updater of this.__changeQueue.changes) {
 			updater(kerbal);
 		}
 	};
+	/**
+	 * Hide the editor - preserves state
+	 */
 	hideWindow () {
 		this.parentElement.style.display = "none";
 	}
