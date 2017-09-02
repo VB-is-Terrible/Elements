@@ -1,0 +1,26 @@
+TODO:
+drag-down:
+	figure out exclusion zones (some things don't want to be dragged)
+	switch from drag&drop to mouse up, over, down
+backbone:
+	(pipe dream) forward caching
+
+KDB TODO list:
+    deleting
+    saving
+    loading
+
+Manifest format
+
+Build KDBAdapter
+
+"require-name": {
+	"type": "element", // ["element"|"module"] Defines resoultion behaviour
+	"requires": ["element", "dependancies"], // Things that this will require()
+	"templates": ["kerbalEditorTemplate.html"], // Templates used by this elements
+	"css": ["kerbalEditor.css"], // CSS used by this (needs service worker to take advantage of)
+	"resources": ["warning.svg"], // Other files used by this (needs service worker to take advantage of)
+	"provides": ["kerbal-editor"], // Useful for meta-packages and modules
+	// Maybe I can require a element, and the dependancy system automatically finds the appropriate file
+	// And includes it?
+},
