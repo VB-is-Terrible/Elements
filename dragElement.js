@@ -52,6 +52,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	connectedCallback () {
 		super.connectedCallback();
 		this.touch_reset();
+		// this.drag_reset();
 	}
 	touch_start (event) {
 		let touchEvent = event.changedTouches[0];
@@ -95,7 +96,44 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		body.removeEventListener('touchend', this.events.end, true);
 		body.removeEventListener('touchcancel', this.events.end, true);
 	}
+	drag_start (event) {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
+		let left = (parseInt(style.getPropertyValue("left"),10) - event.clientX).toString();
+		let top = (parseInt(style.getPropertyValue("top"),10) - event.clientY).toString();
+		let id = this.id;
+		let data = left + ',' + top + ',' + id;
+		this.drag.left = (parseInt(style.getPropertyValue("left"),10) - event.clientX)
+		this.drag.top = (parseInt(style.getPropertyValue("top"),10) - event.clientY);
+		this.parentNode.toTop(this);
+		this.parentNode.toBottom(this);
 
+		body.addEventListener('mousemove', this.events.dMove, true);
+		body.addEventListener('mouseup', this.events.dEnd, true);
+		body.removeEventListener('mousedown', this.events.dStart, true);
+	}
+	drag_move (event) {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		event.preventDefault();
+		let leftStyle = (event.clientX + this.drag.left).toString() + 'px';
+		let topStyle = (event.clientY + this.drag.top).toString() + 'px';
+		requestAnimationFrame(() => {
+			// target.style.top = topStyle;
+			this.style.setProperty('--top', topStyle);
+			// target.style.left = leftStyle;
+			this.style.setProperty('--left', leftStyle);
+			// this.toBottom();
+		});
+		return false;
+	}
+	drag_end (event) {
+		this.drag_reset();
+	}
+	drag_reset () {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.addEventListener('mousedown', this.events.dStart, true);
+		body.removeEventListener('mousemove', this.events.dMove, true);
+		body.removeEventListener('mouseup', this.events.dEnd, true);
 	}
 };
 
