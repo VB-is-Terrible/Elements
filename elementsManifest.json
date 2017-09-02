@@ -1,6 +1,6 @@
 
 {
-	"kerbalMaker": {
+	"kerbalEditor": {
 		"type": "element",
 		"requires": ["kerbal", "grid", "KDB"],
 		"templates": ["kerbalMakerTemplate.html"],
