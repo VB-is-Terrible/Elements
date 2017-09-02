@@ -6,7 +6,8 @@
 		<script src="backbone.js"></script>
 		<script>
 		Elements.get('drag-element', 'grid',
-		'kerbal-maker', 'kerbal', 'kerbal-editor', 'KNS');
+		'kerbal-maker', 'kerbal', 'kerbal-editor', 'KDB',
+		'kerbal-searcher');
 		</script>
 		<style>
 		#g {
@@ -31,6 +32,10 @@
                 <elements-kerbal-editor>
                 </elements-kerbal-editor>
             </elements-drag-element>
+			<elements-drag-element id="drag3">
+				<elements-kerbal-searcher draggable="true">
+				</elements-kerbal-searcher>
+			</elements-drag-element>
 		</elements-drag-body>
 		KDB.js progress: <progress value="30" max="100">0%</progress>
 		<elements-grid id="g" rows="1" columns="3">

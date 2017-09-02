@@ -1,0 +1,76 @@
+:host {
+	--width: 650px;
+}
+
+#pseudoBody {
+	width: var(--width);
+	--font-size: large;
+	background: rgba(255,255,255,.66);
+	font-size: var(--font-size);
+	/*max-height: 700px;*/
+	overflow-y: scroll;
+}
+button, input, select {
+	font-size: var(--font-size);
+}
+#Close {
+	float: right;
+	margin-right: 1em;
+}
+#title {
+	margin-bottom: 5px;
+}
+#titleContain {
+	width: 100%;
+}
+#Cancel {
+	margin-right: 2em;
+}
+div.multi {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+#search {
+	--arrow-size: 1.5;
+	width: 100%
+}
+#nameInput {
+	width: 100%;
+}
+span.checkbox {
+	margin-left: .5em;
+}
+input[type=checkbox] {
+	width: 1em;
+	height: 1em;
+}
+p {
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+#results {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 5;
+}
+#resultsTitle {
+	font-size: x-large;
+	margin: 10px;
+}
+.drag_inside {
+	margin-top: 10px;
+}
+elements-grid {
+	--width: 100%;
+}
+div.multi {
+	display: flex;
+}
+button.selection {
+	width: 100%;
+	height: 100%;
+}
+#edit {
+	display: none;
+}

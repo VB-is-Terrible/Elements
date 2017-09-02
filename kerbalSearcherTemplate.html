@@ -1,0 +1,48 @@
+<template id="templateElementsKerbalSearcher">
+	<link rel="stylesheet" type="text/css" href="kerbalSearcher.css">
+	<div id="pseudoBody" draggable="true">
+		<div id="title" class="multi">
+			<div id="titleContain">
+				<span>
+					Kerbal Editor
+				</span>
+				<span id="Close">
+					X
+				</span>
+			</div>
+		</div>
+		<elements-drag-down id="search" menuvisible="false">
+			<input id="nameInput" type="text" slot="s1"> </input>
+			<div class="drag_inside">
+				<p>
+					Search Options:
+				</p>
+				<div id="options">
+					<div class="multi">
+						<input type="checkbox" id="prefix" checked="checked"></input>
+						<span class="checkbox">
+							Prefix
+						</span>
+					</div>
+					<div class="multi">
+						<input type="checkbox" id="fuzzy" checked="checked"></input>
+						<span class="checkbox">
+							Fuzzy
+						</span>
+					</div>
+					<div class="multi">
+						<input type="checkbox" id="edit"></input>
+						<span class="checkbox">
+							Edit distance
+						</span>
+					</div>
+				</div>
+			</div>
+		</elements-drag-down>
+		<p id="resultsTitle">
+			Results
+		</p>
+		<elements-grid coordnaming="true">
+		</elements-grid>
+	</div>
+</template>
