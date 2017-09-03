@@ -11,11 +11,15 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		this.maxResults = 5;
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-
-		let updater = (e) => {
-			self.display_results(self.search(searcher.value));
-		};
+		let lastValue = '';
 		let searcher = template.querySelector('#nameInput');
+		let updater = (e) => {
+			let search = searcher.value
+			if (search !== lastValue) {
+				self.display_results(self.search(search));
+				lastValue = search;
+			}
+		};
 		searcher.addEventListener('keyup', updater);
 
 		for (let checkbox of template.querySelectorAll('input')) {
@@ -96,13 +100,13 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		return result;
 	}
 	display_results (results) {
-		this.emptyNodes();
 		let itemHolder = this.shadowRoot.querySelector('#results');
 		let count = 1;
 		if (this.update !== null) {
 			cancelAnimationFrame(this.update);
 		}
 		this.update = requestAnimationFrame((e) => {
+			this.emptyNodes();
 			let iter = results.entries();
 
 			for (let i = 0; i < results.size && i < 5; i++) {
