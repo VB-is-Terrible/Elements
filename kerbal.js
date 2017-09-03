@@ -68,6 +68,20 @@ Elements.await(function () {
 			Elements.setUpAttrPropertyLink(this, 'menuvisible', true,
 			                               (value) => {dragDown.menuvisible = value;},
 									       Elements.booleaner);
+			let overlay = template.querySelector('#overlay');
+			this.update = null;
+			let disable = (value) => {
+				if (self.update !== null) {
+					cancelAnimationFrame(self.update);
+				}
+				self.update = requestAnimationFrame(() => {
+					overlay.style.display = value ? 'block' : 'none';
+					self.update = null;
+				});
+			};
+			Elements.setUpAttrPropertyLink(this, 'disabled', false,
+			                               disable, Elements.booleaner);
+
 			shadow.appendChild(template);
 			this.updateData();
 		}
