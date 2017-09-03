@@ -18,8 +18,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			// Pushing the element been dragged and the drag body to the
 			// top of the z-indexes is probably a good idea
 			let style = window.getComputedStyle(self.shadowRoot.querySelector('#pseudoBody'), null);
-			let left = (parseInt(style.getPropertyValue("left"),10) - event.clientX).toString();
-			let top = (parseInt(style.getPropertyValue("top"),10) - event.clientY).toString();
+			let left = (parseInt(style.getPropertyValue('left'),10) - event.clientX).toString();
+			let top = (parseInt(style.getPropertyValue('top'),10) - event.clientY).toString();
 			let id = self.id;
 			let data = left + ',' + top + ',' + id;
 			event.dataTransfer.setData('text/plain', data);
@@ -59,8 +59,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(body, null);
 		this.touch.touchID = touchEvent.identifier;
-		this.touch.left = (parseInt(style.getPropertyValue("left"),10) - touchEvent.clientX)
-		this.touch.top = (parseInt(style.getPropertyValue("top"),10) - touchEvent.clientY);
+		this.touch.left = (parseInt(style.getPropertyValue('left'),10) - touchEvent.clientX)
+		this.touch.top = (parseInt(style.getPropertyValue('top'),10) - touchEvent.clientY);
 		body.addEventListener('touchmove', this.events.move, true);
 		body.addEventListener('touchcancel', this.events.end, true);
 		body.addEventListener('touchend', this.events.end, true);
@@ -99,12 +99,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	drag_start (event) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
-		let left = (parseInt(style.getPropertyValue("left"),10) - event.clientX).toString();
-		let top = (parseInt(style.getPropertyValue("top"),10) - event.clientY).toString();
+		let left = (parseInt(style.getPropertyValue('left'),10) - event.clientX).toString();
+		let top = (parseInt(style.getPropertyValue('top'),10) - event.clientY).toString();
 		let id = this.id;
 		let data = left + ',' + top + ',' + id;
-		this.drag.left = (parseInt(style.getPropertyValue("left"),10) - event.clientX)
-		this.drag.top = (parseInt(style.getPropertyValue("top"),10) - event.clientY);
+		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX)
+		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
 		this.parentNode.toTop(this);
 		this.parentNode.toBottom(this);
 

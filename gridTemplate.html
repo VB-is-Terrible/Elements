@@ -1,4 +1,4 @@
-<template id="templateElementsGrid">
+<template id='templateElementsGrid'>
 	<style>
 		:host {
 			--width: 420px;
@@ -26,7 +26,7 @@
 			grid-template-columns: 1fr 1fr;
 			grid-row-gap: var(--grid-gap);
 			grid-column-gap: var(--grid-gap);
-			grid-template-areas: "a b" "c d";
+			grid-template-areas: 'a b' 'c d';
 			grid-auto-flow: row;
 			display: grid;
 			width: 100%;
@@ -56,36 +56,36 @@
 		}
 	</style>
 
-	<template id="templateHolderDiv">
-		<div class="HolderDiv" style="grid-area: default;">
-			<slot class="link" name="default"></slot>
+	<template id='templateHolderDiv'>
+		<div class='HolderDiv' style='grid-area: default;'>
+			<slot class='link' name='default'></slot>
 		</div>
 	</template>
 
-	<div id="pseudoBody">
-		<div id="gridHolder">
-			<div class="HolderDiv" style="grid-area: a;" id="canaryDiv">
-				<slot class="link" name="s1"></slot>
+	<div id='pseudoBody'>
+		<div id='gridHolder'>
+			<div class='HolderDiv' style='grid-area: a;' id='canaryDiv'>
+				<slot class='link' name='s1'></slot>
 			</div>
 
-			<div class="HolderDiv" style="grid-area: b;">
-				<slot class="link" name="s2"></slot>
+			<div class='HolderDiv' style='grid-area: b;'>
+				<slot class='link' name='s2'></slot>
 			</div>
 
-			<div class="HolderDiv" style="grid-area: c;">
-				<slot class="link" name="s3"></slot>
+			<div class='HolderDiv' style='grid-area: c;'>
+				<slot class='link' name='s3'></slot>
 			</div>
 
-			<div class="HolderDiv" style="grid-area: d;">
-				<slot class="link" name="s4"></slot>
+			<div class='HolderDiv' style='grid-area: d;'>
+				<slot class='link' name='s4'></slot>
 			</div>
 
-			<div class="HolderDiv" style="grid-area: e;">
-				<slot class="link" name="s5"></slot>
+			<div class='HolderDiv' style='grid-area: e;'>
+				<slot class='link' name='s5'></slot>
 			</div>
 
-			<div class="HolderDiv" style="grid-area: f;">
-				<slot class="link" name="s6"></slot>
+			<div class='HolderDiv' style='grid-area: f;'>
+				<slot class='link' name='s6'></slot>
 			</div>
 
 		</div>

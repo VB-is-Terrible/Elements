@@ -1,6 +1,6 @@
 'use strict'
 
-Elements.get("kerbal", "grid", "KDB", "dragDown");
+Elements.get('kerbal', 'grid', 'KDB', 'dragDown');
 Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -128,14 +128,14 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	}
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');
-		div.classList.add("results");
+		div.classList.add('results');
 		let display = kerbal.makeDisplay();
 		display.menuvisible = false;
 		div.appendChild(display);
 		let button = document.createElement('button');
 		button.value = kerbal.name;
 		button.innerHTML = 'Edit';
-		button.classList.add("results");
+		button.classList.add('results');
 		button.addEventListener('click', (e) => {
 			this.editor(e);
 		});

@@ -17,8 +17,8 @@
 	display: grid;
 	grid-template-columns: [c0] 1fr [c1] 4fr [c2];
 	grid-template-rows: [r0] var(--HeaderHeight) [r1] 3fr [r2];
-	grid-template-areas: "title title"
-	                     "image image";
+	grid-template-areas: 'title title'
+	                     'image image';
 	grid-auto-flow: row;
 	grid-row-gap: var(--RowGap);
 	grid-column-gap: var(--ColGap);
@@ -63,7 +63,7 @@
 	grid-area: image;
 	/* -  var(--RowGap)*/
 	background: turquoise;
-	background-image: url("logo.svg");
+	background-image: url('logo.svg');
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;

@@ -137,8 +137,8 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 			let positions = rows * cols;
 
 			let updater = () => {
-				gridElement.style.gridTemplateRows = "1fr ".repeat(rows)
-				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
+				gridElement.style.gridTemplateRows = '1fr '.repeat(rows)
+				gridElement.style.gridTemplateColumns = '1fr '.repeat(cols);
 				gridElement.style.gridTemplateAreas = this.constructor.generateGridNames(rows, cols);
 
 				this.updateDivs(positions);
@@ -160,7 +160,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 	}
 	updateDisplay (e) {
 		// console.log('updating grid');
-		const cssSelector = "slot::slotted(.internal)";
+		const cssSelector = 'slot::slotted(.internal)';
 		let parent = this.shadowRoot.querySelector('#gridHolder')
 		let cr = e[0].contentRect;//parent.getBoundingClientRect();
 
@@ -192,7 +192,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 			}
 		}
 		if (position === -1) {
-			console.warn(cssSelector + " not found in any stylesheets");
+			console.warn(cssSelector + ' not found in any stylesheets');
 		} else {
 			requestAnimationFrame(() => {
 				insertSheet.removeRule(position);

@@ -182,7 +182,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 	 * Hide the editor - preserves state
 	 */
 	hideWindow () {
-		this.parentElement.style.display = "none";
+		this.parentElement.style.display = 'none';
 	}
 	/**
 	 * Empties change queue

@@ -1,9 +1,9 @@
 <html>
 	<head>
-		<script src="backbone.js"></script>
-		<script src="linkCard.js"></script>
+		<script src='backbone.js'></script>
+		<script src='linkCard.js'></script>
 
-		<template id="templateElementsLinkCardContainer">
+		<template id='templateElementsLinkCardContainer'>
 			<style>
 				:host {
 					--width: 540px;
@@ -15,17 +15,17 @@
 					height: var(--height);
 				}
 			</style>
-			<div id="pseudoBody">
-				<div id="Link Holder">
-					<elements-linkcard-linkcontainer style="--width: 540px; --height: 600px;/*--border-width: 0px;*/">
-						<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s4" favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s5" favicon="drive.png" title="Nothing" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s6" favicon="drive.png" title="but" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s7" favicon="drive.png" title="a" src="logo.svg"></elements-linkcard-link>
-						<elements-linkcard-link class="internal" slot="s8" favicon="drive.png" title="test." src="logo.svg"></elements-linkcard-link>
+			<div id='pseudoBody'>
+				<div id='Link Holder'>
+					<elements-linkcard-linkcontainer style='--width: 540px; --height: 600px;/*--border-width: 0px;*/'>
+						<elements-linkcard-link class='internal' slot='s1' favicon='drive.png' title='This' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s2' favicon='drive.png' title='is' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s3' favicon='drive.png' title='A' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s4' favicon='drive.png' title='Test' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s5' favicon='drive.png' title='Nothing' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s6' favicon='drive.png' title='but' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s7' favicon='drive.png' title='a' src='logo.svg'></elements-linkcard-link>
+						<elements-linkcard-link class='internal' slot='s8' favicon='drive.png' title='test.' src='logo.svg'></elements-linkcard-link>
 
 					</elements-linkcard-linkcontainer>
 
@@ -36,7 +36,7 @@
 		</template>
 
 
-		<template id="templateElementsLinkCardButtons">
+		<template id='templateElementsLinkCardButtons'>
 			<style>
 				button.b {
 					background: white;
@@ -49,24 +49,24 @@
 					display: grid;
 					grid-template-rows: 1fr 1fr;
 					grid-template-columns: 1fr 1fr1 fr;
-					grid-template-areas: "a b c" "a d c";
+					grid-template-areas: 'a b c' 'a d c';
 				}
 				#pseudoBody {
 					max-width: 400px;
 				}
 			</style>
-			<div id="pseudoBody">
-				<div id="gridHolder">
-					<button class="b" style="grid-area: a;">
+			<div id='pseudoBody'>
+				<div id='gridHolder'>
+					<button class='b' style='grid-area: a;'>
 						<
 					</button>
-					<button class="b" style="grid-area: b;">
+					<button class='b' style='grid-area: b;'>
 						^
 					</button>
-					<button class="b" style="grid-area: c;">
+					<button class='b' style='grid-area: c;'>
 						v
 					</button>
-					<button class="b" style="grid-area: d;">
+					<button class='b' style='grid-area: d;'>
 						>
 					</button>
 
@@ -76,7 +76,7 @@
 		</template>
 
 
-		<template id="templateElementsLinkCardHolder">
+		<template id='templateElementsLinkCardHolder'>
 			<style>
 				:host {
 					--width: 420px;
@@ -104,7 +104,7 @@
 					grid-template-columns: 1fr 1fr;
 					grid-row-gap: var(--grid-gap);
 					grid-column-gap: var(--grid-gap);
-					grid-template-areas: "a b" "c d";
+					grid-template-areas: 'a b' 'c d';
 					grid-auto-flow: row;
 					display: grid;
 					width: 100%;
@@ -134,36 +134,36 @@
 				}
 			</style>
 
-			<template id="templateHolderDiv">
-				<div class="HolderDiv" style="grid-area: default;">
-					<slot class="link" name="default"></slot>
+			<template id='templateHolderDiv'>
+				<div class='HolderDiv' style='grid-area: default;'>
+					<slot class='link' name='default'></slot>
 				</div>
 			</template>
 
-			<div id="pseudoBody">
-				<div id="gridHolder">
-					<div class="HolderDiv" style="grid-area: a;" id="canaryDiv">
-						<slot class="link" name="s1"></slot>
+			<div id='pseudoBody'>
+				<div id='gridHolder'>
+					<div class='HolderDiv' style='grid-area: a;' id='canaryDiv'>
+						<slot class='link' name='s1'></slot>
 					</div>
 
-					<div class="HolderDiv" style="grid-area: b;">
-						<slot class="link" name="s2"></slot>
+					<div class='HolderDiv' style='grid-area: b;'>
+						<slot class='link' name='s2'></slot>
 					</div>
 
-					<div class="HolderDiv" style="grid-area: c;">
-						<slot class="link" name="s3"></slot>
+					<div class='HolderDiv' style='grid-area: c;'>
+						<slot class='link' name='s3'></slot>
 					</div>
 
-					<div class="HolderDiv" style="grid-area: d;">
-						<slot class="link" name="s4"></slot>
+					<div class='HolderDiv' style='grid-area: d;'>
+						<slot class='link' name='s4'></slot>
 					</div>
 
-					<div class="HolderDiv" style="grid-area: e;">
-						<slot class="link" name="s5"></slot>
+					<div class='HolderDiv' style='grid-area: e;'>
+						<slot class='link' name='s5'></slot>
 					</div>
 
-					<div class="HolderDiv" style="grid-area: f;">
-						<slot class="link" name="s6"></slot>
+					<div class='HolderDiv' style='grid-area: f;'>
+						<slot class='link' name='s6'></slot>
 					</div>
 
 				</div>
@@ -171,7 +171,7 @@
 			</div>
 		</template>
 
-		<template id="templateElementsLinkCardLink">
+		<template id='templateElementsLinkCardLink'>
 			<style>
 				#faviconImg {
 					height: var(--HeaderHeight);
@@ -191,8 +191,8 @@
 					display: grid;
 					grid-template-columns: [c0] var(--HeaderHeight) [c1] calc(100% - var(--HeaderHeight) - var(--ColGap)) [c2];
 					grid-template-rows: [r0] var(--HeaderHeight) [r1] 1fr [r2];
-					grid-template-areas: "favicon title"
-												"image image";
+					grid-template-areas: 'favicon title'
+												'image image';
 					grid-auto-flow: row;
 					grid-row-gap: var(--RowGap);
 					grid-column-gap: var(--ColGap);
@@ -235,15 +235,15 @@
 					/*background: turquoise;*/
 				}
 			</style>
-			<div id="pseudoBody">
-				<a id="CardLink">
+			<div id='pseudoBody'>
+				<a id='CardLink'>
 
-					<div id="contentDiv">
-						<img id="faviconImg" src = "drive.png">
-						<span id="titleSpan">
+					<div id='contentDiv'>
+						<img id='faviconImg' src = 'drive.png'>
+						<span id='titleSpan'>
 							You should not be seeing this
 						</span>
-						<img id="thumbImg" src = "TCF.png">
+						<img id='thumbImg' src = 'TCF.png'>
 					</div>
 				</a>
 			</div>
@@ -256,25 +256,25 @@
 		<elements-linkcard>
 
 		</elements-linkcard>
-		<!-- <elements-linkcard-link favicon="drive.png" title="THISISATEST" src="logo.svg">
+		<!-- <elements-linkcard-link favicon='drive.png' title='THISISATEST' src='logo.svg'>
 		</elements-linkcard-link>
-		<elements-linkcard-link favicon="TCF.png" title="NOTHINGBUTATEST" src="logo.svg">
+		<elements-linkcard-link favicon='TCF.png' title='NOTHINGBUTATEST' src='logo.svg'>
 		</elements-linkcard-link> -->
 
-		<elements-linkcard-linkcontainer rows="4" columns="1" style="/*--border-width: 0px;*/ --width: 500px">
-			<elements-linkcard-link class="internal" slot="s1" favicon="drive.png" title="This" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s2" favicon="drive.png" title="is" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s3" favicon="drive.png" title="A" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s4" favicon="drive.png" title="Test" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s5" favicon="drive.png" title="Nothing" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s6" favicon="drive.png" title="but" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s7" favicon="drive.png" title="a" src="logo.svg"></elements-linkcard-link>
-			<elements-linkcard-link class="internal" slot="s8" favicon="drive.png" title="test." src="logo.svg"></elements-linkcard-link>
+		<elements-linkcard-linkcontainer rows='4' columns='1' style='/*--border-width: 0px;*/ --width: 500px'>
+			<elements-linkcard-link class='internal' slot='s1' favicon='drive.png' title='This' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s2' favicon='drive.png' title='is' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s3' favicon='drive.png' title='A' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s4' favicon='drive.png' title='Test' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s5' favicon='drive.png' title='Nothing' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s6' favicon='drive.png' title='but' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s7' favicon='drive.png' title='a' src='logo.svg'></elements-linkcard-link>
+			<elements-linkcard-link class='internal' slot='s8' favicon='drive.png' title='test.' src='logo.svg'></elements-linkcard-link>
 
-			<!-- <span class="internal" slot="s1"> This </span>
-			<span class="internal" slot="s2"> is </span>
-			<span class="internal" slot="s3"> a </span>
-			<span class="internal" slot="s4"> test. </span> -->
+			<!-- <span class='internal' slot='s1'> This </span>
+			<span class='internal' slot='s2'> is </span>
+			<span class='internal' slot='s3'> a </span>
+			<span class='internal' slot='s4'> test. </span> -->
 		</elements-linkcard-linkcontainer>
 
 	</body>

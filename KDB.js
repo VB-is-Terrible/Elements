@@ -28,7 +28,7 @@ let KNS =  {
 	Kerbal: class {
 		constructor () {
 			this._name = 'Kerbal';
-			this._text = "Desc";
+			this._text = 'Desc';
 			this.jobs = KNS.blankPlaceList(0);
 			this.displays = [];
 			this.type = 'Kerbal';
@@ -197,7 +197,7 @@ let KDB = class {
 	constructor () {
 		this.kerbals = new Set();
 		this.kerbalObjs = new Map();
-		this.type = "KDB";
+		this.type = 'KDB';
 	}
 	addKerbal (kerbalObj) {
 		if (this.kerbals.has(kerbalObj.name)) {
@@ -224,7 +224,7 @@ let KDB = class {
 	}
 	display (kerbalObj) {
 		let newDisplay = kerbalObj.makeDisplay();
-		newDisplay.slot = "s1";
+		newDisplay.slot = 's1';
 		g.append(newDisplay);
 	}
 	displayAll () {

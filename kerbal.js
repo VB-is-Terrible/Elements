@@ -20,7 +20,7 @@ Elements.await(function () {
 			super();
 
 			const self = this;
-			this.alias = "Kerbal";
+			this.alias = 'Kerbal';
 			if (!this.data) {
 				this._data = new KNS.Kerbal();
 				this._data.displays.push(this);

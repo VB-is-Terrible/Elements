@@ -1,104 +1,104 @@
-<template id="templateElementsKerbalMaker">
-	<link rel="stylesheet" type="text/css" href="kerbalFloatCommon.css">
-	<link rel="stylesheet" type="text/css" href="kerbalMaker.css">
-	<div id="pseudoBody" draggable="true">
-		<div id="title" class="multi">
-			<div class="fill">
+<template id='templateElementsKerbalMaker'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
+	<link rel='stylesheet' type='text/css' href='kerbalMaker.css'>
+	<div id='pseudoBody' draggable='true'>
+		<div id='title' class='multi'>
+			<div class='fill'>
 
 				<span>
 					Kerbal Maker
 				</span>
-				<span id="Close">
+				<span id='Close'>
 					X
 				</span>
 			</div>
 		</div>
-		<elements-kerbal disabled="true"></elements-kerbal>
-		<div id="editBody">
-			<elements-grid rows="4", columns="2" id="questions">
+		<elements-kerbal disabled='true'></elements-kerbal>
+		<div id='editBody'>
+			<elements-grid rows='4', columns='2' id='questions'>
 				<!-- Questions -->
-				<div slot="s1">
+				<div slot='s1'>
 					<p>
 						Name
-						<img class="warn" src="warning.svg" title="Kerbal already exists"></img>
+						<img class='warn' src='warning.svg' title='Kerbal already exists'></img>
 					</p>
 				</div>
 				</p>
-				<p slot="s3">
+				<p slot='s3'>
 					Type
 				</p>
-				<p slot="s5">
+				<p slot='s5'>
 					Add/Change Job
 				</p>
-				<p slot="s7">
+				<p slot='s7'>
 					Remove Job
 				</p>
 				<!-- Answers -->
-				<input slot="s2" id="AnsName" draggable="false">
+				<input slot='s2' id='AnsName' draggable='false'>
 				</input>
-				<select slot="s4" id="AnsText">
-					<option value="" selected disabled hidden> </option>
-					<option value="Pilot"> Pilot </option>
-					<option value="Scientist"> Scientist </option>
-					<option value="Engineer"> Engineer </option>
-					<option value="Tourist"> Tourist </option>
+				<select slot='s4' id='AnsText'>
+					<option value='' selected disabled hidden> </option>
+					<option value='Pilot'> Pilot </option>
+					<option value='Scientist'> Scientist </option>
+					<option value='Engineer'> Engineer </option>
+					<option value='Tourist'> Tourist </option>
 				</select>
-				<div class="multi" slot="s6">
-					<select id="AnsAddPlace">
-						<option value="Kerbin"> Kerbin </option>
-						<option value="Mun"> Mun </option>
-						<option value="Minmus"> Minmus </option>
-						<option value="Eve"> Eve </option>
-						<option value="Gilly"> Gilly </option>
-						<option value="Duna"> Duna </option>
-						<option value="Ike"> Ike </option>
-						<option value="Dres"> Dres </option>
-						<option value="Jool"> Jool </option>
-						<option value="Laythe"> Laythe </option>
-						<option value="Vall"> Vall </option>
-						<option value="Tylo"> Tylo </option>
-						<option value="Bop"> Bop </option>
-						<option value="Pol"> Pol </option>
-						<option value="Eeloo"> Eeloo </option>
-						<option value="Kerbol"> Kerbol </option>
+				<div class='multi' slot='s6'>
+					<select id='AnsAddPlace'>
+						<option value='Kerbin'> Kerbin </option>
+						<option value='Mun'> Mun </option>
+						<option value='Minmus'> Minmus </option>
+						<option value='Eve'> Eve </option>
+						<option value='Gilly'> Gilly </option>
+						<option value='Duna'> Duna </option>
+						<option value='Ike'> Ike </option>
+						<option value='Dres'> Dres </option>
+						<option value='Jool'> Jool </option>
+						<option value='Laythe'> Laythe </option>
+						<option value='Vall'> Vall </option>
+						<option value='Tylo'> Tylo </option>
+						<option value='Bop'> Bop </option>
+						<option value='Pol'> Pol </option>
+						<option value='Eeloo'> Eeloo </option>
+						<option value='Kerbol'> Kerbol </option>
 					</select>
-					<select id="AnsAddValue" class="spacer">
-						<option value="1">Flyby</option>
-						<option value="2">Sub-Orbital</option>
-						<option value="3">Orbit</option>
-						<option value="4">Landing</option>
+					<select id='AnsAddValue' class='spacer'>
+						<option value='1'>Flyby</option>
+						<option value='2'>Sub-Orbital</option>
+						<option value='3'>Orbit</option>
+						<option value='4'>Landing</option>
 					</select>
-					<button id="AnsAddConfirm" class="spacer">
+					<button id='AnsAddConfirm' class='spacer'>
 						Add
 					</button>
 				</div>
-				<div class="multi" slot="s8">
-					<select id="AnsRemovePlace">
-						<option value="Kerbin"> Kerbin </option>
-						<option value="Mun"> Mun </option>
-						<option value="Minmus"> Minmus </option>
-						<option value="Eve"> Eve </option>
-						<option value="Gilly"> Gilly </option>
-						<option value="Duna"> Duna </option>
-						<option value="Ike"> Ike </option>
-						<option value="Dres"> Dres </option>
-						<option value="Jool"> Jool </option>
-						<option value="Laythe"> Laythe </option>
-						<option value="Vall"> Vall </option>
-						<option value="Tylo"> Tylo </option>
-						<option value="Bop"> Bop </option>
-						<option value="Pol"> Pol </option>
-						<option value="Eeloo"> Eeloo </option>
-						<option value="Kerbol"> Kerbol </option>
+				<div class='multi' slot='s8'>
+					<select id='AnsRemovePlace'>
+						<option value='Kerbin'> Kerbin </option>
+						<option value='Mun'> Mun </option>
+						<option value='Minmus'> Minmus </option>
+						<option value='Eve'> Eve </option>
+						<option value='Gilly'> Gilly </option>
+						<option value='Duna'> Duna </option>
+						<option value='Ike'> Ike </option>
+						<option value='Dres'> Dres </option>
+						<option value='Jool'> Jool </option>
+						<option value='Laythe'> Laythe </option>
+						<option value='Vall'> Vall </option>
+						<option value='Tylo'> Tylo </option>
+						<option value='Bop'> Bop </option>
+						<option value='Pol'> Pol </option>
+						<option value='Eeloo'> Eeloo </option>
+						<option value='Kerbol'> Kerbol </option>
 					</select>
-					<button id="AnsRemoveConfirm" class="spacer">
+					<button id='AnsRemoveConfirm' class='spacer'>
 						Remove
 					</button>
 				</div>
 			</elements-grid>
 		</div>
-		<div id="footer" class="right">
-			<button id="Done" class="spacer">
+		<div id='footer' class='right'>
+			<button id='Done' class='spacer'>
 				Done
 			</button>
 
