@@ -268,16 +268,3 @@ let testData = '{"type":"KDB","kerbals":["Ludrey","Lizena","Corald","Seelan","Le
 	kdb.displayAll();
 }
 Elements.loaded('KDB');
-
-function tester () {
-	window.kdb = new KDB();
-	let a = new KNS.Kerbal();
-	a.name = "Jeb";
-	a.text = "Pilot";
-	a.addJob('Minmus', KNS.jobToValue('Flyby'));
-	a.addJob('Mun', KNS.jobToValue('Landing'));
-	let display = a.makeDisplay();
-	display.setAttribute('slot', 's1');
-	g.append(display);
-	kdb.kerbals.push(a);
-}
