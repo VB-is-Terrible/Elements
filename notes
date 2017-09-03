@@ -10,10 +10,14 @@ KDB TODO list:
     saving
     loading
 
-Manifest format
 
 Build KDBAdapter
 
+Use a weak map for KNS.Kerbal.display
+
+
+
+Manifest format:
 "require-name": {
 	"type": "element", // ["element"|"module"] Defines resoultion behaviour
 	"requires": ["element", "dependancies"], // Things that this will require()
