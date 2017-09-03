@@ -11,21 +11,40 @@
 			--margin: 15px;
 			top:      0px;
 			left:     0px;
-			position: absolute;
+			/*position: absolute;*/
 			margin:   var(--margin);
 			width:    calc(100% - 2 * var(--margin));
 		}
 		p {
 			background: blue;
 		}
+		.flex {
+			display: flex;
+			flex-direction: column;
+			flex-wrap: nowrap;
+		}
 		</style>
 	</head>
 	<body>
 		<elements-grid id="backer" rows="1" columns="3">
-			<p slot="s1"> THIS </p>
-			<p slot="s2"> IS </p>
-			<p slot="s3"> A </p>
-			<p slot="s4"> TEST </p>
+			<div slot="s1" class="flex">
+				<button slot="s1"> THIS </button>
+				<button slot="s2"> IS </button>
+				<button slot="s3"> A </button>
+				<button slot="s4"> TEST </button>
+			</div>
+			<div slot="s2" class="flex">
+				<button slot="s1"> THIS </button>
+				<button slot="s2"> IS </button>
+				<button slot="s3"> A </button>
+				<button slot="s4"> TEST </button>
+			</div>
+			<div slot="s3" class="flex">
+				<button slot="s1"> THIS </button>
+				<button slot="s2"> IS </button>
+				<button slot="s3"> A </button>
+				<button slot="s4"> TEST </button>
+			</div>
 		</elements-grid>
 	</body>
 </html>
