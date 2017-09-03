@@ -16,7 +16,13 @@ let KNS =  {
 	places: ['Kerbin', 'Mun', 'Minmus', 'Eve', 'Gilly', 'Duna', 'Ike', 'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Eeloo', 'Kerbol'],
 	/**
 	 * Kerbal backend type
+	 * Note: if you manually set the data of a elements-kerbal, make sure to
+	 * place the elements-kerbal in KNS.Kerbal.displays
 	 * @type {Object}
+	 * @property {String} name Name of kerbal
+	 * @property {String} text Description text of kerbal
+	 * @property {Object} jobs PlaceName -> job value mapping
+	 * @property {HTMLElement[]} displays Array of UI elements representing this kerbal.
 	 * @memberof KNS
 	 */
 	Kerbal: class {
@@ -55,11 +61,23 @@ let KNS =  {
 				});
 			}
 		}
+		/**
+		 * Update UIs for one place
+		 * @param  {String} place Place name
+		 * @memberof KNS.Kerbal
+		 * @instance
+		 */
 		dispatchUpdate (place) {
 			for (let display of this.displays) {
 				display.showJob(place);
 			}
+
 		}
+		/**
+		 * Updates name and place of UIs
+		 * @memberof KNS.Kerbal
+		 * @instance
+		 */
 		dispatchUIUpdate () {
 			for (let display of this.displays) {
 				display.updateData();
@@ -69,7 +87,9 @@ let KNS =  {
 		 * Add a job to kerbal
 		 * @param {String} place Location to visit
 		 * @param {Number} value Depth of visit
-		 */
+		 * @memberof KNS.Kerbal
+		 * @instance
+ 	 	 */
 		addJob (place, value) {
 			if (this.jobs[place] >= value) {
 				return;
@@ -81,6 +101,8 @@ let KNS =  {
 		 * Remove a job, as if the kerbal has just completed one
 		 * @param  {String} location Location visited
 		 * @param  {Number} value    Depth of visited
+		 * @memberof KNS.Kerbal
+		 * @instance
 		 */
 		removeJob (location, value) {
 			if (this.jobs[location] > value) {
@@ -89,6 +111,12 @@ let KNS =  {
 			this.jobs[location] = 0;
 			this.dispatchUpdate(location);
 		}
+		/**
+		 * Make a elements-kerbal representing this kerbal
+		 * @return {HTMLElement} elements-kerbal representing this kerbal
+		 * @memberof KNS.Kerbal
+		 * @instance
+		 */
 		makeDisplay () {
 			let display = document.createElement('elements-kerbal');
 			display.data = this;
@@ -98,6 +126,12 @@ let KNS =  {
 		toJSON () {
 			return Elements.jsonIncludes(this, ['name', 'text', 'jobs', 'type']);
 		}
+		/**
+		 * Construct an kerbal from the object returned from JSON.parse(JSON.stringify(kerbal))
+		 * @param  {Object} jsonObj JSON.parse'd kerbal
+		 * @return {KNS.Kerbal}     Reconstitued Kerbal
+		 * @memberof KNS.Kerbal
+		 */
 		static fromJSONObj (jsonObj) {
 			if (jsonObj.type !== 'Kerbal') {
 				throw new Error('Not a kerbal');

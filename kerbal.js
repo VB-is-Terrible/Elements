@@ -4,6 +4,17 @@ Elements.require('drag-down', 'KDB', 'kerbal-tag');
 
 // Move this to config later
 Elements.await(function () {
+	/**
+	 * UI display of a kerbal, elements-kerbal
+	 * Note: many elements-kerbal -> one KNS.Kerbal
+	 * @type {Object}
+	 * @property {KNS.Kerbal} data kerbal that this represents
+	 * @property {Boolean} menuvisible Store of useful UI elements
+	 * @property {Object} jobs Readonly reflection on data.jobs
+	 * @property {String} name Readonly reflection on data.name
+	 * @property {Boolean} disabled Toggle to draw a big red x over the kerbal
+	 * @augments Elements.elements.backbone
+	 */
 	Elements.elements.Kerbal = class extends Elements.elements.backbone {
 		constructor () {
 			super();
@@ -65,10 +76,9 @@ Elements.await(function () {
 			super.connectedCallback();
 			this.displayJobs();
 		}
-		disconnectedCallback () {
-			this.emptyNodes();
-			// To avoid conflicts when reconnecting, empty all child nodes
-		}
+		/**
+		 * Update name, text of kerbal
+		 */
 		updateData () {
 			requestAnimationFrame(() => {
 				let kerbalTag = this.shadowRoot.querySelector('elements-kerbal-tag');

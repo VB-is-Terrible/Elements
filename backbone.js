@@ -24,6 +24,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				 * Make a new element
 				 * @memberof! Elements.elements.backbone
 				 * @alias Elements.elements.backbone.constructor
+				 * @instance
 				 */
 				constructor () {
 					super();
@@ -37,7 +38,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				/**
 				 * Called once inserted into DOM
 				 * @memberof! Elements.elements.backbone
-
+				 * @instance
 				 */
 				connectedCallback () {
 					if (this.attributeInit === false){
@@ -53,6 +54,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				 * @param  {String} oldValue Value before change
 				 * @param  {String} newValue Value after change
 				 * @memberof! Elements.elements.backbone
+				 * @instance
 				 */
 				attributeChangedCallback(attrName, oldValue, newValue) {
 					if (attrName in this.setDict && oldValue !== newValue) {
@@ -68,18 +70,21 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Set of loaded element names
 		 * @type {Set}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loadedElements: new Set(),
 		/**
 		 * Storage set of loading elements
 		 * @type {Set}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loadingElements: new Set(),
 		/**
 		 * Storage set of elements requested but not yet loaded
 		 * @type {Set}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		requestedElements: new Set(),
 		connectedCallbackHelper: (object) => {
@@ -103,6 +108,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} property property to observe
 		 * @return {Function}          function to set value to attribute if it exists
 		 * @memberof! Elements
+		 * @instance
 		 */
 		getInitProperty: function (object, property) {
 			return (() => {
@@ -114,9 +120,10 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			});
 		},
 		/**
-		 * Sets up a linked object property/attribute, as if the property and attribute
-		 * were the same. Does things like copy attribute value to property value
-		 * once inserted into DOM, checking if the property already has a value.
+		 * Sets up a linked object property/attribute, as if the property and
+		 * attribute were the same. Does things like copy attribute value to
+		 * property value once inserted into DOM, checking if the property
+		 * already has a value.
 		 * @param  {HTMLElement} object      Element to set up link on
 		 * @param  {String} property         property/attribute to link
 		 * @param  {*} [inital=null]         value to intialize the type as
@@ -124,6 +131,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {Function} [santizer]     function passed (new value, old value) before value is set. returns value to set property to.
 		 * @return {{get: Function, set: Function}} The get and set function for the property
 		 * @memberof! Elements
+		 * @instance
 		 */
 		setUpAttrPropertyLink: function (object, property, inital=null,
 			   eventTrigger = () => {},
@@ -175,6 +183,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {HTMLElement} newElement  New Custom HTMLElement
 		 * @param  {String} HTMLname         Name to register HTMLElement as
 		 * @memberof! Elements
+		 * @instance
 		 */
 		load: async function (templateLocation, newElement, HTMLname) {
 			let jsName = HTMLname;
@@ -207,6 +216,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Useful for requiring scripts/objects
 		 * @param  {String} fileName name of file as passed to require
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loaded: async function (fileName) {
 			this.loadedElements.add(fileName);
@@ -217,6 +227,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} name name of element
 		 * @return {Node}      imported Node
 		 * @memberof! Elements
+		 * @instance
 		 */
 		importTemplate: (name) => {
 			return document.importNode(document.querySelector('#templateElements' + name), true).content;
@@ -226,6 +237,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Loads a custom element from js files
 		 * @param  {...String} elementNames name of element to import
 		 * @memberof! Elements
+		 * @instance
 		 */
 		require: async function (...elementNames) {
 			for (let name of elementNames) {
@@ -247,6 +259,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} name HTMLElement name
 		 * @return {String}      JS Element name
 		 * @memberof! Elements
+		 * @instance
 		 */
 		captilize: function (name) {
 			let l = name.split('-');
@@ -259,6 +272,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Location to prefix file requests by, i.e. location of elements folder
 		 * @type {String}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		location: '',
 		/**
@@ -266,6 +280,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {Function} callback    Function to call back
 		 * @param  {...String}   moduleNames elements to wait to load first
 		 * @memberof! Elements
+		 * @instance
 		 */
 		await: async function (callback, ...moduleNames) {
 			await this.get(...moduleNames);
@@ -276,6 +291,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Callback to process awaiting elements
 		 * @param  {String} loaded Name of element loaded
 		 * @memberof! Elements
+		 * @instance
 		 */
 		awaitCallback: async function (loaded) {
 			loaded = this.__nameResolver(loaded);
@@ -289,6 +305,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} name name with 'elements-'
 		 * @return {String}      name without 'elements-'
 		 * @memberof! Elements
+		 * @instance
 		 */
 		removeNSTag: function (name) {
 			if (name.indexOf('elements-') !== 0) {
@@ -303,6 +320,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String[]} properties Properties to include
 		 * @return {Object}            new object with properties copied over
 		 * @memberof! Elements
+		 * @instance
 		 */
 		jsonIncludes: function (object, properties) {
 			let result = {}
@@ -316,6 +334,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {Set} set Set to convert to array
 		 * @return {Array}   Array version of set
 		 * @memberof! Elements
+		 * @instance
 		 */
 		setToArray: function (set) {
 			let result = [];
@@ -328,6 +347,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Set of gotten elements (requested through get, not require)
 		 * @type {Set}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__gottenElements: new Set(),
 		/**
@@ -336,6 +356,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {...String} elementNames names of things to load
 		 * @return {Promise}                A promise that resolves when all requested things are loaded (await this)
 		 * @memberof! Elements
+		 * @instance
 		 */
 		get: async function (...elementNames) {
 			for (let name of elementNames) {
@@ -353,6 +374,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} elementName name of module requested
 		 * @return {Promise}            Promise resolving on load of module
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__get: async function (elementName) {
 			let name = this.__nameResolver(elementName);
@@ -380,6 +402,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		/**
 		 * execute get requests that weren't possible before the manifest loaded
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__getBacklog: async function () {
 			for (let name of this.getBacklog) {
@@ -391,6 +414,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Map to the promise for each request
 		 * @type {Map}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__getPromiseStore: new Map(),
 		/**
@@ -398,6 +422,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {...String} jsName names of requested files
 		 * @return {Promise}          Promise resolving upon load of all requests
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__getPromise: function (...jsName) {
 			let promises = [];
@@ -412,6 +437,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} jsName Name of file been requested
 		 * @return {Promise}       Promise resolving on load of request
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__setPromise: function (jsName) {
 			if (this.__getPromiseStore.has(jsName)) {
@@ -435,6 +461,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} name name of request e.g. elements-drag-down, drag-down, dragDown
 		 * @return {String}      name of .js for name e.g. dragDown
 		 * @memberof! Elements
+		 * @instance
 		 */
 		__nameResolver: function (name) {
 			name = this.removeNSTag(name);
@@ -452,6 +479,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		/**
 		 * Load the elements manifest from network
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loadManifest: async function () {
 			if (this.manifestLoaded) {return;}
@@ -470,18 +498,21 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * The elements manifest. Contains information about modules and their dependacies
 		 * @type {Object}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		manifest: {},
 		/**
 		 * flag for if the manifest has loaded
 		 * @type {Boolean}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		manifestLoaded: false,
 		/**
 		 * Backlog of request awaiting the manifest to load
 		 * @type {Array}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		getBacklog: [],
 		/**
@@ -489,6 +520,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} location location of file. Note: will not prefix .location for you
 		 * @return {Promise}         Promise that resolves to the respone body, can error
 		 * @memberof! Elements
+		 * @instance
 		 */
 		request: async function (location) {
 			return fetch(location).then(
@@ -506,6 +538,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} name Name of submodule
 		 * @return {String}      Name of module that contains the submodule
 		 * @memberof! Elements
+		 * @instance
 		 */
 		findProvider: function (name) {
 			for (let item in this.manifest) {
@@ -519,12 +552,14 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Map to loading template requests
 		 * @type {Map}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loadingTemplates: new Map(),
 		/**
 		 * Set of locations of loaded templates
 		 * @type {Set}
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loadedTemplates: new Set(),
 		/**
@@ -532,6 +567,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} location Location of template. Note: does not prefix location or append .html
 		 * @return {Promise}         Promise that resolves once template is received
 		 * @memberof! Elements
+		 * @instance
 		 */
 		loadTemplate: async function (location) {
 			let template;
@@ -565,6 +601,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {Boolean|String} value A boolean or a string representing a boolean
 		 * @return {Boolean}              Input converted to boolean
 		 * @memberof! Elements
+		 * @instance
 		 */
 		booleaner: (value) => {
 			if (typeof(value) == 'boolean') {
