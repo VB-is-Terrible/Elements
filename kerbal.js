@@ -145,8 +145,7 @@ Elements.await(function () {
 			}
 		}
 		static get observedAttributes () {
-			return ['menuvisible'];
-		}
+			return ['menuvisible', 'disabled'];
 		}
 		/**
 		* Make a display element
