@@ -60,7 +60,7 @@ Elements.await(function () {
 			};
 
 			definer(['jobs', 'name']);
-			this.jobDisplay = this.constructor.blankPlaceList(null);
+			this.jobDisplay = KNS.blankPlaceList(null);
 			let shadow = this.attachShadow({mode: 'open'});
 			let template = Elements.importTemplate(this.alias);
 
@@ -133,12 +133,6 @@ Elements.await(function () {
 		static get observedAttributes () {
 			return ['menuvisible'];
 		}
-		static blankPlaceList (value) {
-			let placeList = {};
-			for (let place of KNS.places) {
-				placeList[place] = value;
-			}
-			return placeList;
 		}
 		/**
 		* Make a display element
