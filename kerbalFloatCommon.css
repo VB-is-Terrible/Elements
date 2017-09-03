@@ -1,0 +1,69 @@
+:host {
+	--width: 650px;
+}
+#pseudoBody {
+	width: var(--width);
+	--font-size: large;
+	background: rgba(255,255,255,.66);
+	font-size: var(--font-size);
+}
+p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+input, select {
+	width: 100%;
+}
+button, input, select {
+	font-size: var(--font-size);
+}
+#title {
+	margin-bottom: 5px;
+}
+#Close {
+	float: right;
+	margin-right: 1em;
+}
+div.fill {
+	width: 100%;
+}
+div.multi {
+	display: flex;
+}
+elements-grid {
+	--border-width: 0px;
+	--width: 100%;
+	--grid-gap: 1em;
+}
+select, button, input{
+	background-color: #f6f6f6;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+#kerbalContainer {
+	position: relative;
+}
+#overlay {
+	/*display: none;*/
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+#editBody {
+	font-size: var(--font-size);
+}
+.spacer {
+	margin-left: .5em;
+}
+.warn {
+	height: 1em;
+	width: 1em;
+	float: right;
+}
+div.right {
+	display: flex;
+	justify-content: flex-end;
+}
+#footer {
+	padding-right: 5px;
+}

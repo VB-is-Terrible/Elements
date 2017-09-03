@@ -1,8 +1,9 @@
 <template id="templateElementsKerbalEditor">
+	<link rel="stylesheet" type="text/css" href="kerbalFloatCommon.css">
 	<link rel="stylesheet" type="text/css" href="kerbalEditor.css">
 	<div id="pseudoBody" draggable="true">
 		<div id="title" class="multi">
-			<div id="titleContain">
+			<div class="fill">
 				<span>
 					Kerbal Editor
 				</span>
@@ -13,7 +14,7 @@
 		</div>
         <elements-kerbal></elements-kerbal>
 		<div id="editBody">
-			<elements-grid rows="1" columns="2" class="questions">
+			<elements-grid rows="1" columns="2">
 				<!-- Questions -->
 				<p slot="s1">
 					Remove Job
@@ -52,7 +53,6 @@
 						<p class="textOverlay"> Sudo mode </p>
 					</div>
 				</div>
-				<elements-grid rows="4" columns="2" class="questions" id="insideDrag">
 					<!--Questions-->
 					<div slot="s1">
 						<p>
