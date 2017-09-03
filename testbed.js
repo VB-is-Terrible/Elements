@@ -1,52 +1,33 @@
-let testElement1 = class extends Elements.elements.backbone {
+'use strict'
+
+class spam {
+	constructor () {
+		this.hello = 'world';
+
+	}
+}
+
+class test extends spam {
 	constructor () {
 		super();
 
+		debugger;
 
-		let shadow = this.attachShadow({ mode: 'open' });
-		let template = document.importNode(
-					document.querySelector('#template1'),
-					true);
-
-		Elements.setUpAttrPropertyLink(this, 'test', 'bye world');
-		shadow.appendChild(template.content)
+		let something = () => {
+			console.log(this.hello);
+		};
 	}
-	connectedCallback () {
-		super.connectedCallback();
-		console.log('test');
-	}
-	static get observedAttributes () {
-		return ['test'];
-	}
-};
+}
 
-
-window.customElements.define('test-element1', testElement1);
-
-let testElement2 = class extends HTMLElement {
+class test2 extends HTMLElement {
 	constructor () {
 		super();
-		let shadow = this.attachShadow({ mode: 'open' });
-		let template = document.importNode(
-					document.querySelector('#template2'),
-					true);
 
-		shadow.appendChild(template.content)
+		let something = () => {
+			console.log(this);
+		};
 	}
-};
+}
 
-window.customElements.define('test-element2', testElement2);
-
-let testElement3 = class extends HTMLElement {
-	constructor () {
-		super();
-		let shadow = this.attachShadow({ mode: 'open' });
-		let template = document.importNode(
-					document.querySelector('#template3'),
-					true);
-
-		shadow.appendChild(template.content)
-	}
-};
-
-window.customElements.define('test-element3', testElement3);
+let b = new test2();
+let a = new test();
