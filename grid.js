@@ -4,7 +4,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 		const self = this;
-		this.name = "Grid";
+		this.name = 'Grid';
 		const shadow = this.attachShadow({ mode: 'open' });
 		const template = Elements.importTemplate(this.name);
 
@@ -68,8 +68,8 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 			let positions = rows * cols;
 
 			let updater = () => {
-				gridElement.style.gridTemplateRows = "1fr ".repeat(rows)
-				gridElement.style.gridTemplateColumns = "1fr ".repeat(cols);
+				gridElement.style.gridTemplateRows = '1fr '.repeat(rows)
+				gridElement.style.gridTemplateColumns = '1fr '.repeat(cols);
 				gridElement.style.gridTemplateAreas = this.constructor.generateGridNames(rows, cols);
 
 				this.updateDivs(rows, cols);
@@ -109,7 +109,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 				}
 			}
 			if (position === -1) {
-				console.warn(cssSelector + " not found in any stylesheets");
+				console.warn(cssSelector + ' not found in any stylesheets');
 			}
 			return [insertSheet, position];
 		};
@@ -117,11 +117,11 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		// If the grid is been expanded, e = [canaryDiv, pseudoBody]
 		// But if the grid is been shrunk and a cell refuses to shrink,
 		// e = [pseudoBody]
-		let [holderDivStyle, holderDivLocation] = findSheet("div.HolderDiv");
+		let [holderDivStyle, holderDivLocation] = findSheet('div.HolderDiv');
 		if (e.length === 1) {
-			holderDivStyle.cssRules[holderDivLocation].style.width = "20%";
+			holderDivStyle.cssRules[holderDivLocation].style.width = '20%';
 			requestAnimationFrame((e) => {
-				holderDivStyle.cssRules[holderDivLocation].style.width = "100%";
+				holderDivStyle.cssRules[holderDivLocation].style.width = '100%';
 			});
 			return;
 		} else {
@@ -143,7 +143,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 			'--height: ' + height.toString() + 'px;' +
 			'height: ' + height.toString() + 'px;';
 		// Destory the old ::slotted style and insert a new style
-		const cssSelector = "slot::slotted(.internal)";
+		const cssSelector = 'slot::slotted(.internal)';
 		let [insertSheet, position] = findSheet(cssSelector);
 		insertSheet.removeRule(position);
 		insertSheet.addRule(cssSelector, rule, position);
@@ -201,12 +201,12 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		let i = 1;
 		let result = '';
 		for (let y = 0; y < rows; y++) {
-			result += '"';
+			result += '\'';
 			for (let x = 0; x < columns; x++) {
 				result += this.numToCharCode(i) + ' ';
 				i += 1;
 			}
-			result += '"';
+			result += '\'';
 		}
 		return result;
 	}

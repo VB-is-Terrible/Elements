@@ -227,12 +227,12 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 		let i = 1;
 		let result = '';
 		for (let y = 0; y < rows; y++) {
-			result += '"';
+			result += '\'';
 			for (let x = 0; x < columns; x++) {
 				result += this.numToCharCode(i) + ' ';
 				i += 1;
 			}
-			result += '"'
+			result += '\''
 		}
 		return result;
 	}
