@@ -97,36 +97,23 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	}
 	display_results (results) {
 		this.emptyNodes();
-		let itemHolder = this.shadowRoot.querySelector('elements-grid');
+		let itemHolder = this.shadowRoot.querySelector('#results');
 		let count = 1;
 		if (this.update !== null) {
 			cancelAnimationFrame(this.update);
 		}
 		this.update = requestAnimationFrame((e) => {
-			itemHolder.rows = Math.min(results.size, 5);
 			let iter = results.entries();
+
 			for (let i = 0; i < results.size && i < 5; i++) {
 				let name = iter.next().value[0];
-				let display = kdb.getKerbal(name).makeDisplay ();
-				display.slot = count.toString() + '-1';
-				display.menuvisible = false;
-				itemHolder.appendChild(display);
-				let button = document.createElement('button');
-				button.value = name;
-				button.innerHTML = 'Edit Kerbal';
-				button.class = "selection";
-				button.slot = count.toString() + '-2';
-				button.addEventListener('click', (e) => {
-					this.editor(e);
-				});
-				itemHolder.appendChild(button);
-				count += 1;
+				itemHolder.appendChild(this.__makeDisplay(kdb.getKerbal(name)));
 			}
 			this.update = null;
 		});
 	}
 	emptyNodes () {
-		let holder = this.shadowRoot.querySelector('elements-grid');
+		let holder = this.shadowRoot.querySelector('#results');
 		for (var i = holder.children.length - 1; i >= 0; i--) {
 			holder.removeChild(holder.children[i]);
 		}
@@ -134,6 +121,22 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	editor (event) {
 		let name = event.target.value;
 		document.body.querySelector('elements-kerbal-editor').data = kdb.getKerbal(name);
+	}
+	__makeDisplay (kerbal) {
+		let div = document.createElement('div');
+		div.classList.add("results");
+		let display = kerbal.makeDisplay();
+		display.menuvisible = false;
+		div.appendChild(display);
+		let button = document.createElement('button');
+		button.value = kerbal.name;
+		button.innerHTML = 'Edit';
+		button.classList.add("results");
+		button.addEventListener('click', (e) => {
+			this.editor(e);
+		});
+		div.appendChild(button);
+		return div;
 	}
 }
 
