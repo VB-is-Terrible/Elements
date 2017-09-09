@@ -321,6 +321,22 @@ let testData = '{"type":"KDB","kerbals":["Ludrey","Lizena","Corald","Seelan","Le
 
 {
 	window.kdb = KDB.fromJSON(testData);
+	// window.kdb = new KDB();
 	kdb.displayAll();
 }
 Elements.loaded('KDB');
+function test () {
+	let a = new KNS.Kerbal();
+	let b = new KerbalChoiceDisplay();
+	a.addDisplay(b)
+	a.addJob('Kerbol', 2);
+	a.addJob('Minmus', 3);
+	a.addJob('Mun', 4);
+	window.a = a;
+	window.b = b;
+}
+
+(async () => {
+	await Elements.get('kerbal-searcher');
+	test();
+})();
