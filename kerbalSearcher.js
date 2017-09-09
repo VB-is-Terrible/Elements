@@ -160,6 +160,29 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 				}
 			});
 		}
+		// Handle Destination Tab
+		/**
+		 * KNS.Kerbal already has job tracker
+		 * @type {KNS.Kerbal}
+		 */
+		let virtualKerbal = new KNS.Kerbal();
+		let kerbalDisplay = new KerbalChoiceDisplay();
+		this.vrtKbl = virtualKerbal;
+		this.kblDsp = kerbalDisplay;
+		virtualKerbal.addDisplay(kerbalDisplay);
+		let addDestination = (e) => {
+			let locationUI = self.shadowRoot.querySelector('#AnsAddPlace');
+			let depthUI = self.shadowRoot.querySelector('#AnsAddValue');
+			let location = locationUI.value;
+			let depth = depthUI.value;
+			virtualKerbal.removeJob(location, KNS.MAX_JOB_VALUE);
+			virtualKerbal.addJob(location, parseInt(depth));
+			locationUI.focus();
+		}
+		template.querySelector('#destination-search').appendChild(kerbalDisplay.display);
+		template.querySelector('#AnsAddConfirm').addEventListener('click', addDestination);
+		kerbalDisplay.display.addEventListener('remove', (e) => console.log(e));
+		kerbalDisplay.display.classList.add('vertical');
 		template.querySelector('elements-tabs').addEventListener('change', tabChange);
 		shadow.appendChild(template);
 	}

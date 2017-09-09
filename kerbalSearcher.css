@@ -19,7 +19,7 @@ input[type=text] {
 p {
 	margin-top: 10px;
 }
-#results {
+#results, .vertical{
 	display: flex;
 	flex-direction: column;
 	flex-grow: 5;
