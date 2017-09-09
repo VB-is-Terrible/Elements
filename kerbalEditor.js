@@ -9,7 +9,8 @@
 {
 const temp = (async () => {
 
-await Elements.get('kerbal', 'grid', 'drag-down', 'KDB');
+Elements.get('grid', 'drag-down')
+await Elements.get('kerbal', 'KDB');
 
 /**
  * UI to edit a KNS.Kerbal
