@@ -15,6 +15,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		let searcher = template.querySelector('#nameInput');
 		let updater = (e) => {
 			let search = searcher.value
+			search = KNS.nameSantizer(search);
 			if (search !== lastValue) {
 				self.display_results(self.search(search));
 				lastValue = search;
@@ -74,7 +75,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	}
 	exact (string, nameList) {
 		if (nameList.includes(string)) {
-			return new Set([[]]);
+			return new Set([string]);
 		} else {
 			return [];
 		}
