@@ -61,9 +61,9 @@ if (!('Elements' in window) || Elements.initalized === false) {
 						this.setDict[attrName](newValue);
 					}
 				}
-				// disconnectedCallback () {
-				//
-				// }
+				disconnectedCallback () {
+
+				}
 			},
 		},
 		/**
