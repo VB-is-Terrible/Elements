@@ -8,6 +8,7 @@ Elements.await(function () {
 	 * UI display of a kerbal, elements-kerbal
 	 * Note: many elements-kerbal -> one KNS.Kerbal
 	 * @type {Object}
+	 * @implements KerbalDisplay
 	 * @property {KNS.Kerbal} data kerbal that this represents
 	 * @property {Boolean} menuvisible Store of useful UI elements
 	 * @property {Object} jobs Readonly reflection on data.jobs
