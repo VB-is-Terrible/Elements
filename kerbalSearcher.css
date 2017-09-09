@@ -2,7 +2,7 @@ div.multi {
 	flex-direction: row;
 	align-items: center;
 }
-#search {
+#kerbal-search {
 	--arrow-size: 1.5;
 	width: 100%
 }
@@ -50,4 +50,24 @@ elements-kerbal {
 }
 button.results {
 	padding: 0 .25em;
+}
+#title {
+	border-bottom: 1px solid black;
+}
+#destination-search {
+	display: none;
+}
+p.inline {
+	margin-right: 10px;
+	margin-top: 0px;
+}
+div.indent {
+	margin-left: 20px;
+}
+p.job {
+	margin: 5px 0px;
+	border-radius: 5px;
+	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

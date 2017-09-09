@@ -5,20 +5,24 @@
 		<div id='title' class='multi'>
 			<div class='fill'>
 				<span>
-					Kerbal Searcher
+					Searcher
 				</span>
+				<elements-tabs selected='Kerbal'>
+					<span slot='s1'>Kerbal</span>
+					<span slot='s2'>Destination</span>
+				</elements-tabs>
 				<span id='Close'>
 					X
 				</span>
 			</div>
 		</div>
-		<elements-drag-down id='search' menuvisible='false'>
+		<elements-drag-down id='kerbal-search' menuvisible='false'>
 			<input id='nameInput' type='text' slot='s1'> </input>
 			<div class='drag_inside'>
 				<p>
 					Search Options:
 				</p>
-				<div id='options'>
+				<div id='kerbal-options'>
 					<div class='multi'>
 						<input type='checkbox' id='prefix' checked='checked'></input>
 						<span class='checkbox'>
@@ -40,6 +44,40 @@
 				</div>
 			</div>
 		</elements-drag-down>
+		<div id='destination-search'>
+			<div class='multi'>
+				<p class='inline'>
+					Location
+				</p>
+				<select id='AnsAddPlace'>
+					<option value='Kerbin'> Kerbin </option>
+					<option value='Mun' selected> Mun </option>
+					<option value='Minmus'> Minmus </option>
+					<option value='Eve'> Eve </option>
+					<option value='Gilly'> Gilly </option>
+					<option value='Duna'> Duna </option>
+					<option value='Ike'> Ike </option>
+					<option value='Dres'> Dres </option>
+					<option value='Jool'> Jool </option>
+					<option value='Laythe'> Laythe </option>
+					<option value='Vall'> Vall </option>
+					<option value='Tylo'> Tylo </option>
+					<option value='Bop'> Bop </option>
+					<option value='Pol'> Pol </option>
+					<option value='Eeloo'> Eeloo </option>
+					<option value='Kerbol'> Kerbol </option>
+				</select>
+				<select id='AnsAddValue' class='spacer'>
+					<option value='1'>Flyby</option>
+					<option value='2'>Sub-Orbital</option>
+					<option value='3'>Orbit</option>
+					<option value='4' selected>Landing</option>
+				</select>
+				<button id='AnsAddConfirm' class='spacer'>
+					Add
+				</button>
+			</div>
+		</div>
 		<p id='resultsTitle'>
 			Results
 		</p>

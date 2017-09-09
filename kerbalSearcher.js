@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal', 'grid', 'KDB', 'dragDown');
+Elements.get('kerbal', 'grid', 'KDB', 'dragDown', 'tabs');
 Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -26,7 +26,32 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		for (let checkbox of template.querySelectorAll('input')) {
 			checkbox.addEventListener('change', updater);
 		}
-		//Fancy code goes here
+		let tabs = [
+			template.querySelector('#kerbal-search'),
+			template.querySelector('#destination-search'),
+		];
+		let tabChange = (e) => {
+			requestAnimationFrame(() => {
+				for (let tab of tabs) {
+					tab.style.display = 'none';
+				}
+				let active;
+				switch (e.detail) {
+					case 'Kerbal':
+						active = tabs[0];
+						break;
+					case 'Destination':
+						active = tabs[1];
+						break;
+					default:
+						active = null;
+				}
+				if (active !== null) {
+					active.style.display = 'block'
+				}
+			});
+		}
+		template.querySelector('elements-tabs').addEventListener('change', tabChange);
 		shadow.appendChild(template);
 	}
 	prefix (string, nameList) {
