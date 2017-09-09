@@ -234,6 +234,19 @@ let KNS =  {
 		}
 	},
 	MAX_JOB_VALUE: 4,
+	nameDesantizer: (string) => {
+		string = string.replace(/&amp/g, '&');
+		string = string.replace(/&lt/g, '<');
+		string = string.replace(/&gt/g, '>');
+		return string;
+	},
+	nameSantizer: (string) => {
+		string = string.trim();
+		string = string.replace(/&/g, '&amp');
+		string = string.replace(/</g, '&lt');
+		string = string.replace(/>/g, '&gt');
+		return string;
+	},
 };
 
 let KDB = class {
