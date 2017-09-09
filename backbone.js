@@ -609,6 +609,24 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			}
 			return !(value === 'false')
 		},
+		/**
+		 * Returns a equivalent requestAnimationFrame, but subsequent calls
+		 * before frame trigger cancel previous ones
+		 * @return {Function} Pretends to be requestAnimationFrame
+		 */
+		rafContext: function () {
+			let raf = null;
+			return (f) => {
+				if (raf !== null) {
+					cancelAnimationFrame(raf);
+				}
+				raf = requestAnimationFrame((e) => {
+					f(e);
+					raf = null;
+				});
+			};
+		},
+
 	}
 	Elements.loadManifest();
 }
