@@ -30,8 +30,8 @@ p.subText {
 }
 img {
 	display: block;
-	max-width: 100%;
-	height: auto;
+	width: auto;
+	height: 60px;
 }
 :host {
 	width: 100%;

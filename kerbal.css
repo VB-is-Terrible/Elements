@@ -20,3 +20,6 @@ p {
 :host {
 	contain: content;
 }
+elements-drag-down {
+	--arrow-size: 2;
+}
