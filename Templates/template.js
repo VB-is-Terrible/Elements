@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.elements.$1 = class extends Elements.elements.backbone {
 	constructor () {

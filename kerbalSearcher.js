@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.get('kerbal', 'grid', 'KDB', 'dragDown');
 Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {

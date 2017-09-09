@@ -1,5 +1,5 @@
 // Elements Bootloader
-'use strict'
+'use strict';
 
 
 if (!('Elements' in window) || Elements.initalized === false) {

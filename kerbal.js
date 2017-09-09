@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.require('drag-down', 'KDB', 'kerbal-tag');
 

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 
 Elements.elements.LinkCardLink = class extends Elements.elements.backbone {

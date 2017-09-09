@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 //TODO: If empty, set display to none
 Elements.elements.DragDown = class extends Elements.elements.backbone {

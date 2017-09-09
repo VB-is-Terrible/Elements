@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.require('kerbal', 'grid', 'KDB');
 Elements.await(() => {

@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.elements.LinkCardContainer = class extends Elements.elements.backbone {
 	constructor () {

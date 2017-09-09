@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 	constructor () {
