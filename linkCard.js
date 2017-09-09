@@ -232,7 +232,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 				result += this.numToCharCode(i) + ' ';
 				i += 1;
 			}
-			result += '\''
+			result += '\'';
 		}
 		return result;
 	}
