@@ -1,6 +1,28 @@
 'use strict'
 
 Elements.require('kerbal');
+/**
+ * Interface for display of a Kerbal
+ * @interface KerbalDisplay
+ */
+/**
+ * @property {KNS.Kerbal} data
+ * @description The kerbal to display
+ * @name KerbalDisplay.data
+ */
+/**
+ * @function updateData
+ * @description Fired when kerbal.data or kerbal.text changes
+ * @name KerbalDisplay.updateData
+ */
+/**
+ *
+ * @function showJob
+ * @description Fired whenever a depth changes
+ * @name KerbalDisplay.showJob
+ * @param {String} place place where the mission depth has changed
+ *
+ */
 
 /**
  * Kerbal NameSpace
@@ -113,7 +135,7 @@ let KNS =  {
 		}
 		/**
 		 * Make a elements-kerbal representing this kerbal
-		 * @return {HTMLElement} elements-kerbal representing this kerbal
+		 * @return {Elements.elements.Kerbal} elements-kerbal representing this kerbal
 		 * @memberof KNS.Kerbal
 		 * @instance
 		 */
