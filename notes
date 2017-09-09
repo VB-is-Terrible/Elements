@@ -15,7 +15,7 @@ Build KDBAdapter
 
 Use a weak map for KNS.Kerbal.display
 
-
+Update manifest for kerbalFloatCommon, tags
 
 Manifest format:
 "require-name": {
