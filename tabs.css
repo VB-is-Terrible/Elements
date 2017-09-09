@@ -1,0 +1,25 @@
+.tabs {
+	display: inline-flex;
+	border-left: 1px solid black;
+}
+button.tab {
+	border: 1px solid black;
+	float: left;
+	border-radius: 0px;
+	border-left: 0px;
+	background: white;
+	font-size: var(---size);
+	background-color: #f8f8f8
+}
+:host {
+	---size: initial;
+	font-size: var(---size);
+}
+button.tab:active {
+	border-bottom: 0px;
+	background-color: white;
+}
+button.tab-selected {
+	border-bottom: 0px;
+	background-color: white;
+}
