@@ -37,7 +37,6 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 		let applyEL = (elementName, event, callback) => {
 			UI[elementName].addEventListener(event, callback);
 		};
-
 		findElements(
 			['kerbal', 'elements-kerbal'],
 			['nameInput', '#AnsName'],
@@ -84,40 +83,37 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 					UI.kerbal.data = this.data;
 					this.data.displays.push(UI.kerbal);
 				}
+				// Fill the UI
+				// Desantize the name
+				UI.nameInput.value = KNS.nameDesantizer(value.name);
+				UI.typeInput.value = value.text;
+				// Reset the UI
+				UI.warn.style.display = 'none';
 			},
 		});
 
-		/**
-		 * Returns a name updater
-		 * @param  {String} name String for updater to set
-		 * @return {UpdaterFunction}
-		 */
-		let nameChanger = (name) => {
-			return (kerbal) => {
-				kerbal.name = name;
-			};
-		};
-		let textChanger = (text) => {
-			return (kerbal) => {
-				kerbal.text = text;
-			};
-		};
-
 		applyEL('nameInput', 'keyup', (e) => {
 			let name = UI.nameInput.value;
-			if (kdb.kerbals.has(name)) {
+			name = KNS.nameSantizer(name);
+			if (kdb.kerbals.has(name) && name !== self.__oldValue.name) {
 				UI.warn.style.display = 'block';
 				UI.nameInput.style.color = 'red';
+				UI.kerbal.disabled = true;
+				UI.updater.disabled = true;
 			} else if (UI.nameInput.value !== '') {
 				self.data.name = UI.nameInput.value;
 				UI.warn.style.display = 'none';
 				UI.nameInput.style.color = 'initial';
 				self.__changeQueue.name = UI.nameInput.value;
+				UI.kerbal.disabled = false;
+				UI.updater.disabled = false;
 			} else {
 				self.data.name = self.__oldValue.name;
 				UI.warn.style.display = 'none';
 				UI.nameInput.style.color = 'initial';
 				self.__changeQueue.name = null;
+				UI.kerbal.disabled = false;
+				UI.updater.disabled = false;
 			}
 		});
 		applyEL('typeInput', 'change', (e) => {
