@@ -70,6 +70,46 @@ let KerbalJobDisplay = class {
 	}
 };
 
+/**
+ * Like kerbalJobDisplay, but built for kerbal-search
+ * @type {Object}
+ * @augments KerbalJobDisplay
+ */
+let KerbalChoiceDisplay = class extends KerbalJobDisplay {
+	/**
+	* Make a display element
+	* @param  {String} place Location
+	* @param  {Number} value Depth of visited required
+	* @return {HTMLElement} Element representing place+value
+	*/
+	makeJobElement (place, value) {
+		let div = document.createElement('div');
+		div.classList.add('results');
+		let p = super.makeJobElement(place, value);
+		div.appendChild(p);
+		let button = document.createElement('button');
+		button.value = place;
+		button.innerHTML = 'Remove';
+		button.classList.add('results');
+		button.addEventListener('click', (e) => {
+			let event = new CustomEvent('remove', {detail: place, value: place,});
+			this.display.dispatchEvent(event);
+		});
+		div.appendChild(button);
+		return div;
+	}
+	/**
+	* Update a job display element
+	* @param  {HTMLElement} element Job display element
+	* @param  {String} place   Destination of mission
+	* @param  {int} value   Depth of mission
+	*/
+   changeJobElement (element, place, value) {
+	   element.querySelector('p').innerHTML = place + ' ' + KNS.valueToJob(value);
+   }
+};
+
+
 Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	constructor () {
 		super();
