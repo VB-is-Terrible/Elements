@@ -13,14 +13,14 @@
 				</span>
 			</div>
 		</div>
-		<elements-kerbal disabled='true'></elements-kerbal>
+		<elements-kerbal></elements-kerbal>
 		<div id='editBody'>
 			<elements-grid rows='4', columns='2' id='questions'>
 				<!-- Questions -->
 				<div slot='s1'>
 					<p>
 						Name
-						<img class='warn' src='warning.svg' title='Kerbal already exists'></img>
+						<img class='warn' src='warning.svg' title='Please enter a name'></img>
 					</p>
 				</div>
 				</p>
@@ -34,19 +34,17 @@
 					Remove Job
 				</p>
 				<!-- Answers -->
-				<input slot='s2' id='AnsName' draggable='false'>
-				</input>
+				<input slot='s2' id='AnsName' draggable='false' placeholder='Kerbal Name'></input>
 				<select slot='s4' id='AnsText'>
-					<option value='' selected disabled hidden> </option>
 					<option value='Pilot'> Pilot </option>
 					<option value='Scientist'> Scientist </option>
 					<option value='Engineer'> Engineer </option>
-					<option value='Tourist'> Tourist </option>
+					<option value='Tourist' selected> Tourist </option>
 				</select>
 				<div class='multi' slot='s6'>
 					<select id='AnsAddPlace'>
 						<option value='Kerbin'> Kerbin </option>
-						<option value='Mun'> Mun </option>
+						<option value='Mun' selected> Mun </option>
 						<option value='Minmus'> Minmus </option>
 						<option value='Eve'> Eve </option>
 						<option value='Gilly'> Gilly </option>
@@ -66,7 +64,7 @@
 						<option value='1'>Flyby</option>
 						<option value='2'>Sub-Orbital</option>
 						<option value='3'>Orbit</option>
-						<option value='4'>Landing</option>
+						<option value='4' selected>Landing</option>
 					</select>
 					<button id='AnsAddConfirm' class='spacer'>
 						Add

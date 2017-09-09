@@ -2,6 +2,7 @@
 
 Elements.require('kerbal', 'grid', 'KDB');
 Elements.await(() => {
+const defaultJob = "Tourist";
 /**
  * UI to make a KNS.Kerbal
  * @type {Object}
@@ -48,19 +49,53 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 				elements.kerbal.data = value;
 			},
 		});
-
+		this.nameValid = false;
 		this.nameChanged = false;
+		let nameRAF = null;
 		applyEL('nameInput', 'keyup', (e) => {
-			let name = elements.nameInput.value;
-			if (kdb.kerbals.has(name)) {
-				elements.warn.style.display = 'block';
-				elements.nameInput.style.color = 'red';
-			} else {
-				self.data.name = elements.nameInput.value;
-				elements.warn.style.display = 'none';
-				elements.nameInput.style.color = 'initial';
-				self.nameChanged = true;
+			let f = null;
+			if (nameRAF !== null) {
+				cancelAnimationFrame(nameRAF);
 			}
+			let name = elements.nameInput.value;
+			name = name.trim();
+			if (name !== '&nbsp;' || this.nameChanged) {
+				name = KNS.nameSantizer(name);
+			}
+			if (kdb.kerbals.has(name)) {
+				f = () => {
+					elements.warn.style.display = 'block';
+					elements.warn.title = "Kerbal already exists";
+					elements.nameInput.style.color = 'red';
+				};
+				elements.kerbal.disabled = true;
+				elements.updater.disabled = true;
+				self.nameValid = false;
+			} else if (name === "&nbsp;" || name === '') {
+				f = () => {
+					elements.warn.style.display = 'block';
+					elements.warn.title = "Please enter a name";
+					elements.nameInput.style.color = 'red';
+				}
+				elements.kerbal.disabled = true;
+				elements.updater.disabled = true;
+				self.nameValid = false;
+				name = '&nbsp;';
+			} else {
+				f = () => {
+					elements.warn.style.display = 'none';
+					elements.nameInput.style.color = 'initial';
+				};
+				self.nameValid = true;
+				self.nameChanged = true;
+				elements.kerbal.disabled = false;
+				elements.updater.disabled = false;
+			}
+			self.data.name = name;
+			nameRAF = requestAnimationFrame(() => {
+				f();
+				nameRAF = null;
+			});
 		});
 		applyEL('typeInput', 'change', (e) => {
 			self.data.text = elements.typeInput.value;
@@ -68,32 +103,44 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 		applyEL('AnsAddConfirm', 'click', (e) => {
 			let location = elements.AnsAddPlace.value;
 			let value = parseInt(elements.AnsAddValue.value);
-			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
-			self.data.addJob(location, value);
+			if (location !== '') {
+				self.data.removeJob(location, KNS.MAX_JOB_VALUE);
+				self.data.addJob(location, value);
+			}
+			elements.AnsAddPlace.value = '';
+			elements.AnsAddPlace.focus();
 		});
 		applyEL('AnsRemoveConfirm', 'click', (e) => {
 			let location = elements.AnsRemovePlace.value;
-			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
+			if (location !== '') {
+				self.data.removeJob(location, KNS.MAX_JOB_VALUE);
+			}
+			elements.AnsRemovePlace.focus();
 		});
 		applyEL('updater', 'click', (e) => {
-			if (!(self.nameChanged && !(elements.nameInput.value === ''))) {
+			if (!(self.nameValid)) {
 				return;
 			}
 			kdb.addKerbal(self.data);
 			self.newKerbal();
 		});
 		this.elements = elements;
+		this.newKerbal();
 		shadow.appendChild(template);
 	}
 	newKerbal () {
 		this.data = new KNS.Kerbal();
+		this.data.name = '&nbsp;';
+		this.data.text = defaultJob;
 		this.data.displays.push(this.elements.kerbal)
 		this.nameChanged = false;
+		this.nameValid = false;
 		this.elements.nameInput.value = '';
-		this.elements.typeInput.value = '';
-		this.elements.AnsAddPlace.value = 'Kerbin';
-		this.elements.AnsAddValue.value = 0;
+		this.elements.typeInput.value = defaultJob;
+		this.elements.AnsAddPlace.value = 'Mun';
+		this.elements.AnsAddValue.value = 4;
 		this.elements.AnsRemovePlace.value = '';
+		this.elements.warn.display = "block";
 	}
 }
 
