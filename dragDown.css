@@ -14,4 +14,5 @@ button {
 :host {
 	--arrow-size: 3;
 	--left-shift: 10%;
+	contain: content;
 }

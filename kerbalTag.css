@@ -16,6 +16,7 @@ p {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	margin: 0px;
+	contain: content;
 }
 p.name {
 	font-size: large;
@@ -34,4 +35,5 @@ img {
 }
 :host {
 	width: 100%;
+	contain: content;
 }

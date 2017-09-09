@@ -1,5 +1,6 @@
 :host {
 	--width: 650px;
+	contain: content;
 }
 #pseudoBody {
 	width: var(--width);

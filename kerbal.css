@@ -17,3 +17,6 @@ p {
 #pseudoBody {
 	position: relative;
 }
+:host {
+	contain: content;
+}
