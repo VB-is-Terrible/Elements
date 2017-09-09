@@ -145,6 +145,27 @@ let KNS =  {
 			this.displays.push(display);
 			return display;
 		}
+		/**
+		 * Register a display to kerbal
+		 * @param {KerbalDisplay} display Display to register
+		 * @memberof KNS.Kerbal
+		 * @instance
+		 */
+		addDisplay (display) {
+			this.displays.push(display)
+			display.data = this;
+		}
+		/**
+		 * Deregister a display to kerbal
+		 * @param  {KerbalDisplay} display [description]
+		 * @memberof KNS.Kerbal
+		 * @instance
+		 */
+		removeDisplay (display) {
+			let index = this.displays.indexOf(display);
+			if (index < 0) {return;}
+			this.displays.splice(index, 1);
+		}
 		toJSON () {
 			return Elements.jsonIncludes(this, ['name', 'text', 'jobs', 'type']);
 		}
