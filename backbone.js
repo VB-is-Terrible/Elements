@@ -229,7 +229,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @memberof! Elements
 		 * @instance
 		 */
-		importTemplate: (name) => {
+		importTemplate: function (name) {
 			return document.importNode(document.querySelector('#templateElements' + name), true).content;
 		},
 
@@ -603,7 +603,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @memberof! Elements
 		 * @instance
 		 */
-		booleaner: (value) => {
+		booleaner: function (value) {
 			if (typeof(value) == 'boolean') {
 				return value;
 			}
