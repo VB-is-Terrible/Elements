@@ -91,6 +91,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	}
 	touch_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.removeEventListener('touchstart', this.events.start, true);
 		body.addEventListener('touchstart', this.events.start, true);
 		body.removeEventListener('touchmove', this.events.move, true);
 		body.removeEventListener('touchend', this.events.end, true);
