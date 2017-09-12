@@ -170,6 +170,15 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		this.vrtKbl = virtualKerbal;
 		this.kblDsp = kerbalDisplay;
 		virtualKerbal.addDisplay(kerbalDisplay);
+		let destinationSearch = (e) => {
+			if (virtualKerbal.size === 0) {
+				self.display_results([]);
+			} else {
+				let lower = self.shadowRoot.querySelector('#lower').checked;
+				let results = self.destination_search(virtualKerbal.jobs, lower);
+				self.display_results(results);
+			}
+		};
 		let addDestination = (e) => {
 			let locationUI = self.shadowRoot.querySelector('#AnsAddPlace');
 			let depthUI = self.shadowRoot.querySelector('#AnsAddValue');
@@ -178,7 +187,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			virtualKerbal.removeJob(location, KNS.MAX_JOB_VALUE);
 			virtualKerbal.addJob(location, parseInt(depth));
 			locationUI.focus();
+			destinationSearch();
 		}
+		template.querySelector('#lower').addEventListener('change', destinationSearch);
 		template.querySelector('#destination-search').appendChild(kerbalDisplay.display);
 		template.querySelector('#AnsAddConfirm').addEventListener('click', addDestination);
 		kerbalDisplay.display.addEventListener('remove', (e) => console.log(e));
@@ -303,6 +314,54 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		});
 		div.appendChild(button);
 		return div;
+	}
+	destination_search (jobList, lower) {
+		let locations = [];
+		let lower_results = [];
+		let results = [];
+		for (let location of KNS.places) {
+			if (jobList[location] > 0) {
+				locations.push({
+					place: location,
+					value: jobList[location],
+				});
+			}
+		}
+		let check = (location, kerbal) => {
+			const value = kerbal.jobs[location.place];
+			if (value === location.value) {
+				return true;
+			}
+			return false;
+		};
+		let lower_check = (location, kerbal) => {
+			const value = kerbal.jobs[location.place];
+			if (lower && value < location.value && value !== 0) {
+				return true;
+			}
+			return false;
+		};
+
+		for (let kerbalName of kdb.kerbals) {
+			let kerbal = kdb.getKerbal(kerbalName);
+			let flag = true;
+			let lower_flag = true;
+			for (let location of locations) {
+				if (!(check(location, kerbal))) {
+					flag = false;
+				}
+				if (!(lower_check(location, kerbal))) {
+					lower_flag = false;
+					break;
+				}
+			}
+			if (flag === true) {
+				results.push(kerbal);
+			} else if (lower_flag === true) {
+				lower_results.push(kerbal);
+			}
+		}
+		return results.concat(lower_results);
 	}
 	__resolve_names (array) {
 		let result = [];
