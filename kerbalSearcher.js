@@ -192,10 +192,15 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			locationUI.focus();
 			destinationSearch();
 		}
+		let removeDestination = (e) => {
+			let location = e.detail;
+			virtualKerbal.removeJob(location, KNS.MAX_JOB_VALUE);
+			destinationSearch();
+		};
 		template.querySelector('#lower').addEventListener('change', destinationSearch);
 		template.querySelector('#destination-search').appendChild(kerbalDisplay.display);
 		template.querySelector('#AnsAddConfirm').addEventListener('click', addDestination);
-		kerbalDisplay.display.addEventListener('remove', (e) => console.log(e));
+		kerbalDisplay.display.addEventListener('remove', removeDestination);
 		kerbalDisplay.display.id = 'jobs';
 		template.querySelector('elements-tabs').addEventListener('change', tabChange);
 		shadow.appendChild(template);
