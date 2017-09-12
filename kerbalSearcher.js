@@ -289,6 +289,16 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		if (this.update !== null) {
 			cancelAnimationFrame(this.update);
 		}
+		let name = this.shadowRoot.querySelector('#resultsTitle');
+		let string = 'Results';
+		if (results.length !== 0) {
+			string += ': ';
+			string += results.length.toString();
+			string += ' match';
+			if (results.length > 1) {
+				string += 'es';
+			}
+		}
 		this.update = requestAnimationFrame((e) => {
 			this.emptyNodes();
 
