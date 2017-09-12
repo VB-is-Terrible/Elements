@@ -178,7 +178,8 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 				self.display_results([]);
 			} else {
 				let lower = self.shadowRoot.querySelector('#lower').checked;
-				let results = self.destination_search(virtualKerbal.jobs, lower);
+				let tourist = self.shadowRoot.querySelector('#tourism').checked;
+				let results = self.destination_search(virtualKerbal.jobs, lower, tourist);
 				self.display_results(results);
 			}
 		};
@@ -198,6 +199,8 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			destinationSearch();
 		};
 		template.querySelector('#lower').addEventListener('change', destinationSearch);
+		template.querySelector('#tourism').addEventListener('change', destinationSearch);
+
 		template.querySelector('#destination-search').appendChild(kerbalDisplay.display);
 		template.querySelector('#AnsAddConfirm').addEventListener('click', addDestination);
 		kerbalDisplay.display.addEventListener('remove', removeDestination);
@@ -323,7 +326,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		div.appendChild(button);
 		return div;
 	}
-	destination_search (jobList, lower) {
+	destination_search (jobList, lower, tourism) {
 		let locations = [];
 		let lower_results = [];
 		let results = [];
@@ -352,6 +355,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 
 		for (let kerbalName of kdb.kerbals) {
 			let kerbal = kdb.getKerbal(kerbalName);
+			if (tourism && kerbal.text !== 'Tourist') {
+				break;
+			}
 			let flag = true;
 			let lower_flag = true;
 			for (let location of locations) {
