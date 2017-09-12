@@ -19,10 +19,11 @@ input[type=text] {
 p {
 	margin-top: 10px;
 }
-#results, .vertical{
+#results, #jobs {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 5;
+	width: 100%;
 }
 #resultsTitle {
 	font-size: x-large;
@@ -34,11 +35,6 @@ p {
 button.selection {
 	width: 100%;
 	height: 100%;
-}
-#results {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
 }
 div.results {
 	display: flex;
@@ -65,9 +61,33 @@ div.indent {
 	margin-left: 20px;
 }
 p.job {
-	margin: 5px 0px;
 	border-radius: 5px;
 	background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
 	overflow: hidden;
 	text-overflow: ellipsis;
+	margin-top: 0px;
+	flex-grow: 1;
+}
+#jobs, button.results {
+	font-size: initial;
+	align-items: center;
+	justify-content: center;
+	justify-items: center;
+}
+#jobs {
+	box-sizing: border-box;
+	padding-left: 3em;
+	padding-right: 1ex;
+}
+button.results {
+	flex-grow: 0;
+	margin-left: 1em;
+}
+div.results {
+	margin-bottom: 5px;
+	flex-shrink: 0;
+}
+#results {
+	overflow: scroll;
+	max-height: 500px;
 }

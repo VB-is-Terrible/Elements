@@ -86,6 +86,7 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 		let div = document.createElement('div');
 		div.classList.add('results');
 		let p = super.makeJobElement(place, value);
+		p.classList.add('job');
 		div.appendChild(p);
 		let button = document.createElement('button');
 		button.value = place;
@@ -193,7 +194,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		template.querySelector('#destination-search').appendChild(kerbalDisplay.display);
 		template.querySelector('#AnsAddConfirm').addEventListener('click', addDestination);
 		kerbalDisplay.display.addEventListener('remove', (e) => console.log(e));
-		kerbalDisplay.display.classList.add('vertical');
+		kerbalDisplay.display.id = 'jobs';
 		template.querySelector('elements-tabs').addEventListener('change', tabChange);
 		shadow.appendChild(template);
 	}
