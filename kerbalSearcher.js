@@ -110,6 +110,8 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
    }
 };
 
+(async function () {
+await Elements.get('KDB');
 
 Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	constructor () {
@@ -374,3 +376,4 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 }
 
 Elements.load('kerbalSearcherTemplate.html', Elements.elements.KerbalSearcher, 'elements-kerbal-searcher');
+})();
