@@ -126,7 +126,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			let search = searcher.value
 			search = KNS.nameSantizer(search);
 			if (search !== lastValue) {
-				self.display_results(self.search(search));
+				self.display_results(self.__resolve_names(self.search(search)));
 				lastValue = search;
 			}
 		};
@@ -257,6 +257,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		}
 		return result;
 	}
+	/**
+	 * Show array on screen
+	 * @param  {KNS.Kerbal[]} results Array of results, best match to worst
+	 */
 	display_results (results) {
 		let itemHolder = this.shadowRoot.querySelector('#results');
 		let count = 1;
@@ -265,12 +269,12 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		}
 		this.update = requestAnimationFrame((e) => {
 			this.emptyNodes();
-			let iter = results.entries();
 
-			for (let i = 0; i < results.size && i < 5; i++) {
-				let name = iter.next().value[0];
-				itemHolder.appendChild(this.__makeDisplay(kdb.getKerbal(name)));
+			for (let i = 0; i < results.length; i++) {
+				let kerbal = results[i];
+				itemHolder.appendChild(this.__makeDisplay(kerbal));
 			}
+			name.innerHTML = string;
 			this.update = null;
 		});
 	}
@@ -299,6 +303,13 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		});
 		div.appendChild(button);
 		return div;
+	}
+	__resolve_names (array) {
+		let result = [];
+		for (let name of array) {
+			result.push(kdb.getKerbal(name));
+		}
+		return result;
 	}
 }
 
