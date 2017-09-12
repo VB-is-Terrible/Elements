@@ -10,7 +10,7 @@
 	},
 	"kerbalSearcher": {
 		"type": "element",
-		"requires": ["kerbal", "grid", "KDB", "dragDown"],
+		"requires": ["kerbal", "grid", "KDB", "dragDown", "tabs"],
 		"templates": ["kerbalSearcherTemplate.html"],
 		"css": ["kerbalSearcher.css"],
 		"resources": [],
@@ -87,5 +87,13 @@
 		"css": ["dragBody.css"],
 		"resources": [],
 		"provides": ["dragBody"]
+	},
+	"tabs": {
+		"type": "element",
+		"requires": [],
+		"templates": ["tabsTemplate.html"],
+		"css": ["tabs.css"],
+		"resources": [],
+		"provides": ["tabs"]
 	}
 }
