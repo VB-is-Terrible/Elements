@@ -206,6 +206,16 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		kerbalDisplay.display.addEventListener('remove', removeDestination);
 		kerbalDisplay.display.id = 'jobs';
 		template.querySelector('elements-tabs').addEventListener('change', tabChange);
+		let results = template.querySelector('#results');
+		results.addEventListener('touchstart', (e) => {
+			// Check for overflow
+			if (results.clientHeight !== results.scrollHeight) {
+				this.parentElement.touch_reset();
+				e.stopPropagation();
+				e.stopImmediatePropagation();
+			}
+
+		});
 		shadow.appendChild(template);
 	}
 	prefix (string, nameList) {
