@@ -166,6 +166,19 @@ let KNS =  {
 			if (index < 0) {return;}
 			this.displays.splice(index, 1);
 		}
+		/**
+		 * Number of destinations to visit
+		 * @return {Number} Number of locations to visit
+		 */
+		get size () {
+			let size = 0;
+			for (let location of KNS.places) {
+				if (this.jobs[location] !== 0) {
+					size += 1;
+				}
+			}
+			return size;
+		}
 		toJSON () {
 			return Elements.jsonIncludes(this, ['name', 'text', 'jobs', 'type']);
 		}
