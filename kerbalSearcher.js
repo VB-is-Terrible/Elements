@@ -322,6 +322,11 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 				itemHolder.appendChild(this.__makeDisplay(kerbal));
 			}
 			name.innerHTML = string;
+			if (results.length === 0) {
+				itemHolder.style.display = 'none';
+			} else {
+				itemHolder.style.display = 'block';
+			}
 			this.update = null;
 		});
 	}

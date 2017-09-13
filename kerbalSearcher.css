@@ -90,4 +90,5 @@ div.results {
 #results {
 	overflow: scroll;
 	max-height: 500px;
+	display: none;
 }
