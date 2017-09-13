@@ -10,7 +10,7 @@
 const temp = (async () => {
 
 Elements.get('grid', 'drag-down')
-await Elements.get('kerbal', 'KDB');
+await Elements.get('kerbal', 'kerbal-link');
 
 /**
  * UI to edit a KNS.Kerbal
@@ -53,6 +53,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 			['cancel', '#Cancel'],
 		);
 
+		this.database = this.database || 'default';
 		this.__data = this.data || null;
 		/**
 		 * Kerbal been edited
@@ -96,7 +97,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 		applyEL('nameInput', 'keyup', (e) => {
 			let name = UI.nameInput.value;
 			name = KNS.nameSantizer(name);
-			if (kdb.kerbals.has(name) && name !== self.__oldValue.name) {
+			if (KerbalLink.get(self.database).kerbals.has(name) && name !== self.__oldValue.name) {
 				UI.warn.style.display = 'block';
 				UI.nameInput.style.color = 'red';
 				UI.kerbal.disabled = true;
@@ -167,7 +168,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 	applyChanges () {
 		let kerbal = this.__oldValue;
 		if (this.__changeQueue.name !== null) {
-			kdb.renameKerbal(kerbal.name, this.__changeQueue.name);
+			KerbalLink.get(this.database).renameKerbal(kerbal.name, this.__changeQueue.name);
 		}
 		if (this.__changeQueue.text !== null) {
 			kerbal.text = this.__changeQueue.text;

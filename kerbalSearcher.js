@@ -111,7 +111,7 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 };
 
 (async function () {
-await Elements.get('KDB');
+await Elements.get('KDB', 'kerbal-link');
 
 Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	constructor () {
@@ -121,6 +121,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		this.name = 'KerbalSearcher';
 		this.update = null;
 		this.maxResults = 5;
+		this.database = this.database || 'default';
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let lastValue = '';
@@ -270,7 +271,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		}
 	}
 	search (string) {
-		let nameList = Array(...kdb.kerbals);
+		let nameList = Array(...KerbalLink.get(this.database).kerbals);
 		let prefix = this.shadowRoot.querySelector('#prefix').checked;
 		let fuzzy = this.shadowRoot.querySelector('#fuzzy').checked;
 		let edit = this.shadowRoot.querySelector('#edit').checked;
@@ -328,7 +329,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	}
 	editor (event) {
 		let name = event.target.value;
-		document.body.querySelector('elements-kerbal-editor').data = kdb.getKerbal(name);
+		document.body.querySelector('elements-kerbal-editor').data = KerbalLink.get(this.database).getKerbal(name);
 	}
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');
@@ -372,7 +373,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			}
 			return false;
 		};
-
+		let kdb = KerbalLink.get(this.database);
 		for (let kerbalName of kdb.kerbals) {
 			let kerbal = kdb.getKerbal(kerbalName);
 			if (tourism && kerbal.text !== 'Tourist') {
@@ -398,6 +399,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		return results.concat(lower_results);
 	}
 	__resolve_names (array) {
+		let kdb = KerbalLink.get(this.database);
 		let result = [];
 		for (let name of array) {
 			result.push(kdb.getKerbal(name));

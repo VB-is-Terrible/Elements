@@ -51,6 +51,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 		});
 		this.nameValid = false;
 		this.nameChanged = false;
+		this.database = this.database || 'default';
 		let nameRAF = null;
 		applyEL('nameInput', 'keyup', (e) => {
 			let f = null;
@@ -62,7 +63,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 			if (name !== '&nbsp;' || this.nameChanged) {
 				name = KNS.nameSantizer(name);
 			}
-			if (kdb.kerbals.has(name)) {
+			if (KerbalLink.get(self.database).kerbals.has(name)) {
 				f = () => {
 					elements.warn.style.display = 'block';
 					elements.warn.title = "Kerbal already exists";
@@ -121,7 +122,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 			if (!(self.nameValid)) {
 				return;
 			}
-			kdb.addKerbal(self.data);
+			KerbalLink.get(self.database).addKerbal(self.data);
 			self.newKerbal();
 		});
 		this.elements = elements;
@@ -142,7 +143,10 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 		this.elements.AnsRemovePlace.value = '';
 		this.elements.warn.display = "block";
 	}
+	hideWindow () {
+		this.parentElement.style.display = 'none';
+	}
 }
 
 Elements.load('kerbalMakerTemplate.html', Elements.elements.KerbalMaker, 'elements-kerbal-maker');
-}, 'KDB');
+}, 'kerbal-link');
