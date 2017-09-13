@@ -285,7 +285,11 @@ let KDB = class {
 		this.display(kerbalObj);
 	}
 	getKerbal (name) {
-		return this.kerbalObjs.get(name);
+		let result = this.kerbalObjs.get(name);
+		if (result === undefined) {
+			result = null;
+		}
+		return result;
 	}
 	renameKerbal (oldName, newName) {
 		let kerbal = this.getKerbal(oldName);
