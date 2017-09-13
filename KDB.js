@@ -23,7 +23,15 @@ Elements.require('kerbal');
  * @param {String} place place where the mission depth has changed
  *
  */
-
+/**
+ * Random integer
+ * @param  {Number} lower Lower bound
+ * @param  {Number} upper Upper bound
+ * @return {Number}       lower <= return <= upper
+ */
+const randint = (lower, upper) => {
+	return Math.floor(Math.random() * (upper - lower) + lower);
+}
 /**
  * Kerbal NameSpace
  * @namespace KNS
@@ -293,7 +301,7 @@ let KDB = class {
 	}
 	display (kerbalObj) {
 		let newDisplay = kerbalObj.makeDisplay();
-		newDisplay.slot = 's1';
+		newDisplay.slot = 's' + randint(1,4).toString();
 		g.append(newDisplay);
 	}
 	displayAll () {
