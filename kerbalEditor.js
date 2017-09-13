@@ -87,8 +87,8 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 				}
 				// Fill the UI
 				// Desantize the name
-				UI.nameInput.value = KNS.nameDesantizer(value.name);
-				UI.typeInput.value = value.text;
+				UI.nameInput.value = KNS.nameDesantizer(this.data.name);
+				UI.typeInput.value = this.data.text;
 				// Reset the UI
 				UI.warn.style.display = 'none';
 			},
