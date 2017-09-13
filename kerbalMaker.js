@@ -38,6 +38,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 			['AnsRemovePlace', '#AnsRemovePlace'],
 			['AnsRemoveConfirm', '#AnsRemoveConfirm'],
 			['warn', 'img.warn'],
+			['close', '#Close'],
 		);
 		Object.defineProperty(this, 'data', {
 			enumerable: true,
@@ -124,6 +125,9 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 			}
 			KerbalLink.get(self.database).addKerbal(self.data);
 			self.newKerbal();
+		});
+		applyEL('close', 'click', (e) => {
+			self.hideWindow();
 		});
 		this.elements = elements;
 		this.newKerbal();

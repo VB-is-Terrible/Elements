@@ -217,6 +217,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			}
 
 		});
+
+		template.querySelector('#Close').addEventListener('click', (e) => {
+			self.hideWindow();
+		});
 		shadow.appendChild(template);
 	}
 	prefix (string, nameList) {
@@ -405,6 +409,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			result.push(kdb.getKerbal(name));
 		}
 		return result;
+	}
+	hideWindow () {
+		this.parentElement.style.display = 'none';
 	}
 }
 
