@@ -255,13 +255,13 @@ let KNS =  {
 		}
 	},
 	MAX_JOB_VALUE: 4,
-	nameDesantizer: (string) => {
+	nameDesanitizer: (string) => {
 		string = string.replace(/&amp/g, '&');
 		string = string.replace(/&lt/g, '<');
 		string = string.replace(/&gt/g, '>');
 		return string;
 	},
-	nameSantizer: (string) => {
+	nameSanitizer: (string) => {
 		string = string.trim();
 		string = string.replace(/&/g, '&amp');
 		string = string.replace(/</g, '&lt');

@@ -128,7 +128,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		let searcher = template.querySelector('#nameInput');
 		let updater = (e) => {
 			let search = searcher.value
-			search = KNS.nameSantizer(search);
+			search = KNS.nameSanitizer(search);
 			if (search !== lastValue) {
 				self.display_results(self.__resolve_names(self.search(search)));
 				lastValue = search;
@@ -338,7 +338,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 	}
 	editor (event) {
 		let name = event.target.value;
-		document.body.querySelector('elements-kerbal-editor').data = KerbalLink.get(this.database).getKerbal(name);
+		let search = KerbalLink.getUI(this.database + '-' + 'editor');
+		if (search) {
+			search.data = KerbalLink.get(this.database).getKerbal(name);
+		}
 	}
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');

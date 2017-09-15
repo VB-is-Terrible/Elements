@@ -62,7 +62,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 			let name = elements.nameInput.value;
 			name = name.trim();
 			if (name !== '&nbsp;' || this.nameChanged) {
-				name = KNS.nameSantizer(name);
+				name = KNS.nameSanitizer(name);
 			}
 			if (KerbalLink.get(self.database).kerbals.has(name)) {
 				f = () => {
