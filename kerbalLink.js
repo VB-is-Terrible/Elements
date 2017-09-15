@@ -1,10 +1,5 @@
 'use strict';
 
-
-{
-let main = async () => {
-	await Elements.get('KDB');
-	let link = class KerbalLink {
 		constructor () {
 			this.databases = new Map();
 			this.prefix = 'elements-kerbal-database';
@@ -16,6 +11,8 @@ let main = async () => {
 			}
 			let json = JSON.stringify(db);
 			window.localStorage.setItem(this.prefix + '-' + name, json);
+class KerbalLinkClass {
+	constructor () {
 		}
 		load (name) {
 			let db;
@@ -41,7 +38,11 @@ let main = async () => {
 		}
 	}
 
-	window.KerbalLink = new link();
+{
+let main = async () => {
+	await Elements.get('KDB');
+
+	window.KerbalLink = new KerbalLinkClass();
 
 	Elements.loaded('kerbalLink');
 };
