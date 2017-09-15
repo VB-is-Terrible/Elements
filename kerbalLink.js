@@ -9,6 +9,7 @@ class KerbalLinkClass {
 	constructor () {
 		this.databases = new Map();
 		this.prefix = 'elements-kerbal-database';
+		this.UIs = new Map();
 	}
 	/**
 	* Save a KDB
@@ -60,7 +61,28 @@ class KerbalLinkClass {
 	set (name, db) {
 		this.databases.set(name, db);
 	}
+	/**
+	* Register a UI compenent for other clients to find
+	* @param  {String} name   Name of UI compenent
+	* @param  {HTMLElement} object Object to register
+	*/
+	registerUI (name, object) {
+		if (this.UIs.has(name)) {
+			throw new Error('UI compenent already registered');
+		} else {
+			this.UIs.set(name, object);
 		}
+	}
+	/**
+	* Get a UI by name
+	* @param  {String} name Name of UI compenent
+	* @return {?HTMLElement} Object registered
+	*/
+	getUI (name) {
+		if (this.UIs.has(name)) {
+			return this.UIs.get(name);
+		} else {
+			return null;
 		}
 	}
 }
@@ -74,4 +96,11 @@ let main = async () => {
 	Elements.loaded('kerbalLink');
 };
 main();
+let uiInit = async (e) => {
+	await Elements.get('kerbal-link');
+	KerbalLink.registerUI('default-maker', document.body.querySelector('#drag1').children[0]);
+	KerbalLink.registerUI('default-editor', document.body.querySelector('#drag2').children[0]);
+	KerbalLink.registerUI('default-searcher', document.body.querySelector('#drag3').children[0]);
+}
+window.addEventListener('load', uiInit)
 }
