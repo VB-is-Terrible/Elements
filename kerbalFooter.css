@@ -1,0 +1,22 @@
+#pseudoBody {
+	height: var(--height);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: calc(100% - var(--height));
+	left: 0px;
+	width: 100%;
+}
+:host {
+	--height: 2em;
+}
+button {
+	width: 100%;
+	margin-left: 0px;
+	margin-right: 0px;
+	border: 1px solid black;
+	background: white;
+	font-size: 1em;
+	height: 100%;
+}
