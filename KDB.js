@@ -177,6 +177,8 @@ let KNS =  {
 		/**
 		 * Number of destinations to visit
 		 * @return {Number} Number of locations to visit
+		 * @memberof KNS.Kerbal
+		 * @instance
 		 */
 		get size () {
 			let size = 0;
@@ -205,6 +207,12 @@ let KNS =  {
 			return kerbal;
 		}
 	},
+	/**
+	 * Returns a object with the mapping [place] -> value for all places
+	 * @param  {*} value Default value
+	 * @return {Object}  Mapping of [place] -> value
+	 * @memberof KNS
+	 */
 	blankPlaceList: function (value) {
 		let placeList = {};
 		for (let place of this.places) {
@@ -212,6 +220,12 @@ let KNS =  {
 		}
 		return placeList;
 	},
+	/**
+	 * Converts a UI input to job value
+	 * @param  {String} value Text representing job
+	 * @return {Number}       Value of job
+	 * @memberof KNS
+	 */
 	valueToJob: function (value) {
 		switch (value) {
 			case 0:
@@ -233,6 +247,12 @@ let KNS =  {
 				return '????';
 		}
 	},
+	/**
+	 * Converts a job value to text
+	 * @param  {Number} job Job value
+	 * @return {String}     Text representing job
+	 * @memberof KNS
+	*/
 	jobToValue: function (job) {
 		switch (job) {
 			case '':
@@ -254,13 +274,32 @@ let KNS =  {
 				return 0;
 		}
 	},
+	/**
+	 * Highest depth for a job
+	 * @type {Number}
+	 * @memberof KNS
+	 */
 	MAX_JOB_VALUE: 4,
+	/**
+	 * Desanitizes a string for HTML.
+	 * Used for UI output where escaping is not required, i.e. not HTML.
+	 * e.g. placeholder value set via js
+	 * @param  {String} string Sanitized string
+	 * @return {String}        Unsafe string
+	 * @memberof KNS
+	 */
 	nameDesanitizer: (string) => {
 		string = string.replace(/&amp/g, '&');
 		string = string.replace(/&lt/g, '<');
 		string = string.replace(/&gt/g, '>');
 		return string;
 	},
+	/**
+	 * Sanitizes a string for HTML.
+	 * @param  {String} string Unsafe string
+	 * @return {String}        Sanitized string
+	 * @memberof KNS
+	 */
 	nameSanitizer: (string) => {
 		string = string.trim();
 		string = string.replace(/&/g, '&amp');
@@ -270,12 +309,21 @@ let KNS =  {
 	},
 };
 
-let KDB = class {
+/**
+ * Kerbal database - used to store information on kerbals.
+ * @property {Set} kerbals Set of all kerbals in the db
+ */
+const KDB = class KDB {
 	constructor () {
 		this.kerbals = new Set();
 		this.kerbalObjs = new Map();
 		this.type = 'KDB';
 	}
+	/**
+	 * Add a new kerbal
+	 * @param {KNS.Kerbal} kerbalObj Kerbal to add
+	 * @throws {Error} If kerbal already exists
+	 */
 	addKerbal (kerbalObj) {
 		if (this.kerbals.has(kerbalObj.name)) {
 			throw new Error('KDB already has kerbal');
@@ -284,6 +332,11 @@ let KDB = class {
 		this.kerbalObjs.set(kerbalObj.name, kerbalObj);
 		this.display(kerbalObj);
 	}
+	/**
+	 * Get a kerbal by name
+	 * @param  {String} name Name of kerbal to get
+	 * @return {?KNS.Kerbal} Kerbal
+	 */
 	getKerbal (name) {
 		let result = this.kerbalObjs.get(name);
 		if (result === undefined) {
@@ -291,6 +344,13 @@ let KDB = class {
 		}
 		return result;
 	}
+	/**
+	 * Rename a kerbal, cleanly
+	 * @param  {String} oldName Current name of kerbal
+	 * @param  {String} newName New name for kerbal
+	 * @throws {Error} If newName is already taken
+	 * @throws {Error} If no kerbal has oldName
+	 */
 	renameKerbal (oldName, newName) {
 		let kerbal = this.getKerbal(oldName);
 		if (this.kerbals.has(newName)) {
@@ -313,6 +373,10 @@ let KDB = class {
 			this.display(kerbalObj);
 		}
 	}
+	/**
+	 * Convert self to json
+	 * @return {Object} Object to pass to JSON.stringify
+	 */
 	toJSON () {
 		// Sets and maps don't stringify well
 		let result = Elements.jsonIncludes(this, ['type']);
@@ -320,6 +384,11 @@ let KDB = class {
 		result.kerbalObjs = Elements.setToArray(this.kerbalObjs); // Because we only need the values, this map is close enough to a set
 		return result;
 	}
+	/**
+	 * Revive a kdb from json
+	 * @param  {Object} jsonObj Object from JSON.parse
+	 * @return {KDB}         Revived kdb
+	 */
 	static fromJSONObj (jsonObj) {
 		if (jsonObj.type !== 'KDB') {
 			throw new Error('Not a KDB');
@@ -337,6 +406,11 @@ let KDB = class {
 		}
 		return kdb;
 	}
+	/**
+	 * Revive a kdb from JSON
+	 * @param  {String} json String from JSON.stringify(kdb)
+	 * @return {KDB}         Revived kdb
+	 */
 	static fromJSON (json) {
 		return this.fromJSONObj(JSON.parse(json))
 	}
