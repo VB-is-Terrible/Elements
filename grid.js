@@ -1,5 +1,6 @@
 'use strict';
-
+{
+const resize = false;
 Elements.elements.Grid = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -27,13 +28,11 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		};
 
 		// let test = template.content.querySelector('#canaryDiv');
-
-		this.ro = new ResizeObserver((entries) => {
-			// const cr = entries[0].contentRect;
-			// console.log('Firing on:', entries[0].target);
-			resizeCallback(entries);
-
-		});
+		if (resize) {
+			this.ro = new ResizeObserver((entries) => {
+				resizeCallback(entries);
+			});
+		}
 
 		Elements.setUpAttrPropertyLink(this, 'rows', 2,
 		                                        updateCallback, santizer);
@@ -48,13 +47,16 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'));
-		this.ro.observe(this.shadowRoot.querySelector('#pseudoBody'));
-		// this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
+		if (resize) {
+			this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'));
+			this.ro.observe(this.shadowRoot.querySelector('#pseudoBody'));
+		}
 		this.updateGrid();
 	}
 	disconnectedCallback () {
-		this.ro.disconnect();
+		if (resize) {
+			this.ro.disconnect();
+		}
 	}
 	updateGrid () {
 		// Don't bother resizing before connection
@@ -229,3 +231,4 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 };
 
 Elements.load('gridTemplate.html', Elements.elements.Grid, 'elements-grid')
+}
