@@ -1,0 +1,17 @@
+#title {
+	border-bottom: 1px solid black;
+}
+div.tab {
+	width: 100%;
+	font-size: medium;
+}
+textarea {
+	width: 100%;
+	min-height: 4em;
+}
+button {
+	margin-right: 1em;
+}
+#export {
+	display: none;
+}

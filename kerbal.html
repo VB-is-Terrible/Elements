@@ -7,7 +7,7 @@
 		<script>
 		Elements.get('drag-element', 'grid',
 		'kerbal-maker', 'kerbal', 'kerbal-editor', 'KDB',
-		'kerbal-searcher', 'kerbal-footer');
+		'kerbal-searcher', 'kerbal-footer', 'kerbal-importer');
 		</script>
 		<style>
 		#g {
@@ -36,8 +36,12 @@
 				<elements-kerbal-searcher draggable='true'>
 				</elements-kerbal-searcher>
 			</elements-drag-element>
+			<elements-drag-element id='drag4'>
+				<elements-kerbal-importer draggable='true'>
+				</elements-kerbal-importer>
+			</elements-drag-element>
 		</elements-drag-body>
-		KDB.js progress: <progress value='40' max='100'>0%</progress>
+		KDB.js progress: <progress value='45' max='100'>0%</progress>
 		<elements-grid id='g' rows='1' columns='3'>
 		</elements-grid>
 		<elements-kerbal-footer></elements-kerbal-footer>
