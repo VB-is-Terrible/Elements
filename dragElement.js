@@ -136,6 +136,15 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		body.removeEventListener('mousemove', this.events.dMove, true);
 		body.removeEventListener('mouseup', this.events.dEnd, true);
 	}
+	centre () {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let height = body.offsetHeight;
+		let width = body.offsetWidth;
+		let top = (window.innerHeight - height) / 2;
+		let left = (window.innerWidth - width) / 2;
+		this.style.setProperty('--top', top.toString() + 'px');
+		this.style.setProperty('--left', left.toString() + 'px');
+	}
 };
 
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
