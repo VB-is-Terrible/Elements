@@ -169,8 +169,10 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let width = body.offsetWidth;
 		let top = (window.innerHeight - height) / 2;
 		let left = (window.innerWidth - width) / 2;
-		this.style.setProperty('--top', top.toString() + 'px');
-		this.style.setProperty('--left', left.toString() + 'px');
+		requestAnimationFrame(() => {
+			this.style.setProperty('--top', top.toString() + 'px');
+			this.style.setProperty('--left', left.toString() + 'px');
+		});
 	}
 };
 
