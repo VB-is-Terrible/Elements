@@ -20,3 +20,6 @@ button {
 	font-size: 1em;
 	height: 100%;
 }
+#panel {
+	visibility: hidden;
+}
