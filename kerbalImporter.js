@@ -20,13 +20,13 @@ Elements.elements.KerbalImporter = class extends Elements.elements.backbone {
 				let active;
 				switch (e.detail) {
 					case 'Import':
-						active = tabs[0];
-						break;
+					active = tabs[0];
+					break;
 					case 'Export':
-						active = tabs[1];
-						break;
+					active = tabs[1];
+					break;
 					default:
-						active = null;
+					active = null;
 				}
 				if (active !== null) {
 					active.style.display = 'block'
@@ -39,7 +39,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.backbone {
 		let close = (e) => {
 			self.hideWindow();
 		}
-		template.querySelector('#Close').addEventListner('click', close);
+		template.querySelector('#Close').addEventListener('click', close);
 		// TODO: Actually implement import/export
 		shadow.appendChild(template);
 	}
