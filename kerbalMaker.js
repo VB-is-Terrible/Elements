@@ -8,9 +8,9 @@ const defaultJob = "Tourist";
  * @type {Object}
  * @property {Object} elements Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been made
- * @augments Elements.elements.backbone
+ * @augments Elements.elements.dragged
  */
-Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
+Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 	constructor () {
 		super();
 
@@ -150,10 +150,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 		this.elements.AnsRemovePlace.value = '';
 		this.elements.warn.display = "block";
 	}
-	hideWindow () {
-		this.parentElement.style.display = 'none';
-	}
 }
 
 Elements.load('kerbalMakerTemplate.html', Elements.elements.KerbalMaker, 'elements-kerbal-maker');
-}, 'kerbal-link');
+}, 'kerbal-link', 'drag-element');

@@ -1,10 +1,13 @@
 'use strict';
-Elements.get('tabs');
-Elements.elements.KerbalImporter = class extends Elements.elements.backbone {
+Elements.get('tabs', 'drag-element', 'kerbal-link');
+
+{
+const main = async () => {
+await Elements.get('drag-element', 'kerbal-link');
+Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 	constructor () {
 		super();
 		const self = this;
-
 		this.name = 'KerbalImporter';
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -49,3 +52,6 @@ Elements.elements.KerbalImporter = class extends Elements.elements.backbone {
 }
 
 Elements.load('kerbalImporterTemplate.html', Elements.elements.KerbalImporter, 'elements-kerbal-importer');
+}
+main();
+}

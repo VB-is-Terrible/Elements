@@ -10,16 +10,16 @@
 const temp = (async () => {
 
 Elements.get('grid', 'drag-down')
-await Elements.get('kerbal', 'kerbal-link');
+await Elements.get('kerbal', 'kerbal-link', 'drag-element');
 
 /**
  * UI to edit a KNS.Kerbal
  * @type {Object}
  * @property {Object} UI Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been edit - note: this is a copy, not the original
- * @augments Elements.elements.backbone
+ * @augments Elements.elements.dragged
  */
-Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
+Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 	constructor () {
 		super();
 
@@ -177,12 +177,6 @@ Elements.elements.KerbalEditor = class extends Elements.elements.backbone {
 			updater(kerbal);
 		}
 	};
-	/**
-	 * Hide the editor - preserves state
-	 */
-	hideWindow () {
-		this.parentElement.style.display = 'none';
-	}
 	/**
 	 * Empties change queue
 	 */

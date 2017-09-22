@@ -176,4 +176,43 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	}
 };
 
+/**
+ * Implements commonly used methods for things been dragged
+ * @type {Object}
+ * @property {boolean} hidden Wheter this element is hidden
+ * @augments Elements.elements.backbone
+ */
+Elements.elements.dragged = class extends Elements.elements.backbone {
+	get hidden () {
+		let computed = getComputedStyle(this.parentElement);
+		if (computed.display === 'none' || computed.visibility === 'hidden') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * Hide this element
+	 */
+	hideWindow () {
+		requestAnimationFrame(() => {
+			this.parentElement.style.display = 'none';
+		});
+	}
+	/**
+	 * Unhide this element
+	 */
+	showWindow () {
+		requestAnimationFrame(() => {
+			this.parentElement.style.display = 'block';
+			this.parentElement.style.visibility = 'visible';
+		});
+	}
+	/**
+	 * Centre the element onscreen
+	 */
+	centre () {
+		this.parentElement.centre();
+	}
+}
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
