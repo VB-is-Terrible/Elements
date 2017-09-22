@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * A display of a kerbal's name and text
+ * @type {Object}
+ * @property {String} name Kerbal's name
+ * @property {String} text Kerbal's description
+ */
 Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 	constructor () {
 		super();

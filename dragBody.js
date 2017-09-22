@@ -76,6 +76,10 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		body.style.width = window.innerWidth + 'px';
 		body.style.height = window.innerHeight + 'px';
 	}
+	/**
+	 * Push the drag-body to the bottom.
+	 * Used after a drag to allow access to other elements
+	 */
 	toBottom () {
 		// Place pseudoBody out of the way
 		// The high z-index is needed to keep child elements on top
@@ -84,6 +88,9 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		body.style.height = '0px';
 
 	}
+	/**
+	 * Get a empty element to display in the drag image
+	 */
 	getDragImage () {
 		return this.shadowRoot.querySelector('#empty');
 	}

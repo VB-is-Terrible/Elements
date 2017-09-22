@@ -1,6 +1,14 @@
 'use strict';
 {
 const resize = false;
+/**
+ * A grid where every element is the same size.
+ * Child elements must have the attribute slot='s[position]'
+ * @type {Object}
+ * @property {Number} rows Number of rows in the grid
+ * @property {Number} cols Number of columns in the grid
+ * @property {Boolean} coordnaming Switches to alternate slot naming, of '[x]-[y]'
+ */
 Elements.elements.Grid = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -58,6 +66,9 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 			this.ro.disconnect();
 		}
 	}
+	/**
+	 * Updates the grid to new row & col amounts
+	 */
 	updateGrid () {
 		// Don't bother resizing before connection
 		if (this.attributeInit) {
@@ -91,6 +102,10 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 
 		}
 	}
+	/**
+	 * Update the internal divs to maintain constant size
+	 * @param  {Event} e Event from ResizeObserver
+	 */
 	updateDisplay (e) {
 		// console.log('updating grid');
 		let findSheet = (cssSelector) => {
@@ -151,7 +166,11 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		insertSheet.addRule(cssSelector, rule, position);
 
 	}
-
+	/**
+	 * Update the number of slots
+	 * @param  {Number} rows    Number of rows to have
+	 * @param  {Number} columns Number of columns to have
+	 */
 	updateDivs (rows, columns) {
 		let insertionPoint = this.shadowRoot.querySelector('#gridHolder');
 		let current = insertionPoint.childElementCount;
@@ -199,6 +218,12 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		}
 	}
 
+	/**
+	 * Generate areas for the template
+	 * @param  {Number} rows    Number of rows to make
+	 * @param  {Number} columns Number of columns to make
+	 * @return {String}         templateAreas
+	 */
 	static generateGridNames (rows, columns) {
 		let i = 1;
 		let result = '';
@@ -212,7 +237,11 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		}
 		return result;
 	}
-
+	/**
+	 * Convert a number to an alphabetic code
+	 * @param  {Number} num Number to convert
+	 * @return {String}     Base 26 encoding
+	 */
 	static numToCharCode (num) {
 		const base = 26;
 		let result = [];

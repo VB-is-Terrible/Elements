@@ -1,5 +1,18 @@
 'use strict';
+/**
+ * Tab change event
+ * @event Elements.elements.Tabs#change
+ * @type {Event}
+ * @property {String} detail value of the new tab
+ */
 
+/**
+ * A tab display. Does not include actual tab switching
+ * @type {Object}
+ * @property {String} selected Current tab selected
+ * @augments Elements.elements.backbone
+ * @fires Elements.elements.Tabs#change
+ */
 Elements.elements.Tabs = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -48,6 +61,9 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 			this.selected = this.__temp;
 		}
 	}
+	/**
+	 * Add more tabs to the element if required
+	 */
 	resize () {
 		let size = this.childElementCount;
 		let host = this.shadowRoot.querySelector('.tabs');
@@ -80,6 +96,9 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 			}
 		}
 	}
+	/**
+	 * Reset all tabs to unselected state
+	 */
 	clearState () {
 		let buttons = this.shadowRoot.querySelectorAll('button.tab');
 		for (let button of buttons) {

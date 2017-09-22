@@ -276,8 +276,9 @@ let KNS =  {
 	},
 	/**
 	 * Highest depth for a job
-	 * @type {Number}
+	 * @const {Number}
 	 * @memberof KNS
+	 *
 	 */
 	MAX_JOB_VALUE: 4,
 	/**

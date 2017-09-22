@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal', 'grid', 'KDB', 'dragDown', 'tabs');
+Elements.get('kerbal', 'grid', 'KDB', 'dragDown', 'tabs', 'drag-element');
 
 /**
  * A KerbalDisplay that only displays jobs
@@ -111,9 +111,14 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 };
 
 (async function () {
-await Elements.get('KDB', 'kerbal-link');
+await Elements.get('KDB', 'kerbal-link', 'drag-element');
 
-Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
+/**
+ * UI to search through kerbals
+ * @type {Object}
+ * @augments Elements.elements.dragged
+ */
+Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	constructor () {
 		super();
 		const self = this;
@@ -121,6 +126,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		this.name = 'KerbalSearcher';
 		this.update = null;
 		this.maxResults = 5;
+		/**
+		 * Which database to search
+		 * @type {String}
+		 */
 		this.database = this.database || 'default';
 		let shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -331,8 +340,11 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		});
 	}
 	emptyNodes () {
+		let kdb = KerbalLink.get(this.database);
 		let holder = this.shadowRoot.querySelector('#results');
 		for (var i = holder.children.length - 1; i >= 0; i--) {
+			let kerbal = holder.children[i].children[0];
+			kdb.getKerbal(kerbal.name).removeDisplay(kerbal);
 			holder.removeChild(holder.children[i]);
 		}
 	}
@@ -359,6 +371,13 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 		div.appendChild(button);
 		return div;
 	}
+	/**
+	 * Search kerbals by destination
+	 * @param  {Object} jobList place -> value mapping
+	 * @param  {Boolean} lower   Whether to include missions shallower than the search
+	 * @param  {Boolean} tourism Whether to only include tourists
+	 * @return {KNS.Kerbal[]}    An ordered array of kerbals matching
+	 */
 	destination_search (jobList, lower, tourism) {
 		let locations = [];
 		let lower_results = [];
@@ -417,9 +436,6 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.backbone {
 			result.push(kdb.getKerbal(name));
 		}
 		return result;
-	}
-	hideWindow () {
-		this.parentElement.style.display = 'none';
 	}
 }
 

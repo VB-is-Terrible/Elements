@@ -613,6 +613,8 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Returns a equivalent requestAnimationFrame, but subsequent calls
 		 * before frame trigger cancel previous ones
 		 * @return {Function} Pretends to be requestAnimationFrame
+		 * @memberof! Elements
+		 * @instance
 		 */
 		rafContext: function () {
 			let raf = null;

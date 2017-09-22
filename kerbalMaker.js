@@ -133,6 +133,9 @@ Elements.elements.KerbalMaker = class extends Elements.elements.backbone {
 		this.newKerbal();
 		shadow.appendChild(template);
 	}
+	/**
+	 * Reset the maker
+	 */
 	newKerbal () {
 		this.data = new KNS.Kerbal();
 		this.data.name = '&nbsp;';

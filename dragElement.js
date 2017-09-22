@@ -31,11 +31,23 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		};
 		template.querySelector('#pseudoBody').addEventListener('dragstart', drag_start);
 		shadow.appendChild(template);
+		/**
+		 * Touch event data
+		 * @type {Object}
+		 * @property {Number} left Offset of touch event from the left edge
+		 * @property {Number} top Offset of touch event from the top edge
+		 * @property {Number} touchID ID of the touch event that triggered the drag
+		 */
 		this.touch = {
 			left: 0,
 			top: 0,
 			touchID: 0,
 		};
+		/**
+		 * Wrapped event handlers.
+		 * Used to mantian consistent calls to add/remove-EventListener
+		 * @type {Object}
+		 */
 		this.events = {
 			start: (e) => {self.touch_start(e);},
 			end: (e) => {self.touch_end(e);},
@@ -44,6 +56,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			dEnd: (e) => {self.drag_end(e);},
 			dMove: (e) => {self.drag_move(e);},
 		};
+		/**
+		 * Drag event data
+		 * @type {Object}
+		 * @property {Number} left Offset of touch event from the left edge
+		 * @property {Number} top Offset of touch event from the top edge
+		 */
 		this.drag = {
 			left: 0,
 			top: 0,
@@ -89,6 +107,9 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	touch_end (event) {
 		this.touch_reset();
 	}
+	/**
+	 * Resets/Cancels a touch drag
+	 */
 	touch_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		body.removeEventListener('touchstart', this.events.start, true);
@@ -130,12 +151,18 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	drag_end (event) {
 		this.drag_reset();
 	}
+	/**
+	 * Reset/Cancel a drag
+	 */
 	drag_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		body.addEventListener('mousedown', this.events.dStart, true);
 		body.removeEventListener('mousemove', this.events.dMove, true);
 		body.removeEventListener('mouseup', this.events.dEnd, true);
 	}
+	/**
+	 * Moves drag-element to the centre of the window
+	 */
 	centre () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let height = body.offsetHeight;
