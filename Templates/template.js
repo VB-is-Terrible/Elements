@@ -1,5 +1,10 @@
 'use strict';
 
+Elements.get();
+{
+const main = async () => {
+
+await Elements.get();
 Elements.elements.$1 = class extends Elements.elements.backbone {
 	constructor () {
 		super();
@@ -15,3 +20,7 @@ Elements.elements.$1 = class extends Elements.elements.backbone {
 }
 
 Elements.load('$0Template.html', Elements.elements.$1, 'elements-$2');
+};
+
+main();
+}
