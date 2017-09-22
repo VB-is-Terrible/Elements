@@ -1,0 +1,33 @@
+#pseudoBody {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid black;
+	width: var(--width);
+	background: white;
+	font-size: large;
+	margin-bottom: 1em;
+}
+button {
+	font-size: large;
+	float: right;
+	margin-left: .5em;
+}
+:host {
+	--width: 300px;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	/*display: none; */
+}
+div.option {
+	display: flex;
+	/*justify-content: center;*/
+	align-items: center;
+}
+div.fill {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: row-reverse;
+}
