@@ -7,7 +7,7 @@ div.tab {
 }
 textarea {
 	width: 100%;
-	min-height: 4em;
+	min-height: 10em;
 }
 button {
 	margin-right: 1em;
