@@ -189,12 +189,19 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 	clearKerbal () {
 		this.data = null;
 		this.newChangeQueue();
+		this.UI.nameInput.value = '';
+		this.UI.typeInput.value = 'Tourist';
+		this.UI.warn.display = 'none';
+		this.UI.Delete1.display = 'block';
+		this.UI.Delete2.display = 'none';
+		this.UI.Delete3.display = 'none';
 	}
 	/**
 	 * Applies queued changes
 	 */
 	applyChanges () {
 		let kerbal = this.__oldValue;
+
 		if (this.__changeQueue.name !== null) {
 			KerbalLink.get(this.database).renameKerbal(kerbal.name, this.__changeQueue.name);
 		}
