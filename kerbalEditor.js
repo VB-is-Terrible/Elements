@@ -48,6 +48,10 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			['AnsAddConfirm', '#AnsAddConfirm'],
 			['AnsRemovePlace', '#AnsRemovePlace'],
 			['AnsRemoveConfirm', '#AnsRemoveConfirm'],
+			['Delete1', '#DeleteKerbal1'],
+			['Delete2', '#DeleteKerbal2'],
+			['Delete3', '#DeleteKerbal3'],
+			['DeleteWarning', '#deleted'],
 			['warn', 'img.warn'],
 			['close', '#Close'],
 			['cancel', '#Cancel'],
@@ -150,7 +154,31 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		});
 		applyEL('close', 'click', (e) => {
 			self.hideWindow();
+		});
+		applyEL('Delete1', 'click', (e) => {
+			requestAnimationFrame(() => {
+				UI.Delete1.style.display = 'none';
+				UI.Delete2.style.display = 'block';
+				UI.Delete2.focus();
+			});
+		});
+		applyEL('Delete2', 'click', (e) => {
+			self.__changeQueue.delete = true;
+			UI.DeleteWarning.style.display = 'flex';
+			requestAnimationFrame(() => {
+				UI.Delete2.style.display = 'none';
+				UI.Delete3.style.display = 'block';
+			});
+		});
+		applyEL('Delete3', 'click', (e) => {
+			self.__changeQueue.delete = false;
+			UI.DeleteWarning.style.display = 'none';
+			requestAnimationFrame(() => {
+				UI.Delete3.style.display = 'none';
+				UI.Delete1.style.display = 'block';
+			});
 		})
+
 		this.UI = UI;
 		this.data = this.data || new KNS.Kerbal();
 		shadow.appendChild(template);
@@ -193,6 +221,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			name: null,
 			text: null,
 			changes: [],
+			delete: false,
 		};
 	}
 	/**

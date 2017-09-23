@@ -12,7 +12,14 @@
 				</button>
 			</div>
 		</div>
-		<elements-kerbal></elements-kerbal>
+		<div id='kerbalDiv'>
+			<elements-kerbal></elements-kerbal>
+			<div id='deleted'>
+				<p>
+					Deleted
+				</p>
+			</div>
+		</div>
 		<div id='editBody'>
 			<elements-grid rows='1' columns='2'>
 				<!-- Questions -->
@@ -110,8 +117,14 @@
 						</button>
 					</div>
 					<div class='multi' slot='s8'>
-						<button id='DeleteKerbal'>
-							-> -> Go Go Go -> ->
+						<button class='delete' id='DeleteKerbal1'>
+							Delete Kerbal
+						</button>
+						<button class='delete' id='DeleteKerbal2'>
+							Are you sure?
+						</button>
+						<button class='delete' id='DeleteKerbal3'>
+							Cancel Delete
 						</button>
 					</div>
 				</elements-grid>
