@@ -82,6 +82,8 @@ Elements.await(function () {
 			};
 			Elements.setUpAttrPropertyLink(this, 'disabled', false,
 			                               disable, Elements.booleaner);
+			Elements.setUpAttrPropertyLink(this, 'deleter', true,
+			                               () => {}, Elements.booleaner);
 
 			shadow.appendChild(template);
 			this.updateData();
@@ -137,6 +139,11 @@ Elements.await(function () {
 				}
 			});
 		}
+		delete () {
+			if (this.deleter) {
+				this.remove();
+			}
+		}
 		/**
 		* Remove all children
 		*/
@@ -146,7 +153,7 @@ Elements.await(function () {
 			}
 		}
 		static get observedAttributes () {
-			return ['menuvisible', 'disabled'];
+			return ['menuvisible', 'disabled', 'deleter'];
 		}
 		/**
 		* Make a display element
