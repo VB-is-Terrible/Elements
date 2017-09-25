@@ -23,6 +23,11 @@ Elements.require('kerbal');
  * @param {String} place place where the mission depth has changed
  *
  */
+ /**
+  * @function delete
+  * @description Fired when the kerbal is deleted
+  * @name KerbalDisplay.delete
+  */
 /**
  * Random integer
  * @param  {Number} lower Lower bound
