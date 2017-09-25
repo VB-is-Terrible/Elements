@@ -52,7 +52,7 @@ let KNS =  {
 	 * @property {String} name Name of kerbal
 	 * @property {String} text Description text of kerbal
 	 * @property {Object} jobs PlaceName -> job value mapping
-	 * @property {HTMLElement[]} displays Array of UI elements representing this kerbal.
+	 * @property {KerbalDisplay[]} displays Array of UI elements representing this kerbal.
 	 * @memberof KNS
 	 */
 	Kerbal: class {
@@ -62,34 +62,20 @@ let KNS =  {
 			this.jobs = KNS.blankPlaceList(0);
 			this.displays = [];
 			this.type = 'Kerbal';
-
-			this.getters = {
-				name: () => {
-					return this._name;
-				},
-				text: () => {
-					return this._text;
-				},
-			};
-			this.setters = {
-				name: (value) => {
-					this._name = value;
-					this.dispatchUIUpdate();
-				},
-				text: (value) => {
-					this._text = value;
-					this.dispatchUIUpdate();
-				},
-			};
-
-			for (let name of ['name', 'text']) {
-				Object.defineProperty(this, name, {
-					enumerable: true,
-					configurable: false,
-					get: this.getters[name],
-					set: this.setters[name],
-				});
-			}
+		}
+		get name () {
+			return this._name;
+		}
+		set name (value) {
+			this._name = value;
+			this.dispatchUIUpdate();
+		}
+		get text () {
+			return this._text;
+		}
+		set text (value) {
+			this._text = value;
+			this.dispatchUIUpdate();
 		}
 		/**
 		 * Update UIs for one place
