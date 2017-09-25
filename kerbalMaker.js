@@ -124,6 +124,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 				return;
 			}
 			KerbalLink.get(self.database).addKerbal(self.data);
+			self.data.removeDisplay(this.elements.kerbal);
 			self.newKerbal();
 		});
 		applyEL('close', 'click', (e) => {
