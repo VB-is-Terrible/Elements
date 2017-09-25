@@ -4,10 +4,10 @@ Elements.elements.LinkCardContainer = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-	   let template = document.importNode(
-	      document.querySelector('#templateElementsLinkCardContainer'),
-	      true);
 		const shadow = this.attachShadow({ mode: 'open' });
+		let template = document.importNode(
+			document.querySelector('#templateElementsLinkCardContainer'),
+			true);
 
 		let ro = new ResizeObserver((entries) => {
 			for (let o of entries) {
@@ -25,7 +25,7 @@ window.customElements.define('elements-linkcard', Elements.elements.LinkCardCont
 Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 	constructor () {
 		super();
-		let shadow = this.attachShadow({ mode: 'open' });
+		const shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
 		   document.querySelector('#templateElementsLinkCardLink'),
 		   true);
@@ -259,7 +259,7 @@ window.customElements.define('elements-linkcard-linkcontainer', Elements.element
 Elements.elements.LinkCardButtons = class extends Elements.elements.backbone {
 	constructor () {
 		super();
-		let shadow = this.attachShadow({ mode: 'open' });
+		const shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
 			document.querySelector('#templateElementsLinkCardButtons'),
 			true);
