@@ -184,6 +184,14 @@ let KNS =  {
 			return Elements.jsonIncludes(this, ['name', 'text', 'jobs', 'type']);
 		}
 		/**
+		 * Delete this kerbal
+		 */
+		delete () {
+			for (let display of this.displays) {
+				display.delete();
+			}
+		}
+		/**
 		 * Construct an kerbal from the object returned from JSON.parse(JSON.stringify(kerbal))
 		 * @param  {Object} jsonObj JSON.parse'd kerbal
 		 * @return {KNS.Kerbal}     Reconstitued Kerbal
