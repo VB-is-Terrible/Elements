@@ -130,6 +130,23 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 (async function () {
 await Elements.get('KDB', 'kerbal-link', 'drag-element');
 
+let SearchDisplay = class extends BlankKerbalDisplay {
+	/**
+	 * Build a search display
+	 * @param  {KNS.Kerbal} kerbal Kerbal to listen to
+	 * @param  {Elements.elements.KerbalSearcher} searcher Searcher to inform
+	 */
+	constructor (kerbal, searcher) {
+		super();
+		this.data = kerbal;
+		this.searcher = searcher;
+		kerbal.addDisplay(this);
+	}
+	delete () {
+		this.searcher.delete_inform(this.data.name);
+	}
+}
+
 /**
  * UI to search through kerbals
  * @type {Object}
