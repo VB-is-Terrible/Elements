@@ -25,7 +25,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		const self = this;
 
 		this.name = 'KerbalPanelMenu';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
 		let divs = template.querySelectorAll('div.option');

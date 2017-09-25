@@ -131,7 +131,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		 * @type {String}
 		 */
 		this.database = this.database || 'default';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let lastValue = '';
 		let searcher = template.querySelector('#nameInput');

@@ -16,7 +16,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 
 		const self = this;
 		this.name = 'KerbalMaker';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let elements = {};
 		let findElements = (...nameQSpairs) => {

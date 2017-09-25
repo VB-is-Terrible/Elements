@@ -4,10 +4,10 @@ Elements.elements.LinkCardContainer = class extends Elements.elements.backbone {
 	constructor () {
 		super();
 
-		let shadow = this.attachShadow({ mode: 'open' });
 	   let template = document.importNode(
 	      document.querySelector('#templateElementsLinkCardContainer'),
 	      true);
+		const shadow = this.attachShadow({ mode: 'open' });
 
 		let ro = new ResizeObserver((entries) => {
 			for (let o of entries) {

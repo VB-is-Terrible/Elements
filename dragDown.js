@@ -17,7 +17,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
         this.__menuVisible = true;
 
 
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
 		let button = template.querySelector('button');

@@ -12,7 +12,7 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 
 		this.alias = 'KerbalTag';
 
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.alias);
 
 		let title = template.querySelector('p.name');

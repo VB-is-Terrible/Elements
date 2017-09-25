@@ -19,7 +19,7 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		const self = this;
 
 		this.name = 'Tabs';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.__lastValue = null;
 		this.__rAF = Elements.rafContext();

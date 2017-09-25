@@ -12,7 +12,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 
 		const self = this;
 		this.name = 'DragElement';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let drag_start = (event) => {
 			// Pushing the element been dragged and the drag body to the

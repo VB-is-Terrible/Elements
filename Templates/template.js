@@ -11,7 +11,7 @@ Elements.elements.$1 = class extends Elements.elements.backbone {
 		const self = this;
 
 		this.name = '$1';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
 		//Fancy code goes here

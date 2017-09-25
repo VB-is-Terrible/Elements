@@ -62,7 +62,7 @@ Elements.await(function () {
 
 			definer(['jobs', 'name']);
 			this.jobDisplay = KNS.blankPlaceList(null);
-			let shadow = this.attachShadow({mode: 'open'});
+			const shadow = this.attachShadow({mode: 'open'});
 			let template = Elements.importTemplate(this.alias);
 
 			let dragDown = template.querySelector('elements-drag-down');

@@ -4,7 +4,7 @@
 Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 	constructor () {
 		super();
-		let shadow = this.attachShadow({ mode: 'open' });
+		const shadow = this.attachShadow({ mode: 'open' });
 		let template = document.importNode(
 		   document.querySelector('#templateElementsLinkCardLink'),
 		   true);

@@ -25,7 +25,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 
 		const self = this;
 		this.name = 'KerbalEditor';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let UI = {};
 

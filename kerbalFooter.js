@@ -9,7 +9,7 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 
 		this.name = 'KerbalFooter';
 		this.database = this.database || 'default';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let save = template.querySelector('#save');
 		let port = template.querySelector('#port');

@@ -9,7 +9,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 		super();
 		const self = this;
 		this.name = 'KerbalImporter';
-		let shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let tabs = [
 			template.querySelector('#import'),
