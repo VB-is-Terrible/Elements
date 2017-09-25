@@ -346,6 +346,8 @@ const KDB = class KDB {
 			kerbal.name = newName;
 			this.kerbals.delete(oldName);
 			this.kerbals.add(newName);
+			this.kerbalObjs.delete(oldName);
+			this.kerbalObjs.set(newName, kerbal);
 		} else {
 			throw new Error('Kerbal not found');
 		}
