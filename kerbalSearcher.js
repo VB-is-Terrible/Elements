@@ -3,23 +3,41 @@
 Elements.get('kerbal', 'grid', 'KDB', 'dragDown', 'tabs', 'drag-element');
 
 /**
- * A KerbalDisplay that only displays jobs
+ * A KerbalDisplay that does nothing. Use this when you don't need all the methods
  * @implements KerbalDisplay
+ * @property {KNS.Kerbal} data kerbal that this represents
+ * @type {Object}
+ */
+let BlankKerbalDisplay = class {
+	constructor () {
+		this.data = null;
+	}
+	updateData () {
+
+	}
+	showJob (place) {
+
+	}
+	delete () {
+
+	}
+}
+/**
+ * A KerbalDisplay that only displays jobs
+ * re: delete - The consumer of this should deal with this
+ * re: updateData - This doesn't build a kerbal tag
+ * @implements KerbalDisplay
+ * @augments BlankKerbalDisplay
  * @property {KNS.Kerbal} data kerbal that this represents
  * @property {HTMLElement} display display of the kerbal's jobs
  * @type {Object}
  */
-let KerbalJobDisplay = class {
+let KerbalJobDisplay = class extends BlankKerbalDisplay {
 	constructor () {
+		super();
 		this.__jobDisplay = KNS.blankPlaceList(null);
 		this.display = document.createElement('div');
 		this.data = null;
-	}
-	/**
-	 * Update text and name
-	 */
-	updateData () {
-		// This doesn't build a kerbal tag
 	}
 	/**
 	 * Update the display for a job
@@ -46,7 +64,6 @@ let KerbalJobDisplay = class {
 				}
 			}
 		});
-
 	}
 	/**
 	* Make a display element
