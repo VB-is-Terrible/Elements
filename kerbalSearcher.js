@@ -167,15 +167,11 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		this.database = this.database || 'default';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-		let lastValue = '';
+		this.__lastValue = '';
+		this.__lastSearch = 'kerbal';
 		let searcher = template.querySelector('#nameInput');
 		let updater = (e) => {
-			let search = searcher.value
-			search = KNS.nameSanitizer(search);
-			if (search !== lastValue) {
-				self.display_results(self.__resolve_names(self.search(search)));
-				lastValue = search;
-			}
+			this.kerbal_search_trigger();
 		};
 		searcher.addEventListener('keyup', updater);
 
@@ -218,14 +214,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		this.kblDsp = kerbalDisplay;
 		virtualKerbal.addDisplay(kerbalDisplay);
 		let destinationSearch = (e) => {
-			if (virtualKerbal.size === 0) {
-				self.display_results([]);
-			} else {
-				let lower = self.shadowRoot.querySelector('#lower').checked;
-				let tourist = self.shadowRoot.querySelector('#tourism').checked;
-				let results = self.destination_search(virtualKerbal.jobs, lower, tourist);
-				self.display_results(results);
-			}
+			this.destination_search_trigger();
 		};
 		let addDestination = (e) => {
 			let locationUI = self.shadowRoot.querySelector('#AnsAddPlace');
@@ -470,6 +459,34 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			result.push(kdb.getKerbal(name));
 		}
 		return result;
+	}
+	/**
+	 * Start a kerbal search from information in the UI
+	 */
+	kerbal_search_trigger () {
+		let searcher = this.shadowRoot.querySelector('#nameInput');
+		let search = searcher.value
+		search = KNS.nameSanitizer(search);
+		if (search !== this.__lastValue) {
+			this.display_results(this.__resolve_names(this.search(search)));
+			this.__lastValue = search;
+		}
+		this.__lastSearch = 'kerbal';
+	}
+	/**
+	 * Start a destination search from information in the UI
+	 */
+	destination_search_trigger () {
+		let virtualKerbal = this.vrtKbl;
+		if (virtualKerbal.size === 0) {
+			this.display_results([]);
+		} else {
+			let lower = this.shadowRoot.querySelector('#lower').checked;
+			let tourist = this.shadowRoot.querySelector('#tourism').checked;
+			let results = this.destination_search(virtualKerbal.jobs, lower, tourist);
+			this.display_results(results);
+		}
+		this.__lastSearch = 'destination';
 	}
 }
 
