@@ -169,6 +169,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		let template = Elements.importTemplate(this.name);
 		this.__lastValue = '';
 		this.__lastSearch = 'kerbal';
+		this.__virtualDisplayMap = new Map();
 		let searcher = template.querySelector('#nameInput');
 		let updater = (e) => {
 			this.kerbal_search_trigger();
@@ -367,8 +368,14 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		let holder = this.shadowRoot.querySelector('#results');
 		for (var i = holder.children.length - 1; i >= 0; i--) {
 			let kerbal = holder.children[i].children[0];
-			kdb.getKerbal(kerbal.name).removeDisplay(kerbal);
+			if (kerbal.data !== null) {
+				kerbal.data.removeDisplay(kerbal);
+			}
 			holder.removeChild(holder.children[i]);
+		}
+		for (let kerbal in this.__virtualDisplayMap.keys()) {
+			kerbal.removeDisplay(this.__virtualDisplayMap.get(kerbal));
+			this.__virtualDisplayMap.delete(kerbal);
 		}
 	}
 	editor (event) {
@@ -392,6 +399,8 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			this.editor(e);
 		});
 		div.appendChild(button);
+		let sDisplay = new SearchDisplay(kerbal, this);
+		this.__virtualDisplayMap.set(kerbal, sDisplay);
 		return div;
 	}
 	/**
@@ -487,6 +496,23 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			this.display_results(results);
 		}
 		this.__lastSearch = 'destination';
+	}
+	/**
+	 * Inform the searcher of a kerbal deletion
+	 * @param  {String} name Name of kerbal been deleted
+	 */
+	delete_inform (name) {
+		switch (this.__lastSearch) {
+			case 'kerbal':
+				this.kerbal_search_trigger();
+				break;
+			case 'destination':
+				this.destination_search_trigger();
+				break;
+			default:
+				this.kerbal_search_trigger();
+				break;
+		}
 	}
 }
 
