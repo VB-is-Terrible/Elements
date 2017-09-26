@@ -365,6 +365,20 @@ const KDB = class KDB {
 			throw new Error('Kerbal not found');
 		}
 	}
+	/**
+	 * Delete a kerbal
+	 * @param  {String} name Name of kerbal to delete
+	 * @throws {Error} If kerbal does not exist
+	 */
+	deleteKerbal (name) {
+		let kerbal = this.getKerbal(name);
+		if (kerbal === null) {
+			throw new Error('Kerbal not found');
+		}
+		kerbal.delete();
+		this.kerbals.delete(name);
+		this.kerbalObjs.delete(name);
+	}
 	display (kerbalObj) {
 		let newDisplay = kerbalObj.makeDisplay();
 		newDisplay.slot = 's' + randint(1,4).toString();
