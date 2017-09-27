@@ -201,7 +201,9 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 	 */
 	applyChanges () {
 		let kerbal = this.__oldValue;
-
+		if (this.__changeQueue.delete) {
+			KerbalLink.get(this.database).deleteKerbal(kerbal.name)
+		}
 		if (this.__changeQueue.name !== null) {
 			KerbalLink.get(this.database).renameKerbal(kerbal.name, this.__changeQueue.name);
 		}
