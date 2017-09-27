@@ -310,7 +310,6 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		return results;
 	}
 	/**
-	/**
 	 * Match names to the search, matching by prefix
 	 * @param  {String} search        Name to search for
 	 * @param  {String[]} nameList    List of names to search through
