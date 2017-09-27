@@ -185,6 +185,7 @@ let KNS =  {
 		}
 		/**
 		 * Delete this kerbal
+		 * @memberof KNS.Kerbal
 		 */
 		delete () {
 			for (let display of this.displays) {
