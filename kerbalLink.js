@@ -91,6 +91,11 @@ class KerbalLinkClass {
 let main = async () => {
 	await Elements.get('KDB');
 
+	/**
+	 * Global KerbalLink
+	 * @global
+	 * @type {KerbalLinkClass}
+	 */
 	window.KerbalLink = new KerbalLinkClass();
 
 	Elements.loaded('kerbalLink');
