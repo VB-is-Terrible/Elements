@@ -415,7 +415,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			}
 			holder.removeChild(holder.children[i]);
 		}
-		for (let kerbal in this.__virtualDisplayMap.keys()) {
+		for (let kerbal of this.__virtualDisplayMap.keys()) {
 			kerbal.removeDisplay(this.__virtualDisplayMap.get(kerbal));
 			this.__virtualDisplayMap.delete(kerbal);
 		}
@@ -432,6 +432,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		div.classList.add('results');
 		let display = kerbal.makeDisplay();
 		display.menuvisible = false;
+		display.deleter = false;
 		div.appendChild(display);
 		let button = document.createElement('button');
 		button.value = kerbal.name;
@@ -517,13 +518,14 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	}
 	/**
 	 * Start a kerbal search from information in the UI
+	 * @param  {Boolean} [override=false] Flag to force a refresh, even if the current search is already displayed
 	 * @param  {String[]} [excludes=[]] List of names to exclude from the search
 	 */
-	kerbal_search_trigger (excludes = []) {
+	kerbal_search_trigger (override = false, excludes = []) {
 		let searcher = this.shadowRoot.querySelector('#nameInput');
 		let search = searcher.value
 		search = KNS.nameSanitizer(search);
-		if (search !== this.__lastValue) {
+		if (search !== this.__lastValue || override) {
 			this.display_results(this.__resolve_names(this.search(search, excludes)));
 			this.__lastValue = search;
 		}
@@ -531,9 +533,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	}
 	/**
 	 * Start a destination search from information in the UI
+	 * @param  {Boolean} [override=false] Flag to force a refresh, even if the current search is already displayed
 	 * @param  {String[]} [excludes=[]] List of names to exclude from the search
 	 */
-	destination_search_trigger (excludes = []) {
+	destination_search_trigger (override = false, excludes = []) {
 		let virtualKerbal = this.vrtKbl;
 		if (virtualKerbal.size === 0) {
 			this.display_results([]);
@@ -552,13 +555,13 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	delete_inform (name) {
 		switch (this.__lastSearch) {
 			case 'kerbal':
-				this.kerbal_search_trigger([name]);
+				this.kerbal_search_trigger(true, [name]);
 				break;
 			case 'destination':
-				this.destination_search_trigger([name]);
+				this.destination_search_trigger(true, [name]);
 				break;
 			default:
-				this.kerbal_search_trigger([name]);
+				this.kerbal_search_trigger(true, [name]);
 				break;
 		}
 	}
