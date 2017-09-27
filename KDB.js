@@ -433,6 +433,101 @@ const KDB = class KDB {
 	}
 };
 
+/**
+ * A KerbalDisplay that does nothing. Use this when you don't need all the methods
+ * @implements KerbalDisplay
+ * @property {KNS.Kerbal} data kerbal that this represents
+ * @type {Object}
+ */
+let BlankKerbalDisplay = class {
+	constructor () {
+		this.data = null;
+	}
+	/**
+	 * Callback for when kerbal.data or kerbal.text changes
+	 */
+	updateData () {
+
+	}
+	/**
+	 * Callback for when kerbal.data or kerbal.text changes
+	 * @param  {String} place Place that had its value change
+	 */
+	showJob (place) {
+
+	}
+	/**
+	 * Fired when the kerbal is deleted
+	 */
+	delete () {
+
+	}
+}
+/**
+ * A KerbalDisplay that only displays jobs
+ * re: delete - The consumer of this should deal with this
+ * re: updateData - This doesn't build a kerbal tag
+ * @implements KerbalDisplay
+ * @augments BlankKerbalDisplay
+ * @property {KNS.Kerbal} data kerbal that this represents
+ * @property {HTMLElement} display display of the kerbal's jobs
+ * @type {Object}
+ */
+let KerbalJobDisplay = class extends BlankKerbalDisplay {
+	constructor () {
+		super();
+		this.__jobDisplay = KNS.blankPlaceList(null);
+		this.display = document.createElement('div');
+		this.data = null;
+	}
+	/**
+	 * Update the display for a job
+	 * @param  {String} place Place to update display
+	 */
+	showJob (place) {
+		requestAnimationFrame(() => {
+			let value = this.data.jobs[place];
+			if (value > 0) {
+				if (this.__jobDisplay[place] === null) {
+					// A display element has not been made
+					this.__jobDisplay[place] = this.makeJobElement(place, value);
+					this.display.appendChild(this.__jobDisplay[place]);
+				} else {
+					this.changeJobElement(this.__jobDisplay[place], place, value);
+					if (!(this.display.contains(this.__jobDisplay[place]))) {
+						// A display element has been made, but has since been removed
+						this.display.appendChild(this.__jobDisplay[place]);
+					}
+				}
+			} else {
+				if (this.display.contains(this.__jobDisplay[place])) {
+					this.display.removeChild(this.__jobDisplay[place]);
+				}
+			}
+		});
+	}
+	/**
+	* Make a display element
+	* @param  {String} place Location
+	* @param  {Number} value Depth of visited required
+	* @return {HTMLElement} Element representing place+value
+	*/
+	makeJobElement (place, value) {
+		let p = document.createElement('p');
+		p.innerHTML = place + ' ' + KNS.valueToJob(value);
+		return p;
+	}
+	/**
+	 * Update a job display element
+	 * @param  {HTMLElement} element Job display element
+	 * @param  {String} place   Destination of mission
+	 * @param  {int} value   Depth of mission
+	 */
+	changeJobElement (element, place, value) {
+		element.innerHTML = place + ' ' + KNS.valueToJob(value);
+	}
+};
+
 Elements.loaded('KDB');
 Elements.loaded('KNS');
 
