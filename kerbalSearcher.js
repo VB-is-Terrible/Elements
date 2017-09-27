@@ -450,9 +450,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 * @param  {Object} jobList place -> value mapping
 	 * @param  {Boolean} lower   Whether to include missions shallower than the search
 	 * @param  {Boolean} tourism Whether to only include tourists
+	 * @param  {String[]} [excludes] Name of kerbals to exclude from the search
 	 * @return {KNS.Kerbal[]}    An ordered array of kerbals matching
 	 */
-	destination_search (jobList, lower, tourism) {
+	destination_search (jobList, lower, tourism, excludes = []) {
 		let locations = [];
 		let lower_results = [];
 		let results = [];
@@ -480,9 +481,12 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		};
 		let kdb = KerbalLink.get(this.database);
 		for (let kerbalName of kdb.kerbals) {
+			if (excludes.includes(kerbalName)) {
+				continue;
+			}
 			let kerbal = kdb.getKerbal(kerbalName);
 			if (tourism && kerbal.text !== 'Tourist') {
-				break;
+				continue;
 			}
 			let flag = true;
 			let lower_flag = true;
@@ -492,7 +496,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				}
 				if (!(lower_check(location, kerbal))) {
 					lower_flag = false;
-					break;
+					continue;
 				}
 			}
 			if (flag === true) {
@@ -513,28 +517,30 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	}
 	/**
 	 * Start a kerbal search from information in the UI
+	 * @param  {String[]} [excludes=[]] List of names to exclude from the search
 	 */
-	kerbal_search_trigger () {
+	kerbal_search_trigger (excludes = []) {
 		let searcher = this.shadowRoot.querySelector('#nameInput');
 		let search = searcher.value
 		search = KNS.nameSanitizer(search);
 		if (search !== this.__lastValue) {
-			this.display_results(this.__resolve_names(this.search(search)));
+			this.display_results(this.__resolve_names(this.search(search, excludes)));
 			this.__lastValue = search;
 		}
 		this.__lastSearch = 'kerbal';
 	}
 	/**
 	 * Start a destination search from information in the UI
+	 * @param  {String[]} [excludes=[]] List of names to exclude from the search
 	 */
-	destination_search_trigger () {
+	destination_search_trigger (excludes = []) {
 		let virtualKerbal = this.vrtKbl;
 		if (virtualKerbal.size === 0) {
 			this.display_results([]);
 		} else {
 			let lower = this.shadowRoot.querySelector('#lower').checked;
 			let tourist = this.shadowRoot.querySelector('#tourism').checked;
-			let results = this.destination_search(virtualKerbal.jobs, lower, tourist);
+			let results = this.destination_search(virtualKerbal.jobs, lower, tourist, excludes);
 			this.display_results(results);
 		}
 		this.__lastSearch = 'destination';
@@ -546,13 +552,13 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	delete_inform (name) {
 		switch (this.__lastSearch) {
 			case 'kerbal':
-				this.kerbal_search_trigger();
+				this.kerbal_search_trigger([name]);
 				break;
 			case 'destination':
-				this.destination_search_trigger();
+				this.destination_search_trigger([name]);
 				break;
 			default:
-				this.kerbal_search_trigger();
+				this.kerbal_search_trigger([name]);
 				break;
 		}
 	}
