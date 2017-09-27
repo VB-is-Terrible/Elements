@@ -420,13 +420,25 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			this.__virtualDisplayMap.delete(kerbal);
 		}
 	}
+	/**
+	 * Causes the selected kerbal to be sent to the editor
+	 * @private
+	 * @param  {Event} event Click event
+	 */
 	editor (event) {
 		let name = event.target.value;
-		let search = KerbalLink.getUI(this.database + '-' + 'editor');
-		if (search) {
-			search.data = KerbalLink.get(this.database).getKerbal(name);
+		let editor = KerbalLink.getUI(this.database + '-' + 'editor');
+		if (editor) {
+			editor.data = KerbalLink.get(this.database).getKerbal(name);
+			editor.showWindow();
 		}
 	}
+	/**
+	 * Make a new div displaying a search result
+	 * @param  {KNS.Kerbal} kerbal Kerbal to show
+	 * @return {HTMLElement}       A div containing the kerbal, edit button
+	 * @private
+	 */
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');
 		div.classList.add('results');
@@ -508,6 +520,12 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		}
 		return results.concat(lower_results);
 	}
+	/**
+	 * Resovle an array of kerbal names into kerbals
+	 * @param  {String[]} array List of names
+	 * @return {KNS.Kerbal[]}   List of kerbals with those names
+	 * @private
+	 */
 	__resolve_names (array) {
 		let kdb = KerbalLink.get(this.database);
 		let result = [];
