@@ -256,11 +256,17 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		});
 		shadow.appendChild(template);
 	}
-	prefix (string, nameList) {
-		string = string.toLowerCase();
+	/**
+	 * Match names to the search, matching by prefix
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @return {Set}                  Ordered set of results
+	 */
+	prefix (search, nameList) {
+		search = search.toLowerCase();
 		let checker = (name) => {
 			name = name.toLowerCase();
-			if (name.indexOf(string) === 0) {
+			if (name.indexOf(search) === 0) {
 				return true;
 			}
 			return false;
@@ -273,17 +279,23 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		}
 		return results;
 	}
-	fuzzy (string, nameList) {
-		string = string.toLowerCase();
+	/**
+	 * Match names to the search, matching by fuzzy search
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @return {Set}                  Ordered set of results
+	 */
+	fuzzy (search, nameList) {
+		search = search.toLowerCase();
 		let checker = (name) => {
 			name = name.toLowerCase();
 			let position = 0;
 			for (let char of name) {
-				if (char === string[position]) {
+				if (char === search[position]) {
 					position += 1;
 				}
 			}
-			if (position === string.length) {
+			if (position === search.length) {
 				return true;
 			} else {
 				return false;
@@ -297,33 +309,60 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		}
 		return results;
 	}
-	edit (string) {
+	/**
+	/**
+	 * Match names to the search, matching by prefix
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @param  {Number} threshold     Edit distance limit
+	 * @return {Set}                  Ordered set of results
+	 */
+	edit (search, nameList, threshold) {
 		return [];
 	}
-	exact (string, nameList) {
-		if (nameList.includes(string)) {
-			return new Set([string]);
+	/**
+	 * Match names to the search, matching by prefix
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @return {Set}                  Ordered set of results
+	 */
+	exact (search, nameList) {
+		if (nameList.includes(search)) {
+			return new Set([search]);
 		} else {
 			return [];
 		}
 	}
-	search (string) {
+	/**
+	 * Search for a kerbal, deriving options from the UI
+	 * @param  {String} search        Name to search for
+	 * @param  {Array}  [excludes=[]] List of names to exclude
+	 * @return {Set}               Set of matches, in order of likeness
+	 */
+	search (search, excludes = []) {
 		let nameList = Array(...KerbalLink.get(this.database).kerbals);
+		for (let name of excludes) {
+			let index = nameList.indexOf(name);
+			if (index !== -1) {
+				nameList.splice(index, 1);
+			}
+		}
 		let prefix = this.shadowRoot.querySelector('#prefix').checked;
 		let fuzzy = this.shadowRoot.querySelector('#fuzzy').checked;
 		let edit = this.shadowRoot.querySelector('#edit').checked;
-		let result = new Set(this.exact(string, nameList));
-		if (string === '') {
+		let result = new Set(this.exact(search, nameList));
+		if (search === '') {
 			return result;
 		}
 		if (prefix) {
-			result = new Set([...result, ...this.prefix(string, nameList)]);
+			result = new Set([...result, ...this.prefix(search, nameList)]);
 		}
 		if (fuzzy) {
-			result = new Set([...result, ...this.fuzzy(string, nameList)]);
+			result = new Set([...result, ...this.fuzzy(search, nameList)]);
 		}
 		if (edit) {
-			result = new Set([...result, ...this.edit(string, nameList)]);
+			const threshold = 0;
+			result = new Set([...result, ...this.edit(search, nameList, threshold)]);
 		}
 		return result;
 	}
@@ -363,6 +402,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			this.update = null;
 		});
 	}
+	/**
+	 * Resets the results display
+	 */
 	emptyNodes () {
 		let kdb = KerbalLink.get(this.database);
 		let holder = this.shadowRoot.querySelector('#results');
