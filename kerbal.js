@@ -13,7 +13,8 @@ Elements.await(function () {
 	 * @property {Boolean} menuvisible Store of useful UI elements
 	 * @property {Object} jobs Readonly reflection on data.jobs
 	 * @property {String} name Readonly reflection on data.name
-	 * @property {Boolean} disabled Toggle to draw a big red x over the kerbal
+	 * @property {Boolean} disabled=false Toggle to draw a big red x over the kerbal
+	 * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itself once the KNS.Kerbal is deleted
 	 * @augments Elements.elements.backbone
 	 */
 	Elements.elements.Kerbal = class extends Elements.elements.backbone {
@@ -139,6 +140,10 @@ Elements.await(function () {
 				}
 			});
 		}
+		/**
+		 * Callback for KerbalDisplay
+		 * @private
+		 */
 		delete () {
 			if (this.deleter) {
 				this.remove();
