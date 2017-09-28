@@ -4,13 +4,23 @@ Elements.get('tabs', 'drag-element', 'kerbal-link');
 {
 const main = async () => {
 await Elements.get('drag-element', 'kerbal-link');
+
+/**
+ * Element that has a import/export window
+ * @type {Object}
+ * @augments Elements.elements.dragged
+ */
 Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 	constructor () {
 		super();
 		const self = this;
 		this.name = 'KerbalImporter';
+		this.__active_tab = 'Import';
+		this.database = this.database || 'default';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
+
+
 		let tabs = [
 			template.querySelector('#import'),
 			template.querySelector('#export'),
@@ -23,18 +33,20 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 				let active;
 				switch (e.detail) {
 					case 'Import':
-					active = tabs[0];
-					break;
+						active = tabs[0];
+						break;
 					case 'Export':
-					active = tabs[1];
-					break;
+						active = tabs[1];
+						self.fillExport();
+						break;
 					default:
-					active = null;
+						active = null;
 				}
 				if (active !== null) {
 					active.style.display = 'block'
+				} else {
+					self.__active_tab = e.detail;
 				}
-
 			})
 		};
 		template.querySelector('elements-tabs').addEventListener('change', tabChange);
@@ -43,11 +55,39 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			self.hideWindow();
 		}
 		template.querySelector('#Close').addEventListener('click', close);
-		// TODO: Actually implement import/export
+
+		let copy = template.querySelector('#exportCopy');
+		let exportArea = template.querySelector('#exportArea');
+		copy.addEventListener('click', (e) => {
+			exportArea.focus();
+			document.execCommand('copy');
+		});
 		shadow.appendChild(template);
 	}
-	hideWindow () {
-		this.parentElement.style.display = 'none';
+	/**
+	 * Unhide this element
+	 */
+	showWindow () {
+		super.showWindow();
+		if (this.__active_tab == 'Export') {
+			this.fillExport();
+		}
+	}
+	/**
+	 * Populate the export field
+	 */
+	fillExport () {
+		let kdb = KerbalLink.get(this.database);
+		let json = JSON.stringify(kdb);
+		let exporter = this.shadowRoot.querySelector('#exportArea');
+		let blob = new Blob([json], {type: 'text/plain'});
+		let uri = URL.createObjectURL(blob);
+		let link = this.shadowRoot.querySelector('#exportDownloadLink');
+		link.href = uri;
+		requestAnimationFrame((e) => {
+			exporter.innerHTML = json;
+			exporter.select();
+		});
 	}
 }
 
