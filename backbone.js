@@ -264,7 +264,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		require: async function (...elementNames) {
 			console.warn('Using deprecated function require. Use get instead');
 			this.get(elementNames);
-		}
+		},
 		/**
 		 * Removes dashes from HTMLElement name and converts to JS element name
 		 * @param  {String} name HTMLElement name

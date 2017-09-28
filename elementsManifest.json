@@ -119,6 +119,6 @@
 		"css": ["kerbalFooter.css"],
 		"resources": [],
 		"provides": ["kerbalFooter"]
-	},
+	}
 
 }
