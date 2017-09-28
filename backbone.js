@@ -232,15 +232,14 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		importTemplate: function (name) {
 			return document.importNode(document.querySelector('#templateElements' + name), true).content;
 		},
-
 		/**
 		 * Loads a custom element from js files.
-		 * You probably want the get method instead
 		 * @param  {...String} elementNames name of element to import
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
-		require: async function (...elementNames) {
+		__require: async function (...elementNames) {
 			for (let name of elementNames) {
 				if (name.indexOf('-') !== -1) {
 					name = this.captilize(name);
@@ -255,6 +254,17 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				this.__setPromise(name);
 			}
 		},
+		/**
+		 * Loads a custom element from js files. Shim to elements.get
+		 * @param  {...String} elementNames name of element to import
+		 * @memberof! Elements
+		 * @deprecated
+		 * @instance
+		 */
+		require: async function (...elementNames) {
+			console.warn('Using deprecated function require. Use get instead');
+			this.get(elementNames);
+		}
 		/**
 		 * Removes dashes from HTMLElement name and converts to JS element name
 		 * @param  {String} name HTMLElement name
@@ -364,7 +374,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			for (let name of elementNames) {
 				if (!this.manifestLoaded) {
 					this.getBacklog.push(name);
-					this.require(name); // Slow load as well
+					this.__require(name); // Slow load as well
 				} else {
 					this.__get(name);
 				}
@@ -389,10 +399,10 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			let manifest = this.manifest[name];
 			if (manifest === undefined) {
 				// No manifest, just require it
-				this.require(name);
+				this.__require(name);
 			} else {
 				// Recursivly look up dependacies
-				this.require(name);
+				this.__require(name);
 				this.get(...manifest.requires);
 				// Pre-empt templates
 				for (let template of manifest.templates) {
