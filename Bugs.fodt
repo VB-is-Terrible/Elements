@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-09-28T23:40:08.359521430</dc:date><meta:editing-duration>PT12H15M17S</meta:editing-duration><meta:editing-cycles>48</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="4" meta:paragraph-count="153" meta:word-count="428" meta:character-count="2500" meta:non-whitespace-character-count="2204"/></office:meta>
+ <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-09-29T00:01:49.651028265</dc:date><meta:editing-duration>PT12H36M56S</meta:editing-duration><meta:editing-cycles>51</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="4" meta:paragraph-count="153" meta:word-count="428" meta:character-count="2492" meta:non-whitespace-character-count="2198"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">2688</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">4334</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">27224</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">12688</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">11393</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">3743</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">3078</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">7784</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">9934</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">2688</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">4334</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">27222</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">15374</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">15725</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -635,7 +635,12 @@
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37"/>
   </style:style>
-  <style:style style:name="P78" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P78" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000bdcba"/>
+  </style:style>
+  <style:style style:name="P79" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0013dabb" officeooo:paragraph-rsid="0013dabb"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
@@ -930,7 +935,7 @@
       <text:p text:style-name="P40">8</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.B2" office:value-type="string">
-      <text:p text:style-name="P78">Assigned</text:p>
+      <text:p text:style-name="P79">Fixed</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
@@ -1041,7 +1046,7 @@
    <text:p text:style-name="P1"/>
    <text:p text:style-name="P19">Bug 2:</text:p>
    <text:p text:style-name="P48">Repro steps:</text:p>
-   <text:list xml:id="list234010344117335" text:continue-list="list3298771822" text:style-name="L1">
+   <text:list xml:id="list150509380442" text:continue-list="list3298771822" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P72">Have a kerbal-footer</text:p>
     </text:list-item>
@@ -1061,7 +1066,7 @@
    <text:p text:style-name="P1"/>
    <text:p text:style-name="P20">Bug <text:span text:style-name="T1">3</text:span>:</text:p>
    <text:p text:style-name="P49">Repro steps:</text:p>
-   <text:list xml:id="list234009911163619" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list150099651126" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P73">Use the importer</text:p>
     </text:list-item>
@@ -1075,7 +1080,7 @@
    <text:p text:style-name="P2"/>
    <text:p text:style-name="P21">Bug <text:span text:style-name="T2">4</text:span>:</text:p>
    <text:p text:style-name="P50">Repro steps:</text:p>
-   <text:list xml:id="list234009513381875" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list150960310228" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P74">Use the exporter</text:p>
     </text:list-item>
@@ -1089,7 +1094,7 @@
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P22">Bug <text:span text:style-name="T3">5</text:span>:</text:p>
    <text:p text:style-name="P51"><text:soft-page-break/>Repro steps:</text:p>
-   <text:list xml:id="list234010569380241" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list150979197385" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P75">JS stuff</text:p>
     </text:list-item>
@@ -1117,7 +1122,7 @@
    <text:p text:style-name="P30"/>
    <text:p text:style-name="P24">Bug <text:span text:style-name="T5">8</text:span>:</text:p>
    <text:p text:style-name="P52">Repro steps:</text:p>
-   <text:list xml:id="list234010440753694" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list151485034433" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P76">Resize the window with kerbal.html horizontally.</text:p>
     </text:list-item>
@@ -1125,9 +1130,9 @@
    <text:p text:style-name="P52">Expected Output:</text:p>
    <text:p text:style-name="P52"><text:tab/><text:span text:style-name="T6">The window resizes to the minimum size that chrome allows</text:span></text:p>
    <text:p text:style-name="P52">Actual Output:</text:p>
-   <text:p text:style-name="P52"><text:tab/><text:span text:style-name="T6">Because the text in elements-kerbal no longer hides overflow, it blocks the window <text:tab/>from becoming as small as possible</text:span></text:p>
+   <text:p text:style-name="P78"><text:span text:style-name="T6">Because the text in elements-kerbal no longer hides overflow, it blocks the window from becoming as small as possible</text:span></text:p>
    <text:p text:style-name="P52">Status:</text:p>
-   <text:p text:style-name="P52"><text:tab/><text:span text:style-name="T14">Assigned</text:span></text:p>
+   <text:p text:style-name="P52"><text:tab/><text:span text:style-name="T14">Fixed</text:span></text:p>
    <text:p text:style-name="P24"/>
    <text:p text:style-name="P28">Bug 9:</text:p>
    <text:p text:style-name="P58">Problem:</text:p>
@@ -1149,7 +1154,7 @@
    <text:p text:style-name="P26"/>
    <text:p text:style-name="P25">Bug <text:span text:style-name="T7">12</text:span>:</text:p>
    <text:p text:style-name="P53">Repro steps:</text:p>
-   <text:list xml:id="list234010553790291" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list151176191261" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P77">Have a kerbal in KDB</text:p>
     </text:list-item>
