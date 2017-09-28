@@ -228,6 +228,26 @@ let KNS =  {
 
 			return kerbal;
 		}
+		/**
+		 * Equality check for KDBs
+		 * @param  {KNS.Kerbal} kerbal1 First kerbal to compare
+		 * @param  {KNS.Kerbal} kerbal2 Second kerbal to compare
+		 * @return {Boolean}   If the two kerbals are equalivalent
+		 */
+		static equals (kerbal1, kerbal2) {
+			if (kerbal1.name !== kerbal2.name) {
+				return false;
+			}
+			if (kerbal1.text !== kerbal2.text) {
+				return false;
+			}
+			for (let place of KNS.places) {
+				if (kerbal1.jobs[place] !== kerbal2.jobs[place]) {
+					return false;
+				}
+			}
+			return true;
+		}
 	},
 	/**
 	 * Returns a object with the mapping [place] -> value for all places
@@ -300,7 +320,6 @@ let KNS =  {
 	 * Highest depth for a job
 	 * @const {Number}
 	 * @memberof KNS
-	 *
 	 */
 	MAX_JOB_VALUE: 4,
 	/**
@@ -452,6 +471,32 @@ const KDB = class KDB {
 	 */
 	static fromJSON (json) {
 		return this.fromJSONObj(JSON.parse(json))
+	}
+	/**
+	 * Equality check for KDBs
+	 * @param  {KDB} thing1 First kdb to compare
+	 * @param  {KDB} thing2 Second kdb to compare
+	 * @return {Boolean}   If this and other are equalivalent
+	 */
+	static equals (thing1, thing2) {
+		for (let name of thing1.kerbals) {
+			if (!thing2.kerbals.has(name)) {
+				return false;
+			}
+		}
+		for (let name of thing2.kerbals) {
+			if (!thing1.kerbals.has(name)) {
+				return false;
+			}
+		}
+		for (let name of thing1.kerbals) {
+			let ours = thing1.getKerbal(name);
+			let theirs = thing2.getKerbal(name);
+			if (!KNS.Kerbal.equals(ours, theirs)) {
+				return false;
+			}
+		}
+		return true;
 	}
 };
 
