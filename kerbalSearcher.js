@@ -384,13 +384,13 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		let locations = [];
 		let lower_results = [];
 		let results = [];
-		for (let location of KNS.places) {
-			if (jobList[location] > 0) {
-				locations.push({
-					place: location,
-					value: jobList[location],
-				});
-			}
+		let reduce = KNS.reducePlaceList(jobList);
+
+		for (let location in reduce) {
+			locations.push({
+				place: location,
+				value: jobList[location],
+			});
 		}
 		let check = (location, kerbal) => {
 			const value = kerbal.jobs[location.place];

@@ -50,6 +50,20 @@ let KNS =  {
 	 */
 	places: ['Kerbin', 'Mun', 'Minmus', 'Eve', 'Gilly', 'Duna', 'Ike', 'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Eeloo', 'Kerbol'],
 	/**
+	 * Remove any places that have a value of 0
+	 * @param  {Object} jobList A jobList
+	 * @return {Object}         A reduced jobList
+	 */
+	reducePlaceList: function (jobList) {
+		let placeList = {};
+		for (let place of this.places) {
+			if (jobList[place] > 0) {
+				placeList[place] = jobList[place];
+			}
+		}
+		return placeList;
+	},
+	/**
 	 * Kerbal backend type
 	 * Note: if you manually set the data of a elements-kerbal, make sure to
 	 * place the elements-kerbal in KNS.Kerbal.displays
