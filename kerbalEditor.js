@@ -9,7 +9,7 @@
 {
 const temp = (async () => {
 
-Elements.get('grid', 'drag-down')
+Elements.get('grid', 'drag-down', 'kerbal', 'kerbal-link', 'drag-element');
 await Elements.get('kerbal', 'kerbal-link', 'drag-element');
 
 /**

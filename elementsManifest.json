@@ -2,25 +2,25 @@
 {
 	"kerbalEditor": {
 		"type": "element",
-		"requires": ["kerbal", "grid", "KDB"],
+		"requires": ["kerbal", "grid", "kerbalLink", "dragDown", "dragElement"],
 		"templates": ["kerbalMakerTemplate.html"],
-		"css": ["kerbalMaker.css"],
+		"css": ["kerbalMaker.css", "kerbalFloatCommon.css"],
 		"resources": ["warning.svg"],
 		"provides": ["kerbalMaker"]
 	},
 	"kerbalSearcher": {
 		"type": "element",
-		"requires": ["kerbal", "grid", "KDB", "dragDown", "tabs"],
+		"requires": ["kerbal", "grid", "KDB", "dragDown", "tabs", "dragElement"],
 		"templates": ["kerbalSearcherTemplate.html"],
-		"css": ["kerbalSearcher.css"],
+		"css": ["kerbalSearcher.css", "kerbalFloatCommon.css"],
 		"resources": [],
 		"provides": ["kerbalSearcher"]
 	},
 	"kerbalMaker": {
 		"type": "element",
-		"requires": ["kerbal", "grid", "KDB", "dragDown"],
+		"requires": ["kerbal", "grid", "kerbalLink", "dragElement"],
 		"templates": ["kerbalEditorTemplate.html"],
-		"css": ["kerbalEditor.css"],
+		"css": ["kerbalEditor.css", "kerbalFloatCommon.css"],
 		"resources": ["warning.svg"],
 		"provides": ["kerbalEditor"]
 	},
@@ -78,7 +78,7 @@
 		"templates": ["dragElementTemplate.html"],
 		"css": ["dragElement.css"],
 		"resources": [],
-		"provides": ["kerbal"]
+		"provides": ["kerbal", "dragged"]
 	},
 	"dragBody": {
 		"type": "element",
@@ -95,5 +95,30 @@
 		"css": ["tabs.css"],
 		"resources": [],
 		"provides": ["tabs"]
-	}
+	},
+	"kerbalLink": {
+		"type": "module",
+		"requires": ["KDB"],
+		"templates": [],
+		"css": [],
+		"resources": [],
+		"provides": ["kerbalLink"]
+	},
+	"kerbalPanelMenu": {
+		"type": "element",
+		"requires": [],
+		"templates": ["kerbalPanelMenuTemplate.html"],
+		"css": ["kerbalPanelMenu.css"],
+		"resources": [],
+		"provides": ["kerbalPanelMenu"]
+	},
+	"kerbalFooter": {
+		"type": "element",
+		"requires": ["kerbalPanelMenu"],
+		"templates": ["kerbalFooterTemplate.html"],
+		"css": ["kerbalFooter.css"],
+		"resources": [],
+		"provides": ["kerbalFooter"]
+	},
+
 }
