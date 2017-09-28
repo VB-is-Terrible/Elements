@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.require('kerbal', 'grid', 'KDB');
+Elements.get('kerbal', 'grid', 'kerbal-link', 'drag-element');
 Elements.await(() => {
 const defaultJob = "Tourist";
 /**

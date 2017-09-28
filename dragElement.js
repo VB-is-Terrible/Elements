@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.require('drag-body');
+Elements.get('drag-body');
 /**
  * DragElement
  * Designed to hold contents to be dragged.

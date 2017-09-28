@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.require('drag-down', 'KDB', 'kerbal-tag');
+Elements.get('drag-down', 'KDB', 'kerbal-tag');
 
 // Move this to config later
 Elements.await(function () {

@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.require('kerbal');
+Elements.get('kerbal');
 /**
  * Interface for display of a Kerbal
  * @interface KerbalDisplay
