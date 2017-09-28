@@ -234,7 +234,8 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		},
 
 		/**
-		 * Loads a custom element from js files
+		 * Loads a custom element from js files.
+		 * You probably want the get method instead
 		 * @param  {...String} elementNames name of element to import
 		 * @memberof! Elements
 		 * @instance
@@ -347,6 +348,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Set of gotten elements (requested through get, not require)
 		 * @type {Set}
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
 		__gottenElements: new Set(),
@@ -402,6 +404,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		/**
 		 * execute get requests that weren't possible before the manifest loaded
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
 		__getBacklog: async function () {
@@ -414,6 +417,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * Map to the promise for each request
 		 * @type {Map}
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
 		__getPromiseStore: new Map(),
@@ -422,6 +426,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {...String} jsName names of requested files
 		 * @return {Promise}          Promise resolving upon load of all requests
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
 		__getPromise: function (...jsName) {
@@ -437,6 +442,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} jsName Name of file been requested
 		 * @return {Promise}       Promise resolving on load of request
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
 		__setPromise: function (jsName) {
@@ -461,6 +467,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 * @param  {String} name name of request e.g. elements-drag-down, drag-down, dragDown
 		 * @return {String}      name of .js for name e.g. dragDown
 		 * @memberof! Elements
+		 * @private
 		 * @instance
 		 */
 		__nameResolver: function (name) {
