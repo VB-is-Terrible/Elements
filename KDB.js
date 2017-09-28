@@ -195,7 +195,9 @@ let KNS =  {
 			return size;
 		}
 		toJSON () {
-			return Elements.jsonIncludes(this, ['name', 'text', 'jobs', 'type']);
+			let result =  Elements.jsonIncludes(this, ['name', 'text', 'type']);
+			result.jobs = KNS.reducePlaceList(this.jobs);
+			return result;
 		}
 		/**
 		 * Delete this kerbal
@@ -217,7 +219,13 @@ let KNS =  {
 				throw new Error('Not a kerbal');
 			}
 			let kerbal = new this();
+			let jobs = jsonObj.jobs;
+			delete jsonObj.jobs;
 			Object.assign(kerbal, jsonObj);
+			for (let location in jobs) {
+				kerbal.jobs[location] = jobs[location];
+			}
+
 			return kerbal;
 		}
 	},
