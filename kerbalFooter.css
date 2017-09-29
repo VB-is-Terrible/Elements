@@ -4,7 +4,7 @@
 	justify-content: center;
 	align-items: center;
 	position: fixed;
-	top: calc(100% - var(--height));
+	top: 500px;
 	left: 0px;
 	width: 100%;
 }
@@ -20,6 +20,21 @@ button {
 	font-size: 1em;
 	height: 100%;
 }
+#multi {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
 #panel {
-	visibility: hidden;
+	/*visibility: hidden;*/
+}
+#panelDiv {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
 }

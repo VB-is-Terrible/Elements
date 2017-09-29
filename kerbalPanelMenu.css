@@ -16,10 +16,12 @@ button {
 }
 :host {
 	--width: 300px;
-	position: fixed;
-	top: 0px;
-	left: 0px;
-	/*display: none; */
+	/*position: fixed;*/
+	/*top: 0px;*/
+	/*left: 0px;*/
+	/* display: none; */
+	width: 300px;
+	height: 300px;
 }
 div.option {
 	display: flex;
