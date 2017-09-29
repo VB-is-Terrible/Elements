@@ -177,7 +177,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 * @param  {String[]} nameList    List of names to search through
 	 * @return {Set}                  Ordered set of results
 	 */
-	prefix (search, nameList) {
+	static prefix (search, nameList) {
 		search = search.toLowerCase();
 		let checker = (name) => {
 			name = name.toLowerCase();
@@ -200,7 +200,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 * @param  {String[]} nameList    List of names to search through
 	 * @return {Set}                  Ordered set of results
 	 */
-	fuzzy (search, nameList) {
+	static fuzzy (search, nameList) {
 		search = search.toLowerCase();
 		let checker = (name) => {
 			name = name.toLowerCase();
@@ -231,7 +231,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 * @param  {Number} threshold     Edit distance limit
 	 * @return {Set}                  Ordered set of results
 	 */
-	edit (search, nameList, threshold) {
+	static edit (search, nameList, threshold) {
 		return [];
 	}
 	/**
@@ -240,7 +240,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 * @param  {String[]} nameList    List of names to search through
 	 * @return {Set}                  Ordered set of results
 	 */
-	exact (search, nameList) {
+	static exact (search, nameList) {
 		if (nameList.includes(search)) {
 			return new Set([search]);
 		} else {
@@ -264,19 +264,19 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		let prefix = this.shadowRoot.querySelector('#prefix').checked;
 		let fuzzy = this.shadowRoot.querySelector('#fuzzy').checked;
 		let edit = this.shadowRoot.querySelector('#edit').checked;
-		let result = new Set(this.exact(search, nameList));
+		let result = new Set(this.constructor.exact(search, nameList));
 		if (search === '') {
 			return result;
 		}
 		if (prefix) {
-			result = new Set([...result, ...this.prefix(search, nameList)]);
+			result = new Set([...result, ...this.constructor.prefix(search, nameList)]);
 		}
 		if (fuzzy) {
-			result = new Set([...result, ...this.fuzzy(search, nameList)]);
+			result = new Set([...result, ...this.constructor.fuzzy(search, nameList)]);
 		}
 		if (edit) {
 			const threshold = 0;
-			result = new Set([...result, ...this.edit(search, nameList, threshold)]);
+			result = new Set([...result, ...this.constructor.edit(search, nameList, threshold)]);
 		}
 		return result;
 	}
