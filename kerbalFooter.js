@@ -31,17 +31,11 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 
 		let mRAF = Elements.rafContext();
 		let menuer = (e) => {
-			const style = getComputedStyle(panel);
-			if (style.visibility === 'visible') {
-				panel.style.visibility = 'hidden';
+			if (panel.hidden === false) {
+				panel.hidden = true;
 			} else {
-				// let rect = e.target.getBoundingClientRect();
-				let panelRect = panel.getBoundingClientRect();
-				let top = - (panelRect.height / 2);
-				panel.style.visibility = 'visible';
-				panel.offset_from(e.target);
+				panel.hidden = false;
 			}
-			console.log(e);
 		};
 
 		panel.addEventListener('maximise', (e) => {

@@ -51,41 +51,35 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		shadow.appendChild(template);
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		this.__IO = new IntersectionObserver((entries) => {
-			console.log(entries);
 			self.layout_switch(entries[0]);
 		}, {
 			root: null,
 			rootMargin : '0px', // TODO: Add right margin
 			threshold: [1],
 		});
-		this.__target = null;
-		this.__layoutState = null;
+		this.__layoutState = 'large';
+		this.__max_width = 0;
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.__IO.observe(this.shadowRoot.querySelector('#pseudoBody'));
+		this.__IO.observe(this.shadowRoot.querySelector('#sentinel'));
+		// Skip the first frame, the css hasn't been layed out yet
+		requestAnimationFrame((e) => {
+			switch (this.__layoutState) {
+				case 'large':
+				this.__large_layout();
+				break;
+				case 'small':
+				this.__small_layout();
+				break;
+				default:
+				this.__large_layout();
+			}
+		});
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
-		this.__IO.unobserve(this.shadowRoot.querySelector('#pseudoBody'));
-	}
-	/**
-	 * Attach this hover above another element
-	 * (Right now uses the parent div)
-	 * @param {HTMLElement} target Thing to hover above
-	 */
-	offset_from (target) {
-		this.__target = target;
-		switch (this.__layoutState) {
-			case 'large':
-				this.__large_layout();
-				break;
-			case 'small':
-				this.__small_layout();
-				break;
-			default:
-				this.__large_layout();
-		}
+		this.__IO.unobserve(this.shadowRoot.querySelector('#sentinel'));
 	}
 	layout_switch (observation) {
 		if (observation.intersectionRatio === 1) {
@@ -95,22 +89,59 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		}
 	}
 	__large_layout () {
-		let panel_rect = this.shadowRoot.querySelector('#pseudoBody').getBoundingClientRect();
+		let main = this.shadowRoot.querySelector('#main');
+		let sentinel = this.shadowRoot.querySelector('#sentinel');
+		let panel_rect = main.getBoundingClientRect();
 		let top = 'calc(' + (-panel_rect.height).toString() + 'px - ' + VERTICAL_OFFSET + ')';
 		this.__layoutState = 'large';
-		this.style.top = top;
-		this.style.position = 'absolute';
-		this.style.left = '0px';
+		this.__max_width = Math.max(this.__max_width, panel_rect.width)
+		main.style.top = top;
+		main.style.position = 'absolute';
+		main.style.left = 'auto';
+		sentinel.style.width = this.__max_width.toString() + 'px';
+		sentinel.style.minWidth = this.__max_width.toString() + 'px';
 	}
 	__small_layout () {
-		let target_rect = this.__target.getBoundingClientRect();
-		let panel_rect = this.shadowRoot.querySelector('#pseudoBody').getBoundingClientRect();
-		let top = 'calc(' + target_rect.x.toString() + 'px - ' + panel_rect.height.toString() + 'px - ' + VERTICAL_OFFSET + ')';
+		let main = this.shadowRoot.querySelector('#main');
+		let target_rect = this.parentElement.getBoundingClientRect();
+		let panel_rect = main.getBoundingClientRect();
+		let top = 'calc(' + target_rect.y.toString() + 'px - ' + panel_rect.height.toString() + 'px - ' + VERTICAL_OFFSET + ')';
 		let left = 'calc( 100% - ' + panel_rect.width.toString() + 'px - ' + RIGHT_OFFSET + ')';
+		let sentinel = this.shadowRoot.querySelector('#sentinel');
 		this.__layoutState = 'small';
-		this.style.top = top;
-		this.style.position = 'fixed'
-		this.style.left = left;
+		if (this.init) {
+			this.__max_width = Math.max(this.__max_width, panel_rect.width)
+		}
+		main.style.top = top;
+		main.style.position = 'fixed'
+		main.style.left = left;
+		sentinel.style.width = this.__max_width.toString() + 'px';
+		sentinel.style.minWidth = this.__max_width.toString() + 'px';
+	}
+	/**
+	 * Get if the main panel is hidden
+	 * @return {Boolean} Whether the UI is hidden
+	 */
+	get hidden () {
+		let main = this.shadowRoot.querySelector('#main');
+		let computed = getComputedStyle(main);
+		if (computed.display === 'none' || computed.visibility === 'hidden') {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * Set the visibility of the main panel
+	 * @param  {Boolean} value Value to set the visibility to
+	 */
+	set hidden (value) {
+		let main = this.shadowRoot.querySelector('#main');
+		if (value === false) {
+			main.style.visibility = 'visible';
+		} else {
+			main.style.visibility = 'hidden';
+		}
 	}
 }
 

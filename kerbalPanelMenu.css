@@ -1,4 +1,4 @@
-#pseudoBody {
+#main {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
@@ -15,6 +15,10 @@ button {
 }
 :host {
 	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	/*z-index: -10;*/
 }
 div.option {
 	display: flex;
@@ -25,4 +29,21 @@ div.fill {
 	display: flex;
 	flex-grow: 1;
 	flex-direction: row-reverse;
+}
+#pseudoBody {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+#sentinel {
+	height: 10px;
+	visibility: visible;
+	z-index: 200;
+	background: blue;
+	position: absolute;
 }
