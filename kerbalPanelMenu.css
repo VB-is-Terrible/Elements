@@ -43,7 +43,7 @@ div.fill {
 #sentinel {
 	height: 10px;
 	visibility: visible;
-	z-index: 200;
+	z-index: -200;
 	background: blue;
 	position: absolute;
 	margin-right: 50px;

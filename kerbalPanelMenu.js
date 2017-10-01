@@ -23,6 +23,7 @@ const RIGHT_EXTRA_INTERSECTION = 50;
  * @fires Elements.elements.KerbalPanelMenu#centre
  * @fires Elements.elements.KerbalPanelMenu#maximise
  * @augments Elements.elements.backbone
+ * @property {Boolean} hidden Whether the UI is hidden
  */
 Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 	constructor () {
@@ -48,7 +49,6 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 				self.dispatchEvent(event);
 			});
 		}
-		//Fancy code goes here
 		shadow.appendChild(template);
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		this.__IO = new IntersectionObserver((entries) => {
@@ -65,24 +65,26 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 	connectedCallback () {
 		super.connectedCallback();
 		this.__IO.observe(this.shadowRoot.querySelector('#sentinel'));
-		// Skip the first frame, the css hasn't been layed out yet
-		requestAnimationFrame((e) => {
-			switch (this.__layoutState) {
-				case 'large':
-				this.__large_layout();
-				break;
-				case 'small':
-				this.__small_layout();
-				break;
-				default:
-				this.__large_layout();
-			}
-		});
+		switch (this.__layoutState) {
+			case 'large':
+			this.__large_layout();
+			break;
+			case 'small':
+			this.__small_layout();
+			break;
+			default:
+			this.__large_layout();
+		}
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
 		this.__IO.unobserve(this.shadowRoot.querySelector('#sentinel'));
 	}
+	/**
+	 * Switch the layout depending on screen size
+	 * @param  {IntersectionObserverEntry} observation Observation of the sentinel element
+	 * @private
+	 */
 	layout_switch (observation) {
 		if (observation.intersectionRatio === 1) {
 			this.__large_layout();
@@ -90,6 +92,10 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			this.__small_layout();
 		}
 	}
+	/**
+	 * Layout using the large layout (centred above parent)
+	 * @private
+	 */
 	__large_layout () {
 		let main = this.shadowRoot.querySelector('#main');
 		let sentinel = this.shadowRoot.querySelector('#sentinel');
@@ -107,6 +113,10 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			sentinel.style.minWidth = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
 		});
 	}
+	/**
+	 * Layout using the small layout (offset from right of screen, badly height adjusted)
+	 * @private
+	 */
 	__small_layout () {
 		let main = this.shadowRoot.querySelector('#main');
 		let target_rect = this.parentElement.getBoundingClientRect();
@@ -126,10 +136,6 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			sentinel.style.minWidth = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
 		})
 	}
-	/**
-	 * Get if the main panel is hidden
-	 * @return {Boolean} Whether the UI is hidden
-	 */
 	get hidden () {
 		let main = this.shadowRoot.querySelector('#main');
 		let computed = getComputedStyle(main);
@@ -139,10 +145,6 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			return false;
 		}
 	}
-	/**
-	 * Set the visibility of the main panel
-	 * @param  {Boolean} value Value to set the visibility to
-	 */
 	set hidden (value) {
 		let main = this.shadowRoot.querySelector('#main');
 		if (value === false) {
