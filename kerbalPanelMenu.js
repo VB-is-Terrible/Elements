@@ -45,6 +45,20 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		}
 		//Fancy code goes here
 		shadow.appendChild(template);
+	/**
+	 * Attach this hover above another element
+	 * (Right now uses the parent div)
+	 * @param {HTMLElement} target Thing to hover above
+	 */
+	offset_from (target) {
+		requestAnimationFrame((e) => {
+			let target_rect = target.getBoundingClientRect();
+			let panel_rect = this.shadowRoot.querySelector('#pseudoBody').getBoundingClientRect();
+			let top = 'calc(' + (-panel_rect.height).toString() + 'px - 1em)';
+			this.style.top = top;
+
+		});
+	}
 	}
 }
 

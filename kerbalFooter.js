@@ -29,25 +29,20 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 		};
 		port.addEventListener('click', porter);
 
-		// let mRAF = Elements.rafContext();
-		// let menuer = (e) => {
-		// 	const style = getComputedStyle(panel);
-		// 	if (style.visibility === 'visible') {
-		// 		panel.style.visibility = 'hidden';
-		// 	} else {
-		// 		let rect = e.target.getBoundingClientRect();
-		// 		let panelRect = panel.getBoundingClientRect();
-		// 		let left = rect.left + rect.width / 2 - panelRect.width / 2;
-		// 		let top = rect.top - panelRect.height;
-		// 		panel.style.visibility = 'visible';
-		// 		mRAF(() => {
-		// 			panel.style.display = 'block';
-		// 			panel.style.top = top.toString() + 'px';
-		// 			panel.style.left = left.toString() + 'px';
-		// 		});
-		// 	}
-		// 	console.log(e);
-		// };
+		let mRAF = Elements.rafContext();
+		let menuer = (e) => {
+			const style = getComputedStyle(panel);
+			if (style.visibility === 'visible') {
+				panel.style.visibility = 'hidden';
+			} else {
+				// let rect = e.target.getBoundingClientRect();
+				let panelRect = panel.getBoundingClientRect();
+				let top = - (panelRect.height / 2);
+				panel.style.visibility = 'visible';
+				panel.offset_from(e.target);
+			}
+			console.log(e);
+		};
 
 		panel.addEventListener('maximise', (e) => {
 			let element = KerbalLink.getUI(self.database + '-' + e.detail);
@@ -64,7 +59,7 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 			element.centre();
 		});
 
-		// menu.addEventListener('click', menuer);
+		menu.addEventListener('click', menuer);
 		shadow.appendChild(template);
 	}
 }

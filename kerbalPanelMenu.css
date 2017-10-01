@@ -16,7 +16,7 @@ button {
 }
 :host {
 	--width: 300px;
-	/*position: fixed;*/
+	position: absolute;
 	/*top: 0px;*/
 	/*left: 0px;*/
 	/* display: none; */
