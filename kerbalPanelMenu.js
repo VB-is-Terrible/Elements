@@ -4,6 +4,7 @@
 
 const VERTICAL_OFFSET  = '1ex';
 const RIGHT_OFFSET = '1ex';
+const RIGHT_EXTRA_INTERSECTION = 50;
 /**
  * Maximise/Minimise event
  * @event Elements.elements.KerbalPanelMenu#maximise
@@ -102,8 +103,8 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			main.style.top = top;
 			main.style.position = 'absolute';
 			main.style.left = 'auto';
-			sentinel.style.width = this.__max_width.toString() + 'px';
-			sentinel.style.minWidth = this.__max_width.toString() + 'px';
+			sentinel.style.width = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
+			sentinel.style.minWidth = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
 		});
 	}
 	__small_layout () {
@@ -121,8 +122,8 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			main.style.top = top;
 			main.style.position = 'fixed'
 			main.style.left = left;
-			sentinel.style.width = this.__max_width.toString() + 'px';
-			sentinel.style.minWidth = this.__max_width.toString() + 'px';
+			sentinel.style.width = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
+			sentinel.style.minWidth = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
 		})
 	}
 	/**
