@@ -1,5 +1,9 @@
 'use strict';
 
+{
+
+const VERTICAL_OFFSET  = '1ex';
+const RIGHT_OFFSET = '1ex';
 /**
  * Maximise/Minimise event
  * @event Elements.elements.KerbalPanelMenu#maximise
@@ -13,7 +17,7 @@
  * @property {String} detail Name of the thing to centre
  */
 /**
- * [KerbalPanelMenu description]
+ * Panel for buttons to maximise/center things
  * @type {Object}
  * @fires Elements.elements.KerbalPanelMenu#centre
  * @fires Elements.elements.KerbalPanelMenu#maximise
@@ -45,21 +49,70 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		}
 		//Fancy code goes here
 		shadow.appendChild(template);
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		this.__IO = new IntersectionObserver((entries) => {
+			console.log(entries);
+			self.layout_switch(entries[0]);
+		}, {
+			root: null,
+			rootMargin : '0px', // TODO: Add right margin
+			threshold: [1],
+		});
+		this.__target = null;
+		this.__layoutState = null;
+	}
+	connectedCallback () {
+		super.connectedCallback();
+		this.__IO.observe(this.shadowRoot.querySelector('#pseudoBody'));
+	}
+	disconnectedCallback () {
+		super.disconnectedCallback();
+		this.__IO.unobserve(this.shadowRoot.querySelector('#pseudoBody'));
+	}
 	/**
 	 * Attach this hover above another element
 	 * (Right now uses the parent div)
 	 * @param {HTMLElement} target Thing to hover above
 	 */
 	offset_from (target) {
-		requestAnimationFrame((e) => {
-			let target_rect = target.getBoundingClientRect();
-			let panel_rect = this.shadowRoot.querySelector('#pseudoBody').getBoundingClientRect();
-			let top = 'calc(' + (-panel_rect.height).toString() + 'px - 1em)';
-			this.style.top = top;
-
-		});
+		this.__target = target;
+		switch (this.__layoutState) {
+			case 'large':
+				this.__large_layout();
+				break;
+			case 'small':
+				this.__small_layout();
+				break;
+			default:
+				this.__large_layout();
+		}
 	}
+	layout_switch (observation) {
+		if (observation.intersectionRatio === 1) {
+			this.__large_layout();
+		} else {
+			this.__small_layout();
+		}
+	}
+	__large_layout () {
+		let panel_rect = this.shadowRoot.querySelector('#pseudoBody').getBoundingClientRect();
+		let top = 'calc(' + (-panel_rect.height).toString() + 'px - ' + VERTICAL_OFFSET + ')';
+		this.__layoutState = 'large';
+		this.style.top = top;
+		this.style.position = 'absolute';
+		this.style.left = '0px';
+	}
+	__small_layout () {
+		let target_rect = this.__target.getBoundingClientRect();
+		let panel_rect = this.shadowRoot.querySelector('#pseudoBody').getBoundingClientRect();
+		let top = 'calc(' + target_rect.x.toString() + 'px - ' + panel_rect.height.toString() + 'px - ' + VERTICAL_OFFSET + ')';
+		let left = 'calc( 100% - ' + panel_rect.width.toString() + 'px - ' + RIGHT_OFFSET + ')';
+		this.__layoutState = 'small';
+		this.style.top = top;
+		this.style.position = 'fixed'
+		this.style.left = left;
 	}
 }
 
 Elements.load('kerbalPanelMenuTemplate.html', Elements.elements.KerbalPanelMenu, 'elements-kerbal-panel-menu');
+}

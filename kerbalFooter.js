@@ -17,7 +17,7 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 		let panel = template.querySelector('#panel');
 
 		let saver = (e) => {
-			KerbalLink.save(this.database);
+			KerbalLink.save(self.database);
 		};
 		save.addEventListener('click', saver);
 

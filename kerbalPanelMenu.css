@@ -4,7 +4,6 @@
 	padding: 10px;
 	border-radius: 5px;
 	border: 1px solid black;
-	width: var(--width);
 	background: white;
 	font-size: large;
 	margin-bottom: 1em;
@@ -15,13 +14,7 @@ button {
 	margin-left: .5em;
 }
 :host {
-	--width: 300px;
 	position: absolute;
-	/*top: 0px;*/
-	/*left: 0px;*/
-	/* display: none; */
-	width: 300px;
-	height: 300px;
 }
 div.option {
 	display: flex;
