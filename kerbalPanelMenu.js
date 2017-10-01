@@ -59,6 +59,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		});
 		this.__layoutState = 'large';
 		this.__max_width = 0;
+		this.__rAF = Elements.rafContext();
 	}
 	connectedCallback () {
 		super.connectedCallback();
@@ -94,12 +95,16 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		let panel_rect = main.getBoundingClientRect();
 		let top = 'calc(' + (-panel_rect.height).toString() + 'px - ' + VERTICAL_OFFSET + ')';
 		this.__layoutState = 'large';
-		this.__max_width = Math.max(this.__max_width, panel_rect.width)
-		main.style.top = top;
-		main.style.position = 'absolute';
-		main.style.left = 'auto';
-		sentinel.style.width = this.__max_width.toString() + 'px';
-		sentinel.style.minWidth = this.__max_width.toString() + 'px';
+		if ((panel_rect.width / window.innerWidth) < .95) {
+			this.__max_width = Math.max(this.__max_width, panel_rect.width)
+		}
+		this.__rAF((e) => {
+			main.style.top = top;
+			main.style.position = 'absolute';
+			main.style.left = 'auto';
+			sentinel.style.width = this.__max_width.toString() + 'px';
+			sentinel.style.minWidth = this.__max_width.toString() + 'px';
+		});
 	}
 	__small_layout () {
 		let main = this.shadowRoot.querySelector('#main');
@@ -109,14 +114,16 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		let left = 'calc( 100% - ' + panel_rect.width.toString() + 'px - ' + RIGHT_OFFSET + ')';
 		let sentinel = this.shadowRoot.querySelector('#sentinel');
 		this.__layoutState = 'small';
-		if (this.init) {
+		if ((panel_rect.width / window.innerWidth) < .95) {
 			this.__max_width = Math.max(this.__max_width, panel_rect.width)
 		}
-		main.style.top = top;
-		main.style.position = 'fixed'
-		main.style.left = left;
-		sentinel.style.width = this.__max_width.toString() + 'px';
-		sentinel.style.minWidth = this.__max_width.toString() + 'px';
+		this.__rAF((e) => {
+			main.style.top = top;
+			main.style.position = 'fixed'
+			main.style.left = left;
+			sentinel.style.width = this.__max_width.toString() + 'px';
+			sentinel.style.minWidth = this.__max_width.toString() + 'px';
+		})
 	}
 	/**
 	 * Get if the main panel is hidden
