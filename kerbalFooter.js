@@ -2,6 +2,12 @@
 
 Elements.get('kerbal-panel-menu');
 
+/**
+ * Footer on the bottom of the page
+ * @type {Object}
+ * @augments Elements.elements.backbone
+ * @property {String} database Name of the database to look up
+ */
 Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 	constructor () {
 		super();

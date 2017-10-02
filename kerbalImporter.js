@@ -8,6 +8,7 @@ await Elements.get('drag-element', 'kerbal-link');
 /**
  * Element that has a import/export window
  * @type {Object}
+ * @property {String} database Name of the database to look up
  * @augments Elements.elements.dragged
  */
 Elements.elements.KerbalImporter = class extends Elements.elements.dragged {

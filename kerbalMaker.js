@@ -8,6 +8,7 @@ const defaultJob = "Tourist";
  * @type {Object}
  * @property {Object} elements Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been made
+ * @property {String} database Name of the database to look up
  * @augments Elements.elements.dragged
  */
 Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
