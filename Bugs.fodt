@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-10-02T03:10:45.261158983</dc:date><meta:editing-duration>PT22H31M20S</meta:editing-duration><meta:editing-cycles>66</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="5" meta:paragraph-count="167" meta:word-count="459" meta:character-count="2684" meta:non-whitespace-character-count="2372"/></office:meta>
+ <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-10-02T16:19:03.489963166</dc:date><meta:editing-duration>P1DT11H39M37S</meta:editing-duration><meta:editing-cycles>70</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="5" meta:paragraph-count="167" meta:word-count="459" meta:character-count="2670" meta:non-whitespace-character-count="2358"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">1381</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">5322</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">27224</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">11393</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">12040</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">6736</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">7616</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">3743</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">16790</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">1381</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">5322</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">27222</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">12772</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">17360</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -263,6 +263,16 @@
   </style:style>
   <style:style style:name="Table1.B4" style:family="table-cell">
    <style:table-cell-properties fo:background-color="#ff0000" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+    <style:background-image/>
+   </style:table-cell-properties>
+  </style:style>
+  <style:style style:name="Table1.A17" style:family="table-cell">
+   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+    <style:background-image/>
+   </style:table-cell-properties>
+  </style:style>
+  <style:style style:name="Table1.B17" style:family="table-cell">
+   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
@@ -664,17 +674,17 @@
   <style:style style:name="P86" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0016392d"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00159679" officeooo:paragraph-rsid="00159679"/>
   </style:style>
   <style:style style:name="P87" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00159679" officeooo:paragraph-rsid="00159679"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0016392d" officeooo:paragraph-rsid="0016392d"/>
   </style:style>
   <style:style style:name="P88" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0016392d" officeooo:paragraph-rsid="0016392d"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0019118c" officeooo:paragraph-rsid="0019118c"/>
   </style:style>
   <style:style style:name="P89" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
@@ -1047,11 +1057,11 @@
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A4" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
       <text:p text:style-name="P44">13</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.B4" office:value-type="string">
-      <text:p text:style-name="P44">Unassigned</text:p>
+     <table:table-cell table:style-name="Table1.B2" office:value-type="string">
+      <text:p text:style-name="P96">Fixed</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
@@ -1071,11 +1081,11 @@
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A4" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A17" office:value-type="string">
       <text:p text:style-name="P95">16</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.B4" office:value-type="string">
-      <text:p text:style-name="P95">Unassigned</text:p>
+     <table:table-cell table:style-name="Table1.B17" office:value-type="string">
+      <text:p text:style-name="P96">Assigned</text:p>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -1138,7 +1148,7 @@
    <text:p text:style-name="P1"/>
    <text:p text:style-name="P19">Bug 2:</text:p>
    <text:p text:style-name="P50">Repro steps:</text:p>
-   <text:list xml:id="list31047079592714" text:continue-list="list2569744615" text:style-name="L1">
+   <text:list xml:id="list161904866356713" text:continue-list="list2569744615" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P78">Have a kerbal-footer</text:p>
     </text:list-item>
@@ -1158,7 +1168,7 @@
    <text:p text:style-name="P1"/>
    <text:p text:style-name="P20">Bug <text:span text:style-name="T1">3</text:span>:</text:p>
    <text:p text:style-name="P51">Repro steps:<text:tab/></text:p>
-   <text:list xml:id="list31046646728209" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list161904902438633" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P79">Use the importer</text:p>
     </text:list-item>
@@ -1172,7 +1182,7 @@
    <text:p text:style-name="P2"/>
    <text:p text:style-name="P21">Bug <text:span text:style-name="T2">4</text:span>:</text:p>
    <text:p text:style-name="P52">Repro steps:</text:p>
-   <text:list xml:id="list31047226645521" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list161904909572952" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P80">Use the exporter</text:p>
     </text:list-item>
@@ -1186,7 +1196,7 @@
    <text:p text:style-name="P3"/>
    <text:p text:style-name="P22">Bug <text:span text:style-name="T3">5</text:span>:</text:p>
    <text:p text:style-name="P53">Repro steps:</text:p>
-   <text:list xml:id="list31046160896436" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list161905347218412" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P81">JS stuff</text:p>
     </text:list-item>
@@ -1214,7 +1224,7 @@
    <text:p text:style-name="P30"/>
    <text:p text:style-name="P24">Bug <text:span text:style-name="T5">8</text:span>:</text:p>
    <text:p text:style-name="P54">Repro steps:</text:p>
-   <text:list xml:id="list31046313950252" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list161903943944347" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P82">Resize the window with kerbal.html horizontally.</text:p>
     </text:list-item>
@@ -1246,7 +1256,7 @@
    <text:p text:style-name="P26"/>
    <text:p text:style-name="P25">Bug <text:span text:style-name="T7">12</text:span>:</text:p>
    <text:p text:style-name="P55">Repro steps:</text:p>
-   <text:list xml:id="list31046903582437" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list161904954562020" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
      <text:p text:style-name="P83">Have a kerbal in KDB</text:p>
     </text:list-item>
@@ -1268,7 +1278,7 @@
    <text:p text:style-name="P58">Problem:</text:p>
    <text:p text:style-name="P68">Loose subscriptions to updates to KerbalDisplays are everywhere</text:p>
    <text:p text:style-name="P56">Status:</text:p>
-   <text:p text:style-name="P56"><text:tab/>Unassigned</text:p>
+   <text:p text:style-name="P56"><text:tab/><text:span text:style-name="T17">Fixed</text:span></text:p>
    <text:p text:style-name="P17">Bug <text:span text:style-name="T11">14</text:span>:</text:p>
    <text:p text:style-name="P59">Problem:</text:p>
    <text:p text:style-name="P71">As bits and pieces have been moved around, the dependency chains have changed. The dependencies in the manifest no longer accurately match those in files</text:p>
@@ -1277,15 +1287,15 @@
    <text:p text:style-name="P32"/>
    <text:p text:style-name="P76">Bug <text:span text:style-name="T15">15</text:span>:</text:p>
    <text:p text:style-name="P92">Problem:</text:p>
-   <text:p text:style-name="P87">elements.KerbalSearcher.edit is unimplemented</text:p>
+   <text:p text:style-name="P86">elements.KerbalSearcher.edit is unimplemented</text:p>
    <text:p text:style-name="P92">Status:</text:p>
    <text:p text:style-name="P85">Unassigned</text:p>
    <text:p text:style-name="P90"/>
    <text:p text:style-name="P77">Bug <text:span text:style-name="T16">16</text:span>:</text:p>
    <text:p text:style-name="P93"><text:soft-page-break/>Problem:</text:p>
-   <text:p text:style-name="P88">Elements with the database property do not properly cutover between databases</text:p>
+   <text:p text:style-name="P87">Elements with the database property do not properly cutover between databases</text:p>
    <text:p text:style-name="P93">Status:</text:p>
-   <text:p text:style-name="P86">Unassigned</text:p>
+   <text:p text:style-name="P88">Assigned</text:p>
    <text:p text:style-name="P91"/>
   </office:text>
  </office:body>
