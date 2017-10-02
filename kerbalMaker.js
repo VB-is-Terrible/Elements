@@ -124,7 +124,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 				return;
 			}
 			KerbalLink.get(self.database).addKerbal(self.data);
-			self.data.removeDisplay(this.elements.kerbal);
+			self.data.removeDisplay(self.elements.kerbal);
 			self.newKerbal();
 		});
 		applyEL('close', 'click', (e) => {
@@ -150,6 +150,13 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		this.elements.AnsAddValue.value = 4;
 		this.elements.AnsRemovePlace.value = '';
 		this.elements.warn.display = "block";
+	}
+	/**
+	 * Reset the maker
+	 */
+	reset () {
+		this.data.removeDisplay(this.elements.kerbal);
+		this.newKerbal();
 	}
 }
 
