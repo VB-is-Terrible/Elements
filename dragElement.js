@@ -196,7 +196,7 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 	 */
 	hideWindow () {
 		requestAnimationFrame(() => {
-			this.parentElement.style.display = 'none';
+			this.parentElement.style.visibility = 'hidden';
 		});
 	}
 	/**
