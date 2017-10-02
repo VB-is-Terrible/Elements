@@ -511,6 +511,11 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				break;
 		}
 	}
+	/**
+	 * Setter for database
+	 * @param {String} value Name of database to search
+	 * @private
+	 */
 	__set_database (value) {
 		this.emptyNodes();
 		this.__database = value;
@@ -525,6 +530,11 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				break;
 		}
 	}
+	/**
+	 * Getter for database
+	 * @private
+	 * @return {String} Name of database
+	 */
 	__get_database () {
 		return this.__database;
 	}

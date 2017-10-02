@@ -17,6 +17,7 @@ await Elements.get('kerbal', 'kerbal-link', 'drag-element');
  * @type {Object}
  * @property {Object} UI Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been edit - note: this is a copy, not the original
+ * @property {String} database Name of the database to look up
  * @augments Elements.elements.dragged
  */
 Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
@@ -57,7 +58,17 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			['cancel', '#Cancel'],
 		);
 
-		this.database = this.database || 'default';
+		this.__database = this.database || 'default';
+		Object.defineProperty(this, 'database', {
+			enumerable: true,
+			configurable: false,
+			get: () => {
+				return self.__get_database();
+			},
+			set: (value) => {
+				self.__set_database(value);
+			},
+		});
 		this.__data = this.data || null;
 		/**
 		 * Kerbal been edited
@@ -246,15 +257,26 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 	}
 	/**
 	 * Reset editor state
+	 * @param {String} value Name of database to attach to
+	 * @private
 	 */
-	reset () {
+	__set_database (value) {
 		this.clearKerbal();
 		this.newChangeQueue();
+		this.__database = value;
+	}
+	/**
+	 * Getter for database
+	 * @private
+	 * @return {String} Name of database
+	 */
+	__get_database (value) {
+		return this.__database;
 	}
 	/**
 	 * Toggle disable all interactive UI elements (e.g. for when there is no kerbal to be edited)
 	 * @param  {Boolean} value Whether to disable everything or not
-	 */ 
+	 */
 	disableAll (value) {
 		this.UI.nameInput.disabled = value;
 		this.UI.typeInput.disabled = value;
