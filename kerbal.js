@@ -25,7 +25,7 @@ Elements.await(function () {
 			this.alias = 'Kerbal';
 			if (!this.data) {
 				this._data = new KNS.Kerbal();
-				this._data.displays.push(this);
+				this._data.addDisplay(this);
 			} else {
 				this._data = this.data;
 			}
@@ -36,12 +36,14 @@ Elements.await(function () {
 					return self._data;
 				},
 				set: (value) => {
+					this._data.removeDisplay(this);
 					if (value === null) {
 						value = new KNS.Kerbal();
 						value.name = '';
 						value.text = '';
 					}
 					self._data = value;
+					self.data.addDisplay(this)
 					self.updateData();
 					self.displayJobs();
 				},
