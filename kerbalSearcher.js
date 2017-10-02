@@ -128,6 +128,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		let kerbalDisplay = new KerbalChoiceDisplay();
 		this.vrtKbl = virtualKerbal;
 		this.kblDsp = kerbalDisplay;
+		kerbalDisplay.data = virtualKerbal;
 		virtualKerbal.addDisplay(kerbalDisplay);
 		let destinationSearch = (e) => {
 			this.destination_search_trigger();

@@ -169,7 +169,6 @@ let KNS =  {
 				return;
 			}
 			this.displays.push(display)
-			display.data = this;
 		}
 		/**
 		 * Deregister a display to kerbal
