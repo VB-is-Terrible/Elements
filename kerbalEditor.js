@@ -81,11 +81,13 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 				if (value !== null) {
 					self.__data = self.constructor.duplicateKerbal(value);
 					UI.kerbal.data = this.data;
+					self.disableAll(false)
 				} else {
 					self.__data = new KNS.Kerbal();
-					self.__data.name = '';
-					self.__data.text = '';
+					self.__data.name = 'No Kerbal to edit';
+					self.__data.text = 'Tourist';
 					UI.kerbal.data = this.data;
+					self.disableAll(true);
 				}
 				// Fill the UI
 				// Desantize the name
@@ -97,6 +99,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		});
 
 		applyEL('nameInput', 'keyup', (e) => {
+			if (self.__oldValue === null) return;
 			let name = UI.nameInput.value;
 			name = KNS.nameSanitizer(name);
 			if (KerbalLink.get(self.database).kerbals.has(name) && name !== self.__oldValue.name) {
@@ -121,10 +124,12 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			}
 		});
 		applyEL('typeInput', 'change', (e) => {
+			if (self.__oldValue === null) return;
 			self.data.text = UI.typeInput.value;
 			self.__changeQueue.text = UI.typeInput.value;
 		});
 		applyEL('AnsAddConfirm', 'click', (e) => {
+			if (self.__oldValue === null) return;
 			let location = UI.AnsAddPlace.value;
 			let value = parseInt(UI.AnsAddValue.value);
 			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
@@ -135,6 +140,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			});
 		});
 		applyEL('AnsRemoveConfirm', 'click', (e) => {
+			if (self.__oldValue === null) return;
 			let location = UI.AnsRemovePlace.value;
 			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
 			self.__changeQueue.changes.push((kerbal) => {
@@ -142,6 +148,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			});
 		});
 		applyEL('updater', 'click', (e) => {
+			if (self.__oldValue === null) return;
 			self.applyChanges();
 			self.clearKerbal();
 			self.hideWindow();
@@ -154,6 +161,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			self.hideWindow();
 		});
 		applyEL('Delete1', 'click', (e) => {
+			if (self.__oldValue === null) return;
 			requestAnimationFrame(() => {
 				UI.Delete1.style.display = 'none';
 				UI.Delete2.style.display = 'block';
@@ -161,6 +169,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			});
 		});
 		applyEL('Delete2', 'click', (e) => {
+			if (self.__oldValue === null) return;
 			self.__changeQueue.delete = true;
 			UI.DeleteWarning.style.display = 'flex';
 			requestAnimationFrame(() => {
@@ -169,6 +178,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			});
 		});
 		applyEL('Delete3', 'click', (e) => {
+			if (self.__oldValue === null) return;
 			self.__changeQueue.delete = false;
 			UI.DeleteWarning.style.display = 'none';
 			requestAnimationFrame(() => {
@@ -198,6 +208,9 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 	 * Applies queued changes
 	 */
 	applyChanges () {
+		if (this.__oldValue === null) {
+			return;
+		}
 		let kerbal = this.__oldValue;
 		if (this.__changeQueue.delete) {
 			KerbalLink.get(this.database).deleteKerbal(kerbal.name)
@@ -230,6 +243,23 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			changes: [],
 			delete: false,
 		};
+	}
+	/**
+	 * Toggle disable all interactive UI elements (e.g. for when there is no kerbal to be edited)
+	 * @param  {Boolean} value Whether to disable everything or not
+	 */ 
+	disableAll (value) {
+		this.UI.nameInput.disabled = value;
+		this.UI.typeInput.disabled = value;
+		this.UI.updater.disabled = value;
+		this.UI.AnsAddPlace.disabled = value;
+		this.UI.AnsAddValue.disabled = value;
+		this.UI.AnsAddConfirm.disabled = value;
+		this.UI.AnsRemovePlace.disabled = value;
+		this.UI.AnsRemoveConfirm.disabled = value;
+		this.UI.Delete1.disabled = value;
+		this.UI.Delete2.disabled = value;
+		this.UI.Delete3.disabled = value;
 	}
 	/**
 	 * Shallow copy a kerbal
