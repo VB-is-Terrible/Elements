@@ -81,13 +81,11 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 				if (value !== null) {
 					self.__data = self.constructor.duplicateKerbal(value);
 					UI.kerbal.data = this.data;
-					this.data.displays.push(UI.kerbal);
 				} else {
 					self.__data = new KNS.Kerbal();
 					self.__data.name = '';
 					self.__data.text = '';
 					UI.kerbal.data = this.data;
-					this.data.displays.push(UI.kerbal);
 				}
 				// Fill the UI
 				// Desantize the name

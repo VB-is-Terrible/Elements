@@ -141,7 +141,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		this.data = new KNS.Kerbal();
 		this.data.name = '&nbsp;';
 		this.data.text = defaultJob;
-		this.data.displays.push(this.elements.kerbal)
+		this.data.addDisplay(this.elements.kerbal);
 		this.nameChanged = false;
 		this.nameValid = false;
 		this.elements.nameInput.value = '';
