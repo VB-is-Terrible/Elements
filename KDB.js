@@ -165,6 +165,9 @@ let KNS =  {
 		 * @instance
 		 */
 		addDisplay (display) {
+			if (this.displays.includes(display)) {
+				return;
+			}
 			this.displays.push(display)
 			display.data = this;
 		}
