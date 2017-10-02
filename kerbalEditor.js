@@ -245,6 +245,13 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		};
 	}
 	/**
+	 * Reset editor state
+	 */
+	reset () {
+		this.clearKerbal();
+		this.newChangeQueue();
+	}
+	/**
 	 * Toggle disable all interactive UI elements (e.g. for when there is no kerbal to be edited)
 	 * @param  {Boolean} value Whether to disable everything or not
 	 */ 
