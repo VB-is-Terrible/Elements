@@ -66,6 +66,7 @@ let SearchDisplay = class extends BlankKerbalDisplay {
  * UI to search through kerbals
  * @type {Object}
  * @augments Elements.elements.dragged
+ * @property {String} database Name of the database to look up
  */
 Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	constructor () {
@@ -74,17 +75,27 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 
 		this.name = 'KerbalSearcher';
 		this.update = null;
-		this.maxResults = 5;
 		/**
 		 * Which database to search
 		 * @type {String}
 		 */
-		this.database = this.database || 'default';
+		this.__database = this.database || 'default';
+		Object.defineProperty(this, 'database', {
+			enumerable: true,
+			configurable: false,
+			get: () => {
+				return self.__get_database();
+			},
+			set: (value) => {
+				self.__set_database(value);
+			},
+		});
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.__lastValue = '';
 		this.__lastSearch = 'kerbal';
 		this.__virtualDisplayMap = new Map();
+		this.__open_tab = 'kerbal';
 		let searcher = template.querySelector('#nameInput');
 		let updater = (e) => {
 			this.kerbal_search_trigger();
@@ -104,6 +115,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 					tab.style.display = 'none';
 				}
 				let active;
+				let tab = e.detail;
 				switch (e.detail) {
 					case 'Kerbal':
 						active = tabs[0];
@@ -116,6 +128,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				}
 				if (active !== null) {
 					active.style.display = 'block'
+					this.__open_tab = tab;
 				}
 			});
 		}
@@ -142,7 +155,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			virtualKerbal.addJob(location, parseInt(depth));
 			locationUI.focus();
 			destinationSearch();
-		}
+		};
 		let removeDestination = (e) => {
 			let location = e.detail;
 			virtualKerbal.removeJob(location, KNS.MAX_JOB_VALUE);
@@ -497,6 +510,23 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				this.kerbal_search_trigger(true, [name]);
 				break;
 		}
+	}
+	__set_database (value) {
+		this.emptyNodes();
+		this.__database = value;
+		switch (this.__open_tab) {
+			case 'Kerbal':
+				this.kerbal_search_trigger(true);
+				break;
+			case 'Destination':
+				this.destination_search_trigger(true);
+				break;
+			default:
+				break;
+		}
+	}
+	__get_database () {
+		return this.__database;
 	}
 }
 
