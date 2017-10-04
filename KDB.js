@@ -218,7 +218,7 @@ let KNS =  {
 		 */
 		static fromJSONObj (jsonObj) {
 			if (jsonObj.type !== 'Kerbal') {
-				throw new Error('Not a kerbal');
+				throw new KNS.KDBParseError('Not a kerbal');
 			}
 			let kerbal = new this();
 			let jobs = jsonObj.jobs;
@@ -351,6 +351,12 @@ let KNS =  {
 		string = string.replace(/>/g, '&gt');
 		return string;
 	},
+	KDBParseError: class extends Error {
+		constructor (...args) {
+			super(...args);
+			Error.captureStackTrace(this, this.constructor);
+		}
+	},
 };
 
 /**
@@ -451,7 +457,7 @@ const KDB = class KDB {
 	 */
 	static fromJSONObj (jsonObj) {
 		if (jsonObj.type !== 'KDB') {
-			throw new Error('Not a KDB');
+			throw new KNS.KDBParseError('Not a KDB');
 		}
 		let kdb = new this();
 		kdb.kerbals = new Set(jsonObj.kerbals);
