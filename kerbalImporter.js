@@ -63,6 +63,34 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			exportArea.focus();
 			document.execCommand('copy');
 		});
+
+		let importArea = template.querySelector('#importArea');
+		let importFile = template.querySelector('#importFile');
+		let importCancel = template.querySelector('#importDismiss');
+		let importAccept = template.querySelector('#accept');
+		let importRaf = Elements.rafContext();
+		importFile.addEventListener('change', (e) => {
+			if (e.target.files.length < 1) {
+				return;
+			}
+			let file = e.target.files[0];
+			let reader = new FileReader(file);
+			reader.onload = (e) => {
+				let json = e.target.result;
+				importRaf((e) => {
+					importArea.innerHTML = json;
+				});
+			}
+			reader.readAsText(file);
+		});
+		importCancel.addEventListener('click', (e) => {
+			importRaf((e) => {
+				importArea.innerHTML = '';
+			});
+			close(e);
+		});
+
+
 		shadow.appendChild(template);
 	}
 	/**

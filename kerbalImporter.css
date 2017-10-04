@@ -1,3 +1,6 @@
+#pseudoBody {
+	--button-margin: 1em;
+}
 #title {
 	border-bottom: 1px solid black;
 }
@@ -10,8 +13,23 @@ textarea {
 	min-height: 10em;
 }
 button {
-	margin-right: 1em;
+	margin-right: var(--button-margin);
 }
 #export {
 	display: none;
+}
+#close {
+	margin-right: auto;
+}
+p.inline {
+	margin-right: var(--button-margin);
+}
+input[type=file] {
+	flex-grow: 1;
+	text-shadow: 0 0 black;
+	width: 50%;
+}
+#multiInput {
+	align-items: center;
+	font-size: var(--font-size);
 }

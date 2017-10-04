@@ -18,10 +18,15 @@
 		</div>
 		<div id='import' class='tab'>
 			<p>Import database. Will override the current db</p>
+			<div class='multi' id='multiInput'>
+				<p class='inline'>Paste it below or </p>
+				<input type='file' id='importFile'></input>
+			</div>
 			<textarea id='importArea'></textarea>
-			<div class='multi'>
-				<button class='dismiss'>Got it</button>
-				<button id='importPaste'>Paste from clipboard</button>
+			<div class='multi' id='footer'>
+				<button class='footer' id='accept'>Load</button>
+				<!-- <button id='importPaste'>Paste from clipboard</button> -->
+				<button class='footer dismiss' id='importDismiss'>Cancel</button>
 			</div>
 		</div>
 		<div id='export' class='tab'>
