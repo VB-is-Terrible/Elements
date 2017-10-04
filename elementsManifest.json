@@ -119,6 +119,13 @@
 		"css": ["kerbalFooter.css"],
 		"resources": [],
 		"provides": ["kerbalFooter"]
+	},
+	"kerbalImporter": {
+		"type": "element",
+		"requires": ["dragElement", "kerbalLink"],
+		"templates": ["kerbalImporterTemplate.html"],
+		"css": ["kerbalFloatCommon.css", "kerbalImporter.css"],
+		"resources": ["warning.svg"],
+		"provides": ["kerbalImporter"]
 	}
-
 }
