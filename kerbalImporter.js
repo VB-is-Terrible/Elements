@@ -56,6 +56,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			self.hideWindow();
 		}
 		template.querySelector('#Close').addEventListener('click', close);
+		template.querySelector('#exportDismiss').addEventListener('click', close);
 
 		let copy = template.querySelector('#exportCopy');
 		let exportArea = template.querySelector('#exportArea');
