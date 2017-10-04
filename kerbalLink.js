@@ -4,12 +4,14 @@
 * KerbalLink - links UI and DBs together.
 * Replace this to build a different UI
 * @property {String} prefix Prefix to attach to read/writes to localStorage
+* @property {Number} counter Counter to help uniquely name databasesw
 */
 class KerbalLinkClass {
 	constructor () {
 		this.databases = new Map();
 		this.prefix = 'elements-kerbal-database';
 		this.UIs = new Map();
+		this.counter = 0;
 	}
 	/**
 	* Save a KDB
