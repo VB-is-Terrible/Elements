@@ -33,3 +33,18 @@ input[type=file] {
 	align-items: center;
 	font-size: var(--font-size);
 }
+#footer {
+	flex-direction: row-reverse;
+}
+button.footer {
+	margin-right: 0px;
+	margin-left: var(--button-margin);
+}
+img.warning {
+	height: 100%;
+	width: 1em;
+}
+#invalidImport {
+	/*display: none;*/
+	flex-grow: 1;
+}

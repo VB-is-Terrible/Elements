@@ -35,6 +35,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 				switch (e.detail) {
 					case 'Import':
 						active = tabs[0];
+						self.fillImport();
 						break;
 					case 'Export':
 						active = tabs[1];
@@ -94,13 +95,16 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 
 		shadow.appendChild(template);
 	}
+
 	/**
 	 * Unhide this element
 	 */
 	showWindow () {
 		super.showWindow();
-		if (this.__active_tab == 'Export') {
+		if (this.__active_tab === 'Export') {
 			this.fillExport();
+		} else if (this.__active_tab === 'Import') {
+			this.fillImport();
 		}
 	}
 	/**
@@ -117,6 +121,48 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 		requestAnimationFrame((e) => {
 			exporter.innerHTML = json;
 			exporter.select();
+		});
+	}
+	/**
+	 * Reset the import tab
+	 */
+	fillImport () {
+
+	}
+	consumeImport () {
+		let json = this.shadowRoot.querySelector('#importArea');
+		let kdb;
+		try {
+			kdb = KDB.fromJSON(json);
+		} catch (e) {
+			if (e instanceof SyntaxError) {
+				this.showWarning('Invalid input - not JSON');
+			} else if (e instanceof KNS.KDBParseError) {
+				this.showWarning('Invalid input - not a database');
+			} else {
+				this.showWarning('Unknown Error');
+			}
+			return;
+		}
+		this.showWindow()
+		let name = 'db' + KerbalLink.counter.toString();
+		KerbalLink.counter += 1;
+		KerbalLink.set(name, kdb);
+	}
+	/**
+	 * Show a error message for invalid imports
+	 * @param  {?String} [errorMessage=null] Error message to show. null to hide the warning
+	 */
+	showWarning (errorMessage = null) {
+		let warning = this.shadowRoot.querySelector('#invalidImport');
+		let warningText = warning.querySelector('#invalidImportText');
+		requestAnimationFrame((e) => {
+			if (errorMessage === null) {
+				warning.style.display = 'none';
+			} else {
+				warning.style.display = 'flex';
+				warningText.innerHTML = errorMessage;
+			}
 		});
 	}
 }
