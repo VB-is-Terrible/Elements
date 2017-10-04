@@ -58,7 +58,7 @@
 	},
 	"kerbal": {
 		"type": "element",
-		"requires": ["drag-down", "KDB", "kerbal-tag"],
+		"requires": ["dragDown", "KDB", "kerbalTag"],
 		"templates": ["kerbalTemplate.html"],
 		"css": [],
 		"resources": [],
