@@ -63,30 +63,55 @@ class KerbalLinkClass {
 	*/
 	set (name, db) {
 		this.databases.set(name, db);
+		this.UIs.set(name, new Map());
 	}
 	/**
 	* Register a UI compenent for other clients to find
+	* @param  {String} database Name of the database to attach compenent to
 	* @param  {String} name   Name of UI compenent
 	* @param  {HTMLElement} object Object to register
 	*/
-	registerUI (name, object) {
-		if (this.UIs.has(name)) {
+	registerUI (database, name, object) {
+		if (!this.UIs.has(database)) {
+			throw new Error('Database has not been registered yet');
+		}
+		let dbMap = this.UIs.get(database);
+		if (dbMap.has(name)) {
 			throw new Error('UI compenent already registered');
 		} else {
-			this.UIs.set(name, object);
+			dbMap.set(name, object);
 		}
 	}
 	/**
 	* Get a UI by name
+	* @param  {String} database Name of the database the compenent is attached to
 	* @param  {String} name Name of UI compenent
 	* @return {?HTMLElement} Object registered
 	*/
-	getUI (name) {
-		if (this.UIs.has(name)) {
-			return this.UIs.get(name);
+	getUI (database, name) {
+		let dbMap = this.UIs.get(database);
+		if (dbMap === undefined) {
+			return null;
+		}
+		if (dbMap.has(name)) {
+			return dbMap.get(name);
 		} else {
 			return null;
 		}
+	}
+	/**
+	 * Get a iterator for the names of all compenents registered with a database
+	 * @param  {String} database Name of database to look up
+	 * @return {String[]}        Iterator of compenent names
+	 */
+	getUIAll (database) {
+		let dbMap = this.UIs.get(database);
+		if (dbMap === undefined) {
+			return [];
+		} else {
+			return dbMap.keys();
+		}
+
 	}
 }
 

@@ -28,7 +28,7 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 		save.addEventListener('click', saver);
 
 		let porter = (e) => {
-			let element = KerbalLink.getUI(self.database + '-' + 'importer');
+			let element = KerbalLink.getUI(self.database, 'importer');
 			if (element === null) {return;}
 			element.centre();
 			element.showWindow();
@@ -45,7 +45,7 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 		};
 
 		panel.addEventListener('maximise', (e) => {
-			let element = KerbalLink.getUI(self.database + '-' + e.detail);
+			let element = KerbalLink.getUI(self.database, e.detail);
 			if (element === null) {return;}
 			if (element.hidden) {
 				element.showWindow();
@@ -54,7 +54,7 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 			}
 		});
 		panel.addEventListener('centre', (e) => {
-			let element = KerbalLink.getUI(self.database + '-' + e.detail);
+			let element = KerbalLink.getUI(self.database, e.detail);
 			if (element === null) {return;}
 			element.centre();
 		});

@@ -355,7 +355,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 */
 	editor (event) {
 		let name = event.target.value;
-		let editor = KerbalLink.getUI(this.database + '-' + 'editor');
+		let editor = KerbalLink.getUI(this.database, 'editor');
 		if (editor) {
 			editor.data = KerbalLink.get(this.database).getKerbal(name);
 			editor.showWindow();
