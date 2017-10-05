@@ -148,6 +148,12 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 		let name = 'db' + KerbalLink.counter.toString();
 		KerbalLink.counter += 1;
 		KerbalLink.set(name, kdb);
+		let UIs = KerbalLink.getUIAll(this.database);
+		for (let UIName of UIs) {
+			let UI = KerbalLink.getUI(this.database, UIName);
+			UI.database = name;
+			KerbalLink.removeUI(this.database, UIName);
+		}
 	}
 	/**
 	 * Show a error message for invalid imports
