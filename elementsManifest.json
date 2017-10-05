@@ -98,7 +98,7 @@
 	},
 	"kerbalLink": {
 		"type": "module",
-		"requires": ["KDB"],
+		"requires": [],
 		"templates": [],
 		"css": [],
 		"resources": [],

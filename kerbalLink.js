@@ -29,9 +29,10 @@ class KerbalLinkClass {
 	/**
 	* Load a KDB
 	* @param  {String} name Name of kdb to load
+	* @param  {Function} reviver Function to take in saved DB, returns revived db
 	* @throws {DOMException} Thrown if permission to localStorage has been denied
 	*/
-	load (name) {
+	load (name, reviver) {
 		let db;
 		let getName = this.prefix + '-' + name;
 		try {
@@ -39,13 +40,13 @@ class KerbalLinkClass {
 				db = new KDB();
 			} else {
 				let json = window.localStorage.getItem(getName);
-				db = KDB.fromJSON(json);
+				db = reviver(json);
 			}
 		} catch (e) {
 			console.log('Access to localStorage denied');
 			throw e;
 		}
-		this.databases.set(name, db);
+		this.set(name, db);
 	}
 	/**
 	* Get a KDB
@@ -91,8 +92,6 @@ class KerbalLinkClass {
 
 {
 let main = async () => {
-	await Elements.get('KDB');
-
 	/**
 	 * Global KerbalLink
 	 * @global
