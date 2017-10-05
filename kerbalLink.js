@@ -103,13 +103,4 @@ let main = async () => {
 	Elements.loaded('kerbalLink');
 };
 main();
-let uiInit = async (e) => {
-	await Elements.get('kerbal-link');
-	KerbalLink.registerUI('default-maker', document.body.querySelector('#drag1').children[0]);
-	KerbalLink.registerUI('default-editor', document.body.querySelector('#drag2').children[0]);
-	KerbalLink.registerUI('default-searcher', document.body.querySelector('#drag3').children[0]);
-	KerbalLink.registerUI('default-importer', document.body.querySelector('#drag4').children[0]);
-
-}
-window.addEventListener('load', uiInit)
 }
