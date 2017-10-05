@@ -113,6 +113,18 @@ class KerbalLinkClass {
 		}
 
 	}
+	/**
+	 * Deregister a UI compenent
+	 * @param  {String} database Name of database to remove UI compenent from
+	 * @param  {String} name     Name of compenent to remove
+	 */
+	removeUI (database, name) {
+		let dbMap = this.UIs.get(database);
+		if (dbMap === undefined) {
+			return;
+		}
+		dbMap.delete(name);
+	}
 }
 
 {
