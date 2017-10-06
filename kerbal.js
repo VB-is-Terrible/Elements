@@ -10,8 +10,8 @@ Elements.await(function () {
 	 * @type {Object}
 	 * @implements KerbalDisplay
 	 * @property {KNS.Kerbal} data kerbal that this represents
-	 * @property {Boolean} menuvisible Store of useful UI elements
-	 * @property {Object} jobs Readonly reflection on data.jobs
+	 * @property {Boolean} menuvisible Whether destinations are visible
+	 * @property {JobList} jobs Readonly reflection on data.jobs
 	 * @property {String} name Readonly reflection on data.name
 	 * @property {Boolean} disabled=false Toggle to draw a big red x over the kerbal
 	 * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itself once the KNS.Kerbal is deleted

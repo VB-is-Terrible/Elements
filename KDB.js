@@ -37,6 +37,11 @@ Elements.get('kerbal');
 const randint = (lower, upper) => {
 	return Math.floor(Math.random() * (upper - lower) + lower);
 }
+
+/**
+ * @typedef {Object.<String, Number>} JobList
+ */
+
 /**
  * Kerbal NameSpace
  * @namespace KNS
@@ -45,14 +50,14 @@ let KNS =  {
 	/**
 	 * Array of names of all the places in KSP
 	 * @constant
-	 * @type {Array}
+	 * @type {String[]}
 	 * @memberof KNS
 	 */
 	places: ['Kerbin', 'Mun', 'Minmus', 'Eve', 'Gilly', 'Duna', 'Ike', 'Dres', 'Jool', 'Laythe', 'Vall', 'Tylo', 'Bop', 'Pol', 'Eeloo', 'Kerbol'],
 	/**
 	 * Remove any places that have a value of 0
-	 * @param  {Object} jobList A jobList
-	 * @return {Object}         A reduced jobList
+	 * @param  {JobList} jobList A jobList
+	 * @return {JobList}         A reduced jobList
 	 */
 	reducePlaceList: function (jobList) {
 		let placeList = {};
@@ -70,7 +75,7 @@ let KNS =  {
 	 * @type {Object}
 	 * @property {String} name Name of kerbal
 	 * @property {String} text Description text of kerbal
-	 * @property {Object} jobs PlaceName -> job value mapping
+	 * @property {JobList} jobs PlaceName -> job value mapping
 	 * @property {KerbalDisplay[]} displays Array of UI elements representing this kerbal.
 	 * @memberof KNS
 	 */
@@ -254,7 +259,7 @@ let KNS =  {
 	/**
 	 * Returns a object with the mapping [place] -> value for all places
 	 * @param  {*} value Default value
-	 * @return {Object}  Mapping of [place] -> value
+	 * @return {JobList}  Mapping of [place] -> value
 	 * @memberof KNS
 	 */
 	blankPlaceList: function (value) {
@@ -361,11 +366,16 @@ let KNS =  {
 
 /**
  * Kerbal database - used to store information on kerbals.
- * @property {Set} kerbals Set of all kerbals in the db
+ * @property {Set<String>} kerbals Set of all kerbals in the db
  */
 const KDB = class KDB {
 	constructor () {
 		this.kerbals = new Set();
+		/**
+		 * Mapping of kerbal names to their objects
+		 * @type {Map<String, KNS.Kerbal>}
+		 * @private
+		 */
 		this.kerbalObjs = new Map();
 		this.type = 'KDB';
 	}
@@ -514,7 +524,7 @@ const KDB = class KDB {
  * @property {KNS.Kerbal} data kerbal that this represents
  * @type {Object}
  */
-let BlankKerbalDisplay = class {
+const BlankKerbalDisplay = class {
 	constructor () {
 		this.data = null;
 	}
@@ -548,7 +558,7 @@ let BlankKerbalDisplay = class {
  * @property {HTMLElement} display display of the kerbal's jobs
  * @type {Object}
  */
-let KerbalJobDisplay = class extends BlankKerbalDisplay {
+const KerbalJobDisplay = class extends BlankKerbalDisplay {
 	constructor () {
 		super();
 		this.__jobDisplay = KNS.blankPlaceList(null);

@@ -8,8 +8,18 @@
 */
 class KerbalLinkClass {
 	constructor () {
+		/**
+		 * Storage of various dbs
+		 * @type {Map<String, KDB>}
+		 * @private
+		 */
 		this.databases = new Map();
 		this.prefix = 'elements-kerbal-database';
+		/**
+		 * Mapping by database to a mapping of associated UI compenents
+		 * @type {Map<String, Map<String, HTMLElement>>}
+		 * @private
+		 */
 		this.UIs = new Map();
 		this.counter = 0;
 	}
