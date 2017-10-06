@@ -127,5 +127,14 @@
 		"css": ["kerbalFloatCommon.css", "kerbalImporter.css"],
 		"resources": ["warning.svg"],
 		"provides": ["kerbalImporter"]
+	},
+	"kdbKerbalDisplay": {
+		"type": "element",
+		"requires": ["KDB", "kerbal"],
+		"templates": ["kerbalKerbalDisplayTemplate.html"],
+		"css": ["kdbKerbalDisplay.css"],
+		"resources": [],
+		"provides": ["kerbalKerbalDisplay"]
 	}
+
 }
