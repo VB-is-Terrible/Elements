@@ -40,7 +40,9 @@
 			</elements-drag-element>
 		</elements-drag-body>
 		KDB.js progress: <progress value='45' max='100'>0%</progress>
-		<elements-grid id='g' rows='1' columns='3'>
+		<elements-grid id='g' rows='1' columns='1'>
+			<elements-kdb-kerbal-display slot='s1' id='mainDisplay'>
+			</elements-KDB-kerbal-display>
 		</elements-grid>
 		<elements-kerbal-footer></elements-kerbal-footer>
 	</body>
@@ -48,7 +50,8 @@
 	<script>
 		Elements.get('drag-element', 'grid',
 			'kerbal-maker', 'kerbal', 'kerbal-editor', 'KDB',
-			'kerbal-searcher', 'kerbal-footer', 'kerbal-importer');
+			'kerbal-searcher', 'kerbal-footer', 'kerbal-importer',
+			'kdb-kerbal-display');
 	</script>
 	<script>
 	{
@@ -70,9 +73,10 @@
 		const main = async (e) => {
 			const revive = (string) => {return KDB.fromJSON(string);};
 			await Elements.get('kerbal-link', 'KDB');
+			let display = document.body.querySelector('#mainDisplay');
 			KerbalLink.load('default', revive);
-			KerbalLink.get('default').displayAll();
 			uiInit(e);
+			display.database = 'default';
 		}
 		window.addEventListener('load', main);
 	}
