@@ -23,10 +23,39 @@ Elements.get('kerbal');
  * @param {String} place place where the mission depth has changed
  *
  */
+/**
+ * @function delete
+ * @description Fired when the kerbal is deleted
+ * @name KerbalDisplay.delete
+*/
+/**
+ * Interface for a display of a KDB.
+ * If you want updates for kerbals, you'll need to subscribe to the kerbal indivually
+ * @interface KDBDisplay
+ */
+/**
+ * @function addKerbal
+ * @param {String} name Name of the added kerbal
+ * @description Fired after a kerbal is added
+ * @name KDBDisplay.addKerbal
+ */
+/**
+ * @function deleteKerbal
+ * @param {String} name Name of the added kerbal
+ * @description Fired after a kerbal is added
+ * @name KDBDisplay.deleteKerbal
+ */
+/**
+ * @function renameKerbal
+ * @param {String} oldName Old name of the renamed kerbal
+ * @param {String} newName New name of the renamed kerbal
+ * @description Fired after a kerbal is renamed
+ * @name KDBDisplay.renameKerbal
+ */
  /**
-  * @function delete
-  * @description Fired when the kerbal is deleted
-  * @name KerbalDisplay.delete
+  * @property {KDB} data
+  * @description The KDB to display
+  * @name KDBDisplay.data
   */
 /**
  * Random integer
