@@ -407,6 +407,12 @@ const KDB = class KDB {
 		 */
 		this.kerbalObjs = new Map();
 		this.type = 'KDB';
+		/**
+		 * Set of displays to callback on changes
+		 * @type {Set<KDBDisplay>}
+		 * @private
+		 */
+		this.__displays = new Set();
 	}
 	/**
 	 * Add a new kerbal
@@ -544,6 +550,20 @@ const KDB = class KDB {
 			}
 		}
 		return true;
+	}
+	/**
+	 * Register a display to recieve callbacks on state changes
+	 * @param {KDBDisplay} display Display to register
+	 */
+	addDisplay (display) {
+		this.__displays.add(display);
+	}
+	/**
+	 * Deregister a display
+	 * @param  {KDBDisplay} display Display to deregister
+	 */
+	removeDisplay (display) {
+		this.__displays.delete(display);
 	}
 };
 
