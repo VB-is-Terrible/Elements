@@ -483,16 +483,6 @@ const KDB = class KDB {
 			display.delete(name);
 		}
 	}
-	display (kerbalObj) {
-		let newDisplay = kerbalObj.makeDisplay();
-		newDisplay.slot = 's' + randint(1,4).toString();
-		g.append(newDisplay);
-	}
-	displayAll () {
-		for (let kerbalObj of this.kerbalObjs.values()) {
-			this.display(kerbalObj);
-		}
-	}
 	/**
 	 * Convert self to json
 	 * @return {Object} Object to pass to JSON.stringify
