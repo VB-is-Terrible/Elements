@@ -642,6 +642,41 @@ const KerbalJobDisplay = class extends BlankKerbalDisplay {
 	}
 };
 
+/**
+ * A KDBDisplay that does nothing. Use this to implement methods you don't need.
+ * Note: For now, it's a good idea to inherit from this, as new methods WILL be added to KDBDisplay
+ * @implements KDBDisplay
+ * @property {KDBDisplay} data KDB that this represents
+ * @type {Object}
+ */
+const BlankKDBDisplay = class {
+	constructor () {
+		this.__data = this.data || null;
+	}
+	/**
+	 * Fired after addKerbal is called
+	 * @param {String} name Name of kerbal added
+	 */
+	addKerbal (name) {
+
+	}
+	/**
+	 * Fired after a kerbal has been deleted
+	 * @param  {String} name Name of deleted kerbal
+	 */
+	deleteKerbal (name) {
+
+	}
+	/**
+	 * Fired after a kerbal has been renamed
+	 * @param  {String} oldName Name of kerbal before rename
+	 * @param  {String} newName Current name of kerbal
+	 */
+	renameKerbal (oldName, newName) {
+
+	}
+}
+
 Elements.loaded('KDB');
 Elements.loaded('KNS');
 
