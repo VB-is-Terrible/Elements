@@ -425,6 +425,9 @@ const KDB = class KDB {
 		}
 		this.kerbals.add(kerbalObj.name);
 		this.kerbalObjs.set(kerbalObj.name, kerbalObj);
+		for (let display of this.__displays) {
+			display.addKerbal(kerbalObj.name);
+		}
 		this.display(kerbalObj);
 	}
 	/**
@@ -459,6 +462,9 @@ const KDB = class KDB {
 		} else {
 			throw new Error('Kerbal not found');
 		}
+		for (let display of this.__displays) {
+			display.renameKerbal(oldName, newName);
+		}
 	}
 	/**
 	 * Delete a kerbal
@@ -473,6 +479,9 @@ const KDB = class KDB {
 		kerbal.delete();
 		this.kerbals.delete(name);
 		this.kerbalObjs.delete(name);
+		for (let display of this.__displays) {
+			display.delete(name);
+		}
 	}
 	display (kerbalObj) {
 		let newDisplay = kerbalObj.makeDisplay();
