@@ -130,6 +130,9 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 	fillImport () {
 
 	}
+	/**
+	 * Do a import!
+	 */
 	consumeImport () {
 		let json = this.shadowRoot.querySelector('#importArea').value;
 		let kdb;
@@ -145,7 +148,6 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			}
 			return;
 		}
-		this.showWindow()
 		let name = 'db' + KerbalLink.counter.toString();
 		let oldDB = this.database;
 		KerbalLink.set(name, kdb);
@@ -154,6 +156,8 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			let UI = KerbalLink.getUI(oldDB, UIName);
 			UI.database = name;
 			KerbalLink.removeUI(this.database, UIName);
+			KerbalLink.registerUI(name, UIName, UI);
+			UI.database = name;
 		}
 	}
 	/**
