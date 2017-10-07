@@ -45,6 +45,6 @@ img.warning {
 	width: 1em;
 }
 #invalidImport {
-	/*display: none;*/
+	display: none;
 	flex-grow: 1;
 }

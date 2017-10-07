@@ -150,6 +150,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			}
 			return;
 		}
+		this.showWarning(null);
 		let name = 'db' + KerbalLink.counter.toString();
 		let oldDB = this.database;
 		KerbalLink.set(name, kdb);
