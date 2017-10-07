@@ -478,7 +478,7 @@ const KDB = class KDB {
 		this.kerbals.delete(name);
 		this.kerbalObjs.delete(name);
 		for (let display of this.__displays) {
-			display.delete(name);
+			display.deleteKerbal(name);
 		}
 	}
 	/**
