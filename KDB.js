@@ -189,7 +189,6 @@ let KNS =  {
 		makeDisplay () {
 			let display = document.createElement('elements-kerbal');
 			display.data = this;
-			this.displays.push(display);
 			return display;
 		}
 		/**
@@ -428,7 +427,6 @@ const KDB = class KDB {
 		for (let display of this.__displays) {
 			display.addKerbal(kerbalObj.name);
 		}
-		this.display(kerbalObj);
 	}
 	/**
 	 * Get a kerbal by name
