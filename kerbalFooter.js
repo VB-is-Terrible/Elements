@@ -30,8 +30,12 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 		let porter = (e) => {
 			let element = KerbalLink.getUI(self.database, 'importer');
 			if (element === null) {return;}
-			element.centre();
-			element.showWindow();
+			if (element.hidden) {
+				element.centre();
+				element.showWindow();
+			} else {
+				element.hideWindow();
+			}
 		};
 		port.addEventListener('click', porter);
 
