@@ -43,7 +43,7 @@ Elements.await(function () {
 						value.text = '';
 					}
 					self._data = value;
-					self.data.addDisplay(this)
+					value.addDisplay(this);
 					self.updateData();
 					self.displayJobs();
 				},
