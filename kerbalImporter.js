@@ -92,7 +92,9 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			});
 			close(e);
 		});
-
+		importAccept.addEventListener('click', (e) => {
+			self.consumeImport();
+		})
 
 		shadow.appendChild(template);
 	}
