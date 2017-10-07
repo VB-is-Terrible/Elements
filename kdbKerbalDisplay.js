@@ -73,12 +73,18 @@ Elements.elements.KdbKerbalDisplay = class extends Elements.elements.backbone {
 		kdb.addDisplay(this);
 		if (kdb === undefined) {return;}
 		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let displays = []
 		for (let name of kdb.kerbals) {
 			let kerbal = kdb.getKerbal(name);
 			let display = kerbal.makeDisplay();
 			display.menuvisible = false;
-			body.appendChild(display);
+			displays.push(display);
 		}
+		requestAnimationFrame((e) => {
+		    for (let display of displays) {
+				body.appendChild(display);
+			}
+		});
 	}
 	/**
 	 * Empty current display
