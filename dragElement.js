@@ -4,7 +4,10 @@ Elements.get('drag-body');
 /**
  * DragElement
  * Designed to hold contents to be dragged.
- * Must be placed within a DragBody
+ * Must be placed within a DragBody.
+ * Internal stages:
+ * touch_start -> touch_move -> touch_end
+ * drag_start -> drag_move (drag over) -> drag_end (drag drop, found in drag-body)
  */
 Elements.elements.DragElement = class extends Elements.elements.backbone {
 	constructor () {
@@ -72,6 +75,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		this.touch_reset();
 		// this.drag_reset();
 	}
+	/**
+	 * Starts a touch based drag
+	 * @param  {TouchEvent} event
+	 * @private
+	 */
 	touch_start (event) {
 		let touchEvent = event.changedTouches[0];
 		let body = this.shadowRoot.querySelector('#pseudoBody');
@@ -86,6 +94,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		this.parentNode.toTop(this);
 		this.parentNode.toBottom(this);
 	}
+	/**
+	 * Updates a touch based drag
+	 * @param  {TouchEvent} event
+	 * @private
+	 */
 	touch_move (event) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		for (let touch of event.changedTouches) {
@@ -104,6 +117,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			}
 		}
 	}
+	/**
+	 * Ends a touch based drag
+	 * @param  {TouchEvent} event
+	 * @private
+	 */
 	touch_end (event) {
 		this.touch_reset();
 	}
@@ -118,6 +136,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		body.removeEventListener('touchend', this.events.end, true);
 		body.removeEventListener('touchcancel', this.events.end, true);
 	}
+	/**
+	 * Starts a mouse base drag
+	 * @param  {DragEvent} event
+	 * @private
+	 */
 	drag_start (event) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
@@ -134,6 +157,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		body.addEventListener('mouseup', this.events.dEnd, true);
 		body.removeEventListener('mousedown', this.events.dStart, true);
 	}
+	/**
+	 * Updates a mouse based drag
+	 * @param  {DragEvent} event
+	 * @private
+	 */
 	drag_move (event) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		event.preventDefault();
