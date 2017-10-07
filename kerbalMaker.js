@@ -132,8 +132,8 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 			self.hideWindow();
 		});
 		this.elements = elements;
-		this.newKerbal();
 		shadow.appendChild(template);
+		this.newKerbal();
 	}
 	/**
 	 * Reset the maker
