@@ -147,10 +147,11 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 		}
 		this.showWindow()
 		let name = 'db' + KerbalLink.counter.toString();
+		let oldDB = this.database;
 		KerbalLink.set(name, kdb);
 		let UIs = KerbalLink.getUIAll(this.database);
 		for (let UIName of UIs) {
-			let UI = KerbalLink.getUI(this.database, UIName);
+			let UI = KerbalLink.getUI(oldDB, UIName);
 			UI.database = name;
 			KerbalLink.removeUI(this.database, UIName);
 		}
