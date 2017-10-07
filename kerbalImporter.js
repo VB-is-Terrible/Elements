@@ -131,7 +131,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 
 	}
 	consumeImport () {
-		let json = this.shadowRoot.querySelector('#importArea');
+		let json = this.shadowRoot.querySelector('#importArea').value;
 		let kdb;
 		try {
 			kdb = KDB.fromJSON(json);
