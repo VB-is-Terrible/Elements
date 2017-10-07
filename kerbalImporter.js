@@ -62,7 +62,8 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 		let copy = template.querySelector('#exportCopy');
 		let exportArea = template.querySelector('#exportArea');
 		copy.addEventListener('click', (e) => {
-			exportArea.focus();
+			e.preventDefault();
+			exportArea.select();
 			document.execCommand('copy');
 		});
 
