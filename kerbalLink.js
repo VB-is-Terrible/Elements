@@ -21,7 +21,7 @@ class KerbalLinkClass {
 		 * @private
 		 */
 		this.UIs = new Map();
-		this.counter = 0;
+		this.__counter = 0;
 	}
 	/**
 	* Save a KDB
@@ -134,6 +134,11 @@ class KerbalLinkClass {
 			return;
 		}
 		dbMap.delete(name);
+	}
+	get counter () {
+		let result = this.__counter;
+		this.__counter += 1;
+		return result;
 	}
 }
 
