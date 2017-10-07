@@ -53,52 +53,23 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		});
 		this.nameValid = false;
 		this.nameChanged = false;
-		this.database = this.database || 'default';
-		let nameRAF = null;
+		this.__database = this.database || 'default';
+		Object.defineProperty(this, 'database', {
+			enumerable: true,
+			configurable: false,
+			get: () => {
+				return self.__database;
+			},
+			set: (value) => {
+				self.__database = value;
+				// As the existing kerbals have changed, check the name again
+				self.nameChange();
+			},
+		});
+
+		this.__nameRAF = Elements.rafContext();
 		applyEL('nameInput', 'keyup', (e) => {
-			let f = null;
-			if (nameRAF !== null) {
-				cancelAnimationFrame(nameRAF);
-			}
-			let name = elements.nameInput.value;
-			name = name.trim();
-			if (name !== '&nbsp;' || this.nameChanged) {
-				name = KNS.nameSanitizer(name);
-			}
-			if (KerbalLink.get(self.database).kerbals.has(name)) {
-				f = () => {
-					elements.warn.style.display = 'block';
-					elements.warn.title = "Kerbal already exists";
-					elements.nameInput.style.color = 'red';
-				};
-				elements.kerbal.disabled = true;
-				elements.updater.disabled = true;
-				self.nameValid = false;
-			} else if (name === "&nbsp;" || name === '') {
-				f = () => {
-					elements.warn.style.display = 'block';
-					elements.warn.title = "Please enter a name";
-					elements.nameInput.style.color = 'red';
-				}
-				elements.kerbal.disabled = true;
-				elements.updater.disabled = true;
-				self.nameValid = false;
-				name = '&nbsp;';
-			} else {
-				f = () => {
-					elements.warn.style.display = 'none';
-					elements.nameInput.style.color = 'initial';
-				};
-				self.nameValid = true;
-				self.nameChanged = true;
-				elements.kerbal.disabled = false;
-				elements.updater.disabled = false;
-			}
-			self.data.name = name;
-			nameRAF = requestAnimationFrame(() => {
-				f();
-				nameRAF = null;
-			});
+			this.nameChange();
 		});
 		applyEL('typeInput', 'change', (e) => {
 			self.data.text = elements.typeInput.value;
@@ -124,6 +95,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 			if (!(self.nameValid)) {
 				return;
 			}
+
 			KerbalLink.get(self.database).addKerbal(self.data);
 			self.data.removeDisplay(self.elements.kerbal);
 			self.newKerbal();
@@ -153,11 +125,47 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		this.elements.warn.display = "block";
 	}
 	/**
-	 * Reset the maker
+	 * Gets new name from UI, and runs checks for invalid name, then updates UI
+	 * @private
 	 */
-	reset () {
-		this.data.removeDisplay(this.elements.kerbal);
-		this.newKerbal();
+	nameChange () {
+		let f;
+		let name = this.elements.nameInput.value;
+		name = name.trim();
+		if (name !== '&nbsp;' || this.nameChanged) {
+			name = KNS.nameSanitizer(name);
+		}
+		if (KerbalLink.get(this.database).kerbals.has(name)) {
+			f = () => {
+				this.elements.warn.style.display = 'block';
+				this.elements.warn.title = "Kerbal already exists";
+				this.elements.nameInput.style.color = 'red';
+			};
+			this.elements.kerbal.disabled = true;
+			this.elements.updater.disabled = true;
+			this.nameValid = false;
+		} else if (name === "&nbsp;" || name === '') {
+			f = () => {
+				this.elements.warn.style.display = 'block';
+				this.elements.warn.title = "Please enter a name";
+				this.elements.nameInput.style.color = 'red';
+			}
+			this.elements.kerbal.disabled = true;
+			this.elements.updater.disabled = true;
+			this.nameValid = false;
+			name = '&nbsp;';
+		} else {
+			f = () => {
+				this.elements.warn.style.display = 'none';
+				this.elements.nameInput.style.color = 'initial';
+			};
+			this.nameValid = true;
+			this.nameChanged = true;
+			this.elements.kerbal.disabled = false;
+			this.elements.updater.disabled = false;
+		}
+		this.data.name = name;
+		this.__nameRAF(f);
 	}
 }
 
