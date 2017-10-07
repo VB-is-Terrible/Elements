@@ -199,7 +199,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		})
 
 		this.UI = UI;
-		this.data = this.data || new KNS.Kerbal();
+		this.data = this.data || null;
 		shadow.appendChild(template);
 	}
 	/**
