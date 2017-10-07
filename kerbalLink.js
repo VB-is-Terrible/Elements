@@ -76,6 +76,13 @@ class KerbalLinkClass {
 		this.UIs.set(name, new Map());
 	}
 	/**
+	 * Delete a db
+	 * @param  {String} name Name of db to delete
+	 */
+	delete (name) {
+		this.databases.delete(name);
+	}
+	/**
 	* Register a UI compenent for other clients to find
 	* @param  {String} database Name of the database to attach compenent to
 	* @param  {String} name   Name of UI compenent

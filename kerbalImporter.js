@@ -162,6 +162,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			KerbalLink.registerUI(name, UIName, UI);
 			UI.database = name;
 		}
+		KerbalLink.delete(oldDB);
 	}
 	/**
 	 * Show a error message for invalid imports
