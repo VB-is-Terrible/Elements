@@ -69,8 +69,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	 */
 	toTop (childNode) {
 		// Place childNode on top of other floating elements
-		this.zIndexCount += 1;
-		childNode.style.zIndex = this.zIndexCount.toString();
+		this.topZIndex(childNode)
 		// Place pseudoBody on top of everything else
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		body.style.width = window.innerWidth + 'px';
@@ -93,6 +92,17 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	 */
 	getDragImage () {
 		return this.shadowRoot.querySelector('#empty');
+	}
+	/**
+	 * Raise a drag element above other drag elements
+	 * @param  {Node} childNode Node to raise
+	 */
+	topZIndex (childNode) {
+		this.zIndexCount += 1;
+		let index = this.zIndexCount;
+		requestAnimationFrame((e) => {
+			childNode.style.zIndex = this.zIndexCount.toString();
+		});
 	}
 };
 
