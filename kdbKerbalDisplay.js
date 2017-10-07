@@ -37,15 +37,15 @@ Elements.elements.KdbKerbalDisplay = class extends Elements.elements.backbone {
 	 * @param {String} name Name of kerbal added
 	 */
 	addKerbal (name) {
-
+		let kerbal = KerbalLink.get(this.database).getKerbal(name);
+		let display = kerbal.makeDisplay();
+		let body = this.shadowRoot.querySelector('#pseudoBody');
 	}
 	/**
 	 * Fired after a kerbal has been deleted
 	 * @param  {String} name Name of deleted kerbal
 	 */
-	deleteKerbal (name) {
-
-	}
+	deleteKerbal (name) {}
 	/**
 	 * Fired after a kerbal has been renamed. Note - not used
 	 * @param  {String} oldName Name of kerbal before rename
