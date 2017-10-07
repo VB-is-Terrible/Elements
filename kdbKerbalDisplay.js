@@ -80,8 +80,17 @@ Elements.elements.KdbKerbalDisplay = class extends Elements.elements.backbone {
 			body.appendChild(display);
 		}
 	}
+	/**
+	 * Empty current display
+	 * @private
+	 */
 	emptyNodes () {
-
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		while (body.childElementCount > 0) {
+			let kerbal = body.children[0];
+			kerbal.data = null;
+			kerbal.remove();
+		}
 	}
 }
 
