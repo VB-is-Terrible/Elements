@@ -72,8 +72,10 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		this.topZIndex(childNode)
 		// Place pseudoBody on top of everything else
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		body.style.width = window.innerWidth + 'px';
-		body.style.height = window.innerHeight + 'px';
+		requestAnimationFrame((e) => {
+			body.style.width = window.innerWidth + 'px';
+			body.style.height = window.innerHeight + 'px';
+		});
 	}
 	/**
 	 * Push the drag-body to the bottom.
@@ -83,9 +85,10 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		// Place pseudoBody out of the way
 		// The high z-index is needed to keep child elements on top
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		body.style.width = '0px';
-		body.style.height = '0px';
-
+		requestAnimationFrame((e) => {
+			body.style.width = '0px';
+			body.style.height = '0px';
+		});
 	}
 	/**
 	 * Get a empty element to display in the drag image
