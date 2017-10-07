@@ -210,10 +210,13 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		this.newChangeQueue();
 		this.UI.nameInput.value = '';
 		this.UI.typeInput.value = 'Tourist';
-		this.UI.warn.display = 'none';
-		this.UI.Delete1.display = 'block';
-		this.UI.Delete2.display = 'none';
-		this.UI.Delete3.display = 'none';
+		requestAnimationFrame((e) => {
+			this.UI.warn.style.display = 'none';
+			this.UI.Delete1.style.display = 'block';
+			this.UI.Delete2.style.display = 'none';
+			this.UI.Delete3.style.display = 'none';
+			this.UI.DeleteWarning.style.display = 'none';
+		});
 	}
 	/**
 	 * Applies queued changes
