@@ -200,6 +200,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			this.style.setProperty('--left', left.toString() + 'px');
 		});
 	}
+	/**
+	 * Put this drag-element on top of other drag-elements
+	 */
+	toTop () {
+		this.parentNode.topZIndex(this);
+	}
 };
 
 /**
@@ -233,6 +239,7 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 			this.parentElement.style.display = 'block';
 			this.parentElement.style.visibility = 'visible';
 		});
+		this.parentElement.toTop();
 	}
 	/**
 	 * Centre the element onscreen
