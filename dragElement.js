@@ -91,8 +91,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		body.addEventListener('touchcancel', this.events.end, true);
 		body.addEventListener('touchend', this.events.end, true);
 		body.removeEventListener('touchstart', this.events.start, true);
-		this.parentNode.toTop(this);
-		this.parentNode.toBottom(this);
+		this.parentNode.topZIndex(this);
 	}
 	/**
 	 * Updates a touch based drag
@@ -150,8 +149,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let data = left + ',' + top + ',' + id;
 		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX)
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
-		this.parentNode.toTop(this);
-		this.parentNode.toBottom(this);
+		this.parentNode.topZIndex(this);
 
 		body.addEventListener('mousemove', this.events.dMove, true);
 		body.addEventListener('mouseup', this.events.dEnd, true);
