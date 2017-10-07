@@ -131,10 +131,10 @@
 	"kdbKerbalDisplay": {
 		"type": "element",
 		"requires": ["KDB", "kerbal"],
-		"templates": ["kerbalKerbalDisplayTemplate.html"],
+		"templates": ["kdbKerbalDisplayTemplate.html"],
 		"css": ["kdbKerbalDisplay.css"],
 		"resources": [],
-		"provides": ["kerbalKerbalDisplay"]
+		"provides": ["kdbKerbalDisplay"]
 	}
 
 }
