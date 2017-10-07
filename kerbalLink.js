@@ -137,6 +137,8 @@ class KerbalLinkClass {
 	}
 }
 
+let KerbalLink;
+
 {
 let main = async () => {
 	/**
@@ -144,7 +146,7 @@ let main = async () => {
 	 * @global
 	 * @type {KerbalLinkClass}
 	 */
-	window.KerbalLink = new KerbalLinkClass();
+	KerbalLink = new KerbalLinkClass();
 
 	Elements.loaded('kerbalLink');
 };
