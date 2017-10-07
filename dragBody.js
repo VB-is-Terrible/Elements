@@ -92,6 +92,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	}
 	/**
 	 * Get a empty element to display in the drag image
+	 * @private
 	 */
 	getDragImage () {
 		return this.shadowRoot.querySelector('#empty');
