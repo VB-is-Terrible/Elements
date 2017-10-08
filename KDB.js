@@ -58,6 +58,35 @@ Elements.get('kerbal');
  * @name KDBDisplay.data
 */
 /**
+ * Interface for a Group of Kerbals
+ * If you want updates for kerbals, you'll need to subscribe to the kerbal indivually
+ * @interface GroupDisplay
+ */
+/**
+ * @function addKerbal
+ * @param {KNS.Kerbal} name Kerbal that was added
+ * @description Fired after a kerbal is added
+ * @name GroupDisplay.addKerbal
+ */
+/**
+ * @function deleteKerbal
+ * @param {KNS.Kerbal} name Name of the added kerbal
+ * @description Fired after a kerbal is added
+ * @name GroupDisplay.deleteKerbal
+ */
+/**
+ * @function updateData
+ * @description Fired when Group.data or Group.text changes
+ * @name GroupDisplay.updateData
+ */
+/**
+ * @property {KNS.Group} data
+ * @description The Grout to display
+ * @name GroupDisplay.data
+ */
+
+
+/**
  * Random integer
  * @param  {Number} lower Lower bound
  * @param  {Number} upper Upper bound
