@@ -418,6 +418,152 @@ let KNS =  {
 			Error.captureStackTrace(this, this.constructor);
 		}
 	},
+	/**
+	 * A Group of kerbals
+	 * @property {String} name Name of Group
+	 * @property {String} text Description text of group
+	 * @property {KNS.Kerbal[]} kerbals Kerbals in group. Note - don't modify directly
+	 * @type {Object}
+	 */
+	Group: class {
+		constructor () {
+			this.kerbals = [];
+
+			/**
+			 * Set of registered displays
+			 * @type {Set<GroupDisplay>}
+			 * @private
+			 */
+			this.__displays = new Set();
+			this.__name = 'Group';
+			this.__text = 'Desc';
+			this.type = 'Group';
+		}
+		get name () {
+			return this.__name;
+		}
+		set name (value) {
+			this.__name;
+			this.updateData();
+		}
+		get text () {
+			return this.__text;
+		}
+		set text (value) {
+			this.__text = value;
+			this.updateData();
+		}
+		/**
+		 * Add a kerbal to this group
+		 * @param {KNS.Kerbal} kerbal Kerbal to add
+		 * @memberof KNS.Group
+		 */
+		addKerbal (kerbal) {
+			this.kerbals.push(kerbal);
+			for (let display of this.__displays) {
+				display.addKerbal(kerbal);
+			}
+		}
+		/**
+		 * Remove a kerbal from this group.
+		 * Note - currently assuming that the KDB will inform us of a kerbal
+		 * deletion, and that we don't have to listen for it
+		 * @param  {KNS.Kerbal} kerbal Kerbal to remove
+		 * @memberof KNS.Group
+		 */
+		removeKerbal (kerbal) {
+			let index = this.kerbals.indexOf(kerbal);
+			if (index !== -1) {
+				this.kerbals.splice(index, 1);
+			} else {
+				return;
+			}
+			for (let display of this.__displays) {
+				display.removeKerbal(kerbal);
+			}
+		}
+		/**
+		 * Call remove place on all member kerbals
+		 * @param  {String} location Location visited
+		 * @param  {Number} value    Depth of visited
+		 * @memberof KNS.Group
+		 */
+		removePlace (location ,value) {
+			for (let kerbal of this.kerbals) {
+				kerbal.removeJob(location, value);
+			}
+		}
+		/**
+		 * Register a display to recieve callbacks on state changes
+		 * @param {GroupDisplay} display Display to register
+		 * @memberof KNS.Group
+		 */
+		addDisplay (display) {
+			this.__displays.add(display);
+		}
+		/**
+		 * Deregister a display
+		 * @param  {GroupDisplay} display Display to deregister
+		 * @memberof KNS.Group
+		 */
+		removeDisplay (display) {
+			this.__displays.delete(display);
+		}
+		/**
+		 * Trigger the updateData callback of registered listeners
+		 * @private
+		 * @memberof KNS.Group
+		 */
+		dispatchUpdate () {
+			for (let display of this.__displays) {
+				display.updateData();
+			}
+		}
+		toJSON () {
+			let result = Elements.jsonIncludes(this, ['type', 'name', 'text']);
+			let nameList = [];
+			for (let kerbal of this.kerbals) {
+				nameList.push(kerbal.name);
+			}
+			result.kerbals = nameList;
+			return result;
+		}
+		/**
+		 * Construct an group from the object returned from JSON.parse(JSON.stringify(group))
+		 * @param  {Object} jsonObj JSON.parse'd group
+		 * @param  {KDB} db         KDB to get kerbals from (Group stores names, not JS objects)
+		 * @return {KNS.Group}      Revived Group
+		 * @memberof KNS.Group
+		 */
+		static fromJSONObj (jsonObj, db) {
+			if (jsonObj.type !== 'Group') {
+				throw new KNS.KDBParseError('Not a group');
+			}
+			let group = new this();
+			let nameList = jsonObj.kerbals;
+			delete jsonObj.kerbals;
+			Object.assign(group, jsonObj);
+			for (let name of nameList) {
+				group.addKerbal(db.getKerbal(name));
+			}
+			return group;
+		}
+		/**
+		 * Equality check for groups
+		 * @param  {Group} group1 First group to compare
+		 * @param  {Group} group2 Second group to compare
+		 * @return {Boolean}      If the two kerbals are equalivalent
+		 */
+		static equals (group1, group2) {
+			if (group1.name !== group2.name) {
+				return false;
+			}
+			if (kerbal1.text !== kerbal2.text) {
+				return false;
+			}
+			return true;
+		}
+	},
 };
 
 /**
