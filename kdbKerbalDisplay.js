@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('KDB');
+Elements.get('KDB', 'kerbal');
 {
 const main = async () => {
 
