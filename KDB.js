@@ -52,11 +52,11 @@ Elements.get('kerbal');
  * @description Fired after a kerbal is renamed
  * @name KDBDisplay.renameKerbal
  */
- /**
-  * @property {KDB} data
-  * @description The KDB to display
-  * @name KDBDisplay.data
-  */
+/**
+ * @property {KDB} data
+ * @description The KDB to display
+ * @name KDBDisplay.data
+*/
 /**
  * Random integer
  * @param  {Number} lower Lower bound
@@ -99,8 +99,6 @@ let KNS =  {
 	},
 	/**
 	 * Kerbal backend type
-	 * Note: if you manually set the data of a elements-kerbal, make sure to
-	 * place the elements-kerbal in KNS.Kerbal.displays
 	 * @type {Object}
 	 * @property {String} name Name of kerbal
 	 * @property {String} text Description text of kerbal
@@ -268,6 +266,7 @@ let KNS =  {
 		 * @param  {KNS.Kerbal} kerbal1 First kerbal to compare
 		 * @param  {KNS.Kerbal} kerbal2 Second kerbal to compare
 		 * @return {Boolean}   If the two kerbals are equalivalent
+		 * @memberof KNS.Kerbal
 		 */
 		static equals (kerbal1, kerbal2) {
 			if (kerbal1.name !== kerbal2.name) {

@@ -5,6 +5,7 @@ Elements.get('drag-body');
  * DragElement
  * Designed to hold contents to be dragged.
  * Must be placed within a DragBody.
+ * Use touch_reset/drag_reset to stop a touch/mouse based drag
  * Internal stages:
  * touch_start -> touch_move -> touch_end
  * drag_start -> drag_move (drag over) -> drag_end (drag drop, found in drag-body)
@@ -125,7 +126,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		this.touch_reset();
 	}
 	/**
-	 * Resets/Cancels a touch drag
+	 * Resets/Cancels a touch drag.
+	 * As touchs don't bubble along the DOM, use this instead of preventDefault
 	 */
 	touch_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
