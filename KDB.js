@@ -53,6 +53,18 @@ Elements.get('kerbal');
  * @name KDBDisplay.renameKerbal
  */
 /**
+ * @function addGroup
+ * @param {Number} groupID Id of the added group
+ * @description Fired after a group is added
+ * @name KDBDisplay.addGroup
+ */
+/**
+ * @function removeGroup
+ * @param {Number} groupID Id of removed group
+ * @description Fired after a group is removed
+ * @name KDBDisplay.removeGroup
+*/
+/**
  * @property {String} database Name of the kdb to display
  * @description The KDB to display
  * @name KDBDisplay.database
@@ -464,6 +476,9 @@ let KNS =  {
 		 * @memberof KNS.Group
 		 */
 		addKerbal (kerbal) {
+			if (this.kerbals.includes(kerbal)) {
+				return;
+			}
 			this.kerbals.push(kerbal);
 			for (let display of this.__displays) {
 				display.addKerbal(kerbal);
@@ -580,6 +595,10 @@ const KDB = class KDB {
 	constructor () {
 		this.kerbals = new Set();
 		this.__groupCounter = 0;
+		/**
+		 * Mapping of groups
+		 * @type {Map<Number, KNS.Group>}
+		 */
 		this.groups = new Map();
 		/**
 		 * Mapping of kerbal names to their objects
@@ -744,6 +763,47 @@ const KDB = class KDB {
 	removeDisplay (display) {
 		this.__displays.delete(display);
 	}
+	/**
+	 * Add a new group
+	 * @param {KNS.Group} group Group to add
+	 * @throws {Error} If group already exists
+	 */
+	addGroup (group) {
+		let id = group.id;
+		if (this.groups.has(id)) {
+			throw new Error('KDB already has group');
+		}
+		this.groups.set(id, group);
+		for (let display of this.__displays) {
+			display.addGroup(name);
+		}
+	}
+	/**
+	 * Get a group by id
+	 * @param  {Number} groupID  Id of group to get
+	 * @return {?KNS.Group}      Group with matching id
+	 */
+	getGroup (groupID) {
+		let result = this.groups.get(groupID);
+		if (result === undefined) {
+			result = null;
+		}
+		return result;
+	}
+	/**
+	 * Remove a group
+	 * @param  {Number} groupID Id of group to remove
+	 * @throws {Error} If group does not exist
+	 */
+	removeGroup (groupID) {
+		if (!this.groups.has(groupID)) {
+			throw new Error('Group not found');
+		}
+		this.groups.delete(groupID);
+		for (let display of this.__displays) {
+			display.removeGroup(name);
+		}
+	}
 	get groupCounter () {
 		let result = this.__groupCounter;
 		this.groupCounter += 1;
@@ -879,6 +939,20 @@ const BlankKDBDisplay = class {
 	renameKerbal (oldName, newName) {
 
 	}
+	/**
+	 * Fired after a group is added
+	 * @param {Number} groupID Id of the added group
+	 */
+	addGroup (groupID) {
+
+	}
+	/**
+	 * Fired after a group is removed
+	 * @param {Number} groupID Id of removed group
+	 */
+	removeGroup (groupID) {
+
+	}
 }
 
 
@@ -899,6 +973,8 @@ const BlankKDBDisplayMixin = (superclass) => {
 		addKerbal (name) {}
 		deleteKerbal (name) {}
 		renameKerbal (oldName, newName) {}
+		addGroup (groupID) {}
+		removeGroup (groupID) {}
 	}
 }
 
