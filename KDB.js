@@ -53,9 +53,9 @@ Elements.get('kerbal');
  * @name KDBDisplay.renameKerbal
  */
 /**
- * @property {KDB} data
+ * @property {String} database Name of the kdb to display
  * @description The KDB to display
- * @name KDBDisplay.data
+ * @name KDBDisplay.database
 */
 /**
  * Interface for a Group of Kerbals

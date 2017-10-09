@@ -9,6 +9,7 @@ await Elements.get('KDB', 'kerbal');
 /**
  * @augments Elements.elements.backbone
  * @implements KDBDisplay
+ * @augments BlankKDBDisplay
  * @type {Object}
  */
 Elements.elements.KdbKerbalDisplay = class extends Elements.elements.backbone {

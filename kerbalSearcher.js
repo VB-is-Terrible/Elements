@@ -9,6 +9,7 @@ await Elements.get('KDB', 'kerbal-link', 'drag-element');
 * Like kerbalJobDisplay, but built for kerbal-search
 * @type {Object}
 * @augments KerbalJobDisplay
+* @implements KerbalDisplay
 */
 let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 	/**
@@ -45,6 +46,12 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 	}
 };
 
+/**
+ * A KerbalDisplay used to listen to delete callbacks
+ * @type {Object}
+ * @augments BlankKerbalDisplay
+ * @implements KerbalDisplay
+ */
 let SearchDisplay = class extends BlankKerbalDisplay {
 	/**
 	 * Build a search display
