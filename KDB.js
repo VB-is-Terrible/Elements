@@ -41,8 +41,8 @@ Elements.get('kerbal');
  */
 /**
  * @function deleteKerbal
- * @param {String} name Name of the added kerbal
- * @description Fired after a kerbal is added
+ * @param {String} name Name of the deleted kerbal
+ * @description Fired after a kerbal is deleted
  * @name KDBDisplay.deleteKerbal
  */
 /**
