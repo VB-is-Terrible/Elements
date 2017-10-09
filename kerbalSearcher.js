@@ -254,7 +254,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 */
 	static edit (search, nameList, threshold) {
 		let result = new Set();
-		for (let name in nameList) {
+		for (let name of nameList) {
 			let distance = this.editDistance(name, search);
 			if (distance < threshold) {
 				result.add(name);
@@ -341,7 +341,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			result = new Set([...result, ...this.constructor.fuzzy(search, nameList)]);
 		}
 		if (edit) {
-			const threshold = 0;
+			const threshold = 2;
 			result = new Set([...result, ...this.constructor.edit(search, nameList, threshold)]);
 		}
 		return result;
