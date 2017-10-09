@@ -420,15 +420,17 @@ let KNS =  {
 	},
 	/**
 	 * A Group of kerbals
+	 * @param  {Number} id Unique id to identify group by
 	 * @property {String} name Name of Group
 	 * @property {String} text Description text of group
+	 * @property {Number} id (Readonly) Unique id to identify group by
 	 * @property {KNS.Kerbal[]} kerbals Kerbals in group. Note - don't modify directly
 	 * @type {Object}
 	 */
 	Group: class {
-		constructor () {
+		constructor (id) {
 			this.kerbals = [];
-
+			this.__id = id;
 			/**
 			 * Set of registered displays
 			 * @type {Set<GroupDisplay>}
@@ -452,6 +454,9 @@ let KNS =  {
 		set text (value) {
 			this.__text = value;
 			this.updateData();
+		}
+		get id () {
+			return this.__id;
 		}
 		/**
 		 * Add a kerbal to this group
@@ -539,7 +544,7 @@ let KNS =  {
 			if (jsonObj.type !== 'Group') {
 				throw new KNS.KDBParseError('Not a group');
 			}
-			let group = new this();
+			let group = new this(db.groupCounter);
 			let nameList = jsonObj.kerbals;
 			delete jsonObj.kerbals;
 			Object.assign(group, jsonObj);
@@ -569,10 +574,13 @@ let KNS =  {
 /**
  * Kerbal database - used to store information on kerbals.
  * @property {Set<String>} kerbals Set of all kerbals in the db
+ * @property {Number} groupCounter Auto-incrementing counter for unique ids
  */
 const KDB = class KDB {
 	constructor () {
 		this.kerbals = new Set();
+		this.__groupCounter = 0;
+		this.groups = new Map();
 		/**
 		 * Mapping of kerbal names to their objects
 		 * @type {Map<String, KNS.Kerbal>}
@@ -735,6 +743,11 @@ const KDB = class KDB {
 	 */
 	removeDisplay (display) {
 		this.__displays.delete(display);
+	}
+	get groupCounter () {
+		let result = this.__groupCounter;
+		this.groupCounter += 1;
+		return result;
 	}
 };
 
