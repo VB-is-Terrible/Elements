@@ -10,7 +10,7 @@
 const temp = (async () => {
 
 Elements.get('grid', 'drag-down', 'kerbal', 'kerbal-link', 'drag-element');
-await Elements.get('kerbal', 'kerbal-link', 'drag-element');
+await Elements.get('kerbal', 'kerbal-link', 'drag-element', 'KDB');
 
 /**
  * UI to edit a KNS.Kerbal

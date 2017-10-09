@@ -170,4 +170,4 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 }
 
 Elements.load('kerbalMakerTemplate.html', Elements.elements.KerbalMaker, 'elements-kerbal-maker');
-}, 'kerbal-link', 'drag-element');
+}, 'kerbal-link', 'drag-element', 'KDB');
