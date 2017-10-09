@@ -150,6 +150,7 @@ Elements.await(function () {
 			if (this.deleter) {
 				this.remove();
 			}
+			this.data.removeDisplay(this);
 		}
 		/**
 		* Remove all children
