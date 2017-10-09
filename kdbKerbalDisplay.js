@@ -12,7 +12,7 @@ await Elements.get('KDB', 'kerbal');
  * @augments BlankKDBDisplay
  * @type {Object}
  */
-Elements.elements.KdbKerbalDisplay = class extends Elements.elements.backbone {
+Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements.elements.backbone) {
 	constructor () {
 		super();
 		const self = this;
@@ -42,17 +42,6 @@ Elements.elements.KdbKerbalDisplay = class extends Elements.elements.backbone {
 		let display = kerbal.makeDisplay();
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 	}
-	/**
-	 * Fired after a kerbal has been deleted
-	 * @param  {String} name Name of deleted kerbal
-	 */
-	deleteKerbal (name) {}
-	/**
-	 * Fired after a kerbal has been renamed. Note - not used
-	 * @param  {String} oldName Name of kerbal before rename
-	 * @param  {String} newName Current name of kerbal
-	 */
-	renameKerbal (oldName, newName) {}
 	__get_database () {
 		return this.__database;
 	}

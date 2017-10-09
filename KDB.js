@@ -855,7 +855,7 @@ const KerbalJobDisplay = class extends BlankKerbalDisplay {
  */
 const BlankKDBDisplay = class {
 	constructor () {
-		this.__data = this.data || null;
+		this.database = this.database || null;
 	}
 	/**
 	 * Fired after addKerbal is called
@@ -878,6 +878,27 @@ const BlankKDBDisplay = class {
 	 */
 	renameKerbal (oldName, newName) {
 
+	}
+}
+
+
+/**
+* A KDBDisplay mixin that does nothing. Use this to implement methods you don't need.
+* Note: For now, it's a good idea to use this if you can't inherit BlankKDBDisplay,
+* as new methods WILL be added to KDBDisplay.
+* See BlankKDBDisplay for documentation
+* @param {Object} superclass Class to mix KDBDisplay methods into
+* @return {KDBDisplay} Class that implements KDBDisplay
+*/
+const BlankKDBDisplayMixin = (superclass) => {
+	return class mixin extends superclass {
+		constructor (...args) {
+			super(...args);
+			this.database = this.database || null;
+		}
+		addKerbal (name) {}
+		deleteKerbal (name) {}
+		renameKerbal (oldName, newName) {}
 	}
 }
 
