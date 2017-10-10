@@ -1017,3 +1017,67 @@ const testData = '{"type":"KDB","kerbals":["Ludrey","Lizena","Corald","Seelan","
 const testData2 = '{"type":"KDB","kerbals":["Ludrey","Lizena","Corald","Seelan","Leebles","Crismy","Gemzor","Katburry","Billy-Boptop","Neca","Richdrin","Matsby","Dema","Traphie","Richbo","Agaene","Nedwin","Caltrey","Peggy","Tramy","Phoebe","Gwengee","Rafred","Debbart","Valbur"],"kerbalObjs":[{"name":"Ludrey","text":"Tourist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Lizena","text":"Tourist","type":"Kerbal","jobs":{"Minmus":4,"Kerbol":3}},{"name":"Corald","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Seelan","text":"Tourist","type":"Kerbal","jobs":{"Minmus":4}},{"name":"Leebles","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Crismy","text":"Tourist","type":"Kerbal","jobs":{"Mun":3}},{"name":"Gemzor","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Katburry","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Billy-Boptop","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Neca","text":"Scientist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Richdrin","text":"Scientist","type":"Kerbal","jobs":{"Mun":3,"Kerbol":3}},{"name":"Matsby","text":"Engineer","type":"Kerbal","jobs":{"Mun":3}},{"name":"Dema","text":"Engineer","type":"Kerbal","jobs":{"Mun":3}},{"name":"Traphie","text":"Scientist","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Richbo","text":"Scientist","type":"Kerbal","jobs":{"Minmus":4}},{"name":"Agaene","text":"Pilot","type":"Kerbal","jobs":{"Minmus":4}},{"name":"Nedwin","text":"Scientist","type":"Kerbal","jobs":{"Mun":3,"Minmus":4}},{"name":"Caltrey","text":"Scientist","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Peggy","text":"Engineer","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Tramy","text":"Scientist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Phoebe","text":"Pilot","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Gwengee","text":"Scientist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Rafred","text":"Engineer","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Debbart","text":"Pilot","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Valbur","text":"Pilot","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}}]}';
 
 const testData3 = '{"type":"KDB","kerbals":["Ludrey","Lizena","Seelan","Leebles","Gemzor","Katburry","Billy-Boptop","Matsby","Dema","Traphie","Agaene","Nedwin","Peggy","Tramy","Phoebe","Gwengee","Rafred","Debbart","Valbur"],"kerbalObjs":[{"name":"Ludrey","text":"Tourist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Lizena","text":"Tourist","type":"Kerbal","jobs":{"Minmus":4,"Kerbol":3}},{"name":"Seelan","text":"Tourist","type":"Kerbal","jobs":{"Minmus":4}},{"name":"Leebles","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Gemzor","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Katburry","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Billy-Boptop","text":"Tourist","type":"Kerbal","jobs":{"Mun":4}},{"name":"Matsby","text":"Engineer","type":"Kerbal","jobs":{"Mun":3}},{"name":"Dema","text":"Engineer","type":"Kerbal","jobs":{"Mun":3}},{"name":"Traphie","text":"Scientist","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Agaene","text":"Pilot","type":"Kerbal","jobs":{"Minmus":4}},{"name":"Nedwin","text":"Scientist","type":"Kerbal","jobs":{"Mun":3,"Minmus":4}},{"name":"Peggy","text":"Engineer","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Tramy","text":"Scientist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Phoebe","text":"Pilot","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Gwengee","text":"Scientist","type":"Kerbal","jobs":{"Kerbol":3}},{"name":"Rafred","text":"Engineer","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Debbart","text":"Pilot","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}},{"name":"Valbur","text":"Pilot","type":"Kerbal","jobs":{"Mun":3,"Minmus":4,"Kerbol":3}}]}';
+
+let a;
+const test = () => {
+	const testData = {
+		g1: {
+			name: 'testData1',
+			text: 'test group 1',
+		},
+		g2: {
+			name: 'Tango Echo Sierra Tango',
+			text: 'What\'s p again?',
+		},
+	};
+	let pick = (array) => {
+		let index = randint(0, array.length);
+		let result = array.splice(index, 1)[0];
+		return result;
+	}
+	let db = KDB.fromJSON(testData3);
+	let group1 = new KNS.Group(KDB.groupCounter);
+	let kerbals = new Array(db.kerbals);
+	let kerbalStore1 = [];
+	for (let i = 0; i < 5; i++) {
+		let kerbal = pick(kerbals);
+		kerbalStore1.push(kerbal);
+		group1.addKerbal(kerbal);
+	}
+	Object.assign(group1, testData.g1);
+	db.addGroup(group1);
+	let group2 = new KNS.Group(KDB.groupCounter);
+	kerbals = new Array(db.kerbals);
+	let kerbalStore2 = [];
+	for (let i = 0; i < 5; i++) {
+		let kerbal = pick(kerbals);
+		kerbalStore2.push(kerbal);
+		group2.addKerbal(kerbal);
+	}
+	Object.assign(group2, testData.g2);
+	db.addGroup(group2);
+
+	let dbString = JSON.stringify(db);
+	let db2 = KDB.fromJSON(dbString);
+
+	let newGroups = [];
+	for (let iter of db2.groups.entries()) {
+		newGroups.push(iter[1]);
+	}
+	let check = (group, groups) => {
+		let matches = 0;
+		for (let g of groups) {
+			if (KNS.Group.equals(group, g)) {
+				matches += 1;
+			}
+		}
+		if (matches === 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	console.assert(check(group1, newGroups));
+	console.assert(check(group2, newGroups));
+
+}
