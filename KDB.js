@@ -720,8 +720,8 @@ const KDB = class KDB {
 	toJSON () {
 		// Sets and maps don't stringify well
 		let result = Elements.jsonIncludes(this, ['type']);
-		result.kerbals = Elements.setToArray(this.kerbals);
 		result.kerbalObjs = Elements.setToArray(this.kerbalObjs); // Because we only need the values, this map is close enough to a set
+		result.groups = Elements.setToArray(this.groups);
 		return result;
 	}
 	/**
@@ -734,15 +734,16 @@ const KDB = class KDB {
 			throw new KNS.KDBParseError('Not a KDB');
 		}
 		let kdb = new this();
-		kdb.kerbals = new Set(jsonObj.kerbals);
+		kdb.kerbals = new Set();
 		for (let kerbalObj of jsonObj.kerbalObjs) {
 			let kerbal = KNS.Kerbal.fromJSONObj(kerbalObj);
+			kdb.kerbals.add(kerbal.name);
 			kdb.kerbalObjs.set(kerbal.name, kerbal);
 		}
 
-		console.assert(kdb.kerbals.size === kdb.kerbalObjs.size);
-		for (let name of kdb.kerbals) {
-			console.assert(kdb.kerbalObjs.has(name));
+		let groups = jsonObj.groups || [];
+		for (let groupObj of groups) {
+			kdb.addGroup(KNS.Group.fromJSONObj(groupObj, kdb));
 		}
 		return kdb;
 	}
