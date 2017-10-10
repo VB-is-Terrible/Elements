@@ -547,7 +547,7 @@ let KNS =  {
 		 * @private
 		 * @memberof KNS.Group
 		 */
-		dispatchUpdate () {
+		updateData () {
 			for (let display of this.__displays) {
 				display.updateData();
 			}
