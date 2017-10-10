@@ -503,6 +503,19 @@ let KNS =  {
 			}
 		}
 		/**
+		 * Find kerbal by name
+		 * @param  {String} name Kerbal name
+		 * @return {?KNS.Kerbal} Kerbal if found, null if not
+		 */
+		getKerbal (name) {
+			for (let kerbal of this.kerbals) {
+				if (kerbal.name === name) {
+					return kerbal;
+				}
+			}
+			return null;
+		}
+		/**
 		 * Call remove place on all member kerbals
 		 * @param  {String} location Location visited
 		 * @param  {Number} value    Depth of visited
