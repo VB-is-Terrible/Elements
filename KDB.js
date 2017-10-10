@@ -837,7 +837,7 @@ const KDB = class KDB {
 	}
 	get groupCounter () {
 		let result = this.__groupCounter;
-		this.groupCounter += 1;
+		this.__groupCounter += 1;
 		return result;
 	}
 };
@@ -1036,7 +1036,7 @@ const test = () => {
 		return result;
 	}
 	let db = KDB.fromJSON(testData3);
-	let group1 = new KNS.Group(KDB.groupCounter);
+	let group1 = new KNS.Group(db.groupCounter);
 	let kerbals = new Array(db.kerbals);
 	let kerbalStore1 = [];
 	for (let i = 0; i < 5; i++) {
@@ -1046,7 +1046,7 @@ const test = () => {
 	}
 	Object.assign(group1, testData.g1);
 	db.addGroup(group1);
-	let group2 = new KNS.Group(KDB.groupCounter);
+	let group2 = new KNS.Group(db.groupCounter);
 	kerbals = new Array(db.kerbals);
 	let kerbalStore2 = [];
 	for (let i = 0; i < 5; i++) {
