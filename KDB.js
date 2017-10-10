@@ -591,8 +591,26 @@ let KNS =  {
 			if (group1.name !== group2.name) {
 				return false;
 			}
-			if (kerbal1.text !== kerbal2.text) {
+			if (group1.text !== group2.text) {
 				return false;
+			}
+
+			for (let kerbal of group1.kerbals) {
+				if (group2.getKerbal(kerbal.name) === null) {
+					return false;
+				}
+			}
+			for (let kerbal of group2.kerbals) {
+				if (group1.getKerbal(kerbal.name) === null) {
+					return false;
+				}
+			}
+
+			for (let kerbal of group1.kerbals) {
+				let other = group2.getKerbal(kerbal.name);
+				if (!KNS.Kerbal.equals(kerbal, other)) {
+					return false;
+				}
 			}
 			return true;
 		}
