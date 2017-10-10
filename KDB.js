@@ -1038,20 +1038,20 @@ const test = () => {
 	}
 	let db = KDB.fromJSON(testData3);
 	let group1 = new KNS.Group(db.groupCounter);
-	let kerbals = new Array(db.kerbals);
+	let kerbals = new Array(...db.kerbals);
 	let kerbalStore1 = [];
 	for (let i = 0; i < 5; i++) {
-		let kerbal = pick(kerbals);
+		let kerbal = db.getKerbal(pick(kerbals));
 		kerbalStore1.push(kerbal);
 		group1.addKerbal(kerbal);
 	}
 	Object.assign(group1, testData.g1);
 	db.addGroup(group1);
 	let group2 = new KNS.Group(db.groupCounter);
-	kerbals = new Array(db.kerbals);
+	kerbals = new Array(...db.kerbals);
 	let kerbalStore2 = [];
 	for (let i = 0; i < 5; i++) {
-		let kerbal = pick(kerbals);
+		let kerbal = db.getKerbal(pick(kerbals));
 		kerbalStore2.push(kerbal);
 		group2.addKerbal(kerbal);
 	}
