@@ -436,12 +436,13 @@ let KNS =  {
 	 * @property {String} name Name of Group
 	 * @property {String} text Description text of group
 	 * @property {Number} id (Readonly) Unique id to identify group by
-	 * @property {KNS.Kerbal[]} kerbals Kerbals in group. Note - don't modify directly
+	 * @property {Set<String>} kerbals Names of kerbals in group. Note - don't modify directly
 	 * @type {Object}
 	 */
 	Group: class {
 		constructor (id) {
-			this.kerbals = [];
+			this.kerbalsObj = new Map();
+			this.kerbals = new Set();
 			this.__id = id;
 			/**
 			 * Set of registered displays
@@ -476,10 +477,11 @@ let KNS =  {
 		 * @memberof KNS.Group
 		 */
 		addKerbal (kerbal) {
-			if (this.kerbals.includes(kerbal)) {
+			if (this.kerbals.has(kerbal.name)) {
 				return;
 			}
-			this.kerbals.push(kerbal);
+			this.kerbals.add(kerbal.name);
+			this.kerbalsObj.set(kerbal.name, kerbal)
 			for (let display of this.__displays) {
 				display.addKerbal(kerbal);
 			}
@@ -492,15 +494,25 @@ let KNS =  {
 		 * @memberof KNS.Group
 		 */
 		removeKerbal (kerbal) {
-			let index = this.kerbals.indexOf(kerbal);
-			if (index !== -1) {
-				this.kerbals.splice(index, 1);
-			} else {
-				return;
-			}
+			let name = kerbal.name;
+			this.kerbals.delete(name);
+			this.kerbalsObj.delete(name);
 			for (let display of this.__displays) {
 				display.removeKerbal(kerbal);
 			}
+		}
+		/**
+		 * Renames a kerbal. Does not error if kerbal does not existNote - mainly for use by KDB
+		 * @param  {String} oldName Current name of kerbal
+		 * @param  {String} newName New name for kerbal
+		 */
+		renameKerbal (oldName, newName) {
+			if (!this.kerbals.has(oldName)) {return;}
+			let kerbal = this.getKerbal(oldName);
+			this.kerbals.delete(oldName);
+			this.kerbals.add(newName);
+			this.kerbalObjs.delete(oldName);
+			this.kerbalObjs.set(newName, kerbal);
 		}
 		/**
 		 * Find kerbal by name
@@ -508,12 +520,11 @@ let KNS =  {
 		 * @return {?KNS.Kerbal} Kerbal if found, null if not
 		 */
 		getKerbal (name) {
-			for (let kerbal of this.kerbals) {
-				if (kerbal.name === name) {
-					return kerbal;
-				}
+			if (!this.kerbals.has(name)) {
+				return null;
+			} else {
+				return this.kerbalsObj.get(name);
 			}
-			return null;
 		}
 		/**
 		 * Call remove place on all member kerbals
@@ -522,7 +533,7 @@ let KNS =  {
 		 * @memberof KNS.Group
 		 */
 		removePlace (location ,value) {
-			for (let kerbal of this.kerbals) {
+			for (let kerbal of this.kerbalObjs.values()) {
 				kerbal.removeJob(location, value);
 			}
 		}
@@ -554,11 +565,7 @@ let KNS =  {
 		}
 		toJSON () {
 			let result = Elements.jsonIncludes(this, ['type', 'name', 'text']);
-			let nameList = [];
-			for (let kerbal of this.kerbals) {
-				nameList.push(kerbal.name);
-			}
-			result.kerbals = nameList;
+			result.kerbals = Elements.setToArray(this.kerbals);
 			return result;
 		}
 		/**
@@ -596,19 +603,20 @@ let KNS =  {
 			}
 
 			for (let kerbal of group1.kerbals) {
-				if (group2.getKerbal(kerbal.name) === null) {
+				if (group2.getKerbal(kerbal) === null) {
 					return false;
 				}
 			}
 			for (let kerbal of group2.kerbals) {
-				if (group1.getKerbal(kerbal.name) === null) {
+				if (group1.getKerbal(kerbal) === null) {
 					return false;
 				}
 			}
 
 			for (let kerbal of group1.kerbals) {
-				let other = group2.getKerbal(kerbal.name);
-				if (!KNS.Kerbal.equals(kerbal, other)) {
+				let ours = group1.getKerbal(kerbal)
+				let theirs = group2.getKerbal(kerbal);
+				if (!KNS.Kerbal.equals(ours, theirs)) {
 					return false;
 				}
 			}
