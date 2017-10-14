@@ -94,6 +94,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 		});
 		importAccept.addEventListener('click', (e) => {
 			self.consumeImport();
+			self.hideWindow();
 		})
 
 		shadow.appendChild(template);
@@ -162,6 +163,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			KerbalLink.registerUI(name, UIName, UI);
 			UI.database = name;
 		}
+		KerbalLink.setNextLoad(name);
 		KerbalLink.delete(oldDB);
 	}
 	/**

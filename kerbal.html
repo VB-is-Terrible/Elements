@@ -76,7 +76,7 @@
 			const revive = (string) => {return KDB.fromJSON(string);};
 			await Elements.get('kerbal-link', 'KDB');
 			let display = document.body.querySelector('#mainDisplay');
-			KerbalLink.load('default', revive);
+			KerbalLink.loadDefault(revive);
 			uiInit(e);
 			display.database = 'default';
 		}

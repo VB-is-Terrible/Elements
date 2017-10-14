@@ -1,12 +1,16 @@
 'use strict';
 
+let KerbalLinkClass;
+{
+const counterString = 'elements-kerbal-counter';
+const lastDB = 'elements-kerbal-last-database';
 /**
 * KerbalLink - links UI and DBs together.
 * Replace this to build a different UI
 * @property {String} prefix Prefix to attach to read/writes to localStorage
 * @property {Number} counter Counter to help uniquely name databasesw
 */
-class KerbalLinkClass {
+KerbalLinkClass =  class KerbalLinkClass {
 	constructor () {
 		/**
 		 * Storage of various dbs
@@ -21,7 +25,8 @@ class KerbalLinkClass {
 		 * @private
 		 */
 		this.UIs = new Map();
-		this.__counter = 0;
+		let count = localStorage[counterString] || 0;
+		this.__counter = parseInt(count);
 	}
 	/**
 	* Save a KDB
@@ -40,9 +45,10 @@ class KerbalLinkClass {
 	* Load a KDB
 	* @param  {String} name Name of kdb to load
 	* @param  {Function} reviver Function to take in saved DB, returns revived db
+	* @param  {String} [alias=name] Name to rename kdb to
 	* @throws {DOMException} Thrown if permission to localStorage has been denied
 	*/
-	load (name, reviver) {
+	load (name, reviver, alias = name) {
 		let db;
 		let getName = this.prefix + '-' + name;
 		try {
@@ -56,7 +62,7 @@ class KerbalLinkClass {
 			console.log('Access to localStorage denied');
 			throw e;
 		}
-		this.set(name, db);
+		this.set(alias, db);
 	}
 	/**
 	* Get a KDB
@@ -145,8 +151,27 @@ class KerbalLinkClass {
 	get counter () {
 		let result = this.__counter;
 		this.__counter += 1;
+		localStorage[counterString] = this.__counter.toString();
 		return result;
 	}
+	/**
+	 * Set the db named to be used on page load
+	 * @param {String} name Name of db to set a default
+	 */
+	setNextLoad (name) {
+		if (!this.databases.has(name)) {return;}
+		localStorage[lastDB] = name;
+	}
+	/**
+	 * Load the db set in setNextLoad
+	 * @param  {Function} reviver Reviver function to pass to load
+	 */
+	loadDefault (reviver) {
+		let last = localStorage[lastDB] || 'default';
+		this.load(last, reviver, 'default');
+		localStorage[lastDB] = 'default';
+	}
+}
 }
 
 let KerbalLink;
