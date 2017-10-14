@@ -505,6 +505,7 @@ let KNS =  {
 		 * Renames a kerbal. Does not error if kerbal does not existNote - mainly for use by KDB
 		 * @param  {String} oldName Current name of kerbal
 		 * @param  {String} newName New name for kerbal
+		 * @memberof KNS.Group
 		 */
 		renameKerbal (oldName, newName) {
 			if (!this.kerbals.has(oldName)) {return;}
@@ -518,6 +519,7 @@ let KNS =  {
 		 * Find kerbal by name
 		 * @param  {String} name Kerbal name
 		 * @return {?KNS.Kerbal} Kerbal if found, null if not
+		 * @memberof KNS.Group
 		 */
 		getKerbal (name) {
 			if (!this.kerbals.has(name)) {
@@ -590,9 +592,10 @@ let KNS =  {
 		}
 		/**
 		 * Equality check for groups
-		 * @param  {Group} group1 First group to compare
-		 * @param  {Group} group2 Second group to compare
+		 * @param  {KNS.Group} group1 First group to compare
+		 * @param  {KNS.Group} group2 Second group to compare
 		 * @return {Boolean}      If the two kerbals are equalivalent
+		 * @memberof KNS.Group
 		 */
 		static equals (group1, group2) {
 			if (group1.name !== group2.name) {
@@ -700,6 +703,9 @@ const KDB = class KDB {
 		} else {
 			throw new Error('Kerbal not found');
 		}
+		for (let group of this.groups.values()) {
+			group.renameKerbal(oldName, newName);
+		}
 		for (let display of this.__displays) {
 			display.renameKerbal(oldName, newName);
 		}
@@ -717,6 +723,9 @@ const KDB = class KDB {
 		kerbal.delete();
 		this.kerbals.delete(name);
 		this.kerbalObjs.delete(name);
+		for (let group of this.groups.values()) {
+			group.removeKerbal(kerbal);
+		}
 		for (let display of this.__displays) {
 			display.deleteKerbal(name);
 		}
