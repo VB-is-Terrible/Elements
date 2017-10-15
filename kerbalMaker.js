@@ -133,7 +133,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		let name = this.elements.nameInput.value;
 		name = name.trim();
 		if (name !== '&nbsp;' || this.nameChanged) {
-			name = KNS.nameSanitizer(name);
+			name = Elements.nameSanitizer(name);
 		}
 		if (KerbalLink.get(this.database).kerbals.has(name)) {
 			f = () => {

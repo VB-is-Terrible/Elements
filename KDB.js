@@ -397,33 +397,6 @@ let KNS =  {
 	 * @memberof KNS
 	 */
 	MAX_JOB_VALUE: 4,
-	/**
-	 * Desanitizes a string for HTML.
-	 * Used for UI output where escaping is not required, i.e. not HTML.
-	 * e.g. placeholder value set via js
-	 * @param  {String} string Sanitized string
-	 * @return {String}        Unsafe string
-	 * @memberof KNS
-	 */
-	nameDesanitizer: (string) => {
-		string = string.replace(/&amp/g, '&');
-		string = string.replace(/&lt/g, '<');
-		string = string.replace(/&gt/g, '>');
-		return string;
-	},
-	/**
-	 * Sanitizes a string for HTML.
-	 * @param  {String} string Unsafe string
-	 * @return {String}        Sanitized string
-	 * @memberof KNS
-	 */
-	nameSanitizer: (string) => {
-		string = string.trim();
-		string = string.replace(/&/g, '&amp');
-		string = string.replace(/</g, '&lt');
-		string = string.replace(/>/g, '&gt');
-		return string;
-	},
 	KDBParseError: class extends Error {
 		constructor (...args) {
 			super(...args);

@@ -102,7 +102,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 				}
 				// Fill the UI
 				// Desantize the name
-				UI.nameInput.value = KNS.nameDesanitizer(this.data.name);
+				UI.nameInput.value = Elements.nameDesanitizer(this.data.name);
 				UI.typeInput.value = this.data.text;
 				// Reset the UI
 				UI.warn.style.display = 'none';
@@ -112,7 +112,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		applyEL('nameInput', 'keyup', (e) => {
 			if (self.__oldValue === null) return;
 			let name = UI.nameInput.value;
-			name = KNS.nameSanitizer(name);
+			name = Elements.nameSanitizer(name);
 			if (KerbalLink.get(self.database).kerbals.has(name) && name !== self.__oldValue.name) {
 				UI.warn.style.display = 'block';
 				UI.nameInput.style.color = 'red';
