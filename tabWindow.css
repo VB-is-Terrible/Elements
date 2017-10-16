@@ -21,6 +21,8 @@ div.fill {
 }
 button, input, select {
 	font-size: var(--font-size);
+	border: 1px solid black;
+	border-radius: 3px;
 }
 #Close {
 	float: right;
