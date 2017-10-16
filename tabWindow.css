@@ -1,0 +1,29 @@
+div.multi {
+	flex-direction: row;
+	align-items: center;
+	display: flex;
+}
+div.fill {
+	width: 100%;
+}
+#title {
+	border-bottom: 1px solid black;
+	margin-bottom: 5px;
+}
+:host {
+	--width: 650px;
+	--font-size: large;
+	contain: content;
+}
+#pseudoBody {
+	width: var(--width);
+	font-size: var(--font-size);
+}
+button, input, select {
+	font-size: var(--font-size);
+}
+#Close {
+	float: right;
+	/* margin-right: .5em; */
+	background-color: white;
+}
