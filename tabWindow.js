@@ -20,6 +20,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 
 		this.name = 'TabWindow';
 		this.__tabMap = new Map();
+		this.__active = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let titleSpan = template.querySelector('#tabTitle');
@@ -39,10 +40,33 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			tabs.selected = value;
 		});
 		tabs.addEventListener('change', (e) => {
+			let active = this.__active;
+			if (active !== null)
+			{
+				let nodes = active.firstElementChild.assignedNodes();
+				if (nodes.length > 0) {
+					let content = nodes[0];
+					if (typeof content.hideTab === 'function') {
+						content.hideTab();
+					}
+				}
+			}
 			for (let div of this.__tabMap.values()) {
 				div.style.display = 'none';
 			}
 			this.__tabMap.get(e.detail).style.display = 'block';
+			active = this.__tabMap.get(e.detail);
+			active.style.display = 'block';
+			let nodes = active.firstElementChild.assignedNodes();
+			if (nodes.length > 0) {
+				let content = nodes[0];
+				if (typeof content.showTab === 'function') {
+					content.showTab();
+				}
+			}
+			this.__active = active;
+		});
+
 	}
 	reTab (newValue) {
 		let tabs = this.shadowRoot.querySelector('elements-tabs');
