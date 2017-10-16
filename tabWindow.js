@@ -19,6 +19,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		const self = this;
 
 		this.name = 'TabWindow';
+		this.__tabMap = new Map();
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let titleSpan = template.querySelector('#tabTitle');
@@ -37,6 +38,11 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		Elements.setUpAttrPropertyLink(this, 'selected', '', (value) => {
 			tabs.selected = value;
 		});
+		tabs.addEventListener('change', (e) => {
+			for (let div of this.__tabMap.values()) {
+				div.style.display = 'none';
+			}
+			this.__tabMap.get(e.detail).style.display = 'block';
 	}
 	reTab (newValue) {
 		let tabs = this.shadowRoot.querySelector('elements-tabs');
@@ -58,6 +64,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 				slot.name = tab;
 				div.appendChild(slot);
 				slots.appendChild(div);
+				this.__tabMap.set(tab, div);
 			}
 		});
 	}

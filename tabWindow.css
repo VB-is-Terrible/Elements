@@ -29,3 +29,6 @@ button, input, select {
 	/* margin-right: .5em; */
 	background-color: white;
 }
+div.slot {
+	display: none;
+}
