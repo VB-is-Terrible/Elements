@@ -11,6 +11,8 @@ div.tab {
 textarea {
 	width: 100%;
 	min-height: 10em;
+	border: 1px solid black;
+	/* border-right: 1px solid black; */
 }
 button {
 	margin-right: var(--button-margin);
