@@ -1,5 +1,31 @@
 'use strict';
 
+/**
+ * Interface for things that go in drag-elements
+ * @interface Draggable
+ */
+/**
+ * @property {Boolean} hidden
+ * @description If the draggable is hidden
+ * @name Draggable.hidden
+ */
+/**
+ * @function hideWindow
+ * @description Hide the draggable
+ * @name Draggable.hideWindow
+ */
+/**
+ * @function showWindow
+ * @description Unhide the draggable
+ * @name KerbalDisplay.showWindow
+ */
+/**
+ * @function centre
+ * @description Place the draggable on the screen centre
+ * @name Draggable.hideWindow
+ */
+
+
 Elements.get('drag-body');
 /**
  * DragElement
@@ -215,6 +241,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
  * @type {Object}
  * @property {boolean} hidden Wheter this element is hidden
  * @augments Elements.elements.backbone
+ * @implements Draggable
  */
 Elements.elements.dragged = class extends Elements.elements.backbone {
 	get hidden () {
