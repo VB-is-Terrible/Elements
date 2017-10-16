@@ -1,12 +1,12 @@
 'use strict';
 
-Elements.get('tabs');
+Elements.get('tabs', 'drag-element');
 {
 const main = async () => {
 
-await Elements.get();
+await Elements.get('drag-element');
 /**
- * A window that has tabs
+ * A window that has tabs. Note - tab names must be unique
  * @property {String} title The title displayed on the window
  * @property {String} tabs String of tab names in quotations, using backslashes to cancel e.g. '"Kerbal" "Destina\"tion"'
  * @property {String} selected Tab currently selected
@@ -124,12 +124,15 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		}
 		return result;
 	}
+	static get observedAttributes () {
+		return ['title', 'selected', 'tabs'];
+	}
 }
 
 /**
  * Implements commonly used methods for things in tabs
  * @implements Draggable
- * @property {boolean} hidden Wheter this tab window is hidden
+ * @property {Boolean} hidden Wheter this tab window is hidden
  * @type {Object}
  */
 Elements.elements.tabbed = class extends Elements.elements.backbone {
