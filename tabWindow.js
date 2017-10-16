@@ -41,20 +41,23 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 	reTab (newValue) {
 		let tabs = this.shadowRoot.querySelector('elements-tabs');
 		let slots = this.shadowRoot.querySelector('#slots');
-		let tabText = this.constructer.readTabs(newValue);
+		let tabText = this.constructor.readTabs(newValue);
 		requestAnimationFrame((e) => {
 			tabs.innerHTML = '';
 			for (let i = 0; i < tabText.length; i++) {
 				let span = document.createElement('span');
-				span.slot = 's' + i.toString();
+				span.slot = 's' + (i + 1).toString();
 				span.innerHTML = tabText[i];
+				tabs.appendChild(span);
 			}
 			slots.innerHTML = '';
 			for (let tab of tabText) {
 				let div = document.createElement('div');
 				let slot = document.createElement('slot');
-				slot.name = 'tabText';
+				div.classList.add('slot');
+				slot.name = tab;
 				div.appendChild(slot);
+				slots.appendChild(div);
 			}
 		});
 	}
@@ -120,6 +123,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 						doubleMark = true;
 						break;
 				}
+				backSlash = false;
 			}
 		}
 		return result;
