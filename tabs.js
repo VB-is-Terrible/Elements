@@ -80,7 +80,9 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 						this.clearState();
 						button.classList.add('tab-selected');
 					});
-					let value = button.firstElementChild.assignedNodes()[0].innerHTML;
+					let nodes = button.firstElementChild.assignedNodes();
+					if (nodes.length === 0) {return;}
+					let value = nodes[0].innerHTML;
 					if (value !== this.__lastValue) {
 						this.__setting = true;
 						this.selected = value;
