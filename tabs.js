@@ -24,9 +24,7 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		this.__lastValue = null;
 		this.__rAF = Elements.rafContext();
 		this.mo = new MutationObserver(() => {
-			requestAnimationFrame((e) => {
-				self.resize();
-			});
+			self.resize();
 		})
 		this.config = {childList: true};
 		shadow.appendChild(template);
@@ -70,48 +68,50 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		let size = this.childElementCount;
 		let host = this.shadowRoot.querySelector('.tabs');
 		let template = this.shadowRoot.querySelector('#tabTemplate');
-		if (host.childElementCount < size) {
-			for (let i = host.childElementCount; i < size; i++) {
-				let newTab = document.importNode(template, true).content;
-				let slot = newTab.querySelector('slot');
-				slot.name = 's' + (i + 1).toString();
-				let button = newTab.querySelector('button');
-				let click = (e) => {
-					this.__rAF(() => {
-						this.clearState();
-						button.classList.add('tab-selected');
-					});
-					let nodes = button.firstElementChild.assignedNodes();
-					if (nodes.length === 0) {return;}
-					let value = nodes[0].innerHTML;
-					if (value !== this.__lastValue) {
-						this.__setting = true;
-						this.selected = value;
-						this.__setting = false;
-						this.__lastValue = value;
-						let eventDetail = {detail: value};
-						let event = new CustomEvent('change', eventDetail);
-						this.dispatchEvent(event);
-					}
-				}
-				button.addEventListener('click', click);
-				host.appendChild(newTab);
-				let nodes = button.firstElementChild.assignedNodes();
-				if (nodes.length > 0) {
-					if (nodes[0].innerHTML === this.selected) {
+		requestAnimationFrame((e) => {
+			if (host.childElementCount < size) {
+				for (let i = host.childElementCount; i < size; i++) {
+					let newTab = document.importNode(template, true).content;
+					let slot = newTab.querySelector('slot');
+					slot.name = 's' + (i + 1).toString();
+					let button = newTab.querySelector('button');
+					let click = (e) => {
 						this.__rAF(() => {
 							this.clearState();
 							button.classList.add('tab-selected');
 						});
+						let nodes = button.firstElementChild.assignedNodes();
+						if (nodes.length === 0) {return;}
+						let value = nodes[0].innerHTML;
+						if (value !== this.__lastValue) {
+							this.__setting = true;
+							this.selected = value;
+							this.__setting = false;
+							this.__lastValue = value;
+							let eventDetail = {detail: value};
+							let event = new CustomEvent('change', eventDetail);
+							this.dispatchEvent(event);
+						}
+					}
+					button.addEventListener('click', click);
+					host.appendChild(newTab);
+					let nodes = button.firstElementChild.assignedNodes();
+					if (nodes.length > 0) {
+						if (nodes[0].innerHTML === this.selected) {
+							this.__rAF(() => {
+								this.clearState();
+								button.classList.add('tab-selected');
+							});
+						}
 					}
 				}
+			} else if (host.childElementCount > size) {
+				for (let i = host.childElementCount - 1; i >= size; i--) {
+					let tab = host.children[i];
+					host.removeChild(tab);
+				}
 			}
-		} else if (host.childElementCount > size) {
-			for (let i = host.childElementCount - 1; i >= size; i--) {
-				let tab = host.children[i];
-				host.removeChild(tab);
-			}
-		}
+		});
 	}
 	/**
 	 * Reset all tabs to unselected state
