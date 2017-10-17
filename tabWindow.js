@@ -88,6 +88,9 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 				slot.name = tab;
 				div.appendChild(slot);
 				slots.appendChild(div);
+				if (tab === this.selected) {
+					div.style.display = 'block';
+				}
 				this.__tabMap.set(tab, div);
 			}
 		});

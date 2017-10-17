@@ -95,6 +95,15 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 				}
 				button.addEventListener('click', click);
 				host.appendChild(newTab);
+				let nodes = button.firstElementChild.assignedNodes();
+				if (nodes.length > 0) {
+					if (nodes[0].innerHTML === this.selected) {
+						this.__rAF(() => {
+							this.clearState();
+							button.classList.add('tab-selected');
+						})
+					}
+				}
 			}
 		}
 	}
