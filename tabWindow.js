@@ -43,13 +43,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			let active = this.__active;
 			if (active !== null)
 			{
-				let nodes = active.firstElementChild.assignedNodes();
-				if (nodes.length > 0) {
-					let content = nodes[0];
-					if (typeof content.hideTab === 'function') {
-						content.hideTab();
-					}
-				}
+				this.constructor.triggerNodeFunction(active, 'hideTab');
 			}
 			for (let div of this.__tabMap.values()) {
 				div.style.display = 'none';
@@ -57,17 +51,16 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			this.__tabMap.get(e.detail).style.display = 'block';
 			active = this.__tabMap.get(e.detail);
 			active.style.display = 'block';
-			let nodes = active.firstElementChild.assignedNodes();
-			if (nodes.length > 0) {
-				let content = nodes[0];
-				if (typeof content.showTab === 'function') {
-					content.showTab();
-				}
-			}
+			this.constructor.triggerNodeFunction(active, 'hideTab');
 			this.__active = active;
 		});
 
 	}
+	/**
+	 * Function to change the tabs
+	 * @param  {Stirng} newValue New tabs string
+	 * @private
+	 */
 	reTab (newValue) {
 		let tabs = this.shadowRoot.querySelector('elements-tabs');
 		let slots = this.shadowRoot.querySelector('#slots');
@@ -94,6 +87,22 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 				this.__tabMap.set(tab, div);
 			}
 		});
+	}
+	/**
+	 * Method to trigger active tab's showTab method
+	 */
+	showWindowInform () {
+		if (this.__active !== null) {
+			this.constructor.triggerNodeFunction(this.__active, 'showTab');
+		}
+	}
+	/**
+	 * Method to trigger active tab's hideTab method
+	 */
+	hideWindowInform () {
+		if (this.__active !== null) {
+			this.constructor.triggerNodeFunction(this.__active, 'hideTab');
+		}
 	}
 	/**
 	 * Convert the value of tabs into an array of tab names
@@ -161,6 +170,21 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			}
 		}
 		return result;
+	}
+	/**
+	 * Attempts to fire a method on the element in the slot
+	 * @param  {HTMLElement} slotContainer A HTMLElement that has the slot as the firstElementChild
+	 * @param  {String} functionName  Name of the method to call
+	 * @private
+	 */
+	static triggerNodeFunction (slotContainer, functionName) {
+		let nodes = slotContainer.firstElementChild.assignedNodes();
+		if (nodes.length > 0) {
+			let content = nodes[0];
+			if (typeof content.showTab === 'function') {
+				content[functionName]();
+			}
+		}
 	}
 	static get observedAttributes () {
 		return ['title', 'selected', 'tabs'];
