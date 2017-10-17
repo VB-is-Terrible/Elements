@@ -135,6 +135,14 @@
 		"css": ["kdbKerbalDisplay.css"],
 		"resources": [],
 		"provides": ["kdbKerbalDisplay"]
+	},
+	"tabWindow": {
+		"type": "element",
+		"requires": ["tab", "drag-element"],
+		"templates": ["tabWindowTemplate.html"],
+		"css": ["tabWindow.css"],
+		"resources": [],
+		"provides": ["tab-window"]
 	}
 
 }
