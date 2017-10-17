@@ -114,10 +114,10 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		this.touch.touchID = touchEvent.identifier;
 		this.touch.left = (parseInt(style.getPropertyValue('left'),10) - touchEvent.clientX)
 		this.touch.top = (parseInt(style.getPropertyValue('top'),10) - touchEvent.clientY);
-		body.addEventListener('touchmove', this.events.move, true);
-		body.addEventListener('touchcancel', this.events.end, true);
-		body.addEventListener('touchend', this.events.end, true);
-		body.removeEventListener('touchstart', this.events.start, true);
+		body.addEventListener('touchmove', this.events.move, false);
+		body.addEventListener('touchcancel', this.events.end, false);
+		body.addEventListener('touchend', this.events.end, false);
+		body.removeEventListener('touchstart', this.events.start, false);
 		this.parentNode.topZIndex(this);
 	}
 	/**
@@ -157,11 +157,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	 */
 	touch_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		body.removeEventListener('touchstart', this.events.start, true);
-		body.addEventListener('touchstart', this.events.start, true);
-		body.removeEventListener('touchmove', this.events.move, true);
-		body.removeEventListener('touchend', this.events.end, true);
-		body.removeEventListener('touchcancel', this.events.end, true);
+		body.removeEventListener('touchstart', this.events.start, false);
+		body.addEventListener('touchstart', this.events.start, false);
+		body.removeEventListener('touchmove', this.events.move, false);
+		body.removeEventListener('touchend', this.events.end, false);
+		body.removeEventListener('touchcancel', this.events.end, false);
 	}
 	/**
 	 * Starts a mouse base drag
@@ -179,9 +179,9 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
 		this.parentNode.topZIndex(this);
 
-		body.addEventListener('mousemove', this.events.dMove, true);
-		body.addEventListener('mouseup', this.events.dEnd, true);
-		body.removeEventListener('mousedown', this.events.dStart, true);
+		body.addEventListener('mousemove', this.events.dMove, false);
+		body.addEventListener('mouseup', this.events.dEnd, false);
+		body.removeEventListener('mousedown', this.events.dStart, false);
 	}
 	/**
 	 * Updates a mouse based drag
@@ -210,9 +210,9 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	 */
 	drag_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		body.addEventListener('mousedown', this.events.dStart, true);
-		body.removeEventListener('mousemove', this.events.dMove, true);
-		body.removeEventListener('mouseup', this.events.dEnd, true);
+		body.addEventListener('mousedown', this.events.dStart, false);
+		body.removeEventListener('mousemove', this.events.dMove, false);
+		body.removeEventListener('mouseup', this.events.dEnd, false);
 	}
 	/**
 	 * Moves drag-element to the centre of the window
