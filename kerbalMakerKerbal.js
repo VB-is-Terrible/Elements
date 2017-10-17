@@ -13,9 +13,9 @@ await Elements.get('tab-window', 'kerbal-link', 'KDB');
  * @property {Object} elements Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been made
  * @property {String} database Name of the database to look up
- * @augments Elements.elements.dragged
+ * @augments Elements.elements.tabbed
  */
-Elements.elements.KerbalMakerKerbal = class extends Elements.elements.dragged {
+Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 	constructor () {
 		super();
 
