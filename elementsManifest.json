@@ -1,12 +1,12 @@
 
 {
-	"kerbalEditor": {
+	"kerbalMakerKerbal": {
 		"type": "element",
-		"requires": ["kerbal", "grid", "kerbalLink", "dragDown", "dragElement"],
-		"templates": ["kerbalMakerTemplate.html"],
-		"css": ["kerbalMaker.css", "kerbalFloatCommon.css"],
+		"requires": ["kerbal", "grid", "kerbalLink", "tabWindow", "KDB"],
+		"templates": ["kerbalMakerKerbalTemplate.html"],
+		"css": ["kerbalMakerKerbal.css", "kerbalFloatCommon.css"],
 		"resources": ["warning.svg"],
-		"provides": ["kerbalMaker"]
+		"provides": ["kerbalMakerKerbal"]
 	},
 	"kerbalSearcher": {
 		"type": "element",
@@ -16,7 +16,7 @@
 		"resources": [],
 		"provides": ["kerbalSearcher"]
 	},
-	"kerbalMaker": {
+	"kerbalEditor": {
 		"type": "element",
 		"requires": ["kerbal", "grid", "kerbalLink", "dragElement"],
 		"templates": ["kerbalEditorTemplate.html"],

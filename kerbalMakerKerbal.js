@@ -1,8 +1,12 @@
 'use strict';
 
-Elements.get('kerbal', 'grid', 'kerbal-link', 'drag-element');
-Elements.await(() => {
+Elements.get('kerbal', 'grid', 'kerbal-link', 'tab-window', 'KDB');
+{
 const defaultJob = "Tourist";
+const main = async () => {
+
+await Elements.get('tab-window', 'kerbal-link', 'KDB');
+
 /**
  * UI to make a KNS.Kerbal
  * @type {Object}
@@ -11,12 +15,12 @@ const defaultJob = "Tourist";
  * @property {String} database Name of the database to look up
  * @augments Elements.elements.dragged
  */
-Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
+Elements.elements.KerbalMakerKerbal = class extends Elements.elements.dragged {
 	constructor () {
 		super();
 
 		const self = this;
-		this.name = 'KerbalMaker';
+		this.name = 'KerbalMakerKerbal';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let elements = {};
@@ -169,5 +173,8 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 	}
 }
 
-Elements.load('kerbalMakerTemplate.html', Elements.elements.KerbalMaker, 'elements-kerbal-maker');
-}, 'kerbal-link', 'drag-element', 'KDB');
+Elements.load('kerbalMakerKerbalTemplate.html', Elements.elements.KerbalMakerKerbal, 'elements-kerbal-maker-kerbal');
+};
+
+main();
+}
