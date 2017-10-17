@@ -8,6 +8,7 @@ await Elements.get('KDB', 'kerbal');
 
 /**
  * @augments Elements.elements.backbone
+ * @property {String} database Name of the database to look up
  * @implements KDBDisplay
  * @augments BlankKDBDisplay
  * @type {Object}
@@ -41,6 +42,8 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 		let kerbal = KerbalLink.get(this.database).getKerbal(name);
 		let display = kerbal.makeDisplay();
 		let body = this.shadowRoot.querySelector('#pseudoBody');
+		display.menuvisible = false;
+		body.appendChild(display);
 	}
 	__get_database () {
 		return this.__database;
