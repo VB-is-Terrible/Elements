@@ -1,6 +1,4 @@
 :host {
 	--width: 100%;
 }
-#pseudoBody {
-	background: auto;
-}
+#pseudoBody {background: initial;}
