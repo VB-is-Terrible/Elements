@@ -21,6 +21,8 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let kerbalMaker = template.querySelector('elements-kerbal-maker-kerbal');
+		let tabWindow = template.querySelector('elements-tab-window');
+		tabWindow.parent = this;
 		Object.defineProperty(this, 'database', {
 			enumerable: true,
 			configurable: false,
