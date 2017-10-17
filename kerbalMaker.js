@@ -20,18 +20,19 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		this.__database = this.database || 'default';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-		// Object.defineProperty(this, 'database', {
-		// 	enumerable: true,
-		// 	configurable: false,
-		// 	get: () => {
-		// 		return self.__database;
-		// 	},
-		// 	set: (value) => {
-		// 		self.__database = value;
-		// 		// As the existing kerbals have changed, check the name again
-		// 		self.nameChange();
-		// 	},
-		// });
+		let kerbalMaker = template.querySelector('elements-kerbal-maker-kerbal');
+		Object.defineProperty(this, 'database', {
+			enumerable: true,
+			configurable: false,
+			get: () => {
+				return self.__database;
+			},
+			set: (value) => {
+				self.__database = value;
+				// Pass the change onto members
+				kerbalMaker.database = value;
+			},
+		});
 
 		//Fancy code goes here
 		shadow.appendChild(template);
