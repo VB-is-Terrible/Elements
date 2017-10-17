@@ -25,7 +25,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		let template = Elements.importTemplate(this.name);
 		let titleSpan = template.querySelector('#tabTitle');
 		let tabs = template.querySelector('elements-tabs');
-
+		let close = template.querySelector('#Close');
 		shadow.appendChild(template);
 
 		Elements.setUpAttrPropertyLink(this, 'title', titleSpan.innerHTML, (value) => {
@@ -54,7 +54,9 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			this.constructor.triggerNodeFunction(active, 'hideTab');
 			this.__active = active;
 		});
-
+		close.addEventListener('click', (e) => {
+			self.hideWindow();
+		});
 	}
 	/**
 	 * Function to change the tabs
@@ -197,28 +199,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
  * @property {Boolean} hidden Wheter this tab window is hidden
  * @type {Object}
  */
-Elements.elements.tabbed = class extends Elements.elements.backbone {
-	get hidden () {
-		return this.parentElement.hidden;
-	}
-	/**
-	 * Hide this element
-	 */
-	hideWindow () {
-		this.parentElement.hideWindow();
-	}
-	/**
-	 * Unhide this element
-	 */
-	showWindow () {
-		this.parentElement.showWindow();
-	}
-	/**
-	 * Centre the element onscreen
-	 */
-	centre () {
-		this.parentElement.centre();
-	}
+Elements.elements.tabbed = class extends Elements.elements.dragged {
 	/**
 	 * Fired when the tab is hidden
 	 */
