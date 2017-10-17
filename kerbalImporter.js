@@ -164,6 +164,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 			UI.database = name;
 		}
 		KerbalLink.setNextLoad(name);
+		KerbalLink.save(name);
 		KerbalLink.delete(oldDB);
 	}
 	/**
