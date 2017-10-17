@@ -24,7 +24,9 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		this.__lastValue = null;
 		this.__rAF = Elements.rafContext();
 		this.mo = new MutationObserver(() => {
-			self.resize();
+			requestAnimationFrame((e) => {
+				self.resize();
+			});
 		})
 		this.config = {childList: true};
 		shadow.appendChild(template);
@@ -62,7 +64,7 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		}
 	}
 	/**
-	 * Add more tabs to the element if required
+	 * Add/remove tabs to/from the element if required
 	 */
 	resize () {
 		let size = this.childElementCount;
@@ -75,7 +77,6 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 				slot.name = 's' + (i + 1).toString();
 				let button = newTab.querySelector('button');
 				let click = (e) => {
-					// debugger;
 					this.__rAF(() => {
 						this.clearState();
 						button.classList.add('tab-selected');
@@ -101,9 +102,14 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 						this.__rAF(() => {
 							this.clearState();
 							button.classList.add('tab-selected');
-						})
+						});
 					}
 				}
+			}
+		} else if (host.childElementCount > size) {
+			for (let i = host.childElementCount - 1; i >= size; i--) {
+				let tab = host.children[i];
+				host.removeChild(tab);
 			}
 		}
 	}
