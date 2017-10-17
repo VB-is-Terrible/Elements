@@ -10,6 +10,11 @@
  * @name Draggable.hidden
  */
 /**
+ * @property {Draggable} parent
+ * @description IF the draggable does not directly implement the methods: Element to chain [show/hide]Window, etc. calls to. Defaults to parentElement
+ * @name Draggable.parent
+ */
+/**
  * @function hideWindow
  * @description Hide the draggable
  * @name Draggable.hideWindow
@@ -35,6 +40,8 @@ Elements.get('drag-body');
  * Internal stages:
  * touch_start -> touch_move -> touch_end
  * drag_start -> drag_move (drag over) -> drag_end (drag drop, found in drag-body)
+ * @property {boolean} hidden Wheter this element is hidden
+ * @implements Draggable
  */
 Elements.elements.DragElement = class extends Elements.elements.backbone {
 	constructor () {
@@ -42,6 +49,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 
 		const self = this;
 		this.name = 'DragElement';
+		this.parent = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let drag_start = (event) => {
@@ -234,18 +242,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	toTop () {
 		this.parentNode.topZIndex(this);
 	}
-};
-
-/**
- * Implements commonly used methods for things been dragged
- * @type {Object}
- * @property {boolean} hidden Wheter this element is hidden
- * @augments Elements.elements.backbone
- * @implements Draggable
- */
-Elements.elements.dragged = class extends Elements.elements.backbone {
 	get hidden () {
-		let computed = getComputedStyle(this.parentElement);
+		let computed = getComputedStyle(this);
 		if (computed.display === 'none' || computed.visibility === 'hidden') {
 			return true;
 		} else {
@@ -257,7 +255,7 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 	 */
 	hideWindow () {
 		requestAnimationFrame(() => {
-			this.parentElement.style.visibility = 'hidden';
+			this.style.visibility = 'hidden';
 		});
 	}
 	/**
@@ -265,16 +263,62 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 	 */
 	showWindow () {
 		requestAnimationFrame(() => {
-			this.parentElement.style.display = 'block';
-			this.parentElement.style.visibility = 'visible';
+			this.style.display = 'block';
+			this.style.visibility = 'visible';
 		});
-		this.parentElement.toTop();
+		this.toTop();
+	}
+};
+
+/**
+ * Implements commonly used methods for things been dragged
+ * @type {Object}
+ * @property {Boolean} hidden Wheter this element is hidden
+ * @property {Draggable} parent Element to chain [show/hide]Window, etc. calls to. Defaults to parentElement
+ * @augments Elements.elements.backbone
+ * @implements Draggable
+ */
+Elements.elements.dragged = class extends Elements.elements.backbone {
+	constructor () {
+		super();
+		this.parent = this.parent || null;
+	}
+	get hidden () {
+		if (this.parent === null) {
+			return this.parentElement.hidden;
+		} else {
+			return this.parent.hidden;
+		}
+	}
+	/**
+	 * Hide this element
+	 */
+	hideWindow () {
+		if (this.parent === null) {
+			this.parentElement.hideWindow();
+		} else {
+			this.parent.hideWindow();
+		}
+	}
+	/**
+	 * Unhide this element
+	 */
+	showWindow () {
+		if (this.parent === null) {
+			this.parentElement.showWindow();
+		} else {
+			this.parent.showWindow();
+		}
 	}
 	/**
 	 * Centre the element onscreen
 	 */
 	centre () {
-		this.parentElement.centre();
+		if (this.parent === null) {
+			this.parentElement.centre();
+		} else {
+			this.parent.centre();
+		}
 	}
 }
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
