@@ -138,7 +138,7 @@
 	},
 	"tabWindow": {
 		"type": "element",
-		"requires": ["tab", "dragElement"],
+		"requires": ["tabs", "dragElement"],
 		"templates": ["tabWindowTemplate.html"],
 		"css": ["tabWindow.css"],
 		"resources": [],
