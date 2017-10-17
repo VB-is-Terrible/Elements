@@ -45,6 +45,8 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 		display.menuvisible = false;
 		body.appendChild(display);
 	}
+	renameKerbal (oldName, newName) {}
+	deleteKerbal (name) {}
 	__get_database () {
 		return this.__database;
 	}
