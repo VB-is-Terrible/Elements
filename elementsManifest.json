@@ -143,6 +143,14 @@
 		"css": ["tabWindow.css"],
 		"resources": [],
 		"provides": ["tabWindow"]
+	},
+	"kerbalMaker": {
+		"type": "element",
+		"requires": ["tabWindow", "dragElement", "kerbalMakerKerbal"],
+		"templates": ["kerbalMakerTemplate.html"],
+		"css": ["kerbalMaker.css"],
+		"resources": [],
+		"provides": ["kerbalMaker"]
 	}
 
 }
