@@ -170,6 +170,7 @@ KerbalLinkClass =  class KerbalLinkClass {
 		let last = localStorage[lastDB] || 'default';
 		this.load(last, reviver, 'default');
 		localStorage[lastDB] = 'default';
+		this.save('default');
 	}
 }
 }
