@@ -16,13 +16,13 @@
 		"resources": [],
 		"provides": ["kerbalSearcher"]
 	},
-	"kerbalEditor": {
+	"kerbalEditorKerbal": {
 		"type": "element",
-		"requires": ["kerbal", "grid", "kerbalLink", "dragElement"],
-		"templates": ["kerbalEditorTemplate.html"],
-		"css": ["kerbalEditor.css", "kerbalFloatCommon.css"],
+		"requires": ["kerbal", "grid", "kerbalLink", "tabWindow"],
+		"templates": ["kerbalEditorKerbalTemplate.html"],
+		"css": ["kerbalEditorKerbal.css", "kerbalFloatCommon.css"],
 		"resources": ["warning.svg"],
-		"provides": ["kerbalEditor"]
+		"provides": ["kerbalEditorKerbal"]
 	},
 	"KDB": {
 		"type": "module",

@@ -63,3 +63,9 @@ button.delete {
 #DeleteKerbal1 {
 	display: block;
 }
+:host {
+	--width: 100%;
+}
+#pseudoBody {
+	background: initial;
+}

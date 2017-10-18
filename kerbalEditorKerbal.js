@@ -1,16 +1,16 @@
 'use strict';
 
-
 /**
  * UpdaterFunction
  * @callback UpdaterFunction
  * @param {KNS.Kerbal} Kerbal Kerbal to update
  */
-{
-const temp = (async () => {
 
-Elements.get('grid', 'drag-down', 'kerbal', 'kerbal-link', 'drag-element');
-await Elements.get('kerbal', 'kerbal-link', 'drag-element', 'KDB');
+ Elements.get('grid', 'drag-down', 'kerbal', 'kerbal-link', 'tab-window');
+{
+const main = (async () => {
+
+await Elements.get('kerbal', 'kerbal-link', 'tab-window', 'KDB');
 
 /**
  * UI to edit a KNS.Kerbal
@@ -18,14 +18,14 @@ await Elements.get('kerbal', 'kerbal-link', 'drag-element', 'KDB');
  * @property {Object} UI Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been edit - note: this is a copy, not the original
  * @property {String} database Name of the database to look up
- * @augments Elements.elements.dragged
+ * @augments Elements.elements.tabbed
  */
-Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
+Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 	constructor () {
 		super();
 
 		const self = this;
-		this.name = 'KerbalEditor';
+		this.name = 'KerbalEditorKerbal';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let UI = {};
@@ -54,7 +54,6 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 			['Delete3', '#DeleteKerbal3'],
 			['DeleteWarning', '#deleted'],
 			['warn', 'img.warn'],
-			['close', '#Close'],
 			['cancel', '#Cancel'],
 		);
 
@@ -167,9 +166,6 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		applyEL('cancel', 'click', (e) => {
 			self.clearKerbal();
 			self.hideWindow()
-		});
-		applyEL('close', 'click', (e) => {
-			self.hideWindow();
 		});
 		applyEL('Delete1', 'click', (e) => {
 			if (self.__oldValue === null) return;
@@ -303,7 +299,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 	}
 }
 
-Elements.load('kerbalEditorTemplate.html', Elements.elements.KerbalEditor, 'elements-kerbal-editor');
+Elements.load('kerbalEditorKerbalTemplate.html', Elements.elements.KerbalEditorKerbal, 'elements-kerbal-editor-kerbal');
 });
-temp();
+main();
 }
