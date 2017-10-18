@@ -151,6 +151,14 @@
 		"css": ["kerbalMaker.css"],
 		"resources": [],
 		"provides": ["kerbalMaker"]
+	},
+	"kerbalEditor": {
+		"type": "element",
+		"requires": ["tabWindow", "dragElement", "kerbalEditorKerbal"],
+		"templates": ["kerbalEditorTemplate.html"],
+		"css": ["kerbalEditor.css"],
+		"resources": [],
+		"provides": ["kerbalEditor"]
 	}
 
 }
