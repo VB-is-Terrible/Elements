@@ -159,6 +159,22 @@
 		"css": ["kerbalEditor.css"],
 		"resources": [],
 		"provides": ["kerbalEditor"]
+	},
+	"kerbalImporterImport": {
+		"type": "element",
+		"requires": ["tabWindow", "kerbalLink"],
+		"templates": ["kerbalImporterImportTemplate.html"],
+		"css": ["kerbalImporterImport.css"],
+		"resources": [],
+		"provides": ["kerbalImporterImport"]
+	},
+	"kerbalImporterExport": {
+		"type": "element",
+		"requires": ["tabWindow", "kerbalLink"],
+		"templates": ["kerbalImporterExportTemplate.html"],
+		"css": ["kerbalImporterExport.css"],
+		"resources": [],
+		"provides": ["kerbalImporterExport"]
 	}
 
 }

@@ -1,0 +1,21 @@
+<template id='templateElementsKerbalImporterImport'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
+	<link rel='stylesheet' type='text/css' href='kerbalImporterImport.css'>
+	<div id='pseudoBody'>
+		<p>Import database. Will override the current db</p>
+		<div class='multi' id='multiInput'>
+			<p class='inline'>Paste it below or </p>
+			<input type='file' id='importFile'></input>
+		</div>
+		<textarea id='importArea'></textarea>
+		<div class='multi' id='footer'>
+			<button class='footer' id='accept'>Load</button>
+			<!-- <button id='importPaste'>Paste from clipboard</button> -->
+			<button class='footer dismiss' id='importDismiss'>Cancel</button>
+			<div id='invalidImport' class='multi'>
+				<img src='warning.svg' class='warning'>
+				<p id='invalidImportText'>You should not be seeing this</p>
+			</div>
+		</div>
+	</div>
+</template>

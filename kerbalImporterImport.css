@@ -1,0 +1,41 @@
+:host {
+	--width: 100%;
+}
+#pseudoBody {
+	background: initial;
+	--button-margin: 1em;
+	font-size: medium;
+}
+textarea {
+	width: 100%;
+	min-height: 10em;
+	border: 1px solid black;
+	/* border-right: 1px solid black; */
+}
+button {
+	margin-right: var(--button-margin);
+}
+input[type=file] {
+	flex-grow: 1;
+	text-shadow: 0 0 black;
+	width: 50%;
+}
+#multiInput {
+	align-items: center;
+	font-size: var(--font-size);
+}
+#footer {
+	flex-direction: row-reverse;
+}
+button.footer {
+	margin-right: 0px;
+	margin-left: var(--button-margin);
+}
+img.warning {
+	height: 100%;
+	width: 1em;
+}
+#invalidImport {
+	display: none;
+	flex-grow: 1;
+}

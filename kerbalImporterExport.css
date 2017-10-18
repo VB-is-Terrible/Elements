@@ -1,0 +1,17 @@
+:host {
+	--width: 100%;
+}
+#pseudoBody {
+	background: initial;
+	--button-margin: 1em;
+	font-size: medium;
+}
+textarea {
+	width: 100%;
+	min-height: 10em;
+	border: 1px solid black;
+	/* border-right: 1px solid black; */
+}
+button {
+	margin-right: var(--button-margin);
+}
