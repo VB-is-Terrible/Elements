@@ -38,6 +38,16 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 
 		shadow.appendChild(template);
 	}
+	showWindow () {
+		super.showWindow();
+		let tabWindow = this.shadowRoot.querySelector('elements-tab-window');
+		tabWindow.showWindowInform();
+	}
+	hideWindow () {
+		super.hideWindow();
+		let tabWindow = this.shadowRoot.querySelector('elements-tab-window');
+		tabWindow.hideWindowInform();
+	}
 }
 
 Elements.load('kerbalMakerTemplate.html', Elements.elements.KerbalMaker, 'elements-kerbal-maker');

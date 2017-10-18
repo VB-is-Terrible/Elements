@@ -46,6 +46,16 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
 		let kerbalEditor = this.shadowRoot.querySelector('elements-kerbal-editor-kerbal');
 		kerbalEditor.data = kerbal;
 	}
+	showWindow () {
+		super.showWindow();
+		let tabWindow = this.shadowRoot.querySelector('elements-tab-window');
+		tabWindow.showWindowInform();
+	}
+	hideWindow () {
+		super.hideWindow();
+		let tabWindow = this.shadowRoot.querySelector('elements-tab-window');
+		tabWindow.hideWindowInform();
+	}
 }
 
 Elements.load('kerbalEditorTemplate.html', Elements.elements.KerbalEditor, 'elements-kerbal-editor');
