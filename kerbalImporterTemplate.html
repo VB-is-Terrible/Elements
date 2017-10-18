@@ -1,48 +1,9 @@
 <template id='templateElementsKerbalImporter'>
-	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
 	<link rel='stylesheet' type='text/css' href='kerbalImporter.css'>
 	<div id='pseudoBody' draggable='true'>
-		<div id='title' class='multi'>
-			<div class='fill'>
-				<span id='titleSpan'>
-					Importer/Exporter
-				</span>
-				<elements-tabs selected='Import'>
-					<span slot='s1'>Import</span>
-					<span slot='s2'>Export</span>
-				</elements-tabs>
-				<button id='Close'>
-					X
-				</button>
-			</div>
-		</div>
-		<div id='import' class='tab'>
-			<p>Import database. Will override the current db</p>
-			<div class='multi' id='multiInput'>
-				<p class='inline'>Paste it below or </p>
-				<input type='file' id='importFile'></input>
-			</div>
-			<textarea id='importArea'></textarea>
-			<div class='multi' id='footer'>
-				<button class='footer' id='accept'>Load</button>
-				<!-- <button id='importPaste'>Paste from clipboard</button> -->
-				<button class='footer dismiss' id='importDismiss'>Cancel</button>
-				<div id='invalidImport' class='multi'>
-					<img src='warning.svg' class='warning'>
-					<p id='invalidImportText'>You should not be seeing this</p>
-				</div>
-			</div>
-		</div>
-		<div id='export' class='tab'>
-			<p>Export database. Keep this in a safe location</p>
-			<textarea id='exportArea'></textarea>
-			<div class='multi'>
-				<button class='dismiss' id='exportDismiss'>Got it</button>
-				<button id='exportCopy'>Copy to clipboard</button>
-				<a id='exportDownloadLink' download='KDB Save file'>
-					<button id='exportDownloadButton'>Download as file</button>
-				</a>
-			</div>
-		</div>
+		<elements-tab-window title='Import/Export' selected='Export' tabs='"Import" "Export"'>
+			<elements-kerbal-importer-import slot='Import'></elements-kerbal-importer-import>
+			<elements-kerbal-importer-export slot='Export'></elements-kerbal-importer-export>
+		</elements-tab-window>
 	</div>
 </template>
