@@ -161,7 +161,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	}
 	/**
 	 * Resets/Cancels a touch drag.
-	 * As touchs don't bubble along the DOM, use this instead of preventDefault
+	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
 	 */
 	touch_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
