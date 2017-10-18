@@ -36,7 +36,6 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 			},
 		});
 
-		//Fancy code goes here
 		shadow.appendChild(template);
 	}
 }
