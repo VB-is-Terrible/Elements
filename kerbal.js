@@ -148,7 +148,9 @@ Elements.await(function () {
 		 */
 		delete () {
 			if (this.deleter) {
-				this.remove();
+				requestAnimationFrame((e) => {
+					this.remove();
+				});
 			}
 			this.data.removeDisplay(this);
 		}
