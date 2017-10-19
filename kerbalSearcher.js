@@ -74,6 +74,7 @@ let SearchDisplay = class extends BlankKerbalDisplay {
  * @type {Object}
  * @augments Elements.elements.dragged
  * @property {String} database Name of the database to look up
+ * @property {String} action   Text to display in buttons next to results
  */
 Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	constructor () {
@@ -98,6 +99,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				self.__set_database(value);
 			},
 		});
+		this.action = this.action || 'Edit';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.__lastValue = '';
@@ -432,7 +434,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		div.appendChild(display);
 		let button = document.createElement('button');
 		button.value = kerbal.name;
-		button.innerHTML = 'Edit';
+		button.innerHTML = this.action;
 		button.classList.add('results');
 		button.addEventListener('click', (e) => {
 			this.editor(e);
