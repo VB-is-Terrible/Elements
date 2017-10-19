@@ -104,12 +104,15 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		this.__virtualDisplayMap = new Map();
 		this.__open_tab = 'kerbal';
 		let searcher = template.querySelector('#nameInput');
-		let updater = (e) => {
-			this.kerbal_search_trigger();
-		};
-		searcher.addEventListener('keyup', updater);
+		searcher.addEventListener('keyup', (e) => {
+			self.kerbal_search_trigger();
+		});
 
-		for (let checkbox of template.querySelectorAll('input')) {
+		let updater = (e) => {
+			self.kerbal_search_trigger(true);
+		}
+		let checkboxes = template.querySelector('#checkboxes');
+		for (let checkbox of checkboxes.querySelectorAll('input')) {
 			checkbox.addEventListener('change', updater);
 		}
 		let tabs = [
