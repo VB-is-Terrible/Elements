@@ -130,14 +130,14 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			},
 		});
 		this.action = this.action || 'Edit';
-		this.actionCallback = this.actionCallback || (name) => {
-			let editor = KerbalLink.getUI(this.database, 'editor');
+		this.actionCallback = this.actionCallback || ((name) => {
+			let editor = KerbalLink.getUI(self.database, 'editor');
 			if (editor) {
-				let kerbal = KerbalLink.get(this.database).getKerbal(name);
+				let kerbal = KerbalLink.get(self.database).getKerbal(name);
 				editor.data = kerbal;
 				editor.showWindow();
 			}
-		};
+		});
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
