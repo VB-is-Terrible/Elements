@@ -320,5 +320,26 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 			this.parent.centre();
 		}
 	}
+	/**
+	 * Resets/Cancels a touch drag.
+	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
+	 */
+	touch_reset () {
+		if (this.parent === null) {
+			this.parentElement.touch_reset();
+		} else {
+			this.parent.touch_reset();
+		}
+	}
+	/**
+	 * Reset/Cancel a drag. For completness
+	 */
+	drag_reset () {
+		if (this.parent === null) {
+			this.parentElement.drag_reset();
+		} else {
+			this.parent.drag_reset();
+		}
+	}
 }
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
