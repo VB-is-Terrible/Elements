@@ -1,6 +1,57 @@
 <template id='templateElementsKerbalSearcherDestination'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
 	<link rel='stylesheet' type='text/css' href='kerbalSearcherDestination.css'>
-	<div id='pseudoBody'>
-		<p> Element Here</p>
+	<div id='pseudoBody' draggable='true'>
+		<div id='destination-search'>
+			<div class='multi'>
+				<p class='inline'>
+					Location
+				</p>
+				<select id='AnsAddPlace'>
+					<option value='Kerbin'> Kerbin </option>
+					<option value='Mun' selected> Mun </option>
+					<option value='Minmus'> Minmus </option>
+					<option value='Eve'> Eve </option>
+					<option value='Gilly'> Gilly </option>
+					<option value='Duna'> Duna </option>
+					<option value='Ike'> Ike </option>
+					<option value='Dres'> Dres </option>
+					<option value='Jool'> Jool </option>
+					<option value='Laythe'> Laythe </option>
+					<option value='Vall'> Vall </option>
+					<option value='Tylo'> Tylo </option>
+					<option value='Bop'> Bop </option>
+					<option value='Pol'> Pol </option>
+					<option value='Eeloo'> Eeloo </option>
+					<option value='Kerbol'> Kerbol </option>
+				</select>
+				<select id='AnsAddValue' class='spacer'>
+					<option value='1'>Flyby</option>
+					<option value='2'>Sub-Orbital</option>
+					<option value='3'>Orbit</option>
+					<option value='4' selected>Landing</option>
+				</select>
+				<button id='AnsAddConfirm' class='spacer'>
+					Add
+				</button>
+			</div>
+			<div class='multi indent'>
+				<input type='checkbox' id='lower'></input>
+				<span class='checkbox'>
+					Include lower missions
+				</span>
+			</div>
+			<div class='multi indent'>
+				<input type='checkbox' id='tourism'></input>
+				<span class='checkbox'>
+					Only include tourists
+				</span>
+			</div>
+		</div>
+	</div>
+	<p id='resultsTitle'>
+		Results
+	</p>
+	<div id='results'>
 	</div>
 </template>

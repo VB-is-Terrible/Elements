@@ -1,6 +1,39 @@
 <template id='templateElementsKerbalSearcherKerbal'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
 	<link rel='stylesheet' type='text/css' href='kerbalSearcherKerbal.css'>
-	<div id='pseudoBody'>
-		<p> Element Here</p>
+	<div id='pseudoBody' draggable='true'>
+		<elements-drag-down id='kerbal-search' menuvisible='false'>
+			<input id='nameInput' type='text' slot='s1'> </input>
+			<div class='drag_inside' id='checkboxes'>
+				<p>
+					Search Options:
+				</p>
+				<div id='kerbal-options'>
+					<div class='multi'>
+						<input type='checkbox' id='prefix' checked='checked'></input>
+						<span class='checkbox'>
+							Prefix
+						</span>
+					</div>
+					<div class='multi'>
+						<input type='checkbox' id='fuzzy' checked='checked'></input>
+						<span class='checkbox'>
+							Fuzzy
+						</span>
+					</div>
+					<div class='multi'>
+						<input type='checkbox' id='edit'></input>
+						<span class='checkbox'>
+							Edit distance
+						</span>
+					</div>
+				</div>
+			</div>
+		</elements-drag-down>
+	</div>
+	<p id='resultsTitle'>
+		Results
+	</p>
+	<div id='results'>
 	</div>
 </template>
