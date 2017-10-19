@@ -40,6 +40,8 @@ div.results {
 	display: flex;
 	flex-flow: row nowrap;
 	width: 100%;
+	margin-bottom: 5px;
+	flex-shrink: 0;
 }
 elements-kerbal {
 	width:100%;
@@ -82,10 +84,6 @@ p.job {
 button.results {
 	flex-grow: 0;
 	margin-left: 1em;
-}
-div.results {
-	margin-bottom: 5px;
-	flex-shrink: 0;
 }
 #results {
 	overflow: scroll;
