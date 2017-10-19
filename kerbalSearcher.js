@@ -47,29 +47,6 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 };
 
 /**
- * A KerbalDisplay used to listen to delete callbacks
- * @type {Object}
- * @augments BlankKerbalDisplay
- * @implements KerbalDisplay
- */
-let SearchDisplay = class extends BlankKerbalDisplay {
-	/**
-	 * Build a search display
-	 * @param  {KNS.Kerbal} kerbal Kerbal to listen to
-	 * @param  {Elements.elements.KerbalSearcher} searcher Searcher to inform
-	 */
-	constructor (kerbal, searcher) {
-		super();
-		this.data = kerbal;
-		this.searcher = searcher;
-		kerbal.addDisplay(this);
-	}
-	delete () {
-		this.searcher.delete_inform(this.data.name);
-	}
-}
-
-/**
  * A KerbalDisplay used to listen to delete and rename callbacks
  * @type {Object}
  * @augments BlankKDBDisplay
