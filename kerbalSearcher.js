@@ -422,7 +422,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			}
 			holder.removeChild(holder.children[i]);
 		}
-		this.__virtualDisplayMap = new Map();
+		if (this.__virtualDisplayMap.size > 0) {
+			this.__virtualDisplayMap = new Map();
+		}
 	}
 	/**
 	 * Causes the selected kerbal to be sent to the editor
