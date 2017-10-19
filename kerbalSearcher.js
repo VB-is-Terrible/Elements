@@ -104,6 +104,7 @@ let KDBListener = class extends BlankKDBDisplay {
  * @augments Elements.elements.dragged
  * @property {String} database Name of the database to look up
  * @property {String} action   Text to display in buttons next to results
+ * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
  */
 Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	constructor () {
@@ -129,11 +130,21 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 			},
 		});
 		this.action = this.action || 'Edit';
+		this.actionCallback = this.actionCallback || (name) => {
+			let editor = KerbalLink.getUI(this.database, 'editor');
+			if (editor) {
+				let kerbal = KerbalLink.get(this.database).getKerbal(name);
+				editor.data = kerbal;
+				editor.showWindow();
+			}
+		};
+
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.__lastValue = '';
 		this.__lastSearch = 'kerbal';
 		this.__virtualDisplayMap = new Map();
+		this.__listener = null;
 		this.__open_tab = 'kerbal';
 		let searcher = template.querySelector('#nameInput');
 		searcher.addEventListener('keyup', (e) => {
@@ -442,11 +453,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	 */
 	editor (event) {
 		let name = event.target.value;
-		let editor = KerbalLink.getUI(this.database, 'editor');
-		if (editor) {
-			editor.data = KerbalLink.get(this.database).getKerbal(name);
-			editor.showWindow();
-		}
+		this.actionCallback(name);
 	}
 	/**
 	 * Make a new div displaying a search result
