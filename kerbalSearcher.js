@@ -181,7 +181,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				}
 				if (active !== null) {
 					active.style.display = 'block'
-					this.__open_tab = tab;
+					self.__open_tab = tab;
 				}
 			});
 		}
@@ -197,7 +197,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		kerbalDisplay.data = virtualKerbal;
 		virtualKerbal.addDisplay(kerbalDisplay);
 		let destinationSearch = (e) => {
-			this.destination_search_trigger();
+			self.destination_search_trigger();
 		};
 		let addDestination = (e) => {
 			let locationUI = self.shadowRoot.querySelector('#AnsAddPlace');
@@ -226,7 +226,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		results.addEventListener('touchstart', (e) => {
 			// Check for overflow
 			if (results.clientHeight !== results.scrollHeight) {
-				this.parentElement.touch_reset();
+				self.parentElement.touch_reset();
 				e.stopPropagation();
 				e.stopImmediatePropagation();
 			}
