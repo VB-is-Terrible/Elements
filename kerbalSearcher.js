@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal', 'grid', 'KDB', 'dragDown', 'tabs', 'drag-element');
+Elements.get('kerbal', 'KDB', 'dragDown', 'tabs', 'drag-element');
 
 (async function () {
 await Elements.get('KDB', 'kerbal-link', 'drag-element');
@@ -85,6 +85,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		/**
 		 * Which database to search
 		 * @type {String}
+		 * @private
 		 */
 		this.__database = this.database || 'default';
 		Object.defineProperty(this, 'database', {
