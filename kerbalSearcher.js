@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('KDB', 'drag-element', 'tab-window', 'elements-kerbal-searcher-kerbal', 'elements-kerbal-searcher-destination');
+Elements.get('drag-element', 'tab-window', 'elements-kerbal-searcher-kerbal', 'elements-kerbal-searcher-destination');
 {
 
 const main = async () => {
