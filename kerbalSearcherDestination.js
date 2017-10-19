@@ -90,6 +90,7 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.ba
 		const self = this;
 
 		this.name = 'KerbalSearcherDestination';
+		this.resultsRAF = Elements.rafContext();
 		/**
 		 * Which database to search
 		 * @type {String}
@@ -379,6 +380,23 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.ba
 		let display = this.__virtualDisplayMap.get(oldName);
 		this.__virtualDisplayMap.delete(oldName);
 		this.__virtualDisplayMap.set(newName, display);
+	}
+	/**
+	 * Generates the string to display in #Results
+	 * @param  {Number} amount Number of results
+	 * @return {String}        String if "Results: n matches"
+	 */
+	static resultsString (amount) {
+		let string = 'Results';
+		if (amount !== 0) {
+			string += ': ';
+			string += amount.toString();
+			string += ' match';
+			if (amount > 1) {
+				string += 'es';
+			}
+		}
+		return string;
 	}
 }
 
