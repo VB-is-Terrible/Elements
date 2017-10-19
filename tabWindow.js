@@ -48,10 +48,9 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			for (let div of this.__tabMap.values()) {
 				div.style.display = 'none';
 			}
-			this.__tabMap.get(e.detail).style.display = 'block';
 			active = this.__tabMap.get(e.detail);
 			active.style.display = 'block';
-			this.constructor.triggerNodeFunction(active, 'hideTab');
+			this.constructor.triggerNodeFunction(active, 'showTab');
 			this.__active = active;
 		});
 		close.addEventListener('click', (e) => {

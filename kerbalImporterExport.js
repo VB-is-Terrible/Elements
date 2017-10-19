@@ -54,7 +54,7 @@ Elements.elements.KerbalImporterExport = class extends Elements.elements.tabbed 
 	}
 	showTab () {
 		super.showTab();
-		this.fillImport();
+		this.fillExport();
 	}
 }
 
