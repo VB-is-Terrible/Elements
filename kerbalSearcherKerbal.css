@@ -1,5 +1,6 @@
 :host {
 	--width: 100%;
+	--results-height: 500px;
 }
 #pseudoBody {
 	background: initial;
@@ -32,7 +33,7 @@ p {
 	flex-grow: 5;
 	width: 100%;
 	overflow: scroll;
-	max-height: 500px;
+	max-height: var(--results-height);
 	display: none;
 }
 #resultsTitle {
