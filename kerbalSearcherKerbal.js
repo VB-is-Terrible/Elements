@@ -4,14 +4,44 @@ Elements.get('kerbal', 'KDB', 'drag-down', 'tab-window', 'kerbal-link');
 {
 const main = async () => {
 
-await Elements.get('tab-window');
+await Elements.get('tab-window', 'KDB');
 
+/**
+ * A KerbalDisplay used to listen to delete and rename callbacks
+ * @type {Object}
+ * @augments BlankKDBDisplay
+ * @implements KDBDisplay
+ */
+let KDBListener = class extends BlankKDBDisplay {
+	/**
+	 * Build a listener
+	 * @param  {KDB} database database to listen
+	 * @param  {Elements.elements.KerbalSearcher} searcher Searcher to inform
+	 */
+	constructor (database, searcher) {
+		super();
+		this.searcher = searcher;
+		this.database = database;
+		database.addDisplay(this);
+	}
+	deleteKerbal (name) {
+		this.searcher.delete_inform(name);
+	}
+	renameKerbal (oldName, newName) {
+		this.searcher.rename_inform(oldName, newName);
+	}
+	delete () {
+		this.database.removeDisplay(this);
+	}
+}
 
 /**
  * UI to search through kerbals by name
  * @type {Object}
  * @augments Elements.elements.tabbed
  * @property {String} database Name of the database to look up
+ * @property {String} action   Text to display in buttons next to results
+ * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
  */
 Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed {
 	constructor () {
@@ -35,10 +65,22 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 				self.__set_database(value);
 			},
 		});
+		this.action = this.action || 'Edit';
+		this.actionCallback = this.actionCallback || ((name) => {
+			let editor = KerbalLink.getUI(self.database, 'editor');
+			if (editor) {
+				let kerbal = KerbalLink.get(self.database).getKerbal(name);
+				editor.data = kerbal;
+				editor.showWindow();
+			}
+		});
+
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.__lastValue = '';
-		this.__displayMap = new Map();
+		this.__virtualDisplayMap = new Map();
+		this.__listener = null;
+		this.__results_length = 0;
 
 		let searcher = template.querySelector('#nameInput');
 		searcher.addEventListener('keyup', (e) => {
@@ -251,7 +293,133 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 			this.display_results(this.__resolve_names(this.search(search, excludes)));
 			this.__lastValue = search;
 		}
-		this.__lastSearch = 'kerbal';
+	}
+	/**
+	 * Show array on screen, establishes delete/rename watcher
+	 * @param  {KNS.Kerbal[]} results Array of results, best match to worst
+	 */
+	display_results (results) {
+		let itemHolder = this.shadowRoot.querySelector('#results');
+		let name = this.shadowRoot.querySelector('#resultsTitle');
+		let string = this.constructor.resultsString(results.length);
+		this.emptyNodes();
+
+		let queue = [];
+		for (let kerbal of results) {
+			let display = this.__makeDisplay(kerbal);
+			this.__virtualDisplayMap.set(kerbal.name, display);
+			queue.push(display);
+		}
+		this.__results_length = results.length;
+
+		let database = KerbalLink.get(this.database);
+		this.__listener = new KDBListener(database, this);
+
+		this.resultsRAF((e) => {
+
+			for (let display of queue) {
+				itemHolder.appendChild(display);
+			}
+			name.innerHTML = string;
+			if (results.length === 0) {
+				itemHolder.style.display = 'none';
+			} else {
+				itemHolder.style.display = 'block';
+			}
+			this.update = null;
+		});
+	}
+	/**
+	 * Resets the results display
+	 */
+	emptyNodes () {
+		// TODO: raf' this function
+		let kdb = KerbalLink.get(this.database);
+		let holder = this.shadowRoot.querySelector('#results');
+		for (var i = holder.children.length - 1; i >= 0; i--) {
+			let kerbal = holder.children[i].children[0];
+			if (kerbal.data !== null) {
+				kerbal.data = null;
+				this.__virtualDisplayMap.delete(kerbal.name);
+			} else {
+				console.warn('Could not find a kerbal in its holder');
+			}
+			holder.removeChild(holder.children[i]);
+		}
+		if (this.__virtualDisplayMap.size > 0) {
+			this.__virtualDisplayMap = new Map();
+		}
+	}
+	/**
+	 * Causes the selected kerbal to be sent to the editor
+	 * @private
+	 * @param  {KNS.Kerbal} kerbal Kerbal been clicked
+	 */
+	editor (kerbal) {
+		let name = kerbal.name;
+		this.actionCallback(name);
+	}
+	/**
+	 * Make a new div displaying a search result
+	 * @param  {KNS.Kerbal} kerbal Kerbal to show
+	 * @return {HTMLElement}       A div containing the kerbal, edit button
+	 * @private
+	 */
+	__makeDisplay (kerbal) {
+		let div = document.createElement('div');
+		div.classList.add('results');
+		let display = kerbal.makeDisplay();
+		display.menuvisible = false;
+		display.deleter = false;
+		div.appendChild(display);
+		let button = document.createElement('button');
+		button.innerHTML = this.action;
+		button.classList.add('results');
+		button.addEventListener('click', (e) => {
+			this.editor(kerbal);
+		});
+		div.appendChild(button);
+		return div;
+	}
+	/**
+	 * Resovle an array of kerbal names into kerbals
+	 * @param  {String[]} array List of names
+	 * @return {KNS.Kerbal[]}   List of kerbals with those names
+	 * @private
+	 */
+	__resolve_names (array) {
+		let kdb = KerbalLink.get(this.database);
+		let result = [];
+		for (let name of array) {
+			result.push(kdb.getKerbal(name));
+		}
+		return result;
+	}
+	/**
+	 * Inform the searcher of a kerbal deletion
+	 * @param  {String} name Name of kerbal been deleted
+	 */
+	delete_inform (name) {
+		if (!this.__virtualDisplayMap.has(name)) {return;}
+		let results = this.shadowRoot.querySelector('#resultsTitle');
+		let display = this.__virtualDisplayMap.get(name);
+		this.__results_length -= 1;
+		let string = this.constructor.resultsString(this.__results_length);
+		requestAnimationFrame((e) => {
+		    display.remove();
+			results.innerHTML = string;
+		});
+	}
+	/**
+	 * Inform the searcher of a kerbal rename
+	 * @param  {String} oldName Previous name of kerbal
+	 * @param  {String} newName New name of kerbal
+	 */
+	rename_inform (oldName, newName) {
+		if (!this.__virtualDisplayMap.has(oldName)) {return;}
+		let display = this.__virtualDisplayMap.get(oldName);
+		this.__virtualDisplayMap.delete(oldName);
+		this.__virtualDisplayMap.set(newName, display);
 	}
 }
 
