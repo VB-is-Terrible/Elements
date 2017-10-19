@@ -429,10 +429,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 	/**
 	 * Causes the selected kerbal to be sent to the editor
 	 * @private
-	 * @param  {Event} event Click event
+	 * @param  {KNS.Kerbal} kerbal Kerbal been clicked
 	 */
-	editor (event) {
-		let name = event.target.value;
+	editor (kerbal) {
+		let name = kerbal.name;
 		this.actionCallback(name);
 	}
 	/**
@@ -449,11 +449,10 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		display.deleter = false;
 		div.appendChild(display);
 		let button = document.createElement('button');
-		button.value = kerbal.name;
 		button.innerHTML = this.action;
 		button.classList.add('results');
 		button.addEventListener('click', (e) => {
-			this.editor(e);
+			this.editor(kerbal);
 		});
 		div.appendChild(button);
 		return div;
