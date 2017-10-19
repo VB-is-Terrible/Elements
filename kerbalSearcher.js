@@ -70,6 +70,35 @@ let SearchDisplay = class extends BlankKerbalDisplay {
 }
 
 /**
+ * A KerbalDisplay used to listen to delete and rename callbacks
+ * @type {Object}
+ * @augments BlankKDBDisplay
+ * @implements KDBDisplay
+ */
+let KDBListener = class extends BlankKDBDisplay {
+	/**
+	 * Build a listener
+	 * @param  {KDB} database database to listen
+	 * @param  {Elements.elements.KerbalSearcher} searcher Searcher to inform
+	 */
+	constructor (database, searcher) {
+		super();
+		this.searcher = searcher;
+		this.database = database;
+		database.addDisplay(this);
+	}
+	deleteKerbal (name) {
+		this.searcher.delete_inform(name);
+	}
+	renameKerbal (oldName, newName) {
+		this.searcher.rename_inform(oldName, newName);
+	}
+	delete () {
+		this.database.removeDisplay(this);
+	}
+}
+
+/**
  * UI to search through kerbals
  * @type {Object}
  * @augments Elements.elements.dragged
