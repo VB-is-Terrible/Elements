@@ -19,6 +19,7 @@ input[type=file] {
 	flex-grow: 1;
 	text-shadow: 0 0 black;
 	width: 50%;
+	margin-left: 1ex;
 }
 #multiInput {
 	align-items: center;
