@@ -9,7 +9,7 @@ button.tab {
 	border-left: 0px;
 	background: white;
 	font-size: var(---size);
-	background-color: #f8f8f8
+	background-color: #f8f8f8;
 }
 :host {
 	---size: initial;
