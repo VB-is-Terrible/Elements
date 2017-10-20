@@ -241,9 +241,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 		 */
 		__require: async function (...elementNames) {
 			for (let name of elementNames) {
-				if (name.indexOf('-') !== -1) {
-					name = this.captilize(name);
-				}
+				name = this.__nameResolver(name);
 				if (!(this.requestedElements.has(name))) {
 					let script = document.createElement('script');
 					script.src = this.location + name + '.js';
