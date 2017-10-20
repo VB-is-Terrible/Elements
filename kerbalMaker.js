@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('drag-element', 'kerbal-maker-kerbal', 'tab-window');
+Elements.get('drag-element', 'kerbal-maker-kerbal', 'tab-window', 'kerbal-maker-group');
 {
 const main = async () => {
 
