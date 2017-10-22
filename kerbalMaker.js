@@ -21,6 +21,7 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let kerbalMaker = template.querySelector('elements-kerbal-maker-kerbal');
+		let groupMaker = template.querySelector('elements-kerbal-maker-group');
 		let tabWindow = template.querySelector('elements-tab-window');
 		tabWindow.parent = this;
 		Object.defineProperty(this, 'database', {
@@ -33,9 +34,11 @@ Elements.elements.KerbalMaker = class extends Elements.elements.dragged {
 				self.__database = value;
 				// Pass the change onto members
 				kerbalMaker.database = value;
+				groupMaker.database = value;
 			},
 		});
 
+		this.database = this.__database;
 		shadow.appendChild(template);
 	}
 	showWindow () {

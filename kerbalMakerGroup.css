@@ -1,0 +1,10 @@
+elements-grid {
+	width: 100%;
+	--width: auto;
+}
+:host {
+	--width: 100%;
+}
+#pseudoBody {
+	background: initial;
+}

@@ -1,7 +1,34 @@
 <template id='templateElementsKerbalMakerGroup'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
 	<link rel='stylesheet' type='text/css' href='kerbalMakerGroup.css'>
-	<div id='pseudoBody'>
-		<elements-kerbal-searcher-kerbal></elements-kerbal-searcher-kerbal>
-		
+	<div id='pseudoBody' draggable='true'>
+		<elements-grid coordnaming='true' rows='2' cols='2'>
+			<div slot='1-1'>
+				<p>
+					Group Name
+				</p>
+			</div>
+			<input slot='1-2' id='AnsName' draggable='false'></input>
+			<div slot='2-1'>
+				<p>
+					Group Description
+				</p>
+			</div>
+			<input slot='2-2' id='AnsText'></input>
+		</elements-grid>
+		<elements-grid rows='1' cols='1'>
+			<elements-kerbal-searcher-kerbal slot='s1'></elements-kerbal-searcher-kerbal>
+			<div slot='s2'>
+				<p>
+					Current Kerbals
+				</p>
+			</div>
+		</elements-grid>
+		<div id='footer' class='right'>
+			<button id='Done' class='spacer'>
+				Done
+			</button>
+
+		</div>
 	</div>
 </template>
