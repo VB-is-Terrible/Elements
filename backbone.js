@@ -390,10 +390,14 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			let name = this.__nameResolver(elementName);
 			if (this.__gottenElements.has(name)) {
 				return this.__setPromise(name);
+			} else if (name === 'main') {
 			} else {
 				this.__gottenElements.add(name);
 			}
 			let result = this.__setPromise(name);
+			if (name === 'main') {
+				return result;
+			}
 			let manifest = this.manifest[name];
 			if (manifest === undefined) {
 				// No manifest, just require it
