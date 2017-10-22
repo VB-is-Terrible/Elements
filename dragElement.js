@@ -218,6 +218,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	 */
 	drag_reset () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.removeEventListener('mousedown', this.events.dStart, false);
 		body.addEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
 		body.removeEventListener('mouseup', this.events.dEnd, false);
