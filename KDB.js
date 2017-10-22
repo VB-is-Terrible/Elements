@@ -76,13 +76,13 @@ Elements.get('kerbal');
  */
 /**
  * @function addKerbal
- * @param {KNS.Kerbal} name Kerbal that was added
+ * @param {KNS.Kerbal} kerbal Kerbal that was added
  * @description Fired after a kerbal is added
  * @name GroupDisplay.addKerbal
  */
 /**
  * @function deleteKerbal
- * @param {KNS.Kerbal} name Name of the added kerbal
+ * @param {KNS.Kerbal} kerbal Name of the added kerbal
  * @description Fired after a kerbal is added
  * @name GroupDisplay.deleteKerbal
  */
@@ -93,7 +93,7 @@ Elements.get('kerbal');
  */
 /**
  * @property {KNS.Group} data
- * @description The Grout to display
+ * @description The Group to display
  * @name GroupDisplay.data
  */
 
