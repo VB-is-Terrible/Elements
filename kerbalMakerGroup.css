@@ -8,3 +8,6 @@ elements-grid {
 #pseudoBody {
 	background: initial;
 }
+elements-kerbal-searcher-kerbal {
+	--results-height: 300px;
+}
