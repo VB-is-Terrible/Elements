@@ -276,6 +276,7 @@ let KNS =  {
 		/**
 		 * Delete this kerbal
 		 * @memberof KNS.Kerbal
+         * @instance
 		 */
 		delete () {
 			for (let display of this.displays) {
@@ -408,7 +409,7 @@ let KNS =  {
 	 * @param  {Number} id Unique id to identify group by
 	 * @property {String} name Name of Group
 	 * @property {String} text Description text of group
-	 * @property {Number} id (Readonly) Unique id to identify group by
+	 * @property {Number} id Unique id to identify group by
 	 * @property {Set<String>} kerbals Names of kerbals in group. Note - don't modify directly
 	 * @type {Object}
 	 */
@@ -443,6 +444,9 @@ let KNS =  {
 		}
 		get id () {
 			return this.__id;
+		}
+		set id (value) {
+			this.__id = value;
 		}
 		/**
 		 * Add a kerbal to this group
