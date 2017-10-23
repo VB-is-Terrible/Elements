@@ -7,9 +7,15 @@ elements-grid {
 }
 #pseudoBody {
 	background: initial;
+	--expand: 300px;
 }
 elements-kerbal-searcher-kerbal {
-	--results-height: 300px;
+	--results-height: var(--expand);
+}
+#currentKerbals {
+	max-height: var(--expand);
+	overflow-y: scroll;
+	border: 1px solid grey;
 }
 div.centre {
 	display: flex;

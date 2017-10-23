@@ -27,7 +27,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let searcher = template.querySelector('elements-kerbal-searcher-kerbal');
-		searcher.edit = 'Include';
+		searcher.action = 'Include';
 		searcher.parent = this;
 		Object.defineProperty(this, 'database', {
 			enumerable: true,
@@ -44,17 +44,18 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		let includeCallback = (name) => {
 			let kerbal = KerbalLink.get(this.database).getKerbal(name);
 			self.addKerbal(kerbal);
-		}
+		};
+		searcher.actionCallback = includeCallback;
 		let ansName = template.querySelector('#AnsName');
 		let warn = template.querySelector('img.warn');
-		ansName.addEventListener('change', (e) => {
+		ansName.addEventListener('keyup', (e) => {
 			let name = ansName.value;
 			if (name === '') {
 				warn.style.display = 'block';
 				this.nameValid = false;
 			} else {
 				this.nameValid = true;
-				warn.sytle.display = 'none';
+				warn.style.display = 'none';
 			}
 			this.group.name = name;
 		});
@@ -76,6 +77,8 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			input.addEventListener('dragstart', canceler);
 			// input.addEventListener('touchstart', canceler);
 		}
+		let kerbalDisplay = template.querySelector('#currentKerbals');
+		kerbalDisplay.addEventListener('touchstart', canceler);
 		shadow.appendChild(template);
 	}
 	/**
@@ -85,10 +88,11 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 	 */
 	addKerbal (kerbal) {
 		this.group.addKerbal(kerbal);
-		let display = document.createElement('kerbal-display-text');
+		let display = document.createElement('elements-kerbal-display-text');
 		display.data = kerbal;
 		let location = this.shadowRoot.querySelector('#currentKerbals');
-		location
+		location.appendChild(display);
+		this.__displays.set(kerbal, display);
 	}
 	deleteKerbal (kerbal) {
 
