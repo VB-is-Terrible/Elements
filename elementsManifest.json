@@ -184,12 +184,20 @@
 		"resources": [],
 		"provides": ["kerbalSearcherKerbal"]
 	},
-	"KerbalSearcherDestination": {
+	"kerbalSearcherDestination": {
 		"type": "element",
 		"requires": ["kerbal", "KDB", "tabWindow", "kerbalLink"],
 		"templates": ["kerbalSearcherDestinationTemplate.html"],
 		"css": ["kerbalSearcherKerbal.css"],
 		"resources": [],
 		"provides": ["kerbalSearcherKerbal"]
+	},
+	"kerbalDisplayText": {
+		"type": "element",
+		"requires": ["KDB"],
+		"templates": ["kerbalDisplayTextTemplate.html"],
+		"css": ["kerbalDisplayText.css"],
+		"resources": [],
+		"provides": ["kerbalDisplayText"]
 	}
 }
