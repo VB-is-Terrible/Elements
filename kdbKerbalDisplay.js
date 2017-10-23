@@ -36,17 +36,16 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 	}
 	/**
 	 * Fired after addKerbal is called
-	 * @param {String} name Name of kerbal added
+	 * @param {KNS.Kerbal} kerbal The kerbal been added
 	 */
-	addKerbal (name) {
-		let kerbal = KerbalLink.get(this.database).getKerbal(name);
+	addKerbal (kerbal) {
 		let display = kerbal.makeDisplay();
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		display.menuvisible = false;
 		body.appendChild(display);
 	}
 	renameKerbal (oldName, newName) {}
-	deleteKerbal (name) {}
+	deleteKerbal (kerbal) {}
 	__get_database () {
 		return this.__database;
 	}

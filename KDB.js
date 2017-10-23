@@ -35,13 +35,13 @@ Elements.get('kerbal');
  */
 /**
  * @function addKerbal
- * @param {String} name Name of the added kerbal
+ * @param {KNS.Kerbal} kerbal The added kerbal
  * @description Fired after a kerbal is added
  * @name KDBDisplay.addKerbal
  */
 /**
  * @function deleteKerbal
- * @param {String} name Name of the deleted kerbal
+ * @param {KNS.Kerbal} name The deleted kerbal
  * @description Fired after a kerbal is deleted
  * @name KDBDisplay.deleteKerbal
  */
@@ -54,13 +54,13 @@ Elements.get('kerbal');
  */
 /**
  * @function addGroup
- * @param {Number} groupID Id of the added group
+ * @param {KNS.Group} group The added group
  * @description Fired after a group is added
  * @name KDBDisplay.addGroup
  */
 /**
  * @function removeGroup
- * @param {Number} groupID Id of removed group
+ * @param {KNS.Group} groupID The removed group
  * @description Fired after a group is removed
  * @name KDBDisplay.removeGroup
 */
@@ -641,7 +641,7 @@ const KDB = class KDB {
 		this.kerbals.add(kerbalObj.name);
 		this.kerbalObjs.set(kerbalObj.name, kerbalObj);
 		for (let display of this.__displays) {
-			display.addKerbal(kerbalObj.name);
+			display.addKerbal(kerbalObj);
 		}
 	}
 	/**
@@ -700,7 +700,7 @@ const KDB = class KDB {
 			group.removeKerbal(kerbal);
 		}
 		for (let display of this.__displays) {
-			display.deleteKerbal(name);
+			display.deleteKerbal(kerbal);
 		}
 	}
 	/**
@@ -797,7 +797,7 @@ const KDB = class KDB {
 		}
 		this.groups.set(id, group);
 		for (let display of this.__displays) {
-			display.addGroup(name);
+			display.addGroup(group);
 		}
 	}
 	/**
@@ -821,9 +821,10 @@ const KDB = class KDB {
 		if (!this.groups.has(groupID)) {
 			throw new Error('Group not found');
 		}
+		let group = this.groups.get(groupID);
 		this.groups.delete(groupID);
 		for (let display of this.__displays) {
-			display.removeGroup(name);
+			display.removeGroup(group);
 		}
 	}
 	get groupCounter () {

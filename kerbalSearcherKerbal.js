@@ -24,8 +24,8 @@ let KDBListener = class extends BlankKDBDisplay {
 		this.database = database;
 		database.addDisplay(this);
 	}
-	deleteKerbal (name) {
-		this.searcher.delete_inform(name);
+	deleteKerbal (kerbal) {
+		this.searcher.delete_inform(kerbal);
 	}
 	renameKerbal (oldName, newName) {
 		this.searcher.rename_inform(oldName, newName);
@@ -308,7 +308,7 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 		let queue = [];
 		for (let kerbal of results) {
 			let display = this.__makeDisplay(kerbal);
-			this.__virtualDisplayMap.set(kerbal.name, display);
+			this.__virtualDisplayMap.set(kerbal, display);
 			queue.push(display);
 		}
 		this.__results_length = results.length;
@@ -341,7 +341,7 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 			let kerbal = holder.children[i].children[0];
 			if (kerbal.data !== null) {
 				kerbal.data = null;
-				this.__virtualDisplayMap.delete(kerbal.name);
+				this.__virtualDisplayMap.delete(kerbal.data);
 			} else {
 				console.warn('Could not find a kerbal in its holder');
 			}
@@ -398,12 +398,12 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 	}
 	/**
 	 * Inform the searcher of a kerbal deletion
-	 * @param  {String} name Name of kerbal been deleted
+	 * @param  {KNS.Kerbal} kerbal Kerbal been deleted
 	 */
-	delete_inform (name) {
-		if (!this.__virtualDisplayMap.has(name)) {return;}
+	delete_inform (kerbal) {
+		if (!this.__virtualDisplayMap.has(kerbal)) {return;}
 		let results = this.shadowRoot.querySelector('#resultsTitle');
-		let display = this.__virtualDisplayMap.get(name);
+		let display = this.__virtualDisplayMap.get(kerbal);
 		this.__results_length -= 1;
 		let string = this.constructor.resultsString(this.__results_length);
 		requestAnimationFrame((e) => {
@@ -416,12 +416,7 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 	 * @param  {String} oldName Previous name of kerbal
 	 * @param  {String} newName New name of kerbal
 	 */
-	rename_inform (oldName, newName) {
-		if (!this.__virtualDisplayMap.has(oldName)) {return;}
-		let display = this.__virtualDisplayMap.get(oldName);
-		this.__virtualDisplayMap.delete(oldName);
-		this.__virtualDisplayMap.set(newName, display);
-	}
+	rename_inform (oldName, newName) {}
 	/**
 	 * Generates the string to display in #Results
 	 * @param  {Number} amount Number of results
