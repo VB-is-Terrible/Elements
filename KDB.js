@@ -1,6 +1,5 @@
 'use strict';
 
-Elements.get('kerbal');
 /**
  * Interface for display of a Kerbal
  * @interface KerbalDisplay
@@ -218,17 +217,6 @@ let KNS =  {
 			}
 			this.jobs[location] = 0;
 			this.dispatchUpdate(location);
-		}
-		/**
-		 * Make a elements-kerbal representing this kerbal
-		 * @return {Elements.elements.Kerbal} elements-kerbal representing this kerbal
-		 * @memberof KNS.Kerbal
-		 * @instance
-		 */
-		makeDisplay () {
-			let display = document.createElement('elements-kerbal');
-			display.data = this;
-			return display;
 		}
 		/**
 		 * Register a display to kerbal

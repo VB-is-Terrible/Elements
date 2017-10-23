@@ -342,7 +342,8 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.ba
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');
 		div.classList.add('results');
-		let display = kerbal.makeDisplay();
+		let display = document.createElement('elements-kerbal');
+		display.data = kerbal;
 		display.menuvisible = false;
 		display.deleter = false;
 		div.appendChild(display);

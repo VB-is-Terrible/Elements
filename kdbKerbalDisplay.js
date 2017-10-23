@@ -39,7 +39,8 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 	 * @param {KNS.Kerbal} kerbal The kerbal been added
 	 */
 	addKerbal (kerbal) {
-		let display = kerbal.makeDisplay();
+		let display = document.createElement('elements-kerbal');
+		display.data = kerbal;
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		display.menuvisible = false;
 		body.appendChild(display);
@@ -70,7 +71,8 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 		let displays = []
 		for (let name of kdb.kerbals) {
 			let kerbal = kdb.getKerbal(name);
-			let display = kerbal.makeDisplay();
+			let display = document.createElement('elements-kerbal');
+			display.data = kerbal;
 			display.menuvisible = false;
 			displays.push(display);
 		}
