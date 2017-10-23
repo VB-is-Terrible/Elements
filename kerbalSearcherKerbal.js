@@ -100,7 +100,7 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 		results.addEventListener('touchstart', (e) => {
 			// Check for overflow
 			if (results.clientHeight !== results.scrollHeight) {
-				this.parentElement.touch_reset();
+				this.touch_reset();
 				e.stopPropagation();
 				e.stopImmediatePropagation();
 			}

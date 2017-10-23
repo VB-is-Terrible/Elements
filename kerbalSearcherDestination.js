@@ -163,7 +163,7 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.ba
 		results.addEventListener('touchstart', (e) => {
 			// Check for overflow
 			if (results.clientHeight !== results.scrollHeight) {
-				this.parentElement.touch_reset();
+				this.touch_reset();
 				e.stopPropagation();
 				e.stopImmediatePropagation();
 			}

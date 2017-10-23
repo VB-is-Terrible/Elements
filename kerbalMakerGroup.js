@@ -28,6 +28,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		let template = Elements.importTemplate(this.name);
 		let searcher = template.querySelector('elements-kerbal-searcher-kerbal');
 		searcher.edit = 'Include';
+		searcher.parent = this;
 		Object.defineProperty(this, 'database', {
 			enumerable: true,
 			configurable: false,
