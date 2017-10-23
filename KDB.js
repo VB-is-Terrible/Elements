@@ -927,6 +927,22 @@ const KerbalJobDisplay = class extends BlankKerbalDisplay {
 		element.innerHTML = place + ' ' + KNS.valueToJob(value);
 	}
 };
+/**
+ * A KerbalDisplay Mixin that does nothing. Use this when you don't need all the methods
+ * @param {Object} superclass Class to mix KerbalDisplay methods into
+ * @return {KerbalDisplay} Class that implements KerbalDisplay
+ */
+const BlankKerbalDisplayMixin = (superclass) => {
+    return class extends superclass {
+        constructor (...args) {
+            super(...args);
+            this.data = this.data || null;
+        }
+        updateData () {}
+        showJob (place) {}
+        delete () {}
+    };
+};
 
 /**
  * A KDBDisplay that does nothing. Use this to implement methods you don't need.
@@ -975,7 +991,7 @@ const BlankKDBDisplay = class {
 	removeGroup (groupID) {
 
 	}
-}
+};
 
 
 /**
@@ -997,8 +1013,8 @@ const BlankKDBDisplayMixin = (superclass) => {
 		renameKerbal (oldName, newName) {}
 		addGroup (groupID) {}
 		removeGroup (groupID) {}
-	}
-}
+	};
+};
 
 Elements.loaded('KDB');
 Elements.loaded('KNS');
