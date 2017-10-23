@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-searcher-kerbal');
+Elements.get('kerbal-searcher-kerbal', 'kerbal-display-text');
 {
 const main = async () => {
 
@@ -23,6 +23,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		this.__database = this.database || 'default';
 		this.group = new KNS.Group();
 		this.nameValid = false;
+		this.__displays = new Map();
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let searcher = template.querySelector('elements-kerbal-searcher-kerbal');
@@ -41,17 +42,18 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 
 		let includeCallback = (name) => {
 			let kerbal = KerbalLink.get(this.database).getKerbal(name);
-			this.group.addKerbal(kerbal);
+			self.addKerbal(kerbal);
 		}
 		let ansName = template.querySelector('#AnsName');
+		let warn = template.querySelector('img.warn');
 		ansName.addEventListener('change', (e) => {
 			let name = ansName.value;
 			if (name === '') {
-				//TODO: Show warning
+				warn.style.display = 'block';
 				this.nameValid = false;
 			} else {
 				this.nameValid = true;
-				// TODO: Hide warning
+				warn.sytle.display = 'none';
 			}
 			this.group.name = name;
 		});
@@ -74,6 +76,21 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			// input.addEventListener('touchstart', canceler);
 		}
 		shadow.appendChild(template);
+	}
+	/**
+	 * Add a kerbal
+	 * @param {KNS.Kerbal} kerbal Kerbal to add
+	 * @private
+	 */
+	addKerbal (kerbal) {
+		this.group.addKerbal(kerbal);
+		let display = document.createElement('kerbal-display-text');
+		display.data = kerbal;
+		let location = this.shadowRoot.querySelector('#currentKerbals');
+		location
+	}
+	deleteKerbal (kerbal) {
+
 	}
 }
 

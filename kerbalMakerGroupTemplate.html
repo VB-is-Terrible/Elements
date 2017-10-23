@@ -6,6 +6,7 @@
 			<div slot='1-1'>
 				<p>
 					Group Name
+					<img class='warn' src='warning.svg' title='Please enter a name'></img>
 				</p>
 			</div>
 			<input slot='1-2' id='AnsName' draggable='false'></input>
@@ -19,9 +20,13 @@
 		<elements-grid rows='1' cols='1'>
 			<elements-kerbal-searcher-kerbal slot='s1'></elements-kerbal-searcher-kerbal>
 			<div slot='s2'>
-				<p>
-					Current Kerbals
-				</p>
+				<div class='centre'>
+					<p>
+						Current Kerbals
+					</p>
+				</div>
+				<div id='currentKerbals'>
+				</div>
 			</div>
 		</elements-grid>
 		<div id='footer' class='right'>

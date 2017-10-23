@@ -11,3 +11,8 @@ elements-grid {
 elements-kerbal-searcher-kerbal {
 	--results-height: 300px;
 }
+div.centre {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
