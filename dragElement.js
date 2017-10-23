@@ -22,7 +22,7 @@
 /**
  * @function showWindow
  * @description Unhide the draggable
- * @name KerbalDisplay.showWindow
+ * @name Draggable.showWindow
  */
 /**
  * @function centre
