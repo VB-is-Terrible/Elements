@@ -69,7 +69,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	 */
 	toTop (childNode) {
 		// Place childNode on top of other floating elements
-		this.topZIndex(childNode)
+		this.topZIndex(childNode);
 		// Place pseudoBody on top of everything else
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		requestAnimationFrame((e) => {

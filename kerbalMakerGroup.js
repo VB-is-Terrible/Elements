@@ -105,7 +105,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		if (text !== null) {
 			text.data = null;
 		}
-		display.remove()
+		display.remove();
 	}
 	newGroup () {
 		this.group = new KNS.Group();
@@ -119,7 +119,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			if (text !== null) {
 				text.data = null;
 			}
-			display.remove()
+			display.remove();
 		}
 		let location = this.shadowRoot.querySelector('#currentKerbals');
 		if (location.childElementCount !== 0) {

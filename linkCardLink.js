@@ -41,7 +41,7 @@ Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 		shadow.appendChild(template.content);
 	}
 	static get observedAttributes () {
-		return ['favicon', 'title', 'href', 'src']
+		return ['favicon', 'title', 'href', 'src'];
 	}
 }
 

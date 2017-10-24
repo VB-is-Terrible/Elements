@@ -59,10 +59,10 @@ Elements.elements.LinkCardLink = class extends Elements.elements.backbone {
 		Elements.setUpAttrPropertyLink(this, 'href', 'about:blank', linkChange);
 		Elements.setUpAttrPropertyLink(this, 'src', '', thumbChange);
 
-		shadow.appendChild(template.content)
+		shadow.appendChild(template.content);
 	}
 	static get observedAttributes () {
-		return ['favicon', 'title', 'href', 'src']
+		return ['favicon', 'title', 'href', 'src'];
 	}
 }
 
@@ -118,12 +118,12 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'))
+		this.ro.observe(this.shadowRoot.querySelector('#canaryDiv'));
 		// this.ro.observe(this.shadowRoot.querySelector('#gridHolder'));
 		this.updateGrid();
 	}
 	disconnectedCallback () {
-		this.ro.disconnect
+		this.ro.disconnect();
 	}
 	updateGrid () {
 		// Don't bother resizing before connection
@@ -137,7 +137,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 			let positions = rows * cols;
 
 			let updater = () => {
-				gridElement.style.gridTemplateRows = '1fr '.repeat(rows)
+				gridElement.style.gridTemplateRows = '1fr '.repeat(rows);
 				gridElement.style.gridTemplateColumns = '1fr '.repeat(cols);
 				gridElement.style.gridTemplateAreas = this.constructor.generateGridNames(rows, cols);
 
@@ -161,7 +161,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 	updateDisplay (e) {
 		// console.log('updating grid');
 		const cssSelector = 'slot::slotted(.internal)';
-		let parent = this.shadowRoot.querySelector('#gridHolder')
+		let parent = this.shadowRoot.querySelector('#gridHolder');
 		let cr = e[0].contentRect;//parent.getBoundingClientRect();
 
 
@@ -185,7 +185,7 @@ Elements.elements.LinkCardHolder = class extends Elements.elements.backbone {
 				} else {
 					return false;
 				}
-			})
+			});
 			if (position !== -1) {
 				insertSheet = sheet;
 				break;
@@ -264,7 +264,7 @@ Elements.elements.LinkCardButtons = class extends Elements.elements.backbone {
 			document.querySelector('#templateElementsLinkCardButtons'),
 			true);
 
-		shadow.appendChild(template.content)
+		shadow.appendChild(template.content);
 	}
 }
 

@@ -103,7 +103,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		let top = 'calc(' + (-panel_rect.height).toString() + 'px - ' + VERTICAL_OFFSET + ')';
 		this.__layoutState = 'large';
 		if ((panel_rect.width / window.innerWidth) < .95) {
-			this.__max_width = Math.max(this.__max_width, panel_rect.width)
+			this.__max_width = Math.max(this.__max_width, panel_rect.width);
 		}
 		this.__rAF((e) => {
 			main.style.top = top;
@@ -126,15 +126,15 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		let sentinel = this.shadowRoot.querySelector('#sentinel');
 		this.__layoutState = 'small';
 		if ((panel_rect.width / window.innerWidth) < .95) {
-			this.__max_width = Math.max(this.__max_width, panel_rect.width)
+			this.__max_width = Math.max(this.__max_width, panel_rect.width);
 		}
 		this.__rAF((e) => {
 			main.style.top = top;
-			main.style.position = 'fixed'
+			main.style.position = 'fixed';
 			main.style.left = left;
 			sentinel.style.width = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
 			sentinel.style.minWidth = (this.__max_width + RIGHT_EXTRA_INTERSECTION).toString() + 'px';
-		})
+		});
 	}
 	get hidden () {
 		let main = this.shadowRoot.querySelector('#main');

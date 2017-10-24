@@ -41,8 +41,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		});
 		tabs.addEventListener('change', (e) => {
 			let active = this.__active;
-			if (active !== null)
-			{
+			if (active !== null) {
 				this.constructor.triggerNodeFunction(active, 'hideTab');
 			}
 			for (let div of this.__tabMap.values()) {

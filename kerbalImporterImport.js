@@ -50,7 +50,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 		importAccept.addEventListener('click', (e) => {
 			self.consumeImport();
 			self.hideWindow();
-		})
+		});
 
 
 		shadow.appendChild(template);

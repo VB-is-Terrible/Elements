@@ -87,11 +87,11 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 				return self.__data;
 			},
 			set: (value) => {
-				self.__oldValue = value
+				self.__oldValue = value;
 				if (value !== null) {
 					self.__data = self.constructor.duplicateKerbal(value);
 					UI.kerbal.data = this.data;
-					self.disableAll(false)
+					self.disableAll(false);
 				} else {
 					self.__data = new KNS.Kerbal();
 					self.__data.name = 'No Kerbal to edit';
@@ -165,7 +165,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 		});
 		applyEL('cancel', 'click', (e) => {
 			self.clearKerbal();
-			self.hideWindow()
+			self.hideWindow();
 		});
 		applyEL('Delete1', 'click', (e) => {
 			if (self.__oldValue === null) return;
@@ -192,7 +192,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 				UI.Delete3.style.display = 'none';
 				UI.Delete1.style.display = 'block';
 			});
-		})
+		});
 
 		this.UI = UI;
 		this.data = this.data || null;
@@ -223,7 +223,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 		}
 		let kerbal = this.__oldValue;
 		if (this.__changeQueue.delete) {
-			KerbalLink.get(this.database).deleteKerbal(kerbal.name)
+			KerbalLink.get(this.database).deleteKerbal(kerbal.name);
 		}
 		if (this.__changeQueue.name !== null) {
 			KerbalLink.get(this.database).renameKerbal(kerbal.name, this.__changeQueue.name);

@@ -120,7 +120,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(body, null);
 		this.touch.touchID = touchEvent.identifier;
-		this.touch.left = (parseInt(style.getPropertyValue('left'),10) - touchEvent.clientX)
+		this.touch.left = (parseInt(style.getPropertyValue('left'),10) - touchEvent.clientX);
 		this.touch.top = (parseInt(style.getPropertyValue('top'),10) - touchEvent.clientY);
 		body.addEventListener('touchmove', this.events.move, false);
 		body.addEventListener('touchcancel', this.events.end, false);
@@ -183,7 +183,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let top = (parseInt(style.getPropertyValue('top'),10) - event.clientY).toString();
 		let id = this.id;
 		let data = left + ',' + top + ',' + id;
-		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX)
+		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX);
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
 		this.parentNode.topZIndex(this);
 

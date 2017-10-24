@@ -68,7 +68,7 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 		kdb.addDisplay(this);
 		if (kdb === undefined) {return;}
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		let displays = []
+		let displays = [];
 		for (let name of kdb.kerbals) {
 			let kerbal = kdb.getKerbal(name);
 			let display = document.createElement('elements-kerbal');

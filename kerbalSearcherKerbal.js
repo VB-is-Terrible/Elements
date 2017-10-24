@@ -288,7 +288,7 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 	 */
 	kerbal_search_trigger (override = false, excludes = []) {
 		let searcher = this.shadowRoot.querySelector('#nameInput');
-		let search = searcher.value
+		let search = searcher.value;
 		search = Elements.nameSanitizer(search);
 		if (search !== this.__lastValue || override) {
 			this.display_results(this.__resolve_names(this.search(search, excludes)));

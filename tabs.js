@@ -25,7 +25,7 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		this.__rAF = Elements.rafContext();
 		this.mo = new MutationObserver(() => {
 			self.resize();
-		})
+		});
 		this.config = {childList: true};
 		shadow.appendChild(template);
 

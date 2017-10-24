@@ -228,7 +228,7 @@ let KNS =  {
 			if (this.displays.includes(display)) {
 				return;
 			}
-			this.displays.push(display)
+			this.displays.push(display);
 		}
 		/**
 		 * Deregister a display to kerbal
@@ -347,7 +347,7 @@ let KNS =  {
 				return 'Orbit';
 				break;
 			case 4:
-				return 'Landing'
+				return 'Landing';
 				break;
 			default:
 				return '????';
@@ -728,7 +728,7 @@ const KDB = class KDB {
 	 * @return {KDB}         Revived kdb
 	 */
 	static fromJSON (json) {
-		return this.fromJSONObj(JSON.parse(json))
+		return this.fromJSONObj(JSON.parse(json));
 	}
 	/**
 	 * Equality check for KDBs

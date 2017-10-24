@@ -158,7 +158,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 				enumerable: true,
 				configurable: true,
 				get: getter,
-				set: setter
+				set: setter,
 			});
 
 			object.getDict[property] = this.getInitProperty(object, property);
@@ -168,7 +168,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 
 			return {
 				get: getter,
-				set: setter
+				set: setter,
 			};
 		},
 		setUpSanitizedAttrPropertyLink: function (...args) {
@@ -626,7 +626,7 @@ if (!('Elements' in window) || Elements.initalized === false) {
 			if (typeof(value) == 'boolean') {
 				return value;
 			}
-			return !(value === 'false')
+			return !(value === 'false');
 		},
 		/**
 		 * Returns a equivalent requestAnimationFrame, but subsequent calls

@@ -81,7 +81,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 			let positions = rows * cols;
 
 			let updater = () => {
-				gridElement.style.gridTemplateRows = '1fr '.repeat(rows)
+				gridElement.style.gridTemplateRows = '1fr '.repeat(rows);
 				gridElement.style.gridTemplateColumns = '1fr '.repeat(cols);
 				gridElement.style.gridTemplateAreas = this.constructor.generateGridNames(rows, cols);
 
@@ -119,7 +119,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 					} else {
 						return false;
 					}
-				})
+				});
 				if (position !== -1) {
 					insertSheet = sheet;
 					break;
@@ -175,7 +175,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 		let insertionPoint = this.shadowRoot.querySelector('#gridHolder');
 		let current = insertionPoint.childElementCount;
 		let template = this.shadowRoot.querySelector('#templateHolderDiv');
-		let slots = insertionPoint.querySelectorAll('slot')
+		let slots = insertionPoint.querySelectorAll('slot');
 		let amount = rows * columns;
 		if (this.coordnaming) {
 			let currentRow = 1;
@@ -199,7 +199,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 				div.style.gridArea = this.constructor.numToCharCode(count + 1);
 				slot.name = currentRow.toString() + '-' + currentCol.toString();
 				insertionPoint.appendChild(newDiv.content);
-				next()
+				next();
 			}
 		} else {
 			let count = 0;
@@ -259,5 +259,5 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 
 };
 
-Elements.load('gridTemplate.html', Elements.elements.Grid, 'elements-grid')
+Elements.load('gridTemplate.html', Elements.elements.Grid, 'elements-grid');
 }
