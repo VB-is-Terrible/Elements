@@ -7,7 +7,7 @@ const main = async () => {
 await Elements.get('KDB');
 /**
  * @implements GroupDisplay
- * 
+ *
  */
 Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements.backbone {
 	constructor () {
@@ -19,13 +19,13 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
         this.displays = new Map();
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-		
+
 		shadow.appendChild(template);
 	}
 	addKerbal (kerbal) {
         let body = this.shadowRoot.querySelector('#pseudoBody');
         if (this.displays.has(kerbal.name) {return;}
-        let display = document.createElement('
+        let display = document.createElement('');
     }
 }
 
