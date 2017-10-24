@@ -16,9 +16,26 @@ elements-kerbal-searcher-kerbal {
 	max-height: var(--expand);
 	overflow-y: scroll;
 	border: 1px solid grey;
+	display: flex;
+	flex-direction: column;
+}
+button.results {
+	flex-grow: 0;
+	margin-left: .5em;
+	padding: 0 .25em;
+	margin-right: .5em;
+}
+div.results {
+	display: flex;
+	flex-flow: row nowrap;
+	flex-shrink: 0;
+	width: 100%;
 }
 div.centre {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+}
+elements-kerbal-display-text.results {
+	width: 100%;
 }

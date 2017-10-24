@@ -82,20 +82,71 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		shadow.appendChild(template);
 	}
 	/**
-	 * Add a kerbal
+	 * Add a kerbal to the group
 	 * @param {KNS.Kerbal} kerbal Kerbal to add
 	 * @private
 	 */
 	addKerbal (kerbal) {
 		this.group.addKerbal(kerbal);
-		let display = document.createElement('elements-kerbal-display-text');
-		display.data = kerbal;
 		let location = this.shadowRoot.querySelector('#currentKerbals');
+		let display = this.__makeDisplay(kerbal);
 		location.appendChild(display);
 		this.__displays.set(kerbal, display);
 	}
+	/**
+	 * Remove a kerbal from the group
+	 * @param  {[type]} kerbal [description]
+	 * @return {[type]}        [description]
+	 */
 	deleteKerbal (kerbal) {
-
+		this.group.removeKerbal(kerbal);
+		let display = this.__displays.get(kerbal);
+		let text = display.querySelector('elements-kerbal-display-text');
+		if (text !== null) {
+			text.data = null;
+		}
+		display.remove()
+	}
+	newGroup () {
+		this.group = new KNS.Group();
+		let ansName = template.querySelector('#AnsName');
+		let warn = template.querySelector('img.warn');
+		ansName.value = '';
+		let ansText = template.querySelector('#AnsText');
+		ansText.value = '';
+		for (let display of this.__displays.values()) {
+			let text = display.querySelector('elements-kerbal-display-text');
+			if (text !== null) {
+				text.data = null;
+			}
+			display.remove()
+		}
+		let location = this.shadowRoot.querySelector('#currentKerbals');
+		if (location.childElementCount !== 0) {
+			console.warn('Failed to clean display elements');
+		}
+	}
+	/**
+	 * Make a new div displaying a search result
+	 * @param  {KNS.Kerbal} kerbal Kerbal to show
+	 * @return {HTMLElement}       A div containing the kerbal, edit button
+	 * @private
+	 */
+	__makeDisplay (kerbal) {
+		let div = document.createElement('div');
+		div.classList.add('results');
+		let display = document.createElement('elements-kerbal-display-text');
+		display.classList.add('results');
+		display.data = kerbal;
+		div.appendChild(display);
+		let button = document.createElement('button');
+		button.innerHTML = 'Remove';
+		button.classList.add('results');
+		button.addEventListener('click', (e) => {
+			this.deleteKerbal(kerbal);
+		});
+		div.appendChild(button);
+		return div;
 	}
 }
 
