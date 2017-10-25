@@ -36,6 +36,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 				return self.__database;
 			},
 			set: (value) => {
+				self.newGroup()
 				self.__database = value;
 				searcher.database = value;
 			},
@@ -48,14 +49,17 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		searcher.actionCallback = includeCallback;
 		let ansName = template.querySelector('#AnsName');
 		let warn = template.querySelector('img.warn');
+		let done = template.querySelector('#Done');
 		ansName.addEventListener('keyup', (e) => {
 			let name = ansName.value;
 			if (name === '') {
 				warn.style.display = 'block';
 				this.nameValid = false;
+				done.disabled = true;
 			} else {
 				this.nameValid = true;
 				warn.style.display = 'none';
+				done.disabled = false;
 			}
 			this.group.name = name;
 		});
@@ -79,6 +83,17 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		}
 		let kerbalDisplay = template.querySelector('#currentKerbals');
 		kerbalDisplay.addEventListener('touchstart', canceler);
+
+		let cancel = template.querySelector(('#Cancel'));
+		cancel.addEventListener('click', (e) => {
+			self.newGroup();
+			self.hideWindow();
+		});
+		done.addEventListener('click', (e) => {
+			if (!self.nameValid) {return;}
+			KerbalLink.get(self.database).addKerbal(self.group);
+			self.newGroup();
+		})
 		shadow.appendChild(template);
 	}
 	/**
@@ -87,6 +102,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 	 * @private
 	 */
 	addKerbal (kerbal) {
+		if (this.group.hasKerbal(kerbal)) {return;}
 		this.group.addKerbal(kerbal);
 		let location = this.shadowRoot.querySelector('#currentKerbals');
 		let display = this.__makeDisplay(kerbal);
@@ -97,6 +113,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 	 * Remove a kerbal from the group
 	 * @param  {[type]} kerbal [description]
 	 * @return {[type]}        [description]
+	 * @private
 	 */
 	deleteKerbal (kerbal) {
 		this.group.removeKerbal(kerbal);
@@ -107,12 +124,15 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		}
 		display.remove();
 	}
+	/**
+	 * Reset the current group
+	 */
 	newGroup () {
 		this.group = new KNS.Group();
-		let ansName = template.querySelector('#AnsName');
-		let warn = template.querySelector('img.warn');
+		let ansName = this.shadowRoot.querySelector('#AnsName');
+		let warn = this.shadowRoot.querySelector('img.warn');
 		ansName.value = '';
-		let ansText = template.querySelector('#AnsText');
+		let ansText = this.shadowRoot.querySelector('#AnsText');
 		ansText.value = '';
 		for (let display of this.__displays.values()) {
 			let text = display.querySelector('elements-kerbal-display-text');
