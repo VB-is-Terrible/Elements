@@ -27,6 +27,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 		let importCancel = template.querySelector('#importDismiss');
 		let importAccept = template.querySelector('#accept');
 		let importRaf = Elements.rafContext();
+		this.__importRaf = importRaf;
 		importFile.addEventListener('change', (e) => {
 			if (e.target.files.length < 1) {
 				return;
@@ -42,14 +43,15 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 			reader.readAsText(file);
 		});
 		importCancel.addEventListener('click', (e) => {
-			importRaf((e) => {
-				importArea.innerHTML = '';
-			});
-			close(e);
+			self.reset();
+			this.hideWindow();
 		});
 		importAccept.addEventListener('click', (e) => {
-			self.consumeImport();
-			self.hideWindow();
+			let success = self.consumeImport();
+			if (success) {
+				self.reset();
+				self.hideWindow();
+			}
 		});
 
 
@@ -67,6 +69,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 	}
 	/**
 	 * Do a import!
+	 * @return {Boolean} Whether an import happened successfully
 	 */
 	consumeImport () {
 		let json = this.shadowRoot.querySelector('#importArea').value;
@@ -81,7 +84,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 			} else {
 				this.showWarning('Unknown Error');
 			}
-			return;
+			return false;
 		}
 		this.showWarning(null);
 		let name = 'db' + KerbalLink.counter.toString();
@@ -98,6 +101,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 		KerbalLink.setNextLoad(name);
 		KerbalLink.save(name);
 		KerbalLink.delete(oldDB);
+		return true;
 	}
 	/**
 	 * Show a error message for invalid imports
@@ -114,6 +118,18 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 				warningText.innerHTML = errorMessage;
 			}
 		});
+	}
+	/**
+	 * Reset UI State
+	 */
+	reset () {
+		let importArea = this.shadowRoot.querySelector('#importArea');
+		let importFile = this.shadowRoot.querySelector('#importFile');
+		this.__importRaf((e) => {
+			importArea.innerHTML = '';
+		});
+		importFile.value = '';
+		this.showWarning(null);
 	}
 }
 
