@@ -12,6 +12,7 @@ await Elements.get('drag-element');
  * @property {String} selected Tab currently selected
  * @type {Object}
  * @augments Elements.elements.dragged
+ * @fires Elements.elements.Tabs#change
  */
 Elements.elements.TabWindow = class extends Elements.elements.dragged {
 	constructor () {
@@ -51,6 +52,8 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 			active.style.display = 'block';
 			this.constructor.triggerNodeFunction(active, 'showTab');
 			this.__active = active;
+			let event = new CustomEvent('change', {detail: e.detail});
+			this.dispatchEvent(event);
 		});
 		close.addEventListener('click', (e) => {
 			self.hideWindow();
