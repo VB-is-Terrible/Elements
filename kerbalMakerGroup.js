@@ -71,9 +71,6 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 
 		let canceler = (e) => {
 			e.stopPropagation();
-			e.stopImmediatePropagation();
-			// e.preventDefault();
-			self.touch_reset();
 		};
 		for (let input of template.querySelectorAll('input')) {
 			input.addEventListener('mousedown', canceler);
