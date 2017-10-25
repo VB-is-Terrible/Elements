@@ -177,7 +177,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	 * @private
 	 */
 	drag_start (event) {
-		event.preventDefault();
+		// event.preventDefault();
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
 		let left = (parseInt(style.getPropertyValue('left'),10) - event.clientX).toString();
