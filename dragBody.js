@@ -1,9 +1,16 @@
 'use strict';
 
 /**
+ * @property {Number} left Offset of cursor from left border of element
+ * @property {Number} top Offset of cursor from top border of element
+ * @property {HTMLElement} subject drag-element been dragged
+ * @typedef {Object} dragInfoContainer
+ */
+/**
  * DragBody
  * Designed to hold DragElements
  * Make sure internal elements are also draggable
+ * @property {dragInfoContainer} drag Contains info for drag
  */
 Elements.elements.DragBody = class extends Elements.elements.backbone {
 	constructor () {
@@ -14,7 +21,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		this.drag = {
 			left: 0,
 			top: 0,
-			id: '',
+			subject: null,
 		};
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -22,7 +29,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 
 		let drag_over = (event) => {
 			event.preventDefault();
-			let target = document.getElementById(self.drag.id);
+			let target = self.drag.subject;
 			let leftStyle = (event.clientX + parseInt(self.drag.left)) + 'px';
 			let topStyle = (event.clientY + parseInt(self.drag.top)) + 'px';
 			requestAnimationFrame(() => {
@@ -35,7 +42,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 			return false;
 		};
 
-		this.addEventListener('dragover', drag_over);
+		// this.addEventListener('dragover', drag_over);
 
 		let decodeData = (dataString) => {
 			let split = dataString.split(',');
@@ -49,7 +56,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 
 		let drag_end = (event) => {
 			let [left, top, id] = decodeData(event.dataTransfer.getData('text/plain'));
-			let target = document.getElementById(id);
+			let target = self.drag.subject;
 			let leftStyle = (event.clientX + left) + 'px';
 			let topStyle = (event.clientY + top) + 'px';
 			// target.style.top = topStyle;
@@ -59,9 +66,42 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 			self.toBottom();
 			event.preventDefault();
 			return false;
-		}
-		this.addEventListener('drop', drag_end);
+		};
+		// this.addEventListener('drop', drag_end);
+		/**
+		 * Wrapped event handlers.
+		 * Used to mantian consistent calls to add/remove-EventListener
+		 * @type {Object}
+		 * @private
+		 */
+		this.callbacks = {
+			move: (e) => {self.drag_move(e)},
+			end: (e) => {self.drag_end(e)},
+		};
 		shadow.appendChild(template);
+	}
+	connectedCallback () {
+		super.connectedCallback();
+		this.addEventListener('mouseover', this.callbacks.move);
+		this.addEventListener('mouseup', this.callbacks.end);
+	}
+	/**
+	 * Updates a mouse based drag
+	 * @param  {MouseEvent} event
+	 * @private
+	 */
+	drag_move (event) {
+		let target = this.drag.subject;
+		target.drag_move(event);
+	}
+	/**
+ 	 * Ends a mouse based drag
+ 	 * @param  {MouseEvent} event
+ 	 * @private
+ 	 */
+	drag_end (event) {
+		let target = this.drag.subject;
+		target.drag_end(event);
 	}
 	/**
 	 * Push childNode and dragBody to the top of z-Indexes

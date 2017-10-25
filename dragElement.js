@@ -65,9 +65,9 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			self.parentNode.toTop(self);
 			self.parentNode.drag.left = left;
 			self.parentNode.drag.top = top;
-			self.parentNode.drag.id = id;
+			self.parentNode.drag.subject = this;
 		};
-		template.querySelector('#pseudoBody').addEventListener('dragstart', drag_start);
+		// template.querySelector('#pseudoBody').addEventListener('dragstart', drag_start);
 		shadow.appendChild(template);
 		/**
 		 * Touch event data
@@ -108,7 +108,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	connectedCallback () {
 		super.connectedCallback();
 		this.touch_reset();
-		// this.drag_reset();
+		this.drag_reset();
 	}
 	/**
 	 * Starts a touch based drag
@@ -173,10 +173,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 	}
 	/**
 	 * Starts a mouse base drag
-	 * @param  {DragEvent} event
+	 * @param  {MouseEvent} event
 	 * @private
 	 */
 	drag_start (event) {
+		event.preventDefault();
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
 		let left = (parseInt(style.getPropertyValue('left'),10) - event.clientX).toString();
@@ -185,19 +186,20 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let data = left + ',' + top + ',' + id;
 		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX);
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
-		this.parentNode.topZIndex(this);
-
+		this.parentNode.toTop(this);
+		this.parentNode.drag.left = left;
+		this.parentNode.drag.top = top;
+		this.parentNode.drag.subject = this;
 		body.addEventListener('mousemove', this.events.dMove, false);
 		body.addEventListener('mouseup', this.events.dEnd, false);
 		body.removeEventListener('mousedown', this.events.dStart, false);
 	}
 	/**
 	 * Updates a mouse based drag
-	 * @param  {DragEvent} event
+	 * @param  {MouseEvent} event
 	 * @private
 	 */
 	drag_move (event) {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
 		event.preventDefault();
 		let leftStyle = (event.clientX + this.drag.left).toString() + 'px';
 		let topStyle = (event.clientY + this.drag.top).toString() + 'px';
@@ -210,8 +212,18 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		});
 		return false;
 	}
+	/**
+	 * Ends a mouse based drag
+	 * @param  {MouseEvent} [event]
+	 * @private
+	 */
 	drag_end (event) {
-		this.drag_reset();
+		event.preventDefault();
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.addEventListener('mousedown', this.events.dStart, false);
+		body.removeEventListener('mousemove', this.events.dMove, false);
+		body.removeEventListener('mouseup', this.events.dEnd, false);
+		this.parentNode.toBottom();
 	}
 	/**
 	 * Reset/Cancel a drag
