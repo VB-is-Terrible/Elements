@@ -111,8 +111,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 	}
 	/**
 	 * Remove a kerbal from the group
-	 * @param  {[type]} kerbal [description]
-	 * @return {[type]}        [description]
+	 * @param  {KNS.Kerbal} kerbal Kerbal to remove
 	 * @private
 	 */
 	deleteKerbal (kerbal) {
