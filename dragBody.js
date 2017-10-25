@@ -80,11 +80,6 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		};
 		shadow.appendChild(template);
 	}
-	connectedCallback () {
-		super.connectedCallback();
-		this.addEventListener('mouseover', this.callbacks.move);
-		this.addEventListener('mouseup', this.callbacks.end);
-	}
 	/**
 	 * Updates a mouse based drag
 	 * @param  {MouseEvent} event
@@ -116,6 +111,9 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 			body.style.width = window.innerWidth + 'px';
 			body.style.height = window.innerHeight + 'px';
 		});
+		body.addEventListener('mousemove', this.callbacks.move);
+		body.addEventListener('mouseup', this.callbacks.end);
+
 	}
 	/**
 	 * Push the drag-body to the bottom.
@@ -129,6 +127,8 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 			body.style.width = '0px';
 			body.style.height = '0px';
 		});
+		body.removeEventListener('mousemove', this.callbacks.move);
+		body.removeEventListener('mouseup', this.callbacks.end);
 	}
 	/**
 	 * Get a empty element to display in the drag image
