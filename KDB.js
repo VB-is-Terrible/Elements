@@ -522,6 +522,15 @@ let KNS =  {
 				display.updateData();
 			}
 		}
+		/**
+		 * Check if a kerbal is in a group
+		 * @param  {KNS.Kerbal}  kerbal Kerbal to check
+		 * @return {Boolean}     If kerbal is in this group
+		 * @memberof KNS.Group
+		 */
+		hasKerbal (kerbal) {
+			return this.kerbals.has(kerbal);
+		}
 		toJSON () {
 			let result = Elements.jsonIncludes(this, ['type', 'name', 'text']);
 			let nameList = [];
