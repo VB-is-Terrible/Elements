@@ -73,7 +73,6 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			e.stopPropagation();
 			e.stopImmediatePropagation();
 			// e.preventDefault();
-			self.drag_reset();
 			self.touch_reset();
 		};
 		for (let input of template.querySelectorAll('input')) {
