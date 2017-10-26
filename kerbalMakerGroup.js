@@ -89,7 +89,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		});
 		done.addEventListener('click', (e) => {
 			if (!self.nameValid) {return;}
-			KerbalLink.get(self.database).addKerbal(self.group);
+			KerbalLink.get(self.database).addGroup(self.group);
 			self.newGroup();
 		})
 		shadow.appendChild(template);
