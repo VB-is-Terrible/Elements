@@ -142,11 +142,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 				let leftStyle = (touch.clientX + this.touch.left).toString() + 'px';
 				let topStyle = (touch.clientY + this.touch.top).toString() + 'px';
 				requestAnimationFrame(() => {
-					// target.style.top = topStyle;
-					this.style.setProperty('--top', topStyle);
-					// target.style.left = leftStyle;
-					this.style.setProperty('--left', leftStyle);
-					// this.toBottom();
+					this.setTop(topStyle);
+					this.setLeft(leftStyle);
 				});
 				return false;
 			}
@@ -203,11 +200,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let leftStyle = (event.clientX + this.drag.left).toString() + 'px';
 		let topStyle = (event.clientY + this.drag.top).toString() + 'px';
 		requestAnimationFrame(() => {
-			// target.style.top = topStyle;
-			this.style.setProperty('--top', topStyle);
-			// target.style.left = leftStyle;
-			this.style.setProperty('--left', leftStyle);
-			// this.toBottom();
+			this.setTop(topStyle);
+			this.setLeft(leftStyle);
 		});
 		return false;
 	}
@@ -243,8 +237,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		let top = (window.innerHeight - height) / 2;
 		let left = (window.innerWidth - width) / 2;
 		requestAnimationFrame(() => {
-			this.style.setProperty('--top', top.toString() + 'px');
-			this.style.setProperty('--left', left.toString() + 'px');
+			this.setTop(top.toString() + 'px');
+			this.setLeft(left.toString() + 'px');
 		});
 	}
 	/**
@@ -278,6 +272,14 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 			this.style.visibility = 'visible';
 		});
 		this.toTop();
+	}
+	setTop (value) {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.style.top = value;
+	}
+	setLeft (value) {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		body.style.left = value;
 	}
 };
 
