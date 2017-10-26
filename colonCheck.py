@@ -1,6 +1,6 @@
 import os
 
-excludes = set(['.gitignore', 'out', '.git', '.jshintrc', 'notes', 'kerbal.png', 'README.md', 'greyedX.svg', '.~lock.Bugs.fodt#', 'UI sketch.ora', 'LICENSE', 'Templates', 'TCF.png', 'icon.png', 'drive.png', 'logo.svg', 'Bugs.fodt', 'searcher sketch.ora', 'index.html', 'warning.svg', 'editor sketch.png', 'editor sketch.ora', 'dogpileLines.py', '.directory', 'package-lock.json', 'IMG_2563.JPG'])
+excludes = set(['.gitignore', 'out', '.git', '.jshintrc', 'notes2', 'kerbal.png', 'README.md', 'greyedX.svg', '.~lock.Bugs.fodt#', 'UI sketch.ora', 'LICENSE', 'Templates', 'TCF.png', 'icon.png', 'drive.png', 'logo.svg', 'Bugs.fodt', 'searcher sketch.ora', 'index.html', 'warning.svg', 'editor sketch.png', 'editor sketch.ora', 'dogpileLines.py', '.directory', 'package-lock.json', 'IMG_2563.JPG'])
 all_files = set(os.listdir())
 include = set(['Templates/nameTemplate.html', 'Templates/template.js', 'Templates/template.css'])
 

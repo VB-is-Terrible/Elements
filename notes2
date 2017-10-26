@@ -22,7 +22,9 @@ Definitions:
 6.	Elements should fully support custom element upgrading. This unfortunately
 	means that generally ES6 class getter/setter pairs can't be used, and
 	instead need to be declared through Object.defineProperty
-
+7.	Due to bugs in chrome, within the constructor, within arrow functions,
+	self should be used instead of this
+	
 Project Requirements:
 	Every method must have a jsdoc, unless:
 		The method will show up as global, even if the @private tag is Used
