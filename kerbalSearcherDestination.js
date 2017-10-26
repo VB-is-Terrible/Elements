@@ -84,7 +84,7 @@ let KDBListener = class extends BlankKDBDisplay {
  * @property {String} action   Text to display in buttons next to results
  * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
  */
-Elements.elements.KerbalSearcherDestination = class extends Elements.elements.backbone {
+Elements.elements.KerbalSearcherDestination = class extends Elements.elements.tabbed {
 	constructor () {
 		super();
 		const self = this;
