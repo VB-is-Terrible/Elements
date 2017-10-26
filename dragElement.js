@@ -168,9 +168,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX);
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
 		this.parentNode.toTop(this);
-		this.parentNode.drag.left = left;
-		this.parentNode.drag.top = top;
-		this.parentNode.drag.subject = this;
+		this.parentNode.subject = this;
 		body.addEventListener('mousemove', this.events.dMove, false);
 		body.addEventListener('mouseup', this.events.dEnd, false);
 		body.removeEventListener('mousedown', this.events.dStart, false);

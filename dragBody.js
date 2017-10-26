@@ -1,16 +1,10 @@
 'use strict';
 
 /**
- * @property {Number} left Offset of cursor from left border of element
- * @property {Number} top Offset of cursor from top border of element
- * @property {HTMLElement} subject drag-element been dragged
- * @typedef {Object} dragInfoContainer
- */
-/**
  * DragBody
  * Designed to hold DragElements
  * Make sure internal elements are also draggable
- * @property {dragInfoContainer} drag Contains info for drag
+ * @property {HTMLElement} subject drag-element been dragged
  */
 Elements.elements.DragBody = class extends Elements.elements.backbone {
 	constructor () {
@@ -18,11 +12,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 
 		const self = this;
 		this.name = 'DragBody';
-		this.drag = {
-			left: 0,
-			top: 0,
-			subject: null,
-		};
+		this.subject: null,
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.zIndexCount = parseInt(template.querySelector('#pseudoBody').style.zIndex) || 0;
@@ -44,7 +34,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 	 * @private
 	 */
 	drag_move (event) {
-		let target = this.drag.subject;
+		let target = this.subject;
 		target.drag_move(event);
 	}
 	/**
@@ -53,7 +43,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
  	 * @private
  	 */
 	drag_end (event) {
-		let target = this.drag.subject;
+		let target = this.subject;
 		target.drag_end(event);
 	}
 	/**
