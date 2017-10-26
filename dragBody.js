@@ -12,7 +12,7 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 
 		const self = this;
 		this.name = 'DragBody';
-		this.subject: null,
+		this.subject = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.zIndexCount = parseInt(template.querySelector('#pseudoBody').style.zIndex) || 0;
