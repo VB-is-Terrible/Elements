@@ -164,7 +164,7 @@
 		"type": "element",
 		"requires": ["tabWindow", "kerbalLink"],
 		"templates": ["kerbalImporterImportTemplate.html"],
-		"css": ["kerbalImporterImport.css"],
+		"css": ["kerbalImporterImport.css", "kerbalFloatCommon.css"],
 		"resources": [],
 		"provides": ["kerbalImporterImport"]
 	},
@@ -172,7 +172,7 @@
 		"type": "element",
 		"requires": ["tabWindow", "kerbalLink"],
 		"templates": ["kerbalImporterExportTemplate.html"],
-		"css": ["kerbalImporterExport.css"],
+		"css": ["kerbalImporterExport.css", "kerbalFloatCommon.css"],
 		"resources": [],
 		"provides": ["kerbalImporterExport"]
 	},
@@ -180,7 +180,7 @@
 		"type": "element",
 		"requires": ["kerbal", "KDB", "dragDown", "tabWindow", "kerbalLink"],
 		"templates": ["kerbalSearcherKerbalTemplate.html"],
-		"css": ["kerbalSearcherKerbal.css"],
+		"css": ["kerbalSearcherKerbal.css", "kerbalFloatCommon.css", "kerbalSearcherCommon.css"],
 		"resources": [],
 		"provides": ["kerbalSearcherKerbal"]
 	},
@@ -188,7 +188,7 @@
 		"type": "element",
 		"requires": ["kerbal", "KDB", "tabWindow", "kerbalLink"],
 		"templates": ["kerbalSearcherDestinationTemplate.html"],
-		"css": ["kerbalSearcherKerbal.css"],
+		"css": ["kerbalSearcherKerbal.css", "kerbalFloatCommon.css", "kerbalSearcherCommon.css"],
 		"resources": [],
 		"provides": ["kerbalSearcherKerbal"]
 	},
