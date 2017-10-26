@@ -9,10 +9,10 @@
 		"provides": ["kerbalMakerKerbal"]
 	},
 	"kerbalSearcher": {
-		"type": "element",
 		"requires": ["dragElement", "tabWindow", "kerbalSearcherKerbal", "kerbalSearcherDestination"],
+		"type": "element",
 		"templates": ["kerbalSearcherTemplate.html"],
-		"css": ["kerbalSearcher.css", "kerbalFloatCommon.css"],
+		"css": ["kerbalSearcher.css", "kerbalWindowCommon.css"],
 		"resources": [],
 		"provides": ["kerbalSearcher"]
 	},
@@ -124,7 +124,7 @@
 		"type": "element",
 		"requires": ["dragElement", "kerbalImporterImport", "kerbalImporterExport"],
 		"templates": ["kerbalImporterTemplate.html"],
-		"css": ["kerbalFloatCommon.css", "kerbalImporter.css"],
+		"css": ["kerbalWindowCommon.css", "kerbalImporter.css"],
 		"resources": ["warning.svg"],
 		"provides": ["kerbalImporter"]
 	},
@@ -148,7 +148,7 @@
 		"type": "element",
 		"requires": ["tabWindow", "dragElement", "kerbalMakerKerbal"],
 		"templates": ["kerbalMakerTemplate.html"],
-		"css": ["kerbalMaker.css"],
+		"css": ["kerbalMaker.css", "kerbalWindowCommon.css"],
 		"resources": [],
 		"provides": ["kerbalMaker"]
 	},
@@ -156,7 +156,7 @@
 		"type": "element",
 		"requires": ["tabWindow", "dragElement", "kerbalEditorKerbal"],
 		"templates": ["kerbalEditorTemplate.html"],
-		"css": ["kerbalEditor.css"],
+		"css": ["kerbalEditor.css", "kerbalWindowCommon.css"],
 		"resources": [],
 		"provides": ["kerbalEditor"]
 	},
@@ -199,5 +199,13 @@
 		"css": ["kerbalDisplayText.css"],
 		"resources": [],
 		"provides": ["kerbalDisplayText"]
-	}
+	},
+	"kerbalMakerGroup": {
+		"type": "element",
+		"requires": ["kerbalSearcherKerbal", "KerbalDisplayText", "tabWindow", "KDB", "main"],
+		"templates": ["kerbalMakerGroupTemplate.html"],
+		"css": ["kerbalMakerGroup.css", "kerbalFloatCommon.css"],
+		"resources": [],
+		"provides": ["kerbalMakerGroup"]
+	},
 }
