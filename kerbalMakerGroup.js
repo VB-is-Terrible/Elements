@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-searcher-kerbal', 'kerbal-display-text');
+Elements.get('kerbal-searcher-kerbal', 'kerbal-display-text', 'tab-window', 'KDB', 'main');
 {
 const main = async () => {
 

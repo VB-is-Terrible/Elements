@@ -202,10 +202,10 @@
 	},
 	"kerbalMakerGroup": {
 		"type": "element",
-		"requires": ["kerbalSearcherKerbal", "KerbalDisplayText", "tabWindow", "KDB", "main"],
+		"requires": ["kerbalSearcherKerbal", "kerbalDisplayText", "tabWindow", "KDB", "main"],
 		"templates": ["kerbalMakerGroupTemplate.html"],
 		"css": ["kerbalMakerGroup.css", "kerbalFloatCommon.css"],
 		"resources": [],
 		"provides": ["kerbalMakerGroup"]
-	},
+	}
 }
