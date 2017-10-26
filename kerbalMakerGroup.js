@@ -36,7 +36,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 				return self.__database;
 			},
 			set: (value) => {
-				self.newGroup()
+				self.newGroup();
 				self.__database = value;
 				searcher.database = value;
 			},
@@ -91,7 +91,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			if (!self.nameValid) {return;}
 			KerbalLink.get(self.database).addGroup(self.group);
 			self.newGroup();
-		})
+		});
 		shadow.appendChild(template);
 	}
 	/**
