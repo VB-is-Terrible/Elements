@@ -77,7 +77,10 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			}
 		}
 		let kerbalDisplay = template.querySelector('#currentKerbals');
-		kerbalDisplay.addEventListener('touchstart', canceler);
+		kerbalDisplay.addEventListener('touchstart', (e) => {
+			self.touch_reset();
+			e.stopPropagation();
+		});
 
 		let cancel = template.querySelector(('#Cancel'));
 		cancel.addEventListener('click', (e) => {

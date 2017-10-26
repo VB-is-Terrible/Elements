@@ -36,7 +36,7 @@ Elements.get('drag-body');
  * DragElement
  * Designed to hold contents to be dragged.
  * Must be placed within a DragBody.
- * Use touch_reset to stop a touch based drag
+ * Use touch_reset & event.stopPropagation to stop a touch based drag
  * Use event.stopPropagation to stop a mouse based drag
  * Internal stages:
  * touch_start -> touch_move -> touch_end
