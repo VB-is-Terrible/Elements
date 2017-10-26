@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-10-26T11:54:40.881411319</dc:date><meta:editing-duration>P12DT7H55M50S</meta:editing-duration><meta:editing-cycles>176</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="8" meta:paragraph-count="417" meta:word-count="1158" meta:character-count="6621" meta:non-whitespace-character-count="5853"/></office:meta>
+ <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-10-26T19:52:03.955648842</dc:date><meta:editing-duration>P12DT12H30M</meta:editing-duration><meta:editing-cycles>180</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="8" meta:paragraph-count="417" meta:word-count="1158" meta:character-count="6612" meta:non-whitespace-character-count="5844"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">186496</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">19837</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">27224</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">12688</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">12040</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">20122</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">196975</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">7946</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">26878</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">186496</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">19837</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">27222</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">199182</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">31875</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -70,7 +70,7 @@
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
    <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">3119872</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">3524315</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
    <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
@@ -273,16 +273,6 @@
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
-  <style:style style:name="Table1.A22" style:family="table-cell">
-   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
-    <style:background-image/>
-   </style:table-cell-properties>
-  </style:style>
-  <style:style style:name="Table1.C22" style:family="table-cell">
-   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
-    <style:background-image/>
-   </style:table-cell-properties>
-  </style:style>
   <style:style style:name="Table1.A23" style:family="table-cell">
    <style:table-cell-properties fo:background-color="#ff0000" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
@@ -290,6 +280,16 @@
   </style:style>
   <style:style style:name="Table1.C23" style:family="table-cell">
    <style:table-cell-properties fo:background-color="#ff0000" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+    <style:background-image/>
+   </style:table-cell-properties>
+  </style:style>
+  <style:style style:name="Table1.A40" style:family="table-cell">
+   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+    <style:background-image/>
+   </style:table-cell-properties>
+  </style:style>
+  <style:style style:name="Table1.C40" style:family="table-cell">
+   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
@@ -1494,86 +1494,112 @@
    <style:paragraph-properties fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002aea80" fo:background-color="#7fff00"/>
   </style:style>
-  <style:style style:name="P262" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P262" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P263" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af" fo:background-color="#ffff00"/>
+  </style:style>
+  <style:style style:name="P264" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
   </style:style>
-  <style:style style:name="P263" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P265" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P264" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P266" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000a46cc" officeooo:paragraph-rsid="000a46cc" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P265" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P267" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000b2b86" officeooo:paragraph-rsid="000b2b86" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P266" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P268" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000b2c5d" officeooo:paragraph-rsid="000b2c5d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P267" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P269" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000c8f06" officeooo:paragraph-rsid="000c8f06" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P268" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P270" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P269" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P271" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0019118c" officeooo:paragraph-rsid="0019118c" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P270" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P272" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="001cbee8" officeooo:paragraph-rsid="001cbee8" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P271" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P273" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00238a1b" officeooo:paragraph-rsid="00238a1b"/>
   </style:style>
-  <style:style style:name="P272" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P274" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00253e4a" officeooo:paragraph-rsid="00253e4a"/>
   </style:style>
-  <style:style style:name="P273" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P275" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00266c68" officeooo:paragraph-rsid="00266c68"/>
   </style:style>
-  <style:style style:name="P274" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P276" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0027793e" officeooo:paragraph-rsid="0027793e"/>
   </style:style>
-  <style:style style:name="P275" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P277" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002f9b00" officeooo:paragraph-rsid="002f9b00"/>
   </style:style>
-  <style:style style:name="P276" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P278" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="003278f5" officeooo:paragraph-rsid="003278f5"/>
+  </style:style>
+  <style:style style:name="P279" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00347567" officeooo:paragraph-rsid="00347567"/>
+  </style:style>
+  <style:style style:name="P280" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0027793e" fo:background-color="#7fff00"/>
   </style:style>
-  <style:style style:name="P277" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P281" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002e6a8d" officeooo:paragraph-rsid="002e6a8d"/>
   </style:style>
-  <style:style style:name="P278" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P282" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002f9b00" officeooo:paragraph-rsid="002f9b00"/>
+  </style:style>
+  <style:style style:name="P283" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00329807" officeooo:paragraph-rsid="00329807"/>
+  </style:style>
+  <style:style style:name="P284" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0035c6db" officeooo:paragraph-rsid="0035c6db"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="000a46cc"/>
@@ -1664,6 +1690,12 @@
   </style:style>
   <style:style style:name="T30" style:family="text">
    <style:text-properties officeooo:rsid="002f9b00"/>
+  </style:style>
+  <style:style style:name="T31" style:family="text">
+   <style:text-properties officeooo:rsid="0030f0aa"/>
+  </style:style>
+  <style:style style:name="T32" style:family="text">
+   <style:text-properties officeooo:rsid="00329807"/>
   </style:style>
   <text:list-style style:name="L1">
    <text:list-level-style-bullet text:level="1" text:style-name="Bullet_20_Symbols" text:bullet-char="•">
@@ -2079,13 +2111,13 @@
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A22" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
       <text:p text:style-name="P125">21</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.A22" office:value-type="string">
-      <text:p text:style-name="P151">Started</text:p>
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
+      <text:p text:style-name="P283">Fixed</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.C22" office:value-type="string">
+     <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P151">Depends on #31, <text:span text:style-name="T28">#39</text:span></text:p>
      </table:table-cell>
     </table:table-row>
@@ -2226,7 +2258,7 @@
       <text:p text:style-name="P151">34</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P277">Fixed</text:p>
+      <text:p text:style-name="P281">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2259,7 +2291,7 @@
       <text:p text:style-name="P153">37</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P278">Fixed</text:p>
+      <text:p text:style-name="P282">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2277,13 +2309,13 @@
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A23" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A40" office:value-type="string">
       <text:p text:style-name="P154">39</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.A23" office:value-type="string">
-      <text:p text:style-name="P154">Unassigned</text:p>
+     <table:table-cell table:style-name="Table1.A40" office:value-type="string">
+      <text:p text:style-name="P284">Started</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.C23" office:value-type="string">
+     <table:table-cell table:style-name="Table1.C40" office:value-type="string">
       <text:p text:style-name="P126"/>
      </table:table-cell>
     </table:table-row>
@@ -2304,7 +2336,7 @@
       <text:p text:style-name="P154">41</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P278">Fixed</text:p>
+      <text:p text:style-name="P282">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2339,7 +2371,7 @@
    <text:p text:style-name="P167">Repro steps:</text:p>
    <text:list xml:id="list2058652577" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P262">Stuff</text:p>
+     <text:p text:style-name="P264">Stuff</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P167">Expected Output:</text:p>
@@ -2392,15 +2424,15 @@
    <text:p text:style-name="P31"/>
    <text:p text:style-name="P71">Bug 2:</text:p>
    <text:p text:style-name="P185">Repro steps:</text:p>
-   <text:list xml:id="list115442633415106" text:continue-list="list2058652577" text:style-name="L1">
+   <text:list xml:id="list195205570425711" text:continue-list="list2058652577" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P263">Have a kerbal-footer</text:p>
+     <text:p text:style-name="P265">Have a kerbal-footer</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P263">Page width smaller than 3 x kerbal panel width</text:p>
+     <text:p text:style-name="P265">Page width smaller than 3 x kerbal panel width</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P263">Click on menu in kerbal-footer</text:p>
+     <text:p text:style-name="P265">Click on menu in kerbal-footer</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P185">Expected Output:</text:p>
@@ -2412,9 +2444,9 @@
    <text:p text:style-name="P31"/>
    <text:p text:style-name="P72">Bug <text:span text:style-name="T1">3</text:span>:</text:p>
    <text:p text:style-name="P186">Repro steps:<text:tab/></text:p>
-   <text:list xml:id="list115443159466955" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195205936887986" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P264">Use the importer</text:p>
+     <text:p text:style-name="P266">Use the importer</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P186">Expected Output:</text:p>
@@ -2426,9 +2458,9 @@
    <text:p text:style-name="P32"/>
    <text:p text:style-name="P73">Bug <text:span text:style-name="T2">4</text:span>:</text:p>
    <text:p text:style-name="P187">Repro steps:</text:p>
-   <text:list xml:id="list115442145038200" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195204672349371" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P265">Use the exporter</text:p>
+     <text:p text:style-name="P267">Use the exporter</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P187">Expected Output:</text:p>
@@ -2440,9 +2472,9 @@
    <text:p text:style-name="P33"/>
    <text:p text:style-name="P74">Bug <text:span text:style-name="T3">5</text:span>:</text:p>
    <text:p text:style-name="P188">Repro steps:</text:p>
-   <text:list xml:id="list115442645148284" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195204249724519" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P266">JS stuff</text:p>
+     <text:p text:style-name="P268">JS stuff</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P188">Expected Output:</text:p>
@@ -2468,9 +2500,9 @@
    <text:p text:style-name="P83"/>
    <text:p text:style-name="P76">Bug <text:span text:style-name="T5">8</text:span>:</text:p>
    <text:p text:style-name="P190">Repro steps:</text:p>
-   <text:list xml:id="list115441793377106" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195204661023308" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P267">Resize the window with kerbal.html horizontally.</text:p>
+     <text:p text:style-name="P269">Resize the window with kerbal.html horizontally.</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P190">Expected Output:</text:p>
@@ -2500,15 +2532,15 @@
    <text:p text:style-name="P85"/>
    <text:p text:style-name="P77">Bug <text:span text:style-name="T7">12</text:span>:</text:p>
    <text:p text:style-name="P191">Repro steps:</text:p>
-   <text:list xml:id="list115442901885327" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195205174010704" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P268">Have a kerbal in KDB</text:p>
+     <text:p text:style-name="P270">Have a kerbal in KDB</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P268">Search for that kerbal</text:p>
+     <text:p text:style-name="P270">Search for that kerbal</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P268">Delete the kerbal</text:p>
+     <text:p text:style-name="P270">Delete the kerbal</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P191">Expected Output:</text:p>
@@ -2542,18 +2574,18 @@
    <text:p text:style-name="P255"><text:soft-page-break/>Fixed</text:p>
    <text:p text:style-name="P79">Bug <text:span text:style-name="T17">17</text:span>:</text:p>
    <text:p text:style-name="P192">Repro steps:</text:p>
-   <text:list xml:id="list115442189407094" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195205312153915" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P269">Open kerbal-editor</text:p>
+     <text:p text:style-name="P271">Open kerbal-editor</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P269">Hit cancel</text:p>
+     <text:p text:style-name="P271">Hit cancel</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P269">Re-open kerbal-editor</text:p>
+     <text:p text:style-name="P271">Re-open kerbal-editor</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P269">Do stuff</text:p>
+     <text:p text:style-name="P271">Do stuff</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P192">Expected Output:</text:p>
@@ -2564,12 +2596,12 @@
    <text:p text:style-name="P192"><text:tab/><text:span text:style-name="T17">Fixed</text:span></text:p>
    <text:p text:style-name="P80">Bug <text:span text:style-name="T19">18</text:span>:</text:p>
    <text:p text:style-name="P193">Repro steps:</text:p>
-   <text:list xml:id="list115442114642063" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195205294643475" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P270">Delete a kerbal</text:p>
+     <text:p text:style-name="P272">Delete a kerbal</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P270">Reopen editor</text:p>
+     <text:p text:style-name="P272">Reopen editor</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P193">Expected Output:</text:p>
@@ -2578,12 +2610,12 @@
    <text:p text:style-name="P193"><text:tab/><text:span text:style-name="T19">The deletetion button and display are not reset</text:span></text:p>
    <text:p text:style-name="P193">Status:</text:p>
    <text:p text:style-name="P193"><text:tab/><text:span text:style-name="T20">Fixed</text:span></text:p>
-   <text:p text:style-name="P40">Bug <text:span text:style-name="T20">19</text:span>:</text:p>
+   <text:p text:style-name="P262">Bug <text:span text:style-name="T20">19</text:span>:</text:p>
    <text:p text:style-name="P175">Problem:</text:p>
    <text:p text:style-name="P239">Groups should be a thing</text:p>
    <text:p text:style-name="P175">Status:</text:p>
    <text:p text:style-name="P175"><text:tab/><text:span text:style-name="T20">Depends on #20, #21, #22, #23, #24</text:span></text:p>
-   <text:p text:style-name="P240">Started</text:p>
+   <text:p text:style-name="P278">Fixed</text:p>
    <text:p text:style-name="P27">Bug <text:span text:style-name="T20">20</text:span>:</text:p>
    <text:p text:style-name="P175">Problem:</text:p>
    <text:p text:style-name="P239">Groups need a data format</text:p>
@@ -2623,15 +2655,15 @@
    <text:p text:style-name="P242">Fixed</text:p>
    <text:p text:style-name="P68">Bug <text:span text:style-name="T22">27</text:span>:</text:p>
    <text:p text:style-name="P165">Repro steps:</text:p>
-   <text:list xml:id="list115442357213327" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195206334618505" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P271">Import a save</text:p>
+     <text:p text:style-name="P273">Import a save</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P271">Save</text:p>
+     <text:p text:style-name="P273">Save</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P271">Reload the bag</text:p>
+     <text:p text:style-name="P273">Reload the bag</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P165">Expected Output:</text:p>
@@ -2642,12 +2674,12 @@
    <text:p text:style-name="P165"><text:tab/><text:span text:style-name="T23">Fixed</text:span></text:p>
    <text:p text:style-name="P87">Bug <text:span text:style-name="T23">28</text:span>:</text:p>
    <text:p text:style-name="P166">Repro steps:</text:p>
-   <text:list xml:id="list115442614180343" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195206233581643" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P272">Scroll down</text:p>
+     <text:p text:style-name="P274">Scroll down</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P272">Scroll up</text:p>
+     <text:p text:style-name="P274">Scroll up</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P166">Expected Output:</text:p>
@@ -2659,18 +2691,18 @@
    <text:p text:style-name="P248">Unable to reproduce.</text:p>
    <text:p text:style-name="P70">Bug <text:span text:style-name="T24">29</text:span>:</text:p>
    <text:p text:style-name="P168">Repro steps:</text:p>
-   <text:list xml:id="list115443197258051" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195204854296058" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P273">Have a tab-window in html</text:p>
+     <text:p text:style-name="P275">Have a tab-window in html</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Have a tabs property, and corresponding children</text:p>
+     <text:p text:style-name="P275">Have a tabs property, and corresponding children</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Have a selected property</text:p>
+     <text:p text:style-name="P275">Have a selected property</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Load page</text:p>
+     <text:p text:style-name="P275">Load page</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P168">Expected Output:</text:p>
@@ -2681,15 +2713,15 @@
    <text:p text:style-name="P168"><text:tab/><text:span text:style-name="T25">Fixed</text:span></text:p>
    <text:p text:style-name="P70"><text:soft-page-break/>Bug <text:span text:style-name="T24">30</text:span>:</text:p>
    <text:p text:style-name="P168">Repro steps:</text:p>
-   <text:list xml:id="list115442941890499" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195206271515299" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P273">Have a tab</text:p>
+     <text:p text:style-name="P275">Have a tab</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Fill it with n elements (where n &gt; 0)</text:p>
+     <text:p text:style-name="P275">Fill it with n elements (where n &gt; 0)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Remove 1 element</text:p>
+     <text:p text:style-name="P275">Remove 1 element</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P168">Expected Output:</text:p>
@@ -2707,9 +2739,9 @@
    <text:p text:style-name="P244">Depends on #29, #30</text:p>
    <text:p text:style-name="P69">Bug <text:span text:style-name="T25">32</text:span>:</text:p>
    <text:p text:style-name="P169">Repro steps:</text:p>
-   <text:list xml:id="list115443002562548" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195204578240977" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P274">Add a new kerbal</text:p>
+     <text:p text:style-name="P276">Add a new kerbal</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P169">Expected Output:</text:p>
@@ -2725,11 +2757,11 @@
    <text:p text:style-name="P245">addKerbal, renameKerbal, deleteKerbal from kdb-kerbal-display are unimplemented!</text:p>
    <text:p text:style-name="P178">Status:</text:p>
    <text:p text:style-name="P245">Fixed</text:p>
-   <text:p text:style-name="P276">Bug <text:span text:style-name="T25">34</text:span>:</text:p>
+   <text:p text:style-name="P280">Bug <text:span text:style-name="T25">34</text:span>:</text:p>
    <text:p text:style-name="P169">Repro steps:</text:p>
-   <text:list xml:id="list115442752550052" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list195206014325741" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P274">Import a db</text:p>
+     <text:p text:style-name="P276">Import a db</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P169">Expected Output:</text:p>
@@ -2750,23 +2782,23 @@
    <text:p text:style-name="P228">Unassigned</text:p>
    <text:p text:style-name="P261">Bug <text:span text:style-name="T27">37</text:span>:</text:p>
    <text:p text:style-name="P180">Problem:</text:p>
-   <text:p text:style-name="P247">Drag-element has two functions to handle mouse drag, one listens to mousedown, and can be cancel (as it should be), the other listens to dragstart, which is a undocumented code path and can’t be cancel. The two need to be merged, so that drags can be canceled.</text:p>
+   <text:p text:style-name="P247">Drag-element has two functions to handle mouse drag, one listens to mousedown, and can be cancel (as it should be), the other listens to dragstart, which is a undocumented code path and can’t be cancel. The two need to be merged, so that drags can be <text:span text:style-name="T31">cancelled.</text:span></text:p>
    <text:p text:style-name="P184">Notes:</text:p>
    <text:p text:style-name="P248">drag_start needs to call toTop, not just topZIndex</text:p>
    <text:p text:style-name="P248">drag-body needs to implement mouseover and mouseup</text:p>
    <text:p text:style-name="P248">Figure out a way to implement drag cancelling (listen to escape) and mouse click cancelling (I dunno) –<text:span text:style-name="T30"> Turns out the browser handles this for you.</text:span></text:p>
    <text:p text:style-name="P180">Status:</text:p>
-   <text:p text:style-name="P275">Fixed</text:p>
+   <text:p text:style-name="P277">Fixed</text:p>
    <text:p text:style-name="P43">Bug <text:span text:style-name="T28">38</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">Can’t reset a kerbal been made</text:p>
    <text:p text:style-name="P181">Status:</text:p>
    <text:p text:style-name="P230">Unassigned</text:p>
-   <text:p text:style-name="P43">Bug <text:span text:style-name="T28">39</text:span>:</text:p>
+   <text:p text:style-name="P263">Bug <text:span text:style-name="T28">39</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">Group needs a display</text:p>
    <text:p text:style-name="P181">Status:</text:p>
-   <text:p text:style-name="P230">Unassigned</text:p>
+   <text:p text:style-name="P279">Started</text:p>
    <text:p text:style-name="P43">Bug <text:span text:style-name="T28">40</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">Name sanitisation should be done in kerbal.js, when it is about to be displayed, not in kerbal-maker-kerbal, when it is inputted.</text:p>
@@ -2776,7 +2808,7 @@
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248"><text:soft-page-break/>tab-window should raise change events</text:p>
    <text:p text:style-name="P181">Status:</text:p>
-   <text:p text:style-name="P275">Fixed</text:p>
+   <text:p text:style-name="P277">Fixed</text:p>
    <text:p text:style-name="P30">Bug <text:span text:style-name="T28">42</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">KDBDisplay.deleteKerbal should accept the KNS.Kerbal been deleted, not its name.</text:p>
