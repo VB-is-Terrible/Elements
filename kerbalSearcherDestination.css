@@ -1,18 +1,3 @@
-:host {
-	--width: 100%;
-	--results-height: 500px;
-}
-#pseudoBody {
-	background: initial;
-}
-/* Checkboxes love to float up a couple pixels */
-div.multi {
-	flex-direction: row;
-	align-items: center;
-}
-span.checkbox {
-	margin-left: .5em;
-}
 input[type=checkbox] {
 	width: 1em;
 	height: 1em;
@@ -20,33 +5,11 @@ input[type=checkbox] {
 p {
 	margin-top: 10px;
 }
-#results, #jobs {
+#jobs {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 5;
 	width: 100%;
-}
-#results {
-	overflow: scroll;
-	max-height: var(--results-height);
-	display: none;
-}
-#resultsTitle {
-	font-size: x-large;
-	margin: 10px;
-}
-div.results {
-	display: flex;
-	flex-flow: row nowrap;
-	width: 100%;
-	margin-bottom: 5px;
-	flex-shrink: 0;
-}
-elements-kerbal {
-	width:100%;
-}
-button.results {
-	padding: 0 .25em;
 }
 p.inline {
 	margin-right: 10px;
@@ -63,22 +26,19 @@ p.job {
 	margin-top: 0px;
 	flex-grow: 1;
 }
-#jobs, button.results {
+#jobs {
 	font-size: initial;
 	align-items: center;
 	justify-content: center;
 	justify-items: center;
-}
-#jobs {
 	box-sizing: border-box;
 	padding-left: 3em;
 	padding-right: 1ex;
 }
-button.results {
-	flex-grow: 0;
-	margin-left: 1em;
-}
 div.results {
 	margin-bottom: 5px;
 	flex-shrink: 0;
+}
+button.remove_place {
+	font-size: initial;
 }

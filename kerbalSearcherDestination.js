@@ -29,6 +29,7 @@ let KerbalChoiceDisplay = class extends KerbalJobDisplay {
 		button.value = place;
 		button.innerHTML = 'Remove';
 		button.classList.add('results');
+		button.classList.add('remove_place');
 		button.addEventListener('click', (e) => {
 			let event = new CustomEvent('remove', {detail: place, value: place,});
 			this.display.dispatchEvent(event);

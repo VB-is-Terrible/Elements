@@ -1,19 +1,6 @@
-:host {
-	--results-height: 500px;
-}
-#pseudoBody {
-	background: initial;
-}
-/* Checkboxes love to float up a couple pixels */
-div.multi {
-	align-items: center;
-}
 #kerbal-search {
 	--arrow-size: 1.5;
 	width: 100%;
-}
-span.checkbox {
-	margin-left: .5em;
 }
 input[type=checkbox] {
 	width: 1em;
@@ -22,38 +9,6 @@ input[type=checkbox] {
 input[type=text] {
 	background: white;
 }
-#results {
-	display: flex;
-	flex-direction: column;
-	flex-grow: 5;
-	width: 100%;
-	overflow: scroll;
-	max-height: var(--results-height);
-	display: none;
-}
-#resultsTitle {
-	font-size: x-large;
-	margin: 10px;
-}
 .drag_inside {
 	margin-top: 10px;
-}
-div.results {
-	display: flex;
-	flex-flow: row nowrap;
-	width: 100%;
-	margin-bottom: 5px;
-	flex-shrink: 0;
-}
-elements-kerbal {
-	width:100%;
-}
-button.results {
-	font-size: initial;
-	align-items: center;
-	justify-content: center;
-	justify-items: center;
-	flex-grow: 0;
-	margin-left: 1em;
-	padding: 0 .25em;
 }
