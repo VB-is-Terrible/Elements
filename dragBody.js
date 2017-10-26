@@ -26,48 +26,6 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		this.zIndexCount = parseInt(template.querySelector('#pseudoBody').style.zIndex) || 0;
-
-		let drag_over = (event) => {
-			event.preventDefault();
-			let target = self.drag.subject;
-			let leftStyle = (event.clientX + parseInt(self.drag.left)) + 'px';
-			let topStyle = (event.clientY + parseInt(self.drag.top)) + 'px';
-			requestAnimationFrame(() => {
-				// target.style.top = topStyle;
-				target.style.setProperty('--top', topStyle);
-				// target.style.left = leftStyle;
-				target.style.setProperty('--left', leftStyle);
-				// this.toBottom();
-			});
-			return false;
-		};
-
-		// this.addEventListener('dragover', drag_over);
-
-		let decodeData = (dataString) => {
-			let split = dataString.split(',');
-			let result = ['0px','0px', null];
-			result[0] = parseInt(split[0]);
-			result[1] = parseInt(split[1]);
-			result[2] = split[2];
-			return result;
-			return ['0px','0px', null];
-		};
-
-		let drag_end = (event) => {
-			let [left, top, id] = decodeData(event.dataTransfer.getData('text/plain'));
-			let target = self.drag.subject;
-			let leftStyle = (event.clientX + left) + 'px';
-			let topStyle = (event.clientY + top) + 'px';
-			// target.style.top = topStyle;
-			target.style.setProperty('--top', topStyle);
-			// target.style.left = leftStyle;
-			target.style.setProperty('--left', leftStyle);
-			self.toBottom();
-			event.preventDefault();
-			return false;
-		};
-		// this.addEventListener('drop', drag_end);
 		/**
 		 * Wrapped event handlers.
 		 * Used to mantian consistent calls to add/remove-EventListener
@@ -129,13 +87,6 @@ Elements.elements.DragBody = class extends Elements.elements.backbone {
 		});
 		body.removeEventListener('mousemove', this.callbacks.move);
 		body.removeEventListener('mouseup', this.callbacks.end);
-	}
-	/**
-	 * Get a empty element to display in the drag image
-	 * @private
-	 */
-	getDragImage () {
-		return this.shadowRoot.querySelector('#empty');
 	}
 	/**
 	 * Raise a drag element above other drag elements
