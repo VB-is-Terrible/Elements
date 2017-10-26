@@ -106,6 +106,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		let display = this.__makeDisplay(kerbal);
 		location.appendChild(display);
 		this.__displays.set(kerbal, display);
+		this.updateCount();
 	}
 	/**
 	 * Remove a kerbal from the group
@@ -120,6 +121,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			text.data = null;
 		}
 		display.remove();
+		this.updateCount();
 	}
 	/**
 	 * Reset the current group
@@ -142,6 +144,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		if (location.childElementCount !== 0) {
 			console.warn('Failed to clean display elements');
 		}
+		this.updateCount();
 	}
 	/**
 	 * Make a new div displaying a search result
@@ -164,6 +167,19 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		});
 		div.appendChild(button);
 		return div;
+	}
+	/**
+	 * Update the kerbal counter
+	 */
+	updateCount () {
+		let counter = this.shadowRoot.querySelector(('#kerbalCount'));
+		requestAnimationFrame((e) => {
+			if (this.group.size !== 0) {
+				counter.innerHTML = '(' + this.group.size.toString() + ')';
+			} else {
+				counter.innerHTML = '';
+			}
+		});
 	}
 }
 
