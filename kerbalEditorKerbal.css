@@ -37,9 +37,6 @@ p.textOverlay {
 #insideDrag {
 	--padding: 10px 10px 0px 10px;
 }
-#Cancel {
-	margin-right: 2em;
-}
 #kerbalDiv {
 	position: relative;
 }
