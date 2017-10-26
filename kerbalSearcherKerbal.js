@@ -106,7 +106,13 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.tabbed 
 			}
 
 		});
-
+		for (let input of template.querySelectorAll('input')) {
+			if (input.type === 'text') {
+				input.addEventListener('mousedown', (e) => {
+					e.stopPropagation();
+				});
+			}
+		}
 		shadow.appendChild(template);
 	}
 	/**

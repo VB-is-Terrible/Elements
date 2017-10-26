@@ -106,9 +106,11 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 		this.elements = elements;
 
 		for (let input of template.querySelectorAll('input')) {
-			input.addEventListener('mousedown', (e) => {
-				e.stopPropagation();
-			});
+			if (input.type === 'text') {
+				input.addEventListener('mousedown', (e) => {
+					e.stopPropagation();
+				});
+			}
 		}
 		shadow.appendChild(template);
 		this.newKerbal();

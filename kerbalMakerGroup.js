@@ -69,13 +69,12 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			this.group.text = text;
 		});
 
-		let canceler = (e) => {
-			e.stopPropagation();
-		};
 		for (let input of template.querySelectorAll('input')) {
-			input.addEventListener('mousedown', canceler);
-			input.addEventListener('dragstart', canceler);
-			// input.addEventListener('touchstart', canceler);
+			if (input.type === 'text') {
+				input.addEventListener('mousedown', (e) => {
+					e.stopPropagation();
+				});
+			}
 		}
 		let kerbalDisplay = template.querySelector('#currentKerbals');
 		kerbalDisplay.addEventListener('touchstart', canceler);

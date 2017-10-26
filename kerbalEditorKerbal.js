@@ -196,6 +196,13 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 
 		this.UI = UI;
 		this.data = this.data || null;
+        for (let input of template.querySelectorAll('input')) {
+        	if (input.type === 'text') {
+        		input.addEventListener('mousedown', (e) => {
+        			e.stopPropagation();
+        		});
+        	}
+        }
 		shadow.appendChild(template);
 	}
 	/**

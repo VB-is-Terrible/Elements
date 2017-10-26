@@ -33,6 +33,13 @@ Elements.elements.KerbalImporterExport = class extends Elements.elements.tabbed 
 			document.execCommand('copy');
 		});
 
+		for (let input of template.querySelectorAll('input')) {
+			if (input.type === 'text') {
+				input.addEventListener('mousedown', (e) => {
+					e.stopPropagation();
+				});
+			}
+		}
 
 		shadow.appendChild(template);
 	}
