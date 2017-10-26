@@ -1,7 +1,6 @@
 :host {
-	--width: 300px;
+	--width: 100%;
 	--font-size: large;
-	contain: content;
 }
 #pseudoBody {
 	width: var(--width);
@@ -17,9 +16,6 @@ input, select {
 }
 button, input, select {
 	font-size: var(--font-size);
-}
-div.fill {
-	width: 100%;
 }
 div.multi {
 	display: flex;

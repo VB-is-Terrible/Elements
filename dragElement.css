@@ -1,6 +1,4 @@
 :host {
-	--top: 0px;
-	--left: 0px;  /* set these so Chrome doesn't return 'auto' from getComputedStyle */
 	position:  absolute;
 	--position: fixed;
 }

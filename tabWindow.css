@@ -11,13 +11,13 @@ div.fill {
 	position: relative;
 }
 :host {
-	/* --width: 650px; */
+	/*--width: 650px;*/
 	--font-size: large;
-	contain: content;
 }
 #pseudoBody {
 	width: var(--width);
 	font-size: var(--font-size);
+	contain: content;
 }
 button, input, select {
 	font-size: var(--font-size);

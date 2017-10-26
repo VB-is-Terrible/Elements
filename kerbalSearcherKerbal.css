@@ -1,5 +1,4 @@
 :host {
-	--width: 100%;
 	--results-height: 500px;
 }
 #pseudoBody {
@@ -7,7 +6,6 @@
 }
 /* Checkboxes love to float up a couple pixels */
 div.multi {
-	flex-direction: row;
 	align-items: center;
 }
 #kerbal-search {
@@ -23,9 +21,6 @@ input[type=checkbox] {
 }
 input[type=text] {
 	background: white;
-}
-p {
-	margin-top: 10px;
 }
 #results {
 	display: flex;
@@ -53,13 +48,6 @@ div.results {
 elements-kerbal {
 	width:100%;
 }
-p.inline {
-	margin-right: 10px;
-	margin-top: 0px;
-}
-div.indent {
-	margin-left: 20px;
-}
 button.results {
 	font-size: initial;
 	align-items: center;
@@ -68,6 +56,4 @@ button.results {
 	flex-grow: 0;
 	margin-left: 1em;
 	padding: 0 .25em;
-}
-div.results {
 }
