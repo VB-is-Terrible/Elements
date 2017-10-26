@@ -435,6 +435,9 @@ let KNS =  {
 		set id (value) {
 			this.__id = value;
 		}
+		get size () {
+			return this.kerbals.size;
+		}
 		/**
 		 * Add a kerbal to this group
 		 * @param {KNS.Kerbal} kerbal Kerbal to add
