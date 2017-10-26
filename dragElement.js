@@ -257,10 +257,22 @@ Elements.elements.DragElement = class extends Elements.elements.backbone {
 		});
 		this.toTop();
 	}
+	/**
+	 * Sets the top css property of pseudoBody.
+	 * This would normally be done through custom css properties, but that
+	 * causes really long style recalculations
+	 * @param {String} value What to set top to
+	 */
 	setTop (value) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		body.style.top = value;
 	}
+	/**
+	 * Sets the left css property of pseudoBody.
+	 * This would normally be done through custom css properties, but that
+	 * causes really long style recalculations
+	 * @param {String} value What to set left to
+	 */
 	setLeft (value) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		body.style.left = value;
