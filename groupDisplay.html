@@ -8,17 +8,21 @@
 		<elements-kerbal-group-display-kerbal-text></elements-kerbal-group-display-kerbal-text>
 		<script src='backbone.js'></script>
 		<script>
-			Elements.get('kerbal-group-display-kerbal-text');
+			Elements.get('kerbal-group-display-kerbal-text', 'KDB');
 		</script>
 		<script>
-			let display = document.body.querySelector('elements-kerbal-group-display-kerbal-text');
-			let kdb = KDB.fromJSON(testData4);
-			let groups = [];
-			for (let group of kdb.groups.values()) {
-				groups.push(group)
+			const main = async () => {
+				await Elements.get('KDB');
+				let display = document.body.querySelector('elements-kerbal-group-display-kerbal-text');
+				let kdb = KDB.fromJSON(testData4);
+				let groups = [];
+				for (let group of kdb.groups.values()) {
+					groups.push(group)
+				}
+				let group = groups[randint(0, groups.length)];
+				display.data = group;
 			}
-			let group = groups[randint(0, groups.length)];
-			display.data = group;
+			main();
 		</script>
 	</body>
 </html>

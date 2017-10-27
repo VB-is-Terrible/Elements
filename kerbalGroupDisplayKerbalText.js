@@ -7,13 +7,12 @@ const main = async () => {
 await Elements.get('KDB');
 /**
  * @implements GroupDisplay
- *
+ * @property {KNS.Group} data The group to display
  */
-Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements.backbone {
+Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
-
 		this.name = 'KerbalGroupDisplayKerbalText';
 		/**
 		 * The KNS.Group been displayed
@@ -21,36 +20,34 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
 		 * @type {KNS.Group}
 		 */
         this.__data = this.data || null;
-		Object.defineProperty(this, 'data' {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__data;
-			},
-			set: (value) => {
-				if (self.__data !== null) {
-					self.__data.removeDisplay(this);
-				}
-				self.emptyNodes();
-				self.__data = value;
-				if (self.__data !== null) {
-					self.__data.addDisplay(this);
-					self.populateDisplay();
-				}
-			},
-		})
         this.displays = new Map();
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
 		shadow.appendChild(template);
+		this.applyProperties('data');
+	}
+	get data () {
+		return this.__data;
+	}
+	set data (value) {
+		if (this.__data !== null) {
+			this.__data.removeDisplay(this);
+		}
+		this.emptyNodes();
+		this.__data = value;
+		if (this.__data !== null) {
+			this.__data.addDisplay(this);
+			this.populateDisplay();
+			this.updateData();
+		}
 	}
 	/**
 	 * Add a kerbal to the display
 	 * @param {KNS.Kerbal} kerbal Kerbal to display
 	 */
 	addKerbal (kerbal) {
-        let body = this.shadowRoot.querySelector('#pseudoBody');
+        let body = this.shadowRoot.querySelector('#kerbals');
         if (this.displays.has(kerbal)) {return;}
         let display = document.createElement('elements-kerbal-display-text');
 		display.data = kerbal;
@@ -79,7 +76,10 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
 		}
 	}
 	updateData () {
-
+		let name = this.shadowRoot.querySelector('#name');
+		let text = this.shadowRoot.querySelector('#text');
+		name.innerHTML = Elements.nameSanitizer(this.data.name);
+		text.innerHTML = Elements.nameSanitizer(this.data.text);
 	}
 }
 
