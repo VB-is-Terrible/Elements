@@ -706,7 +706,7 @@ Elements = {
  * Backbone for newer elements (v2.0). These elements can use
  * ES6 getter/setters for regular properties, restoring prior properties
  * via applyProperties
- * @augments Elements.element.backbone
+ * @augments Elements.elements.backbone
  * @type {Object}
  */
 Elements.elements.backbone2 = class extends Elements.elements.backbone {
@@ -731,7 +731,9 @@ Elements.elements.backbone2 = class extends Elements.elements.backbone {
 	 */
 	applyProperties (...props) {
 		for (let prop of props) {
-			this[prop] = this.___propertyStore.get(prop);
+			if (!this.___propertyStore.has(prop)) {
+				this[prop] = this.___propertyStore.get(prop);
+			}
 		}
 	}
 };
