@@ -83,3 +83,57 @@ let b = document.createElement('test-e');
 b.data = 'Hello World!';
 document.body.appendChild(b);
 customElements.define('test-e', facing);
+
+class backbone extends HTMLElement {
+	constructor () {
+		super();
+		let total = 0;
+		this.storeMap = new Map();
+		for (var variable in this) {
+			total += 1;
+			if (variable === 'storeMap') {
+				continue;
+			}
+			if (!props.has(variable)) {
+				console.log('Found property: ' + variable + ' with value: ' + this[variable].toString());
+				this.storeMap.set(variable, this[variable]);
+				delete this[variable];
+			}
+		}
+		console.log(total);
+	}
+	applyProps () {
+		for (let prop of this.storeMap.keys()) {
+			this[prop] = this.storeMap.get(prop);
+		}
+	}
+}
+
+class real extends backbone {
+	constructor () {
+		super();
+		this.__database = 'You screwed up';
+		this.__data = 'You screwed up';
+		this.applyProps();
+	}
+	get data () {
+		return this.__data;
+	}
+	set data (value) {
+		console.log('Updating data');
+		this.__data = value
+	}
+	get database () {
+		return this.__database;
+	}
+	set database (value) {
+		console.log('Updating database');
+		this.__database = value;
+	}
+}
+
+let c = document.createElement('test-f');
+c.data = ['42', '39', '36', '33', '30', '27', '24', '21', '18', '15', '12', '9', '6', '3', '0'];
+c.database = 'Welcome to the future'
+document.body.appendChild(c);
+customElements.define('test-f', real);
