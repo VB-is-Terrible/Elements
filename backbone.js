@@ -17,6 +17,9 @@ Elements = {
 		 * Base class for elements
 		 * @memberof Elements.elements
 		 * @property {Function} constructor
+		 * @property {Object} getDict Mapping of the getters set by setUpAttrPropertyLink
+		 * @property {Object} setDict Mapping of the setters set by setUpAttrPropertyLink
+		 * @property {Booelean} attributeInit Whether the attributes have been initalized
 		 */
 		backbone: class extends HTMLElement {
 			/**
@@ -64,6 +67,30 @@ Elements = {
 
 			}
 		},
+	},
+	/**
+	 * Properties to exclude from stashing. These are normally properties
+	 * declared prior to stashing
+	 * @type {Set}
+	 */
+	excludedProperties: new Set(['getDict', 'setDict', 'attributeInit', '___propertyStore']),
+	/**
+	 * A set of the default properties that come with HTMLElement
+	 * As this varies between browsers, this is filled in by initDefaultPreperties
+	 * @type {Set}
+	 */
+	defaultProperties: new Set(),
+	/**
+	 * Create a new empty custom element, then place all the properties into
+	 * defaultProperties. Needed as HTMLElement varies between browsers
+	 */
+	initDefaultPreperties: function () {
+		let Sentinel = class extends HTMLElement {};
+		customElements.define('black-hole-sentinel', Sentinel);
+		let base = new Sentinel();
+		for (let property in base) {
+			this.defaultProperties.add(property);
+		}
 	},
 	/**
 	 * Set of loaded element names
@@ -674,5 +701,40 @@ Elements = {
 		return string;
 	},
 
-}
+};
+/**
+ * Backbone for newer elements (v2.0). These elements can use
+ * ES6 getter/setters for regular properties, restoring prior properties
+ * via applyProperties
+ * @augments Elements.element.backbone
+ * @type {Object}
+ */
+Elements.elements.backbone2 = class extends Elements.elements.backbone {
+	constructor () {
+		super();
+		this.___propertyStore = new Map();
+		for (var property in this) {
+			if (Elements.excludedProperties.has(property)) {
+				continue;
+			}
+			if (!Elements.defaultProperties.has(property)) {
+				this.___propertyStore.set(property, this[property]);
+				delete this[property];
+			}
+		}
+	}
+	/**
+	 * Apply the properties saved in the constructor
+	 * @param  {...Strings} props Properties to restore
+	 * @memberof! Elements.elements.backbone2
+	 * @instance
+	 */
+	applyProperties (...props) {
+		for (let prop of props) {
+			this[prop] = this.storeMap.get(prop);
+		}
+	}
+};
+
 Elements.loadManifest();
+Elements.initDefaultPreperties();
