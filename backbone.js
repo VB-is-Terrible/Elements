@@ -731,7 +731,7 @@ Elements.elements.backbone2 = class extends Elements.elements.backbone {
 	 */
 	applyProperties (...props) {
 		for (let prop of props) {
-			this[prop] = this.storeMap.get(prop);
+			this[prop] = this.___propertyStore.get(prop);
 		}
 	}
 };
