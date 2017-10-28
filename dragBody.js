@@ -5,6 +5,7 @@
  * Designed to hold DragElements
  * Make sure internal elements are also draggable
  * @property {HTMLElement} subject drag-element been dragged
+ * @augments Elements.elements.backbone2
  */
 Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 	constructor () {
