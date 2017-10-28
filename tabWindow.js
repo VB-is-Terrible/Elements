@@ -230,9 +230,29 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
  * Implements commonly used methods for things in tabs
  * @implements Draggable
  * @property {Boolean} hidden Wheter this tab window is hidden
+ * @augments Elements.elements.dragged
  * @type {Object}
  */
 Elements.elements.tabbed = class extends Elements.elements.dragged {
+	/**
+	 * Fired when the tab is hidden
+	 */
+	hideTab () {}
+	/**
+	 * Fired when the tab is shown
+	 */
+	showTab () {}
+}
+
+
+/**
+ * Implements commonly used methods for things in tabs
+ * @implements Draggable
+ * @property {Boolean} hidden Wheter this tab window is hidden
+ * @augments Elements.elements.dragged2
+ * @type {Object}
+ */
+Elements.elements.tabbed2 = class extends Elements.elements.dragged2 {
 	/**
 	 * Fired when the tab is hidden
 	 */
