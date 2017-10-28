@@ -14,7 +14,7 @@ await Elements.get('drag-element');
  * @augments Elements.elements.dragged
  * @fires Elements.elements.Tabs#change
  */
-Elements.elements.TabWindow = class extends Elements.elements.dragged {
+Elements.elements.TabWindow = class extends draggedMixin(Elements.elements.backbone2) {
 	constructor () {
 		super();
 		const self = this;
@@ -29,6 +29,9 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		let close = template.querySelector('#Close');
 		shadow.appendChild(template);
 
+		this.__title = '';
+		this.__tabs = '';
+		this.__selected = '';
 		Elements.setUpAttrPropertyLink(this, 'title', titleSpan.innerHTML, (value) => {
 			requestAnimationFrame((e) => {
 				titleSpan.innerHTML = value;
@@ -58,6 +61,35 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged {
 		close.addEventListener('click', (e) => {
 			self.hideWindow();
 		});
+	}
+	get title () {
+		return this.__title;
+	}
+	set title (value) {
+		this.__title = value;
+		if (this.attributeInit) {
+			this.setAttribute('title', value);
+		}
+		let titleSpan = this.shadowRoot.querySelector('#tabTitle');
+		requestAnimationFrame((e) => {
+			titleSpan.innerHTML = value;
+		});
+	}
+	get tabs () {
+		return this.__tabs;
+	}
+	set tabs (value) {
+		this.__tabs = value;
+		if (this.attributeInit) {
+			this.setAttribute('title', value);
+		}
+		this.reTab(value);
+	}
+	get selected () {
+		return this.__selected;
+	}
+	set selected (value) {
+		//TODO: Implement switchin when this is changed
 	}
 	/**
 	 * Function to change the tabs
