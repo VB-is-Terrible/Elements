@@ -779,7 +779,7 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 * @instance
 	 */
 	applyPriorProperty (property, initial) {
-		if (!this.___propertyStore.has(property)) {
+		if (this.___propertyStore.has(property)) {
 			this[property] = this.___propertyStore.get(property);
 		} else {
 			this[property] = initial;
