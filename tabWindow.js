@@ -11,7 +11,8 @@ await Elements.get('drag-element');
  * @property {String} tabs String of tab names in quotations, using backslashes to cancel e.g. '"Kerbal" "Destina\"tion"'
  * @property {String} selected Tab currently selected
  * @type {Object}
- * @augments Elements.elements.dragged
+ * @augments Elements.elements.dragged2
+ * @augments Elements.elements.backbone2
  * @fires Elements.elements.Tabs#change
  */
 Elements.elements.TabWindow = class extends draggedMixin(Elements.elements.backbone2) {
@@ -32,29 +33,9 @@ Elements.elements.TabWindow = class extends draggedMixin(Elements.elements.backb
 		this.__title = '';
 		this.__tabs = '';
 		this.__selected = '';
-		Elements.setUpAttrPropertyLink(this, 'title', titleSpan.innerHTML, (value) => {
-			requestAnimationFrame((e) => {
-				titleSpan.innerHTML = value;
-			});
-		});
-		Elements.setUpAttrPropertyLink(this, 'tabs', '', (value) => {
-			self.reTab(value);
-		});
-		Elements.setUpAttrPropertyLink(this, 'selected', '', (value) => {
-			tabs.selected = value;
-		});
+		this.applyPriorProperties('title', 'tabs', 'selected');
 		tabs.addEventListener('change', (e) => {
-			let active = this.__active;
-			if (active !== null) {
-				this.constructor.triggerNodeFunction(active, 'hideTab');
-			}
-			for (let div of this.__tabMap.values()) {
-				div.style.display = 'none';
-			}
-			active = this.__tabMap.get(e.detail);
-			active.style.display = 'block';
-			this.constructor.triggerNodeFunction(active, 'showTab');
-			this.__active = active;
+			self.selected = e.detail;
 			let event = new CustomEvent('change', {detail: e.detail});
 			this.dispatchEvent(event);
 		});
@@ -89,7 +70,26 @@ Elements.elements.TabWindow = class extends draggedMixin(Elements.elements.backb
 		return this.__selected;
 	}
 	set selected (value) {
-		//TODO: Implement switchin when this is changed
+		this.__selected = value;
+		if (this.attributeInit) {
+			this.setAttribute('selected', value);
+		}
+		let tabs = this.shadowRoot.querySelector('elements-tabs');
+
+		tabs.selected = value;
+		let active = this.__active;
+		if (active !== null) {
+			this.constructor.triggerNodeFunction(active, 'hideTab');
+		}
+		for (let div of this.__tabMap.values()) {
+			div.style.display = 'none';
+		}
+		active = this.__tabMap.get(value);
+		if (active !== undefined) {
+			active.style.display = 'block';
+			this.constructor.triggerNodeFunction(active, 'showTab');
+			this.__active = active;
+		}
 	}
 	/**
 	 * Function to change the tabs
