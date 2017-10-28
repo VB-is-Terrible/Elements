@@ -1,6 +1,5 @@
 'use strict';
 
-//TODO: If empty, set display to none
 /**
  * A drop down that presists.
  * Use slot='s1' for the element to go next to the arrow
