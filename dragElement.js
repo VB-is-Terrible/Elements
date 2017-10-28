@@ -349,4 +349,63 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 		}
 	}
 }
+
+/**
+ * A mixin for dragged. Built for the transition to backbone2
+ * See dragged for documentation
+ * @param {Object} superclass Class to mix draggable methods into
+ * @return {Draggable} Class that implements draggable
+ */
+const draggedMixin = (superclass) => {
+	return class extends superclass {
+		constructor (...args) {
+			super(...args);
+			this.parent = this.parent || null;
+		}
+		get hidden () {
+			if (this.parent === null) {
+				return this.parentElement.hidden;
+			} else {
+				return this.parent.hidden;
+			}
+		}
+		hideWindow () {
+			if (this.parent === null) {
+				this.parentElement.hideWindow();
+			} else {
+				this.parent.hideWindow();
+			}
+		}
+		showWindow () {
+			if (this.parent === null) {
+				this.parentElement.showWindow();
+			} else {
+				this.parent.showWindow();
+			}
+		}
+		centre () {
+			if (this.parent === null) {
+				this.parentElement.centre();
+			} else {
+				this.parent.centre();
+			}
+		}
+		touch_reset () {
+			if (this.parent === null) {
+				this.parentElement.touch_reset();
+			} else {
+				this.parent.touch_reset();
+			}
+		}
+		drag_reset () {
+			if (this.parent === null) {
+				this.parentElement.drag_reset();
+			} else {
+				this.parent.drag_reset();
+			}
+		}
+
+	};
+};
+
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
