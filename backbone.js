@@ -705,9 +705,11 @@ Elements = {
 /**
  * Backbone for newer elements (v2.0). These elements can use
  * ES6 getter/setters for regular properties, restoring prior properties
- * via applyProperties
- * @augments Elements.elements.backbone
+ * via applyProperties.
+ * Does the connectedCallback/attributeChangedCallback part of setUpAttrPropertyLink
+ * without declaration, based on observedAttributes
  * @type {Object}
+ * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
 Elements.elements.backbone2 = class extends HTMLElement {
 	constructor () {
@@ -726,7 +728,7 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	}
 	/**
 	 * Called once inserted into DOM
-	 * @memberof! Elements.elements.backbone
+	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	connectedCallback () {
@@ -747,7 +749,7 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 * @param  {String} attrName name of attribute changed
 	 * @param  {String} oldValue Value before change
 	 * @param  {String} newValue Value after change
-	 * @memberof! Elements.elements.backbone
+	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
@@ -781,6 +783,12 @@ Elements.elements.backbone2 = class extends HTMLElement {
 			this[property] = initial;
 		}
 	}
+	/**
+	 * Called when removed from the dom.
+	 * Here for completion
+	 * @memberof! Elements.elements.backbone2
+	 * @instance
+	 */
 	disconnectedCallback () {}
 };
 

@@ -42,6 +42,7 @@ Elements.get('drag-body');
  * touch_start -> touch_move -> touch_end
  * drag_start -> drag_move (drag over) -> drag_end (drag drop, found in drag-body)
  * @property {boolean} hidden Wheter this element is hidden
+ * @augments Elements.elements.backbone2
  * @implements Draggable
  */
 Elements.elements.DragElement = class extends Elements.elements.backbone2 {
