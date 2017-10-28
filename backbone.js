@@ -73,7 +73,7 @@ Elements = {
 	 * declared prior to stashing
 	 * @type {Set}
 	 */
-	excludedProperties: new Set(['getDict', 'setDict', 'attributeInit', '___propertyStore']),
+	excludedProperties: new Set(['attributeInit', '___propertyStore']),
 	/**
 	 * A set of the default properties that come with HTMLElement
 	 * As this varies between browsers, this is filled in by initDefaultPreperties
@@ -709,7 +709,7 @@ Elements = {
  * @augments Elements.elements.backbone
  * @type {Object}
  */
-Elements.elements.backbone2 = class extends Elements.elements.backbone {
+Elements.elements.backbone2 = class extends HTMLElement {
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
@@ -722,20 +722,66 @@ Elements.elements.backbone2 = class extends Elements.elements.backbone {
 				delete this[property];
 			}
 		}
+		this.attributeInit = false;
+	}
+	/**
+	 * Called once inserted into DOM
+	 * @memberof! Elements.elements.backbone
+	 * @instance
+	 */
+	connectedCallback () {
+		if (this.attributeInit === false){
+			if (this.constructor.observedAttributes === undefined) {
+				return;
+			}
+			for (let attribute of this.constructor.observedAttributes) {
+				if (this.getAttribute(attribute) === null) {
+					this.setAttribute(attribute, this[attribute]);
+				}
+			}
+		}
+		this.attributeInit = true;
+	}
+	/**
+	 * Called when a attribute changes
+	 * @param  {String} attrName name of attribute changed
+	 * @param  {String} oldValue Value before change
+	 * @param  {String} newValue Value after change
+	 * @memberof! Elements.elements.backbone
+	 * @instance
+	 */
+	attributeChangedCallback(attrName, oldValue, newValue) {
+		this[attrName] = newValue;
 	}
 	/**
 	 * Apply the properties saved in the constructor
-	 * @param  {...Strings} props Properties to restore
+	 * @param  {...Strings} properties Properties to restore
 	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
-	applyProperties (...props) {
-		for (let prop of props) {
+	applyPriorProperties (...properties) {
+		for (let prop of properties) {
 			if (!this.___propertyStore.has(prop)) {
 				this[prop] = this.___propertyStore.get(prop);
 			}
 		}
 	}
+	/**
+	 * Apply the property saved in the constructor, or initial
+	 * if the property was not present
+	 * @param  {String} property Property to restore
+	 * @param  {*} initial       What to set the property to if it was saved
+	 * @memberof! Elements.elements.backbone2
+	 * @instance
+	 */
+	applyPriorProperty (property, initial) {
+		if (!this.___propertyStore.has(property)) {
+			this[property] = this.___propertyStore.get(property);
+		} else {
+			this[property] = initial;
+		}
+	}
+	disconnectedCallback () {}
 };
 
 Elements.loadManifest();
