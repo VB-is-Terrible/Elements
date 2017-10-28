@@ -111,7 +111,6 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 		applyEL('nameInput', 'keyup', (e) => {
 			if (self.__oldValue === null) return;
 			let name = UI.nameInput.value;
-			name = Elements.nameSanitizer(name);
 			if (KerbalLink.get(self.database).kerbals.has(name) && name !== self.__oldValue.name) {
 				UI.warn.style.display = 'block';
 				UI.nameInput.style.color = 'red';

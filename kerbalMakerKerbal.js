@@ -120,7 +120,7 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 	 */
 	newKerbal () {
 		this.data = new KNS.Kerbal();
-		this.data.name = '&nbsp;';
+		this.data.name = '';
 		this.data.text = defaultJob;
 		this.elements.kerbal.data = this.data;
 		this.nameChanged = false;
@@ -140,9 +140,6 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 		let f;
 		let name = this.elements.nameInput.value;
 		name = name.trim();
-		if (name !== '&nbsp;' || this.nameChanged) {
-			name = Elements.nameSanitizer(name);
-		}
 		if (KerbalLink.get(this.database).kerbals.has(name)) {
 			f = () => {
 				this.elements.warn.style.display = 'block';
@@ -152,7 +149,7 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 			this.elements.kerbal.disabled = true;
 			this.elements.updater.disabled = true;
 			this.nameValid = false;
-		} else if (name === "&nbsp;" || name === '') {
+		} else if (name === '' || name === '') {
 			f = () => {
 				this.elements.warn.style.display = 'block';
 				this.elements.warn.title = "Please enter a name";
@@ -161,7 +158,7 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 			this.elements.kerbal.disabled = true;
 			this.elements.updater.disabled = true;
 			this.nameValid = false;
-			name = '&nbsp;';
+			name = '';
 		} else {
 			f = () => {
 				this.elements.warn.style.display = 'none';
