@@ -765,7 +765,7 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 */
 	applyPriorProperties (...properties) {
 		for (let prop of properties) {
-			if (!this.___propertyStore.has(prop)) {
+			if (this.___propertyStore.has(prop)) {
 				this[prop] = this.___propertyStore.get(prop);
 			}
 		}
