@@ -10,10 +10,10 @@
  * A tab display. Does not include actual tab switching
  * @type {Object}
  * @property {String} selected Current tab selected
- * @augments Elements.elements.backbone
+ * @augments Elements.elements.backbone2
  * @fires Elements.elements.Tabs#change
  */
-Elements.elements.Tabs = class extends Elements.elements.backbone {
+Elements.elements.Tabs = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
@@ -31,26 +31,13 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 
 		this.__setting = false;
 		this.__temp = null;
-		let selector = (value) => {
-			if (self.__setting) return;
-			if (self.attributeInit === false) {self.__temp = value; return;}
-			let buttons = self.shadowRoot.querySelectorAll('button.tab');
-			let result = null;
-			for (let button of buttons) {
-				if (value === button.firstElementChild.assignedNodes()[0].innerHTML) {
-					result = button;
-					break;
-				}
-			}
-			self.__rAF(() => {
-				self.clearState();
-				if (result !== null) {
-					result.classList.add('tab-selected');
-				}
-			});
-		};
-		Elements.setUpAttrPropertyLink(this, 'selected', null,
-		selector);
+		/**
+		 * Concrete location of selected
+		 * @type {String}
+		 * @private
+		 */
+		this.__selected = null;
+		this.applyPriorProperties('selected');
 
 	}
 	connectedCallback () {
@@ -60,6 +47,34 @@ Elements.elements.Tabs = class extends Elements.elements.backbone {
 		if (this.__temp !== null) {
 			this.selected = this.__temp;
 		}
+	}
+	disconnectedCallback () {
+		this.mo.disconnect();
+	}
+	get selected () {
+		return this.__selected;
+	}
+	set selected (value) {
+		this.__selected = value;
+		if (this.attributeInit) {
+			this.setAttribute('selected', value);
+		}
+		if (this.__setting) return;
+		if (this.attributeInit === false) {this.__temp = value; return;}
+		let buttons = this.shadowRoot.querySelectorAll('button.tab');
+		let result = null;
+		for (let button of buttons) {
+			if (value === button.firstElementChild.assignedNodes()[0].innerHTML) {
+				result = button;
+				break;
+			}
+		}
+		this.__rAF(() => {
+			this.clearState();
+			if (result !== null) {
+				result.classList.add('tab-selected');
+			}
+		});
 	}
 	/**
 	 * Add/remove tabs to/from the element if required
