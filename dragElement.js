@@ -362,6 +362,7 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
  */
 Elements.elements.dragged2 = class dragged2 extends Elements.elements.backbone2 {
 	constructor () {
+		super();
 		this.applyPriorProperty('parent', null);
 	}
 	get hidden () {
