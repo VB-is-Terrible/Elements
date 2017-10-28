@@ -352,61 +352,76 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 }
 
 /**
- * A mixin for dragged. Built for the transition to backbone2
- * See dragged for documentation
- * @param {Object} superclass Class to mix draggable methods into
- * @return {Draggable} Class that implements draggable
+ * Implements commonly used methods for things been dragged
+ * @type {Object}
+ * @property {Boolean} hidden Wheter this element is hidden
+ * @property {Draggable} parent Element to chain [show/hide]Window, etc. calls to. Defaults to parentElement
+ * @implements Draggable
+ * @augments Elements.elements.backbone2
+ * @name Elements.elements.dragged2
  */
-const draggedMixin = (superclass) => {
-	return class extends superclass {
-		constructor (...args) {
-			super(...args);
-			this.parent = this.parent || null;
+Elements.elements.dragged2 = class dragged2 extends Elements.elements.backbone2 {
+	constructor () {
+		this.applyPriorProperty('parent', null);
+	}
+	get hidden () {
+		if (this.parent === null) {
+			return this.parentElement.hidden;
+		} else {
+			return this.parent.hidden;
 		}
-		get hidden () {
-			if (this.parent === null) {
-				return this.parentElement.hidden;
-			} else {
-				return this.parent.hidden;
-			}
+	}
+	/**
+	 * Hide this element
+	 */
+	hideWindow () {
+		if (this.parent === null) {
+			this.parentElement.hideWindow();
+		} else {
+			this.parent.hideWindow();
 		}
-		hideWindow () {
-			if (this.parent === null) {
-				this.parentElement.hideWindow();
-			} else {
-				this.parent.hideWindow();
-			}
+	}
+	/**
+	 * Unhide this element
+	 */
+	showWindow () {
+		if (this.parent === null) {
+			this.parentElement.showWindow();
+		} else {
+			this.parent.showWindow();
 		}
-		showWindow () {
-			if (this.parent === null) {
-				this.parentElement.showWindow();
-			} else {
-				this.parent.showWindow();
-			}
+	}
+	/**
+	 * Centre the element onscreen
+	 */
+	centre () {
+		if (this.parent === null) {
+			this.parentElement.centre();
+		} else {
+			this.parent.centre();
 		}
-		centre () {
-			if (this.parent === null) {
-				this.parentElement.centre();
-			} else {
-				this.parent.centre();
-			}
+	}
+	/**
+	 * Resets/Cancels a touch drag.
+	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
+	 */
+	touch_reset () {
+		if (this.parent === null) {
+			this.parentElement.touch_reset();
+		} else {
+			this.parent.touch_reset();
 		}
-		touch_reset () {
-			if (this.parent === null) {
-				this.parentElement.touch_reset();
-			} else {
-				this.parent.touch_reset();
-			}
+	}
+	/**
+	 * Reset/Cancel a drag. For completness
+	 */
+	drag_reset () {
+		if (this.parent === null) {
+			this.parentElement.drag_reset();
+		} else {
+			this.parent.drag_reset();
 		}
-		drag_reset () {
-			if (this.parent === null) {
-				this.parentElement.drag_reset();
-			} else {
-				this.parent.drag_reset();
-			}
-		}
-
-	};
-};
+	}
+}
 
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');

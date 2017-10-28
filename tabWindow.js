@@ -15,7 +15,7 @@ await Elements.get('drag-element');
  * @augments Elements.elements.backbone2
  * @fires Elements.elements.Tabs#change
  */
-Elements.elements.TabWindow = class extends draggedMixin(Elements.elements.backbone2) {
+Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 	constructor () {
 		super();
 		const self = this;
