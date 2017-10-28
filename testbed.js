@@ -58,6 +58,11 @@ class back extends HTMLElement {
 		}
 		console.log(total);
 	}
+	connectedCallback () {
+		for (let attribute of this.constructor.observedAttributes) {
+			console.log('Reading attribute ' + attribute);
+		}
+	}
 }
 
 class facing extends back {
@@ -76,6 +81,9 @@ class facing extends back {
 	}
 	set try (value) {
 		console.log('Not happening');
+	}
+	static get observedAttributes () {
+		return ['this', 'is', 'a', 'test'];
 	}
 }
 
@@ -107,6 +115,11 @@ class backbone extends HTMLElement {
 			this[prop] = this.storeMap.get(prop);
 		}
 	}
+	connectedCallback () {
+		for (let attribute of this.constructor.observedAttributes) {
+			console.log('Reading attribute ' + attribute);
+		}
+	}
 }
 
 class real extends backbone {
@@ -129,6 +142,9 @@ class real extends backbone {
 	set database (value) {
 		console.log('Updating database');
 		this.__database = value;
+	}
+	static get observedAttributes () {
+		return ['this', 'is', 'a', 'test'];
 	}
 }
 
