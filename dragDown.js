@@ -6,8 +6,9 @@
  * Use slot='s1' for the element to go next to the arrow
  * @type {Object}
  * @property {Boolean} menuvisible Whether the drop down in toggled
+ * @augments Elements.elements.backbone2
  */
-Elements.elements.DragDown = class extends Elements.elements.backbone {
+Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 
@@ -15,7 +16,6 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 		this.name = 'DragDown';
 
         this.__menuVisible = true;
-
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -29,29 +29,37 @@ Elements.elements.DragDown = class extends Elements.elements.backbone {
 
 		shadow.appendChild(template);
 
-		let menuChange = (value) => {
-			self.toggleState(value);
-		};
-
-		Elements.setUpAttrPropertyLink(this, 'menuvisible', true, menuChange, Elements.booleaner);
+		this.applyPriorProperty('menuvisible', true);
 	}
-	/**
-	 * Toggles whether the drop down is active, without agruements toggles state
-	 * @param  {Boolean} [open] Explicit state to change to
-	 */
-	toggleState (open) {
-		if (open === undefined) {
-			open = !this.__menuVisible;
-		} else if (open === this.__menuVisible)  {
-			return;
-		}
+	get menuvisible () {
+		return this.__menuVisible;
+	}
+	set menuvisible (open) {
+		open = Elements.booleaner(open);
+		if (open === this.menuvisible) {return;}
 		let menu = this.shadowRoot.querySelector('div.down');
 		let button = this.shadowRoot.querySelector('button');
 		this.__menuVisible = open;
+		if (this.attributeInit) {
+			this.setAttribute('menuvisible', open);
+		}
 		requestAnimationFrame(() => {
 			menu.style.display = open ? 'block' : 'none';
 			button.innerHTML = open ? '&#x25b2;' : '&#x25bc;';
 		});
+	}
+	/**
+	 * Toggles whether the drop down is active
+	 * @param  {Boolean} [open] Explicit state to change to
+	 */
+	toggleState (open) {
+		if (open === undefined) {
+			this.menuvisible =  !this.menuvisible;
+		} else if (open === this.menuvisible)  {
+			return;
+		} else {
+			this.menuvisible = open;
+		}
 	}
 	static get observedAttributes () {
         return ['menuvisible'];
