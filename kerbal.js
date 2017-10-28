@@ -102,8 +102,12 @@ Elements.await(function () {
 				});
 			} else {
 				requestAnimationFrame(() => {
-					kerbalTag.name = this.data.name;
-					kerbalTag.text = this.data.text;
+					if (this.data.name === '') {
+						kerbalTag.name = '&nbsp';
+					} else {
+						kerbalTag.name = Elements.nameSanitizer(this.data.name);
+					}
+					kerbalTag.text = Elements.nameSanitizer(this.data.text);
 				});
 			}
 		}

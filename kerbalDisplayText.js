@@ -50,7 +50,7 @@ Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elem
         if (this.data === null) {
 			this.__main.innerHTML = 'Miising Kerbal';
 		} else {
-			this.__main.innerHTML = this.data.name;
+			this.__main.innerHTML = Elements.nameSanitizer(this.data.name);
 		}
     }
     delete () {
