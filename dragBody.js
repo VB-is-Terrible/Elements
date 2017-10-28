@@ -6,7 +6,7 @@
  * Make sure internal elements are also draggable
  * @property {HTMLElement} subject drag-element been dragged
  */
-Elements.elements.DragBody = class extends Elements.elements.backbone {
+Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 

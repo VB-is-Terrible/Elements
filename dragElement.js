@@ -44,7 +44,7 @@ Elements.get('drag-body');
  * @property {boolean} hidden Wheter this element is hidden
  * @implements Draggable
  */
-Elements.elements.DragElement = class extends Elements.elements.backbone {
+Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 
