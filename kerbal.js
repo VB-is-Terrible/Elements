@@ -23,12 +23,7 @@ Elements.await(function () {
 
 			const self = this;
 			this.alias = 'Kerbal';
-			if (!this.data) {
-				this._data = new KNS.Kerbal();
-				this._data.addDisplay(this);
-			} else {
-				this._data = this.data;
-			}
+			this._data = this.data || null;
 			Object.defineProperty(this, 'data', {
 				enumerable: true,
 				configurable: true,
@@ -36,14 +31,13 @@ Elements.await(function () {
 					return self._data;
 				},
 				set: (value) => {
-					this._data.removeDisplay(this);
-					if (value === null) {
-						value = new KNS.Kerbal();
-						value.name = '';
-						value.text = '';
+					if (this._data !== null) {
+						this._data.removeDisplay(this);
 					}
 					self._data = value;
-					value.addDisplay(this);
+					if (value !== null) {
+						value.addDisplay(this);
+					}
 					self.updateData();
 					self.displayJobs();
 				},
@@ -100,19 +94,28 @@ Elements.await(function () {
 		 * Update name, text of kerbal
 		 */
 		updateData () {
-			requestAnimationFrame(() => {
-				let kerbalTag = this.shadowRoot.querySelector('elements-kerbal-tag');
-				kerbalTag.name = this.data.name;
-				kerbalTag.text = this.data.text;
-			});
+			let kerbalTag = this.shadowRoot.querySelector('elements-kerbal-tag');
+			if (this.data === null) {
+				requestAnimationFrame(() => {
+					kerbalTag.name = 'No kerbal';
+					kerbalTag.text = 'No text';
+				});
+			} else {
+				requestAnimationFrame(() => {
+					kerbalTag.name = this.data.name;
+					kerbalTag.text = this.data.text;
+				});
+			}
 		}
 		/**
 		* Displays held jobs
 		*/
 		displayJobs () {
 			this.emptyNodes();
-			for (let location of KNS.places) {
-				this.showJob(location);
+			if (this.data !== null) {
+				for (let location of KNS.places) {
+					this.showJob(location);
+				}
 			}
 		}
 		/**
@@ -152,7 +155,9 @@ Elements.await(function () {
 					this.remove();
 				});
 			}
-			this.data.removeDisplay(this);
+			if (this.data !== null) {
+				this.data.removeDisplay(this);
+			}
 		}
 		/**
 		* Remove all children
