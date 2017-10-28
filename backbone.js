@@ -753,7 +753,9 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 * @instance
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
-		this[attrName] = newValue;
+		if (this[attrName] !== newValue) {
+			this[attrName] = newValue;
+		}
 	}
 	/**
 	 * Apply the properties saved in the constructor
