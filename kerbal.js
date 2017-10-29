@@ -14,7 +14,7 @@ Elements.await(function () {
 	 * @property {?JobList} jobs Readonly reflection on data.jobs
 	 * @property {?String} name Readonly reflection on data.name
 	 * @property {Boolean} disabled=false Toggle to draw a big red x over the kerbal
-	 * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itself once the KNS.Kerbal is deleted
+	 * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itthis once the KNS.Kerbal is deleted
 	 * @augments Elements.elements.backbone2
 	 */
 	Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
@@ -38,18 +38,18 @@ Elements.await(function () {
 			this.applyPriorProperties('menuvisible', 'disabled', 'deleter');
 		}
 		get data () {
-			return self._data;
+			return this._data;
 		}
-		set data () {
+		set data (value) {
 			if (this._data !== null) {
 				this._data.removeDisplay(this);
 			}
-			self._data = value;
+			this._data = value;
 			if (value !== null) {
 				value.addDisplay(this);
 			}
-			self.updateData();
-			self.displayJobs();
+			this.updateData();
+			this.displayJobs();
 		}
 		get jobs () {
 			if (this.data !== null) {
