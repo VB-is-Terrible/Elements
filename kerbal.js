@@ -29,12 +29,11 @@ Elements.await(function () {
 			let template = Elements.importTemplate(this.alias);
 			shadow.appendChild(template);
 
-			let dragDown = template.querySelector('elements-drag-down');
-			Elements.setUpAttrPropertyLink(this, 'menuvisible', true,
-			                               (value) => {dragDown.menuvisible = value;},
-									       Elements.booleaner);
 			this._data = null;
 			this.applyPriorProperty('data', null);
+			this.__menuvisible = true;
+			this.applyPriorProperty('menuvisible', true);
+
 			let overlay = template.querySelector('#overlay');
 			this.update = null;
 			let disable = (value) => {
@@ -79,6 +78,19 @@ Elements.await(function () {
 			} else {
 				return null;
 			}
+		}
+		get menuvisible () {
+			return this.__menuvisible;
+		}
+		set menuvisible (value) {
+			open = Elements.booleaner(open);
+			if (open === this.menuvisible) {return;}
+			this.__menuvisible = value;
+			if (this.attributeInit) {
+				this.setAttribute('menuvisible', open);
+			}
+			let dragDown = this.shadowRoot.querySelector('elements-drag-down');
+			dragDown.menuvisible = value;
 		}
 		connectedCallback () {
 			super.connectedCallback();
