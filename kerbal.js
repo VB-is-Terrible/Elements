@@ -15,15 +15,16 @@ Elements.await(function () {
 	 * @property {String} name Readonly reflection on data.name
 	 * @property {Boolean} disabled=false Toggle to draw a big red x over the kerbal
 	 * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itself once the KNS.Kerbal is deleted
-	 * @augments Elements.elements.backbone
+	 * @augments Elements.elements.backbone2
 	 */
-	Elements.elements.Kerbal = class extends Elements.elements.backbone {
+	Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
 		constructor () {
 			super();
 
 			const self = this;
 			this.alias = 'Kerbal';
-			this._data = this.data || null;
+			this._data = null;
+
 			Object.defineProperty(this, 'data', {
 				enumerable: true,
 				configurable: true,
@@ -85,7 +86,20 @@ Elements.await(function () {
 			shadow.appendChild(template);
 			this.updateData();
 		}
-
+		get data () {
+			return self._data;
+		}
+		set data () {
+			if (this._data !== null) {
+				this._data.removeDisplay(this);
+			}
+			self._data = value;
+			if (value !== null) {
+				value.addDisplay(this);
+			}
+			self.updateData();
+			self.displayJobs();
+		}
 		connectedCallback () {
 			super.connectedCallback();
 			this.displayJobs();
