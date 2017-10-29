@@ -733,6 +733,7 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 */
 	connectedCallback () {
 		if (this.attributeInit === false){
+			this.___propertyStore = null;
 			if (this.constructor.observedAttributes === undefined) {
 				return;
 			}
@@ -764,6 +765,10 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 * @instance
 	 */
 	applyPriorProperties (...properties) {
+		if (this.___propertyStore === null) {
+			console.warn('It\'s too late to apply properties. Do this before connectedCallback');
+			return;
+		}
 		for (let prop of properties) {
 			if (this.___propertyStore.has(prop)) {
 				this[prop] = this.___propertyStore.get(prop);
@@ -779,6 +784,10 @@ Elements.elements.backbone2 = class extends HTMLElement {
 	 * @instance
 	 */
 	applyPriorProperty (property, initial) {
+		if (this.___propertyStore === null) {
+			console.warn('It\'s too late to apply properties. Do this before connectedCallback');
+			return;
+		}
 		if (this.___propertyStore.has(property)) {
 			this[property] = this.___propertyStore.get(property);
 		} else {
