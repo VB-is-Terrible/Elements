@@ -9,10 +9,10 @@ Elements.await(function () {
 	 * Note: many elements-kerbal -> one KNS.Kerbal
 	 * @type {Object}
 	 * @implements KerbalDisplay
-	 * @property {KNS.Kerbal} data kerbal that this represents
+	 * @property {?KNS.Kerbal} data kerbal that this represents
 	 * @property {Boolean} menuvisible Whether destinations are visible
-	 * @property {JobList} jobs Readonly reflection on data.jobs
-	 * @property {String} name Readonly reflection on data.name
+	 * @property {?JobList} jobs Readonly reflection on data.jobs
+	 * @property {?String} name Readonly reflection on data.name
 	 * @property {Boolean} disabled=false Toggle to draw a big red x over the kerbal
 	 * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itself once the KNS.Kerbal is deleted
 	 * @augments Elements.elements.backbone2
@@ -25,40 +25,6 @@ Elements.await(function () {
 			this.alias = 'Kerbal';
 			this._data = null;
 
-			Object.defineProperty(this, 'data', {
-				enumerable: true,
-				configurable: true,
-				get: () => {
-					return self._data;
-				},
-				set: (value) => {
-					if (this._data !== null) {
-						this._data.removeDisplay(this);
-					}
-					self._data = value;
-					if (value !== null) {
-						value.addDisplay(this);
-					}
-					self.updateData();
-					self.displayJobs();
-				},
-			});
-			let definer = (names) => {
-				for (let name of names) {
-					Object.defineProperty(self, name, {
-						enumerable: true,
-						configurable: false,
-						get: () => {
-							return self.data[name];
-						},
-						set: (value) => {
-							console.warn('Cannot set ' + name);
-						},
-					});
-				}
-			};
-
-			definer(['jobs', 'name']);
 			this.jobDisplay = KNS.blankPlaceList(null);
 			const shadow = this.attachShadow({mode: 'open'});
 			let template = Elements.importTemplate(this.alias);
@@ -84,7 +50,7 @@ Elements.await(function () {
 			                               () => {}, Elements.booleaner);
 
 			shadow.appendChild(template);
-			this.updateData();
+			this.applyPriorProperty('data', null);
 		}
 		get data () {
 			return self._data;
@@ -99,6 +65,20 @@ Elements.await(function () {
 			}
 			self.updateData();
 			self.displayJobs();
+		}
+		get jobs () {
+			if (this.data !== null) {
+				return this.data.jobs;
+			} else {
+				return null;
+			}
+		}
+		get name () {
+			if (this.data !== null) {
+				return this.data.name;
+			} else {
+				return null;
+			}
 		}
 		connectedCallback () {
 			super.connectedCallback();
