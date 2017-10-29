@@ -23,16 +23,18 @@ Elements.await(function () {
 
 			const self = this;
 			this.alias = 'Kerbal';
-			this._data = null;
 
 			this.jobDisplay = KNS.blankPlaceList(null);
 			const shadow = this.attachShadow({mode: 'open'});
 			let template = Elements.importTemplate(this.alias);
+			shadow.appendChild(template);
 
 			let dragDown = template.querySelector('elements-drag-down');
 			Elements.setUpAttrPropertyLink(this, 'menuvisible', true,
 			                               (value) => {dragDown.menuvisible = value;},
 									       Elements.booleaner);
+			this._data = null;
+			this.applyPriorProperty('data', null);
 			let overlay = template.querySelector('#overlay');
 			this.update = null;
 			let disable = (value) => {
@@ -49,8 +51,6 @@ Elements.await(function () {
 			Elements.setUpAttrPropertyLink(this, 'deleter', true,
 			                               () => {}, Elements.booleaner);
 
-			shadow.appendChild(template);
-			this.applyPriorProperty('data', null);
 		}
 		get data () {
 			return self._data;
