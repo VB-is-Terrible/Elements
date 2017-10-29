@@ -40,7 +40,7 @@
  */
 /**
  * @function deleteKerbal
- * @param {KNS.Kerbal} name The deleted kerbal
+ * @param {KNS.Kerbal} kerbal The deleted kerbal
  * @description Fired after a kerbal is deleted
  * @name KDBDisplay.deleteKerbal
  */
@@ -59,7 +59,7 @@
  */
 /**
  * @function removeGroup
- * @param {KNS.Group} groupID The removed group
+ * @param {KNS.Group} group The removed group
  * @description Fired after a group is removed
  * @name KDBDisplay.removeGroup
 */
@@ -928,7 +928,7 @@ const KerbalJobDisplay = class extends BlankKerbalDisplay {
 };
 /**
  * A KerbalDisplay Mixin that does nothing. Use this when you don't need all the methods
- * @param {Object} superclass Class to mix KerbalDisplay methods into
+ * @param {Object} superclss Class to mix KerbalDisplay methods into
  * @return {KerbalDisplay} Class that implements KerbalDisplay
  */
 const BlankKerbalDisplayMixin = (superclass) => {
@@ -956,40 +956,30 @@ const BlankKDBDisplay = class {
 	}
 	/**
 	 * Fired after addKerbal is called
-	 * @param {String} name Name of kerbal added
+	 * @param {KNS.Kerbal} kerbal The added kerbal
 	 */
-	addKerbal (name) {
-
-	}
+	addKerbal (kerbal) {}
 	/**
 	 * Fired after a kerbal has been deleted
-	 * @param  {String} name Name of deleted kerbal
+	 * @param  {KNS.Kerbal} kerbal The deleted kerbal
 	 */
-	deleteKerbal (name) {
-
-	}
+	deleteKerbal (kerbal) {}
 	/**
 	 * Fired after a kerbal has been renamed
 	 * @param  {String} oldName Name of kerbal before rename
 	 * @param  {String} newName Current name of kerbal
 	 */
-	renameKerbal (oldName, newName) {
-
-	}
+	renameKerbal (oldName, newName) {}
 	/**
 	 * Fired after a group is added
-	 * @param {Number} groupID Id of the added group
+	 * @param {KNS.Group} group The added group
 	 */
-	addGroup (groupID) {
-
-	}
+	addGroup (group) {}
 	/**
 	 * Fired after a group is removed
-	 * @param {Number} groupID Id of removed group
+	 * @param {KNS.Group} group The removed group
 	 */
-	removeGroup (groupID) {
-
-	}
+	removeGroup (group) {}
 };
 
 
@@ -1014,6 +1004,32 @@ const BlankKDBDisplayMixin = (superclass) => {
 		removeGroup (groupID) {}
 	};
 };
+
+/**
+ * A GroupDisplay that does nothing. Use this when you don't need all the methods
+ * @implements GroupDisplay
+ * @property {KNS.Group} data Group that this represents
+ * @type {Object}
+ */
+const BlankKerbalDisplay = class {
+	constructor () {
+		this.data = null;
+	}
+	/**
+	 * Callback for when Group.data or Group.text changes
+	 */
+	updateData () {}
+	/**
+	 * Fired after a kerbal is added to the group
+	 * @param {KNS.Kerbal} kerbal The kerbal added
+	 */
+	addKerbal (kerbal) {}
+	/**
+	 * Fired after a kerbal is removed from the group
+	 * @param  {KNS.Kerbal} kerbal The deleted kerbal
+	 */
+	deleteKerbal (kerbal) {}
+}
 
 Elements.loaded('KDB');
 Elements.loaded('KNS');
