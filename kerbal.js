@@ -36,7 +36,8 @@ Elements.await(function () {
 
 			this.__update = Elements.rafContext();
 			this.__disabled = false;
-			this.applyPriorProperty('disabled', false)
+			this.applyPriorProperty('disabled', false);
+
 			Elements.setUpAttrPropertyLink(this, 'deleter', true,
 			                               () => {}, Elements.booleaner);
 
@@ -73,11 +74,11 @@ Elements.await(function () {
 			return this.__menuvisible;
 		}
 		set menuvisible (value) {
-			open = Elements.booleaner(open);
-			if (open === this.menuvisible) {return;}
+			value = Elements.booleaner(value);
+			if (value === this.menuvisible) {return;}
 			this.__menuvisible = value;
 			if (this.attributeInit) {
-				this.setAttribute('menuvisible', open);
+				this.setAttribute('menuvisible', value);
 			}
 			let dragDown = this.shadowRoot.querySelector('elements-drag-down');
 			dragDown.menuvisible = value;
@@ -86,11 +87,11 @@ Elements.await(function () {
 			return this.__disabled;
 		}
 		set disabled (value) {
-			open = Elements.booleaner(open);
-			if (open === this.menuvisible) {return;}
-			this.__menuvisible = value;
+			value = Elements.booleaner(value);
+			if (value === this.disabled) {return;}
+			this.__disabled = value;
 			if (this.attributeInit) {
-				this.setAttribute('menuvisible', open);
+				this.setAttribute('disabled', value);
 			}
 			let overlay = this.shadowRoot.querySelector('#overlay');
 			this.__update((e) => {
