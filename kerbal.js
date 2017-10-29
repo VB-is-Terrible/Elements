@@ -32,15 +32,10 @@ Elements.await(function () {
 			this._data = null;
 			this.applyPriorProperty('data', null);
 			this.__menuvisible = true;
-			this.applyPriorProperty('menuvisible', true);
-
 			this.__update = Elements.rafContext();
 			this.__disabled = false;
-			this.applyPriorProperty('disabled', false);
-
-			Elements.setUpAttrPropertyLink(this, 'deleter', true,
-			                               () => {}, Elements.booleaner);
-
+			this.__deleter = false;
+			this.applyPriorProperties('menuvisible', 'disabled', 'deleter');
 		}
 		get data () {
 			return self._data;
@@ -97,6 +92,17 @@ Elements.await(function () {
 			this.__update((e) => {
 				overlay.style.display = value ? 'block' : 'none';
 			});
+		}
+		get deleter () {
+			return this.__deleter;
+		}
+		set deleter (value) {
+			value = Elements.booleaner(value);
+			if (value === this.deleter) {return;}
+			this.__deleter = value;
+			if (this.attributeInit) {
+				this.setAttribute('deleter', value);
+			}
 		}
 		connectedCallback () {
 			super.connectedCallback();
