@@ -34,19 +34,9 @@ Elements.await(function () {
 			this.__menuvisible = true;
 			this.applyPriorProperty('menuvisible', true);
 
-			let overlay = template.querySelector('#overlay');
-			this.update = null;
-			let disable = (value) => {
-				if (self.update !== null) {
-					cancelAnimationFrame(self.update);
-				}
-				self.update = requestAnimationFrame(() => {
-					overlay.style.display = value ? 'block' : 'none';
-					self.update = null;
-				});
-			};
-			Elements.setUpAttrPropertyLink(this, 'disabled', false,
-			                               disable, Elements.booleaner);
+			this.__update = Elements.rafContext();
+			this.__disabled = false;
+			this.applyPriorProperty('disabled', false)
 			Elements.setUpAttrPropertyLink(this, 'deleter', true,
 			                               () => {}, Elements.booleaner);
 
@@ -91,6 +81,21 @@ Elements.await(function () {
 			}
 			let dragDown = this.shadowRoot.querySelector('elements-drag-down');
 			dragDown.menuvisible = value;
+		}
+		get disabled () {
+			return this.__disabled;
+		}
+		set disabled (value) {
+			open = Elements.booleaner(open);
+			if (open === this.menuvisible) {return;}
+			this.__menuvisible = value;
+			if (this.attributeInit) {
+				this.setAttribute('menuvisible', open);
+			}
+			let overlay = this.shadowRoot.querySelector('#overlay');
+			this.__update((e) => {
+				overlay.style.display = value ? 'block' : 'none';
+			});
 		}
 		connectedCallback () {
 			super.connectedCallback();
