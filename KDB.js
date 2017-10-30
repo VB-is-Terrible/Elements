@@ -1011,7 +1011,7 @@ const BlankKDBDisplayMixin = (superclass) => {
  * @property {KNS.Group} data Group that this represents
  * @type {Object}
  */
-const BlankKerbalDisplay = class {
+const BlankGroupDisplay = class {
 	constructor () {
 		this.data = null;
 	}
