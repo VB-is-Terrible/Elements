@@ -5,15 +5,16 @@
 		<link rel='preload' href='backbone.js' as='script'></link>
 	</head>
 	<body>
-		<elements-kerbal-group-display-kerbal-text></elements-kerbal-group-display-kerbal-text>
+		<!-- <elements-kerbal-group-display-kerbal-text></elements-kerbal-group-display-kerbal-text> -->
+		<elements-kerbal-group-tag id='main'></elements-kerbal-group-tag>
 		<script src='backbone.js'></script>
 		<script>
-			Elements.get('kerbal-group-display-kerbal-text', 'KDB');
+			Elements.get('kerbal-group-display-kerbal-text', 'KDB', 'kerbal-group-tag');
 		</script>
 		<script>
 			const main = async () => {
 				await Elements.get('KDB');
-				let display = document.body.querySelector('elements-kerbal-group-display-kerbal-text');
+				let display = document.body.querySelector('#main');
 				let kdb = KDB.fromJSON(testData4);
 				let groups = [];
 				for (let group of kdb.groups.values()) {
