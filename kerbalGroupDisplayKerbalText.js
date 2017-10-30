@@ -25,7 +25,7 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
 		let template = Elements.importTemplate(this.name);
 
 		shadow.appendChild(template);
-		this.applyProperties('data');
+		this.applyPriorProperties('data');
 	}
 	get data () {
 		return this.__data;
