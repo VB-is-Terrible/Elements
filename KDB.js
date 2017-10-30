@@ -419,7 +419,7 @@ let KNS =  {
 			return this.__name;
 		}
 		set name (value) {
-			this.__name;
+			this.__name = value;
 			this.updateData();
 		}
 		get text () {
