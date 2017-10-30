@@ -207,5 +207,13 @@
 		"css": ["kerbalMakerGroup.css", "kerbalFloatCommon.css"],
 		"resources": [],
 		"provides": ["kerbalMakerGroup"]
+	},
+	"kerbalGroupTag": {
+		"type": "element",
+		"requires": ["KDB"],
+		"templates": ["kerbalGroupTagTemplate.html"],
+		"css": ["kerbalGroupTag.css"],
+		"resources": ["group.svg"],
+		"provides": ["kerbalGroupTag"]
 	}
 }
