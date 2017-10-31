@@ -1,11 +1,11 @@
 'use strict'
 
-Elements.get();
+Elements.get('kerbal', 'KDB');
 
 {
 const main = async () => {
 
-await Elements.get();
+await Elements.get('KDB');
 
 /**
  * A KerbalDisplay used to listen to delete and rename callbacks
@@ -36,15 +36,47 @@ let KDBListener = class extends BlankKDBDisplay {
 	}
 }
 
+/**
+ * Implements the results showing part of kerbal-searcher-*
+ *
+ * @type {Object}
+ * @augments Elements.elements.tabbed2
+ * @property {String} action   Text to display in buttons next to results
+ * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
+ */
 Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2 {
 	constructor () {
 		super();
 		const self = this;
 
+		/**
+		 * Raf for display results
+		 * @type {Function<Function>}
+		 * @private
+		 */
 		this.resultsRAF = Elements.rafContext();
 
+		this.action = 'There should be an action here';
+		this.actionCallback = (e) => {
+			console.warn('Missing actionCallback');
+		};
+
+		/**
+		 * Mapping of kerbal -> display element
+		 * @type {Map<KNS.Kerbal, HTMLElement>}
+		 * @private
+		 */
 		this.__virtualDisplayMap = new Map();
+		/**
+		 * The KDBDisplay listener to listen for kerbal deletions
+		 * @type {?KDBListener}
+		 * @private
+		 */
 		this.__listener = null;
+		/**
+		 * Number of results been displayed
+		 * @type {Number}
+		 */
 		this.__results_length = 0;
 	}
 	/**
@@ -173,6 +205,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		}
 		return string;
 	}
+
 }
 Elements.loaded('kerbalSearcherCommon');
 
