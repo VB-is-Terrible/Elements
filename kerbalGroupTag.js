@@ -24,7 +24,7 @@ Elements.elements.KerbalGroupTag = class extends Elements.elements.backbone2 {
 		let template = Elements.importTemplate(this.name);
 		shadow.appendChild(template);
 		this.__data = null;
-		this.applyPriorProperties('data')
+		this.applyPriorProperties('data');
 	}
 	get data () {
 		return this.__data;

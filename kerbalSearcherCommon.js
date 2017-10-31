@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 Elements.get('kerbal', 'KDB', 'tab-window');
 
