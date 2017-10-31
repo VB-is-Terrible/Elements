@@ -178,7 +178,7 @@
 	},
 	"kerbalSearcherKerbal": {
 		"type": "element",
-		"requires": ["kerbal", "KDB", "dragDown", "tabWindow", "kerbalLink"],
+		"requires": ["KDB", "dragDown", "tabWindow", "kerbalLink", "kerbalSearcherCommon"],
 		"templates": ["kerbalSearcherKerbalTemplate.html"],
 		"css": ["kerbalSearcherKerbal.css", "kerbalFloatCommon.css", "kerbalSearcherCommon.css"],
 		"resources": [],
@@ -186,7 +186,7 @@
 	},
 	"kerbalSearcherDestination": {
 		"type": "element",
-		"requires": ["kerbal", "KDB", "tabWindow", "kerbalLink"],
+		"requires": ["KDB", "tabWindow", "kerbalLink", "kerbalSearcherCommon"],
 		"templates": ["kerbalSearcherDestinationTemplate.html"],
 		"css": ["kerbalSearcherKerbal.css", "kerbalFloatCommon.css", "kerbalSearcherCommon.css"],
 		"resources": [],
@@ -215,5 +215,13 @@
 		"css": ["kerbalGroupTag.css"],
 		"resources": ["group.svg"],
 		"provides": ["kerbalGroupTag"]
+	},
+	"kerbalSearcherCommon": {
+		"type": "module",
+		"requires": ["kerbal", "KDB", "tabWindow"],
+		"templates": [],
+		"css": [],
+		"resources": [],
+		"provides": ["kerbalSearcherCommon"]
 	}
 }
