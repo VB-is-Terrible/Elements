@@ -1,10 +1,10 @@
 'use strict';
 
-Elements.get('kerbal', 'KDB', 'tab-window', 'kerbal-link');
+Elements.get('kerbal', 'KDB', 'tab-window', 'kerbal-link', 'kerbal-searcher-common');
 {
 const main = async () => {
 
-await Elements.get('tab-window', 'KDB');
+await Elements.get('tab-window', 'KDB', 'kerbal-searcher-common');
 
 /**
  * Like kerbalJobDisplay, but built for kerbal-search
