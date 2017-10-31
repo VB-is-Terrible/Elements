@@ -28,6 +28,7 @@ p.subText {
 	background: lightgrey;
 	border-radius: 5px;
 	padding: 0px;
+	white-space: normal;
 }
 img {
 	display: block;
