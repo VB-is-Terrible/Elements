@@ -1,11 +1,11 @@
 'use strict'
 
-Elements.get('kerbal', 'KDB');
+Elements.get('kerbal', 'KDB', 'tab-window');
 
 {
 const main = async () => {
 
-await Elements.get('KDB');
+await Elements.get('KDB', 'tab-window');
 
 /**
  * A KerbalDisplay used to listen to delete and rename callbacks
