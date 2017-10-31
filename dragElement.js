@@ -242,18 +242,39 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	 * Hide this element
 	 */
 	hideWindow () {
-		requestAnimationFrame(() => {
-			this.style.visibility = 'hidden';
-		});
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let style = window.getComputedStyle(body, null);
+		let top = (parseInt(style.getPropertyValue('top'),10));
+		body.animate([{
+			opacity: 1,
+			top: top.toString() + 'px'
+		}, {
+			opacity: 0,
+			top: (top + 50).toString() + 'px'
+		}], 300).onfinish = (e) => {
+			requestAnimationFrame(() => {
+				this.style.visibility = 'hidden';
+			});
+		};
 	}
 	/**
 	 * Unhide this element
 	 */
 	showWindow () {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let style = window.getComputedStyle(body, null);
+		let top = (parseInt(style.getPropertyValue('top'),10));
 		requestAnimationFrame(() => {
 			this.style.display = 'block';
 			this.style.visibility = 'visible';
 		});
+		body.animate([{
+			opacity: 0,
+			top: (top + 50).toString() + 'px'
+		}, {
+			opacity: 1,
+			top: top.toString() + 'px'
+		}], 300);
 		this.toTop();
 	}
 	/**
