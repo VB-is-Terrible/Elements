@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-10-29T13:41:06.581905828</dc:date><meta:editing-duration>P15DT5H58M27S</meta:editing-duration><meta:editing-cycles>211</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="9" meta:paragraph-count="487" meta:word-count="1375" meta:character-count="7864" meta:non-whitespace-character-count="6951"/></office:meta>
+ <office:meta><meta:creation-date>2017-09-20T11:32:20.508258609</meta:creation-date><dc:date>2017-11-01T22:24:18.765021739</dc:date><meta:editing-duration>P17DT12H29M26S</meta:editing-duration><meta:editing-cycles>219</meta:editing-cycles><meta:generator>LibreOffice/5.3.1.2$Linux_X86_64 LibreOffice_project/30m0$Build-2</meta:generator><meta:document-statistic meta:table-count="1" meta:image-count="0" meta:object-count="0" meta:page-count="9" meta:paragraph-count="499" meta:word-count="1416" meta:character-count="8079" meta:non-whitespace-character-count="7138"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">215334</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">7269</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">27224</config:config-item>
-   <config:config-item config:name="ViewAreaHeight" config:type="long">12688</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">12040</config:config-item>
    <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
    <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">12451</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">223128</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">7747</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">15607</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">215334</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">7269</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">27222</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">228020</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">19308</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -70,7 +70,7 @@
    <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
    <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
    <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
-   <config:config-item config:name="Rsid" config:type="int">3606022</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">3607018</config:config-item>
    <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
    <config:config-item config:name="PrintEmptyPages" config:type="boolean">false</config:config-item>
    <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
@@ -124,7 +124,10 @@
  </office:scripts>
  <office:font-face-decls>
   <style:font-face style:name="OpenSymbol" svg:font-family="OpenSymbol" style:font-charset="x-symbol"/>
+  <style:font-face style:name="xkcd" svg:font-family="xkcd"/>
+  <style:font-face style:name="xkcd regular" svg:font-family="&apos;xkcd regular&apos;"/>
   <style:font-face style:name="FreeSans1" svg:font-family="FreeSans" style:font-family-generic="swiss"/>
+  <style:font-face style:name="Ubuntu Mono" svg:font-family="&apos;Ubuntu Mono&apos;" style:font-pitch="fixed"/>
   <style:font-face style:name="Liberation Serif" svg:font-family="&apos;Liberation Serif&apos;" style:font-family-generic="roman" style:font-pitch="variable"/>
   <style:font-face style:name="Liberation Sans" svg:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="swiss" style:font-pitch="variable"/>
   <style:font-face style:name="Noto Sans" svg:font-family="&apos;Noto Sans&apos;" style:font-family-generic="swiss" style:font-pitch="variable"/>
@@ -264,12 +267,12 @@
    </style:table-cell-properties>
   </style:style>
   <style:style style:name="Table1.A20" style:family="table-cell">
-   <style:table-cell-properties fo:background-color="#ff7f00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
   <style:style style:name="Table1.C20" style:family="table-cell">
-   <style:table-cell-properties fo:background-color="#ff7f00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
@@ -283,13 +286,13 @@
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
-  <style:style style:name="Table1.A49" style:family="table-cell">
-   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+  <style:style style:name="Table1.A29" style:family="table-cell">
+   <style:table-cell-properties fo:background-color="#ff7f00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="none" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
-  <style:style style:name="Table1.C49" style:family="table-cell">
-   <style:table-cell-properties fo:background-color="#ffff00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
+  <style:style style:name="Table1.C29" style:family="table-cell">
+   <style:table-cell-properties fo:background-color="#ff7f00" fo:padding="0.097cm" fo:border-left="0.05pt solid #000000" fo:border-right="0.05pt solid #000000" fo:border-top="none" fo:border-bottom="0.05pt solid #000000">
     <style:background-image/>
    </style:table-cell-properties>
   </style:style>
@@ -1497,212 +1500,821 @@
   <style:style style:name="P260" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af" fo:background-color="#7fff00"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000eee40" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
   <style:style style:name="P261" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002aea80" fo:background-color="#7fff00"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000b2c5d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
   <style:style style:name="P262" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f" fo:background-color="#7fff00"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000b2b86" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
   <style:style style:name="P263" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0028412d" fo:background-color="#7fff00"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000a46cc" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
   <style:style style:name="P264" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588" fo:background-color="#ffff00"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
   <style:style style:name="P265" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
-   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588" fo:background-color="#ff0000"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0016392d" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
   <style:style style:name="P266" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00159679" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P267" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00122973" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P268" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000bd39d" officeooo:paragraph-rsid="000bd39d" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P269" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P270" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P271" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002aea80" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P272" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P273" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0028412d" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P274" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P275" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P276" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0027793e" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P277" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00266c68" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P278" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0021c56a" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P279" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588" fo:background-color="#ffff00"/>
+  </style:style>
+  <style:style style:name="P280" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40"/>
+  </style:style>
+  <style:style style:name="P281" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00266c68"/>
+  </style:style>
+  <style:style style:name="P282" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588" fo:background-color="#ff0000"/>
+  </style:style>
+  <style:style style:name="P283" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af" fo:background-color="#ff0000"/>
+  </style:style>
+  <style:style style:name="P284" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f" fo:background-color="#ff0000"/>
+  </style:style>
+  <style:style style:name="P285" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f" fo:background-color="#ff7f00"/>
   </style:style>
-  <style:style style:name="P267" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P286" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
   </style:style>
-  <style:style style:name="P268" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P287" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P269" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P288" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000a46cc" officeooo:paragraph-rsid="000a46cc" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P270" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P289" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000b2b86" officeooo:paragraph-rsid="000b2b86" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P271" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P290" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000b2c5d" officeooo:paragraph-rsid="000b2c5d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P272" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P291" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000c8f06" officeooo:paragraph-rsid="000c8f06" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P273" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P292" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P274" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P293" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0019118c" officeooo:paragraph-rsid="0019118c" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P275" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P294" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="001cbee8" officeooo:paragraph-rsid="001cbee8" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
   </style:style>
-  <style:style style:name="P276" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P295" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00238a1b" officeooo:paragraph-rsid="00238a1b"/>
   </style:style>
-  <style:style style:name="P277" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P296" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00253e4a" officeooo:paragraph-rsid="00253e4a"/>
   </style:style>
-  <style:style style:name="P278" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P297" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00266c68" officeooo:paragraph-rsid="00266c68"/>
   </style:style>
-  <style:style style:name="P279" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P298" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0027793e" officeooo:paragraph-rsid="0027793e"/>
   </style:style>
-  <style:style style:name="P280" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P299" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0036a588" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P281" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
+  <style:style style:name="P300" style:family="paragraph" style:parent-style-name="Standard" style:list-style-name="L1">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="-0.635cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00370606" officeooo:paragraph-rsid="00370606"/>
   </style:style>
-  <style:style style:name="P282" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P301" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002f9b00" officeooo:paragraph-rsid="002f9b00"/>
   </style:style>
-  <style:style style:name="P283" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P302" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="003278f5" officeooo:paragraph-rsid="003278f5"/>
   </style:style>
-  <style:style style:name="P284" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P303" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0036a588" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P285" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P304" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0036a588" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P286" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P305" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40"/>
+  </style:style>
+  <style:style style:name="P306" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P287" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P307" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af"/>
+  </style:style>
+  <style:style style:name="P308" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f"/>
+  </style:style>
+  <style:style style:name="P309" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
   </style:style>
-  <style:style style:name="P288" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P310" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00370606" officeooo:paragraph-rsid="00370606"/>
   </style:style>
-  <style:style style:name="P289" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P311" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00370606" officeooo:paragraph-rsid="00370606"/>
   </style:style>
-  <style:style style:name="P290" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P312" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002cf6ce" officeooo:paragraph-rsid="002cf6ce"/>
+  </style:style>
+  <style:style style:name="P313" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002c63af" officeooo:paragraph-rsid="002c63af"/>
+  </style:style>
+  <style:style style:name="P314" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002aea80" officeooo:paragraph-rsid="002aea80"/>
+  </style:style>
+  <style:style style:name="P315" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0028412d" officeooo:paragraph-rsid="0028412d"/>
+  </style:style>
+  <style:style style:name="P316" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0027793e" officeooo:paragraph-rsid="0027793e"/>
+  </style:style>
+  <style:style style:name="P317" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00266c68" officeooo:paragraph-rsid="00266c68"/>
+  </style:style>
+  <style:style style:name="P318" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0025109f" officeooo:paragraph-rsid="0025109f"/>
+  </style:style>
+  <style:style style:name="P319" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0021c56a" officeooo:paragraph-rsid="0021c56a"/>
+  </style:style>
+  <style:style style:name="P320" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00253e4a" officeooo:paragraph-rsid="00253e4a"/>
+  </style:style>
+  <style:style style:name="P321" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00201c5f" officeooo:paragraph-rsid="00201c5f"/>
+  </style:style>
+  <style:style style:name="P322" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0025109f" officeooo:paragraph-rsid="0025109f" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P323" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0016392d" officeooo:paragraph-rsid="0016392d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P324" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="00159679" officeooo:paragraph-rsid="00159679" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P325" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="00159445" officeooo:paragraph-rsid="00159445" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P326" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="00122973" officeooo:paragraph-rsid="00122973" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P327" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P328" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P329" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000c8f06" officeooo:paragraph-rsid="000bdcba" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P330" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="003709ea" officeooo:paragraph-rsid="003709ea"/>
+  </style:style>
+  <style:style style:name="P331" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="003709ea" officeooo:paragraph-rsid="003709ea"/>
+  </style:style>
+  <style:style style:name="P332" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0027793e" fo:background-color="#7fff00"/>
   </style:style>
-  <style:style style:name="P291" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P333" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00266c68" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P334" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0027793e" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P335" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00238a1b" fo:background-color="#7fff00"/>
+  </style:style>
+  <style:style style:name="P336" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
+  </style:style>
+  <style:style style:name="P337" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00370606"/>
   </style:style>
-  <style:style style:name="P292" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P338" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0027793e"/>
+  </style:style>
+  <style:style style:name="P339" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
+  </style:style>
+  <style:style style:name="P340" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0036a588" fo:background-color="#5300a8"/>
   </style:style>
-  <style:style style:name="P293" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P341" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00253e4a" fo:background-color="#ff7f00"/>
+  </style:style>
+  <style:style style:name="P342" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="001cbee8" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P343" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0019118c" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P344" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000eee40" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P345" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000ebb37" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P346" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000bdcba" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P347" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000bd39d" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P348" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000b2c5d" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P349" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000b2b86" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P350" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000a46cc" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P351" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P352" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P353" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000da1fe" officeooo:paragraph-rsid="000da1fe" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P354" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000eee40" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P355" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000bdcba" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P356" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P357" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00266c68" officeooo:paragraph-rsid="00266c68"/>
+  </style:style>
+  <style:style style:name="P358" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00201c5f" officeooo:paragraph-rsid="0021c56a"/>
+  </style:style>
+  <style:style style:name="P359" style:family="paragraph" style:parent-style-name="Standard" style:master-page-name="">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="0cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" style:page-number="auto" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
+  </style:style>
+  <style:style style:name="P360" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40"/>
+  </style:style>
+  <style:style style:name="P361" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P294" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P362" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002c63af"/>
+  </style:style>
+  <style:style style:name="P363" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="002aea80"/>
+  </style:style>
+  <style:style style:name="P364" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0028412d"/>
+  </style:style>
+  <style:style style:name="P365" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0027793e"/>
+  </style:style>
+  <style:style style:name="P366" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00266c68"/>
+  </style:style>
+  <style:style style:name="P367" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0021c56a"/>
+  </style:style>
+  <style:style style:name="P368" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00201c5f"/>
+  </style:style>
+  <style:style style:name="P369" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
   </style:style>
-  <style:style style:name="P295" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P370" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P296" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P371" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00370606"/>
   </style:style>
-  <style:style style:name="P297" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P372" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0027793e"/>
+  </style:style>
+  <style:style style:name="P373" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00266c68"/>
+  </style:style>
+  <style:style style:name="P374" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00253e4a"/>
+  </style:style>
+  <style:style style:name="P375" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00238a1b"/>
+  </style:style>
+  <style:style style:name="P376" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002c63af" officeooo:paragraph-rsid="002c63af"/>
+  </style:style>
+  <style:style style:name="P377" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="001cbee8" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P378" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0019118c" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P379" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000eee40" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P380" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000ebb37" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P381" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000bdcba" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P382" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000b2c5d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P383" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000b2b86" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P384" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="000a46cc" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P385" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P386" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="0016392d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P387" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00159679" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P388" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="00122973" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P389" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P390" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P391" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000da1fe" officeooo:paragraph-rsid="000da1fe" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P392" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="000bd39d" officeooo:paragraph-rsid="000bd39d" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P393" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="-1.499cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00159679" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P394" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="-1.499cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00122973" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P395" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="-1.499cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P396" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="0cm" fo:text-indent="-1.499cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans"/>
+  </style:style>
+  <style:style style:name="P397" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
   </style:style>
-  <style:style style:name="P298" style:family="paragraph" style:parent-style-name="Standard">
+  <style:style style:name="P398" style:family="paragraph" style:parent-style-name="Standard">
    <loext:graphic-properties draw:fill="none"/>
    <style:paragraph-properties fo:margin-left="2.501cm" fo:margin-right="0cm" fo:text-align="start" style:justify-single-word="false" fo:text-indent="0cm" style:auto-text-indent="false" fo:background-color="transparent"/>
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="00370606"/>
   </style:style>
-  <style:style style:name="P299" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P399" style:family="paragraph" style:parent-style-name="Standard">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="-1.499cm" fo:text-indent="-1.499cm" style:auto-text-indent="false" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P400" style:family="paragraph" style:parent-style-name="Standard" style:master-page-name="">
+   <loext:graphic-properties draw:fill="none"/>
+   <style:paragraph-properties fo:margin-left="1.251cm" fo:margin-right="-1.499cm" fo:text-indent="-1.499cm" style:auto-text-indent="false" style:page-number="auto" fo:background-color="transparent"/>
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="6pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" fo:background-color="#7fff00" style:font-size-asian="6pt" style:font-size-complex="6pt"/>
+  </style:style>
+  <style:style style:name="P401" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002e6a8d" officeooo:paragraph-rsid="002e6a8d"/>
   </style:style>
-  <style:style style:name="P300" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P402" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002f9b00" officeooo:paragraph-rsid="002f9b00"/>
   </style:style>
-  <style:style style:name="P301" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P403" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00329807" officeooo:paragraph-rsid="00329807"/>
   </style:style>
-  <style:style style:name="P302" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P404" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002c63af" officeooo:paragraph-rsid="002c63af"/>
+  </style:style>
+  <style:style style:name="P405" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002cf6ce" officeooo:paragraph-rsid="002cf6ce"/>
+  </style:style>
+  <style:style style:name="P406" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00201c5f" officeooo:paragraph-rsid="0021c56a"/>
+  </style:style>
+  <style:style style:name="P407" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00201c5f" officeooo:paragraph-rsid="00201c5f"/>
+  </style:style>
+  <style:style style:name="P408" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0036a588" officeooo:paragraph-rsid="0036a588"/>
   </style:style>
-  <style:style style:name="P303" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+  <style:style style:name="P409" style:family="paragraph" style:parent-style-name="Table_20_Contents">
    <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00370606" officeooo:paragraph-rsid="00370606"/>
+  </style:style>
+  <style:style style:name="P410" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="002aea80" officeooo:paragraph-rsid="002aea80"/>
+  </style:style>
+  <style:style style:name="P411" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0028412d" officeooo:paragraph-rsid="0028412d"/>
+  </style:style>
+  <style:style style:name="P412" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0027793e" officeooo:paragraph-rsid="0027793e"/>
+  </style:style>
+  <style:style style:name="P413" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00266c68" officeooo:paragraph-rsid="00266c68"/>
+  </style:style>
+  <style:style style:name="P414" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00253e4a" officeooo:paragraph-rsid="00253e4a"/>
+  </style:style>
+  <style:style style:name="P415" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="00238a1b" officeooo:paragraph-rsid="00238a1b"/>
+  </style:style>
+  <style:style style:name="P416" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0025109f" officeooo:paragraph-rsid="0025109f"/>
+  </style:style>
+  <style:style style:name="P417" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0021c56a" officeooo:paragraph-rsid="0021c56a"/>
+  </style:style>
+  <style:style style:name="P418" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="00201c5f" officeooo:paragraph-rsid="00201c5f" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P419" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="001ead69" officeooo:paragraph-rsid="001ead69" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P420" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="0019118c" officeooo:paragraph-rsid="0019118c" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P421" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="0016392d" officeooo:paragraph-rsid="0016392d" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P422" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="00159679" officeooo:paragraph-rsid="00159679" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P423" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="00253e4a" officeooo:paragraph-rsid="00253e4a" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P424" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="00159445" officeooo:paragraph-rsid="00159445" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P425" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="00122973" officeooo:paragraph-rsid="00122973" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P426" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000eee40" officeooo:paragraph-rsid="000eee40" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P427" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000ebb37" officeooo:paragraph-rsid="000ebb37" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P428" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="0010144d" officeooo:paragraph-rsid="0010144d" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P429" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000da1fe" officeooo:paragraph-rsid="000da1fe" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P430" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="0013dabb" officeooo:paragraph-rsid="0013dabb" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P431" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000bdcba" officeooo:paragraph-rsid="000bdcba" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P432" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000bd39d" officeooo:paragraph-rsid="000bd39d" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P433" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000b2c5d" officeooo:paragraph-rsid="000b2c5d" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P434" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="0013b27b" officeooo:paragraph-rsid="0013b27b" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P435" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="000b2b86" officeooo:paragraph-rsid="000b2b86" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P436" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" fo:font-size="3pt" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f" style:font-size-asian="3pt" style:font-size-complex="3pt"/>
+  </style:style>
+  <style:style style:name="P437" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="0009406f" officeooo:paragraph-rsid="0009406f"/>
+  </style:style>
+  <style:style style:name="P438" style:family="paragraph" style:parent-style-name="Table_20_Contents">
+   <style:text-properties style:font-name="Noto Sans" officeooo:rsid="003709ea" officeooo:paragraph-rsid="003709ea"/>
   </style:style>
   <style:style style:name="T1" style:family="text">
    <style:text-properties officeooo:rsid="000a46cc"/>
@@ -2188,7 +2800,7 @@
       <text:p text:style-name="P144">18</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P145">Fixed</text:p>
+      <text:p text:style-name="P145"><text:span text:style-name="T33">S</text:span>Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P145"/>
@@ -2199,7 +2811,7 @@
       <text:p text:style-name="P125">19</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A20" office:value-type="string">
-      <text:p text:style-name="P131">Postponed</text:p>
+      <text:p text:style-name="P409">Started</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C20" office:value-type="string">
       <text:p text:style-name="P66">Depends on #20, #21, #22, #23, #24</text:p>
@@ -2221,7 +2833,7 @@
       <text:p text:style-name="P125">21</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P301">Fixed</text:p>
+      <text:p text:style-name="P403">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P151">Depends on #31, <text:span text:style-name="T28">#39</text:span></text:p>
@@ -2232,7 +2844,7 @@
       <text:p text:style-name="P125">22</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A20" office:value-type="string">
-      <text:p text:style-name="P302">Assigned</text:p>
+      <text:p text:style-name="P438">Started</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C20" office:value-type="string">
       <text:p text:style-name="P125"/>
@@ -2294,13 +2906,13 @@
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A20" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A29" office:value-type="string">
       <text:p text:style-name="P130">28</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.A20" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A29" office:value-type="string">
       <text:p text:style-name="P154">Postponed</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.C20" office:value-type="string">
+     <table:table-cell table:style-name="Table1.C29" office:value-type="string">
       <text:p text:style-name="P126"/>
      </table:table-cell>
     </table:table-row>
@@ -2337,6 +2949,7 @@
       <text:p text:style-name="P67">Depends on #29, #30</text:p>
      </table:table-cell>
     </table:table-row>
+    <text:soft-page-break/>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
       <text:p text:style-name="P151">32</text:p>
@@ -2364,20 +2977,20 @@
       <text:p text:style-name="P151">34</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P299">Fixed</text:p>
+      <text:p text:style-name="P401">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A24" office:value-type="string">
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
       <text:p text:style-name="P152">35</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P152">Unassigned</text:p>
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
+      <text:p text:style-name="P409">Fixed</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.C24" office:value-type="string">
+     <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
      </table:table-cell>
     </table:table-row>
@@ -2386,7 +2999,7 @@
       <text:p text:style-name="P152">36</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P302">Fixed</text:p>
+      <text:p text:style-name="P408">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2397,7 +3010,7 @@
       <text:p text:style-name="P153">37</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P300">Fixed</text:p>
+      <text:p text:style-name="P402">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2419,7 +3032,7 @@
       <text:p text:style-name="P154">39</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P303">Fixed</text:p>
+      <text:p text:style-name="P409">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2430,19 +3043,18 @@
       <text:p text:style-name="P154">40</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P303">Fixed</text:p>
+      <text:p text:style-name="P409">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
      </table:table-cell>
     </table:table-row>
-    <text:soft-page-break/>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
       <text:p text:style-name="P154">41</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A2" office:value-type="string">
-      <text:p text:style-name="P300">Fixed</text:p>
+      <text:p text:style-name="P402">Fixed</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C2" office:value-type="string">
       <text:p text:style-name="P126"/>
@@ -2472,90 +3084,101 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">44</text:p>
+      <text:p text:style-name="P408">44</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">Unassigned</text:p>
+      <text:p text:style-name="P408">Unassigned</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P302">Ver 3.0</text:p>
+      <text:p text:style-name="P408">Ver 3.0</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">45</text:p>
+      <text:p text:style-name="P408">45</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">Unassigned</text:p>
+      <text:p text:style-name="P408">Unassigned</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P302">Ver 3.0</text:p>
+      <text:p text:style-name="P408">Ver 3.0</text:p>
+     </table:table-cell>
+    </table:table-row>
+    <table:table-row>
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
+      <text:p text:style-name="P408">46</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Table1.A2" office:value-type="string">
+      <text:p text:style-name="P438">Fixed</text:p>
+     </table:table-cell>
+     <table:table-cell table:style-name="Table1.C2" office:value-type="string">
+      <text:p text:style-name="P408">Ver 3.0</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">46</text:p>
+      <text:p text:style-name="P408">47</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">Unassigned</text:p>
+      <text:p text:style-name="P408">Unassigned</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P302">Ver 3.0</text:p>
+      <text:p text:style-name="P408">Ver 3.0</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
-     <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">47</text:p>
+     <table:table-cell table:style-name="Table1.A20" office:value-type="string">
+      <text:p text:style-name="P408">48</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302">Unassigned</text:p>
+     <table:table-cell table:style-name="Table1.A20" office:value-type="string">
+      <text:p text:style-name="P408">Started</text:p>
      </table:table-cell>
-     <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P302">Ver 3.0</text:p>
-     </table:table-cell>
-    </table:table-row>
-    <table:table-row>
-     <table:table-cell table:style-name="Table1.A49" office:value-type="string">
-      <text:p text:style-name="P302">48</text:p>
-     </table:table-cell>
-     <table:table-cell table:style-name="Table1.A49" office:value-type="string">
-      <text:p text:style-name="P302">Started</text:p>
-     </table:table-cell>
-     <table:table-cell table:style-name="Table1.C49" office:value-type="string">
-      <text:p text:style-name="P302"/>
+     <table:table-cell table:style-name="Table1.C20" office:value-type="string">
+      <text:p text:style-name="P408"/>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A50" office:value-type="string">
-      <text:p text:style-name="P303">49</text:p>
+      <text:p text:style-name="P409">49</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A50" office:value-type="string">
-      <text:p text:style-name="P303">Won’t fix</text:p>
+      <text:p text:style-name="P409">Won’t fix</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C50" office:value-type="string">
-      <text:p text:style-name="P303">Impractical</text:p>
+      <text:p text:style-name="P409">Impractical</text:p>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P303">50</text:p>
+      <text:p text:style-name="P409">50</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P303">Unassigned</text:p>
+      <text:p text:style-name="P409">Unassigned</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P302"/>
+      <text:p text:style-name="P408"/>
      </table:table-cell>
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302"/>
+      <text:p text:style-name="P438">51</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.A24" office:value-type="string">
-      <text:p text:style-name="P302"/>
+      <text:p text:style-name="P438">Unassigned</text:p>
      </table:table-cell>
      <table:table-cell table:style-name="Table1.C24" office:value-type="string">
-      <text:p text:style-name="P302"/>
+      <text:p text:style-name="P408"/>
+     </table:table-cell>
+    </table:table-row>
+    <table:table-row>
+     <table:table-cell table:style-name="Table1.A24" office:value-type="string">
+      <text:p text:style-name="P438"/>
+     </table:table-cell>
+     <table:table-cell table:style-name="Table1.A24" office:value-type="string">
+      <text:p text:style-name="P438"/>
+     </table:table-cell>
+     <table:table-cell table:style-name="Table1.C24" office:value-type="string">
+      <text:p text:style-name="P408"/>
      </table:table-cell>
     </table:table-row>
    </table:table>
@@ -2565,15 +3188,15 @@
    <text:p text:style-name="P167">Repro steps:</text:p>
    <text:list xml:id="list2058652577" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P267">Stuff</text:p>
+     <text:p text:style-name="P286">Stuff</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P167">Expected Output:</text:p>
-   <text:p text:style-name="P287">More stuff</text:p>
+   <text:p text:style-name="P309">More stuff</text:p>
    <text:p text:style-name="P167">Actual Output:</text:p>
-   <text:p text:style-name="P287">Event More stuff</text:p>
+   <text:p text:style-name="P309">Event More stuff</text:p>
    <text:p text:style-name="P167">Status:</text:p>
-   <text:p text:style-name="P287">Unassigned</text:p>
+   <text:p text:style-name="P309">Unassigned</text:p>
    <text:p text:style-name="P167"/>
    <text:p text:style-name="P16">Template for technical bugs:</text:p>
    <text:p text:style-name="P16">Bug #n:</text:p>
@@ -2618,29 +3241,29 @@
    <text:p text:style-name="P31"/>
    <text:p text:style-name="P71">Bug 2:</text:p>
    <text:p text:style-name="P185">Repro steps:</text:p>
-   <text:list xml:id="list134107745580092" text:continue-list="list2058652577" text:style-name="L1">
+   <text:list xml:id="list222420419065838" text:continue-list="list2058652577" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P268">Have a kerbal-footer</text:p>
+     <text:p text:style-name="P287">Have a kerbal-footer</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P268">Page width smaller than 3 x kerbal panel width</text:p>
+     <text:p text:style-name="P287">Page width smaller than 3 x kerbal panel width</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P268">Click on menu in kerbal-footer</text:p>
+     <text:p text:style-name="P287">Click on menu in kerbal-footer</text:p>
     </text:list-item>
    </text:list>
-   <text:p text:style-name="P185">Expected Output:</text:p>
+   <text:p text:style-name="P185"><text:soft-page-break/>Expected Output:</text:p>
    <text:p text:style-name="P185"><text:tab/>Panel shifts to appear on screen</text:p>
    <text:p text:style-name="P185">Actual Output:</text:p>
    <text:p text:style-name="P185"><text:tab/>Part of the panel appears off screen</text:p>
    <text:p text:style-name="P185">Status:</text:p>
    <text:p text:style-name="P185"><text:tab/><text:span text:style-name="T17">Closed, Duplicate of #1</text:span></text:p>
    <text:p text:style-name="P31"/>
-   <text:p text:style-name="P72"><text:soft-page-break/>Bug <text:span text:style-name="T1">3</text:span>:</text:p>
+   <text:p text:style-name="P72">Bug <text:span text:style-name="T1">3</text:span>:</text:p>
    <text:p text:style-name="P186">Repro steps:<text:tab/></text:p>
-   <text:list xml:id="list134107192405253" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419388049770" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P269">Use the importer</text:p>
+     <text:p text:style-name="P288">Use the importer</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P186">Expected Output:</text:p>
@@ -2652,9 +3275,9 @@
    <text:p text:style-name="P32"/>
    <text:p text:style-name="P73">Bug <text:span text:style-name="T2">4</text:span>:</text:p>
    <text:p text:style-name="P187">Repro steps:</text:p>
-   <text:list xml:id="list134108611011283" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419592973686" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P270">Use the exporter</text:p>
+     <text:p text:style-name="P289">Use the exporter</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P187">Expected Output:</text:p>
@@ -2666,9 +3289,9 @@
    <text:p text:style-name="P33"/>
    <text:p text:style-name="P74">Bug <text:span text:style-name="T3">5</text:span>:</text:p>
    <text:p text:style-name="P188">Repro steps:</text:p>
-   <text:list xml:id="list134108607198370" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419427181578" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P271">JS stuff</text:p>
+     <text:p text:style-name="P290">JS stuff</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P188">Expected Output:</text:p>
@@ -2694,9 +3317,9 @@
    <text:p text:style-name="P83"/>
    <text:p text:style-name="P76">Bug <text:span text:style-name="T5">8</text:span>:</text:p>
    <text:p text:style-name="P190">Repro steps:</text:p>
-   <text:list xml:id="list134109026531548" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222420274197022" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P272">Resize the window with kerbal.html horizontally.</text:p>
+     <text:p text:style-name="P291">Resize the window with kerbal.html horizontally.</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P190">Expected Output:</text:p>
@@ -2726,15 +3349,15 @@
    <text:p text:style-name="P85"/>
    <text:p text:style-name="P77">Bug <text:span text:style-name="T7">12</text:span>:</text:p>
    <text:p text:style-name="P191">Repro steps:</text:p>
-   <text:list xml:id="list134109049550677" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419464367078" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P273">Have a kerbal in KDB</text:p>
+     <text:p text:style-name="P292">Have a kerbal in KDB</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Search for that kerbal</text:p>
+     <text:p text:style-name="P292">Search for that kerbal</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P273">Delete the kerbal</text:p>
+     <text:p text:style-name="P292">Delete the kerbal</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P191">Expected Output:</text:p>
@@ -2768,18 +3391,18 @@
    <text:p text:style-name="P255">Fixed</text:p>
    <text:p text:style-name="P79">Bug <text:span text:style-name="T17">17</text:span>:</text:p>
    <text:p text:style-name="P192">Repro steps:</text:p>
-   <text:list xml:id="list134106959378007" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222420682808264" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P274">Open kerbal-editor</text:p>
+     <text:p text:style-name="P293">Open kerbal-editor</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P274">Hit cancel</text:p>
+     <text:p text:style-name="P293">Hit cancel</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P274">Re-open kerbal-editor</text:p>
+     <text:p text:style-name="P293">Re-open kerbal-editor</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P274">Do stuff</text:p>
+     <text:p text:style-name="P293">Do stuff</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P192">Expected Output:</text:p>
@@ -2790,12 +3413,12 @@
    <text:p text:style-name="P192"><text:tab/><text:span text:style-name="T17">Fixed</text:span></text:p>
    <text:p text:style-name="P80">Bug <text:span text:style-name="T19">18</text:span>:</text:p>
    <text:p text:style-name="P193">Repro steps:</text:p>
-   <text:list xml:id="list134108999944428" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222420536152825" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P275">Delete a kerbal</text:p>
+     <text:p text:style-name="P294">Delete a kerbal</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P275">Reopen editor</text:p>
+     <text:p text:style-name="P294">Reopen editor</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P193">Expected Output:</text:p>
@@ -2804,25 +3427,25 @@
    <text:p text:style-name="P193"><text:tab/><text:span text:style-name="T19">The deletetion button and display are not reset</text:span></text:p>
    <text:p text:style-name="P193">Status:</text:p>
    <text:p text:style-name="P193"><text:tab/><text:span text:style-name="T20">Fixed</text:span></text:p>
-   <text:p text:style-name="P262">Bug <text:span text:style-name="T20">19</text:span>:</text:p>
+   <text:p text:style-name="P272">Bug <text:span text:style-name="T20">19</text:span>:</text:p>
    <text:p text:style-name="P175">Problem:</text:p>
    <text:p text:style-name="P239">Groups should be a thing</text:p>
    <text:p text:style-name="P175">Status:</text:p>
    <text:p text:style-name="P175"><text:tab/><text:span text:style-name="T20">Depends on #20, #21, #22, #23, #24</text:span></text:p>
-   <text:p text:style-name="P283">Fixed</text:p>
+   <text:p text:style-name="P302">Fixed</text:p>
    <text:p text:style-name="P27">Bug <text:span text:style-name="T20">20</text:span>:</text:p>
    <text:p text:style-name="P175">Problem:</text:p>
    <text:p text:style-name="P239">Groups need a data format</text:p>
    <text:p text:style-name="P175">Status:</text:p>
    <text:p text:style-name="P243">Fixed</text:p>
    <text:p text:style-name="P240">Depends on #25</text:p>
-   <text:p text:style-name="P262">Bug <text:span text:style-name="T20">21</text:span>:</text:p>
+   <text:p text:style-name="P272">Bug <text:span text:style-name="T20">21</text:span>:</text:p>
    <text:p text:style-name="P175">Problem:</text:p>
    <text:p text:style-name="P239">Groups need a <text:span text:style-name="T23">UI</text:span> to be created</text:p>
    <text:p text:style-name="P175">Status:</text:p>
-   <text:p text:style-name="P284">Fixed</text:p>
+   <text:p text:style-name="P303">Fixed</text:p>
    <text:p text:style-name="P245">Depends on #31</text:p>
-   <text:p text:style-name="P266">Bug <text:span text:style-name="T20">22</text:span>:</text:p>
+   <text:p text:style-name="P285">Bug <text:span text:style-name="T20">22</text:span>:</text:p>
    <text:p text:style-name="P175">Problem:</text:p>
    <text:p text:style-name="P239">Groups need a <text:span text:style-name="T23">UI</text:span> to be edited</text:p>
    <text:p text:style-name="P175">Status:</text:p>
@@ -2849,15 +3472,15 @@
    <text:p text:style-name="P242">Fixed</text:p>
    <text:p text:style-name="P68">Bug <text:span text:style-name="T22">27</text:span>:</text:p>
    <text:p text:style-name="P165">Repro steps:</text:p>
-   <text:list xml:id="list134107013648026" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419176110030" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P276">Import a save</text:p>
+     <text:p text:style-name="P295">Import a save</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P276">Save</text:p>
+     <text:p text:style-name="P295">Save</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P276">Reload the bag</text:p>
+     <text:p text:style-name="P295">Reload the bag</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P165">Expected Output:</text:p>
@@ -2868,12 +3491,12 @@
    <text:p text:style-name="P165"><text:tab/><text:span text:style-name="T23">Fixed</text:span></text:p>
    <text:p text:style-name="P87">Bug <text:span text:style-name="T23">28</text:span>:</text:p>
    <text:p text:style-name="P166">Repro steps:</text:p>
-   <text:list xml:id="list134108027966632" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419677538227" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P277">Scroll down</text:p>
+     <text:p text:style-name="P296">Scroll down</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P277">Scroll up</text:p>
+     <text:p text:style-name="P296">Scroll up</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P166">Expected Output:</text:p>
@@ -2885,18 +3508,18 @@
    <text:p text:style-name="P248">Unable to reproduce.</text:p>
    <text:p text:style-name="P70">Bug <text:span text:style-name="T24">29</text:span>:</text:p>
    <text:p text:style-name="P168">Repro steps:</text:p>
-   <text:list xml:id="list134107369769968" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419917292554" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P278">Have a tab-window in html</text:p>
+     <text:p text:style-name="P297">Have a tab-window in html</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P278">Have a tabs property, and corresponding children</text:p>
+     <text:p text:style-name="P297">Have a tabs property, and corresponding children</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P278"><text:soft-page-break/>Have a selected property</text:p>
+     <text:p text:style-name="P297"><text:soft-page-break/>Have a selected property</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P278">Load page</text:p>
+     <text:p text:style-name="P297">Load page</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P168">Expected Output:</text:p>
@@ -2907,15 +3530,15 @@
    <text:p text:style-name="P168"><text:tab/><text:span text:style-name="T25">Fixed</text:span></text:p>
    <text:p text:style-name="P70">Bug <text:span text:style-name="T24">30</text:span>:</text:p>
    <text:p text:style-name="P168">Repro steps:</text:p>
-   <text:list xml:id="list134107477316740" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419315373965" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P278">Have a tab</text:p>
+     <text:p text:style-name="P297">Have a tab</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P278">Fill it with n elements (where n &gt; 0)</text:p>
+     <text:p text:style-name="P297">Fill it with n elements (where n &gt; 0)</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P278">Remove 1 element</text:p>
+     <text:p text:style-name="P297">Remove 1 element</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P168">Expected Output:</text:p>
@@ -2933,9 +3556,9 @@
    <text:p text:style-name="P244">Depends on #29, #30</text:p>
    <text:p text:style-name="P69">Bug <text:span text:style-name="T25">32</text:span>:</text:p>
    <text:p text:style-name="P169">Repro steps:</text:p>
-   <text:list xml:id="list134107761807826" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419260470857" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P279">Add a new kerbal</text:p>
+     <text:p text:style-name="P298">Add a new kerbal</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P169">Expected Output:</text:p>
@@ -2951,11 +3574,11 @@
    <text:p text:style-name="P245">addKerbal, renameKerbal, deleteKerbal from kdb-kerbal-display are unimplemented!</text:p>
    <text:p text:style-name="P178">Status:</text:p>
    <text:p text:style-name="P245">Fixed</text:p>
-   <text:p text:style-name="P290"><text:soft-page-break/>Bug <text:span text:style-name="T25">34</text:span>:</text:p>
+   <text:p text:style-name="P334"><text:soft-page-break/>Bug <text:span text:style-name="T25">34</text:span>:</text:p>
    <text:p text:style-name="P169">Repro steps:</text:p>
-   <text:list xml:id="list134107072970585" text:continue-numbering="true" text:style-name="L1">
+   <text:list xml:id="list222419922516476" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P279">Import a db</text:p>
+     <text:p text:style-name="P298">Import a db</text:p>
     </text:list-item>
    </text:list>
    <text:p text:style-name="P169">Expected Output:</text:p>
@@ -2964,17 +3587,17 @@
    <text:p text:style-name="P169"><text:tab/><text:span text:style-name="T25">The previous import remains</text:span></text:p>
    <text:p text:style-name="P169">Status:</text:p>
    <text:p text:style-name="P169"><text:tab/><text:span text:style-name="T29">Fixed</text:span></text:p>
-   <text:p text:style-name="P42">Bug <text:span text:style-name="T26">35</text:span>:</text:p>
+   <text:p text:style-name="P273">Bug <text:span text:style-name="T26">35</text:span>:</text:p>
    <text:p text:style-name="P179">Problem:</text:p>
    <text:p text:style-name="P246">Display code is dupliacated between kerbal-searcher-kerbal and kerbal-searcher-destination</text:p>
    <text:p text:style-name="P179">Status:</text:p>
-   <text:p text:style-name="P228">Unassigned</text:p>
-   <text:p text:style-name="P263">Bug <text:span text:style-name="T27">36</text:span>:</text:p>
+   <text:p text:style-name="P310">Fixed</text:p>
+   <text:p text:style-name="P273">Bug <text:span text:style-name="T27">36</text:span>:</text:p>
    <text:p text:style-name="P179">Problem:</text:p>
    <text:p text:style-name="P246">Code duplication in the css of things containing tab-windows and css duplication in kerbalFloatCommon.css in things that go in tab-windows</text:p>
    <text:p text:style-name="P179">Status:</text:p>
-   <text:p text:style-name="P284">Fixed</text:p>
-   <text:p text:style-name="P261">Bug <text:span text:style-name="T27">37</text:span>:</text:p>
+   <text:p text:style-name="P303">Fixed</text:p>
+   <text:p text:style-name="P271">Bug <text:span text:style-name="T27">37</text:span>:</text:p>
    <text:p text:style-name="P180">Problem:</text:p>
    <text:p text:style-name="P247">Drag-element has two functions to handle mouse drag, one listens to mousedown, and can be cancel (as it should be), the other listens to dragstart, which is a undocumented code path and can’t be cancel. The two need to be merged, so that drags can be <text:span text:style-name="T31">cancelled.</text:span></text:p>
    <text:p text:style-name="P184">Notes:</text:p>
@@ -2982,27 +3605,27 @@
    <text:p text:style-name="P248">drag-body needs to implement mouseover and mouseup</text:p>
    <text:p text:style-name="P248">Figure out a way to implement drag cancelling (listen to escape) and mouse click cancelling (I dunno) –<text:span text:style-name="T30"> Turns out the browser handles this for you.</text:span></text:p>
    <text:p text:style-name="P180">Status:</text:p>
-   <text:p text:style-name="P282">Fixed</text:p>
+   <text:p text:style-name="P301">Fixed</text:p>
    <text:p text:style-name="P43">Bug <text:span text:style-name="T28">38</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">Can’t reset a kerbal been made</text:p>
    <text:p text:style-name="P181">Status:</text:p>
    <text:p text:style-name="P230">Unassigned</text:p>
-   <text:p text:style-name="P260">Bug <text:span text:style-name="T28">39</text:span>:</text:p>
+   <text:p text:style-name="P270">Bug <text:span text:style-name="T28">39</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">Group needs a display</text:p>
    <text:p text:style-name="P181">Status:</text:p>
-   <text:p text:style-name="P284">Fixed</text:p>
-   <text:p text:style-name="P260"><text:soft-page-break/>Bug <text:span text:style-name="T28">40</text:span>:</text:p>
+   <text:p text:style-name="P303">Fixed</text:p>
+   <text:p text:style-name="P270"><text:soft-page-break/>Bug <text:span text:style-name="T28">40</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">Name sanitisation should be done in kerbal.js, when it is about to be displayed, not in kerbal-maker-kerbal, when it is inputted.</text:p>
    <text:p text:style-name="P181">Status:</text:p>
-   <text:p text:style-name="P288">Fixed</text:p>
-   <text:p text:style-name="P260">Bug <text:span text:style-name="T28">41</text:span>:</text:p>
+   <text:p text:style-name="P310">Fixed</text:p>
+   <text:p text:style-name="P270">Bug <text:span text:style-name="T28">41</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">tab-window should raise change events</text:p>
    <text:p text:style-name="P181">Status:</text:p>
-   <text:p text:style-name="P282">Fixed</text:p>
+   <text:p text:style-name="P301">Fixed</text:p>
    <text:p text:style-name="P30">Bug <text:span text:style-name="T28">42</text:span>:</text:p>
    <text:p text:style-name="P181">Problem:</text:p>
    <text:p text:style-name="P248">KDBDisplay.deleteKerbal should accept the KNS.Kerbal been deleted, not its name.</text:p>
@@ -3013,70 +3636,84 @@
    <text:p text:style-name="P248">Remove makeDisplay from KNS.Kerbal, to remove kerbal as a dependency of KDB</text:p>
    <text:p text:style-name="P181">Status:</text:p>
    <text:p text:style-name="P257">Fixed</text:p>
-   <text:p text:style-name="P265">Bug <text:span text:style-name="T32">44</text:span>:</text:p>
-   <text:p text:style-name="P293">Problem:</text:p>
-   <text:p text:style-name="P284">Backbone should have forward caching capablilities</text:p>
-   <text:p text:style-name="P293">Status:</text:p>
-   <text:p text:style-name="P286">Unassigned</text:p>
-   <text:p text:style-name="P284">Ver 3.0</text:p>
-   <text:p text:style-name="P265">Bug <text:span text:style-name="T32">45</text:span>:</text:p>
-   <text:p text:style-name="P293">Problem:</text:p>
-   <text:p text:style-name="P284">Drag-down should be animated</text:p>
-   <text:p text:style-name="P293">Status:</text:p>
-   <text:p text:style-name="P286">Unassigned</text:p>
-   <text:p text:style-name="P284">Ver 3.0</text:p>
-   <text:p text:style-name="P265">Bug <text:span text:style-name="T32">46</text:span>:</text:p>
-   <text:p text:style-name="P293">Problem:</text:p>
-   <text:p text:style-name="P284">Drag-element’s hideWindow &amp; showWindow methods should be animated</text:p>
-   <text:p text:style-name="P293">Status:</text:p>
-   <text:p text:style-name="P286">Unassigned</text:p>
-   <text:p text:style-name="P284">Ver 3.0</text:p>
-   <text:p text:style-name="P265">Bug <text:span text:style-name="T32">47</text:span>:</text:p>
-   <text:p text:style-name="P293">Problem:</text:p>
-   <text:p text:style-name="P284">elementsManifest should be autobuildable</text:p>
-   <text:p text:style-name="P293"><text:soft-page-break/>Status:</text:p>
-   <text:p text:style-name="P286">Unassigned</text:p>
-   <text:p text:style-name="P284">Ver 3.0</text:p>
-   <text:p text:style-name="P264">Bug <text:span text:style-name="T32">48</text:span>:</text:p>
-   <text:p text:style-name="P293">Problem:</text:p>
-   <text:p text:style-name="P284">Backbone2 is now a thing. Begin converting base elements to backbone2</text:p>
-   <text:p text:style-name="P293">Status:</text:p>
-   <text:p text:style-name="P284">Started</text:p>
-   <text:p text:style-name="P292">Bug <text:span text:style-name="T32">49</text:span>:</text:p>
-   <text:p text:style-name="P295">Repro steps:</text:p>
-   <text:list xml:id="list134107685333979" text:continue-numbering="true" text:style-name="L1">
+   <text:p text:style-name="P282">Bug <text:span text:style-name="T32">44</text:span>:</text:p>
+   <text:p text:style-name="P361">Problem:</text:p>
+   <text:p text:style-name="P303">Backbone should have forward caching capablilities</text:p>
+   <text:p text:style-name="P361">Status:</text:p>
+   <text:p text:style-name="P306">Unassigned</text:p>
+   <text:p text:style-name="P303">Ver 3.0</text:p>
+   <text:p text:style-name="P282">Bug <text:span text:style-name="T32">45</text:span>:</text:p>
+   <text:p text:style-name="P361">Problem:</text:p>
+   <text:p text:style-name="P303">Drag-down should be animated</text:p>
+   <text:p text:style-name="P361">Status:</text:p>
+   <text:p text:style-name="P306">Unassigned</text:p>
+   <text:p text:style-name="P303">Ver 3.0</text:p>
+   <text:p text:style-name="P274">Bug <text:span text:style-name="T32">46</text:span>:</text:p>
+   <text:p text:style-name="P361">Problem:</text:p>
+   <text:p text:style-name="P303">Drag-element’s hideWindow &amp; showWindow methods should be animated</text:p>
+   <text:p text:style-name="P361">Status:</text:p>
+   <text:p text:style-name="P331">Fixed</text:p>
+   <text:p text:style-name="P303">Ver 3.0</text:p>
+   <text:p text:style-name="P282">Bug <text:span text:style-name="T32">47</text:span>:</text:p>
+   <text:p text:style-name="P361">Problem:</text:p>
+   <text:p text:style-name="P303">elementsManifest should be autobuildable</text:p>
+   <text:p text:style-name="P361"><text:soft-page-break/>Status:</text:p>
+   <text:p text:style-name="P306">Unassigned</text:p>
+   <text:p text:style-name="P303">Ver 3.0</text:p>
+   <text:p text:style-name="P279">Bug <text:span text:style-name="T32">48</text:span>:</text:p>
+   <text:p text:style-name="P361">Problem:</text:p>
+   <text:p text:style-name="P303">Backbone2 is now a thing. Begin converting base elements to backbone2</text:p>
+   <text:p text:style-name="P361">Status:</text:p>
+   <text:p text:style-name="P303">Started</text:p>
+   <text:p text:style-name="P340">Bug <text:span text:style-name="T32">49</text:span>:</text:p>
+   <text:p text:style-name="P370">Repro steps:</text:p>
+   <text:list xml:id="list222420984717832" text:continue-numbering="true" text:style-name="L1">
     <text:list-item>
-     <text:p text:style-name="P280">Have some stuff in the drop down of a drag-down</text:p>
+     <text:p text:style-name="P299">Have some stuff in the drop down of a drag-down</text:p>
     </text:list-item>
     <text:list-item>
-     <text:p text:style-name="P280">Remove that stuff</text:p>
-    </text:list-item>
-   </text:list>
-   <text:p text:style-name="P295">Expected Output:</text:p>
-   <text:p text:style-name="P295"><text:tab/><text:span text:style-name="T32">The drop down button gets disabled</text:span></text:p>
-   <text:p text:style-name="P295">Actual Output:</text:p>
-   <text:p text:style-name="P295"><text:tab/><text:span text:style-name="T32">Nothing</text:span></text:p>
-   <text:p text:style-name="P295">Status:</text:p>
-   <text:p text:style-name="P295"><text:tab/><text:span text:style-name="T33">Won’t fix, impractical</text:span></text:p>
-   <text:p text:style-name="P295"><text:tab/><text:span text:style-name="T32">slot.assignedNodes typically contains an empty div. Assuming that there will or </text:span></text:p>
-   <text:p text:style-name="P285">will not be a empty div there is beyond the scope of the element. Additionally, even if the empty divs where removed, <text:span text:style-name="T33">whitespace only text nodes, making the slot appear always occupied</text:span></text:p>
-   <text:p text:style-name="P291">Bug <text:span text:style-name="T33">50</text:span>:</text:p>
-   <text:p text:style-name="P296">Repro steps:</text:p>
-   <text:list xml:id="list134107705270641" text:continue-numbering="true" text:style-name="L1">
-    <text:list-item>
-     <text:p text:style-name="P281">Add a kerbal to a group in the maker</text:p>
-    </text:list-item>
-    <text:list-item>
-     <text:p text:style-name="P281">Delete that kerbal in editor</text:p>
+     <text:p text:style-name="P299">Remove that stuff</text:p>
     </text:list-item>
    </text:list>
-   <text:p text:style-name="P296">Expected Output:</text:p>
-   <text:p text:style-name="P289">Deleted kerbal removed from group maker</text:p>
-   <text:p text:style-name="P296">Actual Output:</text:p>
-   <text:p text:style-name="P289">The Kerbal name disappears, but the count doesn’t decrease or the remove button next to the kerbal name</text:p>
-   <text:p text:style-name="P296">Status:</text:p>
-   <text:p text:style-name="P298">Unassigned</text:p>
-   <text:p text:style-name="P296"/>
+   <text:p text:style-name="P370">Expected Output:</text:p>
+   <text:p text:style-name="P370"><text:tab/><text:span text:style-name="T32">The drop down button gets disabled</text:span></text:p>
+   <text:p text:style-name="P370">Actual Output:</text:p>
+   <text:p text:style-name="P370"><text:tab/><text:span text:style-name="T32">Nothing</text:span></text:p>
+   <text:p text:style-name="P370">Status:</text:p>
+   <text:p text:style-name="P370"><text:tab/><text:span text:style-name="T33">Won’t fix, impractical</text:span></text:p>
+   <text:p text:style-name="P370"><text:tab/><text:span text:style-name="T32">slot.assignedNodes typically contains an empty div. Assuming that there will or </text:span></text:p>
+   <text:p text:style-name="P304">will not be a empty div there is beyond the scope of the element. Additionally, even if the empty divs where removed, <text:span text:style-name="T33">whitespace only text nodes, making the slot appear always occupied</text:span></text:p>
+   <text:p text:style-name="P337">Bug <text:span text:style-name="T33">50</text:span>:</text:p>
+   <text:p text:style-name="P371">Repro steps:</text:p>
+   <text:list xml:id="list222420494985731" text:continue-numbering="true" text:style-name="L1">
+    <text:list-item>
+     <text:p text:style-name="P300">Add a kerbal to a group in the maker</text:p>
+    </text:list-item>
+    <text:list-item>
+     <text:p text:style-name="P300">Delete that kerbal in editor</text:p>
+    </text:list-item>
+   </text:list>
+   <text:p text:style-name="P371">Expected Output:</text:p>
+   <text:p text:style-name="P311">Deleted kerbal removed from group maker</text:p>
+   <text:p text:style-name="P371">Actual Output:</text:p>
+   <text:p text:style-name="P311">The Kerbal name disappears, but the count doesn’t decrease or the remove button next to the kerbal name</text:p>
+   <text:p text:style-name="P371">Status:</text:p>
+   <text:p text:style-name="P398">Unassigned</text:p>
+   <text:p text:style-name="P337">Bug <text:span text:style-name="T33">51</text:span>:</text:p>
+   <text:p text:style-name="P371">Repro steps:</text:p>
+   <text:list xml:id="list222419814372364" text:continue-numbering="true" text:style-name="L1">
+    <text:list-item>
+     <text:p text:style-name="P300">Open the exporter via the footer</text:p>
+    </text:list-item>
+   </text:list>
+   <text:p text:style-name="P371">Expected Output:</text:p>
+   <text:p text:style-name="P311">The exporter is populated with the current save</text:p>
+   <text:p text:style-name="P371">Actual Output:</text:p>
+   <text:p text:style-name="P330">The export area is empty</text:p>
+   <text:p text:style-name="P330">Note: When switching tabs, the export area is populated</text:p>
+   <text:p text:style-name="P371">Status:</text:p>
+   <text:p text:style-name="P398">Unassigned</text:p>
+   <text:p text:style-name="P371"/>
   </office:text>
  </office:body>
 </office:document>
