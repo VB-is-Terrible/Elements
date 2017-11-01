@@ -32,7 +32,7 @@
 
 Elements.get('drag-body');
 {
-const ANIMATION_DURATION = 300;
+const ANIMATION_DURATION = 150;
 const DROP_AMOUNT = 50;
 /**
  * DragElement
