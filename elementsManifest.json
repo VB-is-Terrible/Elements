@@ -223,5 +223,13 @@
 		"css": [],
 		"resources": [],
 		"provides": ["kerbalSearcherCommon"]
+	},
+	"KerbalGroupDisplayKerbal": {
+		"type": "element",
+		"requires": ["kerbal", "KDB"],
+		"templates": ["kerbalGroupDisplayKerbalTemplate.html"],
+		"css": ["KerbalGroupDisplayKerbal.css"],
+		"resources": [],
+		"provides": ["KerbalGroupDisplayKerbal"]
 	}
 }
