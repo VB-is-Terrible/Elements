@@ -30,8 +30,10 @@
  * @name Draggable.hideWindow
  */
 
-
 Elements.get('drag-body');
+{
+const ANIMATION_DURATION = 5000;
+const DROP_AMOUNT = 500;
 /**
  * DragElement
  * Designed to hold contents to be dragged.
@@ -52,6 +54,26 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		const self = this;
 		this.name = 'DragElement';
 		this.parent = null;
+		/**
+		 * The currently playing animation
+		 * @type {Animation}
+		 * @private
+		 */
+		this.__animation = null;
+		/**
+		 * Function to call on animation finish.
+		 * Overriding Animation.onfinish doesn't cancel previous onfinishs (promises)
+		 * so indirect the call to something that can be overridden
+		 * @type {Function}
+		 * @private
+		 */
+		this.__animationCallback = null;
+		/**
+		 * Current animation state, either 'show' or 'hide'
+		 * @type {String}
+		 * @private
+		 */
+		this.__animationState = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		shadow.appendChild(template);
@@ -232,6 +254,18 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	}
 	get hidden () {
 		let computed = getComputedStyle(this);
+		if (this.__animationState !== null) {
+			switch (this.__animationState) {
+				case 'hide':
+					return true;
+					break;
+				case 'show':
+					return false;
+					break;
+				default:
+					console.error('Bad animation state', this.__animationState);
+			}
+		}
 		if (computed.display === 'none' || computed.visibility === 'hidden') {
 			return true;
 		} else {
@@ -239,22 +273,52 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		}
 	}
 	/**
+	 * Run the animation onfinish callback, then reset animation state
+	 * @private
+	 */
+	animation_onfinish () {
+		if (this.__animationCallback !== null) {
+			this.__animationCallback();
+		}
+		this.__animationCallback = null;
+		this.__animation = null;
+		this.__animationState = null;
+	}
+	/**
 	 * Hide this element
 	 */
 	hideWindow () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(body, null);
+		// If the element is hiding, do nothing
+		if (this.__animationState === 'hide') {
+			return;
+		} else {
+			this.__animationState = 'hide';
+		}
+		// If the element is been shown, reverse it
+		if (this.__animation !== null) {
+			this.__animation.reverse();
+			this.__animationCallback = () => {
+				requestAnimationFrame((e) => {
+					this.style.visibility = 'hidden';
+				});
+			};
+			return;
+		}
+		// Else, start a new animation
 		let top = (parseInt(style.getPropertyValue('top'),10));
-		body.animate([{
+		this.__animation = body.animate([{
 			opacity: 1,
-			top: top.toString() + 'px'
+			top: top.toString() + 'px',
 		}, {
 			opacity: 0,
-			top: (top + 50).toString() + 'px'
-		}], 300).onfinish = (e) => {
-			requestAnimationFrame(() => {
-				this.style.visibility = 'hidden';
-			});
+			top: (top + DROP_AMOUNT).toString() + 'px',
+		}], {
+			duration: ANIMATION_DURATION,
+		});
+		this.__animation.onfinish = () => {
+			this.animation_onfinish();
 		};
 	}
 	/**
@@ -263,18 +327,37 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	showWindow () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let style = window.getComputedStyle(body, null);
+		// If the element is hiding, do nothing
+		if (this.__animationState === 'show') {
+			return;
+		} else {
+			this.__animationState = 'show';
+		}
+		// If the element is been shown, reverse it
+		if (this.__animation !== null) {
+			this.__animation.reverse();
+			this.__animationCallback = () => {};
+			return;
+		}
+		// Else, start a new animation
 		let top = (parseInt(style.getPropertyValue('top'),10));
 		requestAnimationFrame(() => {
 			this.style.display = 'block';
 			this.style.visibility = 'visible';
 		});
-		body.animate([{
+		this.__animation = body.animate([{
 			opacity: 0,
-			top: (top + 50).toString() + 'px'
+			top: (top + DROP_AMOUNT).toString() + 'px',
 		}, {
 			opacity: 1,
-			top: top.toString() + 'px'
-		}], 300);
+			top: top.toString() + 'px',
+		}], {
+			duration: ANIMATION_DURATION,
+		});
+		this.__animation.onfinish = () => {
+			this.animation_onfinish();
+		};
+
 		this.toTop();
 	}
 	/**
@@ -370,6 +453,7 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 			this.parent.drag_reset();
 		}
 	}
+}
 }
 
 /**
