@@ -32,8 +32,8 @@
 
 Elements.get('drag-body');
 {
-const ANIMATION_DURATION = 5000;
-const DROP_AMOUNT = 500;
+const ANIMATION_DURATION = 300;
+const DROP_AMOUNT = 50;
 /**
  * DragElement
  * Designed to hold contents to be dragged.
