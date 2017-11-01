@@ -231,5 +231,13 @@
 		"css": ["KerbalGroupDisplayKerbal.css"],
 		"resources": [],
 		"provides": ["KerbalGroupDisplayKerbal"]
+	},
+	"KerbalGroupDisplay": {
+		"type": "element",
+		"requires": ["kerbalGroupTag", "kerbalGroupDisplayKerbal", "dragDown"],
+		"templates": ["kerbalGroupDisplayTemplate.html"],
+		"css": ["KerbalGroupDisplay.css"],
+		"resources": [],
+		"provides": ["KerbalGroupDisplay"]
 	}
 }
