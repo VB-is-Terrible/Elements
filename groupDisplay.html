@@ -5,11 +5,18 @@
 		<link rel='preload' href='backbone.js' as='script'></link>
 	</head>
 	<body>
-		<!-- <elements-kerbal-group-display-kerbal-text></elements-kerbal-group-display-kerbal-text> -->
-		<elements-kerbal-group-tag id='main'></elements-kerbal-group-tag>
+		<!-- <div style='width: 20%'>
+			<elements-kerbal-group-display-kerbal-text id='main'></elements-kerbal-group-display-kerbal-text>
+		</div> -->
+		<!-- <div style='width: 20%'>
+			<elements-kerbal-group-tag id='main'></elements-kerbal-group-tag>
+		</div> -->
+		<div style='width: 20%'>
+			<elements-kerbal-group-display id='main'></elements-kerbal-group-display>
+		</div>
 		<script src='backbone.js'></script>
 		<script>
-			Elements.get('kerbal-group-display-kerbal-text', 'KDB', 'kerbal-group-tag');
+			Elements.get('kerbal-group-display-kerbal-text', 'KDB', 'kerbal-group-tag', 'kerbal-group-display');
 		</script>
 		<script>
 			const main = async () => {
