@@ -74,6 +74,18 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		 * @private
 		 */
 		this.__animationState = null;
+		/**
+		 * Temp value for pseudoBody.style.left before its set in a animation frame
+		 * @type {?Number}
+		 * @private
+		 */
+		this.__left = null;
+		/**
+		 * Temp value for pseudoBody.style.top before its set in a animation frame
+		 * @type {?Number}
+		 * @private
+		 */
+		this.__top = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		shadow.appendChild(template);
@@ -146,12 +158,10 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		for (let touch of event.changedTouches) {
 			if (touch.identifier === this.touch.touchID) {
 				event.preventDefault();
-				let leftStyle = (touch.clientX + this.touch.left).toString() + 'px';
-				let topStyle = (touch.clientY + this.touch.top).toString() + 'px';
-				requestAnimationFrame(() => {
-					this.setTop(topStyle);
-					this.setLeft(leftStyle);
-				});
+				let leftStyle = touch.clientX + this.touch.left;
+				let topStyle = touch.clientY + this.touch.top;
+				this.setTop(topStyle);
+				this.setLeft(leftStyle);
 				return false;
 			}
 		}
@@ -202,12 +212,10 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	 */
 	drag_move (event) {
 		event.preventDefault();
-		let leftStyle = (event.clientX + this.drag.left).toString() + 'px';
-		let topStyle = (event.clientY + this.drag.top).toString() + 'px';
-		requestAnimationFrame(() => {
-			this.setTop(topStyle);
-			this.setLeft(leftStyle);
-		});
+		let leftStyle = event.clientX + this.drag.left;
+		let topStyle = event.clientY + this.drag.top;
+		this.setTop(topStyle);
+		this.setLeft(leftStyle);
 		return false;
 	}
 	/**
@@ -241,10 +249,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		let width = body.offsetWidth;
 		let top = (window.innerHeight - height) / 2;
 		let left = (window.innerWidth - width) / 2;
-		requestAnimationFrame(() => {
-			this.setTop(top.toString() + 'px');
-			this.setLeft(left.toString() + 'px');
-		});
+		this.setTop(top);
+		this.setLeft(left);
 	}
 	/**
 	 * Put this drag-element on top of other drag-elements
@@ -307,7 +313,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 			return;
 		}
 		// Else, start a new animation
-		let top = (parseInt(style.getPropertyValue('top'),10));
+		let top;
+		if (this.__top !== null) {
+			top = this.__top;
+		} else {
+			top = (parseInt(style.getPropertyValue('top'),10));
+		}
 		this.__animation = body.animate([{
 			opacity: 1,
 			top: top.toString() + 'px',
@@ -320,6 +331,11 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		this.__animation.onfinish = () => {
 			this.animation_onfinish();
 		};
+		this.__animationCallback = () => {
+			requestAnimationFrame((e) => {
+				this.style.visibility = 'hidden';
+			});
+		}
 	}
 	/**
 	 * Unhide this element
@@ -340,7 +356,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 			return;
 		}
 		// Else, start a new animation
-		let top = (parseInt(style.getPropertyValue('top'),10));
+		let top;
+		if (this.__top !== null) {
+			top = this.__top;
+		} else {
+			top = (parseInt(style.getPropertyValue('top'),10));
+		}
 		requestAnimationFrame(() => {
 			this.style.display = 'block';
 			this.style.visibility = 'visible';
@@ -364,21 +385,29 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	 * Sets the top css property of pseudoBody.
 	 * This would normally be done through custom css properties, but that
 	 * causes really long style recalculations
-	 * @param {String} value What to set top to
+	 * @param {Number} value What to set top to
 	 */
 	setTop (value) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		body.style.top = value;
+		this.__top = value;
+		requestAnimationFrame((e) => {
+			body.style.top = value.toString() + 'px';
+			this.__top = null;
+		});
 	}
 	/**
 	 * Sets the left css property of pseudoBody.
 	 * This would normally be done through custom css properties, but that
 	 * causes really long style recalculations
-	 * @param {String} value What to set left to
+	 * @param {Number} value What to set left to
 	 */
 	setLeft (value) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		body.style.left = value;
+		this.__left = value;
+		requestAnimationFrame((e) => {
+			body.style.left = value.toString() + 'px';
+			this.__left = null;
+		});
 	}
 };
 
