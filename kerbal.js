@@ -5,7 +5,7 @@ Elements.get('drag-down', 'KDB', 'kerbal-tag');
 {
 
 const main = async () => {
-	await Elements.get('KDB');
+await Elements.get('KDB');
 
 /**
  * UI display of a kerbal, elements-kerbal
