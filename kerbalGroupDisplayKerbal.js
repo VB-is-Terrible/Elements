@@ -6,6 +6,7 @@ const main = async () => {
 
 await Elements.get('KDB');
 /**
+ * A GroupDisplay that just shows the kerbals in the group
  * @implements GroupDisplay
  * @property {KNS.Group} data The group to display
  */
@@ -13,7 +14,7 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 	constructor () {
 		super();
 		const self = this;
-		this.name = 'KerbalGroupDisplayKerbalText';
+		this.name = 'KerbalGroupDisplayKerbal';
 		/**
 		 * The KNS.Group been displayed
 		 * @private
@@ -54,11 +55,19 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 		this.displays.set(kerbal, display);
 		body.appendChild(display);
     }
+	/**
+	 * Remove all displayed kerbals
+	 * @private
+	 */
 	emptyNodes () {
 		for (let kerbal of this.displays.keys()) {
 			this.deleteKerbal(kerbal);
 		}
 	}
+	/**
+	 * Display all kerbals in the group
+	 * @private
+	 */
 	populateDisplay () {
 		for (let kerbal of this.data.kerbals) {
 			this.addKerbal(kerbal);
@@ -75,8 +84,10 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 			display.data = null;
 		}
 	}
+	/**
+	 * Update the name, text of the group
+	 */
 	updateData () {}
-}
 }
 
 Elements.load('kerbalGroupDisplayKerbalTemplate.html', Elements.elements.KerbalGroupDisplayKerbal, 'elements-kerbal-group-display-kerbal');

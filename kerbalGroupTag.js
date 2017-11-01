@@ -39,8 +39,19 @@ Elements.elements.KerbalGroupTag = class extends Elements.elements.backbone2 {
 			this.updateData();
 		}
 	}
+	/**
+	 * Add a kerbal to the display
+	 * @param {KNS.Kerbal} kerbal Kerbal to display
+	 */
 	addKerbal (kerbal) {}
+	/**
+	 * Delete a kerbal's display
+	 * @param  {KNS.Kerbal} kerbal Kerbal to remove
+	 */
 	deleteKerbal (kerbal) {}
+	/**
+	 * Update the name, text of the group
+	 */
 	updateData () {
 		let name = this.shadowRoot.querySelector('p.name');
 		let text = this.shadowRoot.querySelector('p.subText');
