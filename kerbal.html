@@ -36,9 +36,11 @@
 			</elements-drag-element>
 		</elements-drag-body>
 		KDB.js progress: <progress value='75' max='100'>0%</progress>
-		<elements-grid id='g' rows='1' columns='1'>
+		<elements-grid id='g' rows='1' columns='2'>
 			<elements-kdb-kerbal-display slot='s1' id='mainDisplay'>
 			</elements-KDB-kerbal-display>
+			<elements-kdb-group-display slot='s2' id='mainGroupDisplay'>
+			</elements-kdb-group-display>
 		</elements-grid>
 		<elements-kerbal-footer id='footer'></elements-kerbal-footer>
 	</body>
@@ -47,7 +49,7 @@
 		Elements.get('drag-element', 'grid',
 			'kerbal-maker', 'kerbal-editor', 'KDB',
 			'kerbal-searcher', 'kerbal-footer', 'kerbal-importer',
-			'kdb-kerbal-display');
+			'kdb-kerbal-display', 'kdb-group-display');
 	</script>
 	<script>
 	{
@@ -66,6 +68,7 @@
 			KerbalLink.registerUI('default', 'searcher', document.body.querySelector('#drag3').children[0]);
 			KerbalLink.registerUI('default', 'importer', document.body.querySelector('#drag4').children[0]);
 			KerbalLink.registerUI('default', 'kerbal-display-0', document.body.querySelector('#mainDisplay'));
+			KerbalLink.registerUI('default', 'group-display-0', document.body.querySelector('#mainGrouoDisplay'));
 			KerbalLink.registerUI('default', 'footer', document.body.querySelector('#footer'));
 		}
 		const main = async (e) => {
@@ -75,6 +78,7 @@
 			KerbalLink.loadDefault(revive);
 			uiInit(e);
 			display.database = 'default';
+			document.body.querySelector('#mainGroupDisplay').database = 'default';
 			Elements.loaded('main');
 		}
 		window.addEventListener('load', main);

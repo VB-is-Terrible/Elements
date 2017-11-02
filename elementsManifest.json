@@ -242,7 +242,7 @@
 	},
 	"kdbKerbalDisplay": {
 		"type": "element",
-		"requires": ["KDB", "groupDisplay"],
+		"requires": ["KDB", "kerbalGroupDisplay"],
 		"templates": ["kdbGroupDisplayTemplate.html"],
 		"css": ["kdbGroupDisplay.css"],
 		"resources": [],

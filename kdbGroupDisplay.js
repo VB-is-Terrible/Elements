@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('KDB', 'group-display');
+Elements.get('KDB', 'kerbal-group-display');
 {
 const main = async () => {
 
@@ -30,7 +30,7 @@ Elements.elements.KdbGroupDisplay = class extends Elements.elements.backbone2 {
 	 * @param {KNS.Group} group The group been added
 	 */
 	addGroup (group) {
-		let display = document.createElement('elements-group-display');
+		let display = document.createElement('elements-kerbal-group-display');
 		display.data = group;
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		display.menuvisible = false;
@@ -42,7 +42,6 @@ Elements.elements.KdbGroupDisplay = class extends Elements.elements.backbone2 {
 	/**
 	 * Called when a group is deleted
 	 * @param  {KNS.Group} group The deleted group
-	 * @return {[type]}       [description]
 	 */
 	removeGroup (group) {
 		let display = this.__displayMap.get(group);
