@@ -239,5 +239,13 @@
 		"css": ["KerbalGroupDisplay.css"],
 		"resources": [],
 		"provides": ["KerbalGroupDisplay"]
+	},
+	"kdbKerbalDisplay": {
+		"type": "element",
+		"requires": ["KDB", "groupDisplay"],
+		"templates": ["kdbGroupDisplayTemplate.html"],
+		"css": ["kdbGroupDisplay.css"],
+		"resources": [],
+		"provides": ["kdbGroupDisplay"]
 	}
 }
