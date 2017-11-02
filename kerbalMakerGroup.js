@@ -104,7 +104,9 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		this.group.addKerbal(kerbal);
 		let location = this.shadowRoot.querySelector('#currentKerbals');
 		let display = this.__makeDisplay(kerbal);
-		location.appendChild(display);
+		requestAnimationFrame((e) => {
+			location.appendChild(display);
+		});
 		this.__displays.set(kerbal, display);
 		this.updateCount();
 	}
@@ -120,7 +122,9 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		if (text !== null) {
 			text.data = null;
 		}
-		display.remove();
+		requestAnimationFrame((e) => {
+			display.remove();
+		});
 		this.updateCount();
 	}
 	/**
@@ -138,7 +142,9 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			if (text !== null) {
 				text.data = null;
 			}
-			display.remove();
+			requestAnimationFrame((e) => {
+				display.remove();
+			});
 		}
 		let location = this.shadowRoot.querySelector('#currentKerbals');
 		if (location.childElementCount !== 0) {

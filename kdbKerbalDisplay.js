@@ -43,7 +43,9 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 		display.data = kerbal;
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		display.menuvisible = false;
-		body.appendChild(display);
+		requestAnimationFrame((e) => {
+			body.appendChild(display);
+		});
 	}
 	renameKerbal (oldName, newName) {}
 	deleteKerbal (kerbal) {}
@@ -91,7 +93,9 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 		while (body.childElementCount > 0) {
 			let kerbal = body.children[0];
 			kerbal.data = null;
-			kerbal.remove();
+			requestAnimationFrame((e) => {
+				kerbal.remove();
+			});
 		}
 	}
 }

@@ -52,7 +52,9 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
         let display = document.createElement('elements-kerbal-display-text');
 		display.data = kerbal;
 		this.displays.set(kerbal, display);
-		body.appendChild(display);
+		requestAnimationFrame((e) => {
+			body.appendChild(display);
+		});
     }
 	emptyNodes () {
 		for (let kerbal of this.displays.keys()) {
@@ -71,7 +73,9 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
 	deleteKerbal (kerbal) {
 		let display = this.displays.get(kerbal);
 		if (display !== undefined) {
-			display.remove();
+			requestAnimationFrame((e) => {
+				display.remove();
+			});
 			display.data = null;
 		}
 	}

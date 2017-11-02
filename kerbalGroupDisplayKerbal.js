@@ -53,7 +53,9 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 		display.menuvisible = false;
 		display.data = kerbal;
 		this.displays.set(kerbal, display);
-		body.appendChild(display);
+		requestAnimationFrame((e) => {
+			body.appendChild(display);
+		});
     }
 	/**
 	 * Remove all displayed kerbals
@@ -80,7 +82,9 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 	deleteKerbal (kerbal) {
 		let display = this.displays.get(kerbal);
 		if (display !== undefined) {
-			display.remove();
+			requestAnimationFrame((e) => {
+				display.remove();
+			});
 			display.data = null;
 		}
 	}

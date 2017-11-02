@@ -54,7 +54,9 @@ Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elem
 		}
     }
     delete () {
-        this.remove();
+		requestAnimationFrame((e) => {
+			this.remove();
+		});
     }
 }
 
