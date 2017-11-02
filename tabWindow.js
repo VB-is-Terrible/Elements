@@ -22,6 +22,11 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 
 		this.name = 'TabWindow';
 		this.__tabMap = new Map();
+		/**
+		 * Div containing slot that is the active tab
+		 * @type {HTMLElement}
+		 * @private
+		 */
 		this.__active = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -118,6 +123,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 				slots.appendChild(div);
 				if (tab === this.selected) {
 					div.style.display = 'block';
+					this.__active = div;
 				}
 				this.__tabMap.set(tab, div);
 			}
