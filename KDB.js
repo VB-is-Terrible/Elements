@@ -601,6 +601,7 @@ let KNS =  {
 /**
  * Kerbal database - used to store information on kerbals.
  * @property {Set<String>} kerbals Set of all kerbals in the db
+ * @property {Map<Number, KNS.Group>} groups Mapping of groupIDs to groups
  * @property {Number} groupCounter Auto-incrementing counter for unique ids
  */
 const KDB = class KDB {
