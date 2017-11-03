@@ -34,11 +34,23 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
 
 		this._data = null;
 		this.applyPriorProperty('data', null);
-		this.__menuvisible = true;
 		this.__update = Elements.rafContext();
 		this.__disabled = false;
 		this.__deleter = false;
-		this.applyPriorProperties('menuvisible', 'disabled', 'deleter');
+		this.applyPriorProperties('disabled', 'deleter');
+		Elements.setUpAttrPropertyLink2(this, 'menuvisible', true, (value) => {
+			let dragDown = self.shadowRoot.querySelector('elements-drag-down');
+			dragDown.menuvisible = value;
+		}, Elements.booleaner);
+		Elements.setUpAttrPropertyLink2(this, 'disabled', false, (value) => {
+			let overlay = this.shadowRoot.querySelector('#overlay');
+			this.__update((e) => {
+				overlay.style.display = value ? 'block' : 'none';
+			});
+		}, Elements.booleaner);
+		Elements.setUpAttrPropertyLink2(this, 'deleter', false, () => {},
+		                                Elements.booleaner);
+
 	}
 	get data () {
 		return this._data;
@@ -66,45 +78,6 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
 			return this.data.name;
 		} else {
 			return null;
-		}
-	}
-	get menuvisible () {
-		return this.__menuvisible;
-	}
-	set menuvisible (value) {
-		value = Elements.booleaner(value);
-		if (value === this.menuvisible) {return;}
-		this.__menuvisible = value;
-		if (this.attributeInit) {
-			this.setAttribute('menuvisible', value);
-		}
-		let dragDown = this.shadowRoot.querySelector('elements-drag-down');
-		dragDown.menuvisible = value;
-	}
-	get disabled () {
-		return this.__disabled;
-	}
-	set disabled (value) {
-		value = Elements.booleaner(value);
-		if (value === this.disabled) {return;}
-		this.__disabled = value;
-		if (this.attributeInit) {
-			this.setAttribute('disabled', value);
-		}
-		let overlay = this.shadowRoot.querySelector('#overlay');
-		this.__update((e) => {
-			overlay.style.display = value ? 'block' : 'none';
-		});
-	}
-	get deleter () {
-		return this.__deleter;
-	}
-	set deleter (value) {
-		value = Elements.booleaner(value);
-		if (value === this.deleter) {return;}
-		this.__deleter = value;
-		if (this.attributeInit) {
-			this.setAttribute('deleter', value);
 		}
 	}
 	connectedCallback () {
