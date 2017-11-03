@@ -9,6 +9,7 @@ await Elements.get();
  * The standard group display
  * @implements GroupDisplay
  * @property {KNS.Group} data The group to display
+ * @property {Boolean} menuvisible Whether to expand group displays
  * @type {Object}
  */
 Elements.elements.KerbalGroupDisplay = class extends Elements.elements.backbone2 {
@@ -22,8 +23,12 @@ Elements.elements.KerbalGroupDisplay = class extends Elements.elements.backbone2
 		let template = Elements.importTemplate(this.name);
 		this.__tag = template.querySelector('#tag');
 		this.__kerbals = template.querySelector('#kerbals');
+		let drop_down = template.querySelector('elements-drag-down');
 		shadow.appendChild(template);
 		this.applyPriorProperties('data');
+		Elements.setUpAttrPropertyLink2(this, 'menuvisible', false, (value) => {
+			drop_down.menuvisible = value;
+		}, Elements.booleaner);
 	}
 	get data () {
 		return this.__data;
@@ -61,6 +66,9 @@ Elements.elements.KerbalGroupDisplay = class extends Elements.elements.backbone2
 	updateData () {
 		this.__tag.updateData(kerbal);
 		this.__kerbals.updateData(kerbal);
+	}
+	static get observedAttributes () {
+		return ['menuvisible'];
 	}
 }
 

@@ -9,6 +9,7 @@ await Elements.get('KDB');
 /**
  * @augments Elements.elements.backbone2
  * @property {String} database Name of the database to look up
+ * @property {Boolean} menuvisible Whether the hide the kerbals in groups
  * @implements KDBDisplay
  * @augments BlankKDBDisplay
  * @type {Object}
@@ -23,6 +24,11 @@ Elements.elements.KdbGroupDisplay = class extends Elements.elements.backbone2 {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		shadow.appendChild(template);
+		Elements.setUpAttrPropertyLink2(this, 'menuvisible', false, (value) => {
+			for (let display of this.__displayMap.values()) {
+				display.menuvisible = value;
+			}
+		}, Elements.booleaner);
 		this.applyPriorProperties('database');
 	}
 	/**
@@ -33,7 +39,7 @@ Elements.elements.KdbGroupDisplay = class extends Elements.elements.backbone2 {
 		let display = document.createElement('elements-kerbal-group-display');
 		display.data = group;
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		display.menuvisible = false;
+		display.menuvisible = this.menuvisible;
 		this.__displayMap.set(group, display);
 		requestAnimationFrame((e) => {
 			body.appendChild(display);
@@ -88,6 +94,9 @@ Elements.elements.KdbGroupDisplay = class extends Elements.elements.backbone2 {
 				group.remove();
 			});
 		}
+	}
+	static get observedAttributes () {
+		return ['menuvisible'];
 	}
 }
 
