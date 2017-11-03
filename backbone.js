@@ -700,7 +700,41 @@ Elements = {
 		string = string.replace(/>/g, '&gt');
 		return string;
 	},
-
+	/**
+	 * Sets up a linked object property/attribute, for backbone2. Does things like copy attribute value to
+	 * property value once inserted into DOM, checking if the property
+	 * already has a value.
+	 * @param  {HTMLElement} object      Element to set up link on
+	 * @param  {String} property         property/attribute to link
+	 * @param  {*} [initial=null]         value to intialize the type as
+	 * @param  {Function} [eventTrigger] function to call after property has been set
+	 * @param  {Function} [santizer]     function passed (new value, old value) before value is set. returns value to set property to.
+	 * @memberof! Elements
+	 * @instance
+	 */
+	setUpAttrPropertyLink2: function (object, property, initial=null,
+		   eventTrigger = () => {},
+		   santizer = (value, oldValue) => {return value;}) {
+		console.assert(object.constructor.observedAttributes.includes(property));
+		let hidden;
+		let getter = () => {return hidden;};
+		let setter = (value) => {
+			value = santizer(value, hidden);
+			if (value === hidden) {return;}
+			hidden = value;
+			if (object.attributeInit) {
+				object.setAttribute(property, value);
+			}
+			eventTrigger(value);
+		};
+		Object.defineProperty(object, property, {
+			enumerable: true,
+			configurable: true,
+			get: getter,
+			set: setter,
+		});
+		object.applyPriorProperty(property, initial)
+	},
 };
 /**
  * Backbone for newer elements (v2.0). These elements can use
