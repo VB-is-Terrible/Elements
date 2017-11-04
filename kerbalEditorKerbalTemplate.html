@@ -11,74 +11,15 @@
 			</div>
 		</div>
 		<div id='editBody'>
-			<elements-grid rows='1' columns='2'>
-				<!-- Questions -->
-				<p slot='s1'>
-					Remove Job
-				</p>
-				<!-- Answers -->
-				<div class='multi' slot='s2'>
-					<select id='AnsRemovePlace'>
-						<option value='Kerbin'> Kerbin </option>
-						<option value='Mun'> Mun </option>
-						<option value='Minmus'> Minmus </option>
-						<option value='Eve'> Eve </option>
-						<option value='Gilly'> Gilly </option>
-						<option value='Duna'> Duna </option>
-						<option value='Ike'> Ike </option>
-						<option value='Dres'> Dres </option>
-						<option value='Jool'> Jool </option>
-						<option value='Laythe'> Laythe </option>
-						<option value='Vall'> Vall </option>
-						<option value='Tylo'> Tylo </option>
-						<option value='Bop'> Bop </option>
-						<option value='Pol'> Pol </option>
-						<option value='Eeloo'> Eeloo </option>
-						<option value='Kerbol'> Kerbol </option>
-					</select>
-					<button id='AnsRemoveConfirm' class='spacer'>
-						Remove
-					</button>
-				</div>
-			</elements-grid>
-			<elements-drag-down class='danger' menuvisible='false'>
-				<div slot='s1' class='dangerLine'>
-					<div id='lineContain'>
-						<div id='line'> </div>
-					</div>
-					<div class='dangerContain'>
-						<p class='textOverlay'> Sudo mode </p>
-					</div>
-				</div>
-				<elements-grid rows='4' columns='2' id='insideDrag'>
-					<!--Questions-->
-					<div slot='s1'>
-						<p>
-							Name
-							<img class='warn' src='warning.svg' title='Kerbal already exists'></img>
-						</p>
-					</div>
-					<p slot='s3'>
-						Type
+			<div class='flex-column'>
+				<div class='flex-row'>
+					<!-- Questions -->
+					<p class='row-first'>
+						Remove Job
 					</p>
-					<p slot='s5'>
-						Add/Change Job
-					</p>
-					<p slot='s7'>
-						Delete kerbal
-					</p>
-					<!--Answers-->
-					<input slot='s2' id='AnsName' draggable='false'>
-					</input>
-					<select slot='s4' id='AnsText'>
-						<option value='' selected disabled hidden> </option>
-						<option value='Pilot'> Pilot </option>
-						<option value='Scientist'> Scientist </option>
-						<option value='Engineer'> Engineer </option>
-						<option value='Tourist'> Tourist </option>
-					</select>
-					<div class='multi' slot='s6'>
-						<select id='AnsAddPlace'>
+					<!-- Answers -->
+					<div class='multi row-last'>
+						<select id='AnsRemovePlace'>
 							<option value='Kerbin'> Kerbin </option>
 							<option value='Mun'> Mun </option>
 							<option value='Minmus'> Minmus </option>
@@ -96,28 +37,93 @@
 							<option value='Eeloo'> Eeloo </option>
 							<option value='Kerbol'> Kerbol </option>
 						</select>
-						<select id='AnsAddValue' class='spacer'>
-							<option value='1'>Flyby</option>
-							<option value='2'>Sub-Orbital</option>
-							<option value='3'>Orbit</option>
-							<option value='4'>Landing</option>
+						<button id='AnsRemoveConfirm' class='spacer'>
+							Remove
+						</button>
+					</div>
+				</div>
+			</div>
+			<elements-drag-down class='danger' menuvisible='false'>
+				<div slot='s1' class='dangerLine'>
+					<div id='lineContain'>
+						<div id='line'> </div>
+					</div>
+					<div class='dangerContain'>
+						<p class='textOverlay'> Sudo mode </p>
+					</div>
+				</div>
+				<div class='flex-column' id='insideDrag'>
+					<div class='flex-row'>
+						<p class='row-first'>
+							Name
+							<img class='warn' src='warning.svg' title='Kerbal already exists'></img>
+						</p>
+						<input class='row-last' id='AnsName'>
+						</input>
+					</div>
+					<div class='flex-row'>
+						<p class='row-first'>
+							Type
+						</p>
+						<select class='row-last' id='AnsText'>
+							<option value='' selected disabled hidden> </option>
+							<option value='Pilot'> Pilot </option>
+							<option value='Scientist'> Scientist </option>
+							<option value='Engineer'> Engineer </option>
+							<option value='Tourist'> Tourist </option>
 						</select>
-						<button id='AnsAddConfirm' class='spacer'>
-							Add
-						</button>
 					</div>
-					<div class='multi' slot='s8'>
-						<button class='delete' id='DeleteKerbal1'>
-							Delete Kerbal
-						</button>
-						<button class='delete' id='DeleteKerbal2'>
-							Are you sure?
-						</button>
-						<button class='delete' id='DeleteKerbal3'>
-							Cancel Delete
-						</button>
+					<div class='flex-row'>
+						<p class='row-first'>
+							Add/Change Job
+						</p>
+						<div class='multi row-last'>
+							<select id='AnsAddPlace'>
+								<option value='Kerbin'> Kerbin </option>
+								<option value='Mun'> Mun </option>
+								<option value='Minmus'> Minmus </option>
+								<option value='Eve'> Eve </option>
+								<option value='Gilly'> Gilly </option>
+								<option value='Duna'> Duna </option>
+								<option value='Ike'> Ike </option>
+								<option value='Dres'> Dres </option>
+								<option value='Jool'> Jool </option>
+								<option value='Laythe'> Laythe </option>
+								<option value='Vall'> Vall </option>
+								<option value='Tylo'> Tylo </option>
+								<option value='Bop'> Bop </option>
+								<option value='Pol'> Pol </option>
+								<option value='Eeloo'> Eeloo </option>
+								<option value='Kerbol'> Kerbol </option>
+							</select>
+							<select id='AnsAddValue' class='spacer'>
+								<option value='1'>Flyby</option>
+								<option value='2'>Sub-Orbital</option>
+								<option value='3'>Orbit</option>
+								<option value='4'>Landing</option>
+							</select>
+							<button id='AnsAddConfirm' class='spacer'>
+								Add
+							</button>
+						</div>
 					</div>
-				</elements-grid>
+					<div class='flex-row'>
+						<p class='row-first'>
+							Delete kerbal
+						</p>
+						<div class='multi row-last'>
+							<button class='delete' id='DeleteKerbal1'>
+								Delete Kerbal
+							</button>
+							<button class='delete' id='DeleteKerbal2'>
+								Are you sure?
+							</button>
+							<button class='delete' id='DeleteKerbal3'>
+								Cancel Delete
+							</button>
+						</div>
+					</div>
+				</div>
 			</elements-drag-down>
 		</div>
 		<div id='footer' class='right'>
