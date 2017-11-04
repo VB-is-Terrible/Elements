@@ -1,0 +1,36 @@
+#editBody {
+	margin-top: 1ex;
+}
+#line {
+	height: 2px;
+	margin: 0px 20px;
+	background: black;
+}
+#lineContain {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	flex-direction: column;
+	height: 100%;
+	position: absolute;
+}
+div.dangerContain {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	position: absolute;
+}
+div.dangerLine {
+	width: 100%;
+	position: relative;
+}
+elements-drag-down.danger {
+	--left-shift: 0px;
+	--arrow-size: 1.5;
+}
+p.textOverlay {
+	background: white;
+	padding: 0px 10px;
+}

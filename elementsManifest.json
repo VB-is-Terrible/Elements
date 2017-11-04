@@ -247,5 +247,13 @@
 		"css": ["kdbGroupDisplay.css"],
 		"resources": [],
 		"provides": ["kdbGroupDisplay"]
+	},
+	"kerbalEditorGroup": {
+		"type": "element",
+		"requires": ["KDB", "kerbalGroupTag", "dragDown"],
+		"templates": ["kerbalEditorGroupTemplate.html"],
+		"css": ["kerbalFloatCommon.css", "kerbalEditorGroup.css"],
+		"resources": [],
+		"provides": ["kerbalEditorGroup"]
 	}
 }

@@ -1,0 +1,58 @@
+<template id='templateElementsKerbalEditorGroup'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
+	<link rel='stylesheet' type='text/css' href='kerbalEditorGroup.css'>
+	<div id='pseudoBody'>
+		<div id='groupTagDiv'>
+			<elements-kerbal-group-tag>
+			</elements-kerbal-group-tag>
+		</div>
+		<div id='editBody'>
+			<div class='flex-column'>
+				<div class='flex-row'>
+					<p class='row-first'> Remove Job </p>
+					<div class='multi row-last'>
+						<select id='AnsRemovePlace'>
+							<option value='Kerbin'> Kerbin </option>
+							<option value='Mun'> Mun </option>
+							<option value='Minmus'> Minmus </option>
+							<option value='Eve'> Eve </option>
+							<option value='Gilly'> Gilly </option>
+							<option value='Duna'> Duna </option>
+							<option value='Ike'> Ike </option>
+							<option value='Dres'> Dres </option>
+							<option value='Jool'> Jool </option>
+							<option value='Laythe'> Laythe </option>
+							<option value='Vall'> Vall </option>
+							<option value='Tylo'> Tylo </option>
+							<option value='Bop'> Bop </option>
+							<option value='Pol'> Pol </option>
+							<option value='Eeloo'> Eeloo </option>
+							<option value='Kerbol'> Kerbol </option>
+						</select>
+						<button id='AnsRemoveConfirm' class='spacer'>
+							Remove
+						</button>
+					</div>
+				</div>
+			</div>
+			<elements-drag-down class='danger' menuvisible='false'>
+				<div slot='s1' class='dangerLine'>
+					<div id='lineContain'>
+						<div id='line'> </div>
+					</div>
+					<div class='dangerContain'>
+						<p class='textOverlay'> Sudo mode </p>
+					</div>
+				</div>
+			</elements-drag-down>
+			<div id='footer' class='right'>
+				<button id='Cancel' class='spacer'>
+					Cancel
+				</button>
+				<button id='Done' class='spacer'>
+					Done
+				</button>
+			</div>
+		</div>
+	</div>
+</template>
