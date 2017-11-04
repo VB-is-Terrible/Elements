@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('drag-element', 'kerbal-editor-kerbal', 'tab-window');
+Elements.get('drag-element', 'kerbal-editor-kerbal', 'tab-window', 'kerbal-editor-group');
 {
 const main = async () => {
 
@@ -10,33 +10,31 @@ await Elements.get('drag-element');
  * @type {Object}
  * @property {String} database Name of the database to look up
  * @property {KNS.Kerbal} data Kerbal been edit - note: this is a copy, not the original
- * @augments Elements.elements.dragged
+ * @augments Elements.elements.dragged2
  */
-Elements.elements.KerbalEditor = class extends Elements.elements.dragged {
+Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 	constructor () {
 		super();
 		const self = this;
 
 		this.name = 'KerbalEditor';
-		this.__database = this.database || 'default';
+		this.__database = 'default';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-		let kerbalEditor = template.querySelector('elements-kerbal-editor-kerbal');
 		let tabWindow = template.querySelector('elements-tab-window');
 		tabWindow.parent = this;
-		Object.defineProperty(this, 'database', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__database;
-			},
-			set: (value) => {
-				self.__database = value;
-				// Pass the change onto members
-				kerbalEditor.database = value;
-			},
-		});
 		shadow.appendChild(template);
+		this.applyPriorProperties('database');
+	}
+	get database () {
+		return this.__database;
+	}
+	set database (value) {
+		let kerbalEditor = this.shadowRoot.querySelector('elements-kerbal-editor-kerbal');
+		let groupEditor = this.shadowRoot.querySelector('elements-kerbal-editor-group');
+		this.__database = value;
+		kerbalEditor.database = value;
+		groupEditor.database = value;
 	}
 	get data () {
 		let kerbalEditor = this.shadowRoot.querySelector('elements-kerbal-editor-kerbal');
