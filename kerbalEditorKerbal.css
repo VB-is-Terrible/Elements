@@ -34,8 +34,11 @@ p.textOverlay {
 	background: white;
 	padding: 0px 10px;
 }
-#insideDrag {
-	--padding: 10px 10px 0px 10px;
+div.flex-column {
+	padding: 10px 10px 0px 10px;
+}
+div.flex-row {
+	margin-bottom: 1em;
 }
 #kerbalDiv {
 	position: relative;
