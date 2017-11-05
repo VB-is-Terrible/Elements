@@ -2,21 +2,21 @@
 	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
 	<link rel='stylesheet' type='text/css' href='kerbalMakerGroup.css'>
 	<div id='pseudoBody'>
-		<elements-grid coordnaming='true' rows='2' cols='2'>
-			<div slot='1-1'>
-				<p>
+		<div class='flex-column'>
+			<div class='flex-row'>
+				<p class='row-first'>
 					Group Name
 					<img class='warn' src='warning.svg' title='Please enter a name'></img>
 				</p>
+			<input class='row-last' id='AnsName' draggable='false'></input>
 			</div>
-			<input slot='1-2' id='AnsName' draggable='false'></input>
-			<div slot='2-1'>
-				<p>
+			<div class='flex-row'>
+				<p class='row-first'>
 					Group Description
 				</p>
+				<input class='row-last' id='AnsText'></input>
 			</div>
-			<input slot='2-2' id='AnsText'></input>
-		</elements-grid>
+		</div>
 		<elements-grid rows='1' cols='1'>
 			<elements-kerbal-searcher-kerbal slot='s1'></elements-kerbal-searcher-kerbal>
 			<div slot='s2'>
