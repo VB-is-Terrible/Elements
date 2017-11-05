@@ -43,6 +43,7 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 			['AnsRemovePlace', '#AnsRemovePlace'],
 			['AnsRemoveConfirm', '#AnsRemoveConfirm'],
 			['warn', 'img.warn'],
+			['cancel', '#Cancel'],
 		);
 		Object.defineProperty(this, 'data', {
 			enumerable: true,
@@ -101,6 +102,9 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 
 			KerbalLink.get(self.database).addKerbal(self.data);
 			self.data.removeDisplay(self.elements.kerbal);
+			self.newKerbal();
+		});
+		applyEL('cancel', 'click', (e) => {
 			self.newKerbal();
 		});
 		this.elements = elements;
