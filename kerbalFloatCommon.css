@@ -40,6 +40,7 @@ select, button, input{
 	height: 1em;
 	width: 1em;
 	float: right;
+	margin-right: 1ex;
 }
 div.right {
 	display: flex;
@@ -64,4 +65,7 @@ div.flex-column {
 .row-last {
 	flex-grow: 3;
 	width: 60%;
+}
+div.flex-row {
+	margin-bottom: 1em;
 }
