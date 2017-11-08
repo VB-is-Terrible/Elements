@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('KDB', 'drag-down', 'tab-window', 'kerbal-link', 'kerbal-searcher-common');
+Elements.get('kerbal', 'KDB', 'drag-down', 'kerbal-link', 'kerbal-searcher-common');
 {
 const main = async () => {
 
@@ -10,11 +10,12 @@ await Elements.get('tab-window', 'KDB', 'kerbal-searcher-common');
  * UI to search through kerbals by name
  * @type {Object}
  * @augments Elements.elements.KerbalSearcherCommon
+ * @augments Elements.elements.backbone2
  * @property {String} database Name of the database to look up
  * @property {String} action   Text to display in buttons next to results
  * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
  */
-Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.KerbalSearcherCommon {
+Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.KerbalSearcherCommonName {
 	constructor () {
 		super();
 		const self = this;
