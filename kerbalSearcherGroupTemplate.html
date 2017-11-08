@@ -1,0 +1,40 @@
+<template id='templateElementsKerbalSearcherGroup'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
+	<link rel='stylesheet' type='text/css' href='kerbalSearcherCommon.css'>
+	<link rel='stylesheet' type='text/css' href='kerbalSearcherGroup.css'>
+	<div id='pseudoBody'>
+		<elements-drag-down id='kerbal-search' menuvisible='false'>
+			<input id='nameInput' type='text' slot='s1' placeholder='Group Search'> </input>
+			<div class='drag_inside' id='checkboxes'>
+				<p>
+					Search Options:
+				</p>
+				<div id='kerbal-options'>
+					<div class='multi'>
+						<input type='checkbox' id='prefix' checked='checked'></input>
+						<span class='checkbox'>
+							Prefix
+						</span>
+					</div>
+					<div class='multi'>
+						<input type='checkbox' id='fuzzy' checked='checked'></input>
+						<span class='checkbox'>
+							Fuzzy
+						</span>
+					</div>
+					<div class='multi'>
+						<input type='checkbox' id='edit'></input>
+						<span class='checkbox'>
+							Edit distance
+						</span>
+					</div>
+				</div>
+			</div>
+		</elements-drag-down>
+		<p id='resultsTitle'>
+			Results
+		</p>
+		<div id='results'>
+		</div>
+	</div>
+</template>
