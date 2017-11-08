@@ -222,7 +222,7 @@
 		"templates": [],
 		"css": [],
 		"resources": [],
-		"provides": ["kerbalSearcherCommon"]
+		"provides": ["kerbalSearcherCommon", "kerbalSearcherCommonName"]
 	},
 	"KerbalGroupDisplayKerbal": {
 		"type": "element",

@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal', 'KDB', 'tab-window');
+Elements.get('KDB', 'tab-window');
 
 {
 const main = async () => {
@@ -31,18 +31,22 @@ let KDBListener = class extends BlankKDBDisplay {
 	renameKerbal (oldName, newName) {
 		this.searcher.rename_inform(oldName, newName);
 	}
+	removeGroup (group) {
+		this.searcher.delete_inform(group);
+	}
 	delete () {
 		this.database.removeDisplay(this);
 	}
-}
+};
 
 /**
- * Implements the results showing part of kerbal-searcher-*
- *
+ * Implements the results showing part of kerbal-searcher-*.
+ * Consumers will need to import the relevant display element
  * @type {Object}
  * @augments Elements.elements.tabbed2
  * @property {String} action   Text to display in buttons next to results
  * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
+ * @property {Function} makeDisplay Function that takes a result, and returns a display for it. Defaults to displaying kerbals.
  */
 Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2 {
 	constructor () {
@@ -51,7 +55,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 
 		/**
 		 * Raf for display results
-		 * @type {Function<Function>}
+		 * @type {Function}
 		 * @private
 		 */
 		this.resultsRAF = Elements.rafContext();
@@ -78,10 +82,18 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		 * @type {Number}
 		 */
 		this.__results_length = 0;
+		this.makeDisplay = (result) => {
+			let display = document.createElement('elements-kerbal');
+			display.data = result;
+			display.menuvisible = false;
+			display.deleter = false;
+			return display;
+		};
+		this.applyPriorProperties('makeDisplay');
 	}
 	/**
 	 * Show array on screen, establishes delete/rename watcher
-	 * @param  {KNS.Kerbal[]} results Array of results, best match to worst
+	 * @param  {Array.<Object>} results Array of results, best match to worst
 	 */
 	display_results (results) {
 		let itemHolder = this.shadowRoot.querySelector('#results');
@@ -90,9 +102,9 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		this.emptyNodes();
 
 		let queue = [];
-		for (let kerbal of results) {
-			let display = this.__makeDisplay(kerbal);
-			this.__virtualDisplayMap.set(kerbal, display);
+		for (let result of results) {
+			let display = this.__makeDisplay(result);
+			this.__virtualDisplayMap.set(result, display);
 			queue.push(display);
 		}
 		this.__results_length = results.length;
@@ -111,7 +123,6 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 			} else {
 				itemHolder.style.display = 'block';
 			}
-			this.update = null;
 		});
 	}
 	/**
@@ -146,17 +157,14 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 	}
 	/**
 	 * Make a new div displaying a search result
-	 * @param  {KNS.Kerbal} kerbal Kerbal to show
-	 * @return {HTMLElement}       A div containing the kerbal, edit button
+	 * @param  {*} result Object representing the search result
+	 * @return {HTMLElement}       A div containing the display element & edit button
 	 * @private
 	 */
-	__makeDisplay (kerbal) {
+	__makeDisplay (result) {
 		let div = document.createElement('div');
 		div.classList.add('results');
-		let display = document.createElement('elements-kerbal');
-		display.data = kerbal;
-		display.menuvisible = false;
-		display.deleter = false;
+		let display = this.makeDisplay(result);
 		div.appendChild(display);
 		let button = document.createElement('button');
 		button.innerHTML = this.action;
@@ -169,12 +177,12 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 	}
 	/**
 	 * Inform the searcher of a kerbal deletion
-	 * @param  {KNS.Kerbal} kerbal Kerbal been deleted
+	 * @param  {*} result Result been deleted
 	 */
-	delete_inform (kerbal) {
-		if (!this.__virtualDisplayMap.has(kerbal)) {return;}
+	delete_inform (result) {
+		if (!this.__virtualDisplayMap.has(result)) {return;}
 		let results = this.shadowRoot.querySelector('#resultsTitle');
-		let display = this.__virtualDisplayMap.get(kerbal);
+		let display = this.__virtualDisplayMap.get(result);
 		this.__results_length -= 1;
 		let string = this.constructor.resultsString(this.__results_length);
 		requestAnimationFrame((e) => {
@@ -205,8 +213,135 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		}
 		return string;
 	}
+};
 
-}
+/**
+ * Addon to KerbalSearcherCommon to include methods to search
+ * @type {Object}
+ */
+Elements.elements.KerbalSearcherCommonName = class extends Elements.elements.KerbalSearcherCommon {
+	/**
+	 * Match names to the search, matching by prefix
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @return {Set}                  Ordered set of results
+	 */
+	static prefix (search, nameList) {
+		search = search.toLowerCase();
+		let checker = (name) => {
+			name = name.toLowerCase();
+			if (name.indexOf(search) === 0) {
+				return true;
+			}
+			return false;
+		}
+		let results = new Set();
+		for (let name of nameList) {
+			if (checker(name)) {
+				results.add(name);
+			}
+		}
+		return results;
+	}
+	/**
+	 * Match names to the search, matching by fuzzy search
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @return {Set}                  Ordered set of results
+	 */
+	static fuzzy (search, nameList) {
+		search = search.toLowerCase();
+		let checker = (name) => {
+			name = name.toLowerCase();
+			let position = 0;
+			for (let char of name) {
+				if (char === search[position]) {
+					position += 1;
+				}
+			}
+			if (position === search.length) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		let results = new Set();
+		for (let name of nameList) {
+			if (checker(name)) {
+				results.add(name);
+			}
+		}
+		return results;
+	}
+	/**
+	 * Match names to the search, matching by prefix
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @param  {Number} threshold     Edit distance limit
+	 * @return {Set}                  Ordered set of results
+	 */
+	static edit (search, nameList, threshold) {
+		let result = new Set();
+		for (let name of nameList) {
+			let distance = this.editDistance(name, search);
+			if (distance < threshold) {
+				result.add(name);
+			}
+		}
+		return result;
+	}
+	/**
+	 * Find the edit distance between two strings
+	 * @param  {String} string1 First string to compare
+	 * @param  {String} string2 Second string to compare
+	 * @return {Number}         The edit distance between the two strings
+	 * @private
+	 */
+	static editDistance (string1, string2) {
+		const m = string1.length + 1;
+		const n = string2.length + 1;
+		const fill = (length) => {
+			let result = [];
+			for (let i = 0; i < length; i++) {
+				result.push(0);
+			}
+			return result;
+		}
+		let d = [];
+		for (let i = 0; i < n; i++) {
+			d.push(fill(m));
+		}
+		for (let i = 0; i < m; i++) {
+			d[0][i] = i;
+		}
+		for (let i = 0; i < n; i++) {
+			d[i][0] = i;
+		}
+		for (let y = 1; y < n; y++) {
+			for (let x = 1; x < m; x++) {
+				if (string1[x-1] === string2[y-1]) {
+					d[y][x] = d[y-1][x-1];
+				} else {
+					d[y][x] = Math.min(d[y-1][x] + 1, d[y][x-1] + 1, d[y-1][x-1] + 1);
+			}
+		}
+		}
+		return d[n-1][m-1];
+	}
+	/**
+	 * Match names to the search, matching by prefix
+	 * @param  {String} search        Name to search for
+	 * @param  {String[]} nameList    List of names to search through
+	 * @return {Set}                  Ordered set of results
+	 */
+	static exact (search, nameList) {
+		if (nameList.includes(search)) {
+			return new Set([search]);
+		} else {
+			return [];
+		}
+	}
+};
 Elements.loaded('kerbalSearcherCommon');
 
 }
