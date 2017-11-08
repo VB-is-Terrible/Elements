@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('drag-element', 'tab-window', 'kerbal-searcher-kerbal', 'kerbal-searcher-destination');
+Elements.get('drag-element', 'tab-window', 'kerbal-searcher-kerbal', 'kerbal-searcher-destination', 'kerbal-searcher-group');
 {
 
 const main = async () => {
@@ -8,12 +8,13 @@ await Elements.get('drag-element');
 /**
  * UI to search through kerbals
  * @type {Object}
- * @augments Elements.elements.dragged
+ * @augments Elements.elements.dragged2
+ * @augments Elements.elements.backbone2
  * @property {String} database Name of the database to look up
  * @property {String} action   Text to display in buttons next to results
  * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
  */
-Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
+Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 	constructor () {
 		super();
 		const self = this;
@@ -24,42 +25,18 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 		 * @type {String}
 		 * @private
 		 */
-		this.__database = this.database || 'default';
+		this.__database = 'default';
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let kerbalSearcher = template.querySelector('elements-kerbal-searcher-kerbal');
-		let destinationSeacher = template.querySelector('elements-kerbal-searcher-destination');
+		let destinationSearcher = template.querySelector('elements-kerbal-searcher-destination');
+		let groupSearcher = template.querySelector('elements-kerbal-searcher-group');
+		this.__searchers = [kerbalSearcher, destinationSearcher, groupSearcher];
 		let tabWindow = template.querySelector('elements-tab-window');
 		tabWindow.parent = this;
-		Object.defineProperty(this, 'database', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__database;
-			},
-			set: (value) => {
-				self.__database = value;
-				// Pass the change onto members
-				kerbalSearcher.database = value;
-				destinationSeacher.database = value;
-			},
-		});
-		this.__action = this.action || 'Edit';
-		Object.defineProperty(this, 'action', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__action;
-			},
-			set: (value) => {
-				self.__action = value;
-				// Pass the change onto members
-				kerbalSearcher.action = value;
-				destinationSeacher.action = value;
-			},
-		});
-		this.__actionCallback = this.actionCallback || ((name) => {
+		this.__action = 'Edit';
+		this.__actionCallback = ((name) => {
 			let editor = KerbalLink.getUI(self.database, 'editor');
 			if (editor) {
 				let kerbal = KerbalLink.get(self.database).getKerbal(name);
@@ -67,21 +44,41 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged {
 				editor.showWindow();
 			}
 		});
-		Object.defineProperty(this, 'actionCallback', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__actionCallback;
-			},
-			set: (value) => {
-				self.__actionCallback = value;
-				// Pass the change onto members
-				kerbalSearcher.actionCallback = value;
-				destinationSeacher.actionCallback = value;
-			},
-		});
-
 		shadow.appendChild(template);
+		this.applyPriorProperties('database', 'action', 'actionCallback');
+	}
+	get action () {
+		return this.__action;
+	}
+	set action (value) {
+		this.__action = value;
+		this.__setProps('action', value);
+	}
+	get actionCallback () {
+		return this.__actionCallback;
+	}
+	set actionCallback (value) {
+		this.__actionCallback = value;
+		this.__setProps('actionCallback', value);
+	}
+	get database () {
+		return this.__database;
+	}
+	set database (value) {
+		this.__database = value;
+		this.__setProps('database', value);
+	}
+
+	/**
+	 * Set the properties of the searcher children
+	 * @param {String} property Property to set
+	 * @param {*} value    Value to set property to
+	 * @private
+	 */
+	__setProps (property, value) {
+		for (let searcher of this.__searchers) {
+			searcher[property] = value;
+		}
 	}
 	showWindow () {
 		super.showWindow();
