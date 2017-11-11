@@ -36,10 +36,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 		let tabWindow = template.querySelector('elements-tab-window');
 		tabWindow.parent = this;
 		this.__action = 'Edit';
-		this.__actionCallback = ((name) => {
+		this.__actionCallbackKerbal = ((kerbal) => {
 			let editor = KerbalLink.getUI(self.database, 'editor');
 			if (editor) {
-				let kerbal = KerbalLink.get(self.database).getKerbal(name);
 				editor.data = kerbal;
 				editor.showWindow();
 			}

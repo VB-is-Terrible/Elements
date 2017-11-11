@@ -23,10 +23,11 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 		this.name = 'KerbalSearcherGroup';
 		this.__database = 'default';
 		this.action = 'Edit';
-		this.actionCallback = ((name) => {
+		this.actionCallback = ((group) => {
 			let editor = KerbalLink.getUI(self.database, 'editor');
 			if (editor) {
-				let kerbal = KerbalLink.get(self.database).getKerbal(name);
+				//TODO: implement
+				console.warn('NotImplementedError');
 				editor.data = kerbal;
 				editor.showWindow();
 			}

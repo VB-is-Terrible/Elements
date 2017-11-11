@@ -69,10 +69,9 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.Ke
 		 */
 		this.__database = 'default';
 		this.action = 'Edit';
-		this.actionCallback = ((name) => {
+		this.actionCallback = ((kerbal) => {
 			let editor = KerbalLink.getUI(self.database, 'editor');
 			if (editor) {
-				let kerbal = KerbalLink.get(self.database).getKerbal(name);
 				editor.data = kerbal;
 				editor.showWindow();
 			}
