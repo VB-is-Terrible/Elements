@@ -12,7 +12,8 @@ await Elements.get('drag-element');
  * @augments Elements.elements.backbone2
  * @property {String} database Name of the database to look up
  * @property {String} action   Text to display in buttons next to results
- * @property {Function} actionCallback Function to call with the name of kerbal whose action was clicked
+ * @property {Function} actionCallbackKerbal Function to call with the the kerbal whose action was clicked
+ * @property {Function} actionCallbackGroup Function to call with the selected group
  */
 Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 	constructor () {
@@ -46,8 +47,18 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 				});
 			}
 		});
+		this.__actionCallbackGroup = (group) => {
+			let editor = KerbalLink.getUI(self.database, 'editor');
+			if (editor) {
+				editor.group = group;
+				editor.showWindow();
+				requestAnimationFrame((e) => {
+					editor.toTop();
+				});
+			}
+		};
 		shadow.appendChild(template);
-		this.applyPriorProperties('database', 'action', 'actionCallback');
+		this.applyPriorProperties('database', 'action', 'actionCallbackKerbal', 'actionCallbackGroup');
 	}
 	get action () {
 		return this.__action;
@@ -56,12 +67,23 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 		this.__action = value;
 		this.__setProps('action', value);
 	}
-	get actionCallback () {
-		return this.__actionCallback;
+	get actionCallbackKerbal () {
+		return this.__actionCallbackKerbal;
 	}
-	set actionCallback (value) {
-		this.__actionCallback = value;
-		this.__setProps('actionCallback', value);
+	set actionCallbackKerbal (value) {
+		this.__actionCallbackKerbal = value;
+		let kerbalSearcher = this.shadowRoot.querySelector('elements-kerbal-searcher-kerbal');
+		let destinationSearcher = this.shadowRoot.querySelector('elements-kerbal-searcher-destination');
+		kerbalSearcher.actionCallback = value;
+		destinationSearcher.actionCallback = value;
+	}
+	get actionCallbackGroup () {
+		return this.__actionCallbackGroup;
+	}
+	set actionCallbackGroup (value) {
+		this.__actionCallbackGroup = value;
+		let group = this.shadowRoot.querySelector('elements-kerbal-searcher-group');
+		group.actionCallback = value;
 	}
 	get database () {
 		return this.__database;
