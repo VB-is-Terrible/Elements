@@ -297,6 +297,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		// If the element is hiding, do nothing
 		if (this.__animationState === 'hide') {
 			return;
+		} else if (this.__animationState === null && this.hidden) {
+			return;
 		} else {
 			this.__animationState = 'hide';
 		}
@@ -343,6 +345,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		let style = window.getComputedStyle(body, null);
 		// If the element is hiding, do nothing
 		if (this.__animationState === 'show') {
+			return;
+		} else if (this.__animationState === null && !this.hidden) {
 			return;
 		} else {
 			this.__animationState = 'show';
