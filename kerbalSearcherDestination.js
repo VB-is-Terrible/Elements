@@ -74,6 +74,9 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.Ke
 			if (editor) {
 				editor.data = kerbal;
 				editor.showWindow();
+				requestAnimationFrame((e) => {
+					editor.toTop();
+				});
 			}
 		});
 

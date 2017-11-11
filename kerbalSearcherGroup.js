@@ -30,6 +30,9 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 				console.warn('NotImplementedError');
 				editor.data = kerbal;
 				editor.showWindow();
+				requestAnimationFrame((e) => {
+					editor.toTop();
+				});
 			}
 		});
 		const shadow = this.attachShadow({mode: 'open'});

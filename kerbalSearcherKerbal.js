@@ -33,6 +33,9 @@ Elements.elements.KerbalSearcherKerbal = class extends Elements.elements.KerbalS
 			if (editor) {
 				editor.data = kerbal;
 				editor.showWindow();
+				requestAnimationFrame((e) => {
+					editor.toTop();
+				});
 			}
 		});
 

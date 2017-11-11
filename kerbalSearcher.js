@@ -41,6 +41,9 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 			if (editor) {
 				editor.data = kerbal;
 				editor.showWindow();
+				requestAnimationFrame((e) => {
+					editor.toTop();
+				});
 			}
 		});
 		shadow.appendChild(template);
