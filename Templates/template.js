@@ -5,7 +5,7 @@ Elements.get();
 const main = async () => {
 
 await Elements.get();
-Elements.elements.$1 = class extends Elements.elements.backbone {
+Elements.elements.$1 = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
@@ -17,7 +17,7 @@ Elements.elements.$1 = class extends Elements.elements.backbone {
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
-}
+};
 
 Elements.load('$0Template.html', Elements.elements.$1, 'elements-$2');
 };
