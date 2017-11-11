@@ -149,11 +149,10 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 	/**
 	 * Causes the selected kerbal to be sent to the editor
 	 * @private
-	 * @param  {KNS.Kerbal} kerbal Kerbal been clicked
+	 * @param  {*} result Result been clicked
 	 */
-	editor (kerbal) {
-		let name = kerbal.name;
-		this.actionCallback(name);
+	editor (result) {
+		this.actionCallback(result);
 	}
 	/**
 	 * Make a new div displaying a search result
@@ -170,7 +169,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		button.innerHTML = this.action;
 		button.classList.add('results');
 		button.addEventListener('click', (e) => {
-			this.editor(kerbal);
+			this.editor(result);
 		});
 		div.appendChild(button);
 		return div;
