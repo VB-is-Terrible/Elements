@@ -25,6 +25,12 @@ Elements.elements.KerbalGroupTag = class extends Elements.elements.backbone2 {
 		shadow.appendChild(template);
 		this.__data = null;
 		this.applyPriorProperties('data');
+		if (this.__data !== null) {
+			let name = this.shadowRoot.querySelector('p.name');
+			let text = this.shadowRoot.querySelector('p.subText');
+			name.innerHTML = Elements.nameSanitizer(this.data.name);
+			text.innerHTML = Elements.nameSanitizer(this.data.text);
+		}
 	}
 	get data () {
 		return this.__data;
