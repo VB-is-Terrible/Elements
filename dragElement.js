@@ -484,7 +484,16 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
 			this.parent.drag_reset();
 		}
 	}
-}
+	/**
+	 * Push the drag element to the top
+	 */
+	toTop () {
+		if (this.parent === null) {
+			this.parentElement.toTop();
+		} else {
+			this.parent.toTop();
+		}
+	}
 }
 
 /**
@@ -559,6 +568,17 @@ Elements.elements.dragged2 = class dragged2 extends Elements.elements.backbone2 
 			this.parent.drag_reset();
 		}
 	}
+	/**
+	 * Push the drag element to the top
+	 */
+	toTop () {
+		if (this.parent === null) {
+			this.parentElement.toTop();
+		} else {
+			this.parent.toTop();
+		}
+	}
+}
 }
 
 Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
