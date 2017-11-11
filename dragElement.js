@@ -32,8 +32,6 @@
 
 Elements.get('drag-body');
 {
-const ANIMATION_DURATION = 150;
-const DROP_AMOUNT = 50;
 /**
  * DragElement
  * Designed to hold contents to be dragged.
@@ -324,9 +322,9 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 			top: top.toString() + 'px',
 		}, {
 			opacity: 0,
-			top: (top + DROP_AMOUNT).toString() + 'px',
+			top: (top + Elements.animation.DROP_AMOUNT).toString() + 'px',
 		}], {
-			duration: ANIMATION_DURATION,
+			duration: Elements.animation.MEDIUM_DURATION,
 		});
 		this.__animation.onfinish = () => {
 			this.animation_onfinish();
@@ -368,12 +366,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		});
 		this.__animation = body.animate([{
 			opacity: 0,
-			top: (top + DROP_AMOUNT).toString() + 'px',
+			top: (top + Elements.animation.DROP_AMOUNT).toString() + 'px',
 		}, {
 			opacity: 1,
 			top: top.toString() + 'px',
 		}], {
-			duration: ANIMATION_DURATION,
+			duration: Elements.animation.MEDIUM_DURATION,
 		});
 		this.__animation.onfinish = () => {
 			this.animation_onfinish();

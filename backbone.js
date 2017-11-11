@@ -69,6 +69,49 @@ Elements = {
 		},
 	},
 	/**
+	 * Store for objects to be inherited from, across modules
+	 * @type {Object}
+	 * @memberof Elements
+	 * @namespace Elements.inherits
+	 */
+	inherits : {},
+	/**
+	 * Constants for animation durations, offsets.
+	 * @type {Object}
+	 * @memberof Elements
+	 * @namespace Elements.animation
+	 */
+	animation: {
+		/**
+		 * Short animation duration (ms)
+		 * @type {Number}
+		 * @memberof Elements.animation
+		 * @constant
+		 */
+		SHORT_DURATION: 100,
+		/**
+		 * Normal animation duration (ms)
+		 * @type {Number}
+		 * @memberof Elements.animation
+		 * @constant
+		 */
+		MEDIUM_DURATION: 150,
+		/**
+		 * Long animation duration (ms)
+		 * @type {Number}
+		 * @memberof Elements.animation
+		 * @constant
+		 */
+		LONG_DURATION: 300,
+		/**
+		 * Offset to drop/raise (pixels)
+		 * @type {Number}
+		 * @memberof Elements.animation
+		 * @constant
+		 */
+		DROP_AMOUNT: 50,
+	},
+	/**
 	 * Properties to exclude from stashing. These are normally properties
 	 * declared prior to stashing
 	 * @type {Set}
