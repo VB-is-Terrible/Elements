@@ -61,6 +61,26 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		this.__layoutState = 'large';
 		this.__max_width = 0;
 		this.__rAF = Elements.rafContext();
+		/**
+		 * The currently playing animation
+		 * @type {Animation}
+		 * @private
+		 */
+		this.__animation = null;
+		/**
+		 * Function to call on animation finish.
+		 * Overriding Animation.onfinish doesn't cancel previous onfinishs (promises)
+		 * so indirect the call to something that can be overridden
+		 * @type {Function}
+		 * @private
+		 */
+		this.__animationCallback = null;
+		/**
+		 * Current animation state, either 'show' or 'hide'
+		 * @type {String}
+		 * @private
+		 */
+		this.__animationState = null;
 	}
 	connectedCallback () {
 		super.connectedCallback();
@@ -137,6 +157,18 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		});
 	}
 	get hidden () {
+		if (this.__animationState !== null) {
+			switch (this.__animationState) {
+				case 'hide':
+					return true;
+					break;
+				case 'show':
+					return false;
+					break;
+				default:
+					console.error('Bad animation state', this.__animationState);
+			}
+		}
 		let main = this.shadowRoot.querySelector('#main');
 		let computed = getComputedStyle(main);
 		if (computed.display === 'none' || computed.visibility === 'hidden') {
@@ -148,10 +180,90 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 	set hidden (value) {
 		let main = this.shadowRoot.querySelector('#main');
 		if (value === false) {
-			main.style.visibility = 'visible';
+			this.show()
 		} else {
-			main.style.visibility = 'hidden';
+			this.hide();
 		}
+	}
+	/**
+	 * Show this panel, with animation
+	 * @private
+	 */
+	show () {
+		let main = this.shadowRoot.querySelector('#main');
+		let body = this.shadowRoot.querySelector('#animateDiv');
+		this.__animationState = 'show';
+		// If the element is been shown, reverse it
+		if (this.__animation !== null) {
+			this.__animation.reverse();
+			this.__animationCallback = null;
+			return;
+		}
+		// Else, start a new animation
+		requestAnimationFrame((e) => {
+			main.style.visibility = 'visible';
+		});
+		this.__animation = body.animate([{
+			opacity: 0,
+			top: (Elements.animation.DROP_AMOUNT).toString() + 'px',
+		}, {
+			opacity: 1,
+			top: '0px',
+		}], {
+			duration: Elements.animation.MEDIUM_DURATION,
+		});
+		this.__animation.onfinish = () => {
+			this.animation_onfinish();
+		};
+	}
+	/**
+	 * Hide this panel, with animation
+	 * @private
+	 */
+	hide () {
+		let main = this.shadowRoot.querySelector('#main');
+		let body = this.shadowRoot.querySelector('#animateDiv');
+		this.__animationState = 'hide';
+		// If the element is been shown, reverse it
+		if (this.__animation !== null) {
+			this.__animation.reverse();
+			this.__animationCallback = () => {
+				requestAnimationFrame((e) => {
+					main.style.visibility = 'hidden';
+				});
+			};
+			return;
+		}
+		// Else, start a new animation
+		this.__animation = body.animate([{
+			opacity: 1,
+			top: '0px',
+		}, {
+			opacity: 0,
+			top: (Elements.animation.DROP_AMOUNT).toString() + 'px',
+		}], {
+			duration: Elements.animation.MEDIUM_DURATION,
+		});
+		this.__animation.onfinish = () => {
+			this.animation_onfinish();
+		};
+		this.__animationCallback = () => {
+			requestAnimationFrame((e) => {
+				main.style.visibility = 'hidden';
+			});
+		}
+	}
+	/**
+	 * Run the animation onfinish callback, then reset animation state
+	 * @private
+	 */
+	animation_onfinish () {
+		if (this.__animationCallback !== null) {
+			this.__animationCallback();
+		}
+		this.__animationCallback = null;
+		this.__animation = null;
+		this.__animationState = null;
 	}
 }
 

@@ -1,10 +1,4 @@
 #main {
-	display: flex;
-	flex-direction: column;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid black;
-	background: white;
 	font-size: large;
 	margin-bottom: 1em;
 }
@@ -46,4 +40,13 @@ div.fill {
 	background: blue;
 	position: absolute;
 	margin-right: 50px;
+}
+#animateDiv {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background: white;
+	position: relative;
 }
