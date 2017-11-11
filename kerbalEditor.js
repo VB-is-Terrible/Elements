@@ -10,6 +10,7 @@ await Elements.get('drag-element');
  * @type {Object}
  * @property {String} database Name of the database to look up
  * @property {KNS.Kerbal} data Kerbal been edit - note: this is a copy, not the original
+ * @property {KNS.Group} group Group been edited - note: this is a copy, not the original
  * @augments Elements.elements.dragged2
  */
 Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
@@ -24,7 +25,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 		let tabWindow = template.querySelector('elements-tab-window');
 		tabWindow.parent = this;
 		shadow.appendChild(template);
-		this.applyPriorProperties('database');
+		this.applyPriorProperties('database', 'data', 'group');
 	}
 	get database () {
 		return this.__database;
@@ -43,6 +44,14 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 	set data (kerbal) {
 		let kerbalEditor = this.shadowRoot.querySelector('elements-kerbal-editor-kerbal');
 		kerbalEditor.data = kerbal;
+	}
+	get group () {
+		let groupEditor = this.shadowRoot.querySelector('elements-kerbal-editor-group');
+		return groupEditor.group;
+	}
+	set group (group) {
+		let groupEditor = this.shadowRoot.querySelector('elements-kerbal-editor-group');
+		groupEditor.group = group;
 	}
 	showWindow () {
 		super.showWindow();
