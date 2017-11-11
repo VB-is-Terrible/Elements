@@ -42,8 +42,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			},
 		});
 
-		let includeCallback = (name) => {
-			let kerbal = KerbalLink.get(this.database).getKerbal(name);
+		let includeCallback = (kerbal) => {
 			self.addKerbal(kerbal);
 		};
 		searcher.actionCallback = includeCallback;
