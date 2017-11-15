@@ -36,3 +36,6 @@ div.centre {
 elements-kerbal-display-text.results {
 	width: 100%;
 }
+#AnsText {
+	height: 3em;
+}
