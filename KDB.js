@@ -454,6 +454,9 @@ let KNS =  {
 			if (this.kerbals.has(kerbal)) {
 				return;
 			}
+			if (!(kerbal instanceof KNS.Kerbal)) {
+				console.warn('Adding a non-kerbal to a group');
+			}
 			this.kerbals.add(kerbal);
 			for (let display of this.__displays) {
 				display.addKerbal(kerbal);
