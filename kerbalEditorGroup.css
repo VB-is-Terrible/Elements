@@ -29,8 +29,12 @@ div.dangerLine {
 elements-drag-down.danger {
 	--left-shift: 0px;
 	--arrow-size: 1.5;
+	padding-bottom: .5em;
 }
 p.textOverlay {
 	background: white;
 	padding: 0px 10px;
+}
+elements-drag-down {
+	--margins: .5em;
 }

@@ -1,5 +1,6 @@
 div.down {
 	margin-left: var(--left-shift);
+	margin-top: var(--margins);
 }
 div.flex {
 	display: flex;
@@ -14,7 +15,9 @@ button {
 :host {
 	--arrow-size: 3;
 	--left-shift: 10%;
+	--margins: 0px;
 }
 #pseudoBody {
 	contain: content;
+	margin-bottom: var(--margins);
 }
