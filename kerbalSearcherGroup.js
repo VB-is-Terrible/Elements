@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('elements-kerbal-group-display', 'KDB', 'drag-down', 'kerbal-link', 'kerbal-searcher-common');
+Elements.get('kerbal-group-display', 'KDB', 'drag-down', 'kerbal-link', 'kerbal-searcher-common');
 {
 const main = async () => {
 
@@ -28,7 +28,7 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 			if (editor) {
 				//TODO: implement
 				console.warn('NotImplementedError');
-				editor.data = kerbal;
+				editor.group = group;
 				editor.showWindow();
 				requestAnimationFrame((e) => {
 					editor.toTop();
