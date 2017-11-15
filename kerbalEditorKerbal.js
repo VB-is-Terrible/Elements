@@ -76,7 +76,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 		this.__oldValue = null;
 		if (this.__data !== null) {
 			this.__oldValue = this.__data;
-			this.__data = this.constructer.duplicateKerbal(this.__oldValue);
+			this.__data = this.__oldValue.duplicate();
 		}
 
 		this.newChangeQueue();
@@ -89,7 +89,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 			set: (value) => {
 				self.__oldValue = value;
 				if (value !== null) {
-					self.__data = self.constructor.duplicateKerbal(value);
+					self.__data = value.duplicate();
 					UI.kerbal.data = this.data;
 					self.disableAll(false);
 				} else {
@@ -295,14 +295,6 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 		this.UI.Delete1.disabled = value;
 		this.UI.Delete2.disabled = value;
 		this.UI.Delete3.disabled = value;
-	}
-	/**
-	 * Shallow copy a kerbal
-	 * @param  {KNS.Kerbal} kerbal
-	 * @return {KNS.Kerbal}
-	 */
-	static duplicateKerbal (kerbal) {
-		return KNS.Kerbal.fromJSONObj(JSON.parse(JSON.stringify(kerbal)));
 	}
 }
 

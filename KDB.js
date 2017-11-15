@@ -312,6 +312,13 @@ let KNS =  {
 			}
 			return true;
 		}
+		/**
+		 * Duplicate the kerbal
+		 * @return {KNS.Kerbal} Duplicated kerbal
+		 */
+		duplicate () {
+			return this.constructor.fromJSONObj(JSON.parse(JSON.stringify(this)));
+		}
 	},
 	/**
 	 * Returns a object with the mapping [place] -> value for all places
@@ -594,6 +601,19 @@ let KNS =  {
 				}
 			}
 			return true;
+		}
+		/**
+		 * Duplicate the group, (deep copy)
+		 * @return {KNS.Group} Duplicated group
+		 */
+		duplicate () {
+			let result = new this.constructor();
+			result.name = this.name;
+			result.text = this.text;
+			for (let kerbal of this.kerbals) {
+				result.addKerbal(kerbal.duplicate());
+			}
+			return result;
 		}
 	},
 };
