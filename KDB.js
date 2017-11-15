@@ -146,7 +146,7 @@ let KNS =  {
 	 * @property {KerbalDisplay[]} displays Array of UI elements representing this kerbal.
 	 * @memberof KNS
 	 */
-	Kerbal: class {
+	Kerbal: class Kerbal {
 		constructor () {
 			this._name = 'Kerbal';
 			this._text = 'Desc';
@@ -408,7 +408,7 @@ let KNS =  {
 	 * @property {Set<KNS.Kerbals>} kerbals Set of the kerbals in group. Note - don't modify directly
 	 * @type {Object}
 	 */
-	Group: class {
+	Group: class Group {
 		constructor (id) {
 			this.kerbals = new Set();
 			this.__id = id;
