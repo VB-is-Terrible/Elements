@@ -124,6 +124,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		requestAnimationFrame((e) => {
 			display.remove();
 		});
+		this.__displays.delete(kerbal);
 		this.updateCount();
 	}
 	/**
@@ -136,7 +137,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		ansName.value = '';
 		let ansText = this.shadowRoot.querySelector('#AnsText');
 		ansText.value = '';
-		for (let display of this.__displays.values()) {
+		for (let [kerbal, display] of this.__displays.entries()) {
 			let text = display.querySelector('elements-kerbal-display-text');
 			if (text !== null) {
 				text.data = null;
@@ -144,11 +145,14 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			requestAnimationFrame((e) => {
 				display.remove();
 			});
+			this.__displays.delete(kerbal);
 		}
 		let location = this.shadowRoot.querySelector('#currentKerbals');
-		if (location.childElementCount !== 0) {
-			console.warn('Failed to clean display elements');
-		}
+		requestAnimationFrame((e) => {
+			if (location.childElementCount !== 0) {
+				console.warn('Failed to clean display elements');
+			}
+		});
 		this.updateCount();
 	}
 	/**

@@ -195,7 +195,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 
 		this.data = null;
 		this.newChangeQueue();
-		for (let display of this.__displays.values()) {
+		for (let [kerbal, display] of this.__displays.entries()) {
 			let text = display.querySelector('elements-kerbal-display-text');
 			if (text !== null) {
 				text.data = null;
@@ -203,6 +203,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 			requestAnimationFrame((e) => {
 				display.remove();
 			});
+			this.__displays.delete(kerbal);
 		}
 		let location = this.shadowRoot.querySelector('#currentKerbals');
 		if (location.childElementCount !== 0) {
@@ -276,9 +277,9 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 	 */
 	deleteKerbal (kerbal) {
 		if (this.group === null) {return;}
-		this.group.removeKerbal(kerbal);
+		this.group.deleteKerbal(kerbal);
 		this.__changeQueue.changes.push((group) => {
-			group.removeKerbal(kerbal);
+			group.deleteKerbal(kerbal);
 		});
 		let display = this.__displays.get(kerbal);
 		let text = display.querySelector('elements-kerbal-display-text');
@@ -288,6 +289,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		requestAnimationFrame((e) => {
 			display.remove();
 		});
+		this.__displays.delete(kerbal);
 		this.updateCount();
 	}
 	/**
