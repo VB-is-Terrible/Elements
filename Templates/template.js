@@ -5,7 +5,7 @@ Elements.get();
 const main = async () => {
 
 await Elements.get();
-Elements.elements.$1 = class extends Elements.elements.backbone2 {
+Elements.elements.$1 = class $1 extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
