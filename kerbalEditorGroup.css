@@ -38,3 +38,26 @@ p.textOverlay {
 elements-drag-down {
 	--margins: .5em;
 }
+#groupTagDiv {
+	position: relative;
+}
+#deleted {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgba(150,150,150,.5);
+	display: none;
+}
+button.delete {
+	flex-grow: 1;
+	width: 100%;
+	display: none;
+}
+#DeleteKerbal1 {
+	display: block;
+}
