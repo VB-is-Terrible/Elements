@@ -50,7 +50,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		let warn = template.querySelector('img.warn');
 		let done = template.querySelector('#Done');
 		ansName.addEventListener('keyup', (e) => {
-			let name = ansName.value;
+			let name = ansName.value.trim();
 			if (name === '') {
 				warn.style.display = 'block';
 				this.nameValid = false;
@@ -64,7 +64,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 		});
 		let ansText = template.querySelector('#AnsText');
 		ansText.addEventListener('change', (e) => {
-			let text = ansText.value;
+			let text = ansText.value.trim();
 			this.group.text = text;
 		});
 
