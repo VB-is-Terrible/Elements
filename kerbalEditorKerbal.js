@@ -47,7 +47,8 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 			['AnsAddPlace', '#AnsAddPlace'],
 			['AnsAddValue', '#AnsAddValue'],
 			['AnsAddConfirm', '#AnsAddConfirm'],
-			['AnsRemovePlace', '#AnsRemovePlace'],
+            ['AnsRemovePlace', '#AnsRemovePlace'],
+			['AnsRemoveValue', '#AnsRemoveValue'],
 			['AnsRemoveConfirm', '#AnsRemoveConfirm'],
 			['Delete1', '#DeleteKerbal1'],
 			['Delete2', '#DeleteKerbal2'],
@@ -151,9 +152,10 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 		applyEL('AnsRemoveConfirm', 'click', (e) => {
 			if (self.__oldValue === null) return;
 			let location = UI.AnsRemovePlace.value;
-			self.data.removeJob(location, KNS.MAX_JOB_VALUE);
+            let value = UI.AnsRemoveValue.value;
+			self.data.removeJob(location, value);
 			self.__changeQueue.changes.push((kerbal) => {
-				kerbal.removeJob(location, KNS.MAX_JOB_VALUE);
+				kerbal.removeJob(location, value);
 			});
 		});
 		applyEL('updater', 'click', (e) => {
