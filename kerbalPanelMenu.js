@@ -180,7 +180,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 	set hidden (value) {
 		let main = this.shadowRoot.querySelector('#main');
 		if (value === false) {
-			this.show()
+			this.show();
 		} else {
 			this.hide();
 		}

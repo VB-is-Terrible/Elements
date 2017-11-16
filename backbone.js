@@ -776,7 +776,7 @@ Elements = {
 			get: getter,
 			set: setter,
 		});
-		object.applyPriorProperty(property, initial)
+		object.applyPriorProperty(property, initial);
 	},
 };
 /**
