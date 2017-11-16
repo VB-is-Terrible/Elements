@@ -115,7 +115,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 	 * @private
 	 */
 	deleteKerbal (kerbal) {
-		this.group.removeKerbal(kerbal);
+		this.group.deleteKerbal(kerbal);
 		let display = this.__displays.get(kerbal);
 		let text = display.querySelector('elements-kerbal-display-text');
 		if (text !== null) {

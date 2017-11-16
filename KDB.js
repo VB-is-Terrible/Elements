@@ -469,11 +469,11 @@ let KNS =  {
 		 * @param  {KNS.Kerbal} kerbal Kerbal to remove
 		 * @memberof KNS.Group
 		 */
-		removeKerbal (kerbal) {
+		deleteKerbal (kerbal) {
 			if (!this.kerbals.has(kerbal)) {return;}
 			this.kerbals.delete(kerbal);
 			for (let display of this.__displays) {
-				display.removeKerbal(kerbal);
+				display.deleteKerbal(kerbal);
 			}
 		}
 		/**
@@ -718,7 +718,7 @@ const KDB = class KDB {
 		this.kerbals.delete(name);
 		this.kerbalObjs.delete(name);
 		for (let group of this.groups.values()) {
-			group.removeKerbal(kerbal);
+			group.deleteKerbal(kerbal);
 		}
 		for (let display of this.__displays) {
 			display.deleteKerbal(kerbal);
