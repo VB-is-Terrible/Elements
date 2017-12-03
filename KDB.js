@@ -81,8 +81,8 @@
  */
 /**
  * @function deleteKerbal
- * @param {KNS.Kerbal} kerbal Name of the added kerbal
- * @description Fired after a kerbal is added
+ * @param {KNS.Kerbal} kerbal Name of the deleted kerbal
+ * @description Fired after a kerbal is deleted
  * @name GroupDisplay.deleteKerbal
  */
 /**
