@@ -862,7 +862,7 @@ const KDB = class KDB {
  * @property {KNS.Kerbal} data kerbal that this represents
  * @type {Object}
  */
-const BlankKerbalDisplay = class {
+const BlankKerbalDisplay = class BlankKerbalDisplay {
 	constructor () {
 		this.data = null;
 	}
@@ -896,7 +896,7 @@ const BlankKerbalDisplay = class {
  * @property {HTMLElement} display display of the kerbal's jobs
  * @type {Object}
  */
-const KerbalJobDisplay = class extends BlankKerbalDisplay {
+const KerbalJobDisplay = class KerbalJobDisplay extends BlankKerbalDisplay {
 	constructor () {
 		super();
 		this.__jobDisplay = KNS.blankPlaceList(null);
@@ -974,7 +974,7 @@ const BlankKerbalDisplayMixin = (superclass) => {
  * @property {KDBDisplay} data KDB that this represents
  * @type {Object}
  */
-const BlankKDBDisplay = class {
+const BlankKDBDisplay = class BlankKDBDisplay {
 	constructor () {
 		this.database = this.database || null;
 	}
@@ -1035,7 +1035,7 @@ const BlankKDBDisplayMixin = (superclass) => {
  * @property {KNS.Group} data Group that this represents
  * @type {Object}
  */
-const BlankGroupDisplay = class {
+const BlankGroupDisplay = class BlankGroupDisplay {
 	constructor () {
 		this.data = null;
 	}
