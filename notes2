@@ -15,16 +15,19 @@ Definitions:
 		and then registers the element
 	b.	Non-Element modules should call Elements.loaded, this registers a
 		module as loaded.
-4.	Elements should inherit from Elements.elements.backbone. This is required
-	for setUpAttrPropertyLink to work
+4.	Elements should inherit from Elements.elements.backbone or Elements.elements.backbone2.
+	This is required for setUpAttrPropertyLink to work
 5. 	Modules should correctly declare their dependencies in elementsManifest.json
 	This is required for network optimization
-6.	Elements should fully support custom element upgrading. This unfortunately
-	means that generally ES6 class getter/setter pairs can't be used, and
-	instead need to be declared through Object.defineProperty
+6.	Elements should fully support custom element upgrading.
+	a. backbone 1
+		This unfortunately means that generally ES6 class getter/setter pairs can't be used, and
+		instead need to be declared through Object.defineProperty
+	b. backbone 2
+		ES6 class getter/setters can be used, however, the previous value before upgrading are deleted. Restore them with applyPriorProperty/applyPriorProperties
 7.	Due to bugs in chrome, within the constructor, within arrow functions,
 	self should be used instead of this
-	
+
 Project Requirements:
 	Every method must have a jsdoc, unless:
 		The method will show up as global, even if the @private tag is Used
@@ -42,3 +45,13 @@ Manifest format:
 	// Maybe I can require a element, and the dependancy system automatically finds the appropriate file
 	// And includes it?
 },
+
+TODO:
+kerbal-editor-group:
+	* Add kerbals Done
+	* Remove Kerbals Done
+	* Delete Group Done
+	* Loading Done
+	* Clearing
+	* Disabling
+	* Listening for kerbal deletion
