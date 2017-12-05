@@ -122,6 +122,7 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
 	*/
 	showJob (location) {
 		requestAnimationFrame(() => {
+			if (this.data === null) {return;}
 			let insertLocation = this.shadowRoot.querySelector('#jobs');
 			let value = this.jobs[location];
 			if (this.jobs[location] > 0) {
