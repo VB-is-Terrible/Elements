@@ -10,20 +10,22 @@ await Elements.get('KDB', 'tab-window');
 /**
  * A KerbalDisplay used to listen to delete and rename callbacks
  * @type {Object}
+ * @property {KDB} reference KDB this is listening to
  * @augments BlankKDBDisplay
  * @implements KDBDisplay
  */
 let KDBListener = class extends BlankKDBDisplay {
 	/**
 	 * Build a listener
-	 * @param  {KDB} database database to listen
+	 * @param  {String} database Name of database to listen
 	 * @param  {Elements.elements.KerbalSearcher} searcher Searcher to inform
 	 */
 	constructor (database, searcher) {
 		super();
 		this.searcher = searcher;
 		this.database = database;
-		database.addDisplay(this);
+		this.reference = KerbalLink.get(this.database);
+		this.reference.addDisplay(this);
 	}
 	deleteKerbal (kerbal) {
 		this.searcher.delete_inform(kerbal);
@@ -108,9 +110,10 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 			queue.push(display);
 		}
 		this.__results_length = results.length;
-
-		let database = KerbalLink.get(this.database);
-		this.__listener = new KDBListener(database, this);
+		if (this.__listener !== null) {
+			this.__listener.reference.removeDisplay(this.__listener);
+		}
+		this.__listener = new KDBListener(this.database, this);
 
 		this.resultsRAF((e) => {
 
