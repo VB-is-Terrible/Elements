@@ -14,38 +14,29 @@ await Elements.get('tab-window', 'KDB', 'main');
  * @property {String} database Name of the database to look up
  * @augments Elements.elements.tabbed
  */
-Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
+Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 	constructor () {
 		super();
 		const self = this;
 
 		this.name = 'KerbalMakerGroup';
-		this.__database = this.database || 'default';
+		this.__database = null;
 		this.group = new KNS.Group();
 		this.nameValid = false;
 		this.__displays = new Map();
+		this.sentinel = new BlankKDBDisplay();
+		this.sentinel.deleteKerbal = (kerbal) => {self.deleteKerbal(kerbal);};
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let searcher = template.querySelector('elements-kerbal-searcher-kerbal');
 		searcher.action = 'Include';
 		searcher.parent = this;
-		Object.defineProperty(this, 'database', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__database;
-			},
-			set: (value) => {
-				self.newGroup();
-				self.__database = value;
-				searcher.database = value;
-			},
-		});
 
 		let includeCallback = (kerbal) => {
 			self.addKerbal(kerbal);
 		};
 		searcher.actionCallback = includeCallback;
+		this.searcher = searcher;
 		let ansName = template.querySelector('#AnsName');
 		let warn = template.querySelector('img.warn');
 		let done = template.querySelector('#Done');
@@ -92,6 +83,21 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed {
 			self.newGroup();
 		});
 		shadow.appendChild(template);
+		this.applyPriorProperties('database')
+	}
+	get database () {
+		return self.__database;
+	}
+	set database (value) {
+		this.newGroup();
+		let old = KerbalLink.get(this.database);
+		if (old) {
+			old.removeDisplay(this.sentinel);
+		}
+		this.__database = value;
+		this.searcher.database = value;
+		let kdb = KerbalLink.get(value);
+		kdb.addDisplay(this.sentinel);
 	}
 	/**
 	 * Add a kerbal to the group
