@@ -14,7 +14,7 @@ await Elements.get('KDB');
  * @augments BlankKDBDisplay
  * @type {Object}
  */
-Elements.elements.KdbGroupDisplay = class extends Elements.elements.backbone2 {
+Elements.elements.KdbGroupDisplay = class extends BlankKDBDisplayMixin(Elements.elements.backbone2) {
 	constructor () {
 		super();
 		const self = this;

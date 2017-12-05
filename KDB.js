@@ -1019,7 +1019,7 @@ const BlankKDBDisplayMixin = (superclass) => {
 	return class mixin extends superclass {
 		constructor (...args) {
 			super(...args);
-			this.database = this.database || null;
+			// this.database = this.database || null;
 		}
 		addKerbal (name) {}
 		deleteKerbal (name) {}
