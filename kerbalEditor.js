@@ -24,6 +24,12 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 		let template = Elements.importTemplate(this.name);
 		let tabWindow = template.querySelector('elements-tab-window');
 		tabWindow.parent = this;
+		/**
+		 * Internal reference to tabWindow
+		 * @type {Elements.elements.tabWindow}
+		 * @private
+		 */
+		this.__tabWindow = tabWindow;
 		shadow.appendChild(template);
 		this.applyPriorProperties('database', 'data', 'group');
 	}
@@ -44,6 +50,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 	set data (kerbal) {
 		let kerbalEditor = this.shadowRoot.querySelector('elements-kerbal-editor-kerbal');
 		kerbalEditor.data = kerbal;
+		this.__tabWindow.selected = 'Kerbal';
 	}
 	get group () {
 		let groupEditor = this.shadowRoot.querySelector('elements-kerbal-editor-group');
@@ -52,6 +59,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 	set group (group) {
 		let groupEditor = this.shadowRoot.querySelector('elements-kerbal-editor-group');
 		groupEditor.group = group;
+		this.__tabWindow.selected = 'Group';
 	}
 	showWindow () {
 		super.showWindow();
