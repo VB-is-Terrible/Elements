@@ -20,8 +20,29 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		const self = this;
 
 		this.name = 'KerbalEditorGroup';
+		/**
+		 * Temp group containing real kerbals, to track KDB status
+		 * @type {KNS.Group}
+		 * @private
+		 */
 		this.__group = null;
+		/**
+		 * Temp group with duplicated kerbals, to track kerbal status
+		 * @type {KNS.Group}
+		 * @private
+		 */
+		this.__virtualGroup = null;
+		/**
+		 * Concreate location of database attributes
+		 * @type {String}
+		 * @private
+		 */
 		this.__database = null;
+		/**
+		 * Reference to the group been edited
+		 * @type {?KNS.Group}
+		 * @private
+		 */
 		this.__oldValue = null;
 		this.__displays = new Map();
 		this.newChangeQueue();
