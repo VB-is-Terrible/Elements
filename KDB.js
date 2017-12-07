@@ -607,14 +607,20 @@ let KNS =  {
 		}
 		/**
 		 * Duplicate the group, (deep copy)
+		 * @param  {Boolean} [deep=true] Whether to deep copy the kerbals
 		 * @return {KNS.Group} Duplicated group
+		 * @memberof KNS.Group
 		 */
-		duplicate () {
+		duplicate (deep = true) {
 			let result = new this.constructor();
 			result.name = this.name;
 			result.text = this.text;
 			for (let kerbal of this.kerbals) {
-				result.addKerbal(kerbal.duplicate());
+				if (deep) {
+					result.addKerbal(kerbal.duplicate());
+				} else {
+					result.addKerbal(kerbal);
+				}
 			}
 			return result;
 		}
