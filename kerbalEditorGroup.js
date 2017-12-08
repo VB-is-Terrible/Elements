@@ -253,7 +253,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		this.__changeQueue.changes.push((group) => {
 			group.addKerbal(kerbal);
 		});
-		this.addKerbalDisplay(kerbal)
+		this.addKerbalDisplay(kerbal);
 	}
 	/**
 	 * Add a kerbal to the current kerbals display element. Ignores repeation/sanity checks
