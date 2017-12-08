@@ -67,7 +67,6 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 			let place = AnsRemovePlace.value;
 			let value = AnsRemoveValue.value;
 			if (self.group === null) {return;}
-			self.group.removePlace(place, value);
 			self.__changeQueue.changes.push((group) => {
 				group.removePlace(place, value);
 			});
@@ -158,7 +157,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		let nameInput = this.shadowRoot.querySelector('#AnsName');
 		let textInput = this.shadowRoot.querySelector('#AnsText');
 		if (value !== null) {
-			this.__group = value.duplicate();
+			this.__group = value.duplicate(false);
 			for (let kerbal of this.__group.kerbals) {
 				this.addKerbalDisplay(kerbal);
 			}
