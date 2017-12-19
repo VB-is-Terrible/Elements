@@ -5,6 +5,7 @@
 	/*width: var(--width);*/
 	width: 100%;
 	contain: content;
+	overflow: hidden;
 }
 .textBox {
 	display: flex;
