@@ -325,7 +325,28 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 			}
 		});
 	}
-
+	/**
+	 * Applies queued changes
+	 */
+	applyChanges () {
+		if (this.__oldValue === null) {
+			return;
+		}
+		let group = this.__oldValue;
+		if (this.__changeQueue.delete) {
+			KerbalLink.get(this.database).deleteKerbal(kerbal.name);
+			return;
+		}
+		if (this.__changeQueue.name !== null) {
+			group.name = this.__changeQueue.name;
+		}
+		if (this.__changeQueue.text !== null) {
+			group.text = this.__changeQueue.text;
+		}
+		for (let updater of this.__changeQueue.changes) {
+			updater(group);
+		}
+	}
 }
 
 Elements.load('kerbalEditorGroupTemplate.html', Elements.elements.KerbalEditorGroup, 'elements-kerbal-editor-group');
