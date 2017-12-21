@@ -18,9 +18,10 @@ await Elements.get('kerbal', 'kerbal-link', 'tab-window', 'KDB');
  * @property {Object} UI Store of useful UI elements
  * @property {KNS.Kerbal} data Kerbal been edit - note: this is a copy, not the original
  * @property {String} database Name of the database to look up
- * @augments Elements.elements.tabbed
+ * @augments Elements.elements.tabbed2
+ * @augments Elements.elements.backbone2
  */
-Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
+Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 	constructor () {
 		super();
 
@@ -57,57 +58,21 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 			['warn', 'img.warn'],
 			['cancel', '#Cancel'],
 		);
+        this.UI = UI;
 
-		this.__database = this.database || 'default';
-		Object.defineProperty(this, 'database', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__get_database();
-			},
-			set: (value) => {
-				self.__set_database(value);
-			},
-		});
-		this.__data = this.data || null;
+        this.applyPriorProperty('database', 'default');
+        /**
+         * Copy of the kerbal been edited
+         * @private
+         * @type {?KNS.Kerbal}
+         */
+		this.__data = null;
 		/**
 		 * Kerbal been edited
+         * @private
 		 * @type {?KNS.Kerbal}
 		 */
-		this.__oldValue = null;
-		if (this.__data !== null) {
-			this.__oldValue = this.__data;
-			this.__data = this.__oldValue.duplicate();
-		}
-
-		this.newChangeQueue();
-		Object.defineProperty(this, 'data', {
-			enumerable: true,
-			configurable: false,
-			get: () => {
-				return self.__data;
-			},
-			set: (value) => {
-				self.__oldValue = value;
-				if (value !== null) {
-					self.__data = value.duplicate();
-					UI.kerbal.data = this.data;
-					self.disableAll(false);
-				} else {
-					self.__data = new KNS.Kerbal();
-					self.__data.name = 'No Kerbal to edit';
-					self.__data.text = 'Tourist';
-					UI.kerbal.data = this.data;
-					self.disableAll(true);
-				}
-				// Fill the UI
-				// Desantize the name
-				UI.nameInput.value = Elements.nameDesanitizer(this.data.name);
-				UI.typeInput.value = this.data.text;
-				// Reset the UI
-				UI.warn.style.display = 'none';
-			},
-		});
+		this.__oldValue = null
 
 		applyEL('nameInput', 'keyup', (e) => {
 			if (self.__oldValue === null) return;
@@ -195,8 +160,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 			});
 		});
 
-		this.UI = UI;
-		this.data = this.data || null;
+        this.applyPriorProperty('data', null);
         for (let input of template.querySelectorAll('input')) {
         	if (input.type === 'text') {
         		input.addEventListener('mousedown', (e) => {
@@ -266,21 +230,50 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed {
 	/**
 	 * Reset editor state
 	 * @param {String} value Name of database to attach to
-	 * @private
 	 */
-	__set_database (value) {
+	set database (value) {
 		this.clearKerbal();
 		this.newChangeQueue();
+        /**
+         * Concrete value of database
+         * @private
+         * @type {String}
+         */
 		this.__database = value;
 	}
 	/**
 	 * Getter for database
-	 * @private
 	 * @return {String} Name of database
 	 */
-	__get_database (value) {
+	get database () {
 		return this.__database;
 	}
+    /**
+     * Getter for data
+     * @return {KNS.Kerbal} Copy of kerbal been edited
+     */
+    get data () {
+        return this.__data;
+    }
+    set data (value) {
+        this.__oldValue = value;
+        if (value !== null) {
+            this.__data = value.duplicate();
+            this.UI.kerbal.data = this.data;
+            this.disableAll(false);
+        } else {
+            this.__data = new KNS.Kerbal();
+            this.__data.name = 'No Kerbal to edit';
+            this.__data.text = 'Tourist';
+            this.UI.kerbal.data = this.data;
+            this.disableAll(true);
+        }
+        // Desantize the name
+        this.UI.nameInput.value = Elements.nameDesanitizer(this.data.name);
+        this.UI.typeInput.value = this.data.text;
+        // Reset the UI
+        this.UI.warn.style.display = 'none';
+    }
 	/**
 	 * Toggle disable all interactive UI elements (e.g. for when there is no kerbal to be edited)
 	 * @param  {Boolean} value Whether to disable everything or not
