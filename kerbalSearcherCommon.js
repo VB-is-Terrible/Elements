@@ -132,22 +132,24 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 	 * Resets the results display
 	 */
 	emptyNodes () {
-		// TODO: raf' this function
 		let kdb = KerbalLink.get(this.database);
 		let holder = this.shadowRoot.querySelector('#results');
-		for (var i = holder.children.length - 1; i >= 0; i--) {
-			let kerbal = holder.children[i].children[0];
-			if (kerbal.data !== null) {
-				kerbal.data = null;
-				this.__virtualDisplayMap.delete(kerbal.data);
-			} else {
-				console.warn('Could not find a kerbal in its holder');
+		let queue = [];
+		for (let kerbal of this.__virtualDisplayMap.keys()) {
+			let display = this.__virtualDisplayMap.get(kerbal);
+			display.data = null;
+			this.__virtualDisplayMap.delete(kerbal);
+			queue.push(display);
+		}
+		requestAnimationFrame((e) => {
+			for (let display of queue) {
+				display.remove();
 			}
-			holder.removeChild(holder.children[i]);
-		}
-		if (this.__virtualDisplayMap.size > 0) {
-			this.__virtualDisplayMap = new Map();
-		}
+			if (holder.children.length > 0) {
+				console.warn('Holder div is not empty after clearing. Check for inconsistentcy between DOM on virtualDisplayMap');
+				holder.innerHTML = '';
+			}
+		});
 	}
 	/**
 	 * Causes the selected kerbal to be sent to the editor
