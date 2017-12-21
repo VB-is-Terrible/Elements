@@ -173,6 +173,8 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		return this.__database;
 	}
 	set database (value) {
+		this.clearGroup();
+		this.newChangeQueue();
 		this.__database = value;
 	}
 	/**
