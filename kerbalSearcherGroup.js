@@ -26,8 +26,6 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 		this.actionCallback = ((group) => {
 			let editor = KerbalLink.getUI(self.database, 'editor');
 			if (editor) {
-				//TODO: implement
-				console.warn('NotImplementedError');
 				editor.group = group;
 				editor.showWindow();
 				requestAnimationFrame((e) => {
