@@ -50,51 +50,57 @@
 						<p class='textOverlay'> Sudo mode </p>
 					</div>
 				</div>
-				<div class='flex-column'>
-					<div class='flex-row'>
-						<p class='row-first'>
-							Group Name
-							<img class='warn' src='warning.svg' title='Please enter a name'></img>
-						</p>
-					<input class='row-last' id='AnsName' draggable='false'></input>
-					</div>
-					<div class='flex-row'>
-						<p class='row-first'>
-							Group Description
-						</p>
-						<textarea class='row-last' id='AnsText'></textarea>
-					</div>
-				</div>
-				<elements-grid rows='1' cols='1'>
-					<elements-kerbal-searcher-kerbal slot='s1'></elements-kerbal-searcher-kerbal>
-					<div slot='s2'>
-						<div class='centre'>
-							<p>
-								Current Kerbals
-								<span id='kerbalCount'>
-								</span>
+				<elements-tab-window title='Group Editor' tabs='"Group" "Kerbals"' selected='Group'>
+					<div slot='Group'>
+						<div class='flex-column'>
+							<div class='flex-row'>
+								<p class='row-first'>
+									Group Name
+									<img class='warn' src='warning.svg' title='Please enter a name'></img>
+								</p>
+								<input class='row-last' id='AnsName' draggable='false'></input>
+							</div>
+							<div class='flex-row'>
+								<p class='row-first'>
+									Group Description
+								</p>
+								<textarea class='row-last' id='AnsText'></textarea>
+							</div>
+						</div>
+						<div class='flex-row'>
+							<p class='row-first'>
+								Delete group
 							</p>
-						</div>
-						<div id='currentKerbals'>
+							<div class='multi row-last'>
+								<button class='delete' id='DeleteKerbal1'>
+									Delete Group
+								</button>
+								<button class='delete' id='DeleteKerbal2'>
+									Are you sure?
+								</button>
+								<button class='delete' id='DeleteKerbal3'>
+									Cancel Delete
+								</button>
+							</div>
 						</div>
 					</div>
-				</elements-grid>
-				<div class='flex-row'>
-					<p class='row-first'>
-						Delete kerbal
-					</p>
-					<div class='multi row-last'>
-						<button class='delete' id='DeleteKerbal1'>
-							Delete Kerbal
-						</button>
-						<button class='delete' id='DeleteKerbal2'>
-							Are you sure?
-						</button>
-						<button class='delete' id='DeleteKerbal3'>
-							Cancel Delete
-						</button>
+					<div slot='Kerbals'>
+						<elements-grid rows='1' cols='1'>
+							<elements-kerbal-searcher-kerbal slot='s1'></elements-kerbal-searcher-kerbal>
+							<div slot='s2'>
+								<div class='centre'>
+									<p>
+										Current Kerbals
+										<span id='kerbalCount'>
+										</span>
+									</p>
+								</div>
+								<div id='currentKerbals'>
+								</div>
+							</div>
+						</elements-grid>
 					</div>
-				</div>
+				</elements-tab-window>
 			</elements-drag-down>
 			<div id='footer' class='right'>
 				<button id='Cancel' class='spacer'>
