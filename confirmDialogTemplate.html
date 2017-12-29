@@ -1,0 +1,15 @@
+<template id='templateElementsConfirmDialog'>
+	<link rel='stylesheet' type='text/css' href='confirmDialog.css'>
+	<link rel='stylesheet' type='text/css' href='kerbalFloatCommon.css'>
+	<elements-drag-element id='pseudoBody'>
+		<slot id='preview'></slot>
+		<div id='footer'>
+			<button id='Cancel' class='spacer'>
+				Cancel
+			</button>
+			<button id='Done' class='spacer'>
+				Done
+			</button>
+		</div>
+	</elements-drag-element>
+</template>
