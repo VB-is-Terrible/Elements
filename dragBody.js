@@ -1,5 +1,33 @@
 'use strict';
 
+
+/**
+ * Interface for parents of drag-elements
+ * @interface DragParent
+ */
+/**
+ * @property {HTMLElement} subject
+ * @description drag-element been dragged. This should be forwarded to a drag-body
+ * @name DragParent.subject
+ */
+/**
+ * @function topZIndex
+ * @param {Node} childNode Node to raise
+ * @description Raise a drag element above other drag-elements
+ * @name DragParent.topZIndex
+ */
+/**
+ * @function toBottom
+ * @description Push the drag-body to the bottom. Used after a drag to allow access to other elements
+ * @name DragParent.toBottom
+ */
+/**
+ * @function toTop
+ * @param {Node} childNode Node to place ontop of other nodes
+ * @description Push childNode and dragBody to the top of z-Indexes
+ * @name DragParent.toTop
+ */
+
 /**
  * DragBody
  * Designed to hold DragElements
