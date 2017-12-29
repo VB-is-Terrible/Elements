@@ -5,6 +5,11 @@ Elements.get();
 const main = async () => {
 
 await Elements.get();
+/**
+ * [$1 Description]
+ * @augments Elements.elements.backbone2
+ * @type {Object}
+ */
 Elements.elements.$1 = class $1 extends Elements.elements.backbone2 {
 	constructor () {
 		super();
