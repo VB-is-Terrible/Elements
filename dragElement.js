@@ -42,6 +42,7 @@ Elements.get('drag-body');
  * touch_start -> touch_move -> touch_end
  * drag_start -> drag_move (drag over) -> drag_end (drag drop, found in drag-body)
  * @property {boolean} hidden Wheter this element is hidden
+ * @property {DragParent} parent DragParent to chain to
  * @augments Elements.elements.backbone2
  * @implements Draggable
  */
@@ -51,7 +52,12 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 
 		const self = this;
 		this.name = 'DragElement';
+		/**
+		 * DragParent to chain to
+		 * @type {DragParent}
+		 */
 		this.parent = null;
+		this.applyPriorProperty('parent', null);
 		/**
 		 * The currently playing animation
 		 * @type {Animation}
@@ -123,6 +129,17 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 			top: 0,
 		};
 	}
+	/**
+	 * this.parent or if parent is null parentNode
+	 * @return {DragParent} DragParent to chain calls to
+	 */
+	get __parent () {
+		if (this.parent === null) {
+			return this.parentNode;
+		} else {
+			return this.parent;
+		}
+	}
 	connectedCallback () {
 		super.connectedCallback();
 		this.touch_reset();
@@ -144,7 +161,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		body.addEventListener('touchcancel', this.events.end, false);
 		body.addEventListener('touchend', this.events.end, false);
 		body.removeEventListener('touchstart', this.events.start, false);
-		this.parentNode.topZIndex(this);
+		this.__parent.topZIndex(this);
 	}
 	/**
 	 * Updates a touch based drag
@@ -198,8 +215,8 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		let data = left + ',' + top + ',' + id;
 		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX);
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
-		this.parentNode.toTop(this);
-		this.parentNode.subject = this;
+		this.__parent.toTop(this);
+		this.__parent.subject = this;
 		body.addEventListener('mousemove', this.events.dMove, false);
 		body.addEventListener('mouseup', this.events.dEnd, false);
 		body.removeEventListener('mousedown', this.events.dStart, false);
@@ -226,7 +243,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		body.addEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
 		body.removeEventListener('mouseup', this.events.dEnd, false);
-		this.parentNode.toBottom();
+		this.__parent.toBottom();
 	}
 	/**
 	 * Reset/Cancel a drag
@@ -254,7 +271,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	 * Put this drag-element on top of other drag-elements
 	 */
 	toTop () {
-		this.parentNode.topZIndex(this);
+		this.__parent.topZIndex(this);
 	}
 	get hidden () {
 		let computed = getComputedStyle(this);
