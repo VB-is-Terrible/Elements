@@ -1,11 +1,12 @@
 'use strict';
 
-Elements.get();
+Elements.get('drag-element');
 {
 const main = async () => {
 
 await Elements.get();
 
+// TODO:  Write description
 /**
  * [ConfirmDialog description]
  * @type {Object}
@@ -53,7 +54,7 @@ Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.
 			self.on_confirm();
 			self.__reset();
 		});
-
+		// TODO: attach MutationObserver
 		this.mo = new MutationObserver(() => {
 			self.__show();
 		});
