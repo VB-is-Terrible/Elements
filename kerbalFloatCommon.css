@@ -42,7 +42,7 @@ select, button, input{
 	float: right;
 	margin-right: 1ex;
 }
-div.right {
+div.right, #footer {
 	display: flex;
 	justify-content: flex-end;
 }
