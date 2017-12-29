@@ -46,7 +46,7 @@ Elements.get('drag-body');
  * @augments Elements.elements.backbone2
  * @implements Draggable
  */
-Elements.elements.DragElement = class extends Elements.elements.backbone2 {
+Elements.elements.DragElement = class DragElement extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 
@@ -99,6 +99,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		 * @property {Number} left Offset of touch event from the left edge
 		 * @property {Number} top Offset of touch event from the top edge
 		 * @property {Number} touchID ID of the touch event that triggered the drag
+		 * @private
 		 */
 		this.touch = {
 			left: 0,
@@ -109,6 +110,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		 * Wrapped event handlers.
 		 * Used to mantian consistent calls to add/remove-EventListener
 		 * @type {Object}
+		 * @private
 		 */
 		this.events = {
 			start: (e) => {self.touch_start(e);},
@@ -123,6 +125,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 		 * @type {Object}
 		 * @property {Number} left Offset of touch event from the left edge
 		 * @property {Number} top Offset of touch event from the top edge
+		 * @private
 		 */
 		this.drag = {
 			left: 0,
@@ -132,6 +135,7 @@ Elements.elements.DragElement = class extends Elements.elements.backbone2 {
 	/**
 	 * this.parent or if parent is null parentNode
 	 * @return {DragParent} DragParent to chain calls to
+	 * @private
 	 */
 	get __parent () {
 		if (this.parent === null) {
