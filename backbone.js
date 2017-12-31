@@ -21,7 +21,7 @@ Elements = {
 		 * @property {Object} setDict Mapping of the setters set by setUpAttrPropertyLink
 		 * @property {Booelean} attributeInit Whether the attributes have been initalized
 		 */
-		backbone: class extends HTMLElement {
+		backbone: class backbone extends HTMLElement {
 			/**
 			 * Make a new element
 			 * @memberof! Elements.elements.backbone
@@ -788,7 +788,7 @@ Elements = {
  * @type {Object}
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
-Elements.elements.backbone2 = class extends HTMLElement {
+Elements.elements.backbone2 = class backbone2 extends HTMLElement {
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
