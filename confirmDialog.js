@@ -47,11 +47,15 @@ Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.
 		let confirm = template.querySelector('#Done');
 
 		cancel.addEventListener('click', (e) => {
-			self.on_cancel();
+			if (self.on_cancel !== null) {
+				self.on_cancel();
+			}
 			self.__reset();
 		});
 		confirm.addEventListener('click', (e) => {
-			self.on_confirm();
+			if (self.on_confirm !== null) {
+				self.on_confirm();
+			}
 			self.__reset();
 		});
 		// TODO: attach MutationObserver
@@ -65,7 +69,9 @@ Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.
 	 * @private
 	 */
 	__reset () {
-		this.innerHTML = '';
+		for (let element of this.children) {
+			element.remove();
+		}
 		this.__drag.hideWindow();
 		this.on_confirm = null;
 		this.on_cancel = null;
