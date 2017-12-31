@@ -15,7 +15,7 @@ await Elements.get();
  * @property {Function} on_confirm Function to callback on confirmation
  * @property {Function} on_cancel Function to callback on cancellation
  */
-Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.dragged2 {
+Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
