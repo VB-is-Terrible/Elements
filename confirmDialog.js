@@ -35,7 +35,7 @@ Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
-		let drag = template.querySelector('#pseudoBody');
+		let drag = template.querySelector('#dragBody');
 		drag.parent = this;
 		/**
 		 * The internal drag-element

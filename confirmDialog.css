@@ -1,0 +1,8 @@
+elements-drag-element {
+	/* visibility: hidden; */
+}
+#pseudoBody {
+	min-width: 400px;
+	width: 400px;
+	/* height: 10px; */
+}
