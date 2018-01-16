@@ -329,7 +329,7 @@ Elements = {
 	 * @instance
 	 */
 	require: async function (...elementNames) {
-		console.warn('Using deprecated function require. Use get instead');
+		console.warn('Using deprecated function require. Use Elements.get instead');
 		this.get(elementNames);
 	},
 	/**
