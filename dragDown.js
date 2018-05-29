@@ -14,7 +14,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		const self = this;
 		this.name = 'DragDown';
 
-        this.__menuVisible = true;
+		this.__menuVisible = true;
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -61,8 +61,8 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		}
 	}
 	static get observedAttributes () {
-        return ['menuvisible'];
-    }
+		return ['menuvisible'];
+	}
 }
 
 Elements.load('dragDownTemplate.html', Elements.elements.DragDown, 'elements-drag-down');
