@@ -11,7 +11,7 @@ class test extends spam {
 	constructor () {
 		super();
 
-		debugger;
+		// debugger;
 
 		let something = () => {
 			console.log(this.hello);
@@ -23,14 +23,16 @@ class test2 extends HTMLElement {
 	constructor () {
 		super();
 
+		debugger;
 		let something = () => {
 			console.log(this);
 		};
 	}
 }
 
-// let b = new test2();
-// let a = new test();
+window.customElements.define('a-check-class', test2);
+let y = new test2();
+let x = new test();
 let props = new Set();
 
 class Sentinel extends HTMLElement {
@@ -41,7 +43,6 @@ class Sentinel extends HTMLElement {
 		}
 	}
 }
-
 customElements.define('test-c', Sentinel);
 let a = new Sentinel();
 
