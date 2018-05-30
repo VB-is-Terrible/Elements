@@ -1,5 +1,9 @@
 'use strict';
-
+{
+const downArrow = 'rotate(.5turn) translate(0px, -0.1em)';
+const upArrow = 'rotate(0turn)';
+const rightMidpoint = 'rotate(.25turn) translate(0px, -0.05em)';
+const leftMidpoint = 'rotate(.75turn) translate(0px, -0.05em)';
 /**
  * A drop down that presists.
  * Use slot='s1' for the element to go next to the arrow
@@ -42,10 +46,33 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		if (this.attributeInit) {
 			this.setAttribute('menuvisible', open);
 		}
-		requestAnimationFrame(() => {
-			menu.style.display = open ? 'block' : 'none';
-			button.innerHTML = open ? '&#x25b2;' : '&#x25bc;';
+		let arrow = this.shadowRoot.querySelector('div.arrow');
+		let start, end, mid;
+		if (open) {
+			[start, mid, end] = [upArrow, rightMidpoint, downArrow];
+		} else {
+			[start, mid, end] = [downArrow, leftMidpoint, upArrow];
+		}
+		// let animation;
+		let animation = arrow.animate([{
+			transform: start,
+		}, {
+			transform: mid,
+		}, {
+			transform: end,
+		}], {
+			duration: Elements.animation.MEDIUM_DURATION,
 		});
+		animation.onfinish = () => {
+			requestAnimationFrame((e) => {
+				arrow.style.transform = end;
+			});
+		}
+		//
+		// requestAnimationFrame(() => {
+		// 	menu.style.display = open ? 'block' : 'none';
+		// 	button.innerHTML = open ? '&#x25b2;' : '&#x25bc;';
+		// });
 	}
 	/**
 	 * Toggles whether the drop down is active
@@ -66,3 +93,4 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 }
 
 Elements.load('dragDownTemplate.html', Elements.elements.DragDown, 'elements-drag-down');
+}
