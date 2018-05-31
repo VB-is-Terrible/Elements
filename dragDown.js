@@ -49,7 +49,6 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		return this.__menuVisible;
 	}
 	set menuvisible (open) {
-		console.log(open);
 		open = Elements.booleaner(open);
 		if (open === this.menuvisible) {return;}
 		let menu = this.shadowRoot.querySelector('div.down');
