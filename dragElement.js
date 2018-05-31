@@ -176,7 +176,9 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		for (let touch of event.changedTouches) {
 			if (touch.identifier === this.touch.touchID) {
-				event.preventDefault();
+				if (event.cancelable) {
+					event.preventDefault();
+				}
 				let leftStyle = touch.clientX + this.touch.left;
 				let topStyle = touch.clientY + this.touch.top;
 				this.setTop(topStyle);
