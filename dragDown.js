@@ -18,7 +18,18 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		const self = this;
 		this.name = 'DragDown';
 
+		/**
+		 * Current state of dropdown
+		 * @type {Boolean}
+		 * @private
+		 */
 		this.__menuVisible = true;
+		/**
+		 * Last height before close
+		 * @type {String}
+		 * @private
+		 */
+		this.__height = undefined;
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -38,35 +49,80 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		return this.__menuVisible;
 	}
 	set menuvisible (open) {
+		console.log(open);
 		open = Elements.booleaner(open);
 		if (open === this.menuvisible) {return;}
 		let menu = this.shadowRoot.querySelector('div.down');
 		let button = this.shadowRoot.querySelector('button');
 		this.__menuVisible = open;
+		let display = open ? 'block' : 'none';
+		if (!this.attributeInit) {
+			// No animation
+			requestAnimationFrame((e) => {
+				menu.style.display = display;
+			});
+		}
+		// Animation
+		let height;
+		if (open) {
+			height = this.__height;
+		} else {
+			// debugger;
+			height = getComputedStyle(menu).height;
+			if (isNaN(parseInt(height))) {
+				height = '9999px';
+			}
+			console.log('Got height: ', height);
+			this.__height = height;
+		}
 		if (this.attributeInit) {
 			this.setAttribute('menuvisible', open);
 		}
 		let arrow = this.shadowRoot.querySelector('div.arrow');
-		let start, end, mid;
-		if (open) {
-			[start, mid, end] = [upArrow, rightMidpoint, downArrow];
-		} else {
-			[start, mid, end] = [downArrow, leftMidpoint, upArrow];
-		}
-		// let animation;
-		let animation = arrow.animate([{
-			transform: start,
-		}, {
-			transform: mid,
-		}, {
-			transform: end,
-		}], {
-			duration: Elements.animation.MEDIUM_DURATION,
-		});
-		animation.onfinish = () => {
-			requestAnimationFrame((e) => {
-				arrow.style.transform = end;
+		{
+			let start, end, mid;
+			if (open) {
+				[start, mid, end] = [upArrow, rightMidpoint, downArrow];
+			} else {
+				[start, mid, end] = [downArrow, leftMidpoint, upArrow];
+			}
+			// let animation;
+			let animation = arrow.animate([{
+				transform: start,
+			}, {
+				transform: mid,
+			}, {
+				transform: end,
+			}], {
+				duration: Elements.animation.MEDIUM_DURATION,
 			});
+			animation.onfinish = () => {
+				requestAnimationFrame((e) => {
+					arrow.style.transform = end;
+				});
+			};
+		}
+		{
+			let start, end;
+			if (open) {
+				[start, end] = ['0px', height];
+			} else {
+				[end, start] = ['0px', height];
+			}
+			console.log(start, end);
+			let animation = menu.animate([{
+				maxHeight: start,
+			}, {
+				maxHeight: end,
+			}], {
+				duration: Elements.animation.MEDIUM_DURATION,
+			});
+			animation.onfinish = () => {
+				requestAnimationFrame((e) => {
+					menu.style.maxHeight = end;
+					menu.style.display = display;
+				});
+			};
 		}
 		//
 		// requestAnimationFrame(() => {
