@@ -61,23 +61,24 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 			requestAnimationFrame((e) => {
 				menu.style.display = display;
 			});
+			return;
 		}
+		this.setAttribute('menuvisible', open);
 		// Animation
 		let height;
 		if (open) {
 			height = this.__height;
 		} else {
-			// debugger;
 			height = getComputedStyle(menu).height;
-			if (isNaN(parseInt(height))) {
-				height = '9999px';
-			}
 			console.log('Got height: ', height);
+			if (isNaN(parseInt(height))) {
+				height = this.__height || '9999px';
+			}
 			this.__height = height;
 		}
-		if (this.attributeInit) {
-			this.setAttribute('menuvisible', open);
-		}
+		requestAnimationFrame((e) => {
+			menu.style.display = 'block';
+		});
 		let arrow = this.shadowRoot.querySelector('div.arrow');
 		{
 			let start, end, mid;
@@ -104,22 +105,25 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		}
 		{
 			let start, end;
+			let states = [{
+				maxHeight: '0px',
+				transform: 'scaleY(0)',
+			}, {
+				maxHeight: height,
+				transform: 'scaleY(1)',
+			}];
 			if (open) {
-				[start, end] = ['0px', height];
+				[start, end] = states;
 			} else {
-				[end, start] = ['0px', height];
+				[end, start] = states;
 			}
 			console.log(start, end);
-			let animation = menu.animate([{
-				maxHeight: start,
-			}, {
-				maxHeight: end,
-			}], {
+			let animation = menu.animate([start, end], {
 				duration: Elements.animation.MEDIUM_DURATION,
 			});
 			animation.onfinish = () => {
 				requestAnimationFrame((e) => {
-					menu.style.maxHeight = end;
+					menu.style.maxHeight = 'initial';
 					menu.style.display = display;
 				});
 			};
