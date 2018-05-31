@@ -2,3 +2,5 @@ out/
 .jshintrc
 .~lock.*
 package-lock.json
+*.ora~
+dogpileLines.py
