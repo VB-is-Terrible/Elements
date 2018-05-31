@@ -606,7 +606,7 @@ Elements = {
 	/**
 	 * Make an async network request, returning response body
 	 * @param  {String} location location of file. Note: will not prefix .location for you
-	 * @return {Promise}         Promise that resolves to the respone body, can error
+	 * @return {Promise}         Promise that resolves to the response body, can error
 	 * @memberof! Elements
 	 * @instance
 	 */
