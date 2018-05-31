@@ -1,6 +1,7 @@
 div.down {
 	margin-left: var(--left-shift);
 	margin-top: var(--margins);
+	transform-origin: 50% 0%
 }
 div.flex {
 	display: flex;
