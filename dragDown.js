@@ -1,5 +1,4 @@
 'use strict';
-Elements.animation.MEDIUM_DURATION = 2000;
 {
 const downArrow = 'rotate(.5turn) translate(0px, -0.1em)';
 const upArrow = 'rotate(0turn)';
@@ -25,12 +24,6 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		 * @private
 		 */
 		this.__menuVisible = true;
-		/**
-		 * Last height before close
-		 * @type {String}
-		 * @private
-		 */
-		this.__height = undefined;
 		/**
 		 * Currently playing animations
 		 * @type {Object}
@@ -83,12 +76,13 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		let menu = this.shadowRoot.querySelector('div.down');
 		let arrow = this.shadowRoot.querySelector('div.arrow');
 		this.__menuVisible = open;
+		let visiblity = open ? 'visible' : 'hidden';
 
-		let display = open ? 'block' : 'none';
 		if (!this.attributeInit) {
 			// No animation
 			requestAnimationFrame((e) => {
-				menu.style.display = display;
+				menu.style.maxHeight = open ? 'initial' : '0px';
+				menu.style.visibility = visiblity;
 			});
 			return;
 		}
@@ -107,9 +101,9 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		};
 		let menuEnd = () => {
 			requestAnimationFrame((e) => {
-				menu.style.maxHeight = 'initial';
-				menu.style.display = display;
+				menu.style.maxHeight = open ? 'initial' : '0px';
 			});
+			menu.style.visibility = visiblity;
 			this.__animation_callback.menu = null;
 		};
 		// Set end states
@@ -137,18 +131,12 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 			end: null,
 		};
 		// Height is needed for menuStates
-		if (open) {
-			height = this.__height;
-		} else {
-			// Refresh height
-			height = getComputedStyle(menu).height;
-			console.log('Got height: ', height);
-			if (isNaN(parseInt(height))) {
-				height = this.__height || '9999px';
-			}
-			this.__height = height;
-			if (height === undefined) {debugger;}
+		// Refresh height
+		height = menu.scrollHeight + 'px';
+		if (isNaN(parseInt(height))) {
+			height = '9999px';
 		}
+		if (height === undefined) {debugger;}
 		{
 		let states = [{
 			maxHeight: '0px',
@@ -166,7 +154,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		}
 		}
 		requestAnimationFrame((e) => {
-			menu.style.display = 'block';
+			menu.style.visibility = 'visible';
 		});
 		// Animations
 		let animation = arrow.animate([{
