@@ -11,5 +11,6 @@
 	border-radius: 4px;
 	padding: 8px;
 	position: var(--position);
-	contain: content; 
+	contain: content;
+	will-change: opacity, left, top;
 }
