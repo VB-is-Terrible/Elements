@@ -183,6 +183,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 			this.__animationState = null;
 			this.__animations.arrow = null;
 		};
+		this.__animations.arrow = animation;
 		animation = menu.animate([menuStates.start, menuStates.end], {
 			duration: Elements.animation.MEDIUM_DURATION,
 		});
@@ -191,6 +192,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 			this.__animationState = null;
 			this.__animations.menu = null;
 		};
+		this.__animations.menu = animation;
 	}
 	/**
 	 * Toggles whether the drop down is active
