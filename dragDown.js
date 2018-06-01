@@ -1,4 +1,5 @@
 'use strict';
+Elements.animation.MEDIUM_DURATION = 2000;
 {
 const downArrow = 'rotate(.5turn) translate(0px, -0.1em)';
 const upArrow = 'rotate(0turn)';
@@ -30,6 +31,34 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		 * @private
 		 */
 		this.__height = undefined;
+		/**
+		 * Currently playing animations
+		 * @type {Object}
+		 * @property {?Animation} menu Animation for drop down
+		 * @property {?Animation} arrow Animation for spinner arrow
+		 * @private
+		 */
+		this.__animations = {
+			menu: null,
+			arrow: null,
+		};
+		/**
+		 * Current animation state, either 'show' or 'hide'
+		 * @type {?String}
+		 * @private
+		 */
+		this.__animationState = null;
+		/**
+		 * Functions to fire on animation finish
+		 * @type {Object}
+		 * @property {?Function} menu Animation for drop down
+		 * @property {?Function} arrow Animation for spinner arrow
+		 * @private
+		 */
+		this.__animation_callback = {
+			menu: null,
+			arrow: null,
+		};
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
@@ -52,8 +81,9 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		open = Elements.booleaner(open);
 		if (open === this.menuvisible) {return;}
 		let menu = this.shadowRoot.querySelector('div.down');
-		let button = this.shadowRoot.querySelector('button');
+		let arrow = this.shadowRoot.querySelector('div.arrow');
 		this.__menuVisible = open;
+
 		let display = open ? 'block' : 'none';
 		if (!this.attributeInit) {
 			// No animation
@@ -63,75 +93,104 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 			return;
 		}
 		this.setAttribute('menuvisible', open);
-		// Animation
+
+		// Calculate end states
+		let state = open ? 'show' : 'hide';
+		if (state === this.__animationState) {return;}
+		let oldState = this.__animationState;
+		this.__animationState = state;
+		let arrowEnd = () => {
+			requestAnimationFrame((e) => {
+				arrow.style.transform = open ? downArrow: upArrow;
+			});
+			this.__animation_callback.arrow = null;
+		};
+		let menuEnd = () => {
+			requestAnimationFrame((e) => {
+				menu.style.maxHeight = 'initial';
+				menu.style.display = display;
+			});
+			this.__animation_callback.menu = null;
+		};
+		// Set end states
+		// for reverse, the end states need to be replaced
+		// for animation, end states need to be set
+		this.__animation_callback.arrow = arrowEnd;
+		this.__animation_callback.menu = menuEnd;
+
+		// Check for reverse
+		if (oldState !== null) {
+			for (let element in this.__animations) {
+				this.__animations[element].reverse();
+			}
+			return;
+		}
+
 		let height;
+		let arrowStates = {
+			start: null,
+			mid: null,
+			end: null,
+		};
+		let menuStates = {
+			start: null,
+			end: null,
+		};
+		// Height is needed for menuStates
 		if (open) {
 			height = this.__height;
 		} else {
+			// Refresh height
 			height = getComputedStyle(menu).height;
 			console.log('Got height: ', height);
 			if (isNaN(parseInt(height))) {
 				height = this.__height || '9999px';
 			}
 			this.__height = height;
+			if (height === undefined) {debugger;}
+		}
+		{
+		let states = [{
+			maxHeight: '0px',
+			transform: 'scaleY(0)',
+		}, {
+			maxHeight: height,
+			transform: 'scaleY(1)',
+		}];
+		if (open) {
+			[arrowStates.start, arrowStates.mid, arrowStates.end] = [upArrow, rightMidpoint, downArrow];
+			[menuStates.start, menuStates.end] = states;
+		} else {
+			[arrowStates.start, arrowStates.mid, arrowStates.end] = [downArrow, leftMidpoint, upArrow];
+			[menuStates.end, menuStates.start] = states;
+		}
 		}
 		requestAnimationFrame((e) => {
 			menu.style.display = 'block';
 		});
-		let arrow = this.shadowRoot.querySelector('div.arrow');
-		{
-			let start, end, mid;
-			if (open) {
-				[start, mid, end] = [upArrow, rightMidpoint, downArrow];
-			} else {
-				[start, mid, end] = [downArrow, leftMidpoint, upArrow];
-			}
-			// let animation;
-			let animation = arrow.animate([{
-				transform: start,
-			}, {
-				transform: mid,
-			}, {
-				transform: end,
-			}], {
-				duration: Elements.animation.MEDIUM_DURATION,
-			});
-			animation.onfinish = () => {
-				requestAnimationFrame((e) => {
-					arrow.style.transform = end;
-				});
-			};
-		}
-		{
-			let start, end;
-			let states = [{
-				maxHeight: '0px',
-				transform: 'scaleY(0)',
-			}, {
-				maxHeight: height,
-				transform: 'scaleY(1)',
-			}];
-			if (open) {
-				[start, end] = states;
-			} else {
-				[end, start] = states;
-			}
-			console.log(start, end);
-			let animation = menu.animate([start, end], {
-				duration: Elements.animation.MEDIUM_DURATION,
-			});
-			animation.onfinish = () => {
-				requestAnimationFrame((e) => {
-					menu.style.maxHeight = 'initial';
-					menu.style.display = display;
-				});
-			};
-		}
-		//
-		// requestAnimationFrame(() => {
-		// 	menu.style.display = open ? 'block' : 'none';
-		// 	button.innerHTML = open ? '&#x25b2;' : '&#x25bc;';
-		// });
+		// Animations
+		let animation = arrow.animate([{
+			transform: arrowStates.start,
+		}, {
+			transform: arrowStates.mid,
+		}, {
+			transform: arrowStates.end,
+		}], {
+			duration: Elements.animation.MEDIUM_DURATION,
+		});
+		animation.onfinish = () => {
+			this.__animation_callback.arrow();
+			this.__animationState = null;
+			this.__animations.arrow = null;
+		};
+		animation = menu.animate([menuStates.start, menuStates.end], {
+			duration: Elements.animation.MEDIUM_DURATION,
+		});
+		animation.onfinish = () => {
+			this.__animation_callback.menu();
+			this.__animationState = null;
+			this.__animations.menu = null;
+		};
 	}
 	/**
 	 * Toggles whether the drop down is active
