@@ -13,51 +13,48 @@ await Elements.get('KDB');
  * @implements KerbalDisplay
  * @type {Object}
  */
-Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elements.elements.backbone) {
+Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elements.elements.backbone2) {
 	constructor () {
 		super();
 		const self = this;
 
 		this.name = 'KerbalDisplayText';
-        this.__data = this.data || null;
-        Object.defineProperty(this, 'data', {
-                enumerable: true,
-                configurable: false,
-                get: () => {
-                    return self.__data;
-                },
-                set: (value) => {
-					if (self.__data !== null) {
-						self.__data.removeDisplay(self);
-					}
-                    self.__data = value;
-                    self.updateDisplay();
-					if (value !== null) {
-						value.addDisplay(self);
-					}
-                },
-        });
+		this.__data = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
-        this.__main = template.querySelector('#main');
+		this.__main = template.querySelector('#main');
+		this.applyPriorProperty('data', null);
 		shadow.appendChild(template);
 	}
 	connectedCallback () {
-        super.connectedCallback();
-        this.updateDisplay();
-    }
-    updateDisplay () {
-        if (this.data === null) {
+		super.connectedCallback();
+		this.updateDisplay();
+	}
+	get data () {
+		return this.__data;
+	}
+	set data (value) {
+		if (this.__data !== null) {
+			this.__data.removeDisplay(this);
+		}
+		this.__data = value;
+		this.updateDisplay();
+		if (value !== null) {
+			value.addDisplay(this);
+		}
+	}
+	updateDisplay () {
+		if (this.data === null) {
 			this.__main.innerHTML = 'Miising Kerbal';
 		} else {
 			this.__main.innerHTML = Elements.nameSanitizer(this.data.name);
 		}
-    }
-    delete () {
+	}
+	delete () {
 		requestAnimationFrame((e) => {
 			this.remove();
 		});
-    }
+	}
 }
 
 Elements.load('kerbalDisplayTextTemplate.html', Elements.elements.KerbalDisplayText, 'elements-kerbal-display-text');
