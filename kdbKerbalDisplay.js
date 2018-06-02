@@ -90,8 +90,7 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 	 */
 	emptyNodes () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		while (body.childElementCount > 0) {
-			let kerbal = body.children[0];
+		for (let kerbal of body.children) {
 			kerbal.data = null;
 			requestAnimationFrame((e) => {
 				kerbal.remove();

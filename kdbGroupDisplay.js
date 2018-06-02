@@ -86,8 +86,7 @@ Elements.elements.KdbGroupDisplay = class extends BlankKDBDisplayMixin(Elements.
 	 */
 	emptyNodes () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		while (body.childElementCount > 0) {
-			let group = body.children[0];
+		for (let group of body.children) {
 			this.__displayMap.delete(group.data);
 			group.data = null;
 			requestAnimationFrame((e) => {
