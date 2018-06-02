@@ -479,6 +479,9 @@ Elements = {
 			for (let template of manifest.templates) {
 				this.loadTemplate(template);
 			}
+			for (let css of manifest.css) {
+				this.loadCSS(css);
+			}
 		}
 		return result;
 	},
@@ -778,6 +781,28 @@ Elements = {
 		});
 		object.applyPriorProperty(property, initial);
 	},
+	/**
+	 * Set of locations of loaded css
+	 * @type {Set}
+	 * @memberof! Elements
+	 * @instance
+	 */
+	loadedCSS: new Set(),
+	/**
+	 * Preloads css from location
+	 * @param  {String} location Location of css file. Note: does not prefix location or append .css
+	 * @return {Promise}         Promise that resolves once template is received
+	 * @memberof! Elements
+	 * @instance
+	 */
+	loadCSS: async function (location) {
+		if (this.loadedCSS.has(location)) {return;}
+		let link = document.createElement('link');
+		link.rel = 'preload';
+		link.as = 'style';
+		link.href = location;
+		document.head.appendChild(link);
+	}
 };
 /**
  * Backbone for newer elements (v2.0). These elements can use
