@@ -573,15 +573,23 @@ Elements = {
 	 * @instance
 	 */
 	loadManifest: async function () {
+		console.log('Requested manifest', performance.now())
 		if (this.manifestLoaded) {return;}
-		let request;
-		try {
-			request = await this.request(this.location + 'elementsManifest.json');
-		} catch (e) {
-			console.log('Failed network request for: ' + error.message);
+		let request, response;
+		let header = new Headers({
+			'Content-Type': 'application/json',
+		});
+		request = await fetch(this.location + 'elementsManifest.json', {
+			headers: header,
+		});
+		if (request.ok) {
+			response = await request.text();
+		} else {
+			console.log('Failed network request for: ' + request.url);
 			return;
 		}
-		this.manifest = JSON.parse(request);
+		console.log('Got manifest', performance.now())
+		this.manifest = JSON.parse(response);
 		this.manifestLoaded = true;
 		this.__getBacklog();
 	},
