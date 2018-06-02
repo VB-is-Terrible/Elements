@@ -316,7 +316,6 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 */
 	hideWindow () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		let style = window.getComputedStyle(body, null);
 		// If the element is hiding, do nothing
 		if (this.__animationState === 'hide') {
 			return;
@@ -338,18 +337,13 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 			return;
 		}
 		// Else, start a new animation
-		let top;
-		if (this.__top !== null) {
-			top = this.__top;
-		} else {
-			top = (parseInt(style.getPropertyValue('top'),10));
-		}
+		let translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)';
 		this.__animation = body.animate([{
 			opacity: 1,
-			top: top.toString() + 'px',
+			transform: 'translate(0px, 0px)',
 		}, {
 			opacity: 0,
-			top: (top + Elements.animation.DROP_AMOUNT).toString() + 'px',
+			transform: translate,
 		}], {
 			duration: Elements.animation.MEDIUM_DURATION,
 		});
@@ -363,7 +357,6 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 */
 	showWindow () {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
-		let style = window.getComputedStyle(body, null);
 		// If the element is hiding, do nothing
 		if (this.__animationState === 'show') {
 			return;
@@ -379,22 +372,17 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 			return;
 		}
 		// Else, start a new animation
-		let top;
-		if (this.__top !== null) {
-			top = this.__top;
-		} else {
-			top = (parseInt(style.getPropertyValue('top'),10));
-		}
 		requestAnimationFrame(() => {
 			this.style.display = 'block';
 			this.style.visibility = 'visible';
 		});
+		let translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)';
 		this.__animation = body.animate([{
 			opacity: 0,
-			top: (top + Elements.animation.DROP_AMOUNT).toString() + 'px',
+			transform: translate,
 		}, {
 			opacity: 1,
-			top: top.toString() + 'px',
+			transform: 'translate(0px, 0px)',
 		}], {
 			duration: Elements.animation.MEDIUM_DURATION,
 		});
