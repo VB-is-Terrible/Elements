@@ -102,7 +102,6 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 			UI.database = name;
 			KerbalLink.removeUI(this.database, UIName);
 			KerbalLink.registerUI(name, UIName, UI);
-			UI.database = name;
 		}
 		KerbalLink.setNextLoad(name);
 		KerbalLink.save(name);
