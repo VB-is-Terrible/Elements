@@ -325,14 +325,16 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 		} else {
 			this.__animationState = 'hide';
 		}
+
+		let callback = () => {
+			requestAnimationFrame((e) => {
+				this.style.visibility = 'hidden';
+			});
+		}
 		// If the element is been shown, reverse it
 		if (this.__animation !== null) {
 			this.__animation.reverse();
-			this.__animationCallback = () => {
-				requestAnimationFrame((e) => {
-					this.style.visibility = 'hidden';
-				});
-			};
+			this.__animationCallback = callback;
 			return;
 		}
 		// Else, start a new animation
@@ -354,11 +356,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 		this.__animation.onfinish = () => {
 			this.animation_onfinish();
 		};
-		this.__animationCallback = () => {
-			requestAnimationFrame((e) => {
-				this.style.visibility = 'hidden';
-			});
-		}
+		this.__animationCallback = callback;
 	}
 	/**
 	 * Unhide this element
