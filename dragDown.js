@@ -76,7 +76,7 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 		let menu = this.shadowRoot.querySelector('div.down');
 		let arrow = this.shadowRoot.querySelector('div.arrow');
 		this.__menuVisible = open;
-		let visiblity = open ? 'visible' : 'hidden';
+		let visiblity = open ? 'inherit' : 'hidden';
 
 		if (!this.attributeInit) {
 			// No animation
