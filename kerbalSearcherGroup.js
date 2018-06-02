@@ -9,7 +9,7 @@ await Elements.get('kerbal-searcher-common');
  * UI to search through kerbals by name
  * @type {Object}
  * @augments Elements.elements.KerbalSearcherCommon
- * @augments Elements.elements.KerbalSearcherCommonNAme
+ * @augments Elements.elements.KerbalSearcherCommonName
  * @augments Elements.elements.backbone2
  * @property {String} database Name of the database to look up
  * @property {String} action   Text to display in buttons next to results
