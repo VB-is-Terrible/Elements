@@ -74,8 +74,8 @@ Elements.elements.KdbGroupDisplay = class extends BlankKDBDisplayMixin(Elements.
 		this.__database = value;
 		if (value === null) {return;}
 		const kdb = KerbalLink.get(this.database);
-		kdb.addDisplay(this);
 		if (kdb === undefined) {return;}
+		kdb.addDisplay(this);
 		for (let group of kdb.groups.values()) {
 			this.addGroup(group);
 		}
