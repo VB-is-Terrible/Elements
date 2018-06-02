@@ -965,7 +965,6 @@ const BlankKerbalDisplayMixin = (superclass) => {
     return class extends superclass {
         constructor (...args) {
             super(...args);
-            this.data = this.data || null;
         }
         updateData () {}
         showJob (place) {}
