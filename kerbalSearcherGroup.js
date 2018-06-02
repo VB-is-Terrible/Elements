@@ -92,7 +92,7 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 	set database (value) {
 		this.emptyNodes();
 		this.__database = value;
-		this.kerbal_search_trigger(true);
+		this.search_trigger(true);
 	}
 	/**
 	 * Search for a kerbal, deriving options from the UI
