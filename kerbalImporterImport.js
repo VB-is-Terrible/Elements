@@ -96,7 +96,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 		let name = 'db' + KerbalLink.counter.toString();
 		let oldDB = this.database;
 		KerbalLink.set(name, kdb);
-		let UIs = KerbalLink.getUIAll(this.database);
+		let UIs = KerbalLink.getUIAll(oldDB);
 		for (let UIName of UIs) {
 			let UI = KerbalLink.getUI(oldDB, UIName);
 			UI.database = name;
