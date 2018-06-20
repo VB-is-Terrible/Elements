@@ -480,7 +480,7 @@ Elements = {
 				this.loadTemplate(template);
 			}
 			for (let css of manifest.css) {
-				this.loadCSS(css);
+				// this.loadCSS(css);
 			}
 		}
 		return result;
@@ -810,6 +810,7 @@ Elements = {
 		link.as = 'style';
 		link.href = location;
 		document.head.appendChild(link);
+		this.loadedCSS.add(location);
 	}
 };
 /**
