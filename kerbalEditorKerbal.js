@@ -41,7 +41,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 			UI[elementName].addEventListener(event, callback);
 		};
 		findElements(
-			['kerbal', 'elements-kerbal'],
+			['kerbal', 'elements-kerbal-display'],
 			['nameInput', '#AnsName'],
 			['typeInput', '#AnsText'],
 			['updater', '#Done'],

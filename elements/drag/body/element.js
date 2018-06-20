@@ -121,4 +121,4 @@ Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 	}
 };
 
-Elements.load('dragBodyTemplate.html', Elements.elements.DragBody, 'elements-drag-body');
+Elements.load('drag/body/template.html', Elements.elements.DragBody, 'elements-drag-body');

@@ -20,7 +20,7 @@ await Elements.get('KDB');
  * @property {Boolean} deleter=true Toogle whether for the kerbal to remove itthis once the KNS.Kerbal is deleted
  * @augments Elements.elements.backbone2
  */
-Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
+Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 
@@ -182,7 +182,7 @@ Elements.elements.Kerbal = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load('kerbalTemplate.html', Elements.elements.Kerbal, 'elements-kerbal');
+Elements.load('elements/kerbal/template.html', Elements.elements.KerbalDisplay, 'elements-kerbal-display');
 }
 
 main();

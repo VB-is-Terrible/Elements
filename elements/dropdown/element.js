@@ -11,12 +11,12 @@ const leftMidpoint = 'rotate(.75turn) translate(0px, -0.05em)';
  * @property {Boolean} menuvisible Whether the drop down in toggled
  * @augments Elements.elements.backbone2
  */
-Elements.elements.DragDown = class extends Elements.elements.backbone2 {
+Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 
 		const self = this;
-		this.name = 'DragDown';
+		this.name = 'DropDown';
 
 		/**
 		 * Current state of dropdown
@@ -200,5 +200,5 @@ Elements.elements.DragDown = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load('dragDownTemplate.html', Elements.elements.DragDown, 'elements-drag-down');
+Elements.load('elements/dropdown/template.html', Elements.elements.Dropdown, 'elements-dropdown');
 }

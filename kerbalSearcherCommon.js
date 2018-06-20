@@ -85,7 +85,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		 */
 		this.__results_length = 0;
 		this.makeDisplay = (result) => {
-			let display = document.createElement('elements-kerbal');
+			let display = document.createElement('elements-kerbal-display');
 			display.data = result;
 			display.menuvisible = false;
 			display.deleter = false;

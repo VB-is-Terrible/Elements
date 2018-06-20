@@ -33,7 +33,7 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 			elements[elementName].addEventListener(event, callback);
 		};
 		findElements(
-			['kerbal', 'elements-kerbal'],
+			['kerbal', 'elements-kerbal-display'],
 			['nameInput', '#AnsName'],
 			['typeInput', '#AnsText'],
 			['updater', '#Done'],

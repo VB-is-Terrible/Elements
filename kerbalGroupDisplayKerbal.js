@@ -49,7 +49,7 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 	addKerbal (kerbal) {
         let body = this.shadowRoot.querySelector('#pseudoBody');
         if (this.displays.has(kerbal)) {return;}
-        let display = document.createElement('elements-kerbal');
+        let display = document.createElement('elements-kerbal-display');
 		display.menuvisible = false;
 		display.data = kerbal;
 		this.displays.set(kerbal, display);
