@@ -247,30 +247,32 @@ Elements = {
 	initalized: true,
 	/**
 	 * Async fetch a HTML file, load into document.head,
-	 * then register custom element
-	 * @param  {String} templateLocation Location of HTML file containing template, empty string for none
+	 * then register custom element. Infers template location from HTMLname
+	 * Additional templates will have to be loaded manually through loadTemplate
 	 * @param  {HTMLElement} newElement  New Custom HTMLElement
 	 * @param  {String} HTMLname         Name to register HTMLElement as
+	 * @param  {Boolean} [includeTemplate=true] Whether to automatically include the template
 	 * @memberof! Elements
 	 * @instance
 	 */
-	load: async function (templateLocation, newElement, HTMLname) {
+	load: async function (newElement, HTMLname, includeTemplate = true) {
 		let jsName = HTMLname;
 		if (HTMLname.indexOf('elements-') !== 0) {
 			HTMLname = 'elements-' + HTMLname;
 		}
 		jsName = this.__nameResolver(jsName);
 		if (this.loadedElements.has(jsName) || this.loadingElements.has(jsName)) {return;}
-		if (templateLocation !== '') {
+		if (includeTemplate) {
 			try {
 				this.loadingElements.add(jsName);
-				await this.loadTemplate(templateLocation);
+				await this.loadTemplate(jsName);
 				window.customElements.define(HTMLname, newElement);
 				this.loadedElements.add(jsName);
 				this.loadingElements.delete(jsName);
 				this.awaitCallback(jsName);
 			} catch (e) {
 				this.loadingElements.delete(jsName);
+				throw e;
 			}
 		} else {
 			window.customElements.define(HTMLname, newElement);
@@ -313,7 +315,7 @@ Elements = {
 			name = this.__nameResolver(name);
 			if (!(this.requestedElements.has(name))) {
 				let script = document.createElement('script');
-				script.src = this.location + name + '.js';
+				script.src = this.location + name + '/element.js';
 				script.async = true;
 				document.head.appendChild(script);
 				this.requestedElements.add(name);
@@ -352,7 +354,7 @@ Elements = {
 	 * @memberof! Elements
 	 * @instance
 	 */
-	location: '',
+	location: 'elements/',
 	/**
 	 * Callback a function once required elements are loaded
 	 * @param  {Function} callback    Function to call back
@@ -431,7 +433,7 @@ Elements = {
 	__gottenElements: new Set(),
 	/**
 	 * loads requested custom elements, modules etc.
-	 * May preemptively loaded dependencies as shown in the manifest
+	 * May preemptively load dependencies as shown in the manifest
 	 * @param  {...String} elementNames names of things to load
 	 * @return {Promise}                A promise that resolves when all requested things are loaded (await this)
 	 * @memberof! Elements
@@ -556,16 +558,24 @@ Elements = {
 	 */
 	__nameResolver: function (name) {
 		name = this.removeNSTag(name);
-		if (name.includes('-')) {
-			name = this.captilize(name);
-		} else if (name.includes('.')) {
+		if (name.includes('/')) {
+			return name;
+		}
+		if (name.includes('.')) {
 			// Find a provider
 			name = this.findProvider(name);
 			if (name === null) {
 				throw new Error('Can not find a provider for ' + name);
 			}
+			return name;
 		}
-		return name;
+		if (/[A-Z]/.test(name.charAt(0))) {
+			// Module name, treat differently
+			return name;
+		} else {
+			let tokens = this.tokenise(name);
+			return tokens.join('/');
+		}
 	},
 	/**
 	 * Load the elements manifest from network
@@ -641,7 +651,7 @@ Elements = {
 	 */
 	findProvider: function (name) {
 		for (let item in this.manifest) {
-			if 	(this.manifest[item].provides.includes(name)) {
+			if (this.manifest[item].provides.includes(name)) {
 				return item;
 			}
 		}
@@ -663,12 +673,13 @@ Elements = {
 	loadedTemplates: new Set(),
 	/**
 	 * Loads template from location
-	 * @param  {String} location Location of template. Note: does not prefix location or append .html
+	 * @param  {String} location Location of element. Prefixes location
 	 * @return {Promise}         Promise that resolves once template is received
 	 * @memberof! Elements
 	 * @instance
 	 */
 	loadTemplate: async function (location) {
+		// debugger;
 		let template;
 		if (this.loadedTemplates.has(location) || template === '') {return;}
 		if (this.loadingTemplates.has(location)) {
@@ -678,7 +689,7 @@ Elements = {
 
 		let fetcher = async (resolve, reject) => {
 			try {
-				template = await this.request(location);
+				template = await this.request(this.location + location + '/template.html');
 			} catch (e) {
 				console.log('Failed network request for: ' + e.message);
 				this.loadingTemplates.delete(location);
@@ -811,7 +822,23 @@ Elements = {
 		link.href = location;
 		document.head.appendChild(link);
 		this.loadedCSS.add(location);
-	}
+	},
+	tokenise: function (name) {
+		if (name.includes('-')) {
+			return name.split('-');
+		} else {
+			let tokens = [];
+			let firstCharacter = /[A-Z]/;
+			let position;
+			while ((position = name.search(firstCharacter)) != -1) {
+				let token = name.substring(0, position);
+				name = name.charAt(position).toLowerCase() + name.substring(position + 1, name.length);
+				tokens.push(token);
+			}
+			tokens.push(name);
+			return tokens;
+		}
+	},
 };
 /**
  * Backbone for newer elements (v2.0). These elements can use
