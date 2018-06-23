@@ -315,7 +315,15 @@ Elements = {
 			name = this.__nameResolver(name);
 			if (!(this.requestedElements.has(name))) {
 				let script = document.createElement('script');
-				let suffix = /[A-Z]/.test(name.charAt(0)) ? '.js' : '/element.js'
+				let suffix = '/element.js'
+				if (/[A-Z]/.test(name.charAt(0))) {
+					suffix = '.js'
+				} else {
+					let tokens = name.split('/');
+					if (tokens[tokens.length - 1] === 'common') {
+						suffix = '.js'
+					}
+				}
 				script.src = this.location + name + suffix;
 				script.async = true;
 				document.head.appendChild(script);
@@ -562,7 +570,7 @@ Elements = {
 		}
 		if (/[A-Z]/.test(name.charAt(0))) {
 			// Module name, treat differently
-			return name;
+			return name.split('-').join('/');
 		} else {
 			let tokens = this.tokenise(name);
 			return tokens.join('/');
