@@ -686,7 +686,14 @@ Elements = {
 				this.loadingTemplates.delete(location);
 				throw e;
 			}
-			document.head.innerHTML += template;
+			// Rewrite css links with Elements.location
+			let div = document.createElement('div');
+			div.innerHTML = template;
+			let node = div.querySelector('template');
+			for (let link of node.content.querySelectorAll('link')) {
+				link.href = this.location + link.getAttribute('href');
+			}
+			document.head.append(node);
 			this.loadedTemplates.add(location);
 			this.loadingTemplates.delete(location);
 			resolve(location);
