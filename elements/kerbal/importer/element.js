@@ -51,7 +51,7 @@ Elements.elements.KerbalImporter = class extends Elements.elements.dragged {
 	}
 }
 
-Elements.load('kerbalImporterTemplate.html', Elements.elements.KerbalImporter, 'elements-kerbal-importer');
+Elements.load(Elements.elements.KerbalImporter, 'elements-kerbal-importer');
 }
 main();
 }
