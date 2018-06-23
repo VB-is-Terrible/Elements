@@ -238,7 +238,7 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.Ke
 	}
 }
 
-Elements.load('kerbalSearcherDestinationTemplate.html', Elements.elements.KerbalSearcherDestination, 'elements-kerbal-searcher-destination');
+Elements.load(Elements.elements.KerbalSearcherDestination, 'elements-kerbal-searcher-destination');
 };
 
 main();
