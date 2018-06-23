@@ -99,7 +99,7 @@ Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements
 	}
 }
 
-Elements.load('kdbKerbalDisplayTemplate.html', Elements.elements.KdbKerbalDisplay, 'elements-kdb-kerbal-display');
+Elements.load(Elements.elements.KdbKerbalDisplay, 'elements-kdb-kerbal-display');
 };
 
 main();
