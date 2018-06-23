@@ -315,7 +315,8 @@ Elements = {
 			name = this.__nameResolver(name);
 			if (!(this.requestedElements.has(name))) {
 				let script = document.createElement('script');
-				script.src = this.location + name + '/element.js';
+				let suffix = /[A-Z]/.test(name.charAt(0)) ? '.js' : '/element.js'
+				script.src = this.location + name + suffix;
 				script.async = true;
 				document.head.appendChild(script);
 				this.requestedElements.add(name);
