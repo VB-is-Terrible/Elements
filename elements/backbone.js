@@ -827,7 +827,7 @@ Elements = {
 			let tokens = [];
 			let firstCharacter = /[A-Z]/;
 			let position;
-			while ((position = name.search(firstCharacter)) != -1) {
+			while ((position = name.search(firstCharacter)) !== -1) {
 				let token = name.substring(0, position);
 				name = name.charAt(position).toLowerCase() + name.substring(position + 1, name.length);
 				tokens.push(token);
