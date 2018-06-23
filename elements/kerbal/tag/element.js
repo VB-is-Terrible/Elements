@@ -43,4 +43,4 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 	}
 }
 
-Elements.load('kerbalTagTemplate.html', Elements.elements.KerbalTag, 'elements-kerbal-tag');
+Elements.load(Elements.elements.KerbalTag, 'elements-kerbal-tag');
