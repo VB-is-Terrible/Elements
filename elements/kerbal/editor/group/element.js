@@ -351,7 +351,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 	}
 }
 
-Elements.load('kerbalEditorGroupTemplate.html', Elements.elements.KerbalEditorGroup, 'elements-kerbal-editor-group');
+Elements.load(Elements.elements.KerbalEditorGroup, 'elements-kerbal-editor-group');
 };
 
 main();
