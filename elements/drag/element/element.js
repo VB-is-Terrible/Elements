@@ -590,4 +590,4 @@ Elements.elements.dragged2 = class dragged2 extends Elements.elements.backbone2 
 }
 }
 
-Elements.load('dragElementTemplate.html', Elements.elements.DragElement, 'elements-drag-element');
+Elements.load(Elements.elements.DragElement, 'elements-drag-element');
