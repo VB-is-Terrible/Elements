@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-panel-menu');
+Elements.get('kerbal-panel_menu');
 
 /**
  * Footer on the bottom of the page
