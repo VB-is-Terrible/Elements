@@ -9,7 +9,7 @@ await Elements.get('KDB');
  * @implements GroupDisplay
  * @property {KNS.Group} data The group to display
  */
-Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements.backbone2 {
+Elements.elements.KerbalGroupDisplayKerbal_text = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
@@ -87,7 +87,7 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
 	}
 }
 
-Elements.load(Elements.elements.KerbalGroupDisplayKerbalText, 'elements-kerbal-group-display-kerbal-text');
+Elements.load(Elements.elements.KerbalGroupDisplayKerbal_text, 'elements-kerbal-group-display-kerbal_text');
 };
 
 main();
