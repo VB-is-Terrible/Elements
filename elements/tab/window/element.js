@@ -269,7 +269,7 @@ Elements.elements.tabbed2 = class extends Elements.elements.dragged2 {
 	showTab () {}
 }
 
-Elements.load('tabWindowTemplate.html', Elements.elements.TabWindow, 'elements-tab-window');
+Elements.load(Elements.elements.TabWindow, 'elements-tab-window');
 };
 
 main();
