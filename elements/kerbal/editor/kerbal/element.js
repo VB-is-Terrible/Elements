@@ -293,7 +293,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 	}
 }
 
-Elements.load('kerbalEditorKerbalTemplate.html', Elements.elements.KerbalEditorKerbal, 'elements-kerbal-editor-kerbal');
+Elements.load(Elements.elements.KerbalEditorKerbal, 'elements-kerbal-editor-kerbal');
 });
 main();
 }
