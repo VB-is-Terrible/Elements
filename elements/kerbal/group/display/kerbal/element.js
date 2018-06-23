@@ -94,7 +94,7 @@ Elements.elements.KerbalGroupDisplayKerbal = class extends Elements.elements.bac
 	updateData () {}
 }
 
-Elements.load('kerbalGroupDisplayKerbalTemplate.html', Elements.elements.KerbalGroupDisplayKerbal, 'elements-kerbal-group-display-kerbal');
+Elements.load(Elements.elements.KerbalGroupDisplayKerbal, 'elements-kerbal-group-display-kerbal');
 };
 
 main();
