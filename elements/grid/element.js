@@ -259,5 +259,5 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 
 };
 
-Elements.load('elements/grid/template.html', Elements.elements.Grid, 'elements-grid');
+Elements.load(Elements.elements.Grid, 'elements-grid');
 }
