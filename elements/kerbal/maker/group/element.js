@@ -198,7 +198,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 	}
 }
 
-Elements.load('kerbalMakerGroupTemplate.html', Elements.elements.KerbalMakerGroup, 'elements-kerbal-maker-group');
+Elements.load(Elements.elements.KerbalMakerGroup, 'elements-kerbal-maker-group');
 };
 
 main();
