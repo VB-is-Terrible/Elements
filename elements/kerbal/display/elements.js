@@ -182,7 +182,7 @@ Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load('elements/kerbal/template.html', Elements.elements.KerbalDisplay, 'elements-kerbal-display');
+Elements.load(Elements.elements.KerbalDisplay, 'elements-kerbal-display');
 }
 
 main();

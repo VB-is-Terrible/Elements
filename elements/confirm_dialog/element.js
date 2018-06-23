@@ -107,7 +107,7 @@ Elements.elements.ConfirmDialog = class ConfirmDialog extends Elements.elements.
 
 };
 
-Elements.load('elements/confirm_dialog/template.html', Elements.elements.ConfirmDialog, 'elements-confirm_dialog');
+Elements.load(Elements.elements.ConfirmDialog, 'elements-confirm_dialog');
 };
 
 main();
