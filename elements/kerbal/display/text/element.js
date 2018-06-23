@@ -57,7 +57,7 @@ Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elem
 	}
 }
 
-Elements.load('kerbalDisplayTextTemplate.html', Elements.elements.KerbalDisplayText, 'elements-kerbal-display-text');
+Elements.load(Elements.elements.KerbalDisplayText, 'elements-kerbal-display-text');
 };
 
 main();
