@@ -67,7 +67,7 @@
 	"grid": {
 		"type": "element",
 		"requires": [],
-		"templates": ["gridTemplate.html"],
+		"templates": ["default"],
 		"css": [],
 		"resources": [],
 		"provides": ["grid"]
