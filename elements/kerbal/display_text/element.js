@@ -13,7 +13,7 @@ await Elements.get('KDB');
  * @implements KerbalDisplay
  * @type {Object}
  */
-Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elements.elements.backbone2) {
+Elements.elements.KerbalDisplay_text = class extends BlankKerbalDisplayMixin(Elements.elements.backbone2) {
 	constructor () {
 		super();
 		const self = this;
@@ -57,7 +57,7 @@ Elements.elements.KerbalDisplayText = class extends BlankKerbalDisplayMixin(Elem
 	}
 }
 
-Elements.load(Elements.elements.KerbalDisplayText, 'elements-kerbal-display-text');
+Elements.load(Elements.elements.KerbalDisplay_text, 'elements-kerbal-display_text');
 };
 
 main();

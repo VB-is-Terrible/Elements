@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-searcher-kerbal', 'kerbal-display-text', 'tab-window', 'KDB', 'main');
+Elements.get('kerbal-searcher-kerbal', 'kerbal-display_text', 'tab-window', 'KDB', 'main');
 {
 const main = async () => {
 
@@ -123,7 +123,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 	deleteKerbal (kerbal) {
 		this.group.deleteKerbal(kerbal);
 		let display = this.__displays.get(kerbal);
-		let text = display.querySelector('elements-kerbal-display-text');
+		let text = display.querySelector('elements-kerbal-display_text');
 		if (text !== null) {
 			text.data = null;
 		}
@@ -144,7 +144,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 		let ansText = this.shadowRoot.querySelector('#AnsText');
 		ansText.value = '';
 		for (let [kerbal, display] of this.__displays.entries()) {
-			let text = display.querySelector('elements-kerbal-display-text');
+			let text = display.querySelector('elements-kerbal-display_text');
 			if (text !== null) {
 				text.data = null;
 			}
@@ -170,7 +170,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');
 		div.classList.add('results');
-		let display = document.createElement('elements-kerbal-display-text');
+		let display = document.createElement('elements-kerbal-display_text');
 		display.classList.add('results');
 		display.data = kerbal;
 		div.appendChild(display);

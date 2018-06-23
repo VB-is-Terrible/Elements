@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-group-tag', 'KDB', 'dropdown', 'tab-window', 'kerbal-searcher-kerbal', 'kerbal-display-text');
+Elements.get('kerbal-group-tag', 'KDB', 'dropdown', 'tab-window', 'kerbal-searcher-kerbal', 'kerbal-display_text');
 {
 const main = async () => {
 
@@ -218,7 +218,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		this.data = null;
 		this.newChangeQueue();
 		for (let [kerbal, display] of this.__displays.entries()) {
-			let text = display.querySelector('elements-kerbal-display-text');
+			let text = display.querySelector('elements-kerbal-display_text');
 			if (text !== null) {
 				text.data = null;
 			}
@@ -279,7 +279,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 	__makeDisplay (kerbal) {
 		let div = document.createElement('div');
 		div.classList.add('results');
-		let display = document.createElement('elements-kerbal-display-text');
+		let display = document.createElement('elements-kerbal-display_text');
 		display.classList.add('results');
 		display.data = kerbal;
 		div.appendChild(display);
@@ -304,7 +304,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 			group.deleteKerbal(kerbal);
 		});
 		let display = this.__displays.get(kerbal);
-		let text = display.querySelector('elements-kerbal-display-text');
+		let text = display.querySelector('elements-kerbal-display_text');
 		if (text !== null) {
 			text.data = null;
 		}
