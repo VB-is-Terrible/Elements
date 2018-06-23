@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-group-display', 'KDB', 'drag-down', 'kerbal-link', 'kerbal-searcher-common');
+Elements.get('kerbal-group-display', 'KDB', 'dropdown', 'kerbal-link', 'kerbal-searcher-common');
 {
 const main = async () => {
 

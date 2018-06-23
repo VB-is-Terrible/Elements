@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('drag-down', 'KDB', 'kerbal-tag');
+Elements.get('dropdown', 'KDB', 'kerbal-tag');
 
 {
 
@@ -39,7 +39,7 @@ Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 		this.__deleter = false;
 		this.applyPriorProperties('disabled', 'deleter');
 		Elements.setUpAttrPropertyLink2(this, 'menuvisible', true, (value) => {
-			let dragDown = self.shadowRoot.querySelector('elements-drag-down');
+			let dragDown = self.shadowRoot.querySelector('elements-dropdown');
 			dragDown.menuvisible = value;
 		}, Elements.booleaner);
 		Elements.setUpAttrPropertyLink2(this, 'disabled', false, (value) => {

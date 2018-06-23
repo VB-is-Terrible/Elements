@@ -541,7 +541,7 @@ Elements = {
 	},
 	/**
 	 * Transforms a request into the .js file that provides it
-	 * @param  {String} name name of request e.g. elements-drag-down, drag-down, dragDown
+	 * @param  {String} name name of request e.g. elements-drag-element, drag-element, dragElement
 	 * @return {String}      name of .js for name e.g. dragDown
 	 * @memberof! Elements
 	 * @private

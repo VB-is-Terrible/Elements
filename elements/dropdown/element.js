@@ -16,7 +16,7 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		super();
 
 		const self = this;
-		this.name = 'DropDown';
+		this.name = 'Dropdown';
 
 		/**
 		 * Current state of dropdown

@@ -26,7 +26,7 @@ div.dangerLine {
 	width: 100%;
 	position: relative;
 }
-elements-drag-down.danger {
+elements-dropdown.danger {
 	--left-shift: 0px;
 	--arrow-size: 1.5;
 	padding-bottom: .5em;
@@ -35,7 +35,7 @@ p.textOverlay {
 	background: white;
 	padding: 0px 10px;
 }
-elements-drag-down {
+elements-dropdown {
 	--margins: .5em;
 }
 #groupTagDiv {

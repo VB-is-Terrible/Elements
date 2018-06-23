@@ -6,7 +6,7 @@
  * @param {KNS.Kerbal} Kerbal Kerbal to update
  */
 
- Elements.get('grid', 'drag-down', 'kerbal', 'kerbal-link', 'tab-window');
+ Elements.get('grid', 'dropdown', 'kerbal', 'kerbal-link', 'tab-window');
 {
 const main = (async () => {
 

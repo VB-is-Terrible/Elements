@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal-group-tag', 'kerbal-group-display-kerbal', 'drag-down');
+Elements.get('kerbal-group-tag', 'kerbal-group-display-kerbal', 'dropdown');
 {
 const main = async () => {
 
@@ -23,7 +23,7 @@ Elements.elements.KerbalGroupDisplay = class extends Elements.elements.backbone2
 		let template = Elements.importTemplate(this.name);
 		this.__tag = template.querySelector('#tag');
 		this.__kerbals = template.querySelector('#kerbals');
-		let drop_down = template.querySelector('elements-drag-down');
+		let drop_down = template.querySelector('elements-dropdown');
 		shadow.appendChild(template);
 		this.applyPriorProperties('data');
 		Elements.setUpAttrPropertyLink2(this, 'menuvisible', false, (value) => {
