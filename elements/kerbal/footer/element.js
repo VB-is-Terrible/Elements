@@ -68,4 +68,4 @@ Elements.elements.KerbalFooter = class extends Elements.elements.backbone {
 	}
 }
 
-Elements.load('kerbalFooterTemplate.html', Elements.elements.KerbalFooter, 'elements-kerbal-footer');
+Elements.load(Elements.elements.KerbalFooter, 'elements-kerbal-footer');
