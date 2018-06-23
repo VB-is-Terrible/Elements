@@ -701,6 +701,9 @@ Elements = {
 			for (let link of node.content.querySelectorAll('link')) {
 				link.href = this.location + link.getAttribute('href');
 			}
+			for (let link of node.content.querySelectorAll('img')) {
+				link.href = this.location + link.getAttribute('src');
+			}
 			document.head.append(node);
 			this.loadedTemplates.add(location);
 			this.loadingTemplates.delete(location);
