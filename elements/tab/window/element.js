@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('tabs', 'drag-element');
+Elements.get('tab-tabs', 'drag-element');
 {
 const main = async () => {
 
@@ -31,7 +31,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let titleSpan = template.querySelector('#tabTitle');
-		let tabs = template.querySelector('elements-tabs');
+		let tabs = template.querySelector('elements-tab-tabs');
 		let close = template.querySelector('#Close');
 		shadow.appendChild(template);
 
@@ -79,7 +79,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 		if (this.attributeInit) {
 			this.setAttribute('selected', value);
 		}
-		let tabs = this.shadowRoot.querySelector('elements-tabs');
+		let tabs = this.shadowRoot.querySelector('elements-tab-tabs');
 
 		tabs.selected = value;
 		let active = this.__active;
@@ -102,7 +102,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 	 * @private
 	 */
 	reTab (newValue) {
-		let tabs = this.shadowRoot.querySelector('elements-tabs');
+		let tabs = this.shadowRoot.querySelector('elements-tab-tabs');
 		let slots = this.shadowRoot.querySelector('#slots');
 		let tabText = this.constructor.readTabs(newValue);
 		requestAnimationFrame((e) => {

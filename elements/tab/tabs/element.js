@@ -1,7 +1,7 @@
 'use strict';
 /**
  * Tab change event
- * @event Elements.elements.Tabs#change
+ * @event Elements.elements.TabTabs#change
  * @type {Event}
  * @property {String} detail value of the new tab
  */
@@ -11,9 +11,9 @@
  * @type {Object}
  * @property {String} selected Current tab selected
  * @augments Elements.elements.backbone2
- * @fires Elements.elements.Tabs#change
+ * @fires Elements.elements.TabTabs#change
  */
-Elements.elements.Tabs = class extends Elements.elements.backbone2 {
+Elements.elements.TabTabs = class extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
@@ -142,4 +142,4 @@ Elements.elements.Tabs = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load('tabsTemplate.html', Elements.elements.Tabs, 'elements-tabs');
+Elements.load(Elements.elements.TabTabs, 'elements-tab-tabs');
