@@ -25,7 +25,7 @@ Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 		super();
 
 		const self = this;
-		this.alias = 'Kerbal';
+		this.alias = 'KerbalDisplay';
 
 		this.jobDisplay = KNS.blankPlaceList(null);
 		const shadow = this.attachShadow({mode: 'open'});
