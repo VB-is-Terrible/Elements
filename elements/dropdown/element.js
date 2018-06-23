@@ -200,5 +200,5 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load('elements/dropdown/template.html', Elements.elements.Dropdown, 'elements-dropdown');
+Elements.load(Elements.elements.Dropdown, 'elements-dropdown');
 }
