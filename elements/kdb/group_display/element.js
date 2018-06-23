@@ -99,7 +99,7 @@ Elements.elements.KdbGroupDisplay = class extends BlankKDBDisplayMixin(Elements.
 	}
 }
 
-Elements.load(Elements.elements.KdbGroupDisplay, 'elements-kdb-group-display');
+Elements.load(Elements.elements.KdbGroupDisplay, 'elements-kdb-group_display');
 };
 
 main();
