@@ -1,0 +1,4 @@
+rename kerbal-group-display-kerbal-text -> kerbal-group-display-kerbal_text
+rename kerbal-display-text -> kerbal-display_text
+rename kdb-kerbal-display -> kdb-kerbal_display
+rename tabs -> tab-tabs
