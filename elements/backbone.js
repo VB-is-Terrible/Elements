@@ -335,20 +335,6 @@ Elements = {
 		this.get(elementNames);
 	},
 	/**
-	 * Removes dashes from HTMLElement name and converts to JS element name
-	 * @param  {String} name HTMLElement name
-	 * @return {String}      JS Element name
-	 * @memberof! Elements
-	 * @instance
-	 */
-	captilize: function (name) {
-		let l = name.split('-');
-		for (let i = 1; i < l.length; i++) {
-			l[i] = l[i].substring(0, 1).toUpperCase() + l[i].substring(1);
-		}
-		return l.join('');
-	},
-	/**
 	 * Location to prefix file requests by, i.e. location of elements folder
 	 * @type {String}
 	 * @memberof! Elements
@@ -823,6 +809,13 @@ Elements = {
 		document.head.appendChild(link);
 		this.loadedCSS.add(location);
 	},
+	/**
+	 * Split an element name in seperated tokens
+	 * @param  {String} name Name to tokenise
+	 * @return {String[]}    Array of tokens
+	 * @memberof! Elements
+	 * @instance
+	 */
 	tokenise: function (name) {
 		if (name.includes('-')) {
 			return name.split('-');
