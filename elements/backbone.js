@@ -265,7 +265,7 @@ Elements = {
 		if (includeTemplate) {
 			try {
 				this.loadingElements.add(jsName);
-				await this.loadTemplate(jsName);
+				await this.loadTemplate(jsName + '/template.html');
 				window.customElements.define(HTMLname, newElement);
 				this.loadedElements.add(jsName);
 				this.loadingElements.delete(jsName);
@@ -465,7 +465,11 @@ Elements = {
 			this.get(...manifest.requires);
 			// Pre-empt templates
 			for (let template of manifest.templates) {
-				this.loadTemplate(template);
+				if (template === 'default') {
+					this.loadTemplate(name + '/template.html');
+				} else {
+					this.loadTemplate(template);
+				}
 			}
 			for (let css of manifest.css) {
 				// this.loadCSS(css);
@@ -659,7 +663,7 @@ Elements = {
 	loadedTemplates: new Set(),
 	/**
 	 * Loads template from location
-	 * @param  {String} location Location of element. Prefixes location
+	 * @param  {String} location Location of element. Note: does prefix location, does not add .html
 	 * @return {Promise}         Promise that resolves once template is received
 	 * @memberof! Elements
 	 * @instance
@@ -675,7 +679,7 @@ Elements = {
 
 		let fetcher = async (resolve, reject) => {
 			try {
-				template = await this.request(this.location + location + '/template.html');
+				template = await this.request(this.location + location);
 			} catch (e) {
 				console.log('Failed network request for: ' + e.message);
 				this.loadingTemplates.delete(location);
