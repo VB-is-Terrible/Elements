@@ -178,7 +178,7 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 	}
 }
 
-Elements.load('kerbalMakerKerbalTemplate.html', Elements.elements.KerbalMakerKerbal, 'elements-kerbal-maker-kerbal');
+Elements.load(Elements.elements.KerbalMakerKerbal, 'elements-kerbal-maker-kerbal');
 };
 
 main();
