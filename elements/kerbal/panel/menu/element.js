@@ -269,5 +269,5 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 	}
 }
 
-Elements.load('kerbalPanelMenuTemplate.html', Elements.elements.KerbalPanelMenu, 'elements-kerbal-panel-menu');
+Elements.load(Elements.elements.KerbalPanelMenu, 'elements-kerbal-panel-menu');
 }
