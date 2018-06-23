@@ -87,7 +87,7 @@ Elements.elements.KerbalGroupDisplayKerbalText = class extends Elements.elements
 	}
 }
 
-Elements.load('kerbalGroupDisplayKerbalTextTemplate.html', Elements.elements.KerbalGroupDisplayKerbalText, 'elements-kerbal-group-display-kerbal-text');
+Elements.load(Elements.elements.KerbalGroupDisplayKerbalText, 'elements-kerbal-group-display-kerbal-text');
 };
 
 main();

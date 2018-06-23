@@ -68,7 +68,7 @@ Elements.elements.KerbalGroupTag = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load('kerbalGroupTagTemplate.html', Elements.elements.KerbalGroupTag, 'elements-kerbal-group-tag');
+Elements.load(Elements.elements.KerbalGroupTag, 'elements-kerbal-group-tag');
 };
 
 main();

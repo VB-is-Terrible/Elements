@@ -72,7 +72,7 @@ Elements.elements.KerbalGroupDisplay = class extends Elements.elements.backbone2
 	}
 }
 
-Elements.load('kerbalGroupDisplayTemplate.html', Elements.elements.KerbalGroupDisplay, 'elements-kerbal-group-display');
+Elements.load(Elements.elements.KerbalGroupDisplay, 'elements-kerbal-group-display');
 };
 
 main();
