@@ -138,7 +138,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 	}
 }
 
-Elements.load('kerbalImporterImportTemplate.html', Elements.elements.KerbalImporterImport, 'elements-kerbal-importer-import');
+Elements.load(Elements.elements.KerbalImporterImport, 'elements-kerbal-importer-import');
 };
 
 main();

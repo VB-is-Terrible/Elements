@@ -65,7 +65,7 @@ Elements.elements.KerbalImporterExport = class extends Elements.elements.tabbed 
 	}
 }
 
-Elements.load('kerbalImporterExportTemplate.html', Elements.elements.KerbalImporterExport, 'elements-kerbal-importer-export');
+Elements.load(Elements.elements.KerbalImporterExport, 'elements-kerbal-importer-export');
 };
 
 main();
