@@ -1,11 +1,11 @@
 'use strict';
 
-Elements.get('kerbal-display', 'grid', 'kerbal-link', 'tab-window', 'KDB');
+Elements.get('kerbal-display', 'grid', 'Kerbal_link', 'tab-window', 'KDB');
 {
 const defaultJob = "Tourist";
 const main = async () => {
 
-await Elements.get('tab-window', 'kerbal-link', 'KDB');
+await Elements.get('tab-window', 'Kerbal_link', 'KDB');
 
 /**
  * UI to make a KNS.Kerbal

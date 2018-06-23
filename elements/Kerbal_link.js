@@ -186,7 +186,7 @@ let main = async () => {
 	 */
 	KerbalLink = new KerbalLinkClass();
 
-	Elements.loaded('kerbalLink');
+	Elements.loaded('Kerbal_link');
 };
 main();
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('tab-window', 'kerbal-link');
+Elements.get('tab-window', 'Kerbal_link');
 {
 const main = async () => {
 

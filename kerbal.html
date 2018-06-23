@@ -64,7 +64,7 @@
 			window.b = b;
 		}
 		const uiInit = async (e) => {
-			await Elements.get('kerbal-link');
+			await Elements.get('Kerbal_link');
 			KerbalLink.registerUI('default', 'maker', document.body.querySelector('#drag1').children[0]);
 			KerbalLink.registerUI('default', 'editor', document.body.querySelector('#drag2').children[0]);
 			KerbalLink.registerUI('default', 'searcher', document.body.querySelector('#drag3').children[0]);
@@ -75,7 +75,7 @@
 		}
 		const main = async (e) => {
 			const revive = (string) => {return KDB.fromJSON(string);};
-			await Elements.get('kerbal-link', 'KDB');
+			await Elements.get('Kerbal_link', 'KDB');
 			let display = document.body.querySelector('#mainDisplay');
 			KerbalLink.loadDefault(revive);
 			uiInit(e);
