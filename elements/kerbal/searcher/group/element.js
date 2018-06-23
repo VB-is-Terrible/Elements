@@ -159,7 +159,7 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 	}
 };
 
-Elements.load('kerbalSearcherGroupTemplate.html', Elements.elements.KerbalSearcherGroup, 'elements-kerbal-searcher-group');
+Elements.load(Elements.elements.KerbalSearcherGroup, 'elements-kerbal-searcher-group');
 }
 
 main();
