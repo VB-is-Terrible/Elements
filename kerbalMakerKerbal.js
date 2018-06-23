@@ -1,6 +1,6 @@
 'use strict';
 
-Elements.get('kerbal', 'grid', 'kerbal-link', 'tab-window', 'KDB');
+Elements.get('kerbal-display', 'grid', 'kerbal-link', 'tab-window', 'KDB');
 {
 const defaultJob = "Tourist";
 const main = async () => {

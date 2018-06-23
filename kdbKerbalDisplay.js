@@ -1,10 +1,10 @@
 'use strict';
 
-Elements.get('KDB', 'kerbal');
+Elements.get('KDB', 'kerbal-display');
 {
 const main = async () => {
 
-await Elements.get('KDB', 'kerbal');
+await Elements.get('KDB', 'kerbal-display');
 
 /**
  * @augments Elements.elements.backbone
