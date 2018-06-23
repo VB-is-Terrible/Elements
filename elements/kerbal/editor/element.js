@@ -73,7 +73,7 @@ Elements.elements.KerbalEditor = class extends Elements.elements.dragged2 {
 	}
 }
 
-Elements.load('kerbalEditorTemplate.html', Elements.elements.KerbalEditor, 'elements-kerbal-editor');
+Elements.load(Elements.elements.KerbalEditor, 'elements-kerbal-editor');
 };
 
 main();

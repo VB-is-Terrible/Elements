@@ -116,7 +116,7 @@ Elements.elements.KerbalSearcher = class extends Elements.elements.dragged2 {
 	}
 }
 
-Elements.load('kerbalSearcherTemplate.html', Elements.elements.KerbalSearcher, 'elements-kerbal-searcher');
+Elements.load(Elements.elements.KerbalSearcher, 'elements-kerbal-searcher');
 };
 
 main();
