@@ -1,0 +1,1 @@
+/home/william/nginx/Elements/elements/manifest.json
