@@ -1,0 +1,529 @@
+{
+    "KDB": {
+        "css": [],
+        "provides": [
+            "KDB",
+            "KNS",
+            "KNS.Kerbal"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
+    "KNS": {
+        "css": [],
+        "provides": [
+            "KNS",
+            "KNS.Kerbal"
+        ],
+        "requires": [
+            "KDB"
+        ],
+        "resources": [],
+        "templates": [],
+        "type": "meta"
+    },
+    "KerbalGroupDisplay": {
+        "css": [
+            "KerbalGroupDisplay.css"
+        ],
+        "provides": [
+            "KerbalGroupDisplay"
+        ],
+        "requires": [
+            "kerbalGroupTag",
+            "kerbalGroupDisplayKerbal",
+            "dragDown"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalGroupDisplayTemplate.html"
+        ],
+        "type": "element"
+    },
+    "KerbalGroupDisplayKerbal": {
+        "css": [
+            "KerbalGroupDisplayKerbal.css"
+        ],
+        "provides": [
+            "KerbalGroupDisplayKerbal"
+        ],
+        "requires": [
+            "kerbal",
+            "KDB"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalGroupDisplayKerbalTemplate.html"
+        ],
+        "type": "element"
+    },
+    "dragBody": {
+        "css": [
+            "dragBody.css"
+        ],
+        "provides": [
+            "dragBody"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "dragBodyTemplate.html"
+        ],
+        "type": "element"
+    },
+    "dragDown": {
+        "css": [
+            "dragDown.css"
+        ],
+        "provides": [
+            "dragDown"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "dragDownTemplate.html"
+        ],
+        "type": "element"
+    },
+    "dragElement": {
+        "css": [
+            "dragElement.css"
+        ],
+        "provides": [
+            "kerbal",
+            "dragged"
+        ],
+        "requires": [
+            "dragBody"
+        ],
+        "resources": [],
+        "templates": [
+            "dragElementTemplate.html"
+        ],
+        "type": "element"
+    },
+    "grid": {
+        "css": [],
+        "provides": [
+            "grid"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "default"
+        ],
+        "type": "element"
+    },
+    "kdbKerbalDisplay": {
+        "css": [
+            "kdbGroupDisplay.css"
+        ],
+        "provides": [
+            "kdbGroupDisplay"
+        ],
+        "requires": [
+            "KDB",
+            "kerbalGroupDisplay"
+        ],
+        "resources": [],
+        "templates": [
+            "kdbGroupDisplayTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbal": {
+        "css": [],
+        "provides": [
+            "kerbal"
+        ],
+        "requires": [
+            "dragDown",
+            "KDB",
+            "kerbalTag"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalDisplayText": {
+        "css": [
+            "kerbalDisplayText.css"
+        ],
+        "provides": [
+            "kerbalDisplayText"
+        ],
+        "requires": [
+            "KDB"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalDisplayTextTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalEditor": {
+        "css": [
+            "kerbalEditor.css",
+            "kerbalWindowCommon.css"
+        ],
+        "provides": [
+            "kerbalEditor"
+        ],
+        "requires": [
+            "tabWindow",
+            "dragElement",
+            "kerbalEditorKerbal"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalEditorTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalEditorGroup": {
+        "css": [
+            "kerbalFloatCommon.css",
+            "kerbalEditorGroup.css"
+        ],
+        "provides": [
+            "kerbalEditorGroup"
+        ],
+        "requires": [
+            "KDB",
+            "kerbalGroupTag",
+            "dragDown"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalEditorGroupTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalEditorKerbal": {
+        "css": [
+            "kerbalEditorKerbal.css",
+            "kerbalFloatCommon.css"
+        ],
+        "provides": [
+            "kerbalEditorKerbal"
+        ],
+        "requires": [
+            "kerbal",
+            "grid",
+            "kerbalLink",
+            "tabWindow"
+        ],
+        "resources": [
+            "warning.svg"
+        ],
+        "templates": [
+            "kerbalEditorKerbalTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalFooter": {
+        "css": [
+            "kerbalFooter.css"
+        ],
+        "provides": [
+            "kerbalFooter"
+        ],
+        "requires": [
+            "kerbalPanelMenu"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalFooterTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalGroupTag": {
+        "css": [
+            "kerbalGroupTag.css"
+        ],
+        "provides": [
+            "kerbalGroupTag"
+        ],
+        "requires": [
+            "KDB"
+        ],
+        "resources": [
+            "group.svg"
+        ],
+        "templates": [
+            "kerbalGroupTagTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalImporter": {
+        "css": [
+            "kerbalWindowCommon.css",
+            "kerbalImporter.css"
+        ],
+        "provides": [
+            "kerbalImporter"
+        ],
+        "requires": [
+            "dragElement",
+            "kerbalImporterImport",
+            "kerbalImporterExport"
+        ],
+        "resources": [
+            "warning.svg"
+        ],
+        "templates": [
+            "kerbalImporterTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalImporterExport": {
+        "css": [
+            "kerbalImporterExport.css",
+            "kerbalFloatCommon.css"
+        ],
+        "provides": [
+            "kerbalImporterExport"
+        ],
+        "requires": [
+            "tabWindow",
+            "kerbalLink"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalImporterExportTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalImporterImport": {
+        "css": [
+            "kerbalImporterImport.css",
+            "kerbalFloatCommon.css"
+        ],
+        "provides": [
+            "kerbalImporterImport"
+        ],
+        "requires": [
+            "tabWindow",
+            "kerbalLink"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalImporterImportTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalLink": {
+        "css": [],
+        "provides": [
+            "kerbalLink"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
+    "kerbalMaker": {
+        "css": [
+            "kerbalMaker.css",
+            "kerbalWindowCommon.css"
+        ],
+        "provides": [
+            "kerbalMaker"
+        ],
+        "requires": [
+            "tabWindow",
+            "dragElement",
+            "kerbalMakerKerbal"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalMakerTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalMakerGroup": {
+        "css": [
+            "kerbalMakerGroup.css",
+            "kerbalFloatCommon.css"
+        ],
+        "provides": [
+            "kerbalMakerGroup"
+        ],
+        "requires": [
+            "kerbalSearcherKerbal",
+            "kerbalDisplayText",
+            "tabWindow",
+            "KDB",
+            "main"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalMakerGroupTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalMakerKerbal": {
+        "css": [
+            "kerbalMakerKerbal.css",
+            "kerbalFloatCommon.css"
+        ],
+        "provides": [
+            "kerbalMakerKerbal"
+        ],
+        "requires": [
+            "kerbal",
+            "grid",
+            "kerbalLink",
+            "tabWindow",
+            "KDB"
+        ],
+        "resources": [
+            "warning.svg"
+        ],
+        "templates": [
+            "kerbalMakerKerbalTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalPanelMenu": {
+        "css": [
+            "kerbalPanelMenu.css"
+        ],
+        "provides": [
+            "kerbalPanelMenu"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "kerbalPanelMenuTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalSearcher": {
+        "css": [
+            "kerbalSearcher.css",
+            "kerbalWindowCommon.css"
+        ],
+        "provides": [
+            "kerbalSearcher"
+        ],
+        "requires": [
+            "dragElement",
+            "tabWindow",
+            "kerbalSearcherKerbal",
+            "kerbalSearcherDestination"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalSearcherTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalSearcherCommon": {
+        "css": [],
+        "provides": [
+            "kerbalSearcherCommon",
+            "kerbalSearcherCommonName"
+        ],
+        "requires": [
+            "kerbal",
+            "KDB",
+            "tabWindow"
+        ],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
+    "kerbalSearcherDestination": {
+        "css": [
+            "kerbalSearcherKerbal.css",
+            "kerbalFloatCommon.css",
+            "kerbalSearcherCommon.css"
+        ],
+        "provides": [
+            "kerbalSearcherKerbal"
+        ],
+        "requires": [
+            "KDB",
+            "tabWindow",
+            "kerbalLink",
+            "kerbalSearcherCommon"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalSearcherDestinationTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalSearcherKerbal": {
+        "css": [
+            "kerbalSearcherKerbal.css",
+            "kerbalFloatCommon.css",
+            "kerbalSearcherCommon.css"
+        ],
+        "provides": [
+            "kerbalSearcherKerbal"
+        ],
+        "requires": [
+            "KDB",
+            "dragDown",
+            "tabWindow",
+            "kerbalLink",
+            "kerbalSearcherCommon"
+        ],
+        "resources": [],
+        "templates": [
+            "kerbalSearcherKerbalTemplate.html"
+        ],
+        "type": "element"
+    },
+    "kerbalTag": {
+        "css": [
+            "kerbalTag.css"
+        ],
+        "provides": [
+            "kerbalTag"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "kerbalTagTemplate.html"
+        ],
+        "type": "element"
+    },
+    "tabWindow": {
+        "css": [
+            "tabWindow.css"
+        ],
+        "provides": [
+            "tabWindow"
+        ],
+        "requires": [
+            "tabs",
+            "dragElement"
+        ],
+        "resources": [],
+        "templates": [
+            "tabWindowTemplate.html"
+        ],
+        "type": "element"
+    },
+    "tabs": {
+        "css": [
+            "tabs.css"
+        ],
+        "provides": [
+            "tabs"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "tabsTemplate.html"
+        ],
+        "type": "element"
+    }
+}
