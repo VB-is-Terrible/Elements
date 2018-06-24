@@ -8,8 +8,9 @@ await Elements.get('KDB');
 
 /**
  * A kerbal display that just has the name in text
- * @augments Elements.elements.backbone
+ * @augments Elements.elements.backbone2
  * @augments BlankKerbalDisplayMixin
+ * @property {KNS.Kerbal} data Kerbal to show
  * @implements KerbalDisplay
  * @type {Object}
  */

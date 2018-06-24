@@ -3,6 +3,7 @@
 /**
  * A display of a kerbal's name and text
  * @type {Object}
+ * @augments Elements.elements.backbone
  * @property {String} name Kerbal's name
  * @property {String} text Kerbal's description
  */
