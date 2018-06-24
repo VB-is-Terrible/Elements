@@ -471,6 +471,7 @@ Elements = {
 		} else {
 			// Recursivly look up dependencies
 			this.__require(name);
+			console.log('Preloaded: ', manifest.requires);
 			this.get(...manifest.requires);
 			// Pre-empt templates
 			for (let template of manifest.templates) {
@@ -584,23 +585,23 @@ Elements = {
 	loadManifest: async function () {
 		console.log('Requested manifest', performance.now())
 		if (this.manifestLoaded) {return;}
-		let request, response;
-		let header = new Headers({
-			'Content-Type': 'application/json',
-		});
-		request = await fetch(this.location + 'elementsManifest.json', {
-			headers: header,
-		});
-		if (request.ok) {
-			response = await request.text();
-		} else {
-			console.log('Failed network request for: ' + request.url);
-			return;
-		}
-		console.log('Got manifest', performance.now())
-		this.manifest = JSON.parse(response);
-		this.manifestLoaded = true;
-		this.__getBacklog();
+		// let request, response;
+		// let header = new Headers({
+		// 	'Content-Type': 'application/json',
+		// });
+		// request = await fetch(this.location + 'elementsManifest.json', {
+		// 	headers: header,
+		// });
+		// if (request.ok) {
+		// 	response = await request.text();
+		// } else {
+		// 	console.log('Failed network request for: ' + request.url);
+		// 	return;
+		// }
+		// console.log('Got manifest', performance.now())
+		// this.manifest = JSON.parse(response);
+		// this.manifestLoaded = true;
+		// this.__getBacklog();
 	},
 	/**
 	 * The elements manifest. Contains information about modules and their dependencies

@@ -4,7 +4,7 @@
 		<meta charset='utf-8'>
 		<title>KDB.js prototype</title>
 		<link rel='preload' href='elements/backbone.js' as='script'></link>
-		<link rel='preload' href='elements/elementsManifest.json' as='fetch'></link>
+		<link rel='preload' href='elements/manifest.js' as='script'></link>
 		<style>
 		#g {
 			--width:  100%;
@@ -47,6 +47,7 @@
 		<elements-kerbal-footer id='footer'></elements-kerbal-footer>
 	</body>
 	<script src='elements/backbone.js'></script>
+	<script src='elements/manifest.js'></script>
 	<script>
 		Elements.get('drag-element', 'grid',
 			'kerbal-maker', 'kerbal-editor', 'KDB',
