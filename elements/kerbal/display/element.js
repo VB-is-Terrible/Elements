@@ -162,7 +162,7 @@ Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 	* Remove all children
 	*/
 	emptyNodes () {
-		for (var i = this.children.length - 1; i >= 0; i--) {
+		for (let i = this.children.length - 1; i >= 0; i--) {
 			this.removeChild(this.children[i]);
 		}
 	}

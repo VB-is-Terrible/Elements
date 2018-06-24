@@ -869,7 +869,7 @@ Elements.elements.backbone2 = class backbone2 extends HTMLElement {
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
-		for (var property in this) {
+		for (let property in this) {
 			if (Elements.excludedProperties.has(property)) {
 				continue;
 			}

@@ -38,7 +38,7 @@ let props = new Set();
 class Sentinel extends HTMLElement {
 	constructor () {
 		super();
-		for (var variable in this) {
+		for (let variable in this) {
 			props.add(variable);
 		}
 	}
@@ -50,7 +50,7 @@ class back extends HTMLElement {
 	constructor () {
 		super();
 		let total = 0;
-		for (var variable in this) {
+		for (let variable in this) {
 			total += 1;
 			if (!props.has(variable)) {
 				console.log('Found property: ' + variable + ' with value: ' + this[variable].toString());
@@ -98,7 +98,7 @@ class backbone extends HTMLElement {
 		super();
 		let total = 0;
 		this.storeMap = new Map();
-		for (var variable in this) {
+		for (let variable in this) {
 			total += 1;
 			if (variable === 'storeMap') {
 				continue;
