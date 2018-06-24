@@ -482,7 +482,10 @@ Elements = {
 				}
 			}
 			for (let css of manifest.css) {
-				// this.loadCSS(css);
+				this.loadCSS(css);
+			}
+			for (let resource of manifest.resources) {
+				this.loadResource(resource);
 			}
 		}
 		return result;
@@ -819,7 +822,7 @@ Elements = {
 	loadedCSS: new Set(),
 	/**
 	 * Preloads css from location
-	 * @param  {String} location Location of css file. Note: does not prefix location or append .css
+	 * @param  {String} location Location of css file. Note: does not append .css
 	 * @return {Promise}         Promise that resolves once template is received
 	 * @memberof! Elements
 	 * @instance
@@ -829,9 +832,32 @@ Elements = {
 		let link = document.createElement('link');
 		link.rel = 'preload';
 		link.as = 'style';
-		link.href = location;
+		link.href = this.location + location;
 		document.head.appendChild(link);
 		this.loadedCSS.add(location);
+	},
+	/**
+	 * Set of locations of loaded resources
+	 * @type {Set}
+	 * @memberof! Elements
+	 * @instance
+	 */
+	loadedResources: new Set(),
+	/**
+	 * Preloads image from location
+	 * @param  {String} location Location of image file. Note: does not append .png
+	 * @return {Promise}         Promise that resolves once template is received
+	 * @memberof! Elements
+	 * @instance
+	 */
+	loadResource: async function (location) {
+		if (this.loadedResources.has(location)) {return;}
+		let link = document.createElement('link');
+		link.rel = 'preload';
+		link.as = 'image';
+		link.href = this.location + location;
+		document.head.appendChild(link);
+		this.loadedResources.add(location);
 	},
 	/**
 	 * Split an element name in seperated tokens
