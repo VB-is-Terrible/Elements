@@ -7,6 +7,14 @@ import json
 import pprint
 
 LOCATION = 'elements/'
+JSHEADER = ''''use strict'
+
+console.log('Got manifest', performance.now());
+Elements.manifest ='''
+JSFOOTER = '''
+Elements.manifestLoaded = true;
+Elements.__getBacklog();
+'''
 
 class linkParser(HTMLParser):
         def __init__(self):
@@ -138,6 +146,12 @@ def build(dirpath: str):
         out = open(dirpath + 'manifest.json', 'w')
         out.write(output)
         out.close()
+        # Hack around chrome not preloading json
+        out2 = open(dirpath + 'manifest.js', 'w')
+        out2.write(JSHEADER)
+        out2.write(output)
+        out2.write(JSFOOTER)
+        out2.close()
 
 
 def walk(dirpath: str, root: str):
