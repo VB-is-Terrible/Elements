@@ -4,8 +4,8 @@
         "provides": [
             "KDB",
             "KNS",
-            "KNS.Kerbal",
-            "KNS.Group"
+            "KNS.Group",
+            "KNS.Kerbal"
         ],
         "requires": [],
         "resources": [],
@@ -174,9 +174,9 @@
         ],
         "requires": [
             "drag-element",
-            "tab-window",
+            "kerbal-editor-group",
             "kerbal-editor-kerbal",
-            "kerbal-editor-group"
+            "tab-window"
         ],
         "resources": [],
         "templates": [
@@ -186,20 +186,20 @@
     },
     "kerbal/editor/group": {
         "css": [
-            "kerbal/maker/group/style.css",
             "common/float.css",
-            "kerbal/editor/group/style.css"
+            "kerbal/editor/group/style.css",
+            "kerbal/maker/group/style.css"
         ],
         "provides": [
             "kerbal/editor/group"
         ],
         "requires": [
             "KDB",
-            "tab-window",
-            "kerbal-searcher-kerbal",
-            "kerbal-group-tag",
             "dropdown",
-            "kerbal-display_text"
+            "kerbal-display_text",
+            "kerbal-group-tag",
+            "kerbal-searcher-kerbal",
+            "tab-window"
         ],
         "resources": [
             "resources/warning.svg"
@@ -219,11 +219,11 @@
         ],
         "requires": [
             "KDB",
-            "tab-window",
             "Kerbal_link",
             "dropdown",
             "grid",
-            "kerbal-display"
+            "kerbal-display",
+            "tab-window"
         ],
         "resources": [
             "resources/warning.svg"
@@ -258,8 +258,8 @@
         ],
         "requires": [
             "",
-            "kerbal-group-display-kerbal",
             "dropdown",
+            "kerbal-group-display-kerbal",
             "kerbal-group-tag"
         ],
         "resources": [],
@@ -347,8 +347,8 @@
         ],
         "requires": [
             "drag-element",
-            "kerbal-importer-import",
-            "kerbal-importer-export"
+            "kerbal-importer-export",
+            "kerbal-importer-import"
         ],
         "resources": [],
         "templates": [
@@ -376,8 +376,8 @@
     },
     "kerbal/importer/import": {
         "css": [
-            "kerbal/importer/import/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/importer/import/style.css"
         ],
         "provides": [
             "kerbal/importer/import"
@@ -403,10 +403,10 @@
             "kerbal/maker"
         ],
         "requires": [
-            "kerbal-maker-kerbal",
             "drag-element",
-            "tab-window",
-            "kerbal-maker-group"
+            "kerbal-maker-group",
+            "kerbal-maker-kerbal",
+            "tab-window"
         ],
         "resources": [],
         "templates": [
@@ -416,8 +416,8 @@
     },
     "kerbal/maker/group": {
         "css": [
-            "kerbal/maker/group/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/maker/group/style.css"
         ],
         "provides": [
             "kerbal/maker/group"
@@ -425,9 +425,9 @@
         "requires": [
             "KDB",
             "kerbal-display_text",
-            "tab-window",
             "kerbal-searcher-kerbal",
-            "main"
+            "main",
+            "tab-window"
         ],
         "resources": [
             "resources/warning.svg"
@@ -446,11 +446,11 @@
             "kerbal/maker/kerbal"
         ],
         "requires": [
-            "kerbal-display",
-            "tab-window",
             "KDB",
             "Kerbal_link",
-            "grid"
+            "grid",
+            "kerbal-display",
+            "tab-window"
         ],
         "resources": [
             "resources/warning.svg"
@@ -483,11 +483,11 @@
             "kerbal/searcher"
         ],
         "requires": [
-            "kerbal-searcher-destination",
             "drag-element",
-            "tab-window",
+            "kerbal-searcher-destination",
             "kerbal-searcher-group",
-            "kerbal-searcher-kerbal"
+            "kerbal-searcher-kerbal",
+            "tab-window"
         ],
         "resources": [],
         "templates": [
@@ -497,19 +497,19 @@
     },
     "kerbal/searcher/destination": {
         "css": [
-            "kerbal/searcher/common.css",
             "common/float.css",
+            "kerbal/searcher/common.css",
             "kerbal/searcher/destination/style.css"
         ],
         "provides": [
             "kerbal/searcher/destination"
         ],
         "requires": [
-            "kerbal-display",
             "KDB",
             "Kerbal_link",
-            "tab-window",
-            "kerbal-searcher-common"
+            "kerbal-display",
+            "kerbal-searcher-common",
+            "tab-window"
         ],
         "resources": [],
         "templates": [
@@ -519,8 +519,8 @@
     },
     "kerbal/searcher/group": {
         "css": [
-            "kerbal/searcher/common.css",
             "common/float.css",
+            "kerbal/searcher/common.css",
             "kerbal/searcher/group/style.css"
         ],
         "provides": [
@@ -529,8 +529,8 @@
         "requires": [
             "KDB",
             "Kerbal_link",
-            "kerbal-group-display",
             "dropdown",
+            "kerbal-group-display",
             "kerbal-searcher-common"
         ],
         "resources": [],
@@ -541,8 +541,8 @@
     },
     "kerbal/searcher/kerbal": {
         "css": [
-            "kerbal/searcher/common.css",
             "common/float.css",
+            "kerbal/searcher/common.css",
             "kerbal/searcher/kerbal/style.css"
         ],
         "provides": [
@@ -550,11 +550,11 @@
         ],
         "requires": [
             "KDB",
-            "tab-window",
-            "kerbal-searcher-common",
             "Kerbal_link",
             "dropdown",
-            "kerbal-display"
+            "kerbal-display",
+            "kerbal-searcher-common",
+            "tab-window"
         ],
         "resources": [],
         "templates": [
@@ -600,8 +600,8 @@
             "tab/window"
         ],
         "requires": [
-            "tab-tabs",
-            "drag-element"
+            "drag-element",
+            "tab-tabs"
         ],
         "resources": [],
         "templates": [

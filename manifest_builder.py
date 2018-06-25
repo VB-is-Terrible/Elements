@@ -37,10 +37,10 @@ class linkParser(HTMLParser):
                 self._resources = set()
         @property
         def css(self):
-                return list(self._css)
+                return sorted(list(self._css))
         @property
         def resources(self):
-                return list(self._resources)
+                return sorted(list(self._resources))
 
 def strip_quotes(s: str) -> str:
         return s.strip("'").strip('"')
@@ -96,7 +96,7 @@ def parse_js(lines):
         for loaded in loaded_regex.findall(lines):
                 loaded = strip_quotes(loaded)
                 provides.add(loaded)
-        return list(requires), list(templates), list(provides)
+        return sorted(list(requires)), sorted(list(templates)), sorted(list(provides))
 
 def test():
         with open('elements/kerbal/maker/element.js') as f:
@@ -142,7 +142,7 @@ def parse(filepath: str, root: str):
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
         output = json.dumps(results, indent=4, sort_keys=True)
-        pprint.pprint (output)
+        # pprint.pprint (output)
         out = open(dirpath + 'manifest.json', 'w')
         out.write(output)
         out.close()
