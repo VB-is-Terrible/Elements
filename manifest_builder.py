@@ -10,7 +10,7 @@ LOCATION = 'elements/'
 JSHEADER = ''''use strict'
 
 console.log('Got manifest', performance.now());
-Elements.manifest ='''
+Elements.manifest = '''
 JSFOOTER = '''
 Elements.manifestLoaded = true;
 Elements.__getBacklog();
