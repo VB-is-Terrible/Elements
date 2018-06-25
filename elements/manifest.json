@@ -1,14 +1,11 @@
-'use strict'
-
-console.log('Got manifest', performance.now());
-Elements.manifest = {
+{
     "KDB": {
         "css": [],
         "provides": [
-            "KNS.Kerbal",
-            "KNS.Group",
+            "KDB",
             "KNS",
-            "KDB"
+            "KNS.Kerbal",
+            "KNS.Group"
         ],
         "requires": [],
         "resources": [],
@@ -107,8 +104,8 @@ Elements.manifest = {
             "kdb/group_display"
         ],
         "requires": [
-            "kerbal-group-display",
-            "KDB"
+            "KDB",
+            "kerbal-group-display"
         ],
         "resources": [],
         "templates": [
@@ -124,8 +121,8 @@ Elements.manifest = {
             "kdb/kerbal_display"
         ],
         "requires": [
-            "kerbal-display",
-            "KDB"
+            "KDB",
+            "kerbal-display"
         ],
         "resources": [],
         "templates": [
@@ -141,9 +138,9 @@ Elements.manifest = {
             "kerbal/display"
         ],
         "requires": [
-            "kerbal-tag",
             "KDB",
-            "dropdown"
+            "dropdown",
+            "kerbal-tag"
         ],
         "resources": [],
         "templates": [
@@ -169,16 +166,16 @@ Elements.manifest = {
     },
     "kerbal/editor": {
         "css": [
-            "kerbal/window_common.css",
-            "kerbal/editor/style.css"
+            "kerbal/editor/style.css",
+            "kerbal/window_common.css"
         ],
         "provides": [
             "kerbal/editor"
         ],
         "requires": [
+            "drag-element",
             "tab-window",
             "kerbal-editor-kerbal",
-            "drag-element",
             "kerbal-editor-group"
         ],
         "resources": [],
@@ -190,19 +187,19 @@ Elements.manifest = {
     "kerbal/editor/group": {
         "css": [
             "kerbal/maker/group/style.css",
-            "kerbal/editor/group/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/editor/group/style.css"
         ],
         "provides": [
             "kerbal/editor/group"
         ],
         "requires": [
-            "tab-window",
-            "kerbal-group-tag",
-            "kerbal-display_text",
             "KDB",
+            "tab-window",
             "kerbal-searcher-kerbal",
-            "dropdown"
+            "kerbal-group-tag",
+            "dropdown",
+            "kerbal-display_text"
         ],
         "resources": [
             "resources/warning.svg"
@@ -214,19 +211,19 @@ Elements.manifest = {
     },
     "kerbal/editor/kerbal": {
         "css": [
-            "kerbal/editor/kerbal/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/editor/kerbal/style.css"
         ],
         "provides": [
             "kerbal/editor/kerbal"
         ],
         "requires": [
-            "tab-window",
-            "kerbal-display",
-            "grid",
-            "Kerbal_link",
             "KDB",
-            "dropdown"
+            "tab-window",
+            "Kerbal_link",
+            "dropdown",
+            "grid",
+            "kerbal-display"
         ],
         "resources": [
             "resources/warning.svg"
@@ -261,9 +258,9 @@ Elements.manifest = {
         ],
         "requires": [
             "",
-            "kerbal-group-tag",
             "kerbal-group-display-kerbal",
-            "dropdown"
+            "dropdown",
+            "kerbal-group-tag"
         ],
         "resources": [],
         "templates": [
@@ -279,8 +276,8 @@ Elements.manifest = {
             "kerbal/group/display/kerbal"
         ],
         "requires": [
-            "kerbal-display",
-            "KDB"
+            "KDB",
+            "kerbal-display"
         ],
         "resources": [],
         "templates": [
@@ -342,15 +339,15 @@ Elements.manifest = {
     },
     "kerbal/importer": {
         "css": [
-            "kerbal/window_common.css",
-            "kerbal/importer/style.css"
+            "kerbal/importer/style.css",
+            "kerbal/window_common.css"
         ],
         "provides": [
             "kerbal/importer"
         ],
         "requires": [
-            "kerbal-importer-import",
             "drag-element",
+            "kerbal-importer-import",
             "kerbal-importer-export"
         ],
         "resources": [],
@@ -361,15 +358,15 @@ Elements.manifest = {
     },
     "kerbal/importer/export": {
         "css": [
-            "kerbal/importer/export/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/importer/export/style.css"
         ],
         "provides": [
             "kerbal/importer/export"
         ],
         "requires": [
-            "tab-window",
-            "Kerbal_link"
+            "Kerbal_link",
+            "tab-window"
         ],
         "resources": [],
         "templates": [
@@ -386,8 +383,8 @@ Elements.manifest = {
             "kerbal/importer/import"
         ],
         "requires": [
-            "tab-window",
-            "Kerbal_link"
+            "Kerbal_link",
+            "tab-window"
         ],
         "resources": [
             "resources/warning.svg"
@@ -407,8 +404,8 @@ Elements.manifest = {
         ],
         "requires": [
             "kerbal-maker-kerbal",
-            "tab-window",
             "drag-element",
+            "tab-window",
             "kerbal-maker-group"
         ],
         "resources": [],
@@ -426,11 +423,11 @@ Elements.manifest = {
             "kerbal/maker/group"
         ],
         "requires": [
+            "KDB",
             "kerbal-display_text",
             "tab-window",
-            "main",
-            "KDB",
-            "kerbal-searcher-kerbal"
+            "kerbal-searcher-kerbal",
+            "main"
         ],
         "resources": [
             "resources/warning.svg"
@@ -442,18 +439,18 @@ Elements.manifest = {
     },
     "kerbal/maker/kerbal": {
         "css": [
-            "kerbal/maker/kerbal/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/maker/kerbal/style.css"
         ],
         "provides": [
             "kerbal/maker/kerbal"
         ],
         "requires": [
             "kerbal-display",
-            "grid",
-            "Kerbal_link",
+            "tab-window",
             "KDB",
-            "tab-window"
+            "Kerbal_link",
+            "grid"
         ],
         "resources": [
             "resources/warning.svg"
@@ -486,10 +483,10 @@ Elements.manifest = {
             "kerbal/searcher"
         ],
         "requires": [
-            "kerbal-searcher-group",
-            "tab-window",
             "kerbal-searcher-destination",
             "drag-element",
+            "tab-window",
+            "kerbal-searcher-group",
             "kerbal-searcher-kerbal"
         ],
         "resources": [],
@@ -500,19 +497,19 @@ Elements.manifest = {
     },
     "kerbal/searcher/destination": {
         "css": [
-            "kerbal/searcher/destination/style.css",
             "kerbal/searcher/common.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/searcher/destination/style.css"
         ],
         "provides": [
             "kerbal/searcher/destination"
         ],
         "requires": [
-            "kerbal-searcher-common",
             "kerbal-display",
-            "tab-window",
+            "KDB",
             "Kerbal_link",
-            "KDB"
+            "tab-window",
+            "kerbal-searcher-common"
         ],
         "resources": [],
         "templates": [
@@ -523,18 +520,18 @@ Elements.manifest = {
     "kerbal/searcher/group": {
         "css": [
             "kerbal/searcher/common.css",
-            "kerbal/searcher/group/style.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/searcher/group/style.css"
         ],
         "provides": [
             "kerbal/searcher/group"
         ],
         "requires": [
-            "kerbal-searcher-common",
+            "KDB",
             "Kerbal_link",
             "kerbal-group-display",
-            "KDB",
-            "dropdown"
+            "dropdown",
+            "kerbal-searcher-common"
         ],
         "resources": [],
         "templates": [
@@ -544,20 +541,20 @@ Elements.manifest = {
     },
     "kerbal/searcher/kerbal": {
         "css": [
-            "kerbal/searcher/kerbal/style.css",
             "kerbal/searcher/common.css",
-            "common/float.css"
+            "common/float.css",
+            "kerbal/searcher/kerbal/style.css"
         ],
         "provides": [
             "kerbal/searcher/kerbal"
         ],
         "requires": [
-            "kerbal-searcher-common",
-            "tab-window",
-            "kerbal-display",
-            "Kerbal_link",
             "KDB",
-            "dropdown"
+            "tab-window",
+            "kerbal-searcher-common",
+            "Kerbal_link",
+            "dropdown",
+            "kerbal-display"
         ],
         "resources": [],
         "templates": [
@@ -613,5 +610,3 @@ Elements.manifest = {
         "type": "element"
     }
 }
-Elements.manifestLoaded = true;
-Elements.__getBacklog();
