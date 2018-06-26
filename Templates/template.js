@@ -24,7 +24,7 @@ Elements.elements.$1 = class $1 extends Elements.elements.backbone2 {
 	}
 };
 
-Elements.load('$0Template.html', Elements.elements.$1, 'elements-$2');
+Elements.load(Elements.elements.$1, 'elements-$2');
 };
 
 main();
