@@ -34,7 +34,6 @@ Elements.manifest = {
             "confirm_dialog"
         ],
         "requires": [
-            "",
             "drag-element"
         ],
         "resources": [],
@@ -260,7 +259,6 @@ Elements.manifest = {
             "kerbal/group/display"
         ],
         "requires": [
-            "",
             "dropdown",
             "kerbal-group-display-kerbal",
             "kerbal-group-tag"
@@ -578,6 +576,28 @@ Elements.manifest = {
         ],
         "templates": [
             "kerbal/tag/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/Project": {
+        "css": [],
+        "provides": [],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
+    "projects/project/display": {
+        "css": [
+            "projects/project/display/style.css"
+        ],
+        "provides": [
+            "projects/project/display"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "projects/project/display/template.html"
         ],
         "type": "element"
     },
