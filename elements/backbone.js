@@ -471,7 +471,6 @@ Elements = {
 		} else {
 			// Recursivly look up dependencies
 			this.__require(name);
-			console.log('Preloaded: ', manifest.requires);
 			this.get(...manifest.requires);
 			// Pre-empt templates
 			for (let template of manifest.templates) {
