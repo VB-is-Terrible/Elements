@@ -83,7 +83,7 @@ def parse_js(lines):
         for match in matches:
                 require = [strip_quotes(x.strip()) for x in match.split(',')]
                 for req in require:
-                        if not ' ' in req:
+                        if not ' ' in req and req != '':
                                 requires.add(req)
         provides = set()
         templates = set()
