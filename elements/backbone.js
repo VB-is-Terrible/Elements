@@ -316,7 +316,9 @@ Elements = {
 			if (!(this.requestedElements.has(name))) {
 				let script = document.createElement('script');
 				let suffix = '/element.js'
-				if (/[A-Z]/.test(name.charAt(0))) {
+				let tokens = name.split('/');
+				let last = tokens[tokens.length - 1].charAt(0);
+				if (/[A-Z]/.test(last)) {
 					suffix = '.js'
 				} else {
 					let tokens = name.split('/');
