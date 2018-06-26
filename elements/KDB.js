@@ -264,7 +264,7 @@ let KNS =  {
 		/**
 		 * Delete this kerbal
 		 * @memberof KNS.Kerbal
-         * @instance
+        	 * @instance
 		 */
 		delete () {
 			for (let display of this.displays) {
