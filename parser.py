@@ -1,3 +1,5 @@
+from typing import List
+
 def tokenise(name: str) -> List[str]:
         if '-' in name:
                 return name.split('-')

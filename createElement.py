@@ -1,5 +1,6 @@
 import os
 from parser import name_resolver
+from config import location
 # $0 = file path name
 # $1 = capitlized name
 # $2 = name with dashes
@@ -11,7 +12,7 @@ def removeDashes(s):
 
 def checkExists(name0):
 	suffixes = ['/element.js', '/style.css', '/template.html']
-	l = [name0 + suffix for suffix in suffixes]
+	l = [location + name0 + suffix for suffix in suffixes]
 	for name in l:
 		if os.path.isfile(name):
 			return True
@@ -30,7 +31,7 @@ def copy(fin, fout, n0, n1, n2):
 	fout.close()
 
 
-def main2():
+def main():
 	name2 = input('Enter element name (with dashes): ')
 	if not name2:
 		print('Empty input')
@@ -48,15 +49,15 @@ def main2():
 		return
 
 	print(name0, name1, name2)
-	os.makedirs(name0, exist_ok=True)
+	os.makedirs(location + name0, exist_ok=True)
 	try:
-		copy('Templates/nameTemplate.html', name0 + '/template.html', name0, name1, name2)
-		copy('Templates/template.css', name0 + '/style.css', name0, name1, name2)
-		copy('Templates/template.js', name0 + '/element.js', name0, name1, name2)
+		copy('Templates/nameTemplate.html', location + name0 + '/template.html', name0, name1, name2)
+		copy('Templates/template.css', location + name0 + '/style.css', name0, name1, name2)
+		copy('Templates/template.js', location + name0 + '/element.js', name0, name1, name2)
 	except Exception as e:
 		print('The following error occured during copying')
 		print(e)
-		l = [name0 + suffix for suffix in ['/template.html', '/style.css', '/element.js']]
+		l = [location + name0 + suffix for suffix in ['/template.html', '/style.css', '/element.js']]
 		for name in l:
 			try:
 				os.remove(name)

@@ -6,7 +6,7 @@ from os.path import isfile, isdir
 import json
 import pprint
 from parser import tokenise, name_resolver
-LOCATION = 'elements/'
+from config import location as LOCATION
 JSHEADER = ''''use strict'
 
 console.log('Got manifest', performance.now());
