@@ -1,4 +1,5 @@
 from typing import List
+import re
 
 def tokenise(name: str) -> List[str]:
         if '-' in name:
