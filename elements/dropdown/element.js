@@ -76,13 +76,13 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		let menu = this.shadowRoot.querySelector('div.down');
 		let arrow = this.shadowRoot.querySelector('div.arrow');
 		this.__menuVisible = open;
-		let visiblity = open ? 'inherit' : 'hidden';
-
+		// let visiblity = open ? 'inherit' : 'hidden';
+		let display = open ? 'block' : 'none';
+		console.log(display);
 		if (!this.attributeInit) {
 			// No animation
 			requestAnimationFrame((e) => {
-				menu.style.maxHeight = open ? 'initial' : '0px';
-				menu.style.visibility = visiblity;
+				menu.style.display = display;
 			});
 			return;
 		}
@@ -100,10 +100,7 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 			this.__animation_callback.arrow = null;
 		};
 		let menuEnd = () => {
-			requestAnimationFrame((e) => {
-				menu.style.maxHeight = open ? 'initial' : '0px';
-			});
-			menu.style.visibility = visiblity;
+			menu.style.display = display;
 			this.__animation_callback.menu = null;
 		};
 		// Set end states
@@ -120,7 +117,6 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 			return;
 		}
 
-		let height;
 		let arrowStates = {
 			start: null,
 			mid: null,
@@ -132,17 +128,10 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		};
 		// Height is needed for menuStates
 		// Refresh height
-		height = menu.scrollHeight + 'px';
-		if (isNaN(parseInt(height))) {
-			height = '9999px';
-		}
-		if (height === undefined) {debugger;}
 		{
 		let states = [{
-			maxHeight: '0px',
 			transform: 'scaleY(0)',
 		}, {
-			maxHeight: height,
 			transform: 'scaleY(1)',
 		}];
 		if (open) {
@@ -154,7 +143,8 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		}
 		}
 		requestAnimationFrame((e) => {
-			menu.style.visibility = 'visible';
+			// menu.style.visibility = 'visible';
+			menu.style.display = 'block';
 		});
 		// Animations
 		let animation = arrow.animate([{
