@@ -48,7 +48,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 			['AnsAddPlace', '#AnsAddPlace'],
 			['AnsAddValue', '#AnsAddValue'],
 			['AnsAddConfirm', '#AnsAddConfirm'],
-            ['AnsRemovePlace', '#AnsRemovePlace'],
+                        ['AnsRemovePlace', '#AnsRemovePlace'],
 			['AnsRemoveValue', '#AnsRemoveValue'],
 			['AnsRemoveConfirm', '#AnsRemoveConfirm'],
 			['Delete1', '#DeleteKerbal1'],
@@ -58,18 +58,18 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 			['warn', 'img.warn'],
 			['cancel', '#Cancel'],
 		);
-        this.UI = UI;
+                this.UI = UI;
 
-        this.applyPriorProperty('database', 'default');
-        /**
-         * Copy of the kerbal been edited
-         * @private
-         * @type {?KNS.Kerbal}
-         */
+                this.applyPriorProperty('database', 'default');
+                /**
+                 * Copy of the kerbal been edited
+                 * @private
+                 * @type {?KNS.Kerbal}
+                 */
 		this.__data = null;
 		/**
 		 * Kerbal been edited
-         * @private
+                 * @private
 		 * @type {?KNS.Kerbal}
 		 */
 		this.__oldValue = null
@@ -117,7 +117,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 		applyEL('AnsRemoveConfirm', 'click', (e) => {
 			if (self.__oldValue === null) return;
 			let location = UI.AnsRemovePlace.value;
-            let value = UI.AnsRemoveValue.value;
+                        let value = UI.AnsRemoveValue.value;
 			self.data.removeJob(location, value);
 			self.__changeQueue.changes.push((kerbal) => {
 				kerbal.removeJob(location, value);
@@ -160,14 +160,14 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 			});
 		});
 
-        this.applyPriorProperty('data', null);
-        for (let input of template.querySelectorAll('input')) {
-        	if (input.type === 'text') {
-        		input.addEventListener('mousedown', (e) => {
-        			e.stopPropagation();
-        		});
-        	}
-        }
+                this.applyPriorProperty('data', null);
+                for (let input of template.querySelectorAll('input')) {
+                	if (input.type === 'text') {
+                		input.addEventListener('mousedown', (e) => {
+                			e.stopPropagation();
+                		});
+                	}
+                }
 		shadow.appendChild(template);
 	}
 	/**
@@ -248,32 +248,32 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 	get database () {
 		return this.__database;
 	}
-    /**
-     * Getter for data
-     * @return {KNS.Kerbal} Copy of kerbal been edited
-     */
-    get data () {
-        return this.__data;
-    }
-    set data (value) {
-        this.__oldValue = value;
-        if (value !== null) {
-            this.__data = value.duplicate();
-            this.UI.kerbal.data = this.data;
-            this.disableAll(false);
-        } else {
-            this.__data = new KNS.Kerbal();
-            this.__data.name = 'No Kerbal to edit';
-            this.__data.text = 'Tourist';
-            this.UI.kerbal.data = this.data;
-            this.disableAll(true);
+        /**
+        * Getter for data
+        * @return {KNS.Kerbal} Copy of kerbal been edited
+        */
+        get data () {
+                return this.__data;
         }
-        // Desantize the name
-        this.UI.nameInput.value = Elements.nameDesanitizer(this.data.name);
-        this.UI.typeInput.value = this.data.text;
-        // Reset the UI
-        this.UI.warn.style.display = 'none';
-    }
+        set data (value) {
+                this.__oldValue = value;
+                if (value !== null) {
+                    this.__data = value.duplicate();
+                    this.UI.kerbal.data = this.data;
+                    this.disableAll(false);
+                } else {
+                    this.__data = new KNS.Kerbal();
+                    this.__data.name = 'No Kerbal to edit';
+                    this.__data.text = 'Tourist';
+                    this.UI.kerbal.data = this.data;
+                    this.disableAll(true);
+                }
+                // Desantize the name
+                this.UI.nameInput.value = Elements.nameDesanitizer(this.data.name);
+                this.UI.typeInput.value = this.data.text;
+                // Reset the UI
+                this.UI.warn.style.display = 'none';
+        }
 	/**
 	 * Toggle disable all interactive UI elements (e.g. for when there is no kerbal to be edited)
 	 * @param  {Boolean} value Whether to disable everything or not
