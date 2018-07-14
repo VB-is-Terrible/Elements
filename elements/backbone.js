@@ -76,6 +76,13 @@ Elements = {
 	 */
 	inherits : {},
 	/**
+	 * Store for common/helper/misc objects to be used across modules
+	 * @type {Object}
+	 * @memberof Elements
+	 * @namespace Elements.common
+	 */
+	common: {},
+	/**
 	 * Constants for animation durations, offsets.
 	 * @type {Object}
 	 * @memberof Elements
