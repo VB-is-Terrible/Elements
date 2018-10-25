@@ -1,0 +1,15 @@
+#pseudoBody {
+	width: 100%;
+}
+p {
+	height: 2em;
+	width: 100%;
+}
+elements-grid {
+	width: 100%;
+	--width: 100%;
+}
+button {
+	min-width: 5em;
+	min-height: 5em;
+}

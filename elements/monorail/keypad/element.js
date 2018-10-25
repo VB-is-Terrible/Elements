@@ -42,6 +42,12 @@ Elements.elements.MonorailKeypad = class MonorailKeypad extends Elements.element
 		this.update_display();
 	}
 	button_pressed (button) {
+		if (this.mode == 'monorail') {
+			if (button === '=') {
+				this.callback(this.display);
+			}
+			return;
+		}
 		if (button === 'A') {
 			this.reset();
 		} else if (button === 'B') {
