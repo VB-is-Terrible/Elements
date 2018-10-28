@@ -17,11 +17,12 @@
 				<elements-monorail-keypad query_string='Station name: '></elements-monorail-keypad>
 			</elements-drag-element>
 		</elements-drag-body>
+		<elements-monorail-output></elements-monorail-output>
 	</body>
 	<script src='elements/backbone.js'></script>
 	<script src='elements/manifest.js'></script>
 	<script>
-		Elements.get('drag-element', 'monorail-keypad', 'Monorail');
+		Elements.get('drag-element', 'monorail-keypad', 'Monorail', 'monorail-output');
 	</script>
 	<script>
 	{
