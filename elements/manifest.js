@@ -25,6 +25,26 @@ Elements.manifest = {
         "templates": [],
         "type": "module"
     },
+    "Monorail": {
+        "css": [],
+        "provides": [],
+        "requires": [
+            "monorail-keypad"
+        ],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
+    "common/Searcher": {
+        "css": [],
+        "provides": [
+            "common-Searcher"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
     "confirm_dialog": {
         "css": [
             "common/float.css",
@@ -579,9 +599,27 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "monorail/keypad": {
+        "css": [
+            "monorail/keypad/style.css"
+        ],
+        "provides": [
+            "monorail/keypad"
+        ],
+        "requires": [
+            "grid"
+        ],
+        "resources": [],
+        "templates": [
+            "monorail/keypad/template.html"
+        ],
+        "type": "element"
+    },
     "projects/Project": {
         "css": [],
-        "provides": [],
+        "provides": [
+            "projects-Project"
+        ],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -594,10 +632,47 @@ Elements.manifest = {
         "provides": [
             "projects/project/display"
         ],
-        "requires": [],
+        "requires": [
+            "projects-Project"
+        ],
         "resources": [],
         "templates": [
             "projects/project/display/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/project/maker": {
+        "css": [
+            "common/float.css",
+            "kerbal/window_common.css",
+            "projects/project/maker/style.css"
+        ],
+        "provides": [
+            "projects/project/maker"
+        ],
+        "requires": [
+            "drag-element",
+            "projects-Project"
+        ],
+        "resources": [],
+        "templates": [
+            "projects/project/maker/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/project/searcher": {
+        "css": [
+            "common/float.css",
+            "kerbal/searcher/common.css",
+            "projects/project/searcher/style.css"
+        ],
+        "provides": [
+            "projects/project/searcher"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "projects/project/searcher/template.html"
         ],
         "type": "element"
     },
