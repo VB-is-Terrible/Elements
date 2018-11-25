@@ -1,0 +1,13 @@
+#overlay {
+	display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	top: 0px;
+	left: 0px;
+	background-color: blue;
+}
+#pseudoBody {
+	contain: content;
+}
