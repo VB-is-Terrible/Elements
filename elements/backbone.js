@@ -927,7 +927,7 @@ Elements.elements.backbone2 = class backbone2 extends HTMLElement {
 				return;
 			}
 			for (let attribute of this.constructor.observedAttributes) {
-				if (this.getAttribute(attribute) === null) {
+				if (this.getAttribute(attribute) === null && this[attribute] !== null) {
 					this.setAttribute(attribute, this[attribute]);
 				}
 			}
