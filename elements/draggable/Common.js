@@ -5,26 +5,26 @@ const CONSOLE = true;
 
 /**
  * Object to respond to drag start & end
- * @typedef {Object} DragableListener
+ * @typedef {Object} DraggableListener
  */
 
 /**
  * @function drag_start
  * @description callback for a drag & drop start
- * @name DragableListener.drag_start
+ * @name DraggableListener.drag_start
  */
 
 /**
  * @function drag_end
  * @description callback for a drag & drop end
- * @name DragableListener.drag_end
+ * @name DraggableListener.drag_end
 */
 
 /**
- * Error in dragable module
+ * Error in draggable module
  * @extends Error
  */
-class DragableError extends Error {}
+class DraggableError extends Error {}
 
 /**
  * Stores listeners for a drag context
@@ -39,14 +39,14 @@ class DragContext {
 	}
 	/**
 	 * Add a listener to this context
-	 * @param {DragableListener} listener Listener to register
+	 * @param {DraggableListener} listener Listener to register
 	 */
 	addListener (listener) {
 		this.listeners.add(listener);
 	}
 	/**
 	 * Remove a listener from this context
-	 * @param {DragableListener} listener Listener to remove
+	 * @param {DraggableListener} listener Listener to remove
 	 */
 	removeListener (listener) {
 		this.listeners.delete(listener);
@@ -86,11 +86,24 @@ class DragController {
 		this.contexts = new Map();
 	}
 	/**
+	 * Check if a context name is valid
+	 * @param  {?String} context Name of context to check
+	 * @return {Boolean}         Whether the context is valid
+	 */
+	validContext (context) {
+		if (context === null || context === '') {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	/**
 	 * Add the listener to the context
-	 * @param {DragableListener} listener Listener to add
-	 * @param {String} context  Context to add to
+	 * @param {DraggableListener} listener Listener to add
+	 * @param {?String} context  Context to add to
 	 */
 	addListener (listener, context) {
+		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			this.contexts.set(context, new DragContext());
 		}
@@ -98,12 +111,13 @@ class DragController {
 	}
 	/**
 	 * Remove the listener from the context
-	 * @param  {DragableListener} listener Listener to remove
-	 * @param  {String} context  Context to remove from
+	 * @param  {DraggableListener} listener Listener to remove
+	 * @param  {?String} context  Context to remove from
 	 */
 	removeListener (listener, context) {
+		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
-			throw new DragableError(`Context ${context} does not exist`);
+			throw new DraggableError(`Context ${context} does not exist`);
 		}
 		let context_obj = this.contexts.get(context);
 		context_obj.removeListener(listener);
@@ -113,9 +127,10 @@ class DragController {
 	}
 	/**
 	 * Inform all listeners of the context that a drag & drop has started
-	 * @param  {String} context Context to inform
+	 * @param  {?String} context Context to inform
 	 */
 	drag_start (context) {
+		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			if (CONSOLE) {
 				console.warn('drag_started on empty context');
@@ -126,9 +141,10 @@ class DragController {
 	}
 	/**
 	 * Inform all listeners of the context that a drag & drop has ended
-	 * @param  {String} context Context to inform
+	 * @param  {?String} context Context to inform
 	 */
 	drag_end (context) {
+		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			if (CONSOLE) {
 				console.warn('drag_ended on empty context');
@@ -143,5 +159,7 @@ class DragController {
  * Main drag controller for general contexts
  * @type {DragController}
  */
-Elements.common.dragable_controller = new DragController();
+Elements.common.draggable_controller = new DragController();
+
+Elements.loaded('draggable-Common');
 }

@@ -1,21 +1,21 @@
 'use strict';
 
-Elements.get();
+Elements.get('draggable-Common');
 {
 const main = async () => {
 
-await Elements.get();
+await Elements.get('draggable-Common');
 /**
- * [DragableContainer Description]
+ * [DraggableContainer Description]
  * @augments Elements.elements.backbone2
  * @type {Object}
  */
-Elements.elements.DragableContainer = class DragableContainer extends Elements.elements.backbone2 {
+Elements.elements.DraggableContainer = class DraggableContainer extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
 
-		this.name = 'DragableContainer';
+		this.name = 'DraggableContainer';
 		this._slot_counter = 0;
 		this._context = null;
 		const shadow = this.attachShadow({mode: 'open'});
@@ -25,7 +25,7 @@ Elements.elements.DragableContainer = class DragableContainer extends Elements.e
 				console.log('A child node has been added or removed.');
 				console.log(mutation);
 				for (let addedNode of mutation.addedNodes) {
-					this._append(addedNode);
+					self._append(addedNode);
 				}
 			}
 		};
@@ -67,9 +67,9 @@ Elements.elements.DragableContainer = class DragableContainer extends Elements.e
 	set context (value) {
 		// Remove self from old context
 		if (this._context !== null) {
-			Elements.common.dragable_controller.removeListener(this, this._context);
+			Elements.common.draggable_controller.removeListener(this, this._context);
 		}
-		Elements.common.dragable_controller.addListener(this, value);
+		Elements.common.draggable_controller.addListener(this, value);
 		this._context = value;
 	}
 	static get observedAttributes () {
@@ -77,7 +77,7 @@ Elements.elements.DragableContainer = class DragableContainer extends Elements.e
 	}
 };
 
-Elements.load(Elements.elements.DragableContainer, 'elements-dragable-container');
+Elements.load(Elements.elements.DraggableContainer, 'elements-draggable-container');
 };
 
 main();
