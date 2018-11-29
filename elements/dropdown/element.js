@@ -78,7 +78,6 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		this.__menuVisible = open;
 		// let visiblity = open ? 'inherit' : 'hidden';
 		let display = open ? 'block' : 'none';
-		console.log(display);
 		if (!this.attributeInit) {
 			// No animation
 			requestAnimationFrame((e) => {
