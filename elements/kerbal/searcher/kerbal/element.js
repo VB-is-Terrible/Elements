@@ -1,10 +1,10 @@
 'use strict';
 
-Elements.get('kerbal-display', 'KDB', 'dropdown', 'Kerbal_link', 'kerbal-searcher-common');
+Elements.get('kerbal-display', 'KDB', 'dropdown', 'Kerbal_link', 'kerbal-searcher-Common');
 {
 const main = async () => {
 
-await Elements.get('tab-window', 'KDB', 'kerbal-searcher-common');
+await Elements.get('tab-window', 'KDB', 'kerbal-searcher-Common');
 
 /**
  * UI to search through kerbals by name

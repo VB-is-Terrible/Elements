@@ -346,7 +346,7 @@ Elements.elements.KerbalSearcherCommonName = class extends Elements.elements.Ker
 		}
 	}
 };
-Elements.loaded('kerbalSearcherCommon');
+Elements.loaded('kerbal-searcher-Common');
 
 }
 

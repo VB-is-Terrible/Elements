@@ -92,6 +92,46 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "draggable/Common": {
+        "css": [],
+        "provides": [
+            "draggable-Common"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
+    "draggable/container": {
+        "css": [
+            "draggable/container/style.css"
+        ],
+        "provides": [
+            "draggable/container"
+        ],
+        "requires": [
+            "draggable-Common"
+        ],
+        "resources": [],
+        "templates": [
+            "draggable/container/template.html"
+        ],
+        "type": "element"
+    },
+    "draggable/item": {
+        "css": [
+            "draggable/item/style.css"
+        ],
+        "provides": [
+            "draggable/item"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "draggable/item/template.html"
+        ],
+        "type": "element"
+    },
     "dropdown": {
         "css": [
             "dropdown/style.css"
@@ -516,6 +556,19 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "kerbal/searcher/Common": {
+        "css": [],
+        "provides": [
+            "kerbal-searcher-Common"
+        ],
+        "requires": [
+            "KDB",
+            "tab-window"
+        ],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
     "kerbal/searcher/destination": {
         "css": [
             "common/float.css",
@@ -529,7 +582,7 @@ Elements.manifest = {
             "KDB",
             "Kerbal_link",
             "kerbal-display",
-            "kerbal-searcher-common",
+            "kerbal-searcher-Common",
             "tab-window"
         ],
         "resources": [],
@@ -552,7 +605,7 @@ Elements.manifest = {
             "Kerbal_link",
             "dropdown",
             "kerbal-group-display",
-            "kerbal-searcher-common"
+            "kerbal-searcher-Common"
         ],
         "resources": [],
         "templates": [
@@ -574,7 +627,7 @@ Elements.manifest = {
             "Kerbal_link",
             "dropdown",
             "kerbal-display",
-            "kerbal-searcher-common",
+            "kerbal-searcher-Common",
             "tab-window"
         ],
         "resources": [],
@@ -612,6 +665,20 @@ Elements.manifest = {
         "resources": [],
         "templates": [
             "monorail/keypad/template.html"
+        ],
+        "type": "element"
+    },
+    "monorail/output": {
+        "css": [
+            "monorail/output/style.css"
+        ],
+        "provides": [
+            "monorail/output"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "monorail/output/template.html"
         ],
         "type": "element"
     },
