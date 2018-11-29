@@ -142,7 +142,7 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 			[menuStates.end, menuStates.start] = states;
 		}
 		}
-		requestAnimationFrame((e) => {
+		let setup = requestAnimationFrame((e) => {
 			// menu.style.visibility = 'visible';
 			menu.style.display = 'block';
 		});
@@ -166,6 +166,7 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 			duration: Elements.animation.MEDIUM_DURATION,
 		});
 		animation.onfinish = () => {
+			cancelAnimationFrame(setup);
 			this.__animation_callback.menu();
 			this.__animationState = null;
 			this.__animations.menu = null;
