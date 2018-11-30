@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Drag & Drop playground</title>
+		<link rel='preload' href='elements/backbone.js' as='script'></link>
+		<link rel='preload' href='elements/manifest.js' as='script'></link>
+		<style>
+			elements-grid {
+				width: 100%;
+				--width: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='main'>
+			<elements-grid rows='1' columns='3'>
+				<elements-draggable-container slot='s1' id='a' context'hel'>
+				</elements-draggable-container>
+				<elements-draggable-container slot='s2'>
+				</elements-draggable-container>
+				<elements-draggable-container slot='s3'>
+				</elements-draggable-container>
+			</elements-grid>
+			<elements-draggable-item>
+				Something
+			</elements-draggable-item>
+		</div>
+	</body>
+	<script src='elements/backbone.js'></script>
+	<script src='elements/manifest.js'></script>
+	<script>
+		Elements.get('draggable-container', 'draggable-item', 'grid');
+	</script>
+	<script>
+	{
+	}
+	</script>
+</html>
