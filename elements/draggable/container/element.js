@@ -75,6 +75,15 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	static get observedAttributes () {
 		return ['context'];
 	}
+	item_drag_start (caller, event) {
+		let parent = this._get_parent();
+		if (parent === null) {
+			// TODO: Cancel drag
+			caller.cancelDrag();
+			throw new Error('Could not find parent to notify of drag');
+		}
+		parent.item_drag_start(caller, event);
+	}
 };
 
 Elements.load(Elements.elements.DraggableContainer, 'elements-draggable-container');
