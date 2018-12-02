@@ -10,6 +10,11 @@
 				width: 100%;
 				--width: 100%;
 			}
+			#test {
+				background: purple;
+				height: 2em;
+				width: 15em;
+			}
 		</style>
 	</head>
 	<body>
@@ -22,15 +27,22 @@
 				<elements-draggable-container slot='s3'>
 				</elements-draggable-container>
 			</elements-grid>
-			<elements-draggable-item>
-				Something
-			</elements-draggable-item>
+			<elements-draggable-dummy-listener>
+				<elements-draggable-item>
+					<p> Something </p>
+				</elements-draggable-item>
+			</elements-draggable-dummy-listener>
+		</div>
+		<div>
+			<div id='test' draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+				sadkljafddflakj
+			</div>
 		</div>
 	</body>
 	<script src='elements/backbone.js'></script>
 	<script src='elements/manifest.js'></script>
 	<script>
-		Elements.get('draggable-container', 'draggable-item', 'grid');
+		Elements.get('draggable-container', 'draggable-item', 'grid', 'draggable-dummy-listener');
 	</script>
 	<script>
 	{

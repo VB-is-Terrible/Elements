@@ -24,9 +24,10 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		Elements.setUpAttrPropertyLink2(this, 'context');
 
 		let draggable = template.querySelector('#draggable');
-		draggable.addEventListener('dragstart', (e) => {
-			onDragStart(e);
-		})
+		let f = (e) => {
+			self.onDragStart(e);
+		};
+		draggable.addEventListener('dragstart', f)
 		shadow.appendChild(template);
 		this.applyPriorProperty('context', null);
 	}
@@ -34,9 +35,31 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		return ['context'];
 	}
 	onDragStart (e) {
-		let valid = this.notify(e);
-		if (!valid) {return;}
+		e.dataTransfer.setData('text/plain', null);
+		this.notify(e);
 		Elements.common.draggable_controller.drag_start(this.context);
+		// console.log(e);
+	}
+	notify (e) {
+		let parent = this._get_parent();
+		if (parent === null) {
+			// Not setting dataTransfer automatically cancels drag
+			throw new Error('Could not find parent to notify of drag');
+		}
+		parent.item_drag_start(this, e);
+	}
+	_get_parent () {
+		let parent = this.parentElement;
+		while (parent !== null && !this.constructor._check_parent(parent)) {
+			parent = parent.parentElement;
+		}
+		return parent;
+	}
+	static _check_parent (parent) {
+		if (!(typeof parent.item_drag_start === 'function')) {
+			return false;
+		}
+		return true;
 	}
 };
 Elements.load(Elements.elements.DraggableItem, 'elements-draggable-item');

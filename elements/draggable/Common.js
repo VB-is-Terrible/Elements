@@ -84,6 +84,8 @@ class DragContext {
 class DragController {
 	constructor () {
 		this.contexts = new Map();
+		this.resources = new Map();
+		this._resource_count = 0;
 	}
 	/**
 	 * Check if a context name is valid
@@ -152,6 +154,16 @@ class DragController {
 		} else {
 			this.contexts.get(context).drag_end();
 		}
+	}
+	registerResource (resource) {
+		this._resource_count++;
+		this.resources.set(this._resource_count, resource);
+		return this._resource_count;
+	}
+	retriveResource (resource_id) {
+		let result = this.resources.get(resource_id);
+		this.resources.delete(resource_id);
+		return result;
 	}
 }
 

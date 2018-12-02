@@ -78,11 +78,25 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	item_drag_start (caller, event) {
 		let parent = this._get_parent();
 		if (parent === null) {
-			// TODO: Cancel drag
-			caller.cancelDrag();
+			// Not setting dataTransfer automatically cancels drag on firefox
+			// preventDefault is needed for chrome
+			event.preventDefault();
 			throw new Error('Could not find parent to notify of drag');
 		}
 		parent.item_drag_start(caller, event);
+	}
+	_get_parent () {
+		let parent = this.parentElement;
+		while (parent !== null && !this.constructor._check_parent(parent)) {
+			parent = parent.parentElement;
+		}
+		return parent;
+	}
+	static _check_parent (parent) {
+		if (!(typeof parent.item_drag_start === 'function')) {
+			return false;
+		}
+		return true;
 	}
 };
 
