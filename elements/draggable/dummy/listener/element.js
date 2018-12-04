@@ -2,6 +2,8 @@
 
 Elements.get();
 {
+const dataType = 'number/test';
+
 const main = async () => {
 
 await Elements.get();
@@ -19,14 +21,18 @@ Elements.elements.DraggableDummyListener = class DraggableDummyListener extends 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
-		//Fancy code goes here
 		shadow.appendChild(template);
 	}
 	item_drag_start (caller, event) {
 		let target = Elements.common.draggable_controller.registerResource(
 			caller.firstElementChild);
-		// event.dataTransfer.setData('number/test');
+		event.dataTransfer.setData(dataType, target);
 		return;
+	}
+	item_drop (caller, event) {
+		let resource_id = parseInt(event.dataTransfer.getData(dataType));
+		let target = Elements.common.draggable_controller.retriveResource(resource_id);
+		console.log(target, event);
 	}
 };
 

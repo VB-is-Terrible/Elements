@@ -31,6 +31,10 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		};
 
 		this.muatator = new MutationObserver (mutation_react);
+		this.events = {
+			drop: (e) => {self.onDrop(e);},
+			over: (e) => {self.onDragOver(e);},
+		};
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this.applyPriorProperties('context');
@@ -38,6 +42,9 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	connectedCallback () {
 		super.connectedCallback();
 		this.muatator.observe(this, this.constructor.mutation_options);
+	}
+	disconnectedCallback () {
+		super.disconnectedCallback();
 	}
 	static get mutation_options () {
 		return {
@@ -56,10 +63,12 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	drag_start () {
 		let overlay = this.shadowRoot.querySelector('#overlay');
 		overlay.style.display = 'block';
+		this._attach_drop();
 	}
 	drag_end () {
 		let overlay = this.shadowRoot.querySelector('#overlay');
 		overlay.style.display = 'none';
+		// this._detach_drop();
 	}
 	get context () {
 		return this._context;
@@ -93,10 +102,36 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		return parent;
 	}
 	static _check_parent (parent) {
-		if (!(typeof parent.item_drag_start === 'function')) {
-			return false;
+		let functions = ['item_drag_start', 'item_drop'];
+		for (let func of functions) {
+			if (!(typeof parent[func] === 'function')) {
+				return false;
+			}
 		}
 		return true;
+	}
+	_attach_drop () {
+		let dropzone = this.shadowRoot.querySelector('#overlay');
+		dropzone.addEventListener('drop', this.events.drop);
+		dropzone.addEventListener('dragover', this.events.over);
+	}
+	_detach_drop () {
+		let dropzone = this.shadowRoot.querySelector('#overlay');
+		dropzone.removeEventListener('drop', this.events.drop);
+		dropzone.removeEventListener('dragover', this.events.over);
+	}
+	onDrop (event) {
+		// Clear drag notice;
+		Elements.common.draggable_controller.drag_end(this.context);
+		let parent = this._get_parent();
+		if (parent === null) {
+			event.preventDefault();
+			throw new Error('Could not find parent to notify of drop');
+		}
+		parent.item_drop(this, event);
+	}
+	onDragOver (event) {
+		event.preventDefault();
 	}
 };
 

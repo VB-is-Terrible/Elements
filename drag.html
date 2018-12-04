@@ -10,32 +10,41 @@
 				width: 100%;
 				--width: 100%;
 			}
-			#test {
+			#test, #test2{
 				background: purple;
 				height: 2em;
 				width: 15em;
+			}
+			#a {
+				height: 400px;
 			}
 		</style>
 	</head>
 	<body>
 		<div id='main'>
 			<elements-grid rows='1' columns='3'>
-				<elements-draggable-container slot='s1' id='a' context'hel'>
-				</elements-draggable-container>
+				<elements-draggable-dummy-listener slot='s1'>
+					<elements-draggable-container id='a' context='hel'>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
 				<elements-draggable-container slot='s2'>
 				</elements-draggable-container>
 				<elements-draggable-container slot='s3'>
 				</elements-draggable-container>
 			</elements-grid>
 			<elements-draggable-dummy-listener>
-				<elements-draggable-item>
-					<p> Something </p>
+				<elements-draggable-item context='hel'>
+					<p draggable='true'> Something </p>
 				</elements-draggable-item>
 			</elements-draggable-dummy-listener>
 		</div>
 		<div>
 			<div id='test' draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
 				sadkljafddflakj
+			</div>
+			<br></br>
+			<div id='test2' ondrop='event.preventDefault(); console.log(event)'>
+				sdlkjsadfl;jksadfjl;kfsdakljsadf
 			</div>
 		</div>
 	</body>
@@ -45,7 +54,10 @@
 		Elements.get('draggable-container', 'draggable-item', 'grid', 'draggable-dummy-listener');
 	</script>
 	<script>
-	{
+	const main = async () => {
+		await Elements.get('grid');
+		document.querySelector('elements-grid').shadowRoot.querySelector('#pseudoBody').style.height = '400px';
 	}
+	main();
 	</script>
 </html>

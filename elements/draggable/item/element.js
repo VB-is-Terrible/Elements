@@ -23,27 +23,30 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		// Set up attribute - property reflection
 		Elements.setUpAttrPropertyLink2(this, 'context');
 
-		let draggable = template.querySelector('#draggable');
-		let f = (e) => {
-			self.onDragStart(e);
+		this.events = {
+			start: (e) => {self.onDragStart(e);},
+			end: (e) => {self.onDragEnd(e);},
 		};
-		draggable.addEventListener('dragstart', f)
 		shadow.appendChild(template);
+		this._end_drag();
 		this.applyPriorProperty('context', null);
 	}
 	static get observedAttributes () {
 		return ['context'];
 	}
 	onDragStart (e) {
-		e.dataTransfer.setData('text/plain', null);
 		this.notify(e);
+		e.dataTransfer.setData('text/plain', null);
 		Elements.common.draggable_controller.drag_start(this.context);
-		// console.log(e);
+		this._begin_drag();
+		console.log(e);
 	}
 	notify (e) {
 		let parent = this._get_parent();
 		if (parent === null) {
 			// Not setting dataTransfer automatically cancels drag
+			// preventDefault is needed for chrome
+			event.preventDefault();
 			throw new Error('Could not find parent to notify of drag');
 		}
 		parent.item_drag_start(this, e);
@@ -60,6 +63,21 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 			return false;
 		}
 		return true;
+	}
+	onDragEnd (event) {
+		// Don't think there is anything that needs notifying
+		Elements.common.draggable_controller.drag_end(this.context);
+		this._end_drag();
+	}
+	_end_drag () {
+		let draggable = this.shadowRoot.querySelector('#draggable');
+		draggable.addEventListener('dragstart', this.events.start);
+		draggable.removeEventListener('dragend', this.events.end);
+	}
+	_begin_drag () {
+		let draggable = this.shadowRoot.querySelector('#draggable');
+		draggable.removeEventListener('dragstart', this.events.start);
+		draggable.addEventListener('dragend', this.events.end);
 	}
 };
 Elements.load(Elements.elements.DraggableItem, 'elements-draggable-item');
