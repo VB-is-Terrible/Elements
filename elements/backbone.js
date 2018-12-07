@@ -801,7 +801,8 @@ Elements = {
 	setUpAttrPropertyLink2: function (object, property, initial=null,
 		   eventTrigger = () => {},
 		   santizer = (value, oldValue) => {return value;}) {
-		console.assert(object.constructor.observedAttributes.includes(property));
+		const fail_message = 'Attr-Property must be in constructor.observedAttributes';
+		console.assert(object.constructor.observedAttributes.includes(property), fail_message);
 		let hidden;
 		let getter = () => {return hidden;};
 		let setter = (value) => {
