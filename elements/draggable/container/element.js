@@ -73,8 +73,8 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		node.slot = slot_name;
 	}
 	drag_start () {
-		if (!this._drag_subject) {
-			this._drag_subject = true;
+		if (this._drag_subject) {
+			this._drag_subject = false;
 			return;
 		}
 		let overlay = this.shadowRoot.querySelector('#overlay');
@@ -109,7 +109,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 			throw new Error('Could not find parent to notify of drag');
 		}
 		parent.item_drag_start(caller, event);
-		this._drag_subject = false;
+		this._drag_subject = true;
 	}
 	_get_parent () {
 		let parent = this.parentElement;
