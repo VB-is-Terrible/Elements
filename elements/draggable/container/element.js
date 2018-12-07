@@ -18,6 +18,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		this.name = 'DraggableContainer';
 		this._slot_counter = 0;
 		this._context = null;
+		this._drag_subject = false;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let mutation_react = (mutationsList, observer) => {
@@ -61,6 +62,10 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		node.slot = slot_name;
 	}
 	drag_start () {
+		if (!this._drag_subject) {
+			this._drag_subject = true;
+			return;
+		}
 		let overlay = this.shadowRoot.querySelector('#overlay');
 		overlay.style.display = 'block';
 		this._attach_drop();
@@ -93,6 +98,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 			throw new Error('Could not find parent to notify of drag');
 		}
 		parent.item_drag_start(caller, event);
+		this._drag_subject = false;
 	}
 	_get_parent () {
 		let parent = this.parentElement;
