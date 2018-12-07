@@ -39,9 +39,20 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this.applyPriorProperties('context');
+		Elements.setUpAttrPropertyLink2(this, 'effectAllowed');
+		Elements.setUpAttrPropertyLink2(this, 'dropEffect');
+		this.effectAllowed = 'herp';
+		this.dropEffect = 'derp';
+
 	}
 	connectedCallback () {
+		let initialized = this.attributeInit;
 		super.connectedCallback();
+		if (!initialized) {
+			for (let child of this.children) {
+				this._append(child);
+			}
+		}
 		this.muatator.observe(this, this.constructor.mutation_options);
 	}
 	disconnectedCallback () {
@@ -87,7 +98,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		this._context = value;
 	}
 	static get observedAttributes () {
-		return ['context'];
+		return ['context', 'effectAllowed', 'dropEffect'];
 	}
 	item_drag_start (caller, event) {
 		let parent = this._get_parent();
