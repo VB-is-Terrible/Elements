@@ -32,6 +32,9 @@ Elements.elements.DraggableDummyListener = class DraggableDummyListener extends 
 	item_drop (caller, event) {
 		let resource_id = parseInt(event.dataTransfer.getData(dataType));
 		let target = Elements.common.draggable_controller.retriveResource(resource_id);
+		let drag_item = target.parentElement;
+		let dropzone = this.querySelector('elements-draggable-container');
+		dropzone.append(drag_item);
 		console.log(target, event);
 	}
 };
