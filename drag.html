@@ -25,17 +25,31 @@
 			<elements-grid rows='1' columns='3'>
 				<elements-draggable-dummy-listener slot='s1'>
 					<elements-draggable-container id='a' context='hel'>
+						<elements-draggable-item context='hel'>
+							<p draggable='true'> Something </p>
+						</elements-draggable-item>
 					</elements-draggable-container>
 				</elements-draggable-dummy-listener>
-				<elements-draggable-container slot='s2'>
-				</elements-draggable-container>
+				<elements-draggable-dummy-listener slot='s2'>
+					<elements-draggable-container id='c' context='hel'>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
 				<elements-draggable-container slot='s3'>
 				</elements-draggable-container>
 			</elements-grid>
 			<elements-draggable-dummy-listener>
-				<elements-draggable-item context='hel'>
-					<p draggable='true'> Something </p>
-				</elements-draggable-item>
+				<elements-draggable-container id='b' context='hel'>
+					<elements-draggable-item context='hel'>
+						<p draggable='true'> Something </p>
+					</elements-draggable-item>
+				</elements-draggable-container>
+			</elements-draggable-dummy-listener>
+			<elements-draggable-dummy-listener>
+				<elements-draggable-container>
+					<elements-draggable-item context='hel'>
+						<p draggable='true'> Something </p>
+					</elements-draggable-item>
+				</elements-draggable-container>
 			</elements-draggable-dummy-listener>
 		</div>
 		<div>
