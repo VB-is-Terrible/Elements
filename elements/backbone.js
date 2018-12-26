@@ -891,6 +891,9 @@ Elements = {
 			return tokens;
 		}
 	},
+	captialize: function (string) {
+		return string.charAt(0).toLowerCase() + string.substring(1, string.length);
+	}
 };
 /**
  * Backbone for newer elements (v2.0). These elements can use
