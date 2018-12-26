@@ -34,23 +34,27 @@
 					<elements-draggable-container id='c' context='hel'>
 					</elements-draggable-container>
 				</elements-draggable-dummy-listener>
-				<elements-draggable-container slot='s3'>
+				<elements-draggable-container slot='s3' context='hel'>
 				</elements-draggable-container>
 			</elements-grid>
-			<elements-draggable-dummy-listener>
-				<elements-draggable-container id='b' context='hel'>
-					<elements-draggable-item context='hel'>
-						<p draggable='true'> Something </p>
-					</elements-draggable-item>
-				</elements-draggable-container>
-			</elements-draggable-dummy-listener>
-			<elements-draggable-dummy-listener>
-				<elements-draggable-container>
-					<elements-draggable-item context='hel'>
-						<p draggable='true'> Something </p>
-					</elements-draggable-item>
-				</elements-draggable-container>
-			</elements-draggable-dummy-listener>
+			<div style='height: 100px'>
+				<elements-draggable-dummy-listener>
+					<elements-draggable-container id='b' context='hel' effect_allowed='none'>
+						<elements-draggable-item context='hel'>
+							<p draggable='true'> Something </p>
+						</elements-draggable-item>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
+			</div>
+			<div style='height: 100px'>
+				<elements-draggable-dummy-listener>
+					<elements-draggable-container>
+						<elements-draggable-item context='hel'>
+							<p draggable='true'> Something </p>
+						</elements-draggable-item>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
+			</div>
 		</div>
 		<div>
 			<div id='test' draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
