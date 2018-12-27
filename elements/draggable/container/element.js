@@ -87,7 +87,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	drag_end () {
 		let overlay = this.shadowRoot.querySelector('#overlay');
 		overlay.style.display = 'none';
-		// this._detach_drop();
+		this._detach_drop();
 	}
 	get context () {
 		return this._context;
