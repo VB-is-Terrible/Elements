@@ -35,9 +35,9 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		return ['context'];
 	}
 	onDragStart (e) {
-		this.notify(e);
+		let effectAllowed = this.notify(e);
 		e.dataTransfer.setData('text/plain', null);
-		Elements.common.draggable_controller.drag_start(this.context);
+		Elements.common.draggable_controller.drag_start(this.context, effectAllowed);
 		this._begin_drag();
 		console.log(e);
 	}
@@ -49,7 +49,7 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 			event.preventDefault();
 			throw new Error('Could not find parent to notify of drag');
 		}
-		parent.item_drag_start(this, e);
+		return parent.item_drag_start(this, e);
 	}
 	_get_parent () {
 		let parent = this.parentElement;
