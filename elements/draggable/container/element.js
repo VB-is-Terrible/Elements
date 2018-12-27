@@ -150,10 +150,56 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 			event.preventDefault();
 			throw new Error('Could not find parent to notify of drop');
 		}
+		console.log(event.dataTransfer.effectAllowed);
 		parent.item_drop(this, event);
 	}
 	onDragOver (event) {
 		event.preventDefault();
+		event.dataTransfer.dropEffect = this.drop_effect;
+	}
+	setEffects (...effects) {
+		if (effects.length === 0) {
+			return 'none';
+		} else if (effects.length === 3) {
+			return 'all';
+		} else {
+			effects.sort();
+			return this.constructor.joinEffects(effects);
+		}
+	}
+	matches (effectAllowed) {
+		let effects = this.constructor.splitEffects(effectAllowed);
+		if (effects.includes(this.drop_effect)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	static splitEffects (effectAllowed) {
+		if (effectAllowed === 'unintialized' || effectAllowed === 'none') {
+			return [];
+		} else if (effectAllowed === 'all') {
+			return ['link', 'move', 'copy'];
+		}
+		let pattern = /([a-z]*)([A-Z][a-z]*)?/;
+		let match = effectAllowed.match(pattern);
+		if (match[2] === undefined) {
+			return [match[1]];
+		} else {
+			let effects = match.splice(1, 2);
+			for (let i = 0; i < effects.length; i++) {
+				effects[i] = effects[i].toLowerCase();
+			}
+			return effects;
+		}
+
+	}
+	static joinEffects (effects) {
+		let result = effects[0];
+		for (let i = 1; i < effects.length; i++) {
+			result += Elements.captialize(effects[i]);
+		}
+		return result;
 	}
 };
 
