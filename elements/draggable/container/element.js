@@ -39,10 +39,10 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this.applyPriorProperties('context');
-		Elements.setUpAttrPropertyLink2(this, 'effectAllowed');
-		Elements.setUpAttrPropertyLink2(this, 'dropEffect');
-		this.effectAllowed = 'herp';
-		this.dropEffect = 'derp';
+		Elements.setUpAttrPropertyLink2(this, 'effect_allowed');
+		Elements.setUpAttrPropertyLink2(this, 'drop_effect');
+		this.effect_allowed = 'link';
+		this.drop_effect = 'link';
 
 	}
 	connectedCallback () {
@@ -101,7 +101,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		this._context = value;
 	}
 	static get observedAttributes () {
-		return ['context', 'effectAllowed', 'dropEffect'];
+		return ['context', 'effect_allowed', 'drop_effect'];
 	}
 	item_drag_start (caller, event) {
 		let parent = this._get_parent();
@@ -111,8 +111,10 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 			event.preventDefault();
 			throw new Error('Could not find parent to notify of drag');
 		}
+		event.dataTransfer.effectAllowed = this.effect_allowed;
 		parent.item_drag_start(caller, event);
 		this._drag_subject = true;
+		return this.effect_allowed;
 	}
 	_get_parent () {
 		let parent = this.parentElement;
