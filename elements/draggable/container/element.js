@@ -72,9 +72,12 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		body.append(slot);
 		node.slot = slot_name;
 	}
-	drag_start () {
+	drag_start (effectAllowed) {
 		if (this._drag_subject) {
 			this._drag_subject = false;
+			return;
+		}
+		if (!this.matches(effectAllowed)) {
 			return;
 		}
 		let overlay = this.shadowRoot.querySelector('#overlay');

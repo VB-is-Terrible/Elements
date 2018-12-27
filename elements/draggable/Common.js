@@ -11,6 +11,7 @@ const CONSOLE = true;
 /**
  * @function drag_start
  * @description callback for a drag & drop start
+ * @param {String} effectAllowed effectAllowed property of the pending drag event's dataTransfer
  * @name DraggableListener.drag_start
  */
 
@@ -54,9 +55,9 @@ class DragContext {
 	/**
 	 * Inform all listeners of this context that a drag & drop has started
 	 */
-	drag_start () {
+	drag_start (effectAllowed) {
 		for (let listener of this.listeners) {
-			listener.drag_start();
+			listener.drag_start(effectAllowed);
 		}
 	}
 	/**
@@ -131,14 +132,14 @@ class DragController {
 	 * Inform all listeners of the context that a drag & drop has started
 	 * @param  {?String} context Context to inform
 	 */
-	drag_start (context) {
+	drag_start (context, effectAllowed) {
 		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			if (CONSOLE) {
 				console.warn('drag_started on empty context');
 			}
 		} else {
-			this.contexts.get(context).drag_start();
+			this.contexts.get(context).drag_start(effectAllowed);
 		}
 	}
 	/**
