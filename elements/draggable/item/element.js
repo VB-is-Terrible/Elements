@@ -26,6 +26,7 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		this.events = {
 			start: (e) => {self.onDragStart(e);},
 			end: (e) => {self.onDragEnd(e);},
+			test: (e) => {self.onTouchStart(e);},
 		};
 		shadow.appendChild(template);
 		this._end_drag();
@@ -73,11 +74,16 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		let draggable = this.shadowRoot.querySelector('#draggable');
 		draggable.addEventListener('dragstart', this.events.start);
 		draggable.removeEventListener('dragend', this.events.end);
+		if (!this.attributeInit) {
+			draggable.addEventListener('touchstart', this.events.test);
+		}
 	}
 	_begin_drag () {
 		let draggable = this.shadowRoot.querySelector('#draggable');
 		draggable.removeEventListener('dragstart', this.events.start);
 		draggable.addEventListener('dragend', this.events.end);
+	}
+	onTouchStart () {
 	}
 };
 Elements.load(Elements.elements.DraggableItem, 'elements-draggable-item');
