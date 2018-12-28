@@ -1,5 +1,26 @@
 'use strict';
 
+/**
+ * External interface for parents of draggable-containers
+ * @Interface DraggableParent
+ */
+
+/**
+ * @function item_drag_start
+ * @description callback for a drag & drop start
+ * @param {DraggableItem} caller Item been dragged
+ * @param {DragEvent} event DragEvent associated with the drag
+ * @name DraggableParent.item_drag_start
+ */
+
+/**
+ * @function item_drop
+ * @description callback for a drag & drop end
+ * @param {DraggableItem} caller Item been dropped on
+ * @param {DragEvent} event DragEvent associated with the drop
+ * @name DraggableParent.item_drop
+ */
+
 Elements.get('draggable-Common');
 {
 const main = async () => {
