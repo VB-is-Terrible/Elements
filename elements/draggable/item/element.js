@@ -42,7 +42,7 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		this._begin_drag();
 		console.log(e);
 	}
-	notify (e) {
+	notify (event) {
 		let parent = this._get_parent();
 		if (parent === null) {
 			// Not setting dataTransfer automatically cancels drag
@@ -50,12 +50,21 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 			event.preventDefault();
 			throw new Error('Could not find parent to notify of drag');
 		}
-		return parent.item_drag_start(this, e);
+		return parent.item_drag_start(this, event);
 	}
 	_get_parent () {
 		let parent = this.parentElement;
 		while (parent !== null && !this.constructor._check_parent(parent)) {
 			parent = parent.parentElement;
+		}
+		// Final check for shadowRoot parents
+		if (parent === null) {
+			let shadowParent = this.getRootNode().host;
+			if (shadowParent !== null) {
+				if (this.constructor._check_parent(shadowParent)) {
+					parent = shadowParent;
+				}
+			}
 		}
 		return parent;
 	}

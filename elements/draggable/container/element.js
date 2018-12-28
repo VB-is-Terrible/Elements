@@ -142,6 +142,15 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		while (parent !== null && !this.constructor._check_parent(parent)) {
 			parent = parent.parentElement;
 		}
+		// Final check for shadowRoot parents
+		if (parent === null) {
+			let shadowParent = this.getRootNode().host;
+			if (shadowParent !== null) {
+				if (this.constructor._check_parent(shadowParent)) {
+					parent = shadowParent;
+				}
+			}
+		}
 		return parent;
 	}
 	static _check_parent (parent) {
