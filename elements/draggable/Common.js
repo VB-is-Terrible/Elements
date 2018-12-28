@@ -5,7 +5,8 @@ const CONSOLE = true;
 
 /**
  * Object to respond to drag start & end
- * @typedef {Object} DraggableListener
+ * @Interface DraggableListener
+ *
  */
 
 /**
