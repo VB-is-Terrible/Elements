@@ -1,0 +1,17 @@
+textarea {
+	width: 100%;
+	border: 1px solid black;
+}
+input[type=checkbox] {
+	height: 100%;
+}
+#AnsProgress {
+	margin-right: .5em;
+	width: inherit;
+}
+#AnsProgressAmount {
+	width: 100%;
+}
+#pseudoBody {
+	width: var(--width);
+}

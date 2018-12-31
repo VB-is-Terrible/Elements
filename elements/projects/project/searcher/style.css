@@ -1,0 +1,14 @@
+#search-drop {
+	--arrow-size: 1.5;
+	width: 100%;
+}
+input[type=checkbox] {
+	width: 1em;
+	height: 1em;
+}
+input[type=text] {
+	background: white;
+}
+.drag_inside {
+	margin-top: 10px;
+}

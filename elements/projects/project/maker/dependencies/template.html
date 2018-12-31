@@ -1,0 +1,18 @@
+<template id='templateElementsProjectsProjectMakerDependencies'>
+	<link rel='stylesheet' type='text/css' href='projects/project/maker/dependencies/style.css'>
+	<div id='pseudoBody'>
+		<p> Dependencies </p>
+		<div id='holders'>
+			<div class='holder' id='dropZone'>
+				<elements-draggable-container context='project-common' effectAllowed='none' dropEffect='link' id='dropContainer'>
+				</elements-draggable-container>
+			</div>
+			<div class='holder' id='contents'>
+				<elements-draggable-container context='project-maker' effectAllowed='move' dropEffect='none' id='projectContainer'>
+				</elements-draggable-container>
+				<elements-draggable-container context='project-maker' effectAllowed='none' dropEffect='move' id='removeArea'>
+				</elements-draggable-container>
+			</div>
+		</div>
+	</div>
+</template>

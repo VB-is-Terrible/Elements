@@ -1,0 +1,12 @@
+div.holder {
+	height: 200px;
+	position: fixed;
+	width: 100%;
+}
+#holders {
+	min-height: 200px
+}
+#contents{
+	display: flex;
+	flex-direction: row;
+}

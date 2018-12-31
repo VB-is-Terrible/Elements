@@ -1,0 +1,40 @@
+<template id='templateElementsProjectsProjectSearcher'>
+	<link rel='stylesheet' type='text/css' href='projects/project/searcher/style.css'>
+	<link rel='stylesheet' type='text/css' href='common/float.css'>
+	<link rel='stylesheet' type='text/css' href='kerbal/searcher/common.css'>
+	<div id='pseudoBody'>
+		<elements-dropdown id='search-drop' menuvisible='false'>
+			<input id='nameInput' type='text' slot='s1' placeholder='Project Search'> </input>
+			<div class='drag_inside' id='checkboxes'>
+				<p>
+					Search Options:
+				</p>
+				<div id='options'>
+					<div class='multi'>
+						<input type='checkbox' id='prefix' checked='checked'></input>
+						<span class='checkbox'>
+							Prefix
+						</span>
+					</div>
+					<div class='multi'>
+						<input type='checkbox' id='fuzzy' checked='checked'></input>
+						<span class='checkbox'>
+							Fuzzy
+						</span>
+					</div>
+					<div class='multi'>
+						<input type='checkbox' id='edit'></input>
+						<span class='checkbox'>
+							Edit distance
+						</span>
+					</div>
+				</div>
+			</div>
+		</elements-dropdown>
+		<p id='resultsTitle'>
+			Results
+		</p>
+		<div id='results'>
+		</div>
+	</div>
+</template>

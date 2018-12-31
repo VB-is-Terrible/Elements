@@ -1,0 +1,52 @@
+<template id='templateElementsProjectsProjectMaker'>
+	<link rel='stylesheet' type='text/css' href='common/float.css'>
+	<link rel='stylesheet' type='text/css' href='kerbal/window_common.css'>
+	<link rel='stylesheet' type='text/css' href='projects/project/maker/style.css'>
+	<div id='pseudoBody'>
+		<p> Project Here</p>
+		<br>
+		<div id='formBody'>
+			<div class='flex-column'>
+				<div class='flex-row'>
+					<p class='row-first'>
+						Name
+					</p>
+					<input class='row-last' id='AnsName'></input>
+				</div>
+				<div class='flex-row'>
+					<p class='row-first'>
+						Desc
+					</p>
+					<textarea class='row-last' id='AnsDesc'></textarea>
+				</div>
+				<div class='flex-row'>
+					<p class='row-first'>
+						Counter
+					</p>
+					<div class='row-last multi'>
+						<input id='AnsProgress' type='checkbox'></input>
+						<input id='AnsProgressAmount' type='number' disabled></input>
+					</div>
+				</div>
+				<div class='flex-row'>
+					<p class='row-first'> Meta </p>
+					<div class='row-last'>
+						<input id='AnsMeta' type='checkbox'></input>
+					</div>
+				</div>
+			</div>
+		</div>
+		<elements-projects-project-maker-dependencies>
+		</elements-projects-project-maker-dependencies>
+		<div id='footer' class='right'>
+			<button id='Cancel' class='spacer'>
+				Cancel
+			</button>
+			<button id='Done' class='spacer'>
+				Done
+			</button>
+
+		</div>
+
+	</div>
+</template>
