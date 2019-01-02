@@ -100,7 +100,9 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		display.data = project;
 		display.context = INTERNAL_CONTEXT;
 		let displayHolder = this.shadowRoot.querySelector('#projectContainer');
-		displayHolder.append(display);
+		let div = document.createElement('div');
+		div.append(display);
+		displayHolder.append(div);
 	}
 };
 
