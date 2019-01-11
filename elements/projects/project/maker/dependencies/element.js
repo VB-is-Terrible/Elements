@@ -2,9 +2,6 @@
 
 Elements.get('draggable-container', 'draggable-Common', 'projects-Project', 'projects-project-display');
 {
-const EXTERNAL_CONTEXT = 'project-common';
-const INTERNAL_CONTEXT = 'project-maker';
-
 class DragListenerExternal {
 	constructor (origin) {
 		this.origin = origin;
@@ -20,6 +17,10 @@ class DragListenerExternal {
 const main = async () => {
 
 await Elements.get('projects-Project');
+
+const INTERNAL_CONTEXT = 'project-maker';
+const EXTERNAL_CONTEXT = Projects.common_type;
+
 /**
  * [ProjectsProjectMakerDependencies Description]
  * @augments Elements.elements.backbone2
@@ -47,6 +48,7 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
+		template.querySelector('#dropContainer').context = EXTERNAL_CONTEXT;
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this._showInternalDrag();
