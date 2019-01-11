@@ -420,6 +420,21 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 			this.__left = null;
 		});
 	}
+        /**
+         * Disables dragging of this element
+         * For use in testing
+         */
+        disable () {
+                let body = this.shadowRoot.querySelector('#pseudoBody');
+                body.removeEventListener('mousedown', this.events.dStart, false);
+		body.removeEventListener('mousedown', this.events.dStart, false);
+		body.removeEventListener('mousemove', this.events.dMove, false);
+		body.removeEventListener('mouseup', this.events.dEnd, false);
+                body.removeEventListener('touchstart', this.events.start, false);
+		body.removeEventListener('touchmove', this.events.move, false);
+		body.removeEventListener('touchend', this.events.end, false);
+		body.removeEventListener('touchcancel', this.events.end, false);
+        }
 };
 
 /**
