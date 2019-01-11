@@ -19,12 +19,14 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 
 		this.name = 'ProjectsProjectDisplay';
 		this.__data = null;
+		this._context = '';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this.applyPriorProperties('data');
+		this.applyPriorProperty('context', Projects.common_type);
 	}
 	get data() {
 		return this.__data;
@@ -78,6 +80,32 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 	}
 	item_drop (caller, event) {
 		return;
+	}
+	get context () {
+		return this._context;
+	}
+	set context (value) {
+		if (value === this._context) {
+			return;
+		}
+		this._context = value;
+		if (this.attributeInit) {
+			this.setAttribute('context', value);
+		}
+		let internals = this._getToChange();
+		for (let node of internals) {
+			node.context = value;
+		}
+
+	}
+	_getToChange () {
+		return [
+			this.shadowRoot.querySelector('elements-draggable-container'),
+			this.shadowRoot.querySelector('elements-draggable-item'),
+		];
+	}
+	static get observedAttributes () {
+		return ['context', 'effect_allowed', 'drop_effect'];
 	}
 };
 
