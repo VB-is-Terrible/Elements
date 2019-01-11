@@ -22,6 +22,15 @@ Elements.elements.$1 = class $1 extends Elements.elements.backbone2 {
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
+	connectedCallback () {
+		super.connectedCallback();
+	}
+	disconnectedCallback () {
+		super.disconnectedCallback();
+	}
+	static get observedAttributes () {
+		return [];
+	}
 };
 
 Elements.load(Elements.elements.$1, 'elements-$2');
