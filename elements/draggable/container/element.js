@@ -40,6 +40,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		this._slot_counter = 0;
 		this._context = null;
 		this._drag_subject = false;
+		this._connected = false;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 		let mutation_react = (mutationsList, observer) => {
@@ -75,9 +76,17 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 			}
 		}
 		this.muatator.observe(this, this.constructor.mutation_options);
+		// Attach listener
+		Elements.common.draggable_controller.addListener(this, this._context);
+		this._connected = true;
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
+		this.muatator.disconnect();
+
+		Elements.common.draggable_controller.removeListener(this, this._context);
+		this._connected = false;
+
 	}
 	static get mutation_options () {
 		return {
@@ -104,22 +113,33 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		let overlay = this.shadowRoot.querySelector('#overlay');
 		overlay.style.display = 'block';
 		this._attach_drop();
+		console.log('drop started')
 	}
 	drag_end () {
 		let overlay = this.shadowRoot.querySelector('#overlay');
 		overlay.style.display = 'none';
 		this._detach_drop();
+		console.log('drop ended')
 	}
 	get context () {
 		return this._context;
 	}
 	set context (value) {
-		// Remove self from old context
-		if (this._context !== null) {
-			Elements.common.draggable_controller.removeListener(this, this._context);
+		if (value === this._context) {
+			return;
 		}
-		Elements.common.draggable_controller.addListener(this, value);
+		// Check to see if there is a context to remove
+		if (this._connected) {
+			// Remove self from old context
+			if (this._context !== null) {
+				Elements.common.draggable_controller.removeListener(this, this._context);
+			}
+			Elements.common.draggable_controller.addListener(this, value);
+		}
 		this._context = value;
+		if (this.attributeInit) {
+			this.setAttribute('context', value);
+		}
 	}
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
