@@ -91,7 +91,7 @@ class DragController {
 	}
 	/**
 	 * Check if a context name is valid
-	 * @param  {?String} context Name of context to check
+	 * @param  {String} context Name of context to check
 	 * @return {Boolean}         Whether the context is valid
 	 */
 	validContext (context) {
@@ -104,7 +104,7 @@ class DragController {
 	/**
 	 * Add the listener to the context
 	 * @param {DraggableListener} listener Listener to add
-	 * @param {?String} context  Context to add to
+	 * @param {String} context  Context to add to
 	 */
 	addListener (listener, context) {
 		if (!this.validContext(context)) {return;}
@@ -116,7 +116,7 @@ class DragController {
 	/**
 	 * Remove the listener from the context
 	 * @param  {DraggableListener} listener Listener to remove
-	 * @param  {?String} context  Context to remove from
+	 * @param  {String} context  Context to remove from
 	 */
 	removeListener (listener, context) {
 		if (!this.validContext(context)) {return;}
@@ -131,7 +131,7 @@ class DragController {
 	}
 	/**
 	 * Inform all listeners of the context that a drag & drop has started
-	 * @param  {?String} context Context to inform
+	 * @param  {String} context Context to inform
 	 */
 	drag_start (context, effectAllowed) {
 		if (!this.validContext(context)) {return;}
@@ -145,7 +145,7 @@ class DragController {
 	}
 	/**
 	 * Inform all listeners of the context that a drag & drop has ended
-	 * @param  {?String} context Context to inform
+	 * @param  {String} context Context to inform
 	 */
 	drag_end (context) {
 		if (!this.validContext(context)) {return;}
