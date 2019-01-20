@@ -145,42 +145,18 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		return ['context', 'effect_allowed', 'drop_effect'];
 	}
 	item_drag_start (caller, event) {
-		let parent = this._get_parent();
+		event.dataTransfer.effectAllowed = this.effect_allowed;
+		let parent = Elements.classes.Draggable.getParent(this);
 		if (parent === null) {
 			// Not setting dataTransfer automatically cancels drag on firefox
 			// preventDefault is needed for chrome
-			event.preventDefault();
-			throw new Error('Could not find parent to notify of drag');
+			// event.preventDefault();
+			console.warn('Could not find parent to notify of drag');
+		} else {
+			parent.item_drag_start(caller, event);
 		}
-		event.dataTransfer.effectAllowed = this.effect_allowed;
-		parent.item_drag_start(caller, event);
 		this._drag_subject = true;
 		return this.effect_allowed;
-	}
-	_get_parent () {
-		let parent = this.parentElement;
-		while (parent !== null && !this.constructor._check_parent(parent)) {
-			parent = parent.parentElement;
-		}
-		// Final check for shadowRoot parents
-		if (parent === null) {
-			let shadowParent = this.getRootNode().host;
-			if (shadowParent !== null) {
-				if (this.constructor._check_parent(shadowParent)) {
-					parent = shadowParent;
-				}
-			}
-		}
-		return parent;
-	}
-	static _check_parent (parent) {
-		let functions = ['item_drag_start', 'item_drop'];
-		for (let func of functions) {
-			if (!(typeof parent[func] === 'function')) {
-				return false;
-			}
-		}
-		return true;
 	}
 	_attach_drop () {
 		let dropzone = this.shadowRoot.querySelector('#overlay');
@@ -195,10 +171,11 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	onDrop (event) {
 		// Clear drag notice;
 		Elements.common.draggable_controller.drag_end(this.context);
-		let parent = this._get_parent();
+		let parent = Elements.classes.Draggable.getParent(this);
 		if (parent === null) {
-			event.preventDefault();
-			throw new Error('Could not find parent to notify of drop');
+			// event.preventDefault();
+			console.warn('Could not find parent to notify of drop');
+			return;
 		}
 		console.log(event.dataTransfer.effectAllowed);
 		parent.item_drop(this, event);

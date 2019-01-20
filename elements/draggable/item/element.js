@@ -43,7 +43,7 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 		console.log(e);
 	}
 	notify (event) {
-		let parent = this._get_parent();
+		let parent = Elements.classes.Draggable.getParent(this);
 		if (parent === null) {
 			// Not setting dataTransfer automatically cancels drag
 			// preventDefault is needed for chrome
@@ -51,28 +51,6 @@ Elements.elements.DraggableItem = class DraggableItem extends Elements.elements.
 			throw new Error('Could not find parent to notify of drag');
 		}
 		return parent.item_drag_start(this, event);
-	}
-	_get_parent () {
-		let parent = this.parentElement;
-		while (parent !== null && !this.constructor._check_parent(parent)) {
-			parent = parent.parentElement;
-		}
-		// Final check for shadowRoot parents
-		if (parent === null) {
-			let shadowParent = this.getRootNode().host;
-			if (shadowParent !== null) {
-				if (this.constructor._check_parent(shadowParent)) {
-					parent = shadowParent;
-				}
-			}
-		}
-		return parent;
-	}
-	static _check_parent (parent) {
-		if (!(typeof parent.item_drag_start === 'function')) {
-			return false;
-		}
-		return true;
 	}
 	onDragEnd (event) {
 		// Don't think there is anything that needs notifying

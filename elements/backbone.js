@@ -83,6 +83,12 @@ Elements = {
 	 */
 	common: {},
 	/**
+	 * Store for various object constructors
+	 * @memberof Elements
+	 * @type {Object}
+	 */
+	classes: {},
+	/**
 	 * Constants for animation durations, offsets.
 	 * @type {Object}
 	 * @memberof Elements

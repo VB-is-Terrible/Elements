@@ -75,8 +75,9 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 
 	}
 	item_drag_start (caller, event) {
+		let effectAllowed = this.parentElement.item_drag_start(caller, event);
 		event.dataTransfer.setData(Projects.common_type, this.__data.id);
-		return;
+		return effectAllowed;
 	}
 	item_drop (caller, event) {
 		return;
@@ -100,7 +101,6 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 	}
 	_getToChange () {
 		return [
-			this.shadowRoot.querySelector('elements-draggable-container'),
 			this.shadowRoot.querySelector('elements-draggable-item'),
 		];
 	}

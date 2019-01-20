@@ -2,6 +2,12 @@
 
 {
 const CONSOLE = true;
+/**
+ * Namespace for draggable helper objects
+ * @type {Object}
+ * @namespace Elements.classes.draggable
+ */
+Elements.classes.Draggable = {};
 
 /**
  * Object to respond to drag start & end
@@ -169,10 +175,44 @@ class DragController {
 	}
 }
 
+{
+	let _check_parent = (parent) => {
+		if (parent === undefined || parent === null) {
+			return false;
+		}
+		let functions = ['item_drag_start', 'item_drop'];
+		for (let func of functions) {
+			if (!(typeof parent[func] === 'function')) {
+				return false;
+			}
+		}
+		return true;
+	};
+	Elements.classes.Draggable.getParent = (childObject) => {
+		let parent = childObject.parentElement;
+		while (parent !== null && !(_check_parent(parent))) {
+			parent = parent.parentElement;
+		}
+		// Final check for shadowRoot parents
+		if (parent === null) {
+			let shadowParent = childObject.getRootNode().host;
+			if (shadowParent !== null) {
+				if (_check_parent(shadowParent)) {
+					parent = shadowParent;
+				}
+			}
+		}
+		return parent;
+	};
+}
+
+Elements.classes.Draggable.DragController = DragController;
+Elements.classes.Draggable.DraggableError = DraggableError;
+Elements.classes.Draggable.DragContext = DragContext;
 /**
- * Main drag controller for general contexts
- * @type {DragController}
- */
+* Main drag controller for general contexts
+* @type {DragController}
+*/
 Elements.common.draggable_controller = new DragController();
 
 Elements.loaded('draggable-Common');
