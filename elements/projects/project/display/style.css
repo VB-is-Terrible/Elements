@@ -1,4 +1,4 @@
-#pseudoBody {
+#main {
 	border: 1px solid grey;
 	border-radius: 5px;
 	display: flex;
@@ -7,6 +7,7 @@
 	contain: content;
 	overflow: hidden;
 	flex-flow: column;
+	box-sizing: border-box;
 }
 .title {
 	font-size: large;
@@ -67,4 +68,6 @@ p.status {
 }
 .border:empty {
 	padding: 0 0.3em;
+}
+#pseudoBody {
 }
