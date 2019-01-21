@@ -75,7 +75,11 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 
 	}
 	item_drag_start (caller, event) {
-		let effectAllowed = this.parentElement.item_drag_start(caller, event);
+		let parent = Elements.classes.Draggable.getParent(this);
+		if (parent === null) {
+			throw new Elements.classes.Draggable.DraggableError();
+		}
+		let effectAllowed = parent.item_drag_start(caller, event);
 		event.dataTransfer.setData(Projects.common_type, this.__data.id);
 		return effectAllowed;
 	}
