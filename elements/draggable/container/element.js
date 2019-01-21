@@ -65,7 +65,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 		Elements.setUpAttrPropertyLink2(this, 'drop_effect');
 		this.effect_allowed = 'link';
 		this.drop_effect = 'link';
-
+		this.applyPriorProperties('effect_allowed', 'drop_effect');
 	}
 	connectedCallback () {
 		let initialized = this.attributeInit;
