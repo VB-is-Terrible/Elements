@@ -202,6 +202,8 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 			return false;
 		}
 	}
+	item_drop () {
+	}
 	static splitEffects (effectAllowed) {
 		if (effectAllowed === 'unintialized' || effectAllowed === 'none') {
 			return [];
