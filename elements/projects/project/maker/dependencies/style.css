@@ -1,13 +1,19 @@
 div.holder {
-	height: 200px;
-	position: fixed;
+	/* height: 200px; */
+	/* position: fixed; */
 	width: 100%;
+	height: 100%;
+	display: grid;
 }
 #holders {
-	min-height: 200px
+	min-height: 200px; /* TODO: Add as custom variables */
+	max-height: 300px;
+	overflow: scroll;
+	display: grid;
 }
 #contents{
-	display: flex;
+	display: grid;
+	grid-auto-flow: column;
 	flex-direction: row;
 }
 div.flex-member {
