@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset='utf-8'>
+		<title>Testbed</title>
+		<link rel='preload' href='elements/backbone.js' as='script'></link>
+		<link rel='preload' href='elements/manifest.js' as='script'></link>
+		<style>
+		#p1 {
+			width: 300px;
+		}
+		#main {
+		}
+		#disabler {
+			margin-left: 50px;
+			font-size: large;
+		}
+		</style>
+	</head>
+	<body>
+		<script src='elements/backbone.js'></script>
+		<script src='elements/manifest.js'></script>
+		<script type="text/javascript">
+			Elements.get('projects-project-maker-dependencies');
+		</script>
+		<div id='main'>
+			<elements-projects-project-maker-dependencies>
+			</elements-projects-project-maker-dependencies>
+		</div>
+	</body>
+</html>
