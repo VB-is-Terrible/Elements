@@ -50,6 +50,7 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		 * @private
 		 */
 		this._projects = new Set();
+		this._project_displays = new Map();
 		/**
 		 * Map of project ids to displays
 		 * @type {Map<Number, Elements.elements.ProjectsProjectDisplay>}
@@ -82,6 +83,7 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		if (caller === this.shadowRoot.querySelector('#dropContainer')) {
 			this.addProject(parseInt(event.dataTransfer.getData(Projects.common_type)));
 		} else if (caller === this.shadowRoot.querySelector('#removeArea')) {
+			this.removeProject(parseInt(event.dataTransfer.getData(Projects.common_type)));
 			console.log('Would have removed project');
 			// Remove project
 		} else {
@@ -111,6 +113,9 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		}
 	}
 	addProject (id) {
+		if (this._projects.has(id)) {
+			return;
+		}
 		let project = DATA.get_event_by_id(id);
 		let display = document.createElement('elements-projects-project-display');
 		display.data = project;
@@ -119,6 +124,17 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		let div = document.createElement('div');
 		div.append(display);
 		displayHolder.append(div);
+		this._projects.add(id);
+		this._project_displays.set(id, div);
+	}
+	removeProject (id) {
+		if (!this._projects.has(id)) {
+			throw new Error('Attempted to remove an invalid project');
+		}
+		let display = this._project_displays.get(id);
+		display.remove();
+		this._project_displays.delete(id);
+		this._projects.delete(id);
 	}
 };
 
