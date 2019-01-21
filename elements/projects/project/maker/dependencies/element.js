@@ -2,10 +2,13 @@
 
 Elements.get('draggable-container', 'draggable-Common', 'projects-Project', 'projects-project-display');
 {
-class DragListenerExternal {
+
+class DragListener {
 	constructor (origin) {
 		this.origin = origin;
 	}
+}
+class DragListenerExternal extends DragListener {
 	drag_start (caller, event) {
 		this.origin._showExternalDrag();
 	}
@@ -13,6 +16,13 @@ class DragListenerExternal {
 		this.origin._showInternalDrag();
 	}
 }
+class DragListenerInternal extends DragListener {
+	drag_start (caller, event) {
+		this.origin._showInternalDrag();
+	}
+	drag_end (caller, event) {
+	}
+};
 
 const main = async () => {
 
@@ -32,7 +42,8 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		const self = this;
 
 		this.name = 'ProjectsProjectMakerDependencies';
-		this._listener = new DragListenerExternal(this);
+		this._external_listener = new DragListenerExternal(this);
+		this._internal_listener = new DragListenerInternal(this);
 		/**
 		 * Set of projects currently listed as dependencies
 		 * @type {Set<Number>}
@@ -56,11 +67,13 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		Elements.common.draggable_controller.addListener(this._listener, EXTERNAL_CONTEXT);
+		Elements.common.draggable_controller.addListener(this._external_listener, EXTERNAL_CONTEXT);
+		Elements.common.draggable_controller.addListener(this._internal_listener, INTERNAL_CONTEXT);
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
-		Elements.common.draggable_controller.removeListener(this._listener, EXTERNAL_CONTEXT);
+		Elements.common.draggable_controller.removeListener(this._external_listener, EXTERNAL_CONTEXT);
+		Elements.common.draggable_controller.removeListener(this._internal_listener, INTERNAL_CONTEXT);
 	}
 	item_drag_start (caller, event) {
 
@@ -69,6 +82,7 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		if (caller === this.shadowRoot.querySelector('#dropContainer')) {
 			this.addProject(parseInt(event.dataTransfer.getData(Projects.common_type)));
 		} else if (caller === this.shadowRoot.querySelector('#removeArea')) {
+			console.log('Would have removed project');
 			// Remove project
 		} else {
 			console.warn('Unknown item_drop caller: ', caller);
