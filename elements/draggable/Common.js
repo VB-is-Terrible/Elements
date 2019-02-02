@@ -29,6 +29,28 @@ Elements.classes.Draggable = {};
 */
 
 /**
+ * Object to be notified of drag starts and ends through the DOM chain
+ * @Interface DraggableObserver
+ */
+
+/**
+ * @function item_drag_start
+ * @description callback for a drag & drop start
+ * @param {Object} caller Object that was dragged
+ * @param {Event} event The drag start event
+ * @name DraggableObserver.item_drag_start
+ */
+
+ /**
+  * @function item_drop
+  * @description callback for a 'drag & drop'  drop
+  * @param {Object} caller Object that was dropped into
+  * @param {Event} event The drop event
+  * @name DraggableObserver.item_drop
+  */
+
+
+/**
  * Error in draggable module
  * @extends Error
  */
