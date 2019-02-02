@@ -40,7 +40,6 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		})
 		//Fancy code goes here
 		shadow.appendChild(template);
-		this.applyPriorProperty('database', null);
 	}
 	create () {
 		if (!Elements.loadedElements.has('projects-Project')) {
@@ -52,7 +51,9 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		let progress = this.shadowRoot.querySelector('#AnsProgress').checked;
 		let progressAmount = this.shadowRoot.querySelector('#AnsProgressAmount').value;
 		let meta = this.shadowRoot.querySelector('#AnsMeta').checked;
-		let project = new Projects.Project(this.database, name, null, desc, progress ? progressAmount : undefined);
+		let dependencies = this.shadowRoot.querySelector('#depend').contents;
+		let project = new Projects.Project(DATA, name, null, desc, progress ? progressAmount : undefined);
+		project.dependencies = dependencies;
 		// TODO: Add feedback
 		if (name === '') {return;}
 		project.meta = meta ? 1 : 0;
@@ -62,7 +63,7 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 	async send_create (project) {
 		// this.hideWindow();
 		this.clear();
-		let result = await this.database.add_project(project);
+		let result = await DATA.add_project(project);
 		if (!result) {
 			// TODO: Add notification
 		}
@@ -73,11 +74,13 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		let progress = this.shadowRoot.querySelector('#AnsProgress');
 		let progressAmount = this.shadowRoot.querySelector('#AnsProgressAmount');
 		let meta = this.shadowRoot.querySelector('#AnsMeta');
+		let depend = this.shadowRoot.querySelector('#depend');
 		name.value = '';
 		desc.value = '';
 		progress.checked = false;
 		progressAmount.value = null;
 		meta.checked = false;
+		depend.clear();
 	}
 };
 
