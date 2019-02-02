@@ -2,12 +2,20 @@
 
 Elements.get('draggable-container', 'draggable-Common', 'projects-Project', 'projects-project-display');
 {
-
+/**
+ * Base class for internal drag listener
+ * @private
+ */
 class DragListener {
 	constructor (origin) {
 		this.origin = origin;
 	}
 }
+/**
+ * Listener for drags outside the dependency tracker
+ * @extends DragListener
+ * @implements DraggableListener
+ */
 class DragListenerExternal extends DragListener {
 	drag_start (caller, event) {
 		this.origin._showExternalDrag();
@@ -16,6 +24,11 @@ class DragListenerExternal extends DragListener {
 		this.origin._showInternalDrag();
 	}
 }
+/**
+ * Listener for drags inside the dependency tracker
+ * @extends DragListener
+ * @implements DraggableListener
+ */
 class DragListenerInternal extends DragListener {
 	drag_start (caller, event) {
 		this.origin._showInternalDrag();
@@ -32,8 +45,9 @@ const INTERNAL_CONTEXT = 'project-maker';
 const EXTERNAL_CONTEXT = Projects.common_type;
 
 /**
- * [ProjectsProjectMakerDependencies Description]
+ * Tracker for dependencies in object currently editted.
  * @augments Elements.elements.backbone2
+ * @implements DraggableObserver
  * @type {Object}
  */
 Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerDependencies extends Elements.elements.backbone2 {
@@ -91,12 +105,25 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		}
 		this._showInternalDrag();
 	}
+	/**
+	 * Shows panel to accept external drags
+	 * @private
+	 */
 	_showExternalDrag () {
 		this._toggleDragShown(true);
 	}
+	/**
+	 * Shows panel to accept internal drags
+	 * @private
+	 */
 	_showInternalDrag () {
 		this._toggleDragShown(false);
 	}
+	/**
+	 * Change which internal panel to display
+	 * @param  {Boolean} external Whether to display the external or internal panel
+	 * @private
+	 */
 	_toggleDragShown (external) {
 		let externalDrag = this.shadowRoot.querySelector('#dropZone');
 		let internalDrag = this.shadowRoot.querySelector('#contents');
@@ -112,6 +139,10 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 			});
 		}
 	}
+	/**
+	 * Add a project to the tracker
+	 * @param {Number} id ID of project to add
+	 */
 	addProject (id) {
 		if (this._projects.has(id)) {
 			return;
@@ -122,19 +153,42 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		display.context = INTERNAL_CONTEXT;
 		let displayHolder = this.shadowRoot.querySelector('#projectContainer');
 		let div = document.createElement('div');
-		div.append(display);
-		displayHolder.append(div);
 		this._projects.add(id);
 		this._project_displays.set(id, div);
+		requestAnimationFrame((e) => {
+			div.append(display);
+			displayHolder.append(div);
+		});
 	}
+	/**
+	 * Remove a project from the tracker
+	 * @param  {Number} id ID of the project to remove
+	 */
 	removeProject (id) {
 		if (!this._projects.has(id)) {
 			throw new Error('Attempted to remove an invalid project');
 		}
 		let display = this._project_displays.get(id);
-		display.remove();
 		this._project_displays.delete(id);
 		this._projects.delete(id);
+		requestAnimationFrame((e) => {
+			display.remove();
+		});
+	}
+	/**
+	 * Get a list of the IDs of projects in the tracker
+	 * @return {List<Number>} List of project IDs
+	 */
+	get contents () {
+		return [...this._projects];
+	}
+	/**
+	 * Remove all projects from the tracker
+	 */
+	clear () {
+		for (let id of this._projects) {
+			this.removeProject(id);
+		}
 	}
 };
 
