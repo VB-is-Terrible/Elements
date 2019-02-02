@@ -315,6 +315,7 @@ let KNS =  {
 		/**
 		 * Duplicate the kerbal
 		 * @return {KNS.Kerbal} Duplicated kerbal
+                 * @memberof KNS.Kerbal
 		 */
 		duplicate () {
 			return this.constructor.fromJSONObj(JSON.parse(JSON.stringify(this)));
