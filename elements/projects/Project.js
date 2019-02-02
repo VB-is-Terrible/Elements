@@ -40,6 +40,14 @@ const Projects = {
 	},
 	MAX_STATUS: 2,
 	PROGRESS_STATUS: 1,
+	/**
+	 * Object describing the status of a project
+	 * @property {Number} major The overall status of a project. These are ascending
+	 * @property {Number} minor A detailed status on the project. Not in any order
+	 * @property {String} major_code A string description of the major code
+	 * @property {String} minor_code A string description of the minor code
+	 * @type {Object}
+	 */
 	Status: class Status {
 		constructor (major, minor = 0) {
 			this.major = major;
@@ -55,11 +63,29 @@ const Projects = {
 				return this.major_code;
 			}
 		}
+		/**
+		 * Restores a status object from JSON
+		 * @param  {Object} obj JSON object to revive
+		 * @return {Projects.Status}     Revived status
+		 * @memberof Projects.Status
+		 */
 		static fromJSONObj (obj) {
 			let status = new this(obj.major, obj.minor);
 			return status;
 		}
 	},
+	/**
+	 * Class representing project object. Shared with Server
+	 * @property {String} name Name of the project
+	 * @property {Number} id Project ID. Should be unique.
+	 * @property {String} desc Description of the project
+	 * @property {Number} required Amount of progress required to complete this project
+	 * @property {Number} progress Current progress to completion
+	 * @property {Number} meta Type of project
+	 * @property {List<Number>} dependencies List of dependencies as project IDs
+	 * @property {Projects.Status} status Status object for the project
+	 * @type {Object}
+	 */
 	Project: class Project {
 		constructor (system, name, id, desc = '', required = 2, status = null) {
 			this._system = system;
@@ -121,12 +147,26 @@ const Projects = {
 			this._meta = value;
 			this.dispatchUpdate();
 		}
+		/**
+		 * Update displays that something has changed
+		 * @memberof Projects.Project
+		 */
 		dispatchUpdate () {
-
+			// TODO: Implement
 		}
+		/**
+		 * Add a display to listen to changes
+		 * @param {ProjectDisplay} display Display to notify
+		 * @memberof Projects.Project
+		 */
 		addDisplay (display) {
 			this._displays.add(display);
 		}
+		/**
+		 * Stop a display from been notified of changes
+		 * @param  {ProjectDisplay} display Display to stop notifying
+		 * @memberof Projects.Project
+		 */
 		removeDisplay (display) {
 			this._displays.delete(display);
 		}
@@ -137,9 +177,13 @@ const Projects = {
 			this._status = value;
 			this.dispatchUpdate();
 		}
-		get status_code () {
-			return this.status.minor_code;
-		}
+		/**
+		 * Restores the project from a JSON object
+		 * @param  {Object} obj    JSON object to revive from
+		 * @param  {Projects.System} system System to attach project to
+		 * @return {Projects.Project}        Revived project
+		 * @memberof Projects.Project
+		 */
 		static fromJSONObj(obj, system) {
 			if (obj.type !== 'Project') {
 				throw new Projects.ProjectParseError('Not a Project representation');
@@ -151,25 +195,55 @@ const Projects = {
 			project.meta = obj.meta;
 			return project
 		}
+		/**
+		 * Convert a project object to JSON
+		 * @return {Object} [description]
+		 * @memberof Projects.Project
+		 */
 		toJSON () {
 			return Elements.jsonIncludes(this, this.constructor.json_props);
 		}
+		/**
+		 * List of properties needed to store a project as JSON
+		 * @type {List<String>}
+		 * @memberof Projects.Project
+		 */
 		static get json_props () {
 			return ['name', 'desc', 'dependencies', 'required', 'progress', 'meta'];
 		}
 	},
+	/**
+	 * Overall Project Container and manager
+	 * @property {Map<Number, Projects.Project>} projects A map of project IDs to project objects
+	 * @property {Number} version Version number of the system, used to get new patches. No guarantee on linearity
+	 * @type {Object}
+	 */
 	System: class System {
 		constructor() {
 			this.projects = new Map();
+			this.version = 0;
 		}
+		/**
+		 * Revive a system from raw JSON
+		 * @param  {String} json Raw JSON to revive
+		 * @return {Projects.System}      Revived System
+		 * @memberof Projects.System
+		 */
 		static fromJSON(json) {
 			return this.fromJSONObj(JSON.parse(json))
 		}
+		/**
+		 * Revive a system from JSON
+		 * @param  {Object} obj  JSON object to revive
+		 * @return {Projects.System}      Revived System
+		 * @memberof Projects.System
+		 */
 		static fromJSONObj(obj) {
 			if (obj.type !== 'System') {
 				throw new Projects.ProjectParseError('Not a System');
 			}
 			let system = new Projects.System();
+			system.version = obj.version
 			for (let project_key in obj.projects) {
 				let projectObj = obj.projects[project_key]
 				let project = Projects.Project.fromJSONObj(projectObj, system);
@@ -177,14 +251,28 @@ const Projects = {
 			}
 			return system;
 		}
+		/**
+		 * Get a project by ID
+		 * @param  {Number} id ID of project to get
+		 * @return {Projects.Project}    Project with corresponding ID
+		 * @memberof Projects.System
+		 */
 		get_event_by_id (id) {
 			return this.projects.get(id);
 		}
+		/**
+		 * Send a project to the server to be created.
+		 * Assuming no errors, the server will send back a create patch
+		 * @param  {Projects.Project}  project Project to create
+		 * @return {Promise}           If sending the project was successful
+		 * @memberof Projects.System
+		 */
 		async add_project (project) {
 			let message = JSON.stringify([project]);
 			console.log('Sending: ', message);
 			let form_data = new FormData();
 			form_data.append('create', message);
+			form_data.append('version', this.version)
 			let fetch_promise;
 			try {
 				fetch_promise =  fetch(window.location + 'create', {
@@ -202,6 +290,12 @@ const Projects = {
 				return false;
 			}
 		}
+		/**
+		 * Apply a patch from the server to the system.
+		 * Only creating projects has been implemented
+		 * @param  {Promise}  promise Promise from pinging the server
+		 * @memberof Projects.System
+		 */
 		async patch (promise) {
 			let patch;
 			try {
@@ -217,6 +311,12 @@ const Projects = {
 			}
 		}
 		async _patch_add_project (project_obj) {
+		/**
+		 * Add a project to the system
+		 * @param  {Object}  project_obj JSON object of project to add
+		 * @private
+		 * @memberof Projects.System
+		 */
 			let project = Projects.Project.fromJSONObj(project_obj, this);
 			this.projects.set(project.id, project);
 			// TODO: Move this into own element
