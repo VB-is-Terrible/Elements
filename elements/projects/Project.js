@@ -300,23 +300,26 @@ const Projects = {
 			let patch;
 			try {
 				let response = await promise;
-				patch = await response.json();
+				updates = await response.json();
 			} catch (e) {
 				alert('Bad response from server');
 				throw e;
 			}
-			console.log ('Would apply patch: ', patch);
-			for (let create of patch.create) {
-				this._patch_add_project(create);
+			console.log ('Would apply update: ', updates);
+			for (let patch of updates.patches) {
+				for (let create of patch.create) {
+					this._patch_add_project(create);
+				}
 			}
+			this.version = updates.version
 		}
-		async _patch_add_project (project_obj) {
 		/**
 		 * Add a project to the system
 		 * @param  {Object}  project_obj JSON object of project to add
 		 * @private
 		 * @memberof Projects.System
 		 */
+		_patch_add_project (project_obj) {
 			let project = Projects.Project.fromJSONObj(project_obj, this);
 			this.projects.set(project.id, project);
 			// TODO: Move this into own element
