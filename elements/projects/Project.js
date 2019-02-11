@@ -297,7 +297,7 @@ const Projects = {
 		 * @memberof Projects.System
 		 */
 		async patch (promise) {
-			let patch;
+			let updates;
 			try {
 				let response = await promise;
 				updates = await response.json();
