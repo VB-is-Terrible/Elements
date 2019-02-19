@@ -95,6 +95,14 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 		});
 		this.applyPriorProperties('context');
 
+		let title = template.querySelector('#title')
+		Elements.setUpAttrPropertyLink2(this, 'title', 'Dependencies', (value) => {
+			requestAnimationFrame((e) => {
+				title.innerHTML = value;
+			});
+		})
+		this.applyPriorProperties('title');
+
 		shadow.appendChild(template);
 		this._showInternalDrag();
 
@@ -230,7 +238,7 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 		}
 	}
 	static get observedAttributes () {
-		return ['context'];
+		return ['context', 'title'];
 	}
 };
 
