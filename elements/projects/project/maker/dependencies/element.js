@@ -76,6 +76,16 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 
 		template.querySelector('#dropContainer').context = EXTERNAL_CONTEXT;
 		//Fancy code goes here
+		let projectContainer = template.querySelector('#projectContainer');
+		let removeArea = template.querySelector('#removeArea');
+
+		Elements.setUpAttrPropertyLink2(this, 'context', 'project-maker', (value) => {
+			projectContainer.context = value;
+			removeArea.context = value;
+		});
+
+		this.applyPriorProperties('context');
+
 		shadow.appendChild(template);
 		this._showInternalDrag();
 
@@ -189,6 +199,9 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		for (let id of this._projects) {
 			this.removeProject(id);
 		}
+	}
+	static get observedAttributes () {
+		return ['context'];
 	}
 };
 
