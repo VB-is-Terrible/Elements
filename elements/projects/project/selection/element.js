@@ -49,12 +49,12 @@ const EXTERNAL_CONTEXT = Projects.common_type;
  * @implements DraggableObserver
  * @type {Object}
  */
-Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerDependencies extends Elements.elements.backbone2 {
+Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection extends Elements.elements.backbone2 {
 	constructor () {
 		super();
 		const self = this;
 
-		this.name = 'ProjectsProjectMakerDependencies';
+		this.name = 'ProjectsProjectSelection';
 		this._external_listener = new DragListenerExternal(this);
 		this._internal_listener = new DragListenerInternal(this);
 		/**
@@ -237,7 +237,7 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 	}
 };
 
-Elements.load(Elements.elements.ProjectsProjectMakerDependencies, 'elements-projects-project-maker-dependencies');
+Elements.load(Elements.elements.ProjectsProjectSelection, 'elements-projects-project-selection');
 };
 
 main();
