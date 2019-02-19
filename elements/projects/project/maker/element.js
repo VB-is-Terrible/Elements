@@ -57,7 +57,6 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		// TODO: Add feedback
 		if (name === '') {return;}
 		project.meta = meta ? 1 : 0;
-		// TODO: Add dependencies
 		this.send_create(project);
 	}
 	async send_create (project) {
