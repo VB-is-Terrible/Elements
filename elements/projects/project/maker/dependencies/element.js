@@ -41,7 +41,6 @@ const main = async () => {
 
 await Elements.get('projects-Project');
 
-const INTERNAL_CONTEXT = 'project-maker';
 const EXTERNAL_CONTEXT = Projects.common_type;
 
 /**
@@ -71,17 +70,30 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		 * @private
 		 */
 		this._displays = new Map();
+		/**
+		 * The current internal context
+		 * @type {?String}
+		 * @private
+		 */
+		this._internal_context = null;
+		/**
+		 * Whether this element is connected to the DOM and listening
+		 * @type {Boolean}
+		 * @private
+		 */
+		this._connected = false;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
 		template.querySelector('#dropContainer').context = EXTERNAL_CONTEXT;
-		//Fancy code goes here
+
 		let projectContainer = template.querySelector('#projectContainer');
 		let removeArea = template.querySelector('#removeArea');
 
 		Elements.setUpAttrPropertyLink2(this, 'context', 'project-maker', (value) => {
 			projectContainer.context = value;
 			removeArea.context = value;
+			self._updateContext(value);
 		});
 
 		this.applyPriorProperties('context');
@@ -93,12 +105,32 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 	connectedCallback () {
 		super.connectedCallback();
 		Elements.common.draggable_controller.addListener(this._external_listener, EXTERNAL_CONTEXT);
-		Elements.common.draggable_controller.addListener(this._internal_listener, INTERNAL_CONTEXT);
+		Elements.common.draggable_controller.addListener(this._internal_listener, this._internal_context);
+		this._connected = true;
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
 		Elements.common.draggable_controller.removeListener(this._external_listener, EXTERNAL_CONTEXT);
-		Elements.common.draggable_controller.removeListener(this._internal_listener, INTERNAL_CONTEXT);
+		Elements.common.draggable_controller.removeListener(this._internal_listener, this._internal_context);
+		this._connected = false;
+	}
+	/**
+	 * Update the internal context
+	 * @param  {String} value New context to swtich to
+	 * @private
+	 */
+	_updateContext (value) {
+		let old = this._internal_context;
+		this._internal_context = value;
+		if (!this._connected) {
+			return;
+		} else {
+			Elements.common.draggable_controller.removeListener(this._internal_listener, old);
+			Elements.common.draggable_controller.addListener(this._internal_listener, value);
+			for (let display of this._project_displays.values()) {
+				display.context = value;
+			}
+		}
 	}
 	item_drag_start (caller, event) {
 
@@ -160,7 +192,7 @@ Elements.elements.ProjectsProjectMakerDependencies = class ProjectsProjectMakerD
 		let project = DATA.get_event_by_id(id);
 		let display = document.createElement('elements-projects-project-display');
 		display.data = project;
-		display.context = INTERNAL_CONTEXT;
+		display.context = this._internal_context;
 		let displayHolder = this.shadowRoot.querySelector('#projectContainer');
 		let div = document.createElement('div');
 		this._projects.add(id);
