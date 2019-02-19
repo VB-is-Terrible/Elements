@@ -63,13 +63,12 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 		 * @private
 		 */
 		this._projects = new Set();
-		this._project_displays = new Map();
 		/**
 		 * Map of project ids to displays
 		 * @type {Map<Number, Elements.elements.ProjectsProjectDisplay>}
 		 * @private
 		 */
-		this._displays = new Map();
+		this._project_displays = new Map();
 		/**
 		 * The current internal context
 		 * @type {?String}
@@ -89,13 +88,11 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 
 		let projectContainer = template.querySelector('#projectContainer');
 		let removeArea = template.querySelector('#removeArea');
-
 		Elements.setUpAttrPropertyLink2(this, 'context', 'project-maker', (value) => {
 			projectContainer.context = value;
 			removeArea.context = value;
 			self._updateContext(value);
 		});
-
 		this.applyPriorProperties('context');
 
 		shadow.appendChild(template);
