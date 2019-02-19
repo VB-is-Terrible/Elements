@@ -1,7 +1,7 @@
 # Editor progress
 
- * Adapt maker-dependencies to have multiple instances
-  * Allow title to be changeable
+ * Adapt maker-dependencies to have multiple instances - Done
+  * Allow title to be changeable - Done
  * Implement show JS
  * Implement view/edit switch
 
