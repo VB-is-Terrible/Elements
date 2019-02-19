@@ -1,0 +1,51 @@
+<template id='templateElementsProjectsProjectEditor'>
+	<link rel='stylesheet' type='text/css' href='projects/project/editor/style.css'>
+	<link rel='stylesheet' type='text/css' href='common/float.css'>
+	<div id='pseudoBody'>
+		<div class='flex-column'>
+			<div class='flex-row'>
+				<div class='row-first'>Project Name</div>
+				<div class='row-last' id='projectName'>Something</div>
+			</div>
+			<div class='flex-row'>
+				<div class='row-first'>Project Description</div>
+				<textarea class='row-last' id='projectDesc'>Something</textarea>
+			</div>
+			<div class='flex-row'>
+				<div class='row-first'>Project Major Status</div>
+				<div class='row-last' id='projectMajor'>Something</div>
+			</div>
+			<div class='flex-row'>
+				<div class='row-first'>Project Minor Status</div>
+				<div class='row-last' id='projectMinor'>Something</div>
+			</div>
+			<div class='flex-row'>
+				<div class='row-first'>Counter</div>
+				<div class='row-last multi'>
+					<input id='projectProgress' type='checkbox'></input>
+					<input id='projectProgressCurrent' type='number' disabled></input>
+					<p class='spacer'> / </p>
+					<input id='projectProgressTotal' type='number' disabled></input>
+				</div>
+			</div>
+			<div class='flex-row'>
+				<div class='row-first'> Meta </div>
+				<div class='row-last'>
+					<input id='projectMeta' type='checkbox'></input>
+				</div>
+			</div>
+			<elements-projects-project-maker-dependencies id='depend'>
+			</elements-projects-project-maker-dependencies>
+			<div id='footer' class='right'>
+				<button id='Cancel' class='spacer'>
+					Cancel
+				</button>
+				<button id='Done' class='spacer'>
+					Done
+				</button>
+			</div>
+
+		</div>
+
+	</div>
+</template>

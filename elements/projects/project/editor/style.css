@@ -1,0 +1,10 @@
+#pseudoBody {
+	min-width: 35em;
+}
+.spacer {
+	margin-right: .5em;
+	margin-left: .5em;
+}
+input[type=checkbox] {
+	height: 100%;
+}
