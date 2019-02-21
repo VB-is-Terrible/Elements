@@ -1,10 +1,10 @@
 'use strict';
 
-Elements.get();
+Elements.get('projects-Projects');
 {
 const main = async () => {
 
-await Elements.get();
+await Elements.get('projects-Projects');
 /**
  * [ProjectsProjectEditor Description]
  * @augments Elements.elements.backbone2
@@ -18,6 +18,20 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		this.name = 'ProjectsProjectEditor';
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
+
+		for (let input of template.querySelectorAll('input')) {
+			if (input.type === 'text') {
+				input.addEventListener('mousedown', (e) => {
+					e.stopPropagation();
+				});
+			}
+		}
+		for (let textarea of template.querySelector('textarea')) {
+			textarea.addEventListener('mousedown', (e) => {
+				e.stopPropagation();
+			});
+		}
+		template.querySelector('#dropContainer').context = Projects.common_type;
 
 		this.project = null;
 		//Fancy code goes here
@@ -65,7 +79,7 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 			selection.addProject(project_id);
 		}
 	}
-	
+
 
 };
 
