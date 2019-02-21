@@ -2,6 +2,7 @@
 
  * Adapt maker-dependencies to have multiple instances - Done
   * Allow title to be changeable - Done
+ * Make a way to select a project for editing
  * Implement show JS
  * Implement view/edit switch
 
