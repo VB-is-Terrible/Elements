@@ -33,22 +33,39 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		return [];
 	}
 	setProject (id) {
-
+		/**
+		 * Project to show
+		 * @type {Projects.Project}
+		 */
+		let project = DATA.get_event_by_id(id);
+		this.project = id;
 		let name = this.shadowRoot.querySelector('#projectName');
 		let desc = this.shadowRoot.querySelector('#projectDesc');
 		let progress = this.shadowRoot.querySelector('#projectProgress');
 		let progressAmount = this.shadowRoot.querySelector('#AnsProgressCurrent');
 		let progressTotal = this.shadowRoot.querySelector('#AnsProgressTotal');
 		let meta = this.shadowRoot.querySelector('#projectMeta');
-		let depend = this.shadowRoot.querySelector('#depend');
-		name.value = '';
-		desc.value = '';
-		progress.checked = false;
-		progressAmount.value = null;
-		meta.checked = false;
-		depend.clear();
-
+		let selection = this.shadowRoot.querySelector('#depend');
+		requestAnimationFrame((e) => {
+			name.value = project.name;
+			desc.value = project.desc;
+			if (project.required > 2) {
+				progress.checked = true;
+				progressAmount.innerHTML = project.progress;
+				progressTotal.innerHTML = project.required;
+			} else {
+				progress.checked = false;
+				progressAmount.innerHTML = '';
+				progressTotal.innerHTML = '';
+			}
+			meta.checked = project.meta;
+		});
+		selection.clear();
+		for (let project_id of project.dependencies) {
+			selection.addProject(project_id);
+		}
 	}
+	
 
 };
 
