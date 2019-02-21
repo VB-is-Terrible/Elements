@@ -8,3 +8,13 @@
 input[type=checkbox] {
 	height: 100%;
 }
+#back {
+	position: fixed;
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	background: blue;
+}
+#form {
+	contain: content;
+}

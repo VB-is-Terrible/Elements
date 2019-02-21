@@ -2,7 +2,7 @@
 	<link rel='stylesheet' type='text/css' href='projects/project/editor/style.css'>
 	<link rel='stylesheet' type='text/css' href='common/float.css'>
 	<div id='pseudoBody'>
-		<div class='flex-column'>
+		<div class='flex-column' id='form'>
 			<div class='flex-row'>
 				<div class='row-first'>Project Name</div>
 				<div class='row-last' id='projectName'>Something</div>
@@ -34,17 +34,17 @@
 					<input id='projectMeta' type='checkbox'></input>
 				</div>
 			</div>
-			<elements-projects-project-selection id='depend' context='project-editor'>
-			</elements-projects-project-selection>
-			<div id='footer' class='right'>
-				<button id='Cancel' class='spacer'>
-					Cancel
-				</button>
-				<button id='Done' class='spacer'>
-					Done
-				</button>
-			</div>
-
+			<div id='back'></div>
+		</div>
+		<elements-projects-project-selection id='depend' context='project-editor'>
+		</elements-projects-project-selection>
+		<div id='footer' class='right'>
+			<button id='Cancel' class='spacer'>
+				Cancel
+			</button>
+			<button id='Done' class='spacer'>
+				Done
+			</button>
 		</div>
 
 	</div>
