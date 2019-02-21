@@ -33,6 +33,11 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 				});
 			}
 		}
+		for (let textarea of template.querySelector('textarea')) {
+			textarea.addEventListener('mousedown', (e) => {
+				e.stopPropagation();
+			});
+		}
 		let progress = template.querySelector('#AnsProgress');
 		let progressAmount = template.querySelector('#AnsProgressAmount');
 		progress.addEventListener('change', (e) => {
