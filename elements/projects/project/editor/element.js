@@ -105,6 +105,7 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 	item_drop (caller, event) {
 		let id = parseInt(event.dataTransfer.getData(Projects.common_type));
 		console.log('Recieved project: ', id);
+		this.setProject(id);
 	}
 	_showDropArea () {
 		this._showDrop(true);
