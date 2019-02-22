@@ -4,6 +4,23 @@ Elements.get('projects-Project');
 {
 const main = async () => {
 
+/**
+ * @private
+ */
+class DragListener {
+	constructor (origin) {
+		this.origin = origin;
+	}
+	drag_start (caller, event) {
+		this.origin._showDropArea();
+	}
+	drag_end (caller, event) {
+		this.origin._showForm();
+	}
+}
+
+
+
 await Elements.get('projects-Project');
 /**
  * [ProjectsProjectEditor Description]
@@ -34,14 +51,17 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		template.querySelector('#dropContainer').context = Projects.common_type;
 
 		this.project = null;
+		this._listener = new DragListener(this);
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
 	connectedCallback () {
 		super.connectedCallback();
+		Elements.common.draggable_controller.addListener(this._listener, Projects.common_type);
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
+		Elements.common.draggable_controller.removeListener(this._listener, Projects.common_type);
 	}
 	static get observedAttributes () {
 		return [];
@@ -79,8 +99,25 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 			selection.addProject(project_id);
 		}
 	}
+	item_drag_start (caller, event) {
 
-
+	}
+	item_drop (caller, event) {
+		let id = parseInt(event.dataTransfer.getData(Projects.common_type));
+		console.log('Recieved project: ', id);
+	}
+	_showDropArea () {
+		this._showDrop(true);
+	}
+	_showForm () {
+		this._showDrop(false);
+	}
+	_showDrop (visible) {
+		let drop = this.shadowRoot.querySelector('#back');
+		requestAnimationFrame((e) => {
+			drop.style.display = visible ? 'block' : 'none';
+		});
+	}
 };
 
 Elements.load(Elements.elements.ProjectsProjectEditor, 'elements-projects-project-editor');
