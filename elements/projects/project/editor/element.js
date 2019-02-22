@@ -1,10 +1,10 @@
 'use strict';
 
-Elements.get('projects-Projects');
+Elements.get('projects-Project');
 {
 const main = async () => {
 
-await Elements.get('projects-Projects');
+await Elements.get('projects-Project');
 /**
  * [ProjectsProjectEditor Description]
  * @augments Elements.elements.backbone2
@@ -26,7 +26,7 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 				});
 			}
 		}
-		for (let textarea of template.querySelector('textarea')) {
+		for (let textarea of template.querySelectorAll('textarea')) {
 			textarea.addEventListener('mousedown', (e) => {
 				e.stopPropagation();
 			});

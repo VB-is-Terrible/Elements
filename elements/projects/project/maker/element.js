@@ -33,7 +33,7 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 				});
 			}
 		}
-		for (let textarea of template.querySelector('textarea')) {
+		for (let textarea of template.querySelectorAll('textarea')) {
 			textarea.addEventListener('mousedown', (e) => {
 				e.stopPropagation();
 			});
