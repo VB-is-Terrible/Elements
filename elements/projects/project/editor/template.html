@@ -5,11 +5,13 @@
 		<div class='flex-column' id='form'>
 			<div class='flex-row'>
 				<div class='row-first'>Project Name</div>
-				<div class='row-last' id='projectName'>Something</div>
+				<div class='row-last'>
+					<input id='projectName' value='Something' readonly </input>
+				</div>
 			</div>
 			<div class='flex-row'>
 				<div class='row-first'>Project Description</div>
-				<textarea class='row-last' id='projectDesc'>Something</textarea>
+				<textarea class='row-last' id='projectDesc' readonly>Something</textarea>
 			</div>
 			<div class='flex-row'>
 				<div class='row-first'>Project Major Status</div>
@@ -22,7 +24,7 @@
 			<div class='flex-row'>
 				<div class='row-first'>Counter</div>
 				<div class='row-last multi'>
-					<input id='projectProgress' type='checkbox'></input>
+					<input id='projectProgress' type='checkbox' readonly></input>
 					<input id='projectProgressCurrent' type='number' disabled></input>
 					<p class='spacer'> / </p>
 					<input id='projectProgressTotal' type='number' disabled></input>

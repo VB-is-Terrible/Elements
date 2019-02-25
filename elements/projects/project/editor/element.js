@@ -76,8 +76,10 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		let name = this.shadowRoot.querySelector('#projectName');
 		let desc = this.shadowRoot.querySelector('#projectDesc');
 		let progress = this.shadowRoot.querySelector('#projectProgress');
-		let progressAmount = this.shadowRoot.querySelector('#AnsProgressCurrent');
-		let progressTotal = this.shadowRoot.querySelector('#AnsProgressTotal');
+		let progressAmount = this.shadowRoot.querySelector('#projectProgressCurrent');
+		let progressTotal = this.shadowRoot.querySelector('#projectProgressTotal');
+		let statusMajor = this.shadowRoot.querySelector('#projectMajor');
+		let statusMinor = this.shadowRoot.querySelector('#projectMinor');
 		let meta = this.shadowRoot.querySelector('#projectMeta');
 		let selection = this.shadowRoot.querySelector('#depend');
 		requestAnimationFrame((e) => {
@@ -85,14 +87,17 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 			desc.value = project.desc;
 			if (project.required > 2) {
 				progress.checked = true;
-				progressAmount.innerHTML = project.progress;
-				progressTotal.innerHTML = project.required;
+				progressAmount.value = project.progress;
+				progressTotal.value = project.required;
 			} else {
 				progress.checked = false;
-				progressAmount.innerHTML = '';
-				progressTotal.innerHTML = '';
+				progressAmount.value = '';
+				progressTotal.value = '';
 			}
 			meta.checked = project.meta;
+			statusMajor.innerHTML = project.status.major_code;
+			statusMinor.innerHTML = project.status.minor_code;
+
 		});
 		selection.clear();
 		for (let project_id of project.dependencies) {
