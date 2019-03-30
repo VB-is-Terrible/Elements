@@ -315,11 +315,12 @@ const Projects = {
 		}
 		/**
 		 * Add a project to the system
-		 * @param  {Object}  project_obj JSON object of project to add
+		 * @param  {String}  project_obj JSON string of project to add
 		 * @private
 		 * @memberof Projects.System
 		 */
-		_patch_add_project (project_obj) {
+		_patch_add_project (project_json) {
+			let project_obj = JSON.parse(project_json);
 			let project = Projects.Project.fromJSONObj(project_obj, this);
 			this.projects.set(project.id, project);
 			// TODO: Move this into own element
