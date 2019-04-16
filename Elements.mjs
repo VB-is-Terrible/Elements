@@ -364,7 +364,7 @@ class _Elements {
 	 * @param  {String} loaded Name of element loaded
 	 */
 	async awaitCallback (loaded) {
-		loaded = this.nameResolver(loaded);
+		loaded = this._nameResolver(loaded);
 		// New style
 		if (this.#getPromiseStore.has(loaded)) {
 			this.#getPromiseStore.get(loaded).resolve();
@@ -434,7 +434,7 @@ class _Elements {
 	 * @param  {String} elementName name of module requested
 	 * @return {Promise}            Promise resolving on load of module
 	 */
-	async get (elementName) {
+	async _get (elementName) {
 		let name = this._nameResolver(elementName);
 		if (this.#gottenElements.has(name)) {
 			return this._setPromise(name);
