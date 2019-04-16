@@ -109,7 +109,7 @@ class _Elements {
 	 */
 	#loadedResources = new Set();
 
-
+	initializedPromise = null;
 	/**
 	 * Constants for animation durations, offsets.
 	 * @type {Object}
