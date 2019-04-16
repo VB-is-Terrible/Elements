@@ -75,10 +75,10 @@ class backbone2 extends HTMLElement {
 		super();
 		this.___propertyStore = new Map();
 		for (let property in this) {
-			if (Elements.excludedProperties.has(property)) {
+			if (excludedProperties.has(property)) {
 				continue;
 			}
-			if (!Elements.defaultProperties.has(property)) {
+			if (!defaultProperties.has(property)) {
 				this.___propertyStore.set(property, this[property]);
 				delete this[property];
 			}
