@@ -474,7 +474,6 @@ class _Elements {
 
 	/**
 	 * execute get requests that weren't possible before the manifest loaded
-	 * @private
 	 */
 	async __getBacklog () {
 		for (let name of this.getBacklog) {
