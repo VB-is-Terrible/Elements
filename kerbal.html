@@ -3,7 +3,7 @@
 	<head>
 		<meta charset='utf-8'>
 		<title>KDB.js prototype</title>
-		<link rel='preload' href='elements/backbone.js' as='script'></link>
+		<link rel='preload' href='elements/backbone3.js' as='script'></link>
 		<link rel='preload' href='elements/manifest.js' as='script'></link>
 		<style>
 		#g {
@@ -46,7 +46,7 @@
 		</elements-grid>
 		<elements-kerbal-footer id='footer'></elements-kerbal-footer>
 	</body>
-	<script src='elements/backbone.js'></script>
+	<script src='elements/backbone3.js'></script>
 	<script src='elements/manifest.js'></script>
 	<script>
 		Elements.get('drag-element', 'grid',
@@ -75,6 +75,7 @@
 			KerbalLink.registerUI('default', 'footer', document.body.querySelector('#footer'));
 		}
 		const main = async (e) => {
+			await Elements.initializedPromise;
 			const revive = (string) => {return KDB.fromJSON(string);};
 			await Elements.get('Kerbal_link', 'KDB');
 			let display = document.body.querySelector('#mainDisplay');
