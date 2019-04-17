@@ -73,7 +73,7 @@ class ElementsBootloader {
 			}
 		}
 		import(ELEMENTS_BASE_CLASS_LOCATION).then((module) => {
-			const base = module.default.Elements;
+			const base = module.Elements;
 			Elements = base;
 			base.manifest = this.manifest;
 			base.location = this.location;
