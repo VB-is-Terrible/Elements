@@ -1,3 +1,5 @@
+const LINK_INSERT_DIV_ID = 'Elements_link_insert';
+
 /**
  * Elements namespace
  * @namespace Elements
@@ -108,6 +110,13 @@ class _Elements {
 	 * @private
 	 */
 	#loadedResources = new Set();
+
+	/**
+	 * Place to insert templates, scripts, preloads, etc.
+	 * @type {Node}
+	 * @private
+	 */
+	#linkLocation;
 
 	initializedPromise = null;
 	/**
@@ -330,7 +339,7 @@ class _Elements {
 				}
 				script.src = this.location + name + suffix;
 				script.async = true;
-				document.head.appendChild(script);
+				this.#linkLocation.appendChild(script);
 				this.#requestedElements.add(name);
 			}
 			this._setPromise(name);
@@ -637,7 +646,7 @@ class _Elements {
 			for (let link of node.content.querySelectorAll('img')) {
 				link.src = this.location + link.getAttribute('src');
 			}
-			document.head.append(node);
+			this.#linkLocation.append(node);
 			this.#loadedTemplates.add(location);
 			this.#loadingTemplates.delete(location);
 			resolve(location);
@@ -752,7 +761,7 @@ class _Elements {
 		link.rel = 'preload';
 		link.as = 'style';
 		link.href = this.location + location;
-		document.head.appendChild(link);
+		this.#linkLocation.appendChild(link);
 		this.#loadedCSS.add(location);
 	}
 	/**
@@ -766,7 +775,7 @@ class _Elements {
 		link.rel = 'preload';
 		link.as = 'image';
 		link.href = this.location + location;
-		document.head.appendChild(link);
+		this.#linkLocation.appendChild(link);
 		this.#loadedResources.add(location);
 	}
 
@@ -795,14 +804,24 @@ class _Elements {
 	captialize (string) {
 		return string.charAt(0).toLowerCase() + string.substring(1, string.length);
 	}
+
+	constructor () {
+		const head = document.head;
+		let insert_location = head.querySelector('#' + LINK_INSERT_DIV_ID);
+		if (insert_location === null) {
+			insert_location = document.createElement('div');
+			insert_location.id = LINK_INSERT_DIV_ID;
+			head.append(insert_location);
+		}
+		this.#linkLocation = insert_location;
+	}
 }
 
-import {backbone, backbone2, initDefaultPreperties} from './elements_backbone.mjs'
+import {backbone, backbone2} from './elements_backbone.mjs'
 
 Elements = new _Elements();
 Elements.elements.backbone = backbone;
 Elements.elements.backbone2 = backbone2;
 
-initDefaultPreperties();
 
 export {Elements};
