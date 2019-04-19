@@ -1,5 +1,6 @@
 let Elements;
-const ELEMENTS_BASE_CLASS_LOCATION = '../Elements.mjs';
+{
+const ELEMENTS_BASE_CLASS_LOCATION = './Elements.mjs';
 /**
  * Skeleton elements standin and bootloader.
  * Pretends to be the elements class
@@ -88,3 +89,4 @@ class ElementsBootloader {
 }
 
 Elements = new ElementsBootloader();
+}
