@@ -16,11 +16,13 @@ Elements.manifestLoaded = true;
 Elements.__getBacklog();
 '''
 
+
 class linkParser(HTMLParser):
         def __init__(self):
                 super().__init__()
                 self._css = set()
                 self._resources = set()
+
         def handle_starttag(self, tag, attrs):
                 if tag == 'link':
                         props = to_dict(attrs)
@@ -31,19 +33,25 @@ class linkParser(HTMLParser):
                         self._resources.add(props['src'])
                 else:
                         return
+
         def reset(self):
                 super().reset()
                 self._css = set()
                 self._resources = set()
+
         @property
         def css(self):
                 return sorted(list(self._css))
+
         @property
         def resources(self):
                 return sorted(list(self._resources))
 
+
 def strip_quotes(s: str) -> str:
         return s.strip("'").strip('"')
+
+
 def to_dict(properties: List[Tuple[str, str]]) -> dict:
         result = {}
         for prop, value in properties:
@@ -60,7 +68,7 @@ def parse_js(lines):
         for match in matches:
                 require = [strip_quotes(x.strip()) for x in match.split(',')]
                 for req in require:
-                        if not ' ' in req and req != '':
+                        if ' ' not in req and req != '':
                                 requires.add(req)
         provides = set()
         templates = set()
@@ -75,10 +83,12 @@ def parse_js(lines):
                 provides.add(loaded)
         return sorted(list(requires)), sorted(list(templates)), sorted(list(provides))
 
+
 def test():
         with open('elements/kerbal/maker/element.js') as f:
                 s = f.read()
         return parse_js(s)
+
 
 def remove_prefix(s: str, prefix: str) -> str:
         if s.startswith(prefix):
@@ -86,16 +96,17 @@ def remove_prefix(s: str, prefix: str) -> str:
         else:
                 return s
 
+
 def parse(filepath: str, root: str):
         name = remove_prefix(filepath, root)
         manifest = {
-		"type": None,
-		"requires": [],
-		"templates": [],
-		"css": [],
-		"resources": [],
-		"provides": []
-	}
+                "type": None,
+                "requires": [],
+                "templates": [],
+                "css": [],
+                "resources": [],
+                "provides": []
+        }
         if isfile(filepath):
                 manifest['type'] = 'module'
         else:
@@ -115,6 +126,7 @@ def parse(filepath: str, root: str):
                 parser.feed(lines)
         manifest['css'], manifest['resources'] = parser.css, parser.resources
         return manifest
+
 
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
@@ -147,6 +159,7 @@ def walk(dirpath: str, root: str):
                 if isdir(dirname):
                         results = {**results, **walk(dirname, root)}
         return results
+
 
 if __name__ == '__main__':
         build(LOCATION)

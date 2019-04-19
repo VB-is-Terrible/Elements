@@ -1,6 +1,7 @@
 from typing import List
 import re
 
+
 def tokenise(name: str) -> List[str]:
         if '-' in name:
                 return name.split('-')
@@ -11,13 +12,14 @@ def tokenise(name: str) -> List[str]:
                 tokens = [x.lower() for x in terms]
                 return tokens
 
+
 def name_resolver(name: str) -> str:
         if name.startswith('elements-'):
                 name = name[len('elements-'):]
         if '/' in name:
                 return name
         if '.' in name:
-                print ('Tried to find module componenet')
+                print('Tried to find module componenet')
                 return name
         if name[0].isupper():
                 return '/'.join(name.split('-'))
