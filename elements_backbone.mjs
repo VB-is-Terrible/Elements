@@ -21,7 +21,7 @@ const initDefaultPreperties = function () {
  * @property {Object} setDict Mapping of the setters set by setUpAttrPropertyLink
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
-class backbone extends HTMLElement {
+export class backbone extends HTMLElement {
 	/**
 	 * Make a new element
 	 */
@@ -70,7 +70,7 @@ class backbone extends HTMLElement {
  * @type {Object}
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
-class backbone2 extends HTMLElement {
+export class backbone2 extends HTMLElement {
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
@@ -162,4 +162,4 @@ class backbone2 extends HTMLElement {
 	disconnectedCallback () {}
 };
 
-export {initDefaultPreperties, backbone, backbone2};
+initDefaultPreperties();
