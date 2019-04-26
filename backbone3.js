@@ -36,9 +36,8 @@ class ElementsBootloader {
 	 * @param  {...String} elementNames names of things to load
 	 */
 	async get (...elementNames) {
-		for (let name of elementNames) {
-			this.getBacklog.push(name);
-		}
+		await this.initializedPromise;
+		return Elements.get(...elementNames);
 	}
 	/**
 	 * Empty function. This has empty for a while
