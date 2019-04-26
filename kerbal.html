@@ -77,7 +77,6 @@
 			KerbalLink.registerUI('default', 'footer', document.body.querySelector('#footer'));
 		}
 		const main = async (e) => {
-			await Elements.initializedPromise;
 			const revive = (string) => {return KDB.fromJSON(string);};
 			await Elements.get('Kerbal_link', 'KDB');
 			let display = document.body.querySelector('#mainDisplay');

@@ -32,7 +32,6 @@ class ElementsBootloader {
 	}
 	/** Sets the requested resources to be loaded once the elements class has loaded.
 	 * May preemptively load dependencies as shown in the manifest
-	 * Unlike the proper function, does NOT return a promise that can be awaited on
 	 * @param  {...String} elementNames names of things to load
 	 */
 	async get (...elementNames) {
