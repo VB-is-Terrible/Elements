@@ -1,4 +1,7 @@
-const LINK_INSERT_DIV_ID = 'Elements_link_insert';
+const LINK_INSERT_DIV_ID = 'Elements_Link_Insert_Location';
+const PRELOAD_LOCATION = 'Elements_Preload_Location'
+const SCRIPT_LOCATION = 'Elements_Script_Location'
+
 
 /**
  * Elements namespace
@@ -117,6 +120,26 @@ class _Elements {
 	 * @private
 	 */
 	#linkLocation;
+	/**
+	 * Place to insert preloads
+	 * @type {Node}
+	 * @private
+	 */
+	#preloadLocation;
+	/**
+	 * Place to insert scripts
+	 * @type {Node}
+	 * @private
+	 */
+	#scriptLocation;
+	/**
+	 * Place to insert templates
+	 * @type {Node}
+	 * @private
+	 */
+	#templateLocation;
+
+
 
 	initializedPromise = null;
 	/**
@@ -311,7 +334,7 @@ class _Elements {
 	 * @return {Node}      imported Node
 	 */
 	importTemplate (name) {
-		return document.importNode(document.querySelector('#templateElements' + name), true).content;
+		return document.importNode(this.#templateLocation.querySelector('#templateElements' + name), true).content;
 	}
 
 	/**
@@ -339,7 +362,7 @@ class _Elements {
 				}
 				script.src = this.location + name + suffix;
 				script.async = true;
-				this.#linkLocation.appendChild(script);
+				this.#scriptLocation.appendChild(script);
 				this.#requestedElements.add(name);
 			}
 			this._setPromise(name);
@@ -646,7 +669,7 @@ class _Elements {
 			for (let link of node.content.querySelectorAll('img')) {
 				link.src = this.location + link.getAttribute('src');
 			}
-			this.#linkLocation.append(node);
+			this.#templateLocation.append(node);
 			this.#loadedTemplates.add(location);
 			this.#loadingTemplates.delete(location);
 			resolve(location);
@@ -761,7 +784,7 @@ class _Elements {
 		link.rel = 'preload';
 		link.as = 'style';
 		link.href = this.location + location;
-		this.#linkLocation.appendChild(link);
+		this.#preloadLocation.appendChild(link);
 		this.#loadedCSS.add(location);
 	}
 	/**
@@ -775,7 +798,7 @@ class _Elements {
 		link.rel = 'preload';
 		link.as = 'image';
 		link.href = this.location + location;
-		this.#linkLocation.appendChild(link);
+		this.#preloadLocation.appendChild(link);
 		this.#loadedResources.add(location);
 	}
 
@@ -814,11 +837,28 @@ class _Elements {
 			head.append(insert_location);
 		}
 		this.#linkLocation = insert_location;
+		this.#preloadLocation = insert_location.querySelector('#' + PRELOAD_LOCATION);
+		if (this.#preloadLocation === null) {
+			this.#preloadLocation = document.createElement('div');
+			this.#preloadLocation.id = PRELOAD_LOCATION;
+			insert_location.append(this.#preloadLocation);
+		}
+		this.#scriptLocation = insert_location.querySelector('#' + SCRIPT_LOCATION);
+		if (this.#scriptLocation === null) {
+			this.#scriptLocation = document.createElement('div');
+			this.#scriptLocation.id = SCRIPT_LOCATION;
+			insert_location.append(this.#scriptLocation);
+		}
+		this.#templateLocation = document.createElement('div');
 	}
 }
 
 import {backbone, backbone2} from './elements_backbone.mjs'
 
+/**
+ * Main loader
+ * @type {_Elements}
+ */
 Elements = new _Elements();
 Elements.elements.backbone = backbone;
 Elements.elements.backbone2 = backbone2;
