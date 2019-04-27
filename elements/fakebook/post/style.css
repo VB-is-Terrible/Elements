@@ -27,10 +27,17 @@ p.subText {
 	border-radius: 5px;
 	padding: 0px;
 }
-img {
+#profile {
 	display: block;
 	max-width: 100%;
 	height: 60px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+#picture {
+	display: block;
+	max-width: 400px;
+	max-height: 800px;
 	overflow-y: hidden;
 	overflow-x: hidden;
 }
@@ -42,5 +49,8 @@ img {
 	width: 100%;
 	contain: content;
 	width: 700px;
-	background: initial;
+	background: whitesmoke;
+}
+.text {
+	word-wrap: break-word;
 }
