@@ -1,0 +1,46 @@
+#title {
+	display: flex;
+	/*width: var(--width);*/
+	width: 100%;
+	contain: content;
+}
+.textBox {
+	display: flex;
+	flex-flow: column;
+	width: 100%;
+	overflow: hidden;
+}
+p {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin: 0px;
+	contain: content;
+}
+p.name {
+	font-size: large;
+}
+p.subText {
+	font-size: small;
+	margin: 0px 20px;
+	background: lightgrey;
+	border-radius: 5px;
+	padding: 0px;
+}
+img {
+	display: block;
+	max-width: 100%;
+	height: 60px;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+:host {
+	width: 100%;
+}
+#pseudoBody {
+	border: 1px solid;
+	width: 100%;
+	contain: content;
+	width: 700px;
+	background: initial;
+}
