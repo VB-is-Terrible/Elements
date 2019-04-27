@@ -22,6 +22,7 @@ const initDefaultPreperties = function () {
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
 export class backbone extends HTMLElement {
+	__backbone_version = 1;
 	/**
 	 * Make a new element
 	 */
@@ -71,6 +72,7 @@ export class backbone extends HTMLElement {
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
 export class backbone2 extends HTMLElement {
+	__backbone_version = 2;
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
@@ -161,5 +163,9 @@ export class backbone2 extends HTMLElement {
 	 */
 	disconnectedCallback () {}
 };
+
+export class backbone3 extends backbone2 {
+	__backbone_version = 3;
+}
 
 initDefaultPreperties();
