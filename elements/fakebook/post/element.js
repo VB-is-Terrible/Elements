@@ -34,7 +34,7 @@ Elements.elements.FakebookPost = class FakebookPost extends Elements.elements.ba
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let time_out = body.querySelector('p.time');
 		let time_obj = new Date(time);
-		time_out.innerHTML = time_obj.toISOString();
+		time_out.innerHTML = time_obj.toLocaleString();
 	}
 	setProfile (img_location) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
