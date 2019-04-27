@@ -50,6 +50,8 @@ p.subText {
 	contain: content;
 	width: 700px;
 	background: whitesmoke;
+	margin-bottom: 1em;
+	padding-bottom: 1em;
 }
 .text {
 	word-wrap: break-word;
