@@ -19,6 +19,9 @@ Elements.elements.FakebookPost = class FakebookPost extends Elements.elements.ba
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
+		template.querySelector('#picture').addEventListener('load', (e) => {
+			self._set_picture_dim(e);
+		})
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
@@ -47,6 +50,22 @@ Elements.elements.FakebookPost = class FakebookPost extends Elements.elements.ba
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let picture = body.querySelector('#picture');
 		picture.src = img_location;
+	}
+	_set_picture_dim (e) {
+		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let img = body.querySelector('#picture');
+		let aspect_ratio = img.naturalWidth / img.naturalHeight;
+		let width, height;
+		if (aspect_ratio > .5) {
+			width = 400;
+			height = width / aspect_ratio;
+		} else {
+			height = 800;
+			width = aspect_ratio * height;
+		}
+		img.style.width = width.toString() + 'px';
+		img.style.height = height.toString() + 'px';
+
 	}
 	connectedCallback () {
 		super.connectedCallback();

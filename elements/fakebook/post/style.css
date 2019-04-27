@@ -54,3 +54,8 @@ p.subText {
 .text {
 	word-wrap: break-word;
 }
+#postImage {
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
