@@ -10,6 +10,7 @@ Elements.manifest = {
             "KNS.Group",
             "KNS.Kerbal"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -20,6 +21,7 @@ Elements.manifest = {
         "provides": [
             "Kerbal_link"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -28,6 +30,7 @@ Elements.manifest = {
     "Monorail": {
         "css": [],
         "provides": [],
+        "recommends": [],
         "requires": [
             "monorail-keypad"
         ],
@@ -40,10 +43,26 @@ Elements.manifest = {
         "provides": [
             "common-Searcher"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
         "type": "module"
+    },
+    "common/box": {
+        "css": [
+            "common/box/style.css"
+        ],
+        "provides": [
+            "common/box"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "common/box/template.html"
+        ],
+        "type": "element"
     },
     "confirm_dialog": {
         "css": [
@@ -53,6 +72,7 @@ Elements.manifest = {
         "provides": [
             "confirm_dialog"
         ],
+        "recommends": [],
         "requires": [
             "drag-element"
         ],
@@ -69,6 +89,7 @@ Elements.manifest = {
         "provides": [
             "drag/body"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -83,6 +104,7 @@ Elements.manifest = {
         "provides": [
             "drag/element"
         ],
+        "recommends": [],
         "requires": [
             "drag-body"
         ],
@@ -97,6 +119,7 @@ Elements.manifest = {
         "provides": [
             "draggable-Common"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -109,12 +132,28 @@ Elements.manifest = {
         "provides": [
             "draggable/container"
         ],
+        "recommends": [],
         "requires": [
             "draggable-Common"
         ],
         "resources": [],
         "templates": [
             "draggable/container/template.html"
+        ],
+        "type": "element"
+    },
+    "draggable/dummy/listener": {
+        "css": [
+            "draggable/dummy/listener/style.css"
+        ],
+        "provides": [
+            "draggable/dummy/listener"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "draggable/dummy/listener/template.html"
         ],
         "type": "element"
     },
@@ -125,6 +164,7 @@ Elements.manifest = {
         "provides": [
             "draggable/item"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -139,10 +179,28 @@ Elements.manifest = {
         "provides": [
             "dropdown"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
             "dropdown/template.html"
+        ],
+        "type": "element"
+    },
+    "fakebook/post": {
+        "css": [
+            "fakebook/post/style.css"
+        ],
+        "provides": [
+            "fakebook/post"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [
+            "kerbal/tag/kerbal.png"
+        ],
+        "templates": [
+            "fakebook/post/template.html"
         ],
         "type": "element"
     },
@@ -151,6 +209,7 @@ Elements.manifest = {
         "provides": [
             "grid"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -165,6 +224,7 @@ Elements.manifest = {
         "provides": [
             "kdb/group_display"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-group-display"
@@ -182,6 +242,7 @@ Elements.manifest = {
         "provides": [
             "kdb/kerbal_display"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display"
@@ -199,6 +260,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/display"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "dropdown",
@@ -217,6 +279,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/display_text"
         ],
+        "recommends": [],
         "requires": [
             "KDB"
         ],
@@ -234,6 +297,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/editor"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-editor-group",
@@ -255,6 +319,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/editor/group"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "dropdown",
@@ -279,6 +344,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/editor/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -302,6 +368,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/footer"
         ],
+        "recommends": [],
         "requires": [
             "kerbal-panel_menu"
         ],
@@ -318,6 +385,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/group/display"
         ],
+        "recommends": [],
         "requires": [
             "dropdown",
             "kerbal-group-display-kerbal",
@@ -336,6 +404,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/group/display/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display"
@@ -353,6 +422,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/group/display/kerbal_text"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display_text"
@@ -370,6 +440,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/group/display/kerbal_text"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display_text"
@@ -387,6 +458,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/group/tag"
         ],
+        "recommends": [],
         "requires": [
             "KDB"
         ],
@@ -406,6 +478,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/importer"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-importer-export",
@@ -425,6 +498,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/importer/export"
         ],
+        "recommends": [],
         "requires": [
             "Kerbal_link",
             "tab-window"
@@ -443,6 +517,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/importer/import"
         ],
+        "recommends": [],
         "requires": [
             "Kerbal_link",
             "tab-window"
@@ -463,6 +538,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/maker"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-maker-group",
@@ -483,6 +559,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/maker/group"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display_text",
@@ -506,6 +583,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/maker/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -528,6 +606,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/panel_menu"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -543,6 +622,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/searcher"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-searcher-destination",
@@ -561,6 +641,7 @@ Elements.manifest = {
         "provides": [
             "kerbal-searcher-Common"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "tab-window"
@@ -578,6 +659,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/searcher/destination"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -600,6 +682,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/searcher/group"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -622,6 +705,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/searcher/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -643,6 +727,7 @@ Elements.manifest = {
         "provides": [
             "kerbal/tag"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [
             "kerbal/tag/kerbal.png"
@@ -659,6 +744,7 @@ Elements.manifest = {
         "provides": [
             "monorail/keypad"
         ],
+        "recommends": [],
         "requires": [
             "grid"
         ],
@@ -675,6 +761,7 @@ Elements.manifest = {
         "provides": [
             "monorail/output"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -687,6 +774,7 @@ Elements.manifest = {
         "provides": [
             "projects-Project"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -699,12 +787,34 @@ Elements.manifest = {
         "provides": [
             "projects/project/display"
         ],
+        "recommends": [],
         "requires": [
+            "draggable-Common",
+            "draggable-container",
+            "draggable-item",
             "projects-Project"
         ],
         "resources": [],
         "templates": [
             "projects/project/display/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/project/editor": {
+        "css": [
+            "common/float.css",
+            "projects/project/editor/style.css"
+        ],
+        "provides": [
+            "projects/project/editor"
+        ],
+        "recommends": [],
+        "requires": [
+            "projects-Project"
+        ],
+        "resources": [],
+        "templates": [
+            "projects/project/editor/template.html"
         ],
         "type": "element"
     },
@@ -717,9 +827,12 @@ Elements.manifest = {
         "provides": [
             "projects/project/maker"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
-            "projects-Project"
+            "draggable-Common",
+            "projects-Project",
+            "projects-project-selection"
         ],
         "resources": [],
         "templates": [
@@ -736,10 +849,31 @@ Elements.manifest = {
         "provides": [
             "projects/project/searcher"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
             "projects/project/searcher/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/project/selection": {
+        "css": [
+            "projects/project/selection/style.css"
+        ],
+        "provides": [
+            "projects/project/selection"
+        ],
+        "recommends": [],
+        "requires": [
+            "draggable-Common",
+            "draggable-container",
+            "projects-Project",
+            "projects-project-display"
+        ],
+        "resources": [],
+        "templates": [
+            "projects/project/selection/template.html"
         ],
         "type": "element"
     },
@@ -750,6 +884,7 @@ Elements.manifest = {
         "provides": [
             "tab/tabs"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -764,6 +899,7 @@ Elements.manifest = {
         "provides": [
             "tab/window"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "tab-tabs"
@@ -773,6 +909,23 @@ Elements.manifest = {
             "tab/window/template.html"
         ],
         "type": "element"
+    },
+    "test": {
+        "css": [
+            "test/test.css"
+        ],
+        "provides": [
+            "test"
+        ],
+        "recommends": [
+            ""
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "test/testTemplate.html"
+        ],
+        "type": "element3"
     }
 }
 Elements.manifestLoaded = true;

@@ -7,6 +7,7 @@
             "KNS.Group",
             "KNS.Kerbal"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -17,6 +18,7 @@
         "provides": [
             "Kerbal_link"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -25,6 +27,7 @@
     "Monorail": {
         "css": [],
         "provides": [],
+        "recommends": [],
         "requires": [
             "monorail-keypad"
         ],
@@ -37,10 +40,26 @@
         "provides": [
             "common-Searcher"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
         "type": "module"
+    },
+    "common/box": {
+        "css": [
+            "common/box/style.css"
+        ],
+        "provides": [
+            "common/box"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "common/box/template.html"
+        ],
+        "type": "element"
     },
     "confirm_dialog": {
         "css": [
@@ -50,6 +69,7 @@
         "provides": [
             "confirm_dialog"
         ],
+        "recommends": [],
         "requires": [
             "drag-element"
         ],
@@ -66,6 +86,7 @@
         "provides": [
             "drag/body"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -80,6 +101,7 @@
         "provides": [
             "drag/element"
         ],
+        "recommends": [],
         "requires": [
             "drag-body"
         ],
@@ -94,6 +116,7 @@
         "provides": [
             "draggable-Common"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -106,12 +129,28 @@
         "provides": [
             "draggable/container"
         ],
+        "recommends": [],
         "requires": [
             "draggable-Common"
         ],
         "resources": [],
         "templates": [
             "draggable/container/template.html"
+        ],
+        "type": "element"
+    },
+    "draggable/dummy/listener": {
+        "css": [
+            "draggable/dummy/listener/style.css"
+        ],
+        "provides": [
+            "draggable/dummy/listener"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "draggable/dummy/listener/template.html"
         ],
         "type": "element"
     },
@@ -122,6 +161,7 @@
         "provides": [
             "draggable/item"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -136,10 +176,28 @@
         "provides": [
             "dropdown"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
             "dropdown/template.html"
+        ],
+        "type": "element"
+    },
+    "fakebook/post": {
+        "css": [
+            "fakebook/post/style.css"
+        ],
+        "provides": [
+            "fakebook/post"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [
+            "kerbal/tag/kerbal.png"
+        ],
+        "templates": [
+            "fakebook/post/template.html"
         ],
         "type": "element"
     },
@@ -148,6 +206,7 @@
         "provides": [
             "grid"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -162,6 +221,7 @@
         "provides": [
             "kdb/group_display"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-group-display"
@@ -179,6 +239,7 @@
         "provides": [
             "kdb/kerbal_display"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display"
@@ -196,6 +257,7 @@
         "provides": [
             "kerbal/display"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "dropdown",
@@ -214,6 +276,7 @@
         "provides": [
             "kerbal/display_text"
         ],
+        "recommends": [],
         "requires": [
             "KDB"
         ],
@@ -231,6 +294,7 @@
         "provides": [
             "kerbal/editor"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-editor-group",
@@ -252,6 +316,7 @@
         "provides": [
             "kerbal/editor/group"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "dropdown",
@@ -276,6 +341,7 @@
         "provides": [
             "kerbal/editor/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -299,6 +365,7 @@
         "provides": [
             "kerbal/footer"
         ],
+        "recommends": [],
         "requires": [
             "kerbal-panel_menu"
         ],
@@ -315,6 +382,7 @@
         "provides": [
             "kerbal/group/display"
         ],
+        "recommends": [],
         "requires": [
             "dropdown",
             "kerbal-group-display-kerbal",
@@ -333,6 +401,7 @@
         "provides": [
             "kerbal/group/display/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display"
@@ -350,6 +419,7 @@
         "provides": [
             "kerbal/group/display/kerbal_text"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display_text"
@@ -367,6 +437,7 @@
         "provides": [
             "kerbal/group/display/kerbal_text"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display_text"
@@ -384,6 +455,7 @@
         "provides": [
             "kerbal/group/tag"
         ],
+        "recommends": [],
         "requires": [
             "KDB"
         ],
@@ -403,6 +475,7 @@
         "provides": [
             "kerbal/importer"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-importer-export",
@@ -422,6 +495,7 @@
         "provides": [
             "kerbal/importer/export"
         ],
+        "recommends": [],
         "requires": [
             "Kerbal_link",
             "tab-window"
@@ -440,6 +514,7 @@
         "provides": [
             "kerbal/importer/import"
         ],
+        "recommends": [],
         "requires": [
             "Kerbal_link",
             "tab-window"
@@ -460,6 +535,7 @@
         "provides": [
             "kerbal/maker"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-maker-group",
@@ -480,6 +556,7 @@
         "provides": [
             "kerbal/maker/group"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "kerbal-display_text",
@@ -503,6 +580,7 @@
         "provides": [
             "kerbal/maker/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -525,6 +603,7 @@
         "provides": [
             "kerbal/panel_menu"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -540,6 +619,7 @@
         "provides": [
             "kerbal/searcher"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "kerbal-searcher-destination",
@@ -558,6 +638,7 @@
         "provides": [
             "kerbal-searcher-Common"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "tab-window"
@@ -575,6 +656,7 @@
         "provides": [
             "kerbal/searcher/destination"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -597,6 +679,7 @@
         "provides": [
             "kerbal/searcher/group"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -619,6 +702,7 @@
         "provides": [
             "kerbal/searcher/kerbal"
         ],
+        "recommends": [],
         "requires": [
             "KDB",
             "Kerbal_link",
@@ -640,6 +724,7 @@
         "provides": [
             "kerbal/tag"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [
             "kerbal/tag/kerbal.png"
@@ -656,6 +741,7 @@
         "provides": [
             "monorail/keypad"
         ],
+        "recommends": [],
         "requires": [
             "grid"
         ],
@@ -672,6 +758,7 @@
         "provides": [
             "monorail/output"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -684,6 +771,7 @@
         "provides": [
             "projects-Project"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [],
@@ -696,12 +784,34 @@
         "provides": [
             "projects/project/display"
         ],
+        "recommends": [],
         "requires": [
+            "draggable-Common",
+            "draggable-container",
+            "draggable-item",
             "projects-Project"
         ],
         "resources": [],
         "templates": [
             "projects/project/display/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/project/editor": {
+        "css": [
+            "common/float.css",
+            "projects/project/editor/style.css"
+        ],
+        "provides": [
+            "projects/project/editor"
+        ],
+        "recommends": [],
+        "requires": [
+            "projects-Project"
+        ],
+        "resources": [],
+        "templates": [
+            "projects/project/editor/template.html"
         ],
         "type": "element"
     },
@@ -714,9 +824,12 @@
         "provides": [
             "projects/project/maker"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
-            "projects-Project"
+            "draggable-Common",
+            "projects-Project",
+            "projects-project-selection"
         ],
         "resources": [],
         "templates": [
@@ -733,10 +846,31 @@
         "provides": [
             "projects/project/searcher"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
             "projects/project/searcher/template.html"
+        ],
+        "type": "element"
+    },
+    "projects/project/selection": {
+        "css": [
+            "projects/project/selection/style.css"
+        ],
+        "provides": [
+            "projects/project/selection"
+        ],
+        "recommends": [],
+        "requires": [
+            "draggable-Common",
+            "draggable-container",
+            "projects-Project",
+            "projects-project-display"
+        ],
+        "resources": [],
+        "templates": [
+            "projects/project/selection/template.html"
         ],
         "type": "element"
     },
@@ -747,6 +881,7 @@
         "provides": [
             "tab/tabs"
         ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
@@ -761,6 +896,7 @@
         "provides": [
             "tab/window"
         ],
+        "recommends": [],
         "requires": [
             "drag-element",
             "tab-tabs"
@@ -770,5 +906,22 @@
             "tab/window/template.html"
         ],
         "type": "element"
+    },
+    "test": {
+        "css": [
+            "test/test.css"
+        ],
+        "provides": [
+            "test"
+        ],
+        "recommends": [
+            ""
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "test/testTemplate.html"
+        ],
+        "type": "element3"
     }
 }

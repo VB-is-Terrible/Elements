@@ -16,6 +16,8 @@ Elements.manifestLoaded = true;
 Elements.__getBacklog();
 '''
 
+EXCLUDES = set([('./elements/', 'Elements.mjs'), ('./elements/', 'elements_backbone.mjs')])
+
 
 class linkParser(HTMLParser):
         def __init__(self):
@@ -30,7 +32,8 @@ class linkParser(HTMLParser):
                                 self._css.add(props['href'])
                 elif tag == 'img':
                         props = to_dict(attrs)
-                        self._resources.add(props['src'])
+                        if 'src' in props:
+                                self._resources.add(props['src'])
                 else:
                         return
 
@@ -97,16 +100,69 @@ def remove_prefix(s: str, prefix: str) -> str:
                 return s
 
 
-def parse(filepath: str, root: str):
-        name = remove_prefix(filepath, root)
-        manifest = {
+def _parse_mjs(file, manifest, name: str):
+        lines = file.read()
+        get_regex = re.compile(r'Elements\.get\((.*?)\)')
+        recommends_regex = re.compile(r'export const recommends = \[(.*?)\]')
+        requires_regex = re.compile(r'export const requires = \[(.*?)\]')
+        load_regex = re.compile(r'Elements\.load\((.*?)\)')
+        loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
+
+        recommends = set()
+        matches = get_regex.findall(lines)
+        for match in matches:
+                require = [strip_quotes(x.strip()) for x in match.split(',')]
+                for req in require:
+                        if ' ' not in req and req != '':
+                                recommends.add(req)
+
+        match = recommends_regex.match(lines)
+        if match is not None:
+                recommend = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
+                for req in recommend:
+                        recommends.add(req)
+
+        requires = set()
+        match = requires_regex.match(lines)
+        if match is not None:
+                require = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
+                for req in require:
+                        requires.add(req)
+
+        provides = set()
+        templates = set()
+        for load in load_regex.findall(lines):
+                js_name, html_name = [x.strip() for x in load.split(',')]
+                html_name = strip_quotes(html_name)
+                name = name_resolver(html_name)
+                templates.add(name + '/' + name + 'Template.html')
+                provides.add(name)
+        for loaded in loaded_regex.findall(lines):
+                loaded = strip_quotes(loaded)
+                provides.add(loaded)
+
+        manifest['provides'] = sorted(list(provides))
+        manifest['templates'] = sorted(list(templates))
+        manifest['requires'] = sorted(list(requires))
+        manifest['recommends'] = sorted(list(recommends))
+        # TODO: check for additional templates
+
+
+def new_manifest():
+        return {
                 "type": None,
                 "requires": [],
+                "recommends": [],
                 "templates": [],
                 "css": [],
                 "resources": [],
-                "provides": []
+                "provides": [],
         }
+
+
+def parse(filepath: str, root: str):
+        name = remove_prefix(filepath, root)
+        manifest = new_manifest()
         if isfile(filepath):
                 manifest['type'] = 'module'
         else:
@@ -118,7 +174,6 @@ def parse(filepath: str, root: str):
         with open(location) as f:
                 lines = f.read()
         manifest['requires'], manifest['templates'], manifest['provides'] = parse_js(lines)
-
         parser = linkParser()
         for template in manifest['templates']:
                 with open(root + template) as f:
@@ -128,12 +183,32 @@ def parse(filepath: str, root: str):
         return manifest
 
 
+def parse_mjs(dirpath: str, root: str, name: str):
+        manifest = new_manifest()
+        if name[0].isupper():
+                manifest['type'] = 'module3'
+        else:
+                manifest['type'] = 'element3'
+        location = os.path.join(dirpath, name)
+        with open(location) as f:
+                _parse_mjs(f, manifest, name)
+
+        for template in manifest['templates']:
+                parser = linkParser()
+                with open(root + template) as f:
+                        file_string = f.read()
+                parser.feed(file_string)
+                manifest['css'], manifest['resources'] = parser.css, parser.resources
+        return manifest
+
+
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
         output = json.dumps(results, indent=4, sort_keys=True)
         # pprint.pprint (output)
         out = open(dirpath + 'manifest.json', 'w')
         out.write(output)
+        out.write('\n')
         out.close()
         # Hack around chrome not preloading json
         out2 = open(dirpath + 'manifest.js', 'w')
@@ -146,14 +221,24 @@ def build(dirpath: str):
 def walk(dirpath: str, root: str):
         results = {}
         modules = []
+        # Check for element module js files
         for file in os.listdir(dirpath):
                 if file[0].isupper() and file.endswith('.js') and isfile(os.path.join(dirpath, file)):
                         modules.append(os.path.join(dirpath, file))
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
                 results[name] = parse(filename, root)
+        # TODO: Check for mjs modules
         if isfile(dirpath + '/element.js'):
                 results[remove_prefix(dirpath, root)] = parse(dirpath, root)
+        for file in os.listdir(dirpath):
+                if file.endswith('.mjs'):
+                        if (dirpath, file) in EXCLUDES:
+                                pass
+                                print("Ignored " + file)
+                        else:
+                                print("Opening " + file)
+                                results[remove_prefix(dirpath, root)] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
                 if isdir(dirname):
