@@ -300,7 +300,7 @@ class _Elements {
 		if (includeTemplate) {
 			try {
 				this.#loadingElements.add(jsName);
-				await this.loadTemplate(jsName + '/template.html');
+				await this.loadTemplate(this.getDefaultTemplate(jsName, newElement));
 				window.customElements.define(HTMLname, newElement);
 				this.#loadedElements.add(jsName);
 				this.#loadingElements.delete(jsName);
@@ -851,9 +851,30 @@ class _Elements {
 		}
 		this.#templateLocation = document.createElement('div');
 	}
+
+	getDefaultTemplate (jsName, element) {
+		let version = element.__backbone_version;
+		if (version === undefined) {
+			version = 2;
+		}
+		switch (version) {
+			case 1:
+			case 2:
+				return jsName + '/template.html';
+				break;
+			case 3:
+				let tokens = this.tokenise(jsName);
+				let last = tokens[tokens.length[-1]];
+				return jsName + '/' + last + 'Template.html';
+				break;
+			default:
+			return jsName + '/template.html';
+			break;
+		}
+	}
 }
 
-import {backbone, backbone2} from './elements_backbone.mjs'
+import {backbone, backbone2, backbone3} from './elements_backbone.mjs'
 
 /**
  * Main loader
@@ -862,6 +883,6 @@ import {backbone, backbone2} from './elements_backbone.mjs'
 Elements = new _Elements();
 Elements.elements.backbone = backbone;
 Elements.elements.backbone2 = backbone2;
-
+Elements.elements.backbone3 = backbone3;
 
 export {Elements};
