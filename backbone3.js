@@ -1,4 +1,5 @@
 let Elements;
+let importValue;
 {
 const ELEMENTS_BASE_CLASS_LOCATION = './Elements.mjs';
 /**
@@ -59,6 +60,12 @@ class ElementsBootloader {
 	 * @private
 	 */
 	#resolve;
+        /**
+         * Property to indicate to replace this shell
+         * @type {Boolean}
+         */
+        initialized = false;
+
 	constructor () {
 		const self = this;
 		this.initializedPromise = new Promise((resolve, reject) => {
@@ -82,6 +89,7 @@ class ElementsBootloader {
 				base.__getBacklog();
 			}
 			this.#resolve();
+                        importValue = module;
 		})
 	}
 }

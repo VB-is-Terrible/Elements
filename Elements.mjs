@@ -3,6 +3,16 @@ const PRELOAD_LOCATION = 'Elements_Preload_Location'
 const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 
+let oldValue;
+try {
+	oldValue = elements;
+	if (oldValue.initalized === false) {
+		oldValue = null;
+	}
+} catch (e) {
+	oldValue = null;
+}
+
 /**
  * Elements namespace
  * @namespace Elements
@@ -138,8 +148,11 @@ class _Elements {
 	 * @private
 	 */
 	#templateLocation;
-
-
+	/**
+	 * Property to prevent setup from been run twice
+	 * @type {Boolean}
+	 */
+	initialized = true;
 
 	initializedPromise = null;
 	/**
@@ -369,6 +382,19 @@ class _Elements {
 		}
 	}
 
+	async _loadModule (elementName, type) {
+		if ((this.#requestedElements.has(name))) {
+			return;
+		}
+		let name_tokens = this.tokenise(elementName);
+		let module_name = name_tokens[name_tokens.length - 1];
+		let location = elementName + '/' + module_name + '.mjs';
+
+		let promise = import('./' + location);
+		console.log('Load module ' + location + ': ', promise);
+		this.#requestedElements.add(elementName);
+	}
+
 	/**
 	 * Loads a custom element from js files. Shim to elements.get
 	 * @param  {...String} elementNames name of element to import
@@ -453,7 +479,8 @@ class _Elements {
 		for (let name of elementNames) {
 			if (!this.manifestLoaded) {
 				this.getBacklog.push(name);
-				this._require(name); // Slow load as well
+				// Don't slow load, it errors on v3, and the
+				// manifest should be preloaded
 			} else {
 				this._get(name);
 			}
@@ -480,11 +507,15 @@ class _Elements {
 		}
 		let manifest = this.manifest[name];
 		if (manifest === undefined) {
-			// No manifest, just require it
-			this._require(name);
+			// No manifest
+			throw new Error('Elements v3 requires the manifest to be loaded before resolving packages');
 		} else {
 			// Recursivly look up dependencies
-			this._require(name);
+			if (manifest['type'] == 'element3' || manifest['type'] == 'module3') {
+				this._loadModule(name);
+			} else {
+				this._require(name);
+			}
 			this.get(...manifest.requires);
 			// Pre-empt templates
 			for (let template of manifest.templates) {
@@ -855,6 +886,7 @@ class _Elements {
 	getDefaultTemplate (jsName, element) {
 		let version = element.__backbone_version;
 		if (version === undefined) {
+			console.log('Couldn\'t find version of ', element);
 			version = 2;
 		}
 		switch (version) {
@@ -864,7 +896,7 @@ class _Elements {
 				break;
 			case 3:
 				let tokens = this.tokenise(jsName);
-				let last = tokens[tokens.length[-1]];
+				let last = tokens[tokens.length - 1];
 				return jsName + '/' + last + 'Template.html';
 				break;
 			default:
@@ -875,14 +907,18 @@ class _Elements {
 }
 
 import {backbone, backbone2, backbone3} from './elements_backbone.mjs'
+if (oldValue === null) {
 
-/**
- * Main loader
- * @type {_Elements}
- */
-Elements = new _Elements();
-Elements.elements.backbone = backbone;
-Elements.elements.backbone2 = backbone2;
-Elements.elements.backbone3 = backbone3;
+	/**
+	* Main loader
+	* @type {_Elements}
+	*/
+	Elements = new _Elements();
+	Elements.elements.backbone = backbone;
+	Elements.elements.backbone2 = backbone2;
+	Elements.elements.backbone3 = backbone3;
+} else {
+	Elements = oldValue;
+}
 
 export {Elements};
