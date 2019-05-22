@@ -21,8 +21,8 @@ const initDefaultPreperties = function () {
  * @property {Object} setDict Mapping of the setters set by setUpAttrPropertyLink
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
-export class backbone extends HTMLElement {
-	__backbone_version = 1;
+class _backbone extends HTMLElement {
+	static __backbone_version = 1;
 	/**
 	 * Make a new element
 	 */
@@ -71,8 +71,8 @@ export class backbone extends HTMLElement {
  * @type {Object}
  * @property {Booelean} attributeInit Whether the attributes have been initalized
  */
-export class backbone2 extends HTMLElement {
-	__backbone_version = 2;
+class _backbone2 extends HTMLElement {
+	static __backbone_version = 2;
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
@@ -164,8 +164,27 @@ export class backbone2 extends HTMLElement {
 	disconnectedCallback () {}
 };
 
-export class backbone3 extends backbone2 {
-	__backbone_version = 3;
+class _backbone3 extends _backbone2 {
+	static __backbone_version = 3;
 }
 
-initDefaultPreperties();
+let oldValue;
+
+try {
+	oldValue = elements;
+	if (oldValue.initalized === false) {
+		oldValue = null;
+	}
+} catch (e) {
+	oldValue = null;
+}
+
+let backbone, backbone2, backbone3;
+if (oldValue === null) {
+	initDefaultPreperties();
+	[backbone, backbone2, backbone3]= [_backbone, _backbone2, _backbone3];
+} else {
+	[backbone, backbone2, backbone3]= [Elements.elements.backbone, Elements.elements.backbone2, Elements.elements.backbone3];
+}
+
+export {backbone, backbone2, backbone3};
