@@ -4,8 +4,7 @@ from typing import List, Tuple
 import os
 from os.path import isfile, isdir
 import json
-import pprint
-from parser import tokenise, name_resolver
+from parser import name_resolver
 from config import location as LOCATION
 JSHEADER = ''''use strict'
 
@@ -161,7 +160,6 @@ def new_manifest():
 
 
 def parse(filepath: str, root: str):
-        name = remove_prefix(filepath, root)
         manifest = new_manifest()
         if isfile(filepath):
                 manifest['type'] = 'module'
