@@ -1,31 +1,36 @@
 import os
-from parser import name_resolver
+from parser import name_resolver, tokenise
 from config import location
 # $0 = file path name
 # $1 = capitlized name
 # $2 = name with dashes
 
+
 def removeDashes(s):
-	l = [x.capitalize() for x in s.split('/')]
-	n1 = ''.join(l)
+	tokens = [x.capitalize() for x in s.split('/')]
+	n1 = ''.join(tokens)
 	return n1
+
 
 def checkExists(name0):
 	suffixes = ['/element.js', '/style.css', '/template.html']
-	l = [location + name0 + suffix for suffix in suffixes]
-	for name in l:
+	files = [location + name0 + suffix for suffix in suffixes]
+	for name in files:
 		if os.path.isfile(name):
 			return True
 	else:
 		return False
 
-def copy(fin, fout, n0, n1, n2):
+
+def copy(fin, fout, n0, n1, n2, n3, n4 = ''):
 	fin = open(fin)
 	fout = open(fout, 'w')
 	for line in fin:
 		line = line.replace('$0', n0)
 		line = line.replace('$1', n1)
 		line = line.replace('$2', n2)
+		line = line.replace('$3', n3)
+		line = line.replace('$4', n4)
 		fout.write(line)
 	fin.close()
 	fout.close()
@@ -39,7 +44,18 @@ def main():
 	else:
 		name0 = name_resolver(name2)
 		name1 = removeDashes(name0)
-	module_name = name0.split('/')[-1]
+	module_name = tokenise(name0)[-1]
+	version_input = input('Enter version name: ')
+	if not version_input:
+		print('Empty input')
+		return
+	else:
+		try:
+			version = int(version_input)
+		except Exception as e:
+			print('Invalid version number: {}'.format(version_input))
+			print(e)
+			return
 	if module_name[0].isupper():
 		print('Can\'t create module')
 		return
@@ -48,21 +64,56 @@ def main():
 		print('File already exists')
 		return
 
+	layers = '../' * len(name0.split('/'))
 	print(name0, name1, name2)
 	os.makedirs(location + name0, exist_ok=True)
+	if version == 3:
+		create3(name0, name1, name2, layers, module_name)
+	elif 0 < version < 3:
+		create2(name0, name1, name2)
+	else:
+		print('Invalid version number: {}'.format(version))
+		return
+
+
+def create2(name0, name1, name2):
 	try:
-		copy('Templates/nameTemplate.html', location + name0 + '/template.html', name0, name1, name2)
-		copy('Templates/template.css', location + name0 + '/style.css', name0, name1, name2)
-		copy('Templates/template.js', location + name0 + '/element.js', name0, name1, name2)
+		args = [name0, name1, name2, 'style']
+		folder = location + name0
+		copy('Templates/nameTemplate.html', folder + '/template.html', *args)
+		copy('Templates/template.css', folder + '/style.css', *args)
+		copy('Templates/template.js', folder + '/element.js', *args)
 	except Exception as e:
 		print('The following error occured during copying')
 		print(e)
-		l = [location + name0 + suffix for suffix in ['/template.html', '/style.css', '/element.js']]
-		for name in l:
+		suffixes = ['/template.html', '/style.css', '/element.js']
+		files = [location + name0 + suffix for suffix in suffixes]
+		for name in files:
 			try:
 				os.remove(name)
 			except:
 				pass
+
+
+def create3(name0, name1, name2, name3, moduleName):
+	try:
+		args = [name0, name1, name2, moduleName, name3]
+		folder = location + name0 + '/' + moduleName
+		copy('Templates/nameTemplate.html', folder + 'Template.html', *args)
+		copy('Templates/template.css', folder + '.css', *args)
+		copy('Templates/template.mjs', folder + '.mjs', *args)
+	except Exception as e:
+		print('The following error occured during copying')
+		print(e)
+		folder = location + name0 + '/' + moduleName
+		suffixes = ['/template.html', '/style.css', '/element.js']
+		files = [location + name0 + suffix for suffix in suffixes]
+		for name in files:
+			try:
+				os.remove(name)
+			except:
+				pass
+
 
 if __name__ == '__main__':
 	main()
