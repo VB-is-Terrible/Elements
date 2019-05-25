@@ -134,7 +134,8 @@ def _parse_mjs(file, manifest, name: str):
                 js_name, html_name = [x.strip() for x in load.split(',')]
                 html_name = strip_quotes(html_name)
                 name = name_resolver(html_name)
-                templates.add(name + '/' + name + 'Template.html')
+                moduleName = name.split('/')[-1]
+                templates.add(name + '/' + moduleName + 'Template.html')
                 provides.add(name)
         for loaded in loaded_regex.findall(lines):
                 loaded = strip_quotes(loaded)
@@ -230,13 +231,15 @@ def walk(dirpath: str, root: str):
         if isfile(dirpath + '/element.js'):
                 results[remove_prefix(dirpath, root)] = parse(dirpath, root)
         for file in os.listdir(dirpath):
-                if file.endswith('.mjs'):
-                        if (dirpath, file) in EXCLUDES:
-                                pass
-                                print("Ignored " + file)
-                        else:
-                                print("Opening " + file)
-                                results[remove_prefix(dirpath, root)] = parse_mjs(dirpath, root, file)
+                if not file.endswith('.mjs'):
+                        continue
+                if (dirpath, file) in EXCLUDES:
+                        pass
+                        print("Ignored " + file)
+                else:
+                        print("Opening " + file)
+                        name = remove_prefix(dirpath, root)
+                        results[name] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
                 if isdir(dirname):
