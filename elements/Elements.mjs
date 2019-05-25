@@ -841,6 +841,8 @@ class _Elements {
 	tokenise (name) {
 		if (name.includes('-')) {
 			return name.split('-');
+		} else if (name.includes('/')) {
+			return name.split('/');
 		} else {
 			let tokens = [];
 			let firstCharacter = /[A-Z]/;

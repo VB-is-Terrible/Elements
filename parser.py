@@ -5,6 +5,8 @@ import re
 def tokenise(name: str) -> List[str]:
         if '-' in name:
                 return name.split('-')
+        elif '/' in name:
+                return name.split('/')
         else:
                 name = name[0].upper() + name[1:]
                 regex = re.compile(r'[A-Z][a-z|_]*')
