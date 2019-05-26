@@ -102,8 +102,8 @@ def remove_prefix(s: str, prefix: str) -> str:
 def _parse_mjs(file, manifest, name: str):
         lines = file.read()
         get_regex = re.compile(r'Elements\.get\((.*?)\)')
-        recommends_regex = re.compile(r'export const recommends = \[(.*?)\]')
-        requires_regex = re.compile(r'export const requires = \[(.*?)\]')
+        recommends_regex = re.compile(r'export const recommends = \[(.*?)\]', re.M)
+        requires_regex = re.compile(r'export const requires = \[(.*?)\]', re.M)
         load_regex = re.compile(r'Elements\.load\((.*?)\)')
         loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
 
@@ -115,15 +115,17 @@ def _parse_mjs(file, manifest, name: str):
                         if ' ' not in req and req != '':
                                 recommends.add(req)
 
-        match = recommends_regex.match(lines)
+        match = recommends_regex.search(lines)
         if match is not None:
+                print('Found recommend, {}'.format(match))
                 recommend = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
                 for req in recommend:
                         recommends.add(req)
 
         requires = set()
-        match = requires_regex.match(lines)
+        match = requires_regex.search(lines)
         if match is not None:
+                print('Found match, {}'.format(match))
                 require = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
                 for req in require:
                         requires.add(req)
