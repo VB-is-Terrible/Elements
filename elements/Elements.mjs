@@ -382,13 +382,17 @@ class _Elements {
 		}
 	}
 
-	async _loadModule (elementName, type) {
+	async _loadModule (elementName, requires) {
 		if ((this.#requestedElements.has(name))) {
 			return;
 		}
 		let name_tokens = this.tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.mjs';
+		// TODO: preload module while getting dependencies
+
+		await this.get(...requires);
+
 
 		let promise = import('./' + location);
 		console.log('Load module ' + location + ': ', promise);
@@ -512,7 +516,7 @@ class _Elements {
 		} else {
 			// Recursivly look up dependencies
 			if (manifest['type'] == 'element3' || manifest['type'] == 'module3') {
-				this._loadModule(name);
+				this._loadModule(name, manifest['requires']);
 			} else {
 				this._require(name);
 			}
