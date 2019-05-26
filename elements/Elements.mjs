@@ -390,9 +390,11 @@ class _Elements {
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.mjs';
 		// TODO: preload module while getting dependencies
-
+		let link = document.createElement('link');
+		link.rel = 'modulepreload';
+		link.href = this.location + location;
+		this.#preloadLocation.append(link);
 		await this.get(...requires);
-
 
 		let promise = import('./' + location);
 		console.log('Load module ' + location + ': ', promise);
@@ -521,6 +523,7 @@ class _Elements {
 				this._require(name);
 			}
 			this.get(...manifest.requires);
+			this.get(...manifest.recommends);
 			// Pre-empt templates
 			for (let template of manifest.templates) {
 				if (template === 'default') {
