@@ -40,6 +40,15 @@ class ElementsBootloader {
 		return Elements.get(...elementNames);
 	}
 	/**
+	 * Waits for the elements class to be loaded, then makes an async network request, returning response body
+	 * @param  {String} location location of file. Note: will not prefix .location for you
+	 * @return {Promise}         Promise that resolves to the response body, can error
+	 */
+	async request (location) {
+		await this.initializedPromise;
+		return Elements.request(location);
+	}
+	/**
 	 * Empty function. This has empty for a while
 	 */
 	loadManifest () {}
