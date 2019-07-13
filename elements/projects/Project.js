@@ -82,7 +82,7 @@ const Projects = {
 	 * @property {Number} required Amount of progress required to complete this project
 	 * @property {Number} progress Current progress to completion
 	 * @property {Number} meta Type of project
-	 * @property {Array<Number>} dependencies List of dependencies as project IDs
+	 * @property {Number[]} dependencies List of dependencies as project IDs
 	 * @property {Projects.Status} status Status object for the project
 	 * @type {Object}
 	 */
