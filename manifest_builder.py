@@ -117,18 +117,18 @@ def _parse_mjs(file, manifest, name: str):
 
         match = recommends_regex.search(lines)
         if match is not None:
-                print('Found recommend, {}'.format(match))
                 recommend = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
                 for req in recommend:
-                        recommends.add(req)
+                        if req != '':
+                                recommends.add(req)
 
         requires = set()
         match = requires_regex.search(lines)
         if match is not None:
-                print('Found match, {}'.format(match))
                 require = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
                 for req in require:
-                        requires.add(req)
+                        if req != '':
+                                requires.add(req)
 
         provides = set()
         templates = set()
