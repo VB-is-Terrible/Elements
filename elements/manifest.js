@@ -818,6 +818,24 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "projects/project/full": {
+        "css": [
+            "common/float.css",
+            "projects/project/full/full.css"
+        ],
+        "provides": [
+            "projects/project/full"
+        ],
+        "recommends": [
+            "grid"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "projects/project/full/fullTemplate.html"
+        ],
+        "type": "element3"
+    },
     "projects/project/maker": {
         "css": [
             "common/float.css",
@@ -917,13 +935,30 @@ Elements.manifest = {
         "provides": [
             "test"
         ],
-        "recommends": [
-            ""
-        ],
+        "recommends": [],
         "requires": [],
         "resources": [],
         "templates": [
             "test/testTemplate.html"
+        ],
+        "type": "element3"
+    },
+    "test/tester": {
+        "css": [
+            "test/tester/tester.css"
+        ],
+        "provides": [
+            "test/tester"
+        ],
+        "recommends": [
+            "drag-body"
+        ],
+        "requires": [
+            "drag-element"
+        ],
+        "resources": [],
+        "templates": [
+            "test/tester/testerTemplate.html"
         ],
         "type": "element3"
     }
