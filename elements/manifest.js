@@ -49,21 +49,6 @@ Elements.manifest = {
         "templates": [],
         "type": "module"
     },
-    "common/box": {
-        "css": [
-            "common/box/style.css"
-        ],
-        "provides": [
-            "common/box"
-        ],
-        "recommends": [],
-        "requires": [],
-        "resources": [],
-        "templates": [
-            "common/box/template.html"
-        ],
-        "type": "element"
-    },
     "confirm_dialog": {
         "css": [
             "common/float.css",
@@ -940,25 +925,6 @@ Elements.manifest = {
         "resources": [],
         "templates": [
             "test/testTemplate.html"
-        ],
-        "type": "element3"
-    },
-    "test/tester": {
-        "css": [
-            "test/tester/tester.css"
-        ],
-        "provides": [
-            "test/tester"
-        ],
-        "recommends": [
-            "drag-body"
-        ],
-        "requires": [
-            "drag-element"
-        ],
-        "resources": [],
-        "templates": [
-            "test/tester/testerTemplate.html"
         ],
         "type": "element3"
     }
