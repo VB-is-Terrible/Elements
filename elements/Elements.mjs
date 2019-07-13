@@ -511,10 +511,13 @@ class _Elements {
 		if (name === 'main') {
 			return result;
 		}
+		if (this.manifest === undefined || this.manifest === {}) {
+			throw new Error('Elements v3 requires the manifest to be loaded before resolving packages');
+		}
 		let manifest = this.manifest[name];
 		if (manifest === undefined) {
-			// No manifest
-			throw new Error('Elements v3 requires the manifest to be loaded before resolving packages');
+			// No entry in manifest
+			throw new Error('Could not find "' + elementName + '" in the manifest');
 		} else {
 			// Recursivly look up dependencies
 			if (manifest['type'] == 'element3' || manifest['type'] == 'module3') {

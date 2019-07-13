@@ -15,7 +15,7 @@ export class $1 extends Elements.elements.backbone3 {
 
 		this.name = '$1';
 		const shadow = this.attachShadow({mode: 'open'});
-		let template = Elements.importTemplate(this.name);
+		const template = Elements.importTemplate(this.name);
 
 		//Fancy code goes here
 		shadow.appendChild(template);
