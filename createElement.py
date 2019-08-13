@@ -45,7 +45,7 @@ def main():
 		name0 = name_resolver(name2)
 		name1 = removeDashes(name0)
 	module_name = tokenise(name0)[-1]
-	version_input = input('Enter version name: ')
+	version_input = input('Enter version number: ')
 	if not version_input:
 		print('Empty input')
 		return
