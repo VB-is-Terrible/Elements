@@ -1,0 +1,65 @@
+<template id='templateElementsProjectsProjectFullDisplay'>
+	<link rel='stylesheet' type='text/css' href='projects/project/full/display/display.css'>
+	<link rel='stylesheet' type='text/css' href='common/float.css'>
+	<div id='pseudoBody'>
+		<div id='titleStack'>
+			<div id='titleBox'>
+				<h3 id='pageTitle'>Project Title here</h3>
+			</div>
+			<div id='editDiv'>
+				<button id='edit'> Edit </button>
+			</div>
+		</div>
+		<div id='rotate'>
+			<div id='statusBoxes' class='split'>
+				<div id='statusBox1' class='statusBox'>
+					<div class='gridMember'>Major Status</div>
+					<div class='gridMember' id='projectMajor'>Something</div>
+					<div class='gridMember'>Minor Status</div>
+					<div class='gridMember' id='projectMinor'>Something</div>
+				</div>
+				<div id='statusBox2' class='statusBox'>
+					<div class='gridMember'> Meta </div>
+					<div class='gridMember'>
+						<input id='projectMeta' type='checkbox' disabled></input>
+					</div>
+					<div class='gridMember'>Progress</div>
+					<div class='gridMember'>
+						<div class='multi' id='progressDiv'>
+							<progress id='projectProgress' value="50" max="100">
+								100%
+							</progress>
+							<div id='progressMulti' class='multi spacer'>
+								<p id='projectProgressCurrent'>2</p>
+								<p class='spacer'> / </p>
+								<p id='projectProgressTotal' class='spacer'>6</p>
+							</div>
+							<div id='progressSingle' class='spacer'>
+								<p id='projectProgressOverall'>Not Done </p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class='multi'>
+				<p> Dependencies: </p>
+				<div id='projectDepends' class='multi'>
+					<a href='/2'>
+						<p class='spacer'> 1 </p>
+					</a>
+					<p class='spacer'> 1 </p>
+					<p class='spacer'> 1 </p>
+					<p class='spacer'> 1 </p>
+					<p class='spacer'> 1 </p>
+					<p class='spacer'> 1 </p>
+					<p class='spacer'> 1 </p>
+				</div>
+			</div>
+			<div class='multi pageDesc'>
+				<p> Description: </p>
+				<p id='pageDesc'> Project description here </p>
+			</div>
+		</div>
+	</div>
+</template>
