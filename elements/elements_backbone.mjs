@@ -166,6 +166,14 @@ class _backbone2 extends HTMLElement {
 
 class _backbone3 extends _backbone2 {
 	static __backbone_version = 3;
+	/**
+	 * Runs a querySelector find on the shadow root
+	 * @param  {String} CSSSelector CSS selector to search for
+	 * @return {?DOMElement}             Element found by css selector
+	 */
+	shadowQuery (CSSSelector) {
+		return this.shadowRoot.querySelector(CSSSelector);
+	}
 }
 
 let oldValue;
