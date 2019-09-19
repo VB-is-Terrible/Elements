@@ -91,7 +91,7 @@ def create2(name0, name1, name2):
 		for name in files:
 			try:
 				os.remove(name)
-			except:
+			except Exception:
 				pass
 
 
@@ -111,7 +111,7 @@ def create3(name0, name1, name2, name3, moduleName):
 		for name in files:
 			try:
 				os.remove(name)
-			except:
+			except Exception:
 				pass
 
 
