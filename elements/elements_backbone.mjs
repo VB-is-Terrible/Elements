@@ -182,9 +182,9 @@ try {
 let backbone, backbone2, backbone3;
 if (oldValue === null) {
 	initDefaultPreperties();
-	[backbone, backbone2, backbone3]= [_backbone, _backbone2, _backbone3];
+	[backbone, backbone2, backbone3] = [_backbone, _backbone2, _backbone3];
 } else {
-	[backbone, backbone2, backbone3]= [Elements.elements.backbone, Elements.elements.backbone2, Elements.elements.backbone3];
+	[backbone, backbone2, backbone3] = [Elements.elements.backbone, Elements.elements.backbone2, Elements.elements.backbone3];
 }
 
 export {backbone, backbone2, backbone3};
