@@ -1,0 +1,47 @@
+<template id='templateElementsProjectsProjectFullEditor'>
+	<link rel='stylesheet' type='text/css' href='common/float.css'>
+	<link rel='stylesheet' type='text/css' href='projects/project/full/editor/editor.css'>
+	<div id='pseudoBody'>
+		<div id='titleStack'>
+			<div id='titleBox'>
+				<h3 id='pageTitle'>Project Title here</h3>
+			</div>
+			<div id='editDiv'>
+				<button id='cancel'> Cancel </button>
+			</div>
+		</div>
+		<div id='rotate'>
+			<div id='statusBoxes' class='statusBox'>
+				<div class='gridMember'>Title</div>
+				<div class='gridMember' id='projectMajor'>
+					<input id='Title'></input>
+				</div>
+				<div class='gridMember'>Counter</div>
+				<div class='gridMember multi'>
+					<input id='AnsProgress' type='checkbox'></input>
+				</div>
+				<div class='gridMember'>Required</div>
+				<div class='gridMember'>
+					<input id='AnsProgressAmount' type='number'></input>
+				</div>
+				<div class='gridMember'> Progress </div>
+				<div class='gridMember' id='projectProgress'>
+					<div class='multi'>
+						<input id='projectProgressRange' type="range" name="Current Progress" value="2" max="10">
+						<button id='projectProgressDecrease'>-</button>
+						<p id='projectProgressValue'> 2 </p>
+						<button id='projectProgressIncrease'>+</button>
+					</div>
+				</div>
+				<div class='gridMember'> Meta </div>
+				<div class='gridMember'>
+					<input id='projectMeta' type='checkbox' disabled></input>
+				</div>
+				<div class='gridMember'> Description</div>
+				<div class='gridMember'>
+					<textarea id='projectDesc'></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
