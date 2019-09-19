@@ -190,39 +190,6 @@ class _Elements {
 		 */
 		DROP_AMOUNT: 50,
 	};
-
-	/**
-	 * TODO: fill out
-	 * @deprecated
-	 * @param  {Object} object [description]
-	 * @return {Object}        [description]
-	 */
-	connectedCallbackHelper (object) {
-		console.warn('Using deprecated function connectedCallbackHelper');
-		if (object.attributeInit === false) {
-			for (let func in object.getDict) {
-				object.getDict[func]();
-			}
-			object.attributeInit = true;
-		}
-	}
-
-	/**
-	 * TODO: fill out
-	 * @deprecated
-	 * @param  {[type]} object   [description]
-	 * @param  {[type]} attrName [description]
-	 * @param  {[type]} OldValue [description]
-	 * @param  {[type]} newValue [description]
-	 * @return {[type]}          [description]
-	 */
-	attributeChangedHelper (object, attrName, OldValue, newValue) {
-		console.warn('Using deprecated function attributeChangedHelper');
-		if (attrName in this.setDict) {
-			this.setDict[attrName](newValue);
-		}
-	}
-
 	/**
 	 * Helper function to generate function to perform attribute overwrite
 	 * @param  {HTMLElement} object   object to observe attribute on
