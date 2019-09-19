@@ -88,6 +88,11 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	_writeDesc (updateValue) {
 		this._writeElement(updateValue, '#pageDesc');
 	}
+	/**
+	 * Display the project's progress
+	 * @param  {Integer} required Progress needed to complete the project
+	 * @param  {Integer} progress Current progress of the progject
+	 */
 	_writeProgress (required, progress) {
 		let isSingle;
 		if (required === 2) {
