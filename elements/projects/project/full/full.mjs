@@ -1,22 +1,10 @@
-export const recommends = ['projects-project-full-display'];
+export const recommends = ['projects-project-full-display', 'projects-project-full-editor'];
 export const requires = [];
 
 import {Elements} from '../../../Elements.mjs';
 
-const LENGTH_LIMIT = 30;
-
-/**
- * Limit length of text for sane display
- * @param  {String} text Text to shorten
- * @return {String}      Shortened text
- */
-const limitLength = (text) => {
-	if (text.length > LENGTH_LIMIT) {
-		return text.substr(0, LENGTH_LIMIT - 3) + "...";
-	} else {
-		return text;
-	}
-}
+const DISPLAY_SELECTOR = 'elements-projects-project-full-display';
+const EDIT_SELECTOR = 'elements-projects-project-full-editor';
 
 /**
  * Full display for a project. Designed to be shown on it's own page
@@ -57,12 +45,17 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		if (value === null) {
 			return;
 		}
-		this.shadowRoot.querySelector('elements-projects-project-full-display').data = value;
+		this.shadowRoot.querySelector(DISPLAY_SELECTOR).data = value;
+		this.shadowRoot.querySelector(EDIT_SELECTOR).data = value;
 	}
 	_rotate () {
 		let rotate = this.shadowRoot.querySelector('#rotate');
-		const states = [{'transform':'translate(0px, 0px) rotateX(0deg)'}, {'transform':'translate(0px, -50%) rotateX(90deg)'}];
-		rotate.animate(states, {duration : Elements.animation.LONG_DURATION * 2});
+		const states = [
+			{'transform':'translate(0px, 0px) rotateX(0deg)'},
+			{'transform':'translate(0px, -50%) rotateX(90deg)'}
+		];
+		rotate.animate(states,
+			{duration : Elements.animation.LONG_DURATION * 2});
 	}
 }
 
