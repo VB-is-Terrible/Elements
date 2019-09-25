@@ -53,7 +53,11 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * Reset the editor state
 	 */
 	reset () {
-
+		this._writeMeta(false);
+		this._writeDesc('');
+		this._writeProgress(1, 1, true);
+		this._writeDependencies([]);
+		this._writeTitle('Blank Project');
 	}
 	/**
 	 * Show the project state for editing
