@@ -85,6 +85,10 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			writeElement.checked = updateValue;
 		});
 	}
+	/**
+	 * Show the project description
+	 * @param  {String} updateValue The description to show
+	 */
 	_writeDesc (updateValue) {
 		this._writeElement(updateValue, '#pageDesc');
 	}

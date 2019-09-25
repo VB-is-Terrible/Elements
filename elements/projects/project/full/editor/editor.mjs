@@ -21,6 +21,8 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		 * @type {Projects.Project}
 		 */
 		this._data = null;
+		// UI update handlers
+
 		shadow.appendChild(template);
 	}
 	connectedCallback () {
@@ -80,6 +82,10 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			writeElement.checked = updateValue;
 		});
 	}
+	/**
+	 * Show the project description
+	 * @param  {String} updateValue The description to show
+	 */
 	_writeDesc (updateValue) {
 		this._writeElement(updateValue, '#projectDesc');
 	}
@@ -89,7 +95,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_writeDependencies (dependencies) {
-		// TODO: write
+		// TODO: Make an element that shows dependencies
 	}
 	_writeTitle (title) {
 		this._writeElement(title, '#pageTitle');
