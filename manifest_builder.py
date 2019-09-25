@@ -102,7 +102,8 @@ def remove_prefix(s: str, prefix: str) -> str:
 def _parse_mjs(file, manifest, name: str):
         lines = file.read()
         get_regex = re.compile(r'Elements\.get\((.*?)\)')
-        recommends_regex = re.compile(r'export const recommends = \[(.*?)\]', re.M)
+        recommends_regex = re.compile(r'export const recommends = \[(.*?)\]',
+                                      re.M)
         requires_regex = re.compile(r'export const requires = \[(.*?)\]', re.M)
         load_regex = re.compile(r'Elements\.load\((.*?)\)')
         loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
@@ -199,14 +200,14 @@ def parse_mjs(dirpath: str, root: str, name: str):
                 with open(root + template) as f:
                         file_string = f.read()
                 parser.feed(file_string)
-                manifest['css'], manifest['resources'] = parser.css, parser.resources
+                manifest['css'] = parser.css
+                manifest['resources'] = parser.resources
         return manifest
 
 
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
         output = json.dumps(results, indent=4, sort_keys=True)
-        # pprint.pprint (output)
         out = open(dirpath + 'manifest.json', 'w')
         out.write(output)
         out.write('\n')
@@ -224,7 +225,8 @@ def walk(dirpath: str, root: str):
         modules = []
         # Check for element module js files
         for file in os.listdir(dirpath):
-                if file[0].isupper() and file.endswith('.js') and isfile(os.path.join(dirpath, file)):
+                if file[0].isupper() and file.endswith('.js') and \
+                   isfile(os.path.join(dirpath, file)):
                         modules.append(os.path.join(dirpath, file))
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
@@ -237,9 +239,7 @@ def walk(dirpath: str, root: str):
                         continue
                 if (dirpath, file) in EXCLUDES:
                         pass
-                        print("Ignored " + file)
                 else:
-                        print("Opening " + file)
                         name = remove_prefix(dirpath, root)
                         results[name] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
