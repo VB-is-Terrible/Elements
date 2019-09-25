@@ -63,7 +63,7 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 		this._writeStatus(value.status);
 		this._writeMeta(value.meta);
 		this._writeDesc(value.desc);
-		this._writeProgress(value.required, value.progress);
+		this._writeProgress(value.required, value.progress, value.counter);
 		this._writeDependencies(value.dependencies);
 		this._writeTitle(value.name);
 	}
@@ -96,18 +96,14 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	 * Display the project's progress
 	 * @param  {Integer} required Progress needed to complete the project
 	 * @param  {Integer} progress Current progress of the progject
+	 * @param  {Boolean} counter Whether the project is single goal or multiple
 	 */
-	_writeProgress (required, progress) {
-		let isSingle;
-		if (required === 2) {
-			isSingle = true;
-		} else {
-			isSingle = false;
-		}
+	_writeProgress (required, progress, counter) {
+		console.log(counter);
 		let multi = this.shadowRoot.querySelector('#progressMulti');
 		let single = this.shadowRoot.querySelector('#progressSingle');
 		let progress_bar = this.shadowRoot.querySelector('#projectProgress');
-		if (isSingle) {
+		if (!counter) {
 			let p = this.shadowRoot.querySelector('#projectProgressOverall');
 			requestAnimationFrame((e) => {
 				p.innerHTML = Projects.STATUS_CODES_MAJOR[progress];
@@ -123,9 +119,9 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			});
 		}
 		requestAnimationFrame((e) => {
-			multi.style.display = isSingle ? 'none' : 'flex';
-			single.style.display = isSingle ? 'flex' : 'none';
-			progress_bar.style.display = isSingle ? 'none' : 'initial';
+			multi.style.display = !counter ? 'none' : 'flex';
+			single.style.display = !counter ? 'flex' : 'none';
+			progress_bar.style.display = !counter ? 'none' : 'initial';
 		});
 	}
 	/**

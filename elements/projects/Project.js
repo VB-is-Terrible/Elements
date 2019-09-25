@@ -84,16 +84,24 @@ const Projects = {
 	 * @property {Number} meta Type of project
 	 * @property {Number[]} dependencies List of dependencies as project IDs
 	 * @property {Projects.Status} status Status object for the project
+	 * @property {Booelean} counter If to use a counter to track progress instead of made->started->finished
 	 * @type {Object}
 	 */
 	Project: class Project {
-		constructor (system, name, id, desc = '', required = 2, status = null) {
+		constructor (system, name, id, desc = '', required = 0,
+		             status = null) {
 			this._system = system;
 			this._name = name;
 			this._desc = desc;
 			this._dependencies = [];
 			this.id = id;
-			this._required = required;
+			if (required === 0) {
+				this._counter = false;
+				this._required = 2;
+			} else {
+				this._counter = true;
+				this._required = required;
+			}
 			this._progress = 0;
 			this._meta = 0;
 			if (status !== null) {
@@ -147,6 +155,13 @@ const Projects = {
 			this._meta = value;
 			this.dispatchUpdate();
 		}
+		get counter () {
+			return this._counter;
+		}
+		set counter (value) {
+			this._counter = value;
+			this.dispatchUpdate();
+		}
 		/**
 		 * Update displays that something has changed
 		 * @memberof Projects.Project
@@ -190,6 +205,7 @@ const Projects = {
 			}
 			let status = Projects.Status.fromJSONObj(obj.status);
 			let project = new this(system, obj.name, obj.id, obj.desc, obj.required, status);
+			project.counter = obj.counter;
 			project.dependencies = obj.dependencies;
 			project.progress = obj.progress;
 			project.meta = obj.meta;
@@ -209,7 +225,7 @@ const Projects = {
 		 * @memberof Projects.Project
 		 */
 		static get json_props () {
-			return ['name', 'desc', 'dependencies', 'required', 'progress', 'meta'];
+			return ['name', 'desc', 'dependencies', 'required', 'progress', 'meta', 'counter'];
 		}
 	},
 	/**

@@ -121,24 +121,27 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * Write the progress and required state to be edited
 	 * @param  {Integer} required Progress required to complete the project
 	 * @param  {Integer} progress Current progress of the project
+	 * @param  {Boolean} counter Whether the project is single goal or multiple
 	 */
-	_writeProgress (required, progress) {
+	_writeProgress (required, progress, counter) {
 		const required_checkbox = this.shadowQuery('#AnsProgress');
 		const required_input = this.shadowQuery('#AnsProgressAmount');
-		if (required === 2) {
+		if (!counter) {
 			required_checkbox.value = false;
 			required_input.disabled = true;
 		} else {
 			required_checkbox.value = true;
 			required_input.disabled = false;
-			required_input.value = required;
 		}
+		required_input.value = required;
 
 		const progress_value = this.shadowQuery('#projectProgressValue');
-		const progress_range = this.shadowQuery('projectProgressRange');
+		const progress_range = this.shadowQuery('#projectProgressRange');
 		progress_value.innerHTML = progress.toString();
-		// TODO: write
+		progress_range.max = required;
+		progress_range.value = progress;
 	}
+
 }
 
 Elements.elements.ProjectsProjectFullEditor = ProjectsProjectFullEditor;
