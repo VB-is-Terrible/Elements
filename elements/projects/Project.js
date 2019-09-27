@@ -291,7 +291,7 @@ const Projects = {
 			form_data.append('version', this.version)
 			let fetch_promise;
 			try {
-				fetch_promise =  fetch(window.location + 'create', {
+				fetch_promise =  fetch(window.location.origin + '/create', {
 					method: 'POST',
 					body: form_data,
 				});
