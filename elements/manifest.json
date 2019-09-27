@@ -809,12 +809,47 @@
             "projects/project/full"
         ],
         "recommends": [
-            "grid"
+            "projects-project-full-display",
+            "projects-project-full-editor"
         ],
         "requires": [],
         "resources": [],
         "templates": [
             "projects/project/full/fullTemplate.html"
+        ],
+        "type": "element3"
+    },
+    "projects/project/full/display": {
+        "css": [
+            "common/float.css",
+            "projects/project/full/display/display.css"
+        ],
+        "provides": [
+            "projects/project/full/display"
+        ],
+        "recommends": [
+            "grid"
+        ],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "projects/project/full/display/displayTemplate.html"
+        ],
+        "type": "element3"
+    },
+    "projects/project/full/editor": {
+        "css": [
+            "common/float.css",
+            "projects/project/full/editor/editor.css"
+        ],
+        "provides": [
+            "projects/project/full/editor"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "projects/project/full/editor/editorTemplate.html"
         ],
         "type": "element3"
     },
