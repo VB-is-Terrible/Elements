@@ -346,7 +346,27 @@ const Projects = {
 			projects.append(display);
 
 		}
+		async update () {
+			let form_data = new FormData();
+			form_data.append('version', this.version)
+			let fetch_promise;
+			try {
+				fetch_promise =  fetch(window.location.origin + '/update', {
+					method: 'POST',
+					body: form_data,
+				});
+			} catch (e) {
+				alert('Failed to connect to server');
+				throw e;
+			}
+			try {
+				this.patch(fetch_promise);
+				return true;
+			} catch (e) {
+				return false;
+			}
 
+		}
 	},
 	/**
 	 * Standard datatype for dataTransfer when passing project ids to a unknown reciever
