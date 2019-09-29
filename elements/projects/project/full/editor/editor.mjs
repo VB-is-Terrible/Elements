@@ -194,22 +194,22 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	_changeTitle (e) {}
 	_changeCounter (e) {
 		const required_input = this.shadowQuery('#AnsProgressAmount');
-		if (e.path[0].checked) {
+		this._changes.counter = e.path[0].checked;
+		if (this._changes.counter) {
 			requestAnimationFrame((e) => {
 				required_input.disabled = false;
 			});
-			this._writeProgress(this._changes.required_amount,
-			                    this._changes.progress_amount,
-				            true);
+			this._changes.required_amount = this._changes.required_counter;
+			this._changes.progress_amount = this._changes.progress_counter;
+			this._writeProgressFromChanges();
 		} else {
 			requestAnimationFrame((e) => {
 				required_input.disabled = true;
 			});
-			this._writeProgress(2,
-			                    Math.max(this._changes.progress_amount, 2),
-				            false);
+			this._changes.required_amount = Projects.MAX_STATUS;
+			this._changes.progress_amount = Math.min(this._changes.progress_counter, Projects.MAX_STATUS);
+		    	this._writeProgressFromChanges();
 		}
-		this._changes.counter = e.path[0].checked;
 	}
 	_changeRequired (e, reset) {
 		let input_value = e.path[0].value;
@@ -227,24 +227,41 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 				return;
 			}
 			this._changes.required_amount = value;
-			this._writeProgress(value,
-				            Math.max(this._changes.progress_amount),
-				            this._changes.counter);
-			this._changes.required_amount = value;
+			this._changes.required_counter = value;
+			this._changes.progress_amount = Math.min(this._changes.progress_amount, value);
+			this._writeProgressFromChanges();
 		}
 	}
 	_changeProgress (e) {
 		let progress = e.path[0].value;
-		this._changes.progress_amount = progress;
-		this._writeProgress(this._changes.required_amount, progress,
-		                    this._changes.counter);
+		this._setProgress(progress);
 	}
-	_incrementProgress (e) {}
-	_decrementProgress (e) {}
+	_incrementProgress (e) {
+		let new_progress = Math.min(
+			this._changes.progress_amount + 1,
+		        this._changes.required_amount);
+		this._setProgress(new_progress);
+	}
+	_decrementProgress (e) {
+		let new_progress = Math.max(
+			this._changes.progress_amount - 1,
+			0);
+		this._setProgress(new_progress);
+	}
 	_changeMeta (e) {}
 	_changeDescription (e) {}
+	/**
+	 * Set and update the progress value
+	 * @param {Integer} progress Progress to update to
+	 */
+	_setProgress (progress) {
+		this._changes.progress_amount = progress;
+		this._changes.progress_counter = progress;
+		this._writeProgressFromChanges();
+	}
 	cancel () {
-		console.log('Would have reset changes');
+		this.data = this.data;
+	}
 	}
 }
 
