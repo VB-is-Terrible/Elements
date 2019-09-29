@@ -349,6 +349,10 @@ const Projects = {
 			projects.append(display);
 
 		}
+		/**
+		 * Query the server for updates, and apply any sent
+		 * @return {Promise} If the server could be contacted
+		 */
 		async update () {
 			let form_data = new FormData();
 			form_data.append('version', this.version)
@@ -368,6 +372,9 @@ const Projects = {
 			} catch (e) {
 				return false;
 			}
+
+		}
+		async change_project (change_set) {
 
 		}
 	},
