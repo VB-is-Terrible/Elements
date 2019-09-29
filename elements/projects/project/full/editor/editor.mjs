@@ -372,7 +372,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 */
 	_make_change_set () {
 		let change_set = new Projects.ChangeSet(this.data.id);
-		let title = this.shadowQuery('#title').value;
+		let title = this.shadowQuery('#Title').value;
 		if (title !== this.data.name) {
 			change_set.name = title;
 		}
