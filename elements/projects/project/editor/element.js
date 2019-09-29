@@ -85,7 +85,7 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		requestAnimationFrame((e) => {
 			name.value = project.name;
 			desc.value = project.desc;
-			if (project.required > 2) {
+			if (project.counter) {
 				progress.checked = true;
 				progressAmount.value = project.progress;
 				progressTotal.value = project.required;

@@ -46,10 +46,10 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 					case 0:
 						display.classList.add('not_started');
 						break;
-					case 1:
+					case Projects.PROGRESS_STATUS:
 						display.classList.add('in_progress');
 						break;
-					case 2:
+					case Projects.MAX_STATUS:
 						display.classList.add('finished');
 						break;
 					default:
@@ -65,7 +65,7 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 				}
 			}
 		});
-		if (this.data.required > 2) {
+		if (this.data.counter) {
 			let progress = this.shadowRoot.querySelector('p.progress');
 			requestAnimationFrame((e) => {
 				progress.innerHTML = this.data.progress.toString() + ' / ' +
