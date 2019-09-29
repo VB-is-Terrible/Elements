@@ -72,7 +72,9 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		}
 		this._display(value);
 		this._changes.progress_amount = value.progress;
+		this._changes.progress_counter = value.progress;
 		this._changes.required_amount = value.required;
+		this._changes.required_counter = value.required;
 		this._changes.counter = value.counter;
 	}
 	/**
@@ -89,7 +91,9 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	_resetChanges () {
 		this._changes = {
 			required_amount: 0,
+			required_counter: 0,
 			progress_amount: 0,
+			progress_counter: 0,
 			counter: false,
 		};
 	}
