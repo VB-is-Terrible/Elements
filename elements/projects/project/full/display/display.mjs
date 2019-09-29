@@ -140,7 +140,7 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			let p = document.createElement('p');
 			p.className = 'spacer';
 			a.href = './' + id.toString();
-			p.innerHTML = limitLength(DATA.get_event_by_id(id).name);
+			p.innerHTML = limitLength(Projects.main_project.get_event_by_id(id).name);
 			a.append(p);
 			let comma = document.createElement('p');
 			comma.innerHTML = ', ';

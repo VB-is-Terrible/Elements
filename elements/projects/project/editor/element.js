@@ -71,7 +71,7 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		 * Project to show
 		 * @type {Projects.Project}
 		 */
-		let project = DATA.get_event_by_id(id);
+		let project = Projects.main_project.get_event_by_id(id);
 		this.project = id;
 		let name = this.shadowRoot.querySelector('#projectName');
 		let desc = this.shadowRoot.querySelector('#projectDesc');

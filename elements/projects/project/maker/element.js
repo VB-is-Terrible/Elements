@@ -57,7 +57,13 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		let progressAmount = this.shadowRoot.querySelector('#AnsProgressAmount').value;
 		let meta = this.shadowRoot.querySelector('#AnsMeta').checked;
 		let dependencies = this.shadowRoot.querySelector('#depend').contents;
-		let project = new Projects.Project(DATA, name, null, desc, progress ? progressAmount : undefined);
+		let project = new Projects.Project(
+			Projects.main_project,
+			name,
+			null,
+			desc,
+			progress ? progressAmount : undefined
+		);
 		project.dependencies = dependencies;
 		// TODO: Add feedback
 		if (name === '') {return;}
@@ -67,7 +73,7 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 	async send_create (project) {
 		// this.hideWindow();
 		this.clear();
-		let result = await DATA.add_project(project);
+		let result = await Projects.main_project.add_project(project);
 		if (!result) {
 			// TODO: Add notification
 		}

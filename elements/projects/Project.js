@@ -373,6 +373,11 @@ const Projects = {
 	 * @type {String}
 	 */
 	common_type: 'projects/common',
+	/**
+	 * The main shared project object
+	 * @type {?Projects.System}
+	 */
+	main_project: undefined,
 };
 
 Elements.loaded('projects-Project');

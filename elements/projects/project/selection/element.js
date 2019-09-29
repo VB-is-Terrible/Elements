@@ -194,7 +194,7 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 		if (this._projects.has(id)) {
 			return;
 		}
-		let project = DATA.get_event_by_id(id);
+		let project = Projects.main_project.get_event_by_id(id);
 		let display = document.createElement('elements-projects-project-display');
 		display.data = project;
 		display.context = this._internal_context;
