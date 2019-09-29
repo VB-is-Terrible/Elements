@@ -374,6 +374,75 @@ const Projects = {
 	 */
 	common_type: 'projects/common',
 	/**
+	 * A set of changes that can be done to a project
+	 * Unchanged fields are left as undefined
+	 * @type {Object}
+	 * @property {Number} id The project's id
+	 * @property {?String} name The new name for the project
+	 * @property {?String} desc The new description of the progject
+	 * @property {?Number} required The new required value
+	 * @property {?Number} progress The new progress value
+	 * @property {?Number} meta The new meta value
+	 * @property {Number[]} dependencies_add The ids of projects to add as dependencies
+	 * @property {Number[]} dependencies_remove The ids of projgects to remove as dependencies
+	 * @property {?Boolean} counter The new counter value
+	 * @property {?Projects.Status} status The new Status object. Must be left blank by clients, as only the server can change this value
+	 */
+	ChangeSet: class ChangeSet {
+		constructor (id) {
+			this.id = id;
+			this.name = undefined;
+			this.desc = undefined;
+			this.required = undefined;
+			this.progress = undefined;
+			this.meta = undefined;
+			this.dependencies_add = [];
+			this.dependencies_remove = [];
+			this.status = undefined;
+			this.counter = undefined;
+		}
+		static fromJSONObj (obj) {
+			let change_set = new ChangeSet(obj.id);
+			for (let prop of this.json_props) {
+				change_set[prop] = obj[prop]
+			}
+			return change_set;
+		}
+		/**
+		 * List of properties needed to store a project as JSON
+		 * @type {List<String>}
+		 */
+		static get json_props () {
+			return ['id', 'name', 'desc', 'dependencies_add', 'dependencies_remove', 'required', 'progress', 'meta', 'counter'];
+		}
+		static get basic_props () {
+			return ['id', 'name', 'desc', 'required', 'progress', 'meta', 'counter'];
+		}
+		static get array_props () {
+			return ['dependencies_add', 'dependencies_remove'];
+		}
+		/**
+		 * Convert a ChangeSet to JSON, removing any empty values
+		 * @return {Object} The minimal object representing a ChangeSet
+		 */
+		toJSON () {
+			let result = {};
+			for (let prop of this.constructor.basic_props) {
+				let value = this[prop];
+				if (value !== undefined) {
+					result[prop] = value;
+				}
+			}
+			for (let prop of this.constructor.array_props) {
+				let value = this[prop];
+				if (value.length !== 0) {
+					result[prop] = value;
+				}
+			}
+			return result;
+		}
+	},
+	/**
 	 * The main shared project object
 	 * @type {?Projects.System}
 	 */
@@ -467,4 +536,11 @@ const test = () => {
 			throw e;
 		}
 	})();
-}
+};
+
+const testChange = () => {
+	let a = new Projects.ChangeSet(2);
+	a.name = 'test';
+	a.desc = 'ing';
+	return a;
+};
