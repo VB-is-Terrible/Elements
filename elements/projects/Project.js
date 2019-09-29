@@ -97,7 +97,7 @@ const Projects = {
 			this.id = id;
 			if (required === 0) {
 				this._counter = false;
-				this._required = 2;
+				this._required = Projects.MAX_STATUS;
 			} else {
 				this._counter = true;
 				this._required = required;
