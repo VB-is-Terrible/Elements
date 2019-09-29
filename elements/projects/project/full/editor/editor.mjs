@@ -129,7 +129,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @param  {String} updateValue The description to show
 	 */
 	_writeDesc (updateValue) {
-		this._writeElement(updateValue, '#projectDesc');
+		this.shadowQuery('#projectDesc').value = updateValue;
 	}
 	/**
 	 * Show the dependencies, with links
