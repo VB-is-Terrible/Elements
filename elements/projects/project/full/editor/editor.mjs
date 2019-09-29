@@ -1,4 +1,4 @@
-export const recommends = [];
+export const recommends = ['projects-Project'];
 export const requires = [];
 
 import {Elements} from '../../../../Elements.mjs';
@@ -23,7 +23,8 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._data = null;
 		this._resetChanges();
 		// UI update handlers
-		template.querySelector('#cancel').addEventListener('click', this.cancel);
+		template.querySelector('#cancel').addEventListener('click',
+			(e) => {this.cancel(e);});
 		template.querySelector('#Title').addEventListener('input',
 			(e) => {this._changeTitle(e);});
 		template.querySelector('#AnsProgress').addEventListener('input',
@@ -42,6 +43,8 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			(e) => {this._changeMeta(e);});
 		template.querySelector('#projectDesc').addEventListener('input',
 			(e) => {this._changeDescription(e);});
+		template.querySelector('#accept').addEventListener('click',
+			(e) => {this._accept(e);})
 		shadow.appendChild(template);
 		this.applyPriorProperty('data', null);
 	}
