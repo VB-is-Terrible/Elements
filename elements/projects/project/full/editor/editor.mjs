@@ -23,27 +23,38 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._data = null;
 		this._resetChanges();
 		// UI update handlers
-		template.querySelector('#cancel').addEventListener('click',
+		template.querySelector('#cancel').addEventListener(
+			'click',
 			(e) => {this.cancel(e);});
-		template.querySelector('#Title').addEventListener('input',
+		template.querySelector('#Title').addEventListener(
+			'input',
 			(e) => {this._changeTitle(e);});
-		template.querySelector('#AnsProgress').addEventListener('input',
+		template.querySelector('#AnsProgress').addEventListener(
+			'input',
 			(e) => {this._changeCounter(e);});
-		template.querySelector('#AnsProgressAmount').addEventListener('input',
+		template.querySelector('#AnsProgressAmount').addEventListener(
+			'input',
 			(e) => {this._changeRequired(e, false);});
-		template.querySelector('#AnsProgressAmount').addEventListener('change',
+		template.querySelector('#AnsProgressAmount').addEventListener(
+			'change',
 			(e) => {this._changeRequired(e, true);});
-		template.querySelector('#projectProgressRange').addEventListener('input',
+		template.querySelector('#projectProgressRange').addEventListener(
+			'input',
 			(e) => {this._changeProgress(e);});
-		template.querySelector('#projectProgressDecrease').addEventListener('click',
+		template.querySelector('#projectProgressDecrease').addEventListener(
+			'click',
 			(e) => {this._decrementProgress(e);});
-		template.querySelector('#projectProgressIncrease').addEventListener('click',
+		template.querySelector('#projectProgressIncrease').addEventListener(
+			'click',
 			(e) => {this._incrementProgress(e);});
-		template.querySelector('#projectMeta').addEventListener('change',
+		template.querySelector('#projectMeta').addEventListener(
+			'change',
 			(e) => {this._changeMeta(e);});
-		template.querySelector('#projectDesc').addEventListener('input',
+		template.querySelector('#projectDesc').addEventListener(
+			'input',
 			(e) => {this._changeDescription(e);});
-		template.querySelector('#accept').addEventListener('click',
+		template.querySelector('#accept').addEventListener(
+			'click',
 			(e) => {this._accept(e);})
 		shadow.appendChild(template);
 		this.applyPriorProperty('data', null);
@@ -88,6 +99,10 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeTitle('Blank Project');
 		this._resetChanges();
 	}
+	/**
+	 * Set all the input fields to sane placeholder values
+	 * @private
+	 */
 	_resetChanges () {
 		this._changes = {
 			required_amount: 0,
@@ -100,6 +115,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	/**
 	 * Show the project state for editing
 	 * @param  {Projects.Project} project Project to show
+	 * @private
 	 */
 	_display (project) {
 		this._writeMeta(project.meta);
@@ -108,6 +124,13 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeDependencies(project.dependencies);
 		this._writeTitle(project.name);
 	}
+	/**
+	 * Find an element in the shadowRoot by the selector, then set
+	 * the innerHTML to the updateValue
+	 * @param  {String} updateValue String to update innerHTML to
+	 * @param  {String} selector    CSS selector to find element to update
+	 * @private
+	 */
 	_writeElement (updateValue, selector) {
 		const writeElement = this.shadowRoot.querySelector(selector);
 		requestAnimationFrame((e) => {
@@ -139,6 +162,11 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	_writeDependencies (dependencies) {
 		// : Make an element that shows dependencies
 	}
+	/**
+	 * Show the project title
+	 * @param  {String} title Title to show
+	 * @private
+	 */
 	_writeTitle (title) {
 		this._writeElement(title, '#pageTitle');
 		const input = this.shadowQuery('#Title');
@@ -191,7 +219,17 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		progress_range.max = required;
 		progress_range.value = progress;
 	}
+	/**
+	 * Respond to an input on the title input
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_changeTitle (e) {}
+	/**
+	 * Respond to an input on the counter checkbox
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_changeCounter (e) {
 		const required_input = this.shadowQuery('#AnsProgressAmount');
 		this._changes.counter = e.path[0].checked;
@@ -211,6 +249,12 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		    	this._writeProgressFromChanges();
 		}
 	}
+	/**
+	 * Respond to an input on the required input
+	 * @param  {Event} e User event that trigger this function
+	 * @param  {Boolean} reset Whether to change the input value back to a sane value, or to ignore invalid inputs
+	 * @private
+	 */
 	_changeRequired (e, reset) {
 		let input_value = e.path[0].value;
 		if (input_value === '') {
@@ -232,23 +276,48 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			this._writeProgressFromChanges();
 		}
 	}
+	/**
+	 * Respond to an input on the progress range
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_changeProgress (e) {
 		let progress = e.path[0].value;
 		this._setProgress(progress);
 	}
+	/**
+	 * Respond to an input on the progress increment button
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_incrementProgress (e) {
 		let new_progress = Math.min(
 			this._changes.progress_amount + 1,
 		        this._changes.required_amount);
 		this._setProgress(new_progress);
 	}
+	/**
+	 * Respond to an input on the progress decrement button
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_decrementProgress (e) {
 		let new_progress = Math.max(
 			this._changes.progress_amount - 1,
 			0);
 		this._setProgress(new_progress);
 	}
+	/**
+	 * Respond to an input on the meta checkbox
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_changeMeta (e) {}
+	/**
+	 * Respond to an input on the description field
+	 * @param  {Event} e User event that trigger this function
+	 * @private
+	 */
 	_changeDescription (e) {}
 	/**
 	 * Set and update the progress value
@@ -259,13 +328,37 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._changes.progress_counter = progress;
 		this._writeProgressFromChanges();
 	}
+	/**
+	 * Respond to an user cancelling an edit
+	 */
 	cancel () {
 		this.data = this.data;
 	}
+	/**
+	 * Respond to an user accepting the changes so far
+	 * @param  {Event} [e] User event that trigger this function
+	 */
 	accept (e) {
 		let change_set = this._make_change_set();
-
+		console.log('Built changeset: ', change_set);
+		return;
+		this.reset();
+		this.send_change(change_set);
 	}
+	/**
+	 * Send the change_set to the server
+	 * @param  {Projects.ChangeSet}  change_set ChangeSet to send
+	 */
+	async send_change (change_set) {
+		let result = await Projects.main_project.change_project(change_set);
+		if (!result) {
+			console.log('Failed to contact the server');
+		}
+	}
+	/**
+	 * Make a ChangeSet based on the current inputs
+	 * @return {Projects.ChangeSet}      The current inputs put into a ChangeSet
+	 */
 	_make_change_set () {
 		let change_set = new Projects.ChangeSet(this.data.id);
 		let title = this.shadowQuery('#title').value;

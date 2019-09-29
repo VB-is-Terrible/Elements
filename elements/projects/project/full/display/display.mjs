@@ -153,6 +153,11 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			});
 		}
 	}
+	/**
+	 * Show the project title
+	 * @param  {String} title Title to show
+	 * @private
+	 */
 	_writeTitle (title) {
 		this._writeElement(title, '#pageTitle');
 	}
