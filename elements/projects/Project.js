@@ -342,6 +342,9 @@ const Projects = {
 			// TODO: Move this into own element
 			let projects = document.querySelector('#projects');
 			let display = document.createElement('elements-projects-project-display');
+			if (projects === null || display === null) {
+				return;
+			}
 			display.data = project;
 			projects.append(display);
 
