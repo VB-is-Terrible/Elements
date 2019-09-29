@@ -55,7 +55,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			(e) => {this._changeDescription(e);});
 		template.querySelector('#accept').addEventListener(
 			'click',
-			(e) => {this._accept(e);})
+			(e) => {this.accept(e);})
 		shadow.appendChild(template);
 		this.applyPriorProperty('data', null);
 	}
