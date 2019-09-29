@@ -160,6 +160,14 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		});
 	}
 	/**
+	 * Display the required, progress and counter in this._changes
+	 */
+	_writeProgressFromChanges () {
+		this._writeProgress(this._changes.required_amount,
+		                    this._changes.progress_amount,
+			            this._changes.counter);
+	}
+	/**
 	 * Write the progress and required state to be edited
 	 * @param  {Integer} required Progress required to complete the project
 	 * @param  {Integer} progress Current progress of the project
