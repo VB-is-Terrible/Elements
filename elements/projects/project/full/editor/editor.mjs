@@ -123,6 +123,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeProgress(project.required, project.progress, project.counter);
 		this._writeDependencies(project.dependencies);
 		this._writeTitle(project.name);
+		this._writeCounter(project.counter);
 	}
 	/**
 	 * Find an element in the shadowRoot by the selector, then set
@@ -143,6 +144,16 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 */
 	_writeMeta (updateValue) {
 		const writeElement = this.shadowRoot.querySelector('#projectMeta');
+		requestAnimationFrame((e) => {
+			writeElement.checked = updateValue;
+		});
+	}
+	/**
+	 * Update the displayed counter value
+	 * @param  {Boolean} updateValue Meta value to display
+	 */
+	_writeCounter (updateValue) {
+		const writeElement = this.shadowRoot.querySelector('#AnsProgress');
 		requestAnimationFrame((e) => {
 			writeElement.checked = updateValue;
 		});
