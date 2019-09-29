@@ -79,8 +79,11 @@ input[type=checkbox] {
 #AnsProgress {
 	margin-right: 1em;
 }
-#cancel {
+#cancel, #accept {
 	margin: 1em 1em 1em 0;
+}
+#acceptDiv {
+	height: 100%;
 }
 #editDiv {
 	position: absolute;
