@@ -380,21 +380,22 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		if (desc !== this.data.desc) {
 			change_set.desc = desc;
 		}
-		let required = parseInt(this.shadowQuery('#AnsProgressAmount').value);
+		let required = this._changes.required_amount;
 		if (required === NaN || required < 1) {
 			console.warn('Invalid required value');
 		} else if (required !== this.data.required) {
 			change_set.required = required;
 		}
-		let progress = parseInt(this.shadowQuery('#projectProgressRange'));
+		let progress = this._changes.progress_amount;
 		if (progress !== this.data.progress) {
 			change_set.progress = progress;
 		}
-		let meta = this.shadowQuery('#projectMeta').checked;
+		let meta_ticked = this.shadowQuery('#projectMeta').checked;
+		let meta = meta_ticked ? 1 : 0;
 		if (meta !== this.data.meta) {
 			change_set.meta = meta;
 		}
-		let counter = this.shadowQuery('#AnsProgress').checked;
+		let counter = this._changes.counter;
 		if (counter !== this.data.counter) {
 			change_set.counter = counter;
 		}
