@@ -422,7 +422,7 @@ class _Elements {
 	 * @return {Object}            new object with properties copied over
 	 */
 	jsonIncludes (object, properties) {
-		let result = {}
+		let result = {};
 		for (let property of properties) {
 			result[property] = object[property];
 		}
