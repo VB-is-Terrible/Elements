@@ -352,6 +352,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	accept (e) {
 		let change_set = this._make_change_set();
 		console.log('Built changeset: ', change_set);
+		console.log('JSON: ', JSON.stringify(change_set));
 		return;
 		this.reset();
 		this.send_change(change_set);
