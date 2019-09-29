@@ -75,6 +75,7 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		this.clear();
 		let result = await Projects.main_project.add_project(project);
 		if (!result) {
+			console.log('Failed to contact the server');
 			// TODO: Add notification
 		}
 	}
