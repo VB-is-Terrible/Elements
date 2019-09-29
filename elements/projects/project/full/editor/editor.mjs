@@ -262,6 +262,40 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	cancel () {
 		this.data = this.data;
 	}
+	accept (e) {
+		let change_set = this._make_change_set();
+
+	}
+	_make_change_set () {
+		let change_set = new Projects.ChangeSet(this.data.id);
+		let title = this.shadowQuery('#title').value;
+		if (title !== this.data.name) {
+			change_set.name = title;
+		}
+		let desc = this.shadowQuery('#projectDesc').value;
+		if (desc !== this.data.desc) {
+			change_set.desc = desc;
+		}
+		let required = parseInt(this.shadowQuery('#AnsProgressAmount').value);
+		if (required === NaN || required < 1) {
+			console.warn('Invalid required value');
+		} else if (required !== this.data.required) {
+			change_set.required = required;
+		}
+		let progress = parseInt(this.shadowQuery('#projectProgressRange'));
+		if (progress !== this.data.progress) {
+			change_set.progress = progress;
+		}
+		let meta = this.shadowQuery('#projectMeta').checked;
+		if (meta !== this.data.meta) {
+			change_set.meta = meta;
+		}
+		let counter = this.shadowQuery('#AnsProgress').checked;
+		if (counter !== this.data.counter) {
+			change_set.counter = counter;
+		}
+		// TODO: Track dependencies
+		return change_set;
 	}
 }
 
