@@ -395,7 +395,6 @@ const Projects = {
 				return true;
 			} catch (e) {
 				return false;
-				// TODO: 
 			}
 		}
 	},
