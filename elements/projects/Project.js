@@ -375,7 +375,28 @@ const Projects = {
 
 		}
 		async change_project (change_set) {
-
+			let message = JSON.stringify([change_set]);
+			console.log('Sending: ', message);
+			let form_data = new FormData();
+			form_data.append('change', message);
+			form_data.append('version', this.version)
+			let fetch_promise;
+			try {
+				fetch_promise =  fetch(window.location.origin + '/change', {
+					method: 'POST',
+					body: form_data,
+				});
+			} catch (e) {
+				alert('Failed to connect to server');
+				throw e;
+			}
+			try {
+				this.patch(fetch_promise);
+				return true;
+			} catch (e) {
+				return false;
+				// TODO: 
+			}
 		}
 	},
 	/**
@@ -426,7 +447,7 @@ const Projects = {
 			return ['id', 'name', 'desc', 'dependencies_add', 'dependencies_remove', 'required', 'progress', 'meta', 'counter'];
 		}
 		static get basic_props () {
-			return ['id', 'name', 'desc', 'required', 'progress', 'meta', 'counter'];
+			return ['name', 'desc', 'required', 'progress', 'meta', 'counter'];
 		}
 		static get array_props () {
 			return ['dependencies_add', 'dependencies_remove'];
@@ -437,6 +458,7 @@ const Projects = {
 		 */
 		toJSON () {
 			let result = {};
+			result.id = this.id;
 			for (let prop of this.constructor.basic_props) {
 				let value = this[prop];
 				if (value !== undefined) {
