@@ -54,9 +54,15 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		let name = this.shadowRoot.querySelector('#AnsName').value;
 		let desc = this.shadowRoot.querySelector('#AnsDesc').value;
 		let progress = this.shadowRoot.querySelector('#AnsProgress').checked;
-		let progressAmount = this.shadowRoot.querySelector('#AnsProgressAmount').value;
+		let progressAmount = parseInt(this.shadowRoot.querySelector('#AnsProgressAmount').value);
 		let meta = this.shadowRoot.querySelector('#AnsMeta').checked;
 		let dependencies = this.shadowRoot.querySelector('#depend').contents;
+		if (!progress) {
+		} else if (isNaN(progressAmount)) {
+			return;
+		} else if (progressAmount < 1) {
+			return;
+		}
 		let project = new Projects.Project(
 			Projects.main_project,
 			name,
