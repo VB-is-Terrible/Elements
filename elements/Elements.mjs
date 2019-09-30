@@ -356,7 +356,6 @@ class _Elements {
 		let name_tokens = this.tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.mjs';
-		// TODO: preload module while getting dependencies
 		let link = document.createElement('link');
 		link.rel = 'modulepreload';
 		link.href = this.location + location;

@@ -55,7 +55,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			self.layout_switch(entries[0]);
 		}, {
 			root: null,
-			rootMargin : '0px', // TODO: Add right margin
+			rootMargin : '0px',
 			threshold: [1],
 		});
 		this.__layoutState = 'large';

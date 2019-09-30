@@ -231,7 +231,6 @@ def walk(dirpath: str, root: str):
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
                 results[name] = parse(filename, root)
-        # TODO: Check for mjs modules
         if isfile(dirpath + '/element.js'):
                 results[remove_prefix(dirpath, root)] = parse(dirpath, root)
         for file in os.listdir(dirpath):
