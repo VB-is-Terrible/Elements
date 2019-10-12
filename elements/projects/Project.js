@@ -326,6 +326,9 @@ const Projects = {
 				for (let create of patch.create) {
 					this._patch_add_project(create);
 				}
+				for (let change of patch.change) {
+					this._patch_change_project(change)
+				}
 			}
 			this.version = updates.version
 		}
@@ -348,6 +351,39 @@ const Projects = {
 			display.data = project;
 			projects.append(display);
 
+		}
+		_patch_change_project (change_json) {
+			let change_obj = JSON.parse(change_json);
+			let changes = Projects.ChangeSet.fromJSONObj(change_obj);
+			this._patch_change_simple(changes);
+			this._patch_change_complex(changes);
+		}
+		/**
+		 * Apply simple changes in a ChangeSet (anything but the arrays)
+		 * @param  {Projects.ChangeSet} change_set Changes to apply
+		 * @private
+		 */
+		_patch_change_simple (change_set) {
+			let target = this.get_event_by_id(change_set.id);
+			for (let prop of Projects.ChangeSet.basic_props) {
+				if (change_set[prop] !== undefined) {
+					target[prop] = change_set[prop]
+				}
+			}
+		}
+		/**
+		 * Apply complex changes in a ChangeSet (the arrays)
+		 * @param  {Projects.ChangeSet} change_set Changes to apply
+		 * @private
+		 */
+		_patch_change_complex (change_set) {
+			let target = this.get_event_by_id(change_set.id);
+			if (change_set.status !== undefined) {
+				target.status = change_set.status;
+			}
+			if (change_set.dependencies.length !== 0) {
+				target.dependencies = change_set.dependencies;
+			}
 		}
 		/**
 		 * Query the server for updates, and apply any sent
@@ -417,6 +453,7 @@ const Projects = {
 	 * @property {Number[]} dependencies_remove The ids of projgects to remove as dependencies
 	 * @property {?Boolean} counter The new counter value
 	 * @property {?Projects.Status} status The new Status object. Must be left blank by clients, as only the server can change this value
+	 * @property {Number[]} dependencies_remove The new list of dependencies. Must be left blank by clients, as only the server can change this value
 	 */
 	ChangeSet: class ChangeSet {
 		constructor (id) {
@@ -426,15 +463,26 @@ const Projects = {
 			this.required = undefined;
 			this.progress = undefined;
 			this.meta = undefined;
+			this.dependencies = [];
 			this.dependencies_add = [];
 			this.dependencies_remove = [];
 			this.status = undefined;
 			this.counter = undefined;
 		}
+		/**
+		 * Reconstruct a ChangeSet from a JSON obj
+		 * @param  {Object} obj JSON representation of a ChangeSet
+		 * @return {[type]}     [description]
+		 */
 		static fromJSONObj (obj) {
-			let change_set = new ChangeSet(obj.id);
+			let change_set = new this(obj.id);
 			for (let prop of this.json_props) {
 				change_set[prop] = obj[prop]
+			}
+			let status_obj = obj.status;
+			if (status_obj !== undefined) {
+				let status = Projects.Status.fromJSONObj(status_obj);
+				change_set.status = status;
 			}
 			return change_set;
 		}
@@ -443,11 +491,19 @@ const Projects = {
 		 * @type {List<String>}
 		 */
 		static get json_props () {
-			return ['id', 'name', 'desc', 'dependencies_add', 'dependencies_remove', 'required', 'progress', 'meta', 'counter'];
+			return ['id', 'name', 'desc', 'dependencies_add', 'dependencies_remove', 'required', 'progress', 'meta', 'counter', 'dependencies'];
 		}
+		/**
+		 * List of string or int properties needed to store a project as JSON
+		 * @type {List<String>}
+		 */
 		static get basic_props () {
 			return ['name', 'desc', 'required', 'progress', 'meta', 'counter'];
 		}
+		/**
+		 * List of array properties needed to store a project as JSON
+		 * @type {List<String>}
+		 */
 		static get array_props () {
 			return ['dependencies_add', 'dependencies_remove'];
 		}
