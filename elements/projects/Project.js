@@ -381,7 +381,7 @@ const Projects = {
 			if (change_set.status !== undefined) {
 				target.status = change_set.status;
 			}
-			if (change_set.dependencies.length !== 0) {
+			if (change_set.dependencies !== undefined) {
 				target.dependencies = change_set.dependencies;
 			}
 		}
@@ -472,7 +472,7 @@ const Projects = {
 		/**
 		 * Reconstruct a ChangeSet from a JSON obj
 		 * @param  {Object} obj JSON representation of a ChangeSet
-		 * @return {[type]}     [description]
+		 * @return {Projects.ChangeSet}     The revived ChangeSet
 		 */
 		static fromJSONObj (obj) {
 			let change_set = new this(obj.id);
