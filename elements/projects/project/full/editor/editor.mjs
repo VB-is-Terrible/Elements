@@ -293,7 +293,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_changeProgress (e) {
-		let progress = e.path[0].value;
+		let progress = parseInt(e.path[0].value);
 		this._setProgress(progress);
 	}
 	/**
