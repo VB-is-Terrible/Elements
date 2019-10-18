@@ -227,6 +227,23 @@ const Projects = {
 		static get json_props () {
 			return ['name', 'desc', 'dependencies', 'required', 'progress', 'meta', 'counter'];
 		}
+		/**
+		 * Apply a ChangeSet to this project, in a single atomic operation
+		 * @param  {Projects.ChangeSet} change_set ChangeSet to apply
+		 */
+		applyChangeSet (change_set) {
+			for (let prop of Projects.ChangeSet.basic_props) {
+				if (change_set[prop] !== undefined) {
+					target['_' + prop] = change_set[prop]
+				}
+			}
+			if (change_set.status !== undefined) {
+				target._status = change_set.status;
+			}
+			if (change_set.dependencies !== undefined) {
+				target._dependencies = change_set.dependencies;
+			}
+		}
 	},
 	/**
 	 * Overall Project Container and manager
@@ -349,14 +366,14 @@ const Projects = {
 				return;
 			}
 			display.data = project;
-			projects.append(display);
-
+		 	projects.append(display);
 		}
 		_patch_change_project (change_json) {
 			let change_obj = JSON.parse(change_json);
 			let changes = Projects.ChangeSet.fromJSONObj(change_obj);
-			this._patch_change_simple(changes);
-			this._patch_change_complex(changes);
+			console.log('Would apply changes: ', changes);
+			let target = this.get_event_by_id(change_set.id);
+			target.applyChangeSet(changes);
 		}
 		/**
 		 * Apply simple changes in a ChangeSet (anything but the arrays)
