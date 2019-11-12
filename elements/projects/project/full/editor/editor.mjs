@@ -55,15 +55,32 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			(e) => {this._changeDescription(e);});
 		template.querySelector('#accept').addEventListener(
 			'click',
-			(e) => {this.accept(e);})
+			(e) => {this.accept(e);});
+		let enter_accept = (e) => {
+			if (e.key === "Enter") {
+				this.accept(e);
+			}
+		}
+		const text_inputs = ['#Title', '#AnsProgressAmount', '#projectDesc'];
+		for (let input of text_inputs) {
+			template.querySelector(input).addEventListener(
+				'keypress', enter_accept);
+		}
 		shadow.appendChild(template);
+		this._refresh_callback = (change_set) => {this._refresh(change_set);};
 		this.applyPriorProperty('data', null);
 	}
 	connectedCallback () {
 		super.connectedCallback();
+		if (this._data !== null) {
+			this._data.add_pre_transaction(this._refresh_callback);
+		}
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
+		if (this._data !== null) {
+			this._data.remove_pre_transaction(this._refresh_callback);
+		}
 	}
 	static get observedAttributes () {
 		return [];
@@ -77,6 +94,9 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 */
 	set data (value) {
 		this.reset();
+		if (this._data !== null) {
+			this._data.remove_pre_transaction(this._refresh_callback);
+		}
 		this._data = value;
 		if (value === null) {
 			return;
@@ -87,6 +107,9 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._changes.required_amount = value.required;
 		this._changes.required_counter = value.required;
 		this._changes.counter = value.counter;
+		if (this.connected) {
+			this._data.add_pre_transaction(this._refresh_callback);
+		}
 	}
 	/**
 	 * Reset the editor state
@@ -401,6 +424,51 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		}
 		// TODO: Track dependencies
 		return change_set;
+	}
+	/**
+	 * Figure out which parts the user has changed, and which can updated
+	 * @param  {Projects.ChangeSet} change_set Changes to be made
+	 */
+	_refresh (change_set) {
+		if (change_set.name !== undefined) {
+			let editorTitle = this.shadowQuery('#pageTitle');
+			requestAnimationFrame((e) => {
+				editorTitle.innerHTML = Elements.nameSanitizer(change_set.name)
+			});
+			let title = this.shadowQuery('#Title');
+			if (title.value === this.data.name) {
+				requestAnimationFrame((e) => {
+					title.innerHTML = Elements.nameSanitizer(change_set.name)
+				});
+			}
+		}
+		if (change_set.desc !== undefined) {
+			let desc = this.shadowQuery('#projectDesc');
+			if (desc.value === this._data.desc) {
+				requestAnimationFrame((e) => {
+					desc.value = change_set.desc;
+				});
+			}
+		}
+		if (change_set.required !== undefined) {
+			let required_input = this.shadowQuery('#AnsProgressAmount');
+			required_input.value = change_set.required;
+
+		}
+		if (change_set.progress !== undefined) {
+			let progress_value = this.shadowQuery('#projectProgressValue');
+			let progress_range = this.shadowQuery('#projectProgressRange');
+			progress_value.innerHTML = change_set.progress.toString();
+			progress_range.value = change_set.value;
+		}
+		if (change_set.meta !== undefined) {
+			let meta_ticked = this.shadowQuery('#projectMeta');
+			meta_ticked.checked = change_set.meta;
+		}
+		if (change_set.counter !== undefined) {
+			let required_checkbox = this.shadowQuery('#AnsProgress');
+			required_checkbox.checked = change_set.counter;
+		}
 	}
 }
 
