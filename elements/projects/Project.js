@@ -112,6 +112,8 @@ const Projects = {
 
 			this._displays = new Set();
 			this.type = 'Project';
+			this._pre_triggers = new Set();
+			this._post_triggers = new Set();
 		}
 		get name () {
 			return this._name;
@@ -232,16 +234,52 @@ const Projects = {
 		 * @param  {Projects.ChangeSet} change_set ChangeSet to apply
 		 */
 		applyChangeSet (change_set) {
+			this._trigger_pre_transaction(change_set);
 			for (let prop of Projects.ChangeSet.basic_props) {
 				if (change_set[prop] !== undefined) {
-					target['_' + prop] = change_set[prop]
+					this['_' + prop] = change_set[prop]
 				}
 			}
 			if (change_set.status !== undefined) {
-				target._status = change_set.status;
+				this._status = change_set.status;
 			}
 			if (change_set.dependencies !== undefined) {
-				target._dependencies = change_set.dependencies;
+				this._dependencies = change_set.dependencies;
+			}
+			this._trigger_post_transaction(change_set);
+		}
+		add_pre_transaction (callback) {
+			this._pre_triggers.add(callback);
+		}
+		remove_pre_transaction (callback) {
+			this._pre_triggers.delete(callback);
+		}
+		/**
+		 * Call all pre trans callbacks
+		 * @param  {Projects.ChangeSet} change_set ChangeSet with changes to be made to pass to callbacks
+		 */
+		_trigger_pre_transaction (change_set) {
+			for (let callback of this._pre_triggers) {
+				try {
+					callback(change_set);
+				} catch (e) {}
+			}
+		}
+		add_post_transaction (callback) {
+			this._post_triggers.add(callback);
+		}
+		remove_post_transaction (callback) {
+			this._post_triggers.delete(callback);
+		}
+		/**
+		 * Call all post trans callbacks
+		 * @param  {Projects.ChangeSet} change_set ChangeSet with changes to be made to pass to callbacks
+		 */
+		_trigger_post_transaction (change_set) {
+			for (let callback of this._post_triggers) {
+				try {
+					callback(change_set);
+				} catch (e) {}
 			}
 		}
 	},
@@ -372,7 +410,7 @@ const Projects = {
 			let change_obj = JSON.parse(change_json);
 			let changes = Projects.ChangeSet.fromJSONObj(change_obj);
 			console.log('Would apply changes: ', changes);
-			let target = this.get_event_by_id(change_set.id);
+			let target = this.get_event_by_id(changes.id);
 			target.applyChangeSet(changes);
 		}
 		/**
@@ -470,7 +508,7 @@ const Projects = {
 	 * @property {Number[]} dependencies_remove The ids of projgects to remove as dependencies
 	 * @property {?Boolean} counter The new counter value
 	 * @property {?Projects.Status} status The new Status object. Must be left blank by clients, as only the server can change this value
-	 * @property {Number[]} dependencies_remove The new list of dependencies. Must be left blank by clients, as only the server can change this value
+	 * @property {Number[]} dependencies The new list of dependencies. Must be left blank by clients, as only the server can change this value
 	 */
 	ChangeSet: class ChangeSet {
 		constructor (id) {
