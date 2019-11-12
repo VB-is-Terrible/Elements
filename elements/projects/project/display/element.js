@@ -20,6 +20,7 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 		this.name = 'ProjectsProjectDisplay';
 		this.__data = null;
 		this._context = '';
+		this._refresh_callback = (changed) => {this._refresh();};
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
@@ -32,47 +33,14 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 		return this.__data;
 	}
 	set data(value) {
-		this.__data = value;
-		this.shadowRoot.querySelector('.name').innerHTML = value.name;
-		let status = value.status;
-		let display = this.shadowRoot.querySelector('#status');
-		let desc = this.shadowRoot.querySelector('p.desc');
-		this.shadowRoot.querySelector('p.status').innerHTML = status.minor_code;
-		requestAnimationFrame((e) => {
-			desc.innerHTML = value.desc;
-			display.className = 'border';
-			if (status.minor === 0) {
-				switch (status.major) {
-					case 0:
-						display.classList.add('not_started');
-						break;
-					case Projects.PROGRESS_STATUS:
-						display.classList.add('in_progress');
-						break;
-					case Projects.MAX_STATUS:
-						display.classList.add('finished');
-						break;
-					default:
-						display.classList.add('error');
-				}
-			} else {
-				switch (status.minor) {
-					case 1:
-						display.classList.add('awaiting');
-						break;
-					default:
-						display.classList.add('error');
-				}
-			}
-		});
-		if (this.data.counter) {
-			let progress = this.shadowRoot.querySelector('p.progress');
-			requestAnimationFrame((e) => {
-				progress.innerHTML = this.data.progress.toString() + ' / ' +
-				                     this.data.required.toString();
-			});
+		if (this.data !== null) {
+			this.data.remove_post_transaction(this._refresh_callback);
 		}
-
+		this.__data = value;
+		if (this.connected) {
+			this.__data.add_post_transaction(this._refresh_callback);
+		}
+		this._refresh();
 	}
 	item_drag_start (caller, event) {
 		let parent = Elements.classes.Draggable.getParent(this);
@@ -108,8 +76,65 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 			this.shadowRoot.querySelector('elements-draggable-item'),
 		];
 	}
+	_refresh () {
+		let value = this.data;
+		if (this.data === null) {return;}
+
+		this.shadowRoot.querySelector('.name').innerHTML = Elements.nameSanitizer(value.name);
+		let status = value.status;
+		let display = this.shadowRoot.querySelector('#status');
+		let desc = this.shadowRoot.querySelector('p.desc');
+		this.shadowRoot.querySelector('p.status').innerHTML = status.minor_code;
+		requestAnimationFrame((e) => {
+			desc.innerHTML = value.desc;
+			display.className = 'border';
+			if (status.minor === 0) {
+				switch (status.major) {
+					case 0:
+						display.classList.add('not_started');
+						break;
+					case Projects.PROGRESS_STATUS:
+						display.classList.add('in_progress');
+						break;
+					case Projects.MAX_STATUS:
+						display.classList.add('finished');
+						break;
+					default:
+						display.classList.add('error');
+				}
+			} else {
+				switch (status.minor) {
+					case 1:
+						display.classList.add('awaiting');
+						break;
+					default:
+						display.classList.add('error');
+				}
+			}
+		});
+		if (this.data.counter) {
+			let progress = this.shadowRoot.querySelector('p.progress');
+			requestAnimationFrame((e) => {
+				progress.innerHTML = this.data.progress.toString() + ' / ' +
+						     this.data.required.toString();
+			});
+		}
+
+	}
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
+	}
+	connectedCallback () {
+		super.connectedCallback();
+		if (this.data !== null) {
+			this.data.add_post_transaction(this._refresh_callback);
+		}
+	}
+	disconnectedCallback () {
+		super.disconnectedCallback();
+		if (this.data !== null) {
+			this.data.remove_post_transaction(this._refresh_callback);
+		}
 	}
 };
 
