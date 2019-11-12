@@ -86,6 +86,7 @@ class _backbone2 extends HTMLElement {
 			}
 		}
 		this.attributeInit = false;
+		this.connected = false;
 	}
 	/**
 	 * Called once inserted into DOM
@@ -105,6 +106,7 @@ class _backbone2 extends HTMLElement {
 			}
 		}
 		this.attributeInit = true;
+		this.connected = true;
 	}
 	/**
 	 * Called when a attribute changes
@@ -161,11 +163,16 @@ class _backbone2 extends HTMLElement {
 	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
-	disconnectedCallback () {}
+	disconnectedCallback () {
+		this.connected = false;
+	}
 };
 
 class _backbone3 extends _backbone2 {
 	static __backbone_version = 3;
+	constructor () {
+		super();
+	}
 	/**
 	 * Runs a querySelector find on the shadow root
 	 * @param  {String} CSSSelector CSS selector to search for
@@ -174,6 +181,8 @@ class _backbone3 extends _backbone2 {
 	shadowQuery (CSSSelector) {
 		return this.shadowRoot.querySelector(CSSSelector);
 	}
+
+
 }
 
 let oldValue;
