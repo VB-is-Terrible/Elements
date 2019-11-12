@@ -11,7 +11,6 @@ import {Elements} from '$4Elements.mjs';
 export class $1 extends Elements.elements.backbone3 {
 	constructor () {
 		super();
-		const self = this;
 
 		this.name = '$1';
 		const shadow = this.attachShadow({mode: 'open'});
