@@ -36,14 +36,21 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			self._rotate();
 		})
 		this._data = null;
+		this._refresh_callback = (change_set) => {this._display(this._data);};
 		shadow.appendChild(template);
 		this.applyPriorProperties('data');
 	}
 	connectedCallback () {
 		super.connectedCallback();
+		if (this._data !== null) {
+			this._data.add_post_transaction(this._refresh_callback);
+		}
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
+		if (this._data !== null) {
+			this._data.remove_post_transaction(this._refresh_callback);
+		}
 	}
 	static get observedAttributes () {
 		return [];
@@ -53,13 +60,26 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	}
 	/**
 	 * Set project to show
-	 * @param  {Projects.Project} value [description]
+	 * @param  {Projects.Project} value Project to show
 	 */
 	set data (value) {
+		if (this._data !== null) {
+			this._data.remove_post_transaction(this._refresh_callback);
+		}
 		this._data = value;
 		if (value === null) {
 			return;
 		}
+		this._display(value);
+		if (this.connected) {
+			value.add_post_transaction(this._refresh_callback);
+		}
+	}
+	/**
+	 * Show the project
+	 * @param  {Projects.Project} value Project to show
+	 */
+	_display (value) {
 		this._writeStatus(value.status);
 		this._writeMeta(value.meta);
 		this._writeDesc(value.desc);
