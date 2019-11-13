@@ -119,7 +119,6 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	 * @param  {Boolean} counter Whether the project is single goal or multiple
 	 */
 	_writeProgress (required, progress, counter) {
-		console.log(counter);
 		let multi = this.shadowRoot.querySelector('#progressMulti');
 		let single = this.shadowRoot.querySelector('#progressSingle');
 		let progress_bar = this.shadowRoot.querySelector('#projectProgress');
