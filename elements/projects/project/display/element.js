@@ -5,6 +5,8 @@ Elements.get('projects-Project', 'draggable-Common', 'draggable-item', 'draggabl
 const main = async () => {
 
 await Elements.get('projects-Project');
+
+const PROJECT_SUBPAGE = '/project/';
 /**
  * [ProjectsProjectDisplay Description]
  * @augments Elements.elements.backbone2
@@ -84,10 +86,12 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 		let status = value.status;
 		let display = this.shadowRoot.querySelector('#status');
 		let desc = this.shadowRoot.querySelector('p.desc');
+		let link = this.shadowRoot.querySelector('#editlink');
 		this.shadowRoot.querySelector('p.status').innerHTML = status.minor_code;
 		requestAnimationFrame((e) => {
 			desc.innerHTML = value.desc;
 			display.className = 'border';
+			link.href = Projects.base_location + PROJECT_SUBPAGE + this.__data.id.toString();
 			if (status.minor === 0) {
 				switch (status.major) {
 					case 0:
@@ -119,7 +123,6 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 						     this.data.required.toString();
 			});
 		}
-
 	}
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
