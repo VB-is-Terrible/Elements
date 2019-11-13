@@ -589,6 +589,11 @@ const Projects = {
 	 * @type {?Projects.System}
 	 */
 	main_project: undefined,
+	/**
+	 * The base location of this project, e.g. https://localhost/Elements
+	 * @type {String}
+	 */
+	base_location: window.location.origin,
 };
 
 Elements.loaded('projects-Project');
