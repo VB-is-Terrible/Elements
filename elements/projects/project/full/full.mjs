@@ -23,6 +23,8 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		this._refresh_callback = (changed) => {this._display();};
 		this._data = null;
 		this._editmode = false;
+		this._display_animation = null;
+		this._editor_animation = null;
 		template.querySelector('#edit').addEventListener('click', (e) => {
 			this.change_mode();
 		});
@@ -93,6 +95,11 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		}
 	}
 	_rotate (editmode) {
+		if (this._display_animation !== null) {
+			this._display_animation.reverse();
+			this._editor_animation.reverse();
+			return;
+		}
 		let display = this.shadowRoot.querySelector('#displayRotate');
 		let editor = this.shadowQuery('#editorRotate');
 		const states_up = [
@@ -119,6 +126,8 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 			display_animation.reverse();
 			editor_animation.reverse();
 		}
+		this._display_animation = display_animation;
+		this._editor_animation = editor_animation;
 
 	}
 	/**
