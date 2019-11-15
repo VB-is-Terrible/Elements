@@ -140,6 +140,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeMeta(project.meta);
 		this._writeDesc(project.desc);
 		this._writeProgress(project.required, project.progress, project.counter);
+		this._writeTitle(project.name);
 		this._writeDependencies(project.dependencies);
 		this._writeCounter(project.counter);
 	}
@@ -174,6 +175,18 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		const writeElement = this.shadowRoot.querySelector('#AnsProgress');
 		requestAnimationFrame((e) => {
 			writeElement.checked = updateValue;
+		});
+	}
+	/**
+	 * Show the project title
+	 * @param  {String} title Title to show
+	 * @private
+	 */
+	_writeTitle (title) {
+		this._writeElement(title, '#pageTitle');
+		const input = this.shadowQuery('#Title');
+		requestAnimationFrame((e) => {
+			input.value = title;
 		});
 	}
 	/**
