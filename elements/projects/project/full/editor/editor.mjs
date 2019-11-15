@@ -23,9 +23,6 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._data = null;
 		this._resetChanges();
 		// UI update handlers
-		template.querySelector('#cancel').addEventListener(
-			'click',
-			(e) => {this.cancel(e);});
 		template.querySelector('#Title').addEventListener(
 			'input',
 			(e) => {this._changeTitle(e);});
@@ -144,7 +141,6 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeDesc(project.desc);
 		this._writeProgress(project.required, project.progress, project.counter);
 		this._writeDependencies(project.dependencies);
-		this._writeTitle(project.name);
 		this._writeCounter(project.counter);
 	}
 	/**
@@ -194,18 +190,6 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 */
 	_writeDependencies (dependencies) {
 		// : Make an element that shows dependencies
-	}
-	/**
-	 * Show the project title
-	 * @param  {String} title Title to show
-	 * @private
-	 */
-	_writeTitle (title) {
-		this._writeElement(title, '#pageTitle');
-		const input = this.shadowQuery('#Title');
-		requestAnimationFrame((e) => {
-			input.value = title;
-		});
 	}
 	/**
 	 * Find an element in the shadowRoot by the selector, then set
@@ -430,10 +414,6 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 */
 	_refresh (change_set) {
 		if (change_set.name !== undefined) {
-			let editorTitle = this.shadowQuery('#pageTitle');
-			requestAnimationFrame((e) => {
-				editorTitle.innerHTML = Elements.nameSanitizer(change_set.name)
-			});
 			let title = this.shadowQuery('#Title');
 			if (title.value === this.data.name) {
 				requestAnimationFrame((e) => {

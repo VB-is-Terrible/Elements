@@ -32,9 +32,6 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(this.name);
 
-		template.querySelector('#edit').addEventListener('click', (e) => {
-			self._rotate();
-		})
 		this._data = null;
 		this._refresh_callback = (change_set) => {this._display(this._data);};
 		shadow.appendChild(template);
@@ -86,7 +83,6 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 		this._writeDesc(value.desc);
 		this._writeProgress(value.required, value.progress, value.counter);
 		this._writeDependencies(value.dependencies);
-		this._writeTitle(value.name);
 	}
 	/**
 	 * Update the displayed Major Status
@@ -172,14 +168,6 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 				first = false;
 			});
 		}
-	}
-	/**
-	 * Show the project title
-	 * @param  {String} title Title to show
-	 * @private
-	 */
-	_writeTitle (title) {
-		this._writeElement(title, '#pageTitle');
 	}
 	/**
 	 * Find an element in the shadowRoot by the selector, then set
