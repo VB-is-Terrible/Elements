@@ -75,6 +75,7 @@ div.split {
 }
 #edit {
 	margin: 1em 1em 1em 0;
+	min-width: 7ex;
 }
 #editDiv {
 	position: absolute;

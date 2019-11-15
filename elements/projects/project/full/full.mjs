@@ -22,11 +22,20 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 
 		this._refresh_callback = (changed) => {this._display();};
 		this._data = null;
+		this._editmode = false;
+		template.querySelector('#edit').addEventListener('click', (e) => {
+			this.change_mode();
+		});
 		shadow.appendChild(template);
 		this.applyPriorProperties('data');
+		this.applyPriorProperty('editmode', false);
 	}
 	connectedCallback () {
 		super.connectedCallback();
+		if (this._data !== null) {
+			this._data.add_post_transaction(this._refresh_callback);
+			this._display();
+		}
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
@@ -35,7 +44,7 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		}
 	}
 	static get observedAttributes () {
-		return [];
+		return ['editmode'];
 	}
 	get data () {
 		return this._data;
@@ -57,15 +66,57 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		}
 		this.shadowRoot.querySelector(DISPLAY_SELECTOR).data = value;
 		this.shadowRoot.querySelector(EDIT_SELECTOR).data = value;
+		this._display();
 	}
-	_rotate () {
-		let rotate = this.shadowRoot.querySelector('#rotate');
-		const states = [
+	get editmode () {
+		return this._editmode;
+	}
+	set editmode (value) {
+		let new_mode = Elements.booleaner(value);
+		if (this._editmode === new_mode) {return;}
+		this._editmode = new_mode;
+		if (this.attributeInit) {
+			this.setAttribute('editmode', value.toString());
+		}
+		let edit_button = this.shadowQuery('#edit');
+		requestAnimationFrame((e) => {
+			if (new_mode) {
+				edit_button.innerHTML = 'Cancel';
+			} else {
+				edit_button.innerHTML = 'Edit';
+			}
+		});
+		this._rotate(value);
+	}
+	_rotate (editmode) {
+		let display = this.shadowRoot.querySelector('#displayRotate');
+		let editor = this.shadowQuery('#editorRotate');
+		const states_up = [
 			{'transform':'translate(0px, 0px) rotateX(0deg)'},
 			{'transform':'translate(0px, -50%) rotateX(90deg)'}
 		];
-		rotate.animate(states,
-			{duration : Elements.animation.LONG_DURATION * 2});
+		const states_down = [
+			{'transform':'translate(0px, 50%) rotateX(-90deg)'},
+			{'transform':'translate(0px, 0px) rotateX(0deg)'},
+		];
+		let options = {
+			duration : Elements.animation.LONG_DURATION * 2,
+		};
+
+		if (editmode) {
+			options.fill = 'forwards';
+		} else {
+			options.fill = 'backwards';
+		}
+
+		let display_animation = display.animate(states_up, options);
+		let editor_animation = editor.animate(states_down, options);
+		if (!editmode) {
+			display_animation.reverse();
+			editor_animation.reverse();
+		}
+
+	}
 	/**
 	 * Update the project (title) display
 	 */
@@ -83,6 +134,8 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 			title_display.innerHTML = Elements.nameSanitizer(title);
 		});
 	}
+	change_mode () {
+		this.editmode = !this._editmode;
 	}
 }
 
