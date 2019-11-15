@@ -119,7 +119,6 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeDesc('');
 		this._writeProgress(1, 1, true);
 		this._writeDependencies([]);
-		this._writeTitle('Blank Project');
 		this._resetChanges();
 	}
 	/**

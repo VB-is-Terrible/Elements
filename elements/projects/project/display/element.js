@@ -131,6 +131,7 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 		super.connectedCallback();
 		if (this.data !== null) {
 			this.data.add_post_transaction(this._refresh_callback);
+			this._refresh();
 		}
 	}
 	disconnectedCallback () {

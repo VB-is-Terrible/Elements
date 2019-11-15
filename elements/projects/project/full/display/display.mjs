@@ -44,6 +44,7 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 		super.connectedCallback();
 		if (this._data !== null) {
 			this._data.add_post_transaction(this._refresh_callback);
+			this._display(this._data);
 		}
 	}
 	disconnectedCallback () {
