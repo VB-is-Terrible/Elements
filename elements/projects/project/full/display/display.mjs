@@ -182,11 +182,6 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			writeElement.innerHTML = updateValue;
 		});
 	}
-	_rotate () {
-		let rotate = this.shadowRoot.querySelector('#rotate');
-		const states = [{'transform':'translate(0px, 0px) rotateX(0deg)'}, {'transform':'translate(0px, -50%) rotateX(90deg)'}];
-		rotate.animate(states, {duration : Elements.animation.LONG_DURATION * 2});
-	}
 }
 
 Elements.elements.ProjectsProjectFullDisplay = ProjectsProjectFullDisplay;
