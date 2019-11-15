@@ -111,7 +111,7 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 			{'transform':'translate(0px, 0px) rotateX(0deg)'},
 		];
 		let options = {
-			duration : Elements.animation.LONG_DURATION * 2,
+			duration : Elements.animation.LONG_DURATION,
 		};
 
 		if (editmode) {
