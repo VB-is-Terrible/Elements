@@ -183,7 +183,6 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_writeTitle (title) {
-		this._writeElement(title, '#pageTitle');
 		const input = this.shadowQuery('#Title');
 		requestAnimationFrame((e) => {
 			input.value = title;
