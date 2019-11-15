@@ -87,6 +87,10 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 			}
 		});
 		this._rotate(value);
+		if (!new_mode) {
+			let editor = this.shadowQuery('elements-projects-project-full-editor');
+			editor.cancel();
+		}
 	}
 	_rotate (editmode) {
 		let display = this.shadowRoot.querySelector('#displayRotate');
