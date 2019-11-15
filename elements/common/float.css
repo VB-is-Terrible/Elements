@@ -69,3 +69,11 @@ div.flex-column {
 div.flex-row {
 	margin-bottom: 1em;
 }
+.stacked {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+.stack_base {
+	position: relative;
+}
