@@ -20,6 +20,7 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(this.name);
 
+		this._refresh_callback = (changed) => {this._display();};
 		this._data = null;
 		shadow.appendChild(template);
 		this.applyPriorProperties('data');
@@ -29,6 +30,9 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
+		if (this._data !== null) {
+			this._data.remove_post_transaction(this._refresh_callback);
+		}
 	}
 	static get observedAttributes () {
 		return [];
@@ -41,9 +45,15 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 	 * @param  {Projects.Project} value [description]
 	 */
 	set data (value) {
+		if (this._data !== null) {
+			this._data.remove_post_transaction(this._refresh_callback);
+		}
 		this._data = value;
 		if (value === null) {
 			return;
+		}
+		if (this.connected) {
+			this._data.add_post_transaction(this._refresh_callback);
 		}
 		this.shadowRoot.querySelector(DISPLAY_SELECTOR).data = value;
 		this.shadowRoot.querySelector(EDIT_SELECTOR).data = value;
@@ -56,6 +66,23 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 		];
 		rotate.animate(states,
 			{duration : Elements.animation.LONG_DURATION * 2});
+	/**
+	 * Update the project (title) display
+	 */
+	_display () {
+		this._writeTitle(this._data.name);
+	}
+	/**
+	 * Show the project title
+	 * @param  {String} title Title to show
+	 * @private
+	 */
+	_writeTitle (title) {
+		let title_display = this.shadowQuery('#pageTitle');
+		requestAnimationFrame((e) => {
+			title_display.innerHTML = Elements.nameSanitizer(title);
+		});
+	}
 	}
 }
 
