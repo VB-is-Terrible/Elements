@@ -88,3 +88,6 @@ div.split {
 #titleStack {
 	position: relative;
 }
+#editorRotate {
+	transform: translate(0px, 50%) rotateX(-90deg)
+}
