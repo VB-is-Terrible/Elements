@@ -269,32 +269,34 @@ class _Elements {
 	 * @param  {HTMLElement} newElement  New Custom HTMLElement
 	 * @param  {String} HTMLname         Name to register HTMLElement as
 	 * @param  {Boolean} [includeTemplate=true] Whether to automatically include the template
+	 * @param  {Promise} [templatePromise=Promise.resolve()] Additional promise to wait on before load, for addiational template loads
 	 */
-	async load (newElement, HTMLname, includeTemplate = true) {
+	async load (newElement, HTMLname, includeTemplate = true,
+	            templatePromise = Promise.resolve()) {
 		let jsName = HTMLname;
 		if (HTMLname.indexOf('elements-') !== 0) {
 			HTMLname = 'elements-' + HTMLname;
 		}
 		jsName = this._nameResolver(jsName);
 		if (this.#loadedElements.has(jsName) || this.#loadingElements.has(jsName)) {return;}
+		let preload;
+		this.#loadingElements.add(jsName);
 		if (includeTemplate) {
-			try {
-				this.#loadingElements.add(jsName);
-				await this.loadTemplate(this.getDefaultTemplate(jsName, newElement));
-				window.customElements.define(HTMLname, newElement);
-				this.#loadedElements.add(jsName);
-				this.#loadingElements.delete(jsName);
-				this.awaitCallback(jsName);
-			} catch (e) {
-				this.#loadingElements.delete(jsName);
-				throw e;
-			}
+			let default_template = this.getDefaultTemplate(jsName, newElement);
+			let load_promise = this.loadTemplate(default_template);
+			preload = Promise.all([load_promise, templatePromise]);
 		} else {
+			preload = templatePromise;
+		}
+		try {
+			await preload;
 			window.customElements.define(HTMLname, newElement);
-			// Have to wait until the template is loaded for callback,
-			// otherwise an upgrade can happen, calling the unintialized inherited element
 			this.#loadedElements.add(jsName);
+			this.#loadingElements.delete(jsName);
 			this.awaitCallback(jsName);
+		} catch (e) {
+			this.#loadingElements.delete(jsName);
+			throw e;
 		}
 	}
 
@@ -314,7 +316,9 @@ class _Elements {
 	 * @return {Node}      imported Node
 	 */
 	importTemplate (name) {
-		return document.importNode(this.#templateLocation.querySelector('#templateElements' + name), true).content;
+		let id = '#templateElements' + name;
+		let template = this.#templateLocation.querySelector(id);
+		return document.importNode(template, true).content;
 	}
 
 	/**
