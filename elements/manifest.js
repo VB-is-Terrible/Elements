@@ -67,6 +67,22 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "container/rotate": {
+        "css": [
+            "common/float.css",
+            "container/rotate/rotate.css"
+        ],
+        "provides": [
+            "container/rotate"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "container/rotate/rotateTemplate.html"
+        ],
+        "type": "element3"
+    },
     "drag/body": {
         "css": [
             "drag/body/style.css"
@@ -848,7 +864,9 @@ Elements.manifest = {
         "provides": [
             "projects/project/full/editor"
         ],
-        "recommends": [],
+        "recommends": [
+            "projects-Project"
+        ],
         "requires": [],
         "resources": [],
         "templates": [
