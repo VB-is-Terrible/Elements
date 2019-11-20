@@ -61,11 +61,13 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		this._rotate_divs = new Map();
 		this._div_sizes = new Map();
 		this._rotate_divs.set('s1', template.querySelector('div.rotate'));
+		this._animation_next= '';
+		this._in_animation = false;
 		shadow.appendChild(template);
 		this.applyPriorProperties('current');
 		this._rebuild();
 		requestAnimationFrame((e) => {
-			this.shadowQuery('#sense1').style.transform = show_style;
+			this.shadowQuery('#rotate1').style.transform = show_style;
 		});
 	}
 	connectedCallback () {
@@ -95,7 +97,7 @@ class ContainerRotate extends Elements.elements.backbone3 {
 			let slot = new_slot.querySelector('slot');
 			slot.name = 's' + slot_num;
 			let rotate = new_slot.querySelector('div.rotate');
-			rotate.id = slot_num;
+			rotate.id = 'rotate' + slot_num;
 			this._rotate_divs.set('s' + slot_num, rotate);
 			let size_sensor = new_slot.querySelector('div.size_sensor');
 			size_sensor.id = 'sense' + slot_num;
@@ -209,6 +211,10 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_switch (old_selector, new_selector) {
+		if (this._in_animation) {
+			this._animation_next = new_selector;
+			return;
+		}
 		let old_div = this._rotate_divs.get(old_selector);
 		let new_div = this._rotate_divs.get(new_selector);
 		let old_index = this.constructor.parse_selector(old_selector);
@@ -225,14 +231,16 @@ class ContainerRotate extends Elements.elements.backbone3 {
 			});
 			return;
 		}
-
+		let animation;
 		if (up) {
-			old_div.animate(swing_top_up, options);
+			animation = old_div.animate(swing_top_up, options);
 			new_div.animate(swing_bottom_up, options);
 		} else {
-			old_div.animate(swing_bottom_down, options);
+			animation = old_div.animate(swing_bottom_down, options);
 			new_div.animate(swing_top_down, options);
 		}
+		animation.onfinish = () => {this._post_animation(new_selector);};
+		this._in_animation = true;
 	}
 	/**
 	 * Changes the displayed slot to the previous logical slot
@@ -262,7 +270,6 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		for (let entry of resizeList) {
 			let height = entry.borderBoxSize ? entry.borderBoxSize.blockSize : entry.contentRect.height;
 			this._div_sizes.set(entry.target, height);
-			console.log(entry);
 		}
 		let largest_height = Math.max(...this._div_sizes.values());
 		const rule = 'div.rotate {min-height: ' + largest_height.toString() + 'px}';
@@ -284,6 +291,21 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 */
 	last () {
 		this.current = 's' + this.childElementCount.toString();
+	}
+	/**
+	 * Checks if there is another animation to play
+	 */
+	_post_animation (shown_selector) {
+		this._in_animation = false;
+		return;
+		if (this._animation_next !== '') {
+			console.log(shown_selector, this._animation_next);
+			let next = this._animation_next;
+			this._animation_next = '';
+			if (shown_selector !== next) {
+				this._switch(shown_selector, next);
+			}
+		}
 	}
 }
 
