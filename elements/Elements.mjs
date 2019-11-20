@@ -843,7 +843,11 @@ class Elements {
 			return tokens;
 		}
 	}
-
+	/**
+	 * Uppercase the first letter, leave the rest
+	 * @param  {String} string String to captialize
+	 * @return {String}        Captialized string
+	 */
 	captialize (string) {
 		return string.charAt(0).toUpperCase() + string.substring(1, string.length);
 	}
@@ -872,6 +876,12 @@ class Elements {
 		this.#templateLocation = document.createElement('div');
 	}
 
+	/**
+	 * Retrive the location of the default template
+	 * @param  {String} jsName  The unifed name of the element
+	 * @param  {HTMLElement} element The element to find the default template for
+	 * @return {String}         The location of the default template
+	 */
 	getDefaultTemplate (jsName, element) {
 		let version = element.__backbone_version;
 		if (version === undefined) {
