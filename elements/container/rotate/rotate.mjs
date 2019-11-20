@@ -26,10 +26,12 @@ const swing_bottom_up = [
 	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 ];
-const options = {
-	fill: 'forwards',
-	duration : Elements.animation.LONG_DURATION,
-};
+const get_options = () => {
+	return {
+		fill: 'forwards',
+		duration : Elements.animation.LONG_DURATION,
+	};
+}
 
 const selector_re = /^s([0-9]*)/
 
@@ -232,6 +234,7 @@ class ContainerRotate extends Elements.elements.backbone3 {
 			return;
 		}
 		let animation;
+		let options = get_options();
 		if (up) {
 			animation = old_div.animate(swing_top_up, options);
 			new_div.animate(swing_bottom_up, options);
@@ -297,7 +300,6 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 */
 	_post_animation (shown_selector) {
 		this._in_animation = false;
-		return;
 		if (this._animation_next !== '') {
 			console.log(shown_selector, this._animation_next);
 			let next = this._animation_next;
