@@ -155,7 +155,6 @@ def _parse_mjs(file, manifest, name: str):
         manifest['templates'] = sorted(list(templates))
         manifest['requires'] = sorted(list(requires))
         manifest['recommends'] = sorted(list(recommends))
-        # TODO: check for additional templates
 
 
 def new_manifest():
