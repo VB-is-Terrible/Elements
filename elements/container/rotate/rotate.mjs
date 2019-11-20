@@ -114,7 +114,6 @@ export class ContainerRotate extends Elements.elements.backbone3 {
 		return this._current;
 	}
 	set current (new_value) {
-		debugger;
 		if (new_value === this._current) {
 			return;
 		}
