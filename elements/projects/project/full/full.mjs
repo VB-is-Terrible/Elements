@@ -1,4 +1,4 @@
-export const recommends = ['projects-project-full-display', 'projects-project-full-editor'];
+export const recommends = ['projects-project-full-display', 'projects-project-full-editor', 'container-rotate'];
 export const requires = [];
 
 import {Elements} from '../../../Elements.mjs';
@@ -90,51 +90,16 @@ class ProjectsProjectFull extends Elements.elements.backbone3 {
 				edit_button.innerHTML = 'Edit';
 			}
 		});
-		this._rotate(value);
+		let rotator = this.shadowQuery('elements-container-rotate');
+		if (new_mode) {
+			rotator.current = 's2';
+		} else {
+			rotator.current = 's1';
+		}
 		if (!new_mode) {
 			let editor = this.shadowQuery('elements-projects-project-full-editor');
 			editor.cancel();
 		}
-	}
-	/**
-	 * Switch which display to show with a rotation animation
-	 * @param  {Boolean} editmode Which mode to switch to
-	 */
-	_rotate (editmode) {
-		if (this._display_animation !== null) {
-			this._display_animation.reverse();
-			this._editor_animation.reverse();
-			return;
-		}
-		let display = this.shadowRoot.querySelector('#displayRotate');
-		let editor = this.shadowQuery('#editorRotate');
-		const states_up = [
-			{'transform':'translate(0px, 0px) rotateX(0deg)'},
-			{'transform':'translate(0px, -50%) rotateX(90deg)'}
-		];
-		const states_down = [
-			{'transform':'translate(0px, 50%) rotateX(-90deg)'},
-			{'transform':'translate(0px, 0px) rotateX(0deg)'},
-		];
-		let options = {
-			duration : Elements.animation.LONG_DURATION,
-		};
-
-		if (editmode) {
-			options.fill = 'forwards';
-		} else {
-			options.fill = 'backwards';
-		}
-
-		let display_animation = display.animate(states_up, options);
-		let editor_animation = editor.animate(states_down, options);
-		if (!editmode) {
-			display_animation.reverse();
-			editor_animation.reverse();
-		}
-		this._display_animation = display_animation;
-		this._editor_animation = editor_animation;
-
 	}
 	/**
 	 * Update the project (title) display
