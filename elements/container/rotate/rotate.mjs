@@ -14,28 +14,28 @@ const swing_top_up = [
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 	{'transform':'translate(0px, -50%) rotateX(90deg)'},
 ];
-
 const swing_bottom_down = [
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
 ];
-
 const swing_top_down = [
 	{'transform':'translate(0px, -50%) rotateX(90deg)'},
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 ];
-
 const swing_bottom_up = [
 	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 ];
-
 const options = {
 	fill: 'forwards',
 	duration : Elements.animation.LONG_DURATION,
 };
 
 const selector_re = /^s([0-9]*)/
+
+const show_style = 'translate(0px, 0px) rotateX(0deg)';
+const hide_style = 'translate(0px, 50%) rotateX(-90deg)';
+
 /**
  * Shows children one at a time, with a nice rotation animation
  * @augments Elements.elements.backbone3
@@ -182,10 +182,15 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		// 0 is up, 1 is down
 		let distances = diffs.map((i) => {return (i + this.childElementCount) % this.childElementCount});
 		let up = distances[0] < distances[1] ? true : false;
-		// requestAnimationFrame((e) => {
-		// 	old_div.style.transform = '';
-		// 	new_div.style.transform = '';
-		// });
+
+		if (!this.attributeInit) {
+			requestAnimationFrame((e) => {
+				old_div.style.transform = hide_style;
+				new_div.style.transform = show_style;
+			});
+			return;
+		}
+
 		if (up) {
 			old_div.animate(swing_top_up, options);
 			new_div.animate(swing_bottom_up, options);
@@ -222,6 +227,18 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		for (let entry of resizeList) {
 			console.log(entry);
 		}
+	}
+	/**
+	 * Make the first child the displayed slot
+	 */
+	first () {
+		this.current = 's0';
+	}
+	/**
+	 * Make the last child the displayed slot
+	 */
+	last () {
+		this.current = 's' + this.childElementCount.toString();
 	}
 }
 
