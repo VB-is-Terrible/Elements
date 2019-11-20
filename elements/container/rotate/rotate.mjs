@@ -260,8 +260,18 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 */
 	_resize (resizeList, observer) {
 		for (let entry of resizeList) {
+			let height = entry.borderBoxSize ? entry.borderBoxSize.blockSize : entry.contentRect.height;
+			this._div_sizes.set(entry.target, height);
 			console.log(entry);
 		}
+		let largest_height = Math.max(...this._div_sizes.values());
+		const rule = 'div.rotate {min-height: ' + largest_height.toString() + 'px}';
+		let sheet = this.shadowQuery('#rotate_expander').sheet;
+		if (sheet.rules.length === 1) {
+			sheet.deleteRule(0);
+		}
+		sheet.insertRule(rule);
+		console.log(rule);
 	}
 	/**
 	 * Make the first child the displayed slot
