@@ -17,7 +17,7 @@ try {
  * Elements namespace
  * @namespace Elements
  */
-let Elements;
+let _Elements;
 
 class Namespace {
 	constructor (name) {
@@ -25,7 +25,11 @@ class Namespace {
 	}
 }
 
-class _Elements {
+/**
+ * Elements namespace
+ * @namespace Elements
+ */
+class Elements {
 	/**
 	* Store for actual custom elements
 	* @namespace Elements.elements
@@ -896,14 +900,15 @@ if (oldValue === null) {
 
 	/**
 	* Main loader
-	* @type {_Elements}
+	* @type {Elements}
 	*/
-	Elements = new _Elements();
-	Elements.elements.backbone = backbone;
-	Elements.elements.backbone2 = backbone2;
-	Elements.elements.backbone3 = backbone3;
+	_Elements = new Elements();
+	_Elements.elements.backbone = backbone;
+	_Elements.elements.backbone2 = backbone2;
+	_Elements.elements.backbone3 = backbone3;
 } else {
-	Elements = oldValue;
+	_Elements = oldValue;
 }
 
-export {Elements};
+export {_Elements as Elements};
+export {_Elements as default}

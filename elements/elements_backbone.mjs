@@ -20,8 +20,9 @@ const initDefaultPreperties = function () {
  * @property {Object} getDict Mapping of the getters set by setUpAttrPropertyLink
  * @property {Object} setDict Mapping of the setters set by setUpAttrPropertyLink
  * @property {Booelean} attributeInit Whether the attributes have been initalized
+ * @alias Elements.elements.backbone
  */
-class _backbone extends HTMLElement {
+class backbone extends HTMLElement {
 	static __backbone_version = 1;
 	/**
 	 * Make a new element
@@ -70,8 +71,9 @@ class _backbone extends HTMLElement {
  * without declaration, based on observedAttributes
  * @type {Object}
  * @property {Booelean} attributeInit Whether the attributes have been initalized
+ * @alias Elements.elements.backbone2
  */
-class _backbone2 extends HTMLElement {
+class backbone2 extends HTMLElement {
 	static __backbone_version = 2;
 	constructor () {
 		super();
@@ -90,7 +92,6 @@ class _backbone2 extends HTMLElement {
 	}
 	/**
 	 * Called once inserted into DOM
-	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	connectedCallback () {
@@ -113,7 +114,6 @@ class _backbone2 extends HTMLElement {
 	 * @param  {String} attrName name of attribute changed
 	 * @param  {String} oldValue Value before change
 	 * @param  {String} newValue Value after change
-	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	attributeChangedCallback(attrName, oldValue, newValue) {
@@ -124,7 +124,6 @@ class _backbone2 extends HTMLElement {
 	/**
 	 * Apply the properties saved in the constructor
 	 * @param  {...Strings} properties Properties to restore
-	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	applyPriorProperties (...properties) {
@@ -143,7 +142,6 @@ class _backbone2 extends HTMLElement {
 	 * if the property was not present
 	 * @param  {String} property Property to restore
 	 * @param  {*} initial       What to set the property to if it was saved
-	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	applyPriorProperty (property, initial) {
@@ -160,7 +158,6 @@ class _backbone2 extends HTMLElement {
 	/**
 	 * Called when removed from the dom.
 	 * Here for completion
-	 * @memberof! Elements.elements.backbone2
 	 * @instance
 	 */
 	disconnectedCallback () {
@@ -168,7 +165,12 @@ class _backbone2 extends HTMLElement {
 	}
 };
 
-class _backbone3 extends _backbone2 {
+/**
+ * Backbone for v3 elements, aka modules
+ * @extends Elements.elements.backbone2
+ * @alias Elements.elements.backbone3
+ */
+class backbone3 extends backbone2 {
 	static __backbone_version = 3;
 	constructor () {
 		super();
@@ -196,12 +198,12 @@ try {
 	oldValue = null;
 }
 
-let backbone, backbone2, backbone3;
+let _backbone, _backbone2, _backbone3;
 if (oldValue === null) {
 	initDefaultPreperties();
-	[backbone, backbone2, backbone3] = [_backbone, _backbone2, _backbone3];
+	[_backbone, _backbone2, _backbone3] = [backbone, backbone2, backbone3];
 } else {
-	[backbone, backbone2, backbone3] = [Elements.elements.backbone, Elements.elements.backbone2, Elements.elements.backbone3];
+	[_backbone, _backbone2, _backbone3] = [Elements.elements.backbone, Elements.elements.backbone2, Elements.elements.backbone3];
 }
 
-export {backbone, backbone2, backbone3};
+export {_backbone as backbone, _backbone2 as backbone2, _backbone3 as backbone3};
