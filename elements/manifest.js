@@ -79,7 +79,8 @@ Elements.manifest = {
         "requires": [],
         "resources": [],
         "templates": [
-            "container/rotate/rotateTemplate.html"
+            "container/rotate/rotateTemplate.html",
+            "container/rotate/stackableTemplate.html"
         ],
         "type": "element3"
     },
@@ -828,6 +829,7 @@ Elements.manifest = {
             "projects/project/full"
         ],
         "recommends": [
+            "container-rotate",
             "projects-project-full-display",
             "projects-project-full-editor"
         ],
