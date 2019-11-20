@@ -35,6 +35,12 @@
 			Elements.get('container-rotate');
 		};
 		window.addEventListener('load', main);
+		f = () => {
+			let p = document.createElement('p');
+			p.innerHTML = 'testing';
+			thing.append(p);
+			thing.last();
+		}
 	}
 	</script>
 </html>
