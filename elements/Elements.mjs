@@ -885,7 +885,7 @@ class Elements {
 	getDefaultTemplate (jsName, element) {
 		let version = element.__backbone_version;
 		if (version === undefined) {
-			console.log('Couldn\'t find version of ', element);
+			console.log('Couldn\'t find version of ', element.name);
 			version = 2;
 		}
 		switch (version) {
