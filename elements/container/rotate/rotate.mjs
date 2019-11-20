@@ -159,7 +159,7 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		if (this.attributeInit) {
 			this.setAttribute('current', new_value);
 		}
-		this._switch(old_value, new_value);
+		this._switch_check(old_value, new_value);
 	}
 	/**
 	 * Get the index of the refered child, -1 if invalid
@@ -172,6 +172,34 @@ class ContainerRotate extends Elements.elements.backbone3 {
 			return -1;
 		} else {
 			return parseInt(matches[1]);
+		}
+	}
+	/**
+	 * Makes sure the children and slot states are consistent, then call _switch
+	 * @param  {String} old_selector Selector for the current slot
+	 * @param  {String} new_selector Selector for the slot to change to
+	 * @private
+	 */
+	_switch_check (old_selector, new_selector) {
+		if (this._slot_count >= this.childElementCount) {
+			this._switch(old_selector, new_selector);
+		} else {
+			this._switch_check_repeat(old_selector, new_selector);
+		}
+	}
+
+	/**
+	 * Makes sure the children and slot states are consistent, then call _switch
+	 * @param  {String} old_selector Selector for the current slot
+	 * @param  {String} new_selector Selector for the slot to change to
+	 * @private
+	 */
+	async _switch_check_repeat (old_selector, new_selector) {
+		await Elements.wait(0);
+		if (this._slot_count >= this.childElementCount) {
+			this._switch(old_selector, new_selector);
+		} else {
+			this._switch_check_repeat(old_selector, new_selector);
 		}
 	}
 	/**
