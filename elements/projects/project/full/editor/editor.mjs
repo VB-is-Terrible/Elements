@@ -8,7 +8,7 @@ import {Elements} from '../../../../Elements.mjs';
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
-export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
+class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	constructor () {
 		super();
 		const self = this;
@@ -463,6 +463,7 @@ export class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	}
 }
 
-Elements.elements.ProjectsProjectFullEditor = ProjectsProjectFullEditor;
+export {ProjectsProjectFullEditor};
+export default ProjectsProjectFullEditor;
 
-Elements.load(Elements.elements.ProjectsProjectFullEditor, 'elements-projects-project-full-editor');
+Elements.load(ProjectsProjectFullEditor, 'elements-projects-project-full-editor');

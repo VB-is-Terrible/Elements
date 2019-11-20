@@ -8,7 +8,7 @@ import {Elements} from '$4Elements.mjs';
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
-export class $1 extends Elements.elements.backbone3 {
+class $1 extends Elements.elements.backbone3 {
 	constructor () {
 		super();
 
@@ -31,6 +31,9 @@ export class $1 extends Elements.elements.backbone3 {
 
 }
 
+export {$1};
+export default $1;
+
 Elements.elements.$1 = $1;
 
-Elements.load(Elements.elements.$1, 'elements-$2');
+Elements.load($1, 'elements-$2');

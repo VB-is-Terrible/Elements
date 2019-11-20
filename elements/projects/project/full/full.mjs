@@ -10,8 +10,10 @@ const EDIT_SELECTOR = 'elements-projects-project-full-editor';
  * Full display for a project. Designed to be shown on it's own page
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
+ * @property {Projects.Project} data The Project to show/edit
+ * @property {Boolean} editmode Which mode to show
  */
-export class ProjectsProjectFull extends Elements.elements.backbone3 {
+class ProjectsProjectFull extends Elements.elements.backbone3 {
 	constructor () {
 		super();
 		const self = this;
@@ -94,6 +96,10 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 			editor.cancel();
 		}
 	}
+	/**
+	 * Switch which display to show with a rotation animation
+	 * @param  {Boolean} editmode Which mode to switch to
+	 */
 	_rotate (editmode) {
 		if (this._display_animation !== null) {
 			this._display_animation.reverse();
@@ -132,6 +138,7 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 	}
 	/**
 	 * Update the project (title) display
+	 * @private
 	 */
 	_display () {
 		this._writeTitle(this._data.name);
@@ -147,11 +154,15 @@ export class ProjectsProjectFull extends Elements.elements.backbone3 {
 			title_display.innerHTML = Elements.nameSanitizer(title);
 		});
 	}
+	/**
+	 * Toggle between edit and display mode
+	 */
 	change_mode () {
 		this.editmode = !this._editmode;
 	}
 }
 
-Elements.elements.ProjectsProjectFull = ProjectsProjectFull;
+export {ProjectsProjectFull};
+export default ProjectsProjectFull;
 
-Elements.load(Elements.elements.ProjectsProjectFull, 'elements-projects-project-full');
+Elements.load(ProjectsProjectFull, 'elements-projects-project-full');

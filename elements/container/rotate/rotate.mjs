@@ -26,7 +26,7 @@ const selector_re = /^s([0-9]*)/
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
-export class ContainerRotate extends Elements.elements.backbone3 {
+class ContainerRotate extends Elements.elements.backbone3 {
 	constructor () {
 		super();
 
@@ -148,6 +148,7 @@ export class ContainerRotate extends Elements.elements.backbone3 {
 	}
 }
 
-Elements.elements.ContainerRotate = ContainerRotate;
+export {ContainerRotate};
+export default ContainerRotate;
 
-Elements.load(Elements.elements.ContainerRotate, 'elements-container-rotate', false, template_promise);
+Elements.load(ContainerRotate, 'elements-container-rotate', false, template_promise);

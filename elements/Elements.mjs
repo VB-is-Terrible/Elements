@@ -364,11 +364,14 @@ class _Elements {
 		link.rel = 'modulepreload';
 		link.href = this.location + location;
 		this.#preloadLocation.append(link);
+		this.#requestedElements.add(elementName);
+
 		await this.get(...requires);
 
 		let promise = import('./' + location);
-		console.log('Load module ' + location + ': ', promise);
-		this.#requestedElements.add(elementName);
+		let module = await promise;
+		let name = module.default.name;
+		this.elements[name] = module.default;
 	}
 
 	/**

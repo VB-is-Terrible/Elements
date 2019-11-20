@@ -23,7 +23,7 @@ const limitLength = (text) => {
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
-export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
+class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	constructor () {
 		super();
 		const self = this;
@@ -184,6 +184,7 @@ export class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	}
 }
 
-Elements.elements.ProjectsProjectFullDisplay = ProjectsProjectFullDisplay;
+export {ProjectsProjectFullDisplay};
+export default ProjectsProjectFullDisplay;
 
-Elements.load(Elements.elements.ProjectsProjectFullDisplay, 'elements-projects-project-full-display');
+Elements.load(ProjectsProjectFullDisplay, 'elements-projects-project-full-display');
