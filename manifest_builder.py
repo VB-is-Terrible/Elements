@@ -201,13 +201,13 @@ def parse_mjs(dirpath: str, root: str, name: str):
         with open(location) as f:
                 _parse_mjs(f, manifest, name)
 
+        parser = linkParser()
         for template in manifest['templates']:
-                parser = linkParser()
                 with open(root + template) as f:
                         file_string = f.read()
                 parser.feed(file_string)
-                manifest['css'] = parser.css
-                manifest['resources'] = parser.resources
+        manifest['css'] = parser.css
+        manifest['resources'] = parser.resources
         return manifest
 
 
