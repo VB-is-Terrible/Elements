@@ -55,7 +55,7 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		this._ro = new ResizeObserver((resizeList, observer) => {
 			this._resize(resizeList, observer)
 		});
-		this._slot_count = 1;
+		this._slot_count = 0;
 		this._mo.observe(this, mutation_options);
 		this._current = 's1';
 		this._rotate_divs = new Map();
@@ -64,6 +64,9 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		shadow.appendChild(template);
 		this.applyPriorProperties('current');
 		this._rebuild();
+		requestAnimationFrame((e) => {
+			this.shadowQuery('#sense1').style.transform = show_style;
+		});
 	}
 	connectedCallback () {
 		super.connectedCallback();
@@ -80,8 +83,11 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 */
 	_build_slots () {
 		let base = this.shadowQuery('div.stack_base');
-		let has = base.childElementCount;
+		let has = Math.max(base.childElementCount);
 		let needed = this.childElementCount;
+		if (has === 0) {
+			needed = Math.max(needed, 1);
+		}
 		for (let i = has; i < needed; i++) {
 			let new_slot = Elements.importTemplate(SLOT_TEMPLATE);
 			this._slot_count++;
@@ -92,6 +98,7 @@ class ContainerRotate extends Elements.elements.backbone3 {
 			rotate.id = slot_num;
 			this._rotate_divs.set('s' + slot_num, rotate);
 			let size_sensor = new_slot.querySelector('div.size_sensor');
+			size_sensor.id = 'sense' + slot_num;
 			this._ro.observe(size_sensor);
 			requestAnimationFrame((e) => {
 				base.append(new_slot);
