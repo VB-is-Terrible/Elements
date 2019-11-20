@@ -1,0 +1,11 @@
+{
+    "source": {
+        "includePattern": ".+\\.(js(doc|x)?|mjs)$",
+        "exclude": ["elements/backbone.js"],
+        "include": ["elements/"]
+    },
+    "opts": {
+        "destination": "./docs/",
+        "recurse": true
+    }
+}
