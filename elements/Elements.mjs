@@ -905,6 +905,16 @@ class Elements {
 			break;
 		}
 	}
+	/**
+	 * Returns a promise that will resolve in at least <timeout> milliseconds
+	 * @param  {Number} timeout Time in milliseconds to wait to resolve the promise
+	 * @return {Promise}         Promise that resolves in <timeout> milliseconds
+	 */
+	wait (timeout) {
+		return new Promise((resolve, reject) => {
+			setTimeout(resolve, timeout);
+		});
+	}
 }
 
 import {backbone, backbone2, backbone3} from './elements_backbone.mjs'
