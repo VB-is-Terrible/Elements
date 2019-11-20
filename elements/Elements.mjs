@@ -845,7 +845,7 @@ class Elements {
 	}
 
 	captialize (string) {
-		return string.charAt(0).toLowerCase() + string.substring(1, string.length);
+		return string.charAt(0).toUpperCase() + string.substring(1, string.length);
 	}
 
 	constructor () {
