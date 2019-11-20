@@ -1,0 +1,3 @@
+div.not_first {
+	transform: translate(0px, 50%) rotateX(-90deg);
+}

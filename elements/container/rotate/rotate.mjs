@@ -10,8 +10,19 @@ const mutation_options = {
 	childList: true,
 };
 
+const swing_up = [
+	{'transform':'translate(0px, 0px) rotateX(0deg)'},
+	{'transform':'translate(0px, -50%) rotateX(90deg)'},
+];
+
+const swing_down = [
+	{'transform':'translate(0px, 0px) rotateX(0deg)'},
+	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
+];
+
+const selector_re = /^s([0-9]*)/
 /**
- * [ContainerRotate Description]
+ * Shows children one at a time, with a nice rotation animation
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
@@ -26,22 +37,27 @@ export class ContainerRotate extends Elements.elements.backbone3 {
 		this._mo = new MutationObserver((mutationList, observer) => {
 			this._mutation(mutationList, observer);
 		});
-		this._slot_count = 0;
+		this._slot_count = 1;
+		this._mo.observe(this, mutation_options);
+		this._current = 's1';
 		//Fancy code goes here
 		shadow.appendChild(template);
+		this.applyPriorProperties('current');
+		this._rebuild();
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this._build_slots();
-		this._reassign_slots();
-		this._mo.observe(this, mutation_options);
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
 	}
 	static get observedAttributes () {
-		return [];
+		return ['current'];
 	}
+	/**
+	 * Add slots to the inner stack until there are enough
+	 * @private
+	 */
 	_build_slots () {
 		let base = this.shadowQuery('div.stack_base');
 		let has = base.childElementCount;
@@ -59,6 +75,10 @@ export class ContainerRotate extends Elements.elements.backbone3 {
 			});
 		}
 	}
+	/**
+	 * Reassign the slots children are placed in, in case the order changed
+	 * @private
+	 */
 	_reassign_slots () {
 		let count = 0;
 		for (let child of this.children) {
@@ -69,7 +89,62 @@ export class ContainerRotate extends Elements.elements.backbone3 {
 			});
 		}
 	}
+	/**
+	 * React to changes in the children
+	 * @param  {MutationRecord[]} mutationList List of MutationRecord's of what happened
+	 * @param  {MutationObserver} observer     The MutationObserver that saw these changes
+	 * @private
+	 */
 	_mutation (mutationList, observer) {
+		for (let record of mutationList) {
+			// Track removal and insertion
+		}
+		console.log(mutationList);
+		this._rebuild();
+	}
+	/**
+	 * Rebuild the slot layout and assignment
+	 * @private
+	 */
+	_rebuild () {
+		this._build_slots();
+		this._reassign_slots();
+	}
+	get current () {
+		return this._current;
+	}
+	set current (new_value) {
+		debugger;
+		if (new_value === this._current) {
+			return;
+		}
+		let index = this.constructor.parse_selector(new_value);
+		if (index === -1) {
+			return;
+		}
+		if (index >= this._slot_count) {
+			console.log('index exceeded count');
+		}
+		let old_value = this._current;
+		this._current = new_value;
+		if (this.attributeInit) {
+			this.setAttribute('current', new_value);
+		}
+	}
+	/**
+	 * Get the index of the refered child, -1 if invalid
+	 * @param  {String} selector Selector to check
+	 * @return {Integer}         The index of the child to show, else -1
+	 */
+	static parse_selector (selector) {
+		let matches = selector_re.exec(selector);
+		if (matches === null) {
+			return -1;
+		} else {
+			return parseInt(matches[1]);
+		}
+	}
+	_switch (old_index, new_index) {
 
 	}
 }
