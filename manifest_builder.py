@@ -65,6 +65,8 @@ def parse_js(lines):
         get_regex = re.compile(r'Elements\.get\((.*?)\)')
         load_regex = re.compile(r'Elements\.load\((.*?)\)')
         loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
+        template_regex = re.compile(r'Elements\.loadTemplate\(\'(.*?)\'\)')
+
         requires = set()
         matches = get_regex.findall(lines)
         for match in matches:
@@ -83,6 +85,8 @@ def parse_js(lines):
         for loaded in loaded_regex.findall(lines):
                 loaded = strip_quotes(loaded)
                 provides.add(loaded)
+        for template in template_regex.findall(lines):
+                templates.add(template)
         return sorted(list(requires)), sorted(list(templates)), sorted(list(provides))
 
 
@@ -107,6 +111,7 @@ def _parse_mjs(file, manifest, name: str):
         requires_regex = re.compile(r'export const requires = \[(.*?)\]', re.M)
         load_regex = re.compile(r'Elements\.load\((.*?)\)')
         loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
+        template_regex = re.compile(r'Elements\.loadTemplate\(\'(.*?)\'\)')
 
         recommends = set()
         matches = get_regex.findall(lines)
@@ -134,7 +139,7 @@ def _parse_mjs(file, manifest, name: str):
         provides = set()
         templates = set()
         for load in load_regex.findall(lines):
-                js_name, html_name = [x.strip() for x in load.split(',')]
+                js_name, html_name = [x.strip() for x in load.split(',')][0:2]
                 html_name = strip_quotes(html_name)
                 name = name_resolver(html_name)
                 moduleName = name.split('/')[-1]
@@ -143,6 +148,8 @@ def _parse_mjs(file, manifest, name: str):
         for loaded in loaded_regex.findall(lines):
                 loaded = strip_quotes(loaded)
                 provides.add(loaded)
+        for template in template_regex.findall(lines):
+                templates.add(template)
 
         manifest['provides'] = sorted(list(provides))
         manifest['templates'] = sorted(list(templates))
