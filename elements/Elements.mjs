@@ -358,7 +358,7 @@ class Elements {
 	}
 
 	async _loadModule (elementName, requires) {
-		if ((this.#requestedElements.has(name))) {
+		if ((this.#requestedElements.has(elementName))) {
 			return;
 		}
 		let name_tokens = this.tokenise(elementName);
