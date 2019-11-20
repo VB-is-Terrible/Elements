@@ -374,8 +374,10 @@ class Elements {
 
 		let promise = import('./' + location);
 		let module = await promise;
-		let name = module.default.name;
-		this.elements[name] = module.default;
+		if ('name' in module.default) {
+			let name = module.default.name;
+			this.elements[name] = module.default;
+		}
 	}
 
 	/**
