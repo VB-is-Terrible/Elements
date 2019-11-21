@@ -297,6 +297,7 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	}
 	/**
 	 * Checks if there is another animation to play
+	 * @private
 	 */
 	_post_animation (shown_selector) {
 		this._in_animation = false;
