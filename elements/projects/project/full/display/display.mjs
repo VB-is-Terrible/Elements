@@ -9,6 +9,7 @@ const LENGTH_LIMIT = 30;
  * Limit length of text for sane display
  * @param  {String} text Text to shorten
  * @return {String}      Shortened text
+ * @protected
  */
 const limitLength = (text) => {
 	if (text.length > LENGTH_LIMIT) {

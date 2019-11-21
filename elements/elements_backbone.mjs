@@ -4,6 +4,7 @@ const defaultProperties = new Set();
 /**
  * Create a new empty custom element, then place all the properties into
  * defaultProperties. Needed as HTMLElement varies between browsers
+ * @protected
  */
 const initDefaultPreperties = function () {
 	let Sentinel = class extends HTMLElement {};

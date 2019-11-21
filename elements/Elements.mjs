@@ -13,10 +13,6 @@ try {
 	oldValue = null;
 }
 
-/**
- * Elements namespace
- * @namespace Elements
- */
 let _Elements;
 
 class Namespace {
@@ -920,10 +916,6 @@ class Elements {
 import {backbone, backbone2, backbone3} from './elements_backbone.mjs'
 if (oldValue === null) {
 
-	/**
-	* Main loader
-	* @type {Elements}
-	*/
 	_Elements = new Elements();
 	_Elements.elements.backbone = backbone;
 	_Elements.elements.backbone2 = backbone2;

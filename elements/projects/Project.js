@@ -232,6 +232,7 @@ const Projects = {
 		/**
 		 * Apply a ChangeSet to this project, in a single atomic operation
 		 * @param  {Projects.ChangeSet} change_set ChangeSet to apply
+		 * @memberof Projects.Project
 		 */
 		applyChangeSet (change_set) {
 			this._trigger_pre_transaction(change_set);
@@ -257,6 +258,8 @@ const Projects = {
 		/**
 		 * Call all pre trans callbacks
 		 * @param  {Projects.ChangeSet} change_set ChangeSet with changes to be made to pass to callbacks
+		 * @memberof Projects.Project
+		 * @private
 		 */
 		_trigger_pre_transaction (change_set) {
 			for (let callback of this._pre_triggers) {
@@ -274,6 +277,8 @@ const Projects = {
 		/**
 		 * Call all post trans callbacks
 		 * @param  {Projects.ChangeSet} change_set ChangeSet with changes to be made to pass to callbacks
+		 * @memberof Projects.Project
+		 * @private
 		 */
 		_trigger_post_transaction (change_set) {
 			for (let callback of this._post_triggers) {
@@ -416,6 +421,7 @@ const Projects = {
 		/**
 		 * Apply simple changes in a ChangeSet (anything but the arrays)
 		 * @param  {Projects.ChangeSet} change_set Changes to apply
+		 * @memberof Projects.System
 		 * @private
 		 */
 		_patch_change_simple (change_set) {
@@ -429,6 +435,7 @@ const Projects = {
 		/**
 		 * Apply complex changes in a ChangeSet (the arrays)
 		 * @param  {Projects.ChangeSet} change_set Changes to apply
+		 * @memberof Projects.System
 		 * @private
 		 */
 		_patch_change_complex (change_set) {
@@ -443,6 +450,7 @@ const Projects = {
 		/**
 		 * Query the server for updates, and apply any sent
 		 * @return {Promise} If the server could be contacted
+		 * @memberof Projects.System
 		 */
 		async update () {
 			let form_data = new FormData();
@@ -497,7 +505,6 @@ const Projects = {
 	/**
 	 * A set of changes that can be done to a project
 	 * Unchanged fields are left as undefined
-	 * @type {Object}
 	 * @property {Number} id The project's id
 	 * @property {?String} name The new name for the project
 	 * @property {?String} desc The new description of the progject
@@ -509,6 +516,7 @@ const Projects = {
 	 * @property {?Boolean} counter The new counter value
 	 * @property {?Projects.Status} status The new Status object. Must be left blank by clients, as only the server can change this value
 	 * @property {Number[]} dependencies The new list of dependencies. Must be left blank by clients, as only the server can change this value
+	 * @type {Object}
 	 */
 	ChangeSet: class ChangeSet {
 		constructor (id) {
@@ -528,6 +536,7 @@ const Projects = {
 		 * Reconstruct a ChangeSet from a JSON obj
 		 * @param  {Object} obj JSON representation of a ChangeSet
 		 * @return {Projects.ChangeSet}     The revived ChangeSet
+		 * @memberof Projects.ChangeSet
 		 */
 		static fromJSONObj (obj) {
 			let change_set = new this(obj.id);
@@ -544,6 +553,7 @@ const Projects = {
 		/**
 		 * List of properties needed to store a project as JSON
 		 * @type {List<String>}
+		 * @memberof Projects.ChangeSet
 		 */
 		static get json_props () {
 			return ['id', 'name', 'desc', 'dependencies_add', 'dependencies_remove', 'required', 'progress', 'meta', 'counter', 'dependencies'];
@@ -551,6 +561,7 @@ const Projects = {
 		/**
 		 * List of string or int properties needed to store a project as JSON
 		 * @type {List<String>}
+		 * @memberof Projects.ChangeSet
 		 */
 		static get basic_props () {
 			return ['name', 'desc', 'required', 'progress', 'meta', 'counter'];
@@ -558,6 +569,7 @@ const Projects = {
 		/**
 		 * List of array properties needed to store a project as JSON
 		 * @type {List<String>}
+		 * @memberof Projects.ChangeSet
 		 */
 		static get array_props () {
 			return ['dependencies_add', 'dependencies_remove'];
@@ -565,6 +577,7 @@ const Projects = {
 		/**
 		 * Convert a ChangeSet to JSON, removing any empty values
 		 * @return {Object} The minimal object representing a ChangeSet
+		 * @memberof Projects.ChangeSet
 		 */
 		toJSON () {
 			let result = {};
