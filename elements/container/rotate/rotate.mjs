@@ -14,17 +14,17 @@ const swing_top_up = [
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 	{'transform':'translate(0px, -50%) rotateX(90deg)'},
 ];
-const swing_bottom_down = [
-	{'transform':'translate(0px, 0px) rotateX(0deg)'},
+const swing_bottom_up = [
 	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
+	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 ];
 const swing_top_down = [
 	{'transform':'translate(0px, -50%) rotateX(90deg)'},
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
 ];
-const swing_bottom_up = [
-	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
+const swing_bottom_down = [
 	{'transform':'translate(0px, 0px) rotateX(0deg)'},
+	{'transform':'translate(0px, 50%) rotateX(-90deg)'},
 ];
 const get_options = () => {
 	return {
