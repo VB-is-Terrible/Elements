@@ -302,7 +302,6 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	_post_animation (shown_selector) {
 		this._in_animation = false;
 		if (this._animation_next !== '') {
-			console.log(shown_selector, this._animation_next);
 			let next = this._animation_next;
 			this._animation_next = '';
 			if (shown_selector !== next) {
