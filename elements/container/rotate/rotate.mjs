@@ -277,10 +277,12 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		let largest_height = Math.max(...this._div_sizes.values()) + 1;
 		const rule = 'div.rotate {min-height: ' + largest_height.toString() + 'px}';
 		let sheet = this.shadowQuery('#rotate_expander').sheet;
-		if (sheet.rules.length === 1) {
-			sheet.deleteRule(0);
+		if (sheet !== null) {
+			if (sheet.rules.length === 1) {
+				sheet.deleteRule(0);
+			}
+			sheet.insertRule(rule);
 		}
-		sheet.insertRule(rule);
 		console.log(rule);
 	}
 	/**
