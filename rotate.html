@@ -38,8 +38,9 @@
 		f = () => {
 			let p = document.createElement('p');
 			p.innerHTML = 'testing';
-			thing.append(p);
-			thing.last();
+			// thing.prepend(p);
+			thing.insertBefore(p, thing.children[2]);
+			// thing.last();
 		}
 	}
 	</script>
