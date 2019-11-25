@@ -15,6 +15,7 @@ class DragListener {
  * Listener for drags outside the dependency tracker
  * @extends DragListener
  * @implements DraggableListener
+ * @private
  */
 class DragListenerExternal extends DragListener {
 	drag_start (caller, event) {
@@ -28,6 +29,7 @@ class DragListenerExternal extends DragListener {
  * Listener for drags inside the dependency tracker
  * @extends DragListener
  * @implements DraggableListener
+ * @private
  */
 class DragListenerInternal extends DragListener {
 	drag_start (caller, event) {
