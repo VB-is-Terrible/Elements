@@ -62,9 +62,11 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		this._current = 's1';
 		this._rotate_divs = new Map();
 		this._div_sizes = new Map();
+		this._child_indexes = new WeakMap();
 		this._rotate_divs.set('s1', template.querySelector('div.rotate'));
 		this._animation_next= '';
 		this._in_animation = false;
+		this._recalculate = true;
 		shadow.appendChild(template);
 		this.applyPriorProperties('current');
 		this._rebuild();
@@ -114,8 +116,10 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_reassign_slots () {
+		this._child_indexes = new WeakMap();
 		let count = 0;
 		for (let child of this.children) {
+			this._child_indexes.set(child, count);
 			count++;
 			let slot_name = 's' + count.toString();
 			requestAnimationFrame((e) => {
@@ -130,11 +134,44 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_mutation (mutationList, observer) {
+		let current = this.constructor.parse_selector(this._current);
+		current -= 1;
+		let old_current = current;
+		let offset = 0;
+		let children = Array(...this.children);
 		for (let record of mutationList) {
-			// Track removal and insertion
+			for (let removal of record.removedNodes) {
+				let location = this._child_indexes.get(removal);
+				if (location === undefined) {
+					continue;
+				}
+				if (location < current) {
+					offset++;
+				}
+				current -= offset;
+			}
+			for (let addition of record.addedNodes) {
+				let location = children.indexOf(addition);
+				if (location === -1) {
+					continue;
+				}
+				if (location <= current) {
+					offset--;
+				}
+				current += offset;
+			}
 		}
-		console.log(mutationList);
+		let new_slot = old_current - offset;
+		if (new_slot > this.childElementCount) {
+			new_slot = this.childElementCount;
+		} else if (new_slot < 0) {
+			new_slot = 0;
+		}
+		new_slot += 1;
 		this._rebuild();
+		let new_slot_selector = 's' + new_slot.toString();
+		this._switch(this._current, new_slot_selector, true);
+		this.current = new_slot_selector;
 	}
 	/**
 	 * Rebuild the slot layout and assignment
@@ -210,9 +247,10 @@ class ContainerRotate extends Elements.elements.backbone3 {
 	 * Switch between two slots, with a rotation animation
 	 * @param  {String} old_selector Selector for the current slot
 	 * @param  {String} new_selector Selector for the slot to change to
+	 * @param  {Boolean} [no_animation=false] Skips any animations
 	 * @private
 	 */
-	_switch (old_selector, new_selector) {
+	_switch (old_selector, new_selector, no_animation = false) {
 		if (this._in_animation) {
 			this._animation_next = new_selector;
 			return;
@@ -226,10 +264,12 @@ class ContainerRotate extends Elements.elements.backbone3 {
 		let distances = diffs.map((i) => {return (i + this.childElementCount) % this.childElementCount});
 		let up = distances[0] < distances[1] ? true : false;
 
-		if (!this.attributeInit) {
+		if (!this.attributeInit || no_animation) {
+			this._in_animation = true;
 			requestAnimationFrame((e) => {
 				old_div.style.transform = hide_style;
 				new_div.style.transform = show_style;
+				this._in_animation = false;
 			});
 			return;
 		}
