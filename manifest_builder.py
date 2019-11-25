@@ -15,7 +15,10 @@ Elements.manifestLoaded = true;
 Elements.__getBacklog();
 '''
 
-EXCLUDES = set([('./elements/', 'Elements.mjs'), ('./elements/', 'elements_backbone.mjs')])
+EXCLUDES = set([
+        ('./elements/', 'Elements.mjs'),
+        ('./elements/', 'elements_backbone.mjs')
+])
 
 
 class linkParser(HTMLParser):
@@ -27,7 +30,8 @@ class linkParser(HTMLParser):
         def handle_starttag(self, tag, attrs):
                 if tag == 'link':
                         props = to_dict(attrs)
-                        if props['rel'] == 'stylesheet' and props['type'] == 'text/css':
+                        if (props['rel'] == 'stylesheet'
+                                and props['type'] == 'text/css'):
                                 self._css.add(props['href'])
                 elif tag == 'img':
                         props = to_dict(attrs)
@@ -87,7 +91,10 @@ def parse_js(lines):
                 provides.add(loaded)
         for template in template_regex.findall(lines):
                 templates.add(template)
-        return sorted(list(requires)), sorted(list(templates)), sorted(list(provides))
+        return (
+                sorted(list(requires)),
+                sorted(list(templates)),
+                sorted(list(provides)))
 
 
 def test():
@@ -115,15 +122,19 @@ def _parse_mjs(file, manifest, name: str):
 
         recommends = set()
         matches = get_regex.findall(lines)
+
+        def strip(x):
+                return strip_quotes(x.strip())
+
         for match in matches:
-                require = [strip_quotes(x.strip()) for x in match.split(',')]
+                require = [strip(x) for x in match.split(',')]
                 for req in require:
                         if ' ' not in req and req != '':
                                 recommends.add(req)
 
         match = recommends_regex.search(lines)
         if match is not None:
-                recommend = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
+                recommend = [strip(x) for x in match.group(1).split(',')]
                 for req in recommend:
                         if req != '':
                                 recommends.add(req)
@@ -131,7 +142,7 @@ def _parse_mjs(file, manifest, name: str):
         requires = set()
         match = requires_regex.search(lines)
         if match is not None:
-                require = [strip_quotes(x.strip()) for x in match.group(1).split(',')]
+                require = [strip(x) for x in match.group(1).split(',')]
                 for req in require:
                         if req != '':
                                 requires.add(req)
@@ -181,7 +192,9 @@ def parse(filepath: str, root: str):
                 location = filepath + '/element.js'
         with open(location) as f:
                 lines = f.read()
-        manifest['requires'], manifest['templates'], manifest['provides'] = parse_js(lines)
+        (manifest['requires'],
+         manifest['templates'],
+         manifest['provides']) = parse_js(lines)
         parser = linkParser()
         for template in manifest['templates']:
                 with open(root + template) as f:
