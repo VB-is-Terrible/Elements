@@ -96,12 +96,15 @@ input[type=checkbox] {
 #titleStack {
 	position: relative;
 }
-#projectProgressIncrease, #projectProgressDecrease, #projectProgressValue {
+button.plusminus, #projectProgressValue, #AnsProgressAmount {
 	margin-left: 1em;
 }
 
-#projectProgressIncrease, #projectProgressDecrease {
+button.plusminus {
 	min-width: 1em;
+}
+#projectRequiredDecrease {
+	margin-left: initial;
 }
 #projectDesc {
 	width: 100%;
