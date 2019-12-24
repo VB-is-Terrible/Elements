@@ -41,7 +41,7 @@ class DragListenerInternal extends DragListener {
 
 const main = async () => {
 
-await Elements.get('projects-Project');
+await Elements.get('projects-Project', 'draggable-container');
 
 const EXTERNAL_CONTEXT = Projects.common_type;
 
@@ -104,8 +104,8 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 			});
 		})
 		this.applyPriorProperties('title');
-
 		shadow.appendChild(template);
+		this.applyPriorProperties('contents');
 		this._showInternalDrag();
 
 	}
@@ -230,6 +230,16 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 	 */
 	get contents () {
 		return [...this._projects];
+	}
+	/**
+	 * Set the projects shown in the selection
+	 * @param  {List<Number>} value List of project IDs
+	 */
+	set contents (value) {
+		this.clear();
+		for (const proj_id of value) {
+			this.addProject(proj_id);
+		}
 	}
 	/**
 	 * Remove all projects from the tracker

@@ -8,7 +8,6 @@ div.holder {
 #holders {
 	min-height: 200px; /* TODO: Add as custom variables */
 	max-height: 300px;
-	overflow: scroll;
 	display: grid;
 }
 #contents{
