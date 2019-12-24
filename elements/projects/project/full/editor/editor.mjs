@@ -379,11 +379,9 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @param  {Event} [e] User event that trigger this function
 	 */
 	accept (e) {
-		let change_set = this._make_change_set();
-		console.log('Built changeset: ', change_set);
-		console.log('JSON: ', JSON.stringify(change_set));
-		// this.reset();
-		this.send_change(change_set);
+		let event = new CustomEvent('accept', {detail: e});
+		this.dispatchEvent(event);
+		return;
 	}
 	/**
 	 * Send the change_set to the server

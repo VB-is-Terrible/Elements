@@ -38,6 +38,9 @@ class ProjectsProjectFull extends Elements.elements.backbone3 {
 			this.editmode = 2;
 		});
 		shadow.appendChild(template);
+		const editor = this.shadowQuery('elements-projects-project-full-editor')
+		editor.addEventListener('accept', () => {console.log('accepted'); this._accept();});
+		this.shadowQuery('#accept').addEventListener('click', () => this._accept());
 		this.applyPriorProperties('data');
 		this.applyPriorProperty('editmode', 0);
 	}

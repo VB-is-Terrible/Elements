@@ -14,15 +14,19 @@
 				</div>
 				<div class='gridMember'>Required</div>
 				<div class='gridMember'>
-					<input id='AnsProgressAmount' type='number'></input>
+					<div class='multi'>
+						<button id='projectRequiredDecrease' class='plusminus'>-</button>
+						<input id='AnsProgressAmount' type='number'></input>
+						<button id='projectRequiredIncrease' class='plusminus'>+</button>
+					</div>
 				</div>
 				<div class='gridMember'> Progress </div>
 				<div class='gridMember' id='projectProgress'>
 					<div class='multi'>
 						<input id='projectProgressRange' type="range" name="Current Progress" value="2" max="10">
-						<button id='projectProgressDecrease'>-</button>
+						<button id='projectProgressDecrease' class='plusminus'>-</button>
 						<p id='projectProgressValue'> 2 </p>
-						<button id='projectProgressIncrease'>+</button>
+						<button id='projectProgressIncrease' class='plusminus'>+</button>
 					</div>
 				</div>
 				<div class='gridMember'> Meta </div>
