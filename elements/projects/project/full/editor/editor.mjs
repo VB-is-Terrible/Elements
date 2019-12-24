@@ -32,7 +32,8 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		template.querySelector('#AnsProgressAmount').addEventListener(
 			'input',
 			(e) => {this._changeRequired(e, false);});
-		template.querySelector('#AnsProgressAmount').addEventListener(
+		let required_range = template.querySelector('#AnsProgressAmount')
+		required_range.addEventListener(
 			'change',
 			(e) => {this._changeRequired(e, true);});
 		template.querySelector('#projectProgressRange').addEventListener(
@@ -63,6 +64,21 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			template.querySelector(input).addEventListener(
 				'keypress', enter_accept);
 		}
+		template.querySelector('#projectRequiredDecrease').addEventListener(
+			'click',
+			(e) => {
+				required_range.value = Math.max(
+					parseInt(required_range.value) - 1,
+					1
+				);
+			}
+		);
+		template.querySelector('#projectRequiredIncrease').addEventListener(
+			'click',
+			(e) => {
+				required_range.value = parseInt(required_range.value) + 1;
+			}
+		);
 		shadow.appendChild(template);
 		this._refresh_callback = (change_set) => {this._refresh(change_set);};
 		this.applyPriorProperty('data', null);
