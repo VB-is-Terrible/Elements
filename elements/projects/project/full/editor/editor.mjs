@@ -231,14 +231,14 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @param  {Boolean} counter Whether the project is single goal or multiple
 	 */
 	_writeProgress (required, progress, counter) {
-		const required_checkbox = this.shadowQuery('#AnsProgress');
 		const required_input = this.shadowQuery('#AnsProgressAmount');
+		const required_checkbox = this.shadowQuery('#AnsProgress');
 		if (!counter) {
 			required_checkbox.value = false;
-			required_input.disabled = true;
+			this._disable_required(true)
 		} else {
 			required_checkbox.value = true;
-			required_input.disabled = false;
+			this._disable_required(false)
 		}
 		required_input.value = required;
 
@@ -260,19 +260,14 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * @private
 	 */
 	_changeCounter (e) {
-		const required_input = this.shadowQuery('#AnsProgressAmount');
 		this._changes.counter = e.path[0].checked;
 		if (this._changes.counter) {
-			requestAnimationFrame((e) => {
-				required_input.disabled = false;
-			});
+			this._disable_required(false)
 			this._changes.required_amount = this._changes.required_counter;
 			this._changes.progress_amount = this._changes.progress_counter;
 			this._writeProgressFromChanges();
 		} else {
-			requestAnimationFrame((e) => {
-				required_input.disabled = true;
-			});
+			this._disable_required(true)
 			this._changes.required_amount = Projects.MAX_STATUS;
 			this._changes.progress_amount = Math.min(this._changes.progress_counter, Projects.MAX_STATUS);
 		    	this._writeProgressFromChanges();
@@ -388,7 +383,7 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 	 * Make a ChangeSet based on the current inputs
 	 * @return {Projects.ChangeSet}      The current inputs put into a ChangeSet
 	 */
-	_make_change_set () {
+	make_change_set () {
 		let change_set = new Projects.ChangeSet(this.data.id);
 		let title = this.shadowQuery('#Title').value;
 		if (title !== this.data.name) {
@@ -460,6 +455,17 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			let required_checkbox = this.shadowQuery('#AnsProgress');
 			required_checkbox.checked = change_set.counter;
 		}
+	}
+	_disable_required (disabled) {
+		const required_input = this.shadowQuery('#AnsProgressAmount');
+		const required_increase = this.shadowQuery('#projectRequiredIncrease');
+		const required_decrease = this.shadowQuery('#projectRequiredDecrease');
+		requestAnimationFrame((e) => {
+			for (let input of [required_input, required_decrease, required_increase]) {
+				console.log(input);
+				input.disabled = disabled;
+			}
+		});
 	}
 }
 
