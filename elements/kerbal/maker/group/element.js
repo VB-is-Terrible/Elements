@@ -4,7 +4,7 @@ Elements.get('kerbal-searcher-kerbal', 'kerbal-display_text', 'tab-window', 'KDB
 {
 const main = async () => {
 
-await Elements.get('tab-window', 'KDB', 'main');
+await Elements.get('tab-window', 'KDB', 'main', 'drag-Common');
 
 /**
  * UI to make a KNS.Group
@@ -59,13 +59,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 			this.group.text = text;
 		});
 
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
+		Elements.common.stop_drag_events(template);
 		let kerbalDisplay = template.querySelector('#currentKerbals');
 		kerbalDisplay.addEventListener('touchstart', (e) => {
 			self.touch_reset();

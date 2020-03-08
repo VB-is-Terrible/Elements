@@ -4,7 +4,7 @@ Elements.get('kerbal-group-display', 'KDB', 'dropdown', 'Kerbal_link', 'kerbal-s
 {
 const main = async () => {
 
-await Elements.get('kerbal-searcher-Common');
+await Elements.get('kerbal-searcher-Common', 'drag-Common');
 /**
  * UI to search through kerbals by name
  * @type {Object}
@@ -60,13 +60,8 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 			}
 
 		});
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
+		Elements.common.stop_drag_events(template);
+
 		this.makeDisplay = (result) => {
 			let display = document.createElement('elements-kerbal-group-display');
 			display.data = result;

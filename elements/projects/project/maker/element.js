@@ -4,7 +4,7 @@ Elements.get('drag-element', 'projects-Project');
 {
 const main = async () => {
 
-await Elements.get('drag-element', 'draggable-Common', 'projects-project-selection');
+await Elements.get('drag-element', 'draggable-Common', 'projects-project-selection', 'drag-Common');
 /**
  * [ProjectsProjectMaker Description]
  * @augments Elements.elements.backbone2
@@ -26,18 +26,7 @@ Elements.elements.ProjectsProjectMaker = class ProjectsProjectMaker extends Elem
 		cancel.addEventListener('click', (e) => {
 			self.clear();
 		});
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
-		for (let textarea of template.querySelectorAll('textarea')) {
-			textarea.addEventListener('mousedown', (e) => {
-				e.stopPropagation();
-			});
-		}
+		Elements.common.stop_drag_events(template);
 		let progress = template.querySelector('#AnsProgress');
 		let progressAmount = template.querySelector('#AnsProgressAmount');
 		progress.addEventListener('change', (e) => {

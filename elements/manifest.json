@@ -81,6 +81,17 @@
         ],
         "type": "element3"
     },
+    "drag/Common": {
+        "css": [],
+        "provides": [
+            "drag/Common"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module3"
+    },
     "drag/body": {
         "css": [
             "drag/body/style.css"
@@ -321,6 +332,7 @@
         "recommends": [],
         "requires": [
             "KDB",
+            "drag-Common",
             "dropdown",
             "kerbal-display_text",
             "kerbal-group-tag",
@@ -347,6 +359,7 @@
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "dropdown",
             "grid",
             "kerbal-display",
@@ -500,6 +513,7 @@
         "recommends": [],
         "requires": [
             "Kerbal_link",
+            "drag-Common",
             "tab-window"
         ],
         "resources": [],
@@ -519,6 +533,7 @@
         "recommends": [],
         "requires": [
             "Kerbal_link",
+            "drag-Common",
             "tab-window"
         ],
         "resources": [
@@ -561,6 +576,7 @@
         "recommends": [],
         "requires": [
             "KDB",
+            "drag-Common",
             "kerbal-display_text",
             "kerbal-searcher-kerbal",
             "main",
@@ -586,6 +602,7 @@
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "grid",
             "kerbal-display",
             "tab-window"
@@ -662,6 +679,7 @@
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "kerbal-display",
             "kerbal-searcher-Common",
             "tab-window"
@@ -685,6 +703,7 @@
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "dropdown",
             "kerbal-group-display",
             "kerbal-searcher-Common"
@@ -708,6 +727,7 @@
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "dropdown",
             "kerbal-display",
             "kerbal-searcher-Common",
@@ -809,6 +829,7 @@
         ],
         "recommends": [],
         "requires": [
+            "drag-Common",
             "projects-Project"
         ],
         "resources": [],
@@ -828,7 +849,8 @@
         "recommends": [
             "container-rotate",
             "projects-project-full-display",
-            "projects-project-full-editor"
+            "projects-project-full-editor",
+            "projects-project-selection"
         ],
         "requires": [],
         "resources": [],
@@ -884,6 +906,7 @@
         ],
         "recommends": [],
         "requires": [
+            "drag-Common",
             "drag-element",
             "draggable-Common",
             "projects-Project",

@@ -4,7 +4,7 @@ Elements.get('tab-window', 'Kerbal_link');
 {
 const main = async () => {
 
-await Elements.get('tab-window');
+await Elements.get('tab-window', 'drag-Common');
 /**
  * Element that has a import window
  * @type {Object}
@@ -54,13 +54,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 			}
 		});
 
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
+		Elements.common.stop_drag_events(template);
 		shadow.appendChild(template);
 	}
 	/**

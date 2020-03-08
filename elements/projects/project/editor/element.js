@@ -21,7 +21,7 @@ class DragListener {
 
 
 
-await Elements.get('projects-Project');
+await Elements.get('projects-Project', 'drag-Common');
 /**
  * [ProjectsProjectEditor Description]
  * @augments Elements.elements.backbone2
@@ -36,18 +36,7 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);
 
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
-		for (let textarea of template.querySelectorAll('textarea')) {
-			textarea.addEventListener('mousedown', (e) => {
-				e.stopPropagation();
-			});
-		}
+		Elements.common.stop_drag_events(template);
 		template.querySelector('#dropContainer').context = Projects.common_type;
 
 		this.project = null;

@@ -5,7 +5,7 @@ Elements.get('kerbal-display', 'grid', 'Kerbal_link', 'tab-window', 'KDB');
 const defaultJob = "Tourist";
 const main = async () => {
 
-await Elements.get('tab-window', 'Kerbal_link', 'KDB');
+await Elements.get('tab-window', 'Kerbal_link', 'KDB', 'drag-Common');
 
 /**
  * UI to make a KNS.Kerbal
@@ -109,13 +109,8 @@ Elements.elements.KerbalMakerKerbal = class extends Elements.elements.tabbed {
 		});
 		this.elements = elements;
 
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
+		Elements.common.stop_drag_events(template);
+
 		shadow.appendChild(template);
 		this.newKerbal();
 	}

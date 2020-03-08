@@ -4,7 +4,7 @@ Elements.get('kerbal-display', 'KDB', 'tab-window', 'Kerbal_link', 'kerbal-searc
 {
 const main = async () => {
 
-await Elements.get('tab-window', 'KDB', 'kerbal-searcher-Common');
+await Elements.get('tab-window', 'KDB', 'kerbal-searcher-Common', 'drag-Common');
 
 /**
  * Like kerbalJobDisplay, but built for kerbal-search
@@ -129,13 +129,7 @@ Elements.elements.KerbalSearcherDestination = class extends Elements.elements.Ke
 			}
 
 		});
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
+		Elements.common.stop_drag_events(template);
 
 		shadow.appendChild(template);
 		this.applyPriorProperties('database', 'action', 'actionCallback');

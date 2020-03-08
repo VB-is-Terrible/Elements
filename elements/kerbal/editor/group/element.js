@@ -4,7 +4,7 @@ Elements.get('kerbal-group-tag', 'KDB', 'dropdown', 'tab-window', 'kerbal-search
 {
 const main = async () => {
 
-await Elements.get('KDB', 'tab-window');
+await Elements.get('KDB', 'tab-window', 'drag-Common');
 
 /**
  * UI to edit a KNS.Group
@@ -136,13 +136,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		};
 		searcher.actionCallback = includeCallback;
 
-		for (let input of template.querySelectorAll('input')) {
-			if (input.type === 'text') {
-				input.addEventListener('mousedown', (e) => {
-					e.stopPropagation();
-				});
-			}
-		}
+		Elements.common.stop_drag_events(template);
 		shadow.appendChild(template);
 		this.applyPriorProperties('database');
 		this.applyPriorProperty('group', new KNS.Group());

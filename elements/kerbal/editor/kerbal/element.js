@@ -10,7 +10,7 @@
 {
 const main = (async () => {
 
-await Elements.get('kerbal-display', 'Kerbal_link', 'tab-window', 'KDB');
+await Elements.get('kerbal-display', 'Kerbal_link', 'tab-window', 'KDB', 'drag-Common');
 
 /**
  * UI to edit a KNS.Kerbal
@@ -161,13 +161,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
 		});
 
                 this.applyPriorProperty('data', null);
-                for (let input of template.querySelectorAll('input')) {
-                	if (input.type === 'text') {
-                		input.addEventListener('mousedown', (e) => {
-                			e.stopPropagation();
-                		});
-                	}
-                }
+                Elements.common.stop_drag_events(template);
 		shadow.appendChild(template);
 	}
 	/**

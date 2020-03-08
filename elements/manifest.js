@@ -84,6 +84,17 @@ Elements.manifest = {
         ],
         "type": "element3"
     },
+    "drag/Common": {
+        "css": [],
+        "provides": [
+            "drag/Common"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module3"
+    },
     "drag/body": {
         "css": [
             "drag/body/style.css"
@@ -324,6 +335,7 @@ Elements.manifest = {
         "recommends": [],
         "requires": [
             "KDB",
+            "drag-Common",
             "dropdown",
             "kerbal-display_text",
             "kerbal-group-tag",
@@ -350,6 +362,7 @@ Elements.manifest = {
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "dropdown",
             "grid",
             "kerbal-display",
@@ -503,6 +516,7 @@ Elements.manifest = {
         "recommends": [],
         "requires": [
             "Kerbal_link",
+            "drag-Common",
             "tab-window"
         ],
         "resources": [],
@@ -522,6 +536,7 @@ Elements.manifest = {
         "recommends": [],
         "requires": [
             "Kerbal_link",
+            "drag-Common",
             "tab-window"
         ],
         "resources": [
@@ -564,6 +579,7 @@ Elements.manifest = {
         "recommends": [],
         "requires": [
             "KDB",
+            "drag-Common",
             "kerbal-display_text",
             "kerbal-searcher-kerbal",
             "main",
@@ -589,6 +605,7 @@ Elements.manifest = {
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "grid",
             "kerbal-display",
             "tab-window"
@@ -665,6 +682,7 @@ Elements.manifest = {
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "kerbal-display",
             "kerbal-searcher-Common",
             "tab-window"
@@ -688,6 +706,7 @@ Elements.manifest = {
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "dropdown",
             "kerbal-group-display",
             "kerbal-searcher-Common"
@@ -711,6 +730,7 @@ Elements.manifest = {
         "requires": [
             "KDB",
             "Kerbal_link",
+            "drag-Common",
             "dropdown",
             "kerbal-display",
             "kerbal-searcher-Common",
@@ -812,6 +832,7 @@ Elements.manifest = {
         ],
         "recommends": [],
         "requires": [
+            "drag-Common",
             "projects-Project"
         ],
         "resources": [],
@@ -831,7 +852,8 @@ Elements.manifest = {
         "recommends": [
             "container-rotate",
             "projects-project-full-display",
-            "projects-project-full-editor"
+            "projects-project-full-editor",
+            "projects-project-selection"
         ],
         "requires": [],
         "resources": [],
@@ -887,6 +909,7 @@ Elements.manifest = {
         ],
         "recommends": [],
         "requires": [
+            "drag-Common",
             "drag-element",
             "draggable-Common",
             "projects-Project",
