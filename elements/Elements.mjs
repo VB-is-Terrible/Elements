@@ -370,9 +370,12 @@ class Elements {
 
 		let promise = import('./' + location);
 		let module = await promise;
-		if ('name' in module.default) {
-			let name = module.default.name;
-			this.elements[name] = module.default;
+		let last = module_name.charAt(0);
+		if (!/[A-Z]/.test(last)) {
+			if ('name' in module.default) {
+				let name = module.default.name;
+				this.elements[name] = module.default;
+			}
 		}
 	}
 
