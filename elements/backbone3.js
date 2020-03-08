@@ -68,7 +68,7 @@ class ElementsBootloader {
 	 * @type {Function}
 	 * @private
 	 */
-	#resolve;
+	_resolve;
         /**
          * Property to indicate to replace this shell
          * @type {Boolean}
@@ -78,7 +78,7 @@ class ElementsBootloader {
 	constructor () {
 		const self = this;
 		this.initializedPromise = new Promise((resolve, reject) => {
-			self.#resolve = resolve;
+			self._resolve = resolve;
 		});
 		try {
 			this.location = ELEMENTS_PRELOAD_LOCATION;
@@ -97,7 +97,7 @@ class ElementsBootloader {
 			if (this.manifestLoaded) {
 				base.__getBacklog();
 			}
-			this.#resolve();
+			this._resolve();
                         importValue = module;
 		})
 	}

@@ -24,7 +24,6 @@ const initDefaultPreperties = function () {
  * @alias Elements.elements.backbone
  */
 class backbone extends HTMLElement {
-	static __backbone_version = 1;
 	/**
 	 * Make a new element
 	 */
@@ -64,6 +63,8 @@ class backbone extends HTMLElement {
 	}
 }
 
+backbone.__backbone_version = 1;
+
 /**
  * Backbone for newer elements (v2.0). These elements can use
  * ES6 getter/setters for regular properties, restoring prior properties
@@ -75,7 +76,6 @@ class backbone extends HTMLElement {
  * @alias Elements.elements.backbone2
  */
 class backbone2 extends HTMLElement {
-	static __backbone_version = 2;
 	constructor () {
 		super();
 		this.___propertyStore = new Map();
@@ -166,13 +166,14 @@ class backbone2 extends HTMLElement {
 	}
 };
 
+backbone2.__backbone_version = 2;
+
 /**
  * Backbone for v3 elements, aka modules
  * @extends Elements.elements.backbone2
  * @alias Elements.elements.backbone3
  */
 class backbone3 extends backbone2 {
-	static __backbone_version = 3;
 	constructor () {
 		super();
 	}
@@ -187,6 +188,8 @@ class backbone3 extends backbone2 {
 
 
 }
+
+backbone3.__backbone_version = 3;
 
 let oldValue;
 

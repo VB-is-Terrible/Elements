@@ -54,19 +54,19 @@ class Elements {
 	 * @type {Set}
 	 * @private
 	 */
-	#loadedElements = new Set();
+	_loadedElements = new Set();
 	/**
 	 * Storage set of loading elements
 	 * @type {Set}
 	 * @private
 	 */
-	#loadingElements = new Set();
+	_loadingElements = new Set();
 	/**
 	 * Storage set of elements requested but not yet loaded
 	 * @type {Set}
 	 * @private
 	 */
-	#requestedElements = new Set();
+	_requestedElements = new Set();
 	/**
 	 * Location to prefix file requests by, i.e. location of elements folder
 	 * @type {String}
@@ -77,13 +77,13 @@ class Elements {
 	 * @type {Set}
 	 * @private
 	 */
-	#gottenElements = new Set();
+	_gottenElements = new Set();
 	/**
 	 * Map to the promise for each request
 	 * @type {Map}
 	 * @private
 	 */
-	#getPromiseStore = new Map();
+	_getPromiseStore = new Map();
 	/**
 	 * The elements manifest. Contains information about modules and their dependencies
 	 * @type {Object}
@@ -104,50 +104,50 @@ class Elements {
 	 * @type {Map}
 	 * @private
 	 */
-	#loadingTemplates = new Map();
+	_loadingTemplates = new Map();
 	/**
 	 * Set of locations of loaded templates
 	 * @type {Set}
 	 * @private
 	 */
-	#loadedTemplates = new Set();
+	_loadedTemplates = new Set();
 	/**
 	 * Set of locations of loaded css
 	 * @type {Set}
 	 * @private
 	 */
-	#loadedCSS = new Set();
+	_loadedCSS = new Set();
 	/**
 	 * Set of locations of loaded resources
 	 * @type {Set}
 	 * @private
 	 */
-	#loadedResources = new Set();
+	_loadedResources = new Set();
 
 	/**
 	 * Place to insert templates, scripts, preloads, etc.
 	 * @type {Node}
 	 * @private
 	 */
-	#linkLocation;
+	_linkLocation;
 	/**
 	 * Place to insert preloads
 	 * @type {Node}
 	 * @private
 	 */
-	#preloadLocation;
+	_preloadLocation;
 	/**
 	 * Place to insert scripts
 	 * @type {Node}
 	 * @private
 	 */
-	#scriptLocation;
+	_scriptLocation;
 	/**
 	 * Place to insert templates
 	 * @type {Node}
 	 * @private
 	 */
-	#templateLocation;
+	_templateLocation;
 	/**
 	 * Property to prevent setup from been run twice
 	 * @type {Boolean}
@@ -278,9 +278,9 @@ class Elements {
 			HTMLname = 'elements-' + HTMLname;
 		}
 		jsName = this._nameResolver(jsName);
-		if (this.#loadedElements.has(jsName) || this.#loadingElements.has(jsName)) {return;}
+		if (this._loadedElements.has(jsName) || this._loadingElements.has(jsName)) {return;}
 		let preload;
-		this.#loadingElements.add(jsName);
+		this._loadingElements.add(jsName);
 		if (includeTemplate) {
 			let default_template = this.getDefaultTemplate(jsName, newElement);
 			let load_promise = this.loadTemplate(default_template);
@@ -291,11 +291,11 @@ class Elements {
 		try {
 			await preload;
 			window.customElements.define(HTMLname, newElement);
-			this.#loadedElements.add(jsName);
-			this.#loadingElements.delete(jsName);
+			this._loadedElements.add(jsName);
+			this._loadingElements.delete(jsName);
 			this.awaitCallback(jsName);
 		} catch (e) {
-			this.#loadingElements.delete(jsName);
+			this._loadingElements.delete(jsName);
 			throw e;
 		}
 	}
@@ -306,7 +306,7 @@ class Elements {
 	 * @param  {String} fileName name of file as passed to require
 	 */
 	async loaded (fileName) {
-		this.#loadedElements.add(fileName);
+		this._loadedElements.add(fileName);
 		this.awaitCallback(fileName);
 	}
 
@@ -317,7 +317,7 @@ class Elements {
 	 */
 	importTemplate (name) {
 		let id = '#templateElements' + name;
-		let template = this.#templateLocation.querySelector(id);
+		let template = this._templateLocation.querySelector(id);
 		return document.importNode(template, true).content;
 	}
 
@@ -331,7 +331,7 @@ class Elements {
 	async _require (...elementNames) {
 		for (let name of elementNames) {
 			name = this._nameResolver(name);
-			if (!(this.#requestedElements.has(name))) {
+			if (!(this._requestedElements.has(name))) {
 				let script = document.createElement('script');
 				let suffix = '/element.js'
 				let tokens = name.split('/');
@@ -346,15 +346,15 @@ class Elements {
 				}
 				script.src = this.location + name + suffix;
 				script.async = true;
-				this.#scriptLocation.appendChild(script);
-				this.#requestedElements.add(name);
+				this._scriptLocation.appendChild(script);
+				this._requestedElements.add(name);
 			}
 			this._setPromise(name);
 		}
 	}
 
 	async _loadModule (elementName, requires) {
-		if ((this.#requestedElements.has(elementName))) {
+		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
 		let name_tokens = this.tokenise(elementName);
@@ -363,8 +363,8 @@ class Elements {
 		let link = document.createElement('link');
 		link.rel = 'modulepreload';
 		link.href = this.location + location;
-		this.#preloadLocation.append(link);
-		this.#requestedElements.add(elementName);
+		this._preloadLocation.append(link);
+		this._requestedElements.add(elementName);
 
 		await this.get(...requires);
 
@@ -405,8 +405,8 @@ class Elements {
 	async awaitCallback (loaded) {
 		loaded = this._nameResolver(loaded);
 		// New style
-		if (this.#getPromiseStore.has(loaded)) {
-			this.#getPromiseStore.get(loaded).resolve();
+		if (this._getPromiseStore.has(loaded)) {
+			this._getPromiseStore.get(loaded).resolve();
 		}
 	}
 
@@ -476,11 +476,11 @@ class Elements {
 	 */
 	async _get (elementName) {
 		let name = this._nameResolver(elementName);
-		if (this.#gottenElements.has(name)) {
+		if (this._gottenElements.has(name)) {
 			return this._setPromise(name);
 		} else if (name === 'main') {
 		} else {
-			this.#gottenElements.add(name);
+			this._gottenElements.add(name);
 		}
 		let result = this._setPromise(name);
 		if (name === 'main') {
@@ -552,15 +552,15 @@ class Elements {
 	 * @private
 	 */
 	_setPromise (jsName) {
-		if (this.#getPromiseStore.has(jsName)) {
-			return this.#getPromiseStore.get(jsName).promise;
+		if (this._getPromiseStore.has(jsName)) {
+			return this._getPromiseStore.get(jsName).promise;
 		}
 		let outerResolve, outerReject;
 		let result = new Promise((resolve, reject) => {
 			outerResolve = resolve;
 			outerReject = reject;
 		});
-		this.#getPromiseStore.set(jsName,
+		this._getPromiseStore.set(jsName,
 		{
 			promise: result,
 			resolve: outerResolve,
@@ -628,6 +628,8 @@ class Elements {
 	 * @return {Promise}         Promise that resolves to the response body, can error
 	 */
 	async request (location) {
+		if (location === '')
+		console.log(location);
 		return fetch(location).then(
 			(response) => {
 				if (response.ok) {
@@ -661,9 +663,9 @@ class Elements {
 	async loadTemplate (location) {
 		// debugger;
 		let template;
-		if (this.#loadedTemplates.has(location) || location === '') {return;}
-		if (this.#loadingTemplates.has(location)) {
-			await this.#loadingTemplates.get(location);
+		if (this._loadedTemplates.has(location) || location === '') {return;}
+		if (this._loadingTemplates.has(location)) {
+			await this._loadingTemplates.get(location);
 			return;
 		}
 
@@ -672,7 +674,7 @@ class Elements {
 				template = await this.request(this.location + location);
 			} catch (e) {
 				console.log('Failed network request for: ' + e.message);
-				this.#loadingTemplates.delete(location);
+				this._loadingTemplates.delete(location);
 				throw e;
 			}
 			// Rewrite css links with Elements.location
@@ -685,15 +687,15 @@ class Elements {
 			for (let link of node.content.querySelectorAll('img')) {
 				link.src = this.location + link.getAttribute('src');
 			}
-			this.#templateLocation.append(node);
-			this.#loadedTemplates.add(location);
-			this.#loadingTemplates.delete(location);
+			this._templateLocation.append(node);
+			this._loadedTemplates.add(location);
+			this._loadingTemplates.delete(location);
 			resolve(location);
 		};
 
 		let promise = new Promise(fetcher);
 
-		this.#loadingTemplates.set(location, promise);
+		this._loadingTemplates.set(location, promise);
 		return promise;
 	}
 
@@ -795,13 +797,13 @@ class Elements {
 	 * @return {Promise}         Promise that resolves once template is received
 	 */
 	async loadCSS (location) {
-		if (this.#loadedCSS.has(location)) {return;}
+		if (this._loadedCSS.has(location)) {return;}
 		let link = document.createElement('link');
 		link.rel = 'preload';
 		link.as = 'style';
 		link.href = this.location + location;
-		this.#preloadLocation.appendChild(link);
-		this.#loadedCSS.add(location);
+		this._preloadLocation.appendChild(link);
+		this._loadedCSS.add(location);
 	}
 	/**
 	 * Preloads image from location
@@ -809,13 +811,13 @@ class Elements {
 	 * @return {Promise}         Promise that resolves once template is received
 	 */
 	async loadResource (location) {
-		if (this.#loadedResources.has(location)) {return;}
+		if (this._loadedResources.has(location)) {return;}
 		let link = document.createElement('link');
 		link.rel = 'preload';
 		link.as = 'image';
 		link.href = this.location + location;
-		this.#preloadLocation.appendChild(link);
-		this.#loadedResources.add(location);
+		this._preloadLocation.appendChild(link);
+		this._loadedResources.add(location);
 	}
 
 	/**
@@ -858,20 +860,20 @@ class Elements {
 			insert_location.id = LINK_INSERT_DIV_ID;
 			head.append(insert_location);
 		}
-		this.#linkLocation = insert_location;
-		this.#preloadLocation = insert_location.querySelector('#' + PRELOAD_LOCATION);
-		if (this.#preloadLocation === null) {
-			this.#preloadLocation = document.createElement('div');
-			this.#preloadLocation.id = PRELOAD_LOCATION;
-			insert_location.append(this.#preloadLocation);
+		this._linkLocation = insert_location;
+		this._preloadLocation = insert_location.querySelector('#' + PRELOAD_LOCATION);
+		if (this._preloadLocation === null) {
+			this._preloadLocation = document.createElement('div');
+			this._preloadLocation.id = PRELOAD_LOCATION;
+			insert_location.append(this._preloadLocation);
 		}
-		this.#scriptLocation = insert_location.querySelector('#' + SCRIPT_LOCATION);
-		if (this.#scriptLocation === null) {
-			this.#scriptLocation = document.createElement('div');
-			this.#scriptLocation.id = SCRIPT_LOCATION;
-			insert_location.append(this.#scriptLocation);
+		this._scriptLocation = insert_location.querySelector('#' + SCRIPT_LOCATION);
+		if (this._scriptLocation === null) {
+			this._scriptLocation = document.createElement('div');
+			this._scriptLocation.id = SCRIPT_LOCATION;
+			insert_location.append(this._scriptLocation);
 		}
-		this.#templateLocation = document.createElement('div');
+		this._templateLocation = document.createElement('div');
 	}
 
 	/**
