@@ -10,7 +10,7 @@ const STOP_PROP = (e) => {
 
 /**
  * Stop mousedown event propagation from ui elements for dragging
- * @param  {DOMNode} template Node containing ui elements
+ * @param  {DOMNode} Node containing ui elements
  */
 Elements.common.stop_drag_events = (node) => {
 	for (let input of node.querySelectorAll('input')) {
@@ -21,7 +21,7 @@ Elements.common.stop_drag_events = (node) => {
 	for (let select of node.querySelectorAll('select')) {
 		select.addEventListener('mousedown', STOP_PROP);
 	}
-	for (let textarea of template.querySelectorAll('textarea')) {
+	for (let textarea of node.querySelectorAll('textarea')) {
 		textarea.addEventListener('mousedown', (e) => {
 			e.stopPropagation();
 		});
