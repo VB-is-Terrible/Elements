@@ -9,7 +9,7 @@ import {Elements} from '$4Elements.mjs';
  * @memberof Elements.elements
  */
 class $1 extends Elements.elements.backbone3 {
-	constructor () {
+	constructor() {
 		super();
 
 		this.name = '$1';
@@ -19,13 +19,13 @@ class $1 extends Elements.elements.backbone3 {
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
-	connectedCallback () {
+	connectedCallback() {
 		super.connectedCallback();
 	}
-	disconnectedCallback () {
+	disconnectedCallback() {
 		super.disconnectedCallback();
 	}
-	static get observedAttributes () {
+	static get observedAttributes() {
 		return [];
 	}
 
