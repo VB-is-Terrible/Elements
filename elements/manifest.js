@@ -84,6 +84,21 @@ Elements.manifest = {
         ],
         "type": "element3"
     },
+    "custom/input/bar": {
+        "css": [
+            "custom/input/bar/bar.css"
+        ],
+        "provides": [
+            "custom/input/bar"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "custom/input/bar/barTemplate.html"
+        ],
+        "type": "element3"
+    },
     "drag/Common": {
         "css": [],
         "provides": [
