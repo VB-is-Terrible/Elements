@@ -232,6 +232,23 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "gallery/scroll/dynamic": {
+        "css": [
+            "gallery/scroll/dynamic/dynamic.css"
+        ],
+        "provides": [
+            "gallery/scroll/dynamic"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [
+            "favicon.png"
+        ],
+        "templates": [
+            "gallery/scroll/dynamic/dynamicTemplate.html"
+        ],
+        "type": "element3"
+    },
     "grid": {
         "css": [],
         "provides": [

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Reader prototype</title>
+		<link rel='preload' href='elements/backbone3.js' as='script'></link>
+		<link rel='modulepreload' href='elements/Elements.mjs'></link>
+		<link rel='modulepreload' href='elements/elements_backbone.mjs'></link>
+		<link rel='preload' href='elements/manifest.js' as='script'></link>
+		<style>
+		div.topbar {
+			position: sticky;
+			top: 1em;
+			display: flex;
+			justify-content: center;
+		}
+		elements-gallery-scroll-dynamic {
+			height: 1000px;
+		}
+		div.scroll {
+			height: 1000px;
+		}
+		</style>
+	</head>
+	<body>
+		<div class='topbar'>
+			<elements-custom-input-bar text='Go!' id='main_input'></elements-custom-input-bar>
+		</div>
+		<div class='scroll'>
+			<elements-gallery-scroll-dynamic></elements-gallery-scroll-dynamic>
+		</div>
+
+		<div style='min-height: 5000px; color: green;background: red'>
+		asdfasdf
+		</div>
+	</body>
+	<script src='elements/backbone3.js'></script>
+	<script src='elements/manifest.js' async></script>
+	<script>
+		Elements.get('custom-input-bar', 'gallery-scroll-dynamic');
+	</script>
+	<script>
+	{
+		document.querySelector('#main_input').addEventListener('accept', (e) => {
+			console.log(e.detail);
+		});
+		(async () => {
+			await Elements.get('gallery-scroll-dynamic');
+			const gallery = document.querySelector('elements-gallery-scroll-dynamic');
+			gallery.img_urls = ['elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', 'elements/favicon.png', ];
+			
+		}
+
+		)()
+	}
+	</script>
+</html>
