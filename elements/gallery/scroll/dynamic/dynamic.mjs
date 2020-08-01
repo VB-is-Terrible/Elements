@@ -86,10 +86,12 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		});
 	}
 	static _create_img(src) {
+		const div = document.createElement('div');
 		const img = document.createElement('img');
 		img.className = 'scroll';
 		img.src = src;
-		return img;
+		div.append(img);
+		return div;
 	}
 	_scrollUpdate() {
 		const diff = this._body.scrollHeight - this._body.clientHeight  - this._body.scrollTop
