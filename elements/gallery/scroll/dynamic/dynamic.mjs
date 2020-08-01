@@ -94,6 +94,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		return div;
 	}
 	_scrollUpdate() {
+
 		const diff = this._body.scrollHeight - this._body.clientHeight  - this._body.scrollTop
 		let to_load = PRELOAD_EXCEED + 1;
 		let height = 0;
@@ -113,6 +114,36 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			});
 			this._end += 1;
 			to_load -= 1
+		}
+	}
+	set position(value) {
+		if (!Number.isInteger(value)) {
+			throw new Error('Cannot set position to a non integer');
+		} else if (value < 0) {
+			throw new Error('Invalid position ' + value.toString());
+		} else if (value >= this._urls.length) {
+			if (this._urls.length == 0 && value == 0) {
+				this._body.scrollIntoView();
+				this._position = 0;
+				return;
+			}
+			throw new Error('Invalid position ' + value.toString());
+		}
+		//TODO: May reqiure repopulating the gallery
+		this._body.children[value].scrollIntoView();
+		this._position = value;
+	}
+	get position() {
+		return this._position;
+	}
+	next() {
+		if (this._position < this._urls.length - 1) {
+			this.position += 1;
+		}
+	}
+	back() {
+		if (this._position > 1) {
+			this.position -= 1;
 		}
 	}
 }
