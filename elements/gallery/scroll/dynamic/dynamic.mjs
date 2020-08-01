@@ -5,8 +5,8 @@ import {Elements} from '../../../Elements.mjs';
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
-const PRELOAD_EXCEED = 3;
-const KEEP_BEHIND = 10;
+const PRELOAD_EXCEED = 6;
+const KEEP_BEHIND = 20;
 /**
  * [GalleryScrollDynamic Description]
  * @augments Elements.elements.backbone3
