@@ -631,8 +631,6 @@ class Elements {
 	 * @return {Promise}         Promise that resolves to the response body, can error
 	 */
 	async request (location) {
-		if (location === '')
-		console.log(location);
 		return fetch(location).then(
 			(response) => {
 				if (response.ok) {
