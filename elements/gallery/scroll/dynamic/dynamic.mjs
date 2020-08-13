@@ -52,50 +52,33 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		if (!(urls instanceof Array)) {
 			throw new Error('Did not get a list of urls');
 			console.error('This is not a list of urls', urls);
-		}
-		this._clear_imgs();
+			}
 		this._urls = urls;
 
-		let height = 0;
-		let i = 0;
-		while (height < PRELOAD_HEIGHT) {
-			const img = this._create_img(urls[i]);
-			requestAnimationFrame(() => {
-				this._body.append(img);
-			});
-			i++;
-			height += PRELOAD_GUESS;
-		}
-		for (let j = 0; j < PRELOAD_EXCEED; j++) {
-			const img = this._create_img(urls[i + j]);
-			requestAnimationFrame(() => {
-				this._body.append(img);
-			});
-		}
-		this._position = 0;
-		this._start = 0;
-		this._end = i + PRELOAD_EXCEED;
-		this._body.children[0].scrollIntoView();
+		this._rebuild_position(0);
 	}
 	get img_urls() {
 		return this._urls;
 	}
 	_clear_imgs() {
+		let children = [...this._body.children];
 		requestAnimationFrame(() => {
-			let children = [...this._body.children];
 			for (let img of children) {
 				img.remove();
 			}
 		});
 	}
-	_create_img(src) {
+	_create_img(src, callback) {
 		const div = document.createElement('div');
 		const img = document.createElement('img');
 		img.className = 'scroll';
 		img.src = src;
-		img.addEventListener('load', () => {
-			this._img_load(img);
-		});
+		if (callback === undefined) {
+			callback = () => {
+				this._img_load(img);
+			}
+		}
+		img.addEventListener('load', callback);
 		div.append(img);
 		return div;
 	}
@@ -108,11 +91,15 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		const scrollBottom = this._body.clientHeight + this._body.scrollTop;
 		while (i < this._body.children.length && height < scrollTop) {
 			let img = this._body.children[i];
-			height += img.clientHeight;
+			height += img.getBoundingClientRect().height;
 			below += 1;
 			i += 1;
 		}
-		this._position = this._start + i;
+		if (height != scrollTop && i < this._body.children.length) {
+			this._position = this._start + i - 1;
+		} else {
+			this._position = this._start + i;
+		}
 		while (i < this._body.children.length && height < scrollBottom) {
 			let img = this._body.children[i];
 			height += img.clientHeight;
@@ -182,8 +169,10 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		} else if (value < 0) {
 			throw new Error('Invalid position ' + value.toString());
 		} else if (value >= this._urls.length) {
-			if (this._urls.length == 0 && value == 0) {
-				this._body.scrollIntoView();
+			if (this._urls.length === 0 && value === 0) {
+				requestAnimationFrame(() => {
+					this._body.scrollIntoView();
+				});
 				this._position = 0;
 				return;
 			}
@@ -191,8 +180,17 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		}
 		//TODO: May reqiure repopulating the gallery
 		//TODO: Set scrollTop instead
-		this._body.children[value].scrollIntoView();
-		this._position = value;
+		if (this._start > value) {
+			this._rebuild_position(value);
+		} else if (this._end < value) {
+			this._rebuild_position(value);
+		} else {
+			const index = value - this._start;
+			requestAnimationFrame(() => {
+				this._body.scrollTop = this._body.children[index].offsetTop;
+			});
+			this._position = value;
+		}
 	}
 	get position() {
 		return this._position;
@@ -208,6 +206,58 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		}
 	}
 	_img_load(img) {
+	}
+	_rebuild_position(position) {
+		this._clear_imgs();
+		let current = position - PRELOAD_EXCEED;
+		if (current < 0) {
+			current = 0;
+		}
+		this._start = current;
+		while (current < position && current < this._urls.length) {
+			const img = this._create_img(this._urls[current]);
+			requestAnimationFrame(() => {
+				this._body.append(img);
+			});
+			current += 1;
+		}
+		let height = 0;
+		{
+			const img = this._create_img(this._urls[current], () => {
+				requestAnimationFrame(() => {
+					img.scrollIntoView();
+				});
+			});
+			requestAnimationFrame(() => {
+				this._body.append(img);
+			});
+			current += 1;
+			height += PRELOAD_GUESS;
+		}
+
+
+
+		while (height < PRELOAD_HEIGHT && current < this._urls.length) {
+			const img = this._create_img(this._urls[current]);
+			requestAnimationFrame(() => {
+				this._body.append(img);
+			});
+			current += 1;
+			height += PRELOAD_GUESS;
+		}
+		let i = 0;
+		while (i < PRELOAD_EXCEED && current + i < this._urls.length) {
+			const img = this._create_img(this._urls[current + i]);
+			requestAnimationFrame(() => {
+				this._body.append(img);
+			});
+			i += 1;
+		}
+		this._end = current + i;
+		this._position = position;
+		requestAnimationFrame(() => {
+			this._body.children[position - this._start].scrollIntoView()
+		});
 
 	}
 }
