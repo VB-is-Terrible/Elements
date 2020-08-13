@@ -71,6 +71,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 	_create_img(src, callback) {
 		const div = document.createElement('div');
 		const img = document.createElement('img');
+		div.className = 'scroll';
 		img.className = 'scroll';
 		img.src = src;
 		if (callback === undefined) {
@@ -87,6 +88,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		let height = 0;
 		let below = 0;
 		let above;
+		const old = this._position;
 		const scrollTop = this._body.scrollTop;
 		const scrollBottom = this._body.clientHeight + this._body.scrollTop;
 		while (i < this._body.children.length && height < scrollTop) {
@@ -163,9 +165,17 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		requestAnimationFrame(() => {
 			this._ticking = false;
 		});
+		if (old != this._position) {
+			const event = new CustomEvent(
+				'positionChange',
+				{detail: this._position}
+			);
+			this.dispatchEvent(event);
+		}
 		console.log(this._start, this._end);
 	}
 	set position(value) {
+		const old = this._position;
 		if (!Number.isInteger(value)) {
 			throw new Error('Cannot set position to a non integer');
 		} else if (value < 0) {
@@ -193,6 +203,14 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			});
 			this._position = value;
 		}
+		if (old != this._position) {
+			const event = new CustomEvent(
+				'positionChange',
+				{detail: this._position}
+			);
+			this.dispatchEvent(event);
+		}
+
 	}
 	get position() {
 		return this._position;

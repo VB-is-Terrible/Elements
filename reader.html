@@ -13,37 +13,58 @@
 			top: 1em;
 			display: flex;
 			justify-content: center;
+			/* z-index: 999; */
+		}
+		#main_input {
+			z-index: 999;
 		}
 		elements-gallery-scroll-dynamic {
 			height: 1000px;
 		}
 		div.scroll {
-			height: 1000px;
+			height: 100vh;
+			width: 100vw;
+			position: fixed;
+			top: 0;
+			left: 0;
+			padding: 1em;
+			box-sizing: border-box;
+		}
+		div.right_align {
+			float: right;
+		}
+		#page_div {
+			position: absolute;
+			width: 100%;
+			padding-right: 1em;
 		}
 		</style>
 	</head>
 	<body>
+		<div class='scroll'>
+			<elements-gallery-scroll-dynamic id='main_scroller'></elements-gallery-scroll-dynamic>
+		</div>
 		<div class='topbar'>
+			<div id='page_div'>
+				<div class='right_align'>
+					<input type='number' id='page_count'></input>
+					<span id='page_total'> / asdf</span>
+				</div>
+			</div>
 			<elements-custom-input-bar text='Go!' id='main_input'></elements-custom-input-bar>
 		</div>
-		<div class='scroll'>
-			<elements-gallery-scroll-dynamic></elements-gallery-scroll-dynamic>
-		</div>
 
-		<div style='min-height: 5000px; color: green;background: red'>
+		<!-- <div style='min-height: 5000px; color: green;background: red'>
 		asdfasdf
-		</div>
+		</div> -->
 	</body>
 	<script src='elements/backbone3.js'></script>
 	<script src='elements/manifest.js' async></script>
 	<script>
-		Elements.get('custom-input-bar', 'gallery-scroll-dynamic');
+		Elements.get('custom-input-bar', 'gallery-scroll-dynamic', 'reader-Reader');
 	</script>
 	<script>
 	{
-		document.querySelector('#main_input').addEventListener('accept', (e) => {
-			console.log(e.detail);
-		});
 		(async () => {
 			await Elements.get('gallery-scroll-dynamic');
 			const gallery = document.querySelector('elements-gallery-scroll-dynamic');

@@ -1,5 +1,5 @@
 img.scroll {
-
+	object-fit: contain;
 }
 #pseudoBody {
 	display: flex;
@@ -7,4 +7,10 @@ img.scroll {
 	overflow-y: scroll;
 	height: 100%;
 	width: 100%;
+}
+div.scroll {
+	display: flex;
+	justify-content: center;
+	max-width: 100%;
+	max-height: 100%;
 }
