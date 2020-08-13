@@ -203,7 +203,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		}
 	}
 	back() {
-		if (this._position > 1) {
+		if (this._position > 0) {
 			this.position -= 1;
 		}
 	}
