@@ -97,6 +97,8 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		}
 		if (height != scrollTop && i < this._body.children.length) {
 			this._position = this._start + i - 1;
+		} else if (i === this._body.children.length) {
+			this._position = this._start + i - 1;
 		} else {
 			this._position = this._start + i;
 		}
