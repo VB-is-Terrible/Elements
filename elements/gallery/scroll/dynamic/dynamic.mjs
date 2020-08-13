@@ -18,6 +18,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 	_position = 0;
 	_start = 0;
 	_end = 0;
+	_ticking = false;
 	constructor() {
 		super();
 
@@ -27,7 +28,12 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 
 		this._body = template.querySelector('#pseudoBody');
 		this._body.addEventListener('scroll', (e) => {
-			this._scrollUpdate();
+			if (!this._ticking) {
+				this._ticking = true;
+				requestIdleCallback(() => {
+					this._scrollUpdate();
+				});
+			}
 		})
 		//Fancy code goes here
 		shadow.appendChild(template);
@@ -53,19 +59,17 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		let height = 0;
 		let i = 0;
 		while (height < PRELOAD_HEIGHT) {
-			const img = this.constructor._create_img(urls[i]);
+			const img = this._create_img(urls[i]);
 			requestAnimationFrame(() => {
 				this._body.append(img);
-				console.log(1);
 			});
 			i++;
 			height += PRELOAD_GUESS;
 		}
 		for (let j = 0; j < PRELOAD_EXCEED; j++) {
-			const img = this.constructor._create_img(urls[i + j]);
+			const img = this._create_img(urls[i + j]);
 			requestAnimationFrame(() => {
 				this._body.append(img);
-				console.log(2);
 			});
 		}
 		this._position = 0;
@@ -81,40 +85,96 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			let children = [...this._body.children];
 			for (let img of children) {
 				img.remove();
-				console.log(3);
 			}
 		});
 	}
-	static _create_img(src) {
+	_create_img(src) {
 		const div = document.createElement('div');
 		const img = document.createElement('img');
 		img.className = 'scroll';
 		img.src = src;
+		img.addEventListener('load', () => {
+			this._img_load(img);
+		});
 		div.append(img);
 		return div;
 	}
 	_scrollUpdate() {
-
-		const diff = this._body.scrollHeight - this._body.clientHeight  - this._body.scrollTop
-		let to_load = PRELOAD_EXCEED + 1;
+		let i = 0;
 		let height = 0;
-		let i = this._body.children.length - 1;
-		while (i >= 0 && to_load > 0 && height <= diff) {
+		let below = 0;
+		let above;
+		const scrollTop = this._body.scrollTop;
+		const scrollBottom = this._body.clientHeight + this._body.scrollTop;
+		while (i < this._body.children.length && height < scrollTop) {
 			let img = this._body.children[i];
 			height += img.clientHeight;
-			to_load -= 1;
-			i -= 1;
+			below += 1;
+			i += 1;
 		}
-		console.log('Would add ' + to_load.toString() + ' images');
-		while (to_load > 0 && this._end < this._urls.length) {
-			const img = this.constructor._create_img(this._urls[this._end]);
+		this._position = this._start + i;
+		while (i < this._body.children.length && height < scrollBottom) {
+			let img = this._body.children[i];
+			height += img.clientHeight;
+			i += 1;
+		}
+		above = this._body.children.length - i;
+		// console.log(below, this._body.children.length - below - above, above);
+		if (below <= PRELOAD_EXCEED) {
+			//TODO: Need to account for images loading
+			let to_load = PRELOAD_EXCEED - below + 1;
+			console.log('Would add ' + to_load.toString() + ' images below');
+			let first = this._body.children[0];
+			while (to_load > 0 && this._start > 0) {
+				const img = this._create_img(this._urls[this._start - 1]);
+				requestAnimationFrame(() => {
+					this._body.insertBefore(img, first);
+					first = img;
+				});
+				this._start -= 1;
+				to_load -= 1
+			}
+		} else if (below > KEEP_BEHIND) {
+			let to_remove = below - KEEP_BEHIND;
+			const imgs = [];
+			for (let i = 0; i < to_remove; i++) {
+				imgs.push(this._body.children[i]);
+			}
+			this._start += to_remove;
 			requestAnimationFrame(() => {
-				this._body.append(img);
-				console.log(4);
+				for (const img of imgs) {
+					img.remove();
+				}
 			});
-			this._end += 1;
-			to_load -= 1
 		}
+		if (above < PRELOAD_EXCEED) {
+			let to_load = PRELOAD_EXCEED - above;
+			console.log('Would add ' + to_load.toString() + ' images above');
+			while (to_load > 0 && this._end < this._urls.length) {
+				const img = this._create_img(this._urls[this._end]);
+				requestAnimationFrame(() => {
+					this._body.append(img);
+				});
+				this._end += 1;
+				to_load -= 1
+			}
+		} else if (above > KEEP_BEHIND) {
+			let to_remove = above - KEEP_BEHIND;
+			const imgs = [];
+			for (let i = 0; i < to_remove; i++) {
+				imgs.push(this._body.children[this._body.children.length - i - 1]);
+			}
+			this._end -= to_remove;
+			requestAnimationFrame(() => {
+				for (const img of imgs) {
+					img.remove();
+				}
+			});
+		}
+		requestAnimationFrame(() => {
+			this._ticking = false;
+		});
+		console.log(this._start, this._end);
 	}
 	set position(value) {
 		if (!Number.isInteger(value)) {
@@ -130,6 +190,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			throw new Error('Invalid position ' + value.toString());
 		}
 		//TODO: May reqiure repopulating the gallery
+		//TODO: Set scrollTop instead
 		this._body.children[value].scrollIntoView();
 		this._position = value;
 	}
@@ -145,6 +206,9 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		if (this._position > 1) {
 			this.position -= 1;
 		}
+	}
+	_img_load(img) {
+
 	}
 }
 
