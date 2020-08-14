@@ -184,6 +184,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			if (this._urls.length === 0 && value === 0) {
 				requestAnimationFrame(() => {
 					this._body.scrollIntoView();
+					this._body.scrollTop = 0;
 				});
 				this._position = 0;
 				return;
@@ -199,7 +200,9 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		} else {
 			const index = value - this._start;
 			requestAnimationFrame(() => {
-				this._body.scrollTop = this._body.children[index].offsetTop;
+				this._body.scrollTop = (
+					this._body.children[index].offsetTop -
+					this._body.offsetTop);
 			});
 			this._position = value;
 		}
