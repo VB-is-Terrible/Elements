@@ -47,6 +47,7 @@
         page_count.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 reader.position = parseInt(page_count.value);
+                page_count.value = '';
             }
         });
     };
