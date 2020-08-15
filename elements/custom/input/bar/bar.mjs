@@ -69,7 +69,12 @@ class CustomInputBar extends Elements.elements.backbone3 {
 			this.setAttribute('type', value)
 		}
 	}
-
+	get value() {
+		return this._input.value;
+	}
+	set value(value) {
+		this._input.value = value;
+	}
 	connectedCallback() {
 		super.connectedCallback();
 	}

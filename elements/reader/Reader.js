@@ -3,7 +3,10 @@
     const reader = document.querySelector('#main_scroller');
     const page_count = document.querySelector('#page_count');
     const page_total = document.querySelector('#page_total');
+    const main_input = document.querySelector('#main_input');
     const respond = async (e) => {
+        // @ts-ignore
+        main_input.value = '';
         const form = new FormData();
         form.append('url', e.detail);
         const response = await fetch('//127.0.0.1:5000', {
@@ -25,7 +28,7 @@
     };
     const main = () => {
         // @ts-ignore
-        document.querySelector('#main_input').addEventListener('accept', respond);
+        main_input.addEventListener('accept', respond);
         document.body.addEventListener('keypress', (e) => {
             switch (e.code) {
                 case 'KeyA':
@@ -44,12 +47,6 @@
         });
         // @ts-ignore
         reader.addEventListener('positionChange', update_page);
-        page_count.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                reader.position = parseInt(page_count.value);
-                page_count.value = '';
-            }
-        });
     };
     main();
     // @ts-ignore
