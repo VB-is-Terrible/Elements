@@ -990,6 +990,17 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "reader/Reader": {
+        "css": [],
+        "provides": [
+            "Reader"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "module"
+    },
     "tab/tabs": {
         "css": [
             "tab/tabs/style.css"
