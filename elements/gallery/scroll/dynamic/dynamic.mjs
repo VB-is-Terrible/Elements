@@ -100,7 +100,11 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		if (height != scrollTop && i < this._body.children.length) {
 			this._position = this._start + i - 1;
 		} else if (i === this._body.children.length) {
-			this._position = this._start + i - 1;
+			if (this.img_urls.length === 0) {
+				this._position = 0;
+			} else {
+				this._position = this._start + i - 1;
+			}
 		} else {
 			this._position = this._start + i;
 		}
@@ -245,7 +249,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			current += 1;
 		}
 		let height = 0;
-		{
+		if (current < this._urls.length) {
 			const img = this._create_img(this._urls[current], () => {
 				requestAnimationFrame(() => {
 					img.scrollIntoView();
@@ -278,9 +282,11 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		}
 		this._end = current + i;
 		this._position = position;
-		requestAnimationFrame(() => {
-			this._body.children[position - this._start].scrollIntoView()
-		});
+		if (this._end - this._start) {
+			requestAnimationFrame(() => {
+				this._body.children[position - this._start].scrollIntoView()
+			});
+		}
 
 	}
 }
