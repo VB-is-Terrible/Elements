@@ -8,9 +8,11 @@ const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 6;
 const KEEP_BEHIND = 20;
 /**
- * [GalleryScrollDynamic Description]
+ * A image scroller with dynamic insertion/removal
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
+ * @property {Number} position The index of the currently viewed image
+ * @property {Array<String>} img_urls The list of urls of images to display
  */
 class GalleryScrollDynamic extends Elements.elements.backbone3 {
 	_body;
@@ -50,8 +52,8 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 	}
 	set img_urls(urls) {
 		if (!(urls instanceof Array)) {
-			throw new Error('Did not get a list of urls');
 			console.error('This is not a list of urls', urls);
+			throw new Error('Did not get a list of urls');
 			}
 		this._urls = urls;
 
@@ -80,6 +82,9 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			}
 		}
 		img.addEventListener('load', callback);
+		img.addEventListener('error', () => {
+			console.log('Failed load for url: ', src);
+		})
 		div.append(img);
 		return div;
 	}
