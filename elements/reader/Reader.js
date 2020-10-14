@@ -1,4 +1,5 @@
 "use strict";
+let current_url = '';
 {
     const reader = document.querySelector('#main_scroller');
     const page_count = document.querySelector('#page_count');
@@ -9,6 +10,7 @@
         main_input.value = '';
         const form = new FormData();
         form.append('url', e.detail);
+        current_url = e.detail;
         const response = await fetch('//127.0.0.1:5000', {
             method: 'POST',
             body: form,
@@ -25,6 +27,10 @@
         requestAnimationFrame(() => {
             page_count.value = e.detail.toString();
         });
+    };
+    const page_update = (e) => {
+        const page = parseInt(page_count.value);
+        reader.position = page;
     };
     const main = () => {
         // @ts-ignore
@@ -47,9 +53,9 @@
         });
         // @ts-ignore
         reader.addEventListener('positionChange', update_page);
+        page_count.addEventListener('change', page_update);
     };
     main();
     // @ts-ignore
     Elements.loaded('Reader');
-    console.log('Done');
 }

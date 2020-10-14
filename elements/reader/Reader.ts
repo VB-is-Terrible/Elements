@@ -1,3 +1,5 @@
+let current_url = '';
+
 {
 interface dynamic extends HTMLElement {
 	img_urls: Array<string>;
@@ -17,6 +19,7 @@ const respond = async (e: CustomEvent) => {
 	main_input.value = '';
 	const form = new FormData();
 	form.append('url', e.detail);
+	current_url = e.detail;
 	const response = await fetch('//127.0.0.1:5000', {
 		method: 'POST',
 		body: form,
@@ -34,6 +37,11 @@ const update_page = (e: CustomEvent) => {
 	requestAnimationFrame(() => {
 		page_count.value = e.detail.toString();
 	});
+};
+
+const page_update = (e: Event) => {
+	const page = parseInt(page_count.value);
+	reader.position = page;
 };
 
 const main = () => {
@@ -57,13 +65,12 @@ const main = () => {
 	});
 	// @ts-ignore
 	reader.addEventListener('positionChange', update_page);
+	page_count.addEventListener('change', page_update);
+
 }
 
 main();
 
 // @ts-ignore
 Elements.loaded('Reader');
-
-console.log('Done');
-
 }
