@@ -47,8 +47,7 @@ def main():
 	module_name = tokenise(name0)[-1]
 	version_input = input('Enter version number: ')
 	if not version_input:
-		print('Empty input')
-		return
+		version = 3
 	else:
 		try:
 			version = int(version_input)
