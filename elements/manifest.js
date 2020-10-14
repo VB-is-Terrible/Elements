@@ -67,6 +67,21 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "container/autohide": {
+        "css": [
+            "container/autohide/autohide.css"
+        ],
+        "provides": [
+            "container/autohide"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "container/autohide/autohideTemplate.html"
+        ],
+        "type": "element3"
+    },
     "container/rotate": {
         "css": [
             "common/float.css",

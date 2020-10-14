@@ -1,0 +1,22 @@
+#pseudoBody {
+	position: fixed;
+	/* top: 1em; */
+	/* bottom: calc(-100% + .5em); */
+	top: 0;
+	left: 0;
+	/* z-index: 999; */
+	/* padding: 0; */
+	width: 100%;
+}
+
+#expander {
+	width: 100%;
+	transition: transform .5s;
+	/* top: calc(-100% + .5em); */
+	transform: translate(0, calc(-100% + 1em));
+	position: relative;
+}
+
+#expander:hover {
+	transform: translate(0, 0);
+}
