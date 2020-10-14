@@ -84,6 +84,9 @@ class CustomInputBar extends Elements.elements.backbone3 {
 	static get observedAttributes () {
 		return ['text', 'type'];
 	}
+	focus() {
+		this._input.focus();
+	}
 
 }
 
