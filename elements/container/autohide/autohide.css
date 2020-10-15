@@ -12,11 +12,11 @@
 #expander {
 	width: 100%;
 	transition: transform .5s;
-	/* top: calc(-100% + .5em); */
-	transform: translate(0, calc(-100% + 1em));
+	transform: translate(0, calc(-100% + .75em));
 	position: relative;
 }
 
 #expander:hover {
 	transform: translate(0, 0);
+	padding-bottom: 1em;
 }
