@@ -9,14 +9,33 @@ import {Elements} from '../../Elements.mjs';
  * @memberof Elements.elements
  */
 class ContainerAutohide extends Elements.elements.backbone3 {
+	_show_offset = '.75em';
+	_expander;
 	constructor() {
 		super();
 
 		this.name = 'ContainerAutohide';
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(this.name);
+		this._expander = template.querySelector('#expander');
 		//Fancy code goes here
 		shadow.appendChild(template);
+		this.applyPriorProperties('show_offset')
+	}
+	get show_offset() {
+		return this._show_offset;
+	}
+	set show_offset(value) {
+		if (value === this._show_offset) {
+			return;
+		}
+		this._show_offset = value;
+		requestAnimationFrame(() => {
+			this._expander.style.transform = 'translate(0, calc(-100% + ' + value + ' + 1em))';
+		});
+		if (this.attributeInit) {
+			this.setAttribute('show_offset', value);
+		}
 	}
 	connectedCallback() {
 		super.connectedCallback();
@@ -25,7 +44,7 @@ class ContainerAutohide extends Elements.elements.backbone3 {
 		super.disconnectedCallback();
 	}
 	static get observedAttributes() {
-		return [];
+		return ['show_offset'];
 	}
 
 }
