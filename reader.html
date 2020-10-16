@@ -44,6 +44,21 @@
 		#page_total {
 			background: white;
 		}
+		#folder_grid {
+			--width: 100%;
+			--height: 100%;
+			--grid-gap: .75em;
+		}
+		#grid_box {
+			/* width: 1400px; */
+		}
+		p.folder {
+			font-size: x-small;
+			max-height: 5ex;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin: 0;
+		}
 		</style>
 	</head>
 	<body>
@@ -72,7 +87,22 @@
 
 			</div>
 		</elements-container-autohide>
-
+		<elements-container-dialog dialog_hidden='false'>
+			<div id='grid_box'>
+				<elements-grid id='folder_grid'>
+					<p slot='s1'>10</p>
+					<p slot='s2'>11</p>
+					<p slot='s3'>12</p>
+					<p slot='s4'>13</p>
+					<p slot='s5'>14</p>
+					<p slot='s6'>15</p>
+					<p slot='s7'>16</p>
+					<p slot='s8'>17</p>
+					<p slot='s9'>18</p>
+					<p slot='s10'>19</p>
+				</elements-grid>
+			</div>
+		</elements-container-dialog>
 		<!-- <div style='min-height: 5000px; color: green;background: red'>
 		asdfasdf
 		</div> -->
@@ -80,7 +110,14 @@
 	<script src='elements/backbone3.js'></script>
 	<script src='elements/manifest.js' async></script>
 	<script>
-		Elements.get('custom-input-bar', 'gallery-scroll-dynamic', 'reader-Reader', 'container-autohide');
+		Elements.get(
+			'custom-input-bar',
+			'gallery-scroll-dynamic',
+			'reader-Reader',
+			'container-autohide',
+			'container-dialog',
+			'grid',
+		);
 	</script>
 	<script>
 	{
