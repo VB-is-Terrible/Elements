@@ -67,6 +67,15 @@ Elements.manifest = {
         ],
         "type": "element"
     },
+    "container": {
+        "css": [],
+        "provides": [],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [],
+        "type": "element3"
+    },
     "container/autohide": {
         "css": [
             "container/autohide/autohide.css"
@@ -79,6 +88,21 @@ Elements.manifest = {
         "resources": [],
         "templates": [
             "container/autohide/autohideTemplate.html"
+        ],
+        "type": "element3"
+    },
+    "container/dialog": {
+        "css": [
+            "container/dialog/dialog.css"
+        ],
+        "provides": [
+            "container/dialog"
+        ],
+        "recommends": [],
+        "requires": [],
+        "resources": [],
+        "templates": [
+            "container/dialog/dialogTemplate.html"
         ],
         "type": "element3"
     },

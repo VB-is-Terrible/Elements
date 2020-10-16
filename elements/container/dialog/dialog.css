@@ -1,0 +1,19 @@
+#pseudoBody {
+	position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+}
+#animationBody {
+	border-radius: .5em;
+	border: 3px solid black;
+	background: white;
+	max-width: 80vw;
+	max-height: 80vh;
+	box-sizing: border-box;
+	overflow: auto;
+}
+#paddingBox {
+	padding: 1em;
+}
