@@ -211,7 +211,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 				let div = newDiv.content.querySelector('div.HolderDiv');
 				let slot = newDiv.content.querySelector('slot.link');
 
-				div.style.gridArea = this.constructor.numToCharCode(count + 1);
+				div.style.gridArea = this.constructor.numToCharCode(count);
 				slot.name = 's' + (count + 1).toString();
 				insertionPoint.appendChild(newDiv.content);
 			}
@@ -225,7 +225,7 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 	 * @return {String}         templateAreas
 	 */
 	static generateGridNames (rows, columns) {
-		let i = 1;
+		let i = 0;
 		let result = '';
 		for (let y = 0; y < rows; y++) {
 			result += '\'';
@@ -243,18 +243,27 @@ Elements.elements.Grid = class extends Elements.elements.backbone {
 	 * @return {String}     Base 26 encoding
 	 */
 	static numToCharCode (num) {
-		const base = 26;
-		let result = [];
+                const base = 26;
+        	const a_point = 0x61;
+        	let result = [];
+        	let multi_digit = false;
+        	const last_base = base + 1;
+        	{
+        		let mod = num % base;
+        		result.push(mod + a_point);
+        		num -= mod;
+        		num /= base;
+        	}
+        	while (num != 0) {
+        		num -= 1;
+        		let mod = num % base;
+        		result.push(mod + a_point);
+        		num -= mod;
+        		num /= base;
+        	}
 
-		while (num > 0) {
-			let mod = num % base;
-			result.push(mod + 96);
-			num -= mod;
-			num /= base;
-		}
-
-		result.reverse();
-		return String.fromCodePoint(...result);
+        	result.reverse();
+        	return String.fromCodePoint(...result);
 	}
 
 };
