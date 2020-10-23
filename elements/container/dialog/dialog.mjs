@@ -40,6 +40,7 @@ class ContainerDialog extends Elements.elements.backbone3 {
 	_animation_state = false;
 	_hidden = false;
 	_body;
+	_ready = false;
 	constructor() {
 		super();
 
@@ -53,9 +54,11 @@ class ContainerDialog extends Elements.elements.backbone3 {
 	}
 	connectedCallback() {
 		super.connectedCallback();
+		this._ready = true;
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
+		this._ready = false;
 	}
 	hide() {
 		_set_hidden(true);
@@ -76,6 +79,17 @@ class ContainerDialog extends Elements.elements.backbone3 {
 	}
 	_set_hidden(value) {
 		if (this._hidden === value) {return;}
+		if (!this.ready) {
+			if (value) {
+				this._body.style.display = 'none';
+			} else {
+				this._body.style.display = 'block';
+			}
+			this._hidden = value;
+			return;
+		} else {
+
+		}
 		if (this._animation_state === true) {
 			this._animation.reverse();
 		} else {
