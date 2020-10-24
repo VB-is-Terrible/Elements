@@ -47,7 +47,7 @@ def main():
 	module_name = tokenise(name0)[-1]
 	version_input = input('Enter version number: ')
 	if not version_input:
-		version = 3
+		version = 4
 	else:
 		try:
 			version = int(version_input)
@@ -68,6 +68,8 @@ def main():
 	os.makedirs(location + name0, exist_ok=True)
 	if version == 3:
 		create3(name0, name1, name2, layers, module_name)
+	elif version == 4:
+		create4(name0, name1, name2, layers, module_name)
 	elif 0 < version < 3:
 		create2(name0, name1, name2)
 	else:
@@ -101,6 +103,47 @@ def create3(name0, name1, name2, name3, moduleName):
 		copy('Templates/nameTemplate.html', folder + 'Template.html', *args)
 		copy('Templates/template.css', folder + '.css', *args)
 		copy('Templates/template.mjs', folder + '.mjs', *args)
+	except Exception as e:
+		print('The following error occured during copying')
+		print(e)
+		folder = location + name0 + '/' + moduleName
+		suffixes = ['/template.html', '/style.css', '/element.js']
+		files = [location + name0 + suffix for suffix in suffixes]
+		for name in files:
+			try:
+				os.remove(name)
+			except Exception:
+				pass
+
+
+def add_to_gitignore(gitignore: str, filename: str):
+	if os.path.isfile(gitignore):
+		with open(gitignore, 'a') as file:
+			file.write(filename + '\n')
+	else:
+		with open(gitignore, 'w') as file:
+			file.write(filename + '\n')
+
+
+def strip_nocheck(filename: str):
+	with open(filename) as file:
+		lines = file.readlines()
+		lines.pop(0)
+	with open(filename, 'w') as file:
+		file.writelines(lines)
+
+
+def create4(name0, name1, name2, name3, moduleName):
+	try:
+		args = [name0, name1, name2, moduleName, name3]
+		folder = location + name0 + '/' + moduleName
+		copy('Templates/nameTemplate.html', folder + 'Template.html', *args)
+		copy('Templates/template.css', folder + '.css', *args)
+		copy('Templates/template.ts', folder + '.ts', *args)
+		strip_nocheck(folder + '.ts')
+		add_to_gitignore(
+			os.path.join(location, name0, '.gitignore'),
+			moduleName + '.js')
 	except Exception as e:
 		print('The following error occured during copying')
 		print(e)
