@@ -2,3 +2,5 @@ elements_core.js
 elements_backbone.js
 elements_helper.js
 backbone4.js
+manifest.js
+manifest.json
