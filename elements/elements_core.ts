@@ -9,7 +9,8 @@ type ElementType =
 	"module" |
 	"element" |
 	"element3" |
-	"module3";
+	"module3" |
+	"element4";
 
 
 interface manifest_single {
@@ -402,6 +403,23 @@ class Elements {
 		}
 	}
 
+	async _loadTS (elementName: string, requires: string[]) {
+		if ((this._requestedElements.has(elementName))) {
+			return;
+		}
+		let name_tokens = this.tokenise(elementName);
+		let module_name = name_tokens[name_tokens.length - 1];
+		let location = elementName + '/' + module_name + '.js';
+		let link = document.createElement('link');
+		link.rel = 'modulepreload';
+		link.href = this.location + location;
+		this._preloadLocation.append(link);
+		this._requestedElements.add(elementName);
+
+		await this.get(...requires);
+
+		import('./' + location);
+	}
 	/**
 	 * Loads a custom element from js files. Shim to elements.get
 	 * @param  {...String} elementNames name of element to import
@@ -524,6 +542,8 @@ class Elements {
 			// Recursivly look up dependencies
 			if (manifest['type'] === 'element3' || manifest['type'] === 'module3') {
 				this._loadModule(name, manifest['requires']);
+			} else if (manifest['type'] === 'element4') {
+				this._loadTS(name, manifest['requires']);
 			} else {
 				this._require(name);
 			}
@@ -932,6 +952,7 @@ class Elements {
 			case 2:
 				return jsName + '/template.html';
 			case 3:
+			case 4:
 				let tokens = this.tokenise(jsName);
 				let last = tokens[tokens.length - 1];
 				return jsName + '/' + last + 'Template.html';
