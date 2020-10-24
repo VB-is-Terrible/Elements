@@ -498,8 +498,10 @@ class Elements {
 			throw new Error('Could not find "' + elementName + '" in the manifest');
 		} else {
 			// Recursivly look up dependencies
-			if (manifest['type'] == 'element3' || manifest['type'] == 'module3') {
+			if (manifest['type'] === 'element3' || manifest['type'] === 'module3') {
 				this._loadModule(name, manifest['requires']);
+			} else if (manifest['type'] === 'element4' || manifest['type'] === 'module4') {
+				throw new Error('Elements v4 requires an upgrade');
 			} else {
 				this._require(name);
 			}
