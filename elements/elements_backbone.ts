@@ -205,4 +205,29 @@ export class backbone3 extends backbone2 {
 
 }
 
+export class backbone4 extends backbone3 {
+        static __backbone_version = 4;
+        /**
+         * Apply the properties saved in the constructor
+         * @param  {...Strings} properties Properties to restore
+         * @deprecated
+         * @instance
+         */
+        applyPriorProperties(...properties: (string)[]) {
+                console.warn('Using deprecated function applyPriorProperties');
+                return super.applyPriorProperties(...properties);
+        }
+        /**
+         * Apply the property saved in the constructor, or initial
+         * if the property was not present
+         * @param  {String} property Property to restore
+         * @param  {*} initial       What to set the property to if it was saved
+         * @instance
+         */
+        applyPriorProperty(property: string, initial: any) {
+                console.warn('Using deprecated function applyPriorProperty');
+                return super.applyPriorProperty(property, initial);
+        }
+}
+
 initDefaultPreperties();
