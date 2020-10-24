@@ -224,6 +224,26 @@ def parse_mjs(dirpath: str, root: str, name: str):
         return manifest
 
 
+def parse_ts(dirpath: str, root: str, name: str):
+        manifest = new_manifest()
+        if name[0].isupper():
+                manifest['type'] = 'module4'
+        else:
+                manifest['type'] = 'element4'
+        location = os.path.join(dirpath, name)
+        with open(location) as f:
+                _parse_mjs(f, manifest, name)
+
+        parser = linkParser()
+        for template in manifest['templates']:
+                with open(root + template) as f:
+                        file_string = f.read()
+                parser.feed(file_string)
+        manifest['css'] = parser.css
+        manifest['resources'] = parser.resources
+        return manifest
+
+
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
         output = json.dumps(results, indent=4, sort_keys=True)
@@ -245,7 +265,8 @@ def walk(dirpath: str, root: str):
         # Check for element module js files
         for file in os.listdir(dirpath):
                 if file[0].isupper() and file.endswith('.js') and \
-                   isfile(os.path.join(dirpath, file)):
+                   isfile(os.path.join(dirpath, file)) and \
+                   not isfile(os.path.join(dirpath, file[:-3] + '.ts')):
                         modules.append(os.path.join(dirpath, file))
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
@@ -260,6 +281,10 @@ def walk(dirpath: str, root: str):
                 else:
                         name = remove_prefix(dirpath, root)
                         results[name] = parse_mjs(dirpath, root, file)
+        for file in os.listdir(dirpath):
+                if file.endswith('.ts'):
+                        name = remove_prefix(dirpath, root)
+                        results[name] = parse_ts(dirpath, root, file)
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
                 if isdir(dirname):
