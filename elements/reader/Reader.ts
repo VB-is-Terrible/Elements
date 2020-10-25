@@ -39,7 +39,7 @@ const update_page = (e: CustomEvent) => {
 	});
 };
 
-const page_update = (e: Event) => {
+const page_update = (_e: Event) => {
 	const page = parseInt(page_count.value);
 	reader.position = page;
 };

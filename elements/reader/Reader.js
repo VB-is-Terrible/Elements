@@ -28,7 +28,7 @@ let current_url = '';
             page_count.value = e.detail.toString();
         });
     };
-    const page_update = (e) => {
+    const page_update = (_e) => {
         const page = parseInt(page_count.value);
         reader.position = page;
     };
