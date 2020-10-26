@@ -39,7 +39,6 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 		})
 		//Fancy code goes here
 		shadow.appendChild(template);
-		console.log('Test');
 	}
 	connectedCallback() {
 		super.connectedCallback();
