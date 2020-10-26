@@ -8,7 +8,7 @@ const defaultProperties = new Set();
  */
 const initDefaultPreperties = function () {
 	let Sentinel = class extends HTMLElement {};
-	customElements.define('black-hole-sentinel-mjs', Sentinel);
+	customElements.define('black-hole-sentinel-ts', Sentinel);
 	let base = new Sentinel();
 	for (let property in base) {
 		defaultProperties.add(property);

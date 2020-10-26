@@ -10,7 +10,9 @@ type ElementType =
 	"element" |
 	"element3" |
 	"module3" |
-	"element4";
+	"element4" |
+	"module4" |
+	"script4";
 
 
 interface manifest_single {
@@ -420,6 +422,27 @@ class Elements {
 
 		import('./' + location);
 	}
+	async _loadScript(elementName: string, requires: string[]) {
+		if ((this._requestedElements.has(elementName))) {
+			return;
+		}
+		const name_tokens = this.tokenise(elementName);
+		let module_name = name_tokens[name_tokens.length - 1];
+		let location = this.location + elementName + '/' + module_name + '.js';
+		let link = document.createElement('link');
+		link.rel = 'preload';
+		link.as = 'script';
+		link.href = location;
+		this._preloadLocation.append(link);
+		this._requestedElements.add(name);
+		let script = document.createElement('script');
+		script.src = location;
+		script.async = true;
+
+		await this.get(...requires);
+
+		this._scriptLocation.appendChild(script);
+	}
 	/**
 	 * Loads a custom element from js files. Shim to elements.get
 	 * @param  {...String} elementNames name of element to import
@@ -539,14 +562,23 @@ class Elements {
 			// No entry in manifest
 			throw new Error('Could not find "' + elementName + '" in the manifest');
 		} else {
-			// Recursivly look up dependencies
-			if (manifest['type'] === 'element3' || manifest['type'] === 'module3') {
-				this._loadModule(name, manifest['requires']);
-			} else if (manifest['type'] === 'element4') {
-				this._loadTS(name, manifest['requires']);
-			} else {
-				this._require(name);
+			switch (manifest['type']) {
+				case 'element3':
+				case 'module3':
+					this._loadModule(name, manifest['requires']);
+					break;
+				case 'element4':
+				case 'module4':
+					this._loadTS(name, manifest['requires']);
+					break;
+				case 'script4':
+					this._loadScript(name, manifest['requires']);
+					break;
+				default:
+					this._require(name);
+					break;
 			}
+			// Recursivly look up dependencies
 			this.get(...manifest.requires);
 			this.get(...manifest.recommends);
 			// Pre-empt templates

@@ -73,7 +73,7 @@ main();
 
 
 // @ts-ignore
-Elements.loaded('Reader');
+Elements.loaded('reader-Reader');
 }
 
 
@@ -118,3 +118,5 @@ const test = () => {
 }
 
 test();
+
+console.log('done')

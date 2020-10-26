@@ -226,11 +226,14 @@ def parse_mjs(dirpath: str, root: str, name: str):
 
 def parse_ts(dirpath: str, root: str, name: str):
         manifest = new_manifest()
+        location = os.path.join(dirpath, name)
         if name[0].isupper():
-                manifest['type'] = 'module4'
+                if is_module(location):
+                        manifest['type'] = 'module4'
+                else:
+                        manifest['type'] = 'script4'
         else:
                 manifest['type'] = 'element4'
-        location = os.path.join(dirpath, name)
         with open(location) as f:
                 _parse_mjs(f, manifest, name)
 
@@ -290,6 +293,14 @@ def walk(dirpath: str, root: str):
                 if isdir(dirname):
                         results = {**results, **walk(dirname, root)}
         return results
+
+
+def is_module(filename):
+        with open(filename) as fin:
+                for line in fin:
+                        if 'export' in line:
+                                return True
+        return False
 
 
 if __name__ == '__main__':
