@@ -10,10 +10,10 @@ import {} from '$4elements_helper.js'
 const ELEMENT_NAME = '$1';
 /**
  * [$1 Description]
- * @augments Elements.elements.backbone3
+ * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  */
-class $1 extends backbone4 {
+export class $1 extends backbone4 {
 	constructor() {
 		super();
 
