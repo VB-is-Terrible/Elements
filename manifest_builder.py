@@ -298,7 +298,7 @@ def walk(dirpath: str, root: str):
 def is_module(filename):
         with open(filename) as fin:
                 for line in fin:
-                        if 'export' in line:
+                        if line.startswith('export'):
                                 return True
         return False
 
