@@ -18,7 +18,7 @@ export class $1 extends backbone4 {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME);
+		const template = Elements.importTemplate(ELEMENT_NAME) as HTMLElement;
 
 		//Fancy code goes here
 		shadow.appendChild(template);
