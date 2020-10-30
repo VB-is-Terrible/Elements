@@ -1,7 +1,7 @@
 export const recommends = ['projects-project-full-display', 'projects-project-full-editor', 'container-rotate', 'projects-project-selection'];
 export const requires = [];
 
-import {Elements} from '../../../Elements.mjs';
+import {Elements} from '../../../elements_core.js';
 
 const DISPLAY_SELECTOR = 'elements-projects-project-full-display';
 const EDIT_SELECTOR = 'elements-projects-project-full-editor';

@@ -1,7 +1,7 @@
 export const recommends = [];
 export const requires = [];
 
-import {Elements} from '$4Elements.mjs';
+import {Elements} from '$4elements_core.js';
 
 /**
  * [$1 Description]

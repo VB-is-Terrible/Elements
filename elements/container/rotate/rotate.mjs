@@ -1,7 +1,7 @@
 export const recommends = [];
 export const requires = [];
 
-import {Elements} from '../../Elements.mjs';
+import {Elements} from '../../elements_core.js';
 
 const SLOT_TEMPLATE = 'ContainerRotate-Stackable';
 const template_promise = Elements.loadTemplate('container/rotate/stackableTemplate.html');

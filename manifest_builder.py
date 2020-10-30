@@ -16,8 +16,11 @@ Elements.__getBacklog();
 '''
 
 EXCLUDES = set([
-        ('./elements/', 'Elements.mjs'),
+        ('./elements/', 'elements_core.js'),
+        ('./elements/', 'Elements.js'),
+        ('./elements/', 'elements_helper.js'),
         ('./elements/', 'elements_backbone.mjs')
+        ('./elements/', 'elements_backbone.js')
 ])
 
 

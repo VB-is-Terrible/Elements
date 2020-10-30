@@ -1,7 +1,7 @@
 export const recommends = [];
 export const requires = [];
 
-import {Elements} from '../../../Elements.mjs';
+import {Elements} from '../../../elements_core.js';
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;

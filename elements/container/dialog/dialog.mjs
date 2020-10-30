@@ -1,7 +1,7 @@
 export const recommends = [];
 export const requires = [];
 
-import {Elements} from '../../Elements.mjs';
+import {Elements} from '../../elements_core.js';
 
 // const animation_states = Object.freeze({
 // 	none: 0,
