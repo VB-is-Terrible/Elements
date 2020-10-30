@@ -1,17 +1,17 @@
 let current_url = '';
 
-{
-interface dynamic extends HTMLElement {
-	img_urls: Array<string>;
-	position: number;
-	next(): void;
-	back(): void;
-}
+import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
+import type {ContainerDialog} from '../../container/dialog/dialog.js';
+export {};
 
-const reader = document.querySelector('#main_scroller')! as dynamic;
+{
+
+const reader = document.querySelector('#main_scroller')! as GalleryScrollDynamic;
 const page_count = document.querySelector('#page_count')! as HTMLInputElement;
 const page_total = document.querySelector('#page_total')! as HTMLSpanElement;
 const main_input = document.querySelector('#main_input');
+const dialog = document.querySelector('elements-container-dialog') as ContainerDialog;
+const preview_template = document.querySelector('#reader-preview') as HTMLTemplateElement;
 
 
 const respond = async (e: CustomEvent) => {
@@ -27,6 +27,7 @@ const respond = async (e: CustomEvent) => {
 	const [urls, title] = await response.json();
 	document.title = title;
 	reader.img_urls = urls;
+	dialog.hide();
 	requestAnimationFrame(() => {
 		page_count.value = '0';
 		page_total.innerHTML = '/ ' + urls.length.toString();
@@ -42,6 +43,14 @@ const update_page = (e: CustomEvent) => {
 const page_update = (_e: Event) => {
 	const page = parseInt(page_count.value);
 	reader.position = page;
+};
+
+const LOCAL_FILES_BASE = '//127.0.0.1:5000/local_folders';
+const load_local = async () => {
+	console.log('a');
+	const folders: {[key: number]: string} = await (await fetch(LOCAL_FILES_BASE)).json();
+	console.log('b');
+	fill_folders_link(folders);
 };
 
 const main = () => {
@@ -63,11 +72,88 @@ const main = () => {
 				console.log(e.key);
 		}
 	});
-	// @ts-ignore
-	reader.addEventListener('positionChange', update_page);
+	reader.addEventListener('positionChange', update_page as EventListener);
 	page_count.addEventListener('change', page_update);
-
+	const local_button = document.querySelector('#local') as HTMLButtonElement;
+	const remote_button = document.querySelector('#remote') as HTMLButtonElement;
+	local_button.addEventListener('click', () => {
+		dialog.show();
+	});
+	remote_button.addEventListener('click', () => {
+		dialog.hide();
+	});
+	load_local();
 }
+
+
+const fill_folders_link = (folders: {[key: number]: string}) => {
+	// debugger;
+	const columns = 5;
+	const folder_grid = document.querySelector('#folder_grid')! as grid;
+	const rows = Math.ceil((Object.keys(folders).length) / columns);
+	folder_grid.columns = columns;
+	folder_grid.rows = rows;
+	let children = [...folder_grid.children];
+	requestAnimationFrame(() => {
+		for (let img of children) {
+			img.remove();
+		}
+	});
+
+	const inverse = new Map<string, string>();
+	const names = [];
+	for (const url in folders) {
+		const name = folders[url];
+		names.push(name);
+		inverse.set(name, url);
+	}
+	names.sort();
+
+	let count = 1;
+	for (const name of names) {
+		const url = inverse.get(name);
+		const fragment = document.importNode(preview_template, true).content;
+		const p = fragment.querySelector('p.folder') as HTMLParagraphElement;
+		const div = fragment.querySelector('div.folder') as HTMLDivElement;
+		const img = fragment.querySelector('img.folder') as HTMLImageElement;
+		const folder_url = LOCAL_FILES_BASE + '/' + url
+
+		const event_listener = () => {
+			p.className += ' visited';
+			visit_local_link(folder_url, name);
+		};
+		img.addEventListener('click', event_listener);
+		p.addEventListener('click', event_listener);
+		p.innerHTML = name;
+		div.slot = 's' + count.toString();
+		img.src = folder_url + '/' + '0'
+		// p.style.width = '10em';
+		// p.style.height = '10em';
+		requestAnimationFrame(() => {
+			folder_grid.append(fragment);
+		});
+		count += 1;
+	}
+	console.log('derp')
+};
+
+const visit_local_link = async (url: string, gallery_name: string) => {
+	const pic_names: Array<string> = await (await fetch(url)).json();
+	const links = []
+	for (const pic of pic_names) {
+		links.push(url + '/' + pic);
+	}
+	reader;
+
+	reader.img_urls = links;
+	document.title = gallery_name;
+	requestAnimationFrame(() => {
+		page_count.value = '0';
+		page_total.innerHTML = '/ ' + links.length.toString();
+	});
+	dialog.hide();
+	return false;
+};
 
 main();
 
@@ -83,40 +169,5 @@ interface grid extends HTMLElement {
 	coordnaming: boolean;
 }
 
-const folders = ['Lorem', 'ipsum', 'dolor', 'sit', 'amet,', 'consectetur', 'adipisicing', 'elit,', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua.', 'Ut', 'enim', 'ad', 'minim', 'veniam,', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea', 'commodo', 'consequat.', 'Duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit', 'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla', 'pariatur.', 'Excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident,', 'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum.', 'Lorem', 'ipsum', 'dolor', 'sit', 'amet,', 'consectetur', 'adipisicing', 'elit,', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua.', 'Ut', 'enim', 'ad', 'minim', 'veniam,', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea', 'commodo', 'consequat.', 'Duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit', 'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla', 'pariatur.', 'Excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident,', 'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum.', 'Lorem', 'ipsum', 'dolor', 'sit', 'amet,', 'consectetur', 'adipisicing', 'elit,', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua.', 'Ut', 'enim', 'ad', 'minim', 'veniam,', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea', 'commodo', 'consequat.', 'Duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit', 'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla', 'pariatur.', 'Excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident,', 'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum.', 'Lorem', 'ipsum', 'dolor', 'sit', 'amet,', 'consectetur', 'adipisicing', 'elit,', 'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore', 'magna', 'aliqua.', 'Ut', 'enim', 'ad', 'minim', 'veniam,', 'quis', 'nostrud', 'exercitation', 'ullamco', 'laboris', 'nisi', 'ut', 'aliquip', 'ex', 'ea', 'commodo', 'consequat.', 'Duis', 'aute', 'irure', 'dolor', 'in', 'reprehenderit', 'in', 'voluptate', 'velit', 'esse', 'cillum', 'dolore', 'eu', 'fugiat', 'nulla', 'pariatur.', 'Excepteur', 'sint', 'occaecat', 'cupidatat', 'non', 'proident,', 'sunt', 'in', 'culpa', 'qui', 'officia', 'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum.']
 
-const fill_folders = (folder_names: Array<string>) => {
-	const columns = 5;
-	const folder_grid = document.querySelector('#folder_grid')! as grid;
-	const rows = Math.ceil((folder_names.length) / columns);
-	folder_grid.columns = columns;
-	folder_grid.rows = rows;
-	console.log(folder_names.length);
-	let children = [...folder_grid.children];
-	requestAnimationFrame(() => {
-		for (let img of children) {
-			img.remove();
-		}
-	});
-	let count = 1;
-	for (const folder of folder_names) {
-		const p = document.createElement('p');
-		p.innerHTML = folder;
-		p.slot = 's' + count.toString();
-		// p.style.width = '10em';
-		// p.style.height = '10em';
-		p.className = 'folder';
-		requestAnimationFrame(() => {
-			folder_grid.append(p);
-		});
-		count += 1;
-	}
-};
-
-const test = () => {
-	fill_folders(folders);
-}
-
-test();
-
-console.log('done')
+console.log('done');
