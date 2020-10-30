@@ -3,13 +3,9 @@
 	<head>
 		<meta charset='utf-8'>
 		<title>Reader prototype</title>
-		<!-- <link rel='preload' href='elements/backbone4.js' as='script'></link>
+		<link rel='preload' href='elements/backbone4.js' as='script'></link>
 		<link rel='modulepreload' href='elements/elements_core.js'></link>
 		<link rel='modulepreload' href='elements/elements_backbone.js'></link>
-		<link rel='preload' href='elements/manifest.js' as='script'></link> -->
-		<link rel='preload' href='elements/backbone3.js' as='script'></link>
-		<link rel='modulepreload' href='elements/elements_core.js'></link>
-		<link rel='modulepreload' href='elements/elements_backbone.mjs'></link>
 		<link rel='modulepreload' href='elements/elements_helper.js'></link>
 		<link rel='preload' href='elements/manifest.js' as='script'></link>
 		<style>
@@ -63,8 +59,32 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 			margin: 0;
+			color: blue;
+			text-decoration: underline;
+			cursor: pointer;
+		}
+		p.folder.visited {
+			color: rgb(99, 8, 140);
+		}
+		img.folder {
+			max-width: 20ex;
+			max-height: 20ex;
+			cursor: pointer;
+		}
+		div.centre {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 		</style>
+		<template id='reader-preview'>
+			<div class='folder'>
+				<div class='centre'>
+					<img class='folder'></img>
+				</div>
+				<p class='folder'></p>
+			</div>
+		</template>
 	</head>
 	<body>
 		<div class='scroll'>
@@ -80,10 +100,10 @@
 						<span id='page_total'> / asdf</span>
 					</div>
 					<div style='float:left;'>
-						<button>
+						<button id='local'>
 							Local
 						</button>
-						<button>
+						<button id='remote'>
 							Remote
 						</button>
 					</div>
@@ -112,7 +132,7 @@
 		asdfasdf
 		</div> -->
 	</body>
-	<script src='elements/backbone3.js'></script>
+	<script src='elements/backbone4.js'></script>
 	<script src='elements/manifest.js' async></script>
 	<script>
 		Elements.get(
