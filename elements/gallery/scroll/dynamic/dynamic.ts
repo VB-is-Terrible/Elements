@@ -2,21 +2,32 @@ export const recommends = [];
 export const requires = [];
 
 import {Elements} from '../../../elements_core.js';
+import {backbone4} from '../../../elements_backbone.js';
+import type {} from '../../../elements_helper.js'
+
+
+const ELEMENT_NAME = 'GalleryScrollDynamic';
+
+
+
+
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 6;
 const KEEP_BEHIND = 20;
+
+
 /**
  * A image scroller with dynamic insertion/removal
- * @augments Elements.elements.backbone3
+ * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  * @property {Number} position The index of the currently viewed image
  * @property {Array<String>} img_urls The list of urls of images to display
  */
-class GalleryScrollDynamic extends Elements.elements.backbone3 {
-	_body;
-	_urls = [];
+class GalleryScrollDynamic extends backbone4 {
+	_body: HTMLElement;
+	_urls: Array<string> = [];
 	_position = 0;
 	_start = 0;
 	_end = 0;
@@ -24,14 +35,14 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 	constructor() {
 		super();
 
-		this.name = 'GalleryScrollDynamic';
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(this.name);
+		const template = Elements.importTemplate(ELEMENT_NAME) as Element;
 
-		this._body = template.querySelector('#pseudoBody');
-		this._body.addEventListener('scroll', (e) => {
+		this._body = template.querySelector('#pseudoBody')! as HTMLDivElement;
+		this._body.addEventListener('scroll', (_e) => {
 			if (!this._ticking) {
 				this._ticking = true;
+				//@ts-ignore
 				requestIdleCallback(() => {
 					this._scrollUpdate();
 				});
@@ -49,7 +60,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 	static get observedAttributes() {
 		return [];
 	}
-	set img_urls(urls) {
+	set img_urls(urls: Array<string>) {
 		if (!(urls instanceof Array)) {
 			console.error('This is not a list of urls', urls);
 			throw new Error('Did not get a list of urls');
@@ -69,13 +80,13 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			}
 		});
 	}
-	_create_img(src, callback) {
+	_create_img(src: string, callback: (() => void) | null = null) {
 		const div = document.createElement('div');
 		const img = document.createElement('img');
 		div.className = 'scroll';
 		img.className = 'scroll';
 		img.src = src;
-		if (callback === undefined) {
+		if (callback === null) {
 			callback = () => {
 				this._img_load(img);
 			}
@@ -135,7 +146,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			}
 		} else if (below > KEEP_BEHIND) {
 			let to_remove = below - KEEP_BEHIND;
-			const imgs = [];
+			const imgs: Element[] = [];
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[i]);
 			}
@@ -159,7 +170,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			}
 		} else if (above > KEEP_BEHIND) {
 			let to_remove = above - KEEP_BEHIND;
-			const imgs = [];
+			const imgs: Element[] = [];
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[this._body.children.length - i - 1]);
 			}
@@ -209,7 +220,7 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			const index = value - this._start;
 			requestAnimationFrame(() => {
 				this._body.scrollTop = (
-					this._body.children[index].offsetTop -
+					(this._body.children[index] as HTMLElement).offsetTop -
 					this._body.offsetTop);
 			});
 			this._position = value;
@@ -236,9 +247,9 @@ class GalleryScrollDynamic extends Elements.elements.backbone3 {
 			this.position -= 1;
 		}
 	}
-	_img_load(img) {
+	_img_load(_img: HTMLImageElement) {
 	}
-	_rebuild_position(position) {
+	_rebuild_position(position: number) {
 		this._clear_imgs();
 		let current = position - PRELOAD_EXCEED;
 		if (current < 0) {
