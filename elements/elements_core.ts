@@ -847,25 +847,25 @@ class Elements {
 	 * @param  {Function} [eventTrigger] Function to call after property has been set
 	 * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
 	 */
-	setUpAttrPropertyLink2<O, K extends keyof O> (
+	setUpAttrPropertyLink2<O, K extends keyof O, T extends {toString: () => string}> (
 		object: backbone2 & O,
 		property: K & string,
-		initial: unknown = null,
+		initial: T | null = null,
 		eventTrigger: (value: unknown) => void = (_value: unknown) => {},
-		santizer: (value: unknown, old_value: unknown) => void = (value: any, _oldValue: any) => {return value;}) {
+		santizer: (value: unknown, old_value: T) => T = (value: any, _oldValue: any) => {return value;}) {
 
 		const fail_message = 'Attr-Property must be in constructor.observedAttributes';
 		//@ts-ignore
 		console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
 
-		let hidden: unknown;
+		let hidden: T;
 		let getter = () => {return hidden;};
-		let setter = (value: unknown) => {
+		let setter = (value: T) => {
 			value = santizer(value, hidden);
 			if (value === hidden) {return;}
 			hidden = value;
 			if (object.attributeInit) {
-				object.setAttribute(property, value as string);
+				object.setAttribute(property, value.toString());
 			}
 			eventTrigger(value);
 		};
