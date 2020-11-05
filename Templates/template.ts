@@ -35,7 +35,6 @@ export class $1 extends backbone4 {
 
 }
 
-export {$1};
 export default $1;
 
 Elements.elements.$1 = $1;

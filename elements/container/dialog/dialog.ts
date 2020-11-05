@@ -40,7 +40,7 @@ const get_states = () => {
  * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  */
-class ContainerDialog extends backbone4 {
+export class ContainerDialog extends backbone4 {
 	_animation: null | Animation = null;
 	_hidden = false;
 	_body: HTMLElement;
@@ -125,7 +125,6 @@ class ContainerDialog extends backbone4 {
 
 }
 
-export {ContainerDialog};
 export default ContainerDialog;
 
 Elements.elements.ContainerDialog = ContainerDialog;

@@ -14,7 +14,7 @@ const ELEMENT_NAME = 'CustomInputBar';
  * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  */
-class CustomInputBar extends backbone4 {
+export class CustomInputBar extends backbone4 {
 	_button_text = '';
 	_type = 'text';
 	_input: HTMLInputElement;
@@ -95,7 +95,6 @@ class CustomInputBar extends backbone4 {
 
 }
 
-export {CustomInputBar};
 export default CustomInputBar;
 
 Elements.elements.CustomInputBar = CustomInputBar;

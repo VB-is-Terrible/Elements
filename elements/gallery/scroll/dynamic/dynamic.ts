@@ -25,7 +25,7 @@ const KEEP_BEHIND = 20;
  * @property {Number} position The index of the currently viewed image
  * @property {Array<String>} img_urls The list of urls of images to display
  */
-class GalleryScrollDynamic extends backbone4 {
+export class GalleryScrollDynamic extends backbone4 {
 	_body: HTMLElement;
 	_urls: Array<string> = [];
 	_position = 0;
@@ -306,7 +306,6 @@ class GalleryScrollDynamic extends backbone4 {
 	}
 }
 
-export {GalleryScrollDynamic};
 export default GalleryScrollDynamic;
 
 Elements.elements.GalleryScrollDynamic = GalleryScrollDynamic;
