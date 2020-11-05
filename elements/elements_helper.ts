@@ -5,7 +5,7 @@ import {backbone4} from './elements_backbone.js'
  * @param  {...Strings} properties Properties to restore
  * @instance
  */
-export function applyPriorProperties<O extends backbone4, K extends keyof O>(object: O, ...properties: (K & string)[]) {
+export function applyPriorProperties<O extends backbone4, K extends keyof O>(object: O, ...properties: Array<K & string>) {
         if (object.___propertyStore === null) {
                 console.warn('It\'s too late to apply properties. Do this before connectedCallback');
                 return;
