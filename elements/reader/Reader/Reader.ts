@@ -2,6 +2,8 @@ let current_url = '';
 
 import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
 import type {ContainerDialog} from '../../container/dialog/dialog.js';
+import type {CustomInputBar} from '../../custom/input/bar/bar.js';
+
 export {};
 
 {
@@ -9,13 +11,12 @@ export {};
 const reader = document.querySelector('#main_scroller')! as GalleryScrollDynamic;
 const page_count = document.querySelector('#page_count')! as HTMLInputElement;
 const page_total = document.querySelector('#page_total')! as HTMLSpanElement;
-const main_input = document.querySelector('#main_input');
+const main_input = document.querySelector('#main_input') as CustomInputBar;
 const dialog = document.querySelector('elements-container-dialog') as ContainerDialog;
 const preview_template = document.querySelector('#reader-preview') as HTMLTemplateElement;
 
 
 const respond = async (e: CustomEvent) => {
-	// @ts-ignore
 	main_input.value = '';
 	const form = new FormData();
 	form.append('url', e.detail);
@@ -47,14 +48,12 @@ const page_update = (_e: Event) => {
 
 const LOCAL_FILES_BASE = '//127.0.0.1:5000/local_folders';
 const load_local = async () => {
-	console.log('a');
 	const folders: {[key: number]: string} = await (await fetch(LOCAL_FILES_BASE)).json();
-	console.log('b');
 	fill_folders_link(folders);
 };
 
 const main = () => {
-	// @ts-ignore
+	//@ts-ignore
 	main_input.addEventListener('accept', respond);
 	document.body.addEventListener('keypress', (e) => {
 		switch (e.code) {
@@ -126,9 +125,7 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 		p.addEventListener('click', event_listener);
 		p.innerHTML = name;
 		div.slot = 's' + count.toString();
-		img.src = folder_url + '/' + '0'
-		// p.style.width = '10em';
-		// p.style.height = '10em';
+		img.src = folder_url + '/' + '0';
 		requestAnimationFrame(() => {
 			folder_grid.append(fragment);
 		});
