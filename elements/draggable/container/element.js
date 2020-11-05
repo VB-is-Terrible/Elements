@@ -170,6 +170,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	}
 	onDrop (event) {
 		// Clear drag notice;
+		event.preventDefault();
 		Elements.common.draggable_controller.drag_end(this.context);
 		let parent = Elements.classes.Draggable.getParent(this);
 		if (parent === null) {

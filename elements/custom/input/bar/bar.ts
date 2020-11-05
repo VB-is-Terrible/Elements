@@ -2,34 +2,39 @@ export const recommends = [];
 export const requires = [];
 
 import {Elements} from '../../../elements_core.js';
+import {backbone4} from '../../../elements_backbone.js';
+import {applyPriorProperties} from '../../../elements_helper.js'
+
+
+const ELEMENT_NAME = 'CustomInputBar';
+
 
 /**
  * [CustomInputBar Description]
- * @augments Elements.elements.backbone3
+ * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  */
-class CustomInputBar extends Elements.elements.backbone3 {
+class CustomInputBar extends backbone4 {
 	_button_text = '';
 	_type = 'text';
-	_input;
-	_button;
+	_input: HTMLInputElement;
+	_button: HTMLButtonElement;
 	constructor() {
 		super();
 
-		this.name = 'CustomInputBar';
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(this.name);
+		const template = Elements.importTemplate(ELEMENT_NAME) as Element;
 		//Fancy code goes here
-		this._button = template.querySelector('#bar_button');
-		this._input = template.querySelector('#bar_input');
+		this._button = template.querySelector('#bar_button') as HTMLButtonElement;
+		this._input = template.querySelector('#bar_input') as HTMLInputElement;
 		this._button.addEventListener('click', () => {this._accept();});
-		this._input.addEventListener('keypress', (e) => {
+		this._input.addEventListener('keypress', (e: KeyboardEvent) => {
 			if (e.key === "Enter") {
 				this._accept();
 			}
 		});
 		shadow.appendChild(template);
-		this.applyPriorProperties(this.constructor.observedAttributes);
+		applyPriorProperties(this, ...CustomInputBar.observedAttributes);
 	}
 	_accept() {
 		const event = new CustomEvent('accept', {detail: this._input.value});
@@ -81,7 +86,7 @@ class CustomInputBar extends Elements.elements.backbone3 {
 	disconnectedCallback() {
 		super.disconnectedCallback();
 	}
-	static get observedAttributes () {
+	static get observedAttributes (): Array<string & keyof CustomInputBar> {
 		return ['text', 'type'];
 	}
 	focus() {
