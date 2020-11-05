@@ -36,3 +36,19 @@ export function applyPriorProperty<O extends backbone4, K extends keyof O>(objec
                 object[property] = initial;
         }
 }
+
+/**
+ * Function to santize boolean attributes
+ * @param  {*} value A boolean or a string representing a boolean
+ * @return {Boolean}              Input converted to boolean
+ */
+export function booleaner (value: unknown): boolean {
+        switch (typeof(value)) {
+                case 'boolean':
+                        return value;
+                case 'string':
+                        return value === 'false';
+                default:
+                        return Boolean(value);
+        }
+}
