@@ -1,4 +1,4 @@
-import {backbone4} from './elements_backbone.js'
+import type {backbone4} from './elements_backbone.js'
 
 /**
  * Apply the properties saved in the constructor
