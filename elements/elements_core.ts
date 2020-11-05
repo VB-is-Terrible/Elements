@@ -782,14 +782,18 @@ class Elements {
 
 	/**
 	 * Function to santize boolean attributes
-	 * @param  {Boolean|String} value A boolean or a string representing a boolean
+	 * @param  {*} value A boolean or a string representing a boolean
 	 * @return {Boolean}              Input converted to boolean
 	 */
-	booleaner (value: boolean | string): boolean {
-		if (typeof(value) == 'boolean') {
-			return value;
+	booleaner (value: unknown): boolean {
+		switch (typeof(value)) {
+			case 'boolean':
+				return value;
+			case 'string':
+				return !(value === 'false');
+			default:
+				return Boolean(value);
 		}
-		return !(value === 'false');
 	}
 
 	/**
