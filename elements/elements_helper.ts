@@ -47,7 +47,7 @@ export function booleaner (value: unknown): boolean {
                 case 'boolean':
                         return value;
                 case 'string':
-                        return value === 'false';
+                        return !(value === 'false');
                 default:
                         return Boolean(value);
         }
