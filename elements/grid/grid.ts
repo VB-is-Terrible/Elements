@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../elements_core.js';
 import {backbone4} from '../elements_backbone.js';
-import {booleaner} from '../elements_helper.js'
+import {booleaner, setUpAttrPropertyLink} from '../elements_helper.js'
 
 
 const ELEMENT_NAME = 'Grid';
@@ -39,11 +39,11 @@ export class Grid extends backbone4 {
 			}
 		};
 
-		Elements.setUpAttrPropertyLink2(this, 'rows', 2,
+		setUpAttrPropertyLink(this, 'rows', 2,
 		                                        updateCallback, santizer);
-		Elements.setUpAttrPropertyLink2(this, 'columns', 2,
+		setUpAttrPropertyLink(this, 'columns', 2,
 		                                        updateCallback, santizer);
-		Elements.setUpAttrPropertyLink2(this, 'coordnaming', false,
+		setUpAttrPropertyLink(this, 'coordnaming', false,
 		                                        updateCallback, booleaner);
 		shadow.appendChild(template);
 	}

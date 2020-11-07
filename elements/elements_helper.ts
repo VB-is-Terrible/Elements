@@ -52,3 +52,45 @@ export function booleaner (value: unknown): boolean {
                         return Boolean(value);
         }
 }
+
+
+/**
+ * Sets up a linked object property/attribute, for backbone2. Does things like copy attribute value to
+ * property value once inserted into DOM, checking if the property
+ * already has a value.
+ * @param  {HTMLElement} object      Element to set up link on
+ * @param  {String} property         property/attribute to link
+ * @param  {*} [initial=null]         value to intialize the type as
+ * @param  {Function} [eventTrigger] Function to call after property has been set
+ * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
+ */
+export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString: () => string}> (
+        object: backbone4 & O,
+        property: K & string,
+        initial: T | null = null,
+        eventTrigger: (value: unknown) => void = (_value: unknown) => {},
+        santizer: (value: unknown, old_value: T) => T = (value: any, _oldValue: any) => {return value;}) {
+
+        const fail_message = 'Attr-Property must be in constructor.observedAttributes';
+        //@ts-ignore
+        console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
+
+        let hidden: T;
+        let getter = () => {return hidden;};
+        let setter = (value: T) => {
+                value = santizer(value, hidden);
+                if (value === hidden) {return;}
+                hidden = value;
+                if (object.attributeInit) {
+                        object.setAttribute(property, value.toString());
+                }
+                eventTrigger(value);
+        };
+        Object.defineProperty(object, property, {
+                enumerable: true,
+                configurable: true,
+                get: getter,
+                set: setter,
+        });
+        applyPriorProperty(object, property, initial);
+}
