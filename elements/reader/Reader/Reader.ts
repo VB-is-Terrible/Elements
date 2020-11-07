@@ -1,12 +1,12 @@
-let current_url = '';
+let current_url: string = '';
 
 import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
 import type {ContainerDialog} from '../../container/dialog/dialog.js';
 import type {CustomInputBar} from '../../custom/input/bar/bar.js';
+import {Elements} from '../../elements_core.js';
 
 export {};
 
-{
 
 const reader = document.querySelector('#main_scroller')! as GalleryScrollDynamic;
 const page_count = document.querySelector('#page_count')! as HTMLInputElement;
@@ -20,6 +20,8 @@ const respond = async (e: CustomEvent) => {
 	main_input.value = '';
 	const form = new FormData();
 	form.append('url', e.detail);
+	//@ts-ignore
+	window.current_url = e.detail;
 	current_url = e.detail;
 	const response = await fetch('//127.0.0.1:5000', {
 		method: 'POST',
@@ -33,7 +35,34 @@ const respond = async (e: CustomEvent) => {
 		page_count.value = '0';
 		page_total.innerHTML = '/ ' + urls.length.toString();
 	});
-}
+};
+
+const redo = async () => {
+	query_pics(current_url);
+};
+
+Elements.common.reader_reload = redo;
+
+
+const query_pics = async (url: string) => {
+	const form = new FormData();
+	form.append('url', url);
+	//@ts-ignore
+	window.current_url = url;
+	current_url = url;
+	const response = await fetch('//127.0.0.1:5000', {
+		method: 'POST',
+		body: form,
+	});
+	const [urls, title] = await response.json();
+	document.title = title;
+	reader.img_urls = urls;
+	dialog.hide();
+	requestAnimationFrame(() => {
+		page_count.value = '0';
+		page_total.innerHTML = '/ ' + urls.length.toString();
+	});
+};
 
 const update_page = (e: CustomEvent) => {
 	requestAnimationFrame(() => {
@@ -131,7 +160,6 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 		});
 		count += 1;
 	}
-	console.log('derp')
 };
 
 const visit_local_link = async (url: string, gallery_name: string) => {
@@ -155,7 +183,6 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 main();
 
 
-// @ts-ignore
 Elements.loaded('reader-Reader');
 }
 
@@ -167,4 +194,3 @@ interface grid extends HTMLElement {
 }
 
 
-console.log('done');
