@@ -3,6 +3,7 @@ let current_url: string = '';
 import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
 import type {ContainerDialog} from '../../container/dialog/dialog.js';
 import type {CustomInputBar} from '../../custom/input/bar/bar.js';
+import type {Grid} from '../../grid/grid.js';
 import {Elements} from '../../elements_core.js';
 
 export {};
@@ -117,7 +118,7 @@ const main = () => {
 const fill_folders_link = (folders: {[key: number]: string}) => {
 	// debugger;
 	const columns = 5;
-	const folder_grid = document.querySelector('#folder_grid')! as grid;
+	const folder_grid = document.querySelector('#folder_grid')! as Grid;
 	const rows = Math.ceil((Object.keys(folders).length) / columns);
 	folder_grid.columns = columns;
 	folder_grid.rows = rows;
@@ -184,13 +185,3 @@ main();
 
 
 Elements.loaded('reader-Reader');
-}
-
-
-interface grid extends HTMLElement {
-	rows: number;
-	columns: number;
-	coordnaming: boolean;
-}
-
-
