@@ -21,6 +21,7 @@ EXCLUDES = set([
         ('./elements/', 'elements_helper.js'),
         ('./elements/', 'elements_backbone.mjs'),
         ('./elements/', 'elements_backbone.js'),
+        ('./elements/', 'global.d.ts'),
 ])
 
 
