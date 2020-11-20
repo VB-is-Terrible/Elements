@@ -190,6 +190,7 @@ export class UpdateWrapper<T> {
 	}
 	_removeRef(ref: WeakRef<UpdateListener<T>>) {
 		this.listeners.delete(ref);
+		console.log('Removed a ref');
 	}
 	update() {
 		this._cleanup();

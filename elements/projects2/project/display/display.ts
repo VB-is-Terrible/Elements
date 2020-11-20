@@ -64,6 +64,7 @@ export class Projects2ProjectDisplay extends backbone4 {
 	}
 	disconnectedCallback() {
 		super.disconnectedCallback();
+		console.log('disconnecting');
 	}
 	static get observedAttributes() {
 		return [];
