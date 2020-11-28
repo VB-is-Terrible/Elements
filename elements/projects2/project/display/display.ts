@@ -25,7 +25,7 @@ export class Projects2ProjectDisplay extends backbone4 {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME) as HTMLElement;
+		const template = Elements.importTemplate(ELEMENT_NAME);
 		this._name = template.querySelector('p.name') as HTMLParagraphElement;
 		this._status = template.querySelector('p.status') as HTMLParagraphElement;
 		this._progress = template.querySelector('p.progress') as HTMLParagraphElement;

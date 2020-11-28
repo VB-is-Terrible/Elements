@@ -23,7 +23,7 @@ export class CustomInputBar extends backbone4 {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME) as Element;
+		const template = Elements.importTemplate(ELEMENT_NAME);
 		//Fancy code goes here
 		this._button = template.querySelector('#bar_button') as HTMLButtonElement;
 		this._input = template.querySelector('#bar_input') as HTMLInputElement;

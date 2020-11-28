@@ -340,7 +340,7 @@ class Elements {
 	 * @param  {String} name name of element
 	 * @return {Node}      imported Node
 	 */
-	importTemplate (name: string): Node {
+	importTemplate (name: string): Element {
 		let id = '#templateElements' + name;
 		let template = this._templateLocation.querySelector(id)!;
 		//@ts-ignore

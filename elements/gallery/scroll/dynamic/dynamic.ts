@@ -36,7 +36,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME) as Element;
+		const template = Elements.importTemplate(ELEMENT_NAME);
 
 		this._body = template.querySelector('#pseudoBody')! as HTMLDivElement;
 		this._body.addEventListener('scroll', (_e) => {

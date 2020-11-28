@@ -49,7 +49,7 @@ export class ContainerDialog extends backbone4 {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME) as HTMLElement;
+		const template = Elements.importTemplate(ELEMENT_NAME);
 		this._body = template.querySelector('#animationBody') as HTMLElement;
 		//Fancy code goes here
 		shadow.appendChild(template);
@@ -68,6 +68,9 @@ export class ContainerDialog extends backbone4 {
 	}
 	show() {
 		this._set_hidden(false);
+	}
+	toggle() {
+		this._set_hidden(!this._hidden);
 	}
 	get dialog_hidden() {
 		return this._hidden;
