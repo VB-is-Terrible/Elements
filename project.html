@@ -25,6 +25,7 @@
 				padding: 0 1em;
 				box-sizing: border-box;
 			}
+
 		</style>
 	</head>
 	<body>
@@ -66,15 +67,19 @@
 				<p>5</p>
 			</div>
 		</div>
+		<elements-projects2-project_group-display>
+		</elements-projects2-project_group-display>
+		<elements-projects2-project-display>
+		</elements-projects2-project-display>
 		<elements-container-autohide>
 			<div class='topbar'>
 				<div id='page_div'>
 					<div style='float:left;'>
 						<button id='create'>
-							Local
+							New
 						</button>
 						<button id='remote'>
-							Remote
+							Edit
 						</button>
 					</div>
 				</div>
@@ -86,6 +91,11 @@
 	<script src='elements/backbone4.js'></script>
 	<script src='elements/manifest.js' async></script>
 	<script>
-		Elements.get('projects2-Project_main', 'container-autohide');
+		Elements.get(
+			'projects2-Project_main',
+			'container-autohide',
+			'projects2-project_group-display',
+			'container-dialog',
+		);
 	</script>
 </html>
