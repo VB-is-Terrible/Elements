@@ -29,7 +29,7 @@ interface manifest_t {
 	[key: string]: manifest_single;
 };
 
-type PromiseCallback = () => void;
+type PromiseCallback = (value: void | PromiseLike<void>) => void;
 
 
 /**
