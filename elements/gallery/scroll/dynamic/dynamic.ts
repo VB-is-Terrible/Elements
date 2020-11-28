@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import type {} from '../../../elements_helper.js'
+import { rafContext } from '../../../elements_helper.js'
 
 
 const ELEMENT_NAME = 'GalleryScrollDynamic';
@@ -32,6 +32,7 @@ export class GalleryScrollDynamic extends backbone4 {
 	_start = 0;
 	_end = 0;
 	_ticking = false;
+	_final_scroll: ReturnType<typeof rafContext>;
 	constructor() {
 		super();
 
@@ -48,6 +49,7 @@ export class GalleryScrollDynamic extends backbone4 {
 				});
 			}
 		})
+		this._final_scroll = rafContext();
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
@@ -73,8 +75,8 @@ export class GalleryScrollDynamic extends backbone4 {
 		return this._urls;
 	}
 	_clear_imgs() {
-		let children = [...this._body.children];
 		requestAnimationFrame(() => {
+			let children = [...this._body.children];
 			for (let img of children) {
 				img.remove();
 			}
@@ -201,7 +203,7 @@ export class GalleryScrollDynamic extends backbone4 {
 			throw new Error('Invalid position ' + value.toString());
 		} else if (value >= this._urls.length) {
 			if (this._urls.length === 0 && value === 0) {
-				requestAnimationFrame(() => {
+				this._final_scroll(() => {
 					this._body.scrollIntoView();
 					this._body.scrollTop = 0;
 				});
@@ -218,7 +220,7 @@ export class GalleryScrollDynamic extends backbone4 {
 			this._rebuild_position(value);
 		} else {
 			const index = value - this._start;
-			requestAnimationFrame(() => {
+			this._final_scroll(() => {
 				this._body.scrollTop = (
 					(this._body.children[index] as HTMLElement).offsetTop -
 					this._body.offsetTop);
@@ -298,7 +300,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		this._end = current + i;
 		this._position = position;
 		if (this._end - this._start) {
-			requestAnimationFrame(() => {
+			this._final_scroll(() => {
 				this._body.children[position - this._start].scrollIntoView()
 			});
 		}

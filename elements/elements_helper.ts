@@ -121,3 +121,21 @@ export function nameSanitizer (string: string): string {
         string = string.replace(/>/g, '&gt');
         return string;
 };
+
+/**
+ * Returns a equivalent requestAnimationFrame, but subsequent calls
+ * before frame trigger cancel previous ones
+ * @return {Function} Pretends to be requestAnimationFrame
+ */
+export function rafContext (): (f: (timestamp: number) => void) => void {
+        let raf: number | null = null;
+        return (f) => {
+                if (raf !== null) {
+                        cancelAnimationFrame(raf);
+                }
+                raf = requestAnimationFrame((e) => {
+                        f(e);
+                        raf = null;
+                });
+        };
+}
