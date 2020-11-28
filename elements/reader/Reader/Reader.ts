@@ -40,7 +40,6 @@ const respond = async (e: CustomEvent) => {
 
 const redo = async () => {
 	const current_page = reader.position;
-	debugger;
 	await query_pics(current_url);
 	reader.position = current_page;
 };
