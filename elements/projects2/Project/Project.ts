@@ -29,6 +29,8 @@ export const STATUS_CODES_MINOR: Map<number, string> = new Map([
 export const MAX_STATUS = 2;
 export const PROGRESS_STATUS = 1;
 
+export interface StatusObj { major: number; minor: number;};
+
 /**
  * Object describing the status of a project
  * @property {Number} major The overall status of a project. These are ascending
@@ -60,16 +62,18 @@ export class Status {
 	 * @return {Projects.Status}     Revived status
 	 * @memberof Projects.Status
 	 */
-	static fromJSONObj (obj: { major: number; minor: number;}): Status {
+	static fromJSONObj (obj: StatusObj): Status {
 		let status = new this(obj.major, obj.minor);
 		return status;
 	}
+
 };
 
 export interface ProjectObj {
 	id: number;
 	name: string;
 	desc: string;
+	status: StatusObj;
 }
 
 /**
@@ -89,13 +93,17 @@ export class Project {
         id: number;
         name: string;
         desc: string;
+	status: Status;
 	constructor(id: number, name: string, desc = '') {
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
+		this.status = new Status(0);
 	}
 	static fromJSONObj(obj: ProjectObj) {
-		return new Project(obj.id, obj.name, obj.desc);
+		const result = new this(obj.id, obj.name, obj.desc);
+		result.status = Status.fromJSONObj(obj.status);
+		return result;
 	}
 };
 
@@ -134,6 +142,8 @@ export interface SystemObj {
 export class System {
 	projects: Map<number, UpdateWrapper<Project>> = new Map();
 	project_groups: Map<number, UpdateWrapper<ProjectGroup>> = new Map();
+	version = 0;
+	remote_location = '';
 	static fromJSONObj(obj: SystemObj) {
 		const result = new System();
 		for (const pg_obj of obj.project_groups) {
