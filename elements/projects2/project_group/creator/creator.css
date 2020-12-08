@@ -1,0 +1,33 @@
+div.title_close {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	float: right;
+}
+button.title_close {
+	border: 1px solid black;
+	border-radius: 3px;
+	float: right;
+}
+div.body {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 1ex 1em;
+	margin-bottom: 1ex;
+}
+div.title {
+	display: flex;
+	margin-bottom: 1ex;
+	justify-content: space-between;
+}
+.ans {
+	width: 100%;
+	box-sizing: border-box;
+}
+div.footer {
+	display: flex;
+	flex-direction: row-reverse;
+}
+button.footer {
+	margin-left: 1em;
+}
