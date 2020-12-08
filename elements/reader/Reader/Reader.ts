@@ -41,7 +41,9 @@ const respond = async (e: CustomEvent) => {
 const redo = async () => {
 	const current_page = reader.position;
 	await query_pics(current_url);
-	reader.position = current_page;
+	requestAnimationFrame(() => {
+		reader.position = current_page;
+	});
 };
 
 Elements.common.reader_reload = redo;
