@@ -157,6 +157,53 @@ export class System {
 		}
 		return result;
 	}
+	get_project_by_id(id: number) {
+		return this.projects.get(id);
+	}
+	get_project_group_by_id(id: number) {
+		return this.project_groups.get(id);
+	}
+	async add_project(project: Project) {
+		let message = JSON.stringify(project);
+		console.log('Sending: ', message);
+		let form_data = new FormData();
+		form_data.append('create_p', message);
+		form_data.append('version', this.version.toString());
+		this._send_patch(form_data);
+	}
+	async add_project_group(pg: ProjectGroup) {
+		let message = JSON.stringify(pg);
+		console.log('Sending: ', message);
+		let form_data = new FormData();
+		form_data.append('create_pg', message);
+		form_data.append('version', this.version.toString());
+		this._send_patch(form_data);
+	}
+	async _send_patch(form_data: FormData) {
+		let response;
+		try {
+			response = fetch(this.remote_location + '/change', {
+				method: 'POST',
+				body: form_data,
+			});
+		} catch (e) {
+			alert('Failed to connect to server');
+			throw e;
+		}
+		this._patch(response);
+	}
+	async _patch(fetch_response: Promise<Response>) {
+		const response = await fetch_response;
+		let updates;
+		try {
+			updates = await response.json();
+		} catch (e) {
+			alert('Bad response from server');
+			throw e;
+		}
+		console.log ('Would apply update: ', updates);
+		
+	}
 }
 
 export interface UpdateListener<T> {
