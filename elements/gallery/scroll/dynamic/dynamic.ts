@@ -268,7 +268,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		let height = 0;
 		if (current < this._urls.length) {
 			const img = this._create_img(this._urls[current], () => {
-				requestAnimationFrame(() => {
+				this._final_scroll(() => {
 					img.scrollIntoView();
 				});
 			});
