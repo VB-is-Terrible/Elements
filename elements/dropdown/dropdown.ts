@@ -1,9 +1,48 @@
-'use strict';
-{
-const downArrow = 'rotate(.5turn) translate(0px, -0.1em)';
-const upArrow = 'rotate(0turn)';
-const rightMidpoint = 'rotate(.25turn) translate(0px, -0.05em)';
-const leftMidpoint = 'rotate(.75turn) translate(0px, -0.05em)';
+export const recommends = [];
+export const requires = [];
+
+import {Elements} from '../elements_core.js';
+import {backbone4} from '../elements_backbone.js';
+import {applyPriorProperty} from '../elements_helper.js'
+
+
+const ELEMENT_NAME = 'Dropdown';
+
+const upArrow = 'rotate(.5turn) translate(0px, -0.1em)';
+const downArrow = 'rotate(0turn)';
+
+const downToUp = [
+        {
+                transform: downArrow,
+        }, {
+                transform: 'rotate(.125turn) translate(0px, -0.025em)'
+        }, {
+                transform: 'rotate(.25turn) translate(0px, -0.05em)'
+        }, {
+                transform: 'rotate(.375turn) translate(0px, -0.075em)'
+        }, {
+                transform: upArrow
+        }
+];
+
+const upToDown = [
+        {
+                transform: upArrow
+        }, {
+                transform: 'rotate(.625turn) translate(0px, -0.025em)'
+        }, {
+                transform: 'rotate(.75turn) translate(0px, -0.05em)'
+        }, {
+                transform: 'rotate(.875turn) translate(0px, -0.075em)'
+        }, {
+                transform: 'rotate(1turn)',
+        }
+];
+
+
+
+type callback = () => void;
+
 /**
  * A drop down that presists.
  * Use slot='s1' for the element to go next to the arrow
@@ -11,12 +50,15 @@ const leftMidpoint = 'rotate(.75turn) translate(0px, -0.05em)';
  * @property {Boolean} menuvisible Whether the drop down in toggled
  * @augments Elements.elements.backbone2
  */
-Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
+export class Dropdown extends backbone4 {
+        private __menuVisible: boolean;
+        private __animations: { menu: null | Animation; arrow: null | Animation; };
+        private __animationState: null | string;
+        private __animation_callback: { menu: null | callback; arrow: null | callback; };
 	constructor () {
 		super();
 
 		const self = this;
-		this.name = 'Dropdown';
 
 		/**
 		 * Current state of dropdown
@@ -54,18 +96,18 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		};
 
 		const shadow = this.attachShadow({mode: 'open'});
-		let template = Elements.importTemplate(this.name);
+		let template = Elements.importTemplate(ELEMENT_NAME);
 
-		let button = template.querySelector('button');
+		let button = template.querySelector('button') as HTMLButtonElement;
 		// Arrow function for this binding
-		let buttonHandler = (event) => {
+		let buttonHandler = () => {
 			self.menuvisible = !self.menuvisible;
 		};
 		button.addEventListener('click', buttonHandler);
 
 		shadow.appendChild(template);
 
-		this.applyPriorProperty('menuvisible', true);
+		applyPriorProperty(this, 'menuvisible', true);
 	}
 	get menuvisible () {
 		return this.__menuVisible;
@@ -73,19 +115,20 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 	set menuvisible (open) {
 		open = Elements.booleaner(open);
 		if (open === this.menuvisible) {return;}
-		let menu = this.shadowRoot.querySelector('div.down');
-		let arrow = this.shadowRoot.querySelector('div.arrow');
+
+		let menu = this.shadowQuery('div.down') as HTMLDivElement;
+		let arrow = this.shadowQuery('div.arrow') as HTMLDivElement;
 		this.__menuVisible = open;
 		// let visiblity = open ? 'inherit' : 'hidden';
 		let display = open ? 'block' : 'none';
 		if (!this.attributeInit) {
 			// No animation
-			requestAnimationFrame((e) => {
+			requestAnimationFrame(() => {
 				menu.style.display = display;
 			});
 			return;
 		}
-		this.setAttribute('menuvisible', open);
+		this.setAttribute('menuvisible', open.toString());
 
 		// Calculate end states
 		let state = open ? 'show' : 'hide';
@@ -93,8 +136,8 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		let oldState = this.__animationState;
 		this.__animationState = state;
 		let arrowEnd = () => {
-			requestAnimationFrame((e) => {
-				arrow.style.transform = open ? downArrow: upArrow;
+			requestAnimationFrame(() => {
+				arrow.style.transform = open ? upArrow: downArrow;
 			});
 			this.__animation_callback.arrow = null;
 		};
@@ -110,21 +153,17 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 
 		// Check for reverse
 		if (oldState !== null) {
-			for (let element in this.__animations) {
-				this.__animations[element].reverse();
-			}
+                        this.__animations.arrow!.reverse();
+                        this.__animations.menu!.reverse();
 			return;
 		}
 
-		let arrowStates = {
-			start: null,
-			mid: null,
-			end: null,
-		};
+		let arrowStates;
 		let menuStates = {
-			start: null,
-			end: null,
+			start: {},
+			end: {},
 		};
+
 		// Height is needed for menuStates
 		// Refresh height
 		{
@@ -134,29 +173,24 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 			transform: 'scaleY(1)',
 		}];
 		if (open) {
-			[arrowStates.start, arrowStates.mid, arrowStates.end] = [upArrow, rightMidpoint, downArrow];
+                        arrowStates = downToUp;
 			[menuStates.start, menuStates.end] = states;
 		} else {
-			[arrowStates.start, arrowStates.mid, arrowStates.end] = [downArrow, leftMidpoint, upArrow];
+                        arrowStates = upToDown;
 			[menuStates.end, menuStates.start] = states;
 		}
 		}
+
 		let setup = requestAnimationFrame((e) => {
 			// menu.style.visibility = 'visible';
 			menu.style.display = 'block';
 		});
 		// Animations
-		let animation = arrow.animate([{
-			transform: arrowStates.start,
-		}, {
-			transform: arrowStates.mid,
-		}, {
-			transform: arrowStates.end,
-		}], {
+		let animation = arrow.animate(arrowStates, {
 			duration: Elements.animation.MEDIUM_DURATION,
 		});
 		animation.onfinish = () => {
-			this.__animation_callback.arrow();
+			this.__animation_callback.arrow!();
 			this.__animationState = null;
 			this.__animations.arrow = null;
 		};
@@ -166,7 +200,7 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 		});
 		animation.onfinish = () => {
 			cancelAnimationFrame(setup);
-			this.__animation_callback.menu();
+			this.__animation_callback.menu!();
 			this.__animationState = null;
 			this.__animations.menu = null;
 		};
@@ -176,7 +210,7 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 	 * Toggles whether the drop down is active
 	 * @param  {Boolean} [open] Explicit state to change to
 	 */
-	toggleState (open) {
+	toggleState (open: boolean | undefined) {
 		if (open === undefined) {
 			this.menuvisible =  !this.menuvisible;
 		} else if (open === this.menuvisible)  {
@@ -190,5 +224,6 @@ Elements.elements.Dropdown = class extends Elements.elements.backbone2 {
 	}
 }
 
-Elements.load(Elements.elements.Dropdown, 'elements-dropdown');
-}
+export default Dropdown;
+Elements.elements.Dropdown = Dropdown;
+Elements.load(Dropdown, 'elements-dropdown');
