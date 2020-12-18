@@ -99,7 +99,7 @@ const main = () => {
 				reader.back();
 				break;
 			case 'KeyD':
-			case 'keyL':
+			case 'KeyL':
 			case 'Numpad6':
 				reader.next();
 				break;
