@@ -103,6 +103,11 @@ const main = () => {
 			case 'Numpad6':
 				reader.next();
 				break;
+			case 'KeyP':
+				main_input.value = '';
+				main_input.focus();
+				e.preventDefault();
+				break;
 			default:
 				console.log(e.key);
 		}
