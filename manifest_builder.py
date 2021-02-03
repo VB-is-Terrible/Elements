@@ -17,7 +17,15 @@ Elements.__getBacklog();
 
 EXCLUDES = set([
         ('./elements/', 'elements_core.js'),
+        ('./elements/', 'elements_core.ts'),
+        ('./elements/', 'elements_helper.ts'),
+        ('./elements/', 'elements_helper.js'),
+        ('./elements/', 'backbone4.ts'),
+        ('./elements/', 'backbone4.js'),
+        ('./elements/', 'elements_backbone.js'),
+        ('./elements/', 'elements_backbone.ts'),
         ('./elements/', 'Elements.js'),
+        ('./elements/', 'Elements.mjs'),
         ('./elements/', 'elements_helper.js'),
         ('./elements/', 'elements_backbone.mjs'),
         ('./elements/', 'elements_backbone.js'),
@@ -289,6 +297,8 @@ def walk(dirpath: str, root: str):
                         name = remove_prefix(dirpath, root)
                         results[name] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
+                if (dirpath, file) in EXCLUDES:
+                        continue
                 if file.endswith('.ts'):
                         name = remove_prefix(dirpath, root)
                         results[name] = parse_ts(dirpath, root, file)
