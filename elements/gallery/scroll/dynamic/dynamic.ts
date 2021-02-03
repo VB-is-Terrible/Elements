@@ -14,7 +14,7 @@ const ELEMENT_NAME = 'GalleryScrollDynamic';
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
-const PRELOAD_EXCEED = 6;
+const PRELOAD_EXCEED = 9;
 const KEEP_BEHIND = 20;
 
 
@@ -24,6 +24,10 @@ const KEEP_BEHIND = 20;
  * @memberof Elements.elements
  * @property {Number} position The index of the currently viewed image
  * @property {Array<String>} img_urls The list of urls of images to display
+ * @property {Number} PRELOAD_GUESS The guess for the height of one image
+ * @property {Number} PRELOAD_HEIGHT The guess for the of the current image + any viewable images
+ * @property {Number} PRELOAD_EXCEED The number of images that should be preloaded
+ * @property {Number} KEEP_BEHIND The number of images behind the current that should be kept in the DOM
  */
 export class GalleryScrollDynamic extends backbone4 {
 	_body: HTMLElement;
@@ -33,6 +37,10 @@ export class GalleryScrollDynamic extends backbone4 {
 	_end = 0;
 	_ticking = false;
 	_final_scroll: ReturnType<typeof rafContext>;
+	PRELOAD_GUESS = PRELOAD_GUESS;
+	PRELOAD_HEIGHT = PRELOAD_HEIGHT;
+	PRELOAD_EXCEED = PRELOAD_EXCEED;
+	KEEP_BEHIND = KEEP_BEHIND;
 	constructor() {
 		super();
 
@@ -132,9 +140,9 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 		above = this._body.children.length - i;
 		// console.log(below, this._body.children.length - below - above, above);
-		if (below <= PRELOAD_EXCEED) {
+		if (below <= this.PRELOAD_EXCEED) {
 			//TODO: Need to account for images loading
-			let to_load = PRELOAD_EXCEED - below + 1;
+			let to_load = this.PRELOAD_EXCEED - below + 1;
 			console.log('Would add ' + to_load.toString() + ' images below');
 			let first = this._body.children[0];
 			while (to_load > 0 && this._start > 0) {
@@ -146,8 +154,8 @@ export class GalleryScrollDynamic extends backbone4 {
 				this._start -= 1;
 				to_load -= 1
 			}
-		} else if (below > KEEP_BEHIND) {
-			let to_remove = below - KEEP_BEHIND;
+		} else if (below > this.KEEP_BEHIND) {
+			let to_remove = below - this.KEEP_BEHIND;
 			const imgs: Element[] = [];
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[i]);
@@ -159,8 +167,8 @@ export class GalleryScrollDynamic extends backbone4 {
 				}
 			});
 		}
-		if (above < PRELOAD_EXCEED) {
-			let to_load = PRELOAD_EXCEED - above;
+		if (above < this.PRELOAD_EXCEED) {
+			let to_load = this.PRELOAD_EXCEED - above;
 			console.log('Would add ' + to_load.toString() + ' images above');
 			while (to_load > 0 && this._end < this._urls.length) {
 				const img = this._create_img(this._urls[this._end]);
@@ -170,8 +178,8 @@ export class GalleryScrollDynamic extends backbone4 {
 				this._end += 1;
 				to_load -= 1
 			}
-		} else if (above > KEEP_BEHIND) {
-			let to_remove = above - KEEP_BEHIND;
+		} else if (above > this.KEEP_BEHIND) {
+			let to_remove = above - this.KEEP_BEHIND;
 			const imgs: Element[] = [];
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[this._body.children.length - i - 1]);
@@ -253,7 +261,7 @@ export class GalleryScrollDynamic extends backbone4 {
 	}
 	_rebuild_position(position: number) {
 		this._clear_imgs();
-		let current = position - PRELOAD_EXCEED;
+		let current = position - this.PRELOAD_EXCEED;
 		if (current < 0) {
 			current = 0;
 		}
@@ -276,21 +284,21 @@ export class GalleryScrollDynamic extends backbone4 {
 				this._body.append(img);
 			});
 			current += 1;
-			height += PRELOAD_GUESS;
+			height += this.PRELOAD_GUESS;
 		}
 
 
 
-		while (height < PRELOAD_HEIGHT && current < this._urls.length) {
+		while (height < this.PRELOAD_HEIGHT && current < this._urls.length) {
 			const img = this._create_img(this._urls[current]);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
 			current += 1;
-			height += PRELOAD_GUESS;
+			height += this.PRELOAD_GUESS;
 		}
 		let i = 0;
-		while (i < PRELOAD_EXCEED && current + i < this._urls.length) {
+		while (i < this.PRELOAD_EXCEED && current + i < this._urls.length) {
 			const img = this._create_img(this._urls[current + i]);
 			requestAnimationFrame(() => {
 				this._body.append(img);
