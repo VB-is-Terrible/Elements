@@ -257,11 +257,6 @@ class Elements {
 		};
 	}
 
-	setUpSanitizedAttrPropertyLink (...args) {
-		console.warn('Using deprecated function setUpSanitizedAttrPropertyLink, it has now been merged with setUpAttrPropertyLink');
-		this.setUpAttrPropertyLink(...args);
-	}
-
 	/**
 	 * Async fetch a HTML file, load into document.head,
 	 * then register custom element. Infers template location from HTMLname
