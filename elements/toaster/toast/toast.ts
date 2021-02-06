@@ -1,0 +1,126 @@
+export const recommends = [];
+export const requires = [];
+
+import {Elements} from '../../elements_core.js';
+import {backbone4} from '../../elements_backbone.js';
+import {removeChildren} from '../../elements_helper.js'
+
+
+export type ToastData = {
+	title: string;
+	body? : string;
+	buttons? : Array<string>;
+};
+
+/**
+ * When a button has being clicked on a toast
+ * @event Elements.elements.ToasterToast#toast_button_click
+ * @property {Number} detail The index of the button clicked
+ */
+/**
+ * Toast close event
+ * @event Elements.elements.ToasterToast#toast_close
+ */
+const ELEMENT_NAME = 'ToasterToast';
+/**
+ * An individual toast for the toaster
+ * @augments Elements.elements.backbone4
+ * @memberof Elements.elements
+ * @fires Elements.elements.ToasterToast#toast_button_click
+ * @fires Elements.elements.ToasterToast#toast_close
+ */
+export class ToasterToast extends backbone4 {
+	_title: HTMLDivElement;
+	_body: HTMLDivElement;
+	_buttons: HTMLDivElement;
+	constructor() {
+		super();
+
+		const shadow = this.attachShadow({mode: 'open'});
+		const template = Elements.importTemplate(ELEMENT_NAME);
+		this._title = template.querySelector('#title') as HTMLDivElement;
+		this._body = template.querySelector('#body') as HTMLDivElement;
+		this._buttons = template.querySelector('#buttons') as HTMLDivElement;
+		const close = template.querySelector('#close') as HTMLButtonElement;
+
+		close.addEventListener('click', () => {
+			this.close();
+		});
+		//Fancy code goes here
+		shadow.appendChild(template);
+	}
+	connectedCallback() {
+		super.connectedCallback();
+	}
+	disconnectedCallback() {
+		super.disconnectedCallback();
+	}
+	static get observedAttributes() {
+		return [];
+	}
+	_setTitle(title: string) {
+		this._title.innerHTML = title;
+	}
+	_setBody(body: string) {
+		this._body.innerHTML = body;
+	}
+	_setButtons(button_text: Array<string>) {
+		removeChildren(this._buttons);
+		for (const [index, text] of button_text.entries()) {
+			const button = ToasterToast.createButton(text);
+			button.addEventListener('click', () => {
+				const ev = new CustomEvent('toast_button_click', {
+					bubbles: true,
+					cancelable: true,
+					detail: index,
+				});
+				this.dispatchEvent(ev);
+			})
+			requestAnimationFrame(() => {
+				this._buttons.append(button);
+			});
+		}
+	}
+	_hideButtons() {
+		requestAnimationFrame(() => {
+			this._buttons.style.display = 'none';
+		});
+	}
+	_hideBody() {
+		requestAnimationFrame(() => {
+			this._body.style.display = 'none';
+		});
+	}
+	setToast(data: ToastData) {
+		this._setTitle(data.title);
+		if (data.body !== undefined) {
+			this._setBody(data.body);
+		} else {
+			this._hideBody()
+		}
+		if (data.buttons !== undefined) {
+			this._setButtons(data.buttons);
+		} else {
+			this._hideButtons();
+		}
+	}
+	close() {
+		const ev = new CustomEvent('toast_close', {
+			bubbles: true,
+			cancelable: true,
+		});
+		this.dispatchEvent(ev);
+	}
+	private static createButton(text: string) {
+		const button = document.createElement('button');
+		button.className = 'notification_button';
+		button.innerHTML = text;
+		return button;
+	}
+}
+
+export default ToasterToast;
+
+Elements.elements.ToasterToast = ToasterToast;
+
+Elements.load(ToasterToast, 'elements-toaster-toast');

@@ -1,0 +1,9 @@
+#pseudoBody {
+	right: 3em;
+	bottom: 3em;
+	position: absolute;
+}
+div.spacer {
+	margin-top: .25em;
+	height: 0;
+}
