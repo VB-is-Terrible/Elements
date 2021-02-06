@@ -4,6 +4,8 @@ const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 
 import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
+import {getInitProperty, request} from './elements_helper.js';
+
 
 type ElementType =
 	"module" |
@@ -203,22 +205,6 @@ class Elements {
 		 */
 		DROP_AMOUNT: 50,
 	};
-	/**
-	 * Helper function to generate function to perform attribute overwrite
-	 * @param  {HTMLElement} object   object to observe attribute on
-	 * @param  {String} property property to observe
-	 * @return {Function}          function to set value to attribute if it exists
-	 */
-	getInitProperty (object: backbone, property: string): () => void {
-		return (() => {
-			// If the attribute is been written to, it should be handled by
-			// the attribute changed callback
-			if (object.getAttribute(property) === null) {
-				//@ts-ignore
-				object.setAttribute(property, object[property]);
-			}
-		});
-	}
 
 	/**
 	 * Sets up a linked object property/attribute, as if the property and
@@ -231,6 +217,7 @@ class Elements {
 	 * @param  {Function} [eventTrigger] Function to call after property has been set
 	 * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
 	 * @return {{get: Function, set: Function}} The get and set function for the property
+	 * @deprecated
 	 */
 	setUpAttrPropertyLink<O, K extends keyof O> (
 		object: backbone & O,
@@ -267,7 +254,7 @@ class Elements {
 			set: setter,
 		});
 
-		object.getDict[property] = this.getInitProperty(object, property);
+		object.getDict[property] = getInitProperty(object, property);
 		object.setDict[property] = setter;
 
 		setter(inital);
@@ -434,7 +421,7 @@ class Elements {
 		link.as = 'script';
 		link.href = location;
 		this._preloadLocation.append(link);
-		this._requestedElements.add(name);
+		this._requestedElements.add(elementName);
 		let script = document.createElement('script');
 		script.src = location;
 		script.async = true;
@@ -496,6 +483,7 @@ class Elements {
 	 * @param  {Object} object     object to reduce
 	 * @param  {String[]} properties Properties to include
 	 * @return {Object}            new object with properties copied over
+	 * @deprecated
 	 */
 	jsonIncludes<O, K extends keyof O> (object: O, properties: (K & string)[]): object {
 		let result: {[key: string]: unknown} = {};
@@ -509,6 +497,7 @@ class Elements {
 	 * Converts a set to array, for stringification
 	 * @param  {Set} set Set to convert to array
 	 * @return {Array}   Array version of set
+	 * @deprecated
 	 */
 	setToArray (set: Set<unknown>): Array<unknown> {
 		let result = [];
@@ -706,6 +695,7 @@ class Elements {
 	 * Make an async network request, returning response body
 	 * @param  {String} location location of file. Note: will not prefix .location for you
 	 * @return {Promise}         Promise that resolves to the response body, can error
+	 * @deprecated
 	 */
 	async request (location: string): Promise<any> {
 		return fetch(location).then(
@@ -748,7 +738,7 @@ class Elements {
 
 		let fetcher = async (resolve: (_value: string) => void, reject: PromiseCallback) => {
 			try {
-				template = await this.request(this.location + location);
+				template = await request(this.location + location);
 			} catch (e) {
 				console.log('Failed network request for: ' + e.message);
 				this._loadingTemplates.delete(location);
@@ -784,6 +774,7 @@ class Elements {
 	 * Function to santize boolean attributes
 	 * @param  {*} value A boolean or a string representing a boolean
 	 * @return {Boolean}              Input converted to boolean
+	 * @deprecated
 	 */
 	booleaner (value: unknown): boolean {
 		switch (typeof(value)) {
@@ -800,6 +791,7 @@ class Elements {
 	 * Returns a equivalent requestAnimationFrame, but subsequent calls
 	 * before frame trigger cancel previous ones
 	 * @return {Function} Pretends to be requestAnimationFrame
+	 * @deprecated
 	 */
 	rafContext (): (f: (timestamp: number) => void) => void {
 		let raf: number | null = null;
@@ -820,6 +812,7 @@ class Elements {
 	 * e.g. placeholder value set via js
 	 * @param  {String} string Sanitized string
 	 * @return {String}        Unsafe string
+	 * @deprecated
 	 */
 	nameDesanitizer (string: string): string {
 		string = string.replace(/&amp/g, '&');
@@ -832,6 +825,7 @@ class Elements {
 	 * Sanitizes a string for HTML.
 	 * @param  {String} string Unsafe string
 	 * @return {String}        Sanitized string
+	 * @deprecated
 	 */
 	nameSanitizer (string: string): string {
 		string = string.trim();
@@ -850,6 +844,7 @@ class Elements {
 	 * @param  {*} [initial=null]         value to intialize the type as
 	 * @param  {Function} [eventTrigger] Function to call after property has been set
 	 * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
+	 * @deprecated
 	 */
 	setUpAttrPropertyLink2<O, K extends keyof O, T extends {toString: () => string}> (
 		object: backbone2 & O,
@@ -938,6 +933,7 @@ class Elements {
 	 * Uppercase the first letter, leave the rest
 	 * @param  {String} string String to captialize
 	 * @return {String}        Captialized string
+	 * @deprecated
 	 */
 	captialize (string: string): string {
 		return string.charAt(0).toUpperCase() + string.substring(1, string.length);
@@ -1000,6 +996,7 @@ class Elements {
 	 * Returns a promise that will resolve in at least <timeout> milliseconds
 	 * @param  {Number} timeout Time in milliseconds to wait to resolve the promise
 	 * @return {Promise}         Promise that resolves in <timeout> milliseconds
+	 * @deprecated
 	 */
 	wait (timeout: number): Promise<void> {
 		return new Promise<void>((resolve, _reject) => {

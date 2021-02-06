@@ -1,4 +1,4 @@
-import type {backbone4} from './elements_backbone.js'
+import type {backbone, backbone4} from './elements_backbone.js'
 
 /**
  * Apply the properties saved in the constructor
@@ -138,4 +138,40 @@ export function rafContext (): (f: (timestamp: number) => void) => void {
                         raf = null;
                 });
         };
+}
+
+
+/**
+ * Make an async network request, returning response body
+ * @param  {String} location location of file. Note: will not prefix .location for you
+ * @return {Promise}         Promise that resolves to the response body, can error
+ */
+export async function request (location: string): Promise<any> {
+        return fetch(location).then(
+                (response) => {
+                        if (response.ok) {
+                                return response.text();
+                        } else {
+                                throw new Error(response.url);
+                        }
+                }
+        );
+}
+
+
+/**
+ * Helper function to generate function to perform attribute overwrite
+ * @param  {HTMLElement} object   object to observe attribute on
+ * @param  {String} property property to observe
+ * @return {Function}          function to set value to attribute if it exists
+ */
+export function getInitProperty (object: backbone, property: string): () => void {
+        return (() => {
+                // If the attribute is been written to, it should be handled by
+                // the attribute changed callback
+                if (object.getAttribute(property) === null) {
+                        //@ts-ignore
+                        object.setAttribute(property, object[property]);
+                }
+        });
 }
