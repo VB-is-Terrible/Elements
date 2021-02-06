@@ -175,3 +175,16 @@ export function getInitProperty (object: backbone, property: string): () => void
                 }
         });
 }
+
+/**
+ * Remove children of the element within an animation frame
+ * @param {HTMLElement} element Element to remove children from
+ */
+export function removeChildren(element: HTMLElement) {
+        requestAnimationFrame(() => {
+                let children = [...element.children];
+                for (let child of children) {
+                        child.remove();
+                }
+        });
+}

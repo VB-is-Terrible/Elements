@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import { rafContext } from '../../../elements_helper.js'
+import { rafContext, removeChildren } from '../../../elements_helper.js'
 
 
 const ELEMENT_NAME = 'GalleryScrollDynamic';
@@ -81,14 +81,6 @@ export class GalleryScrollDynamic extends backbone4 {
 	}
 	get img_urls() {
 		return this._urls;
-	}
-	_clear_imgs() {
-		requestAnimationFrame(() => {
-			let children = [...this._body.children];
-			for (let img of children) {
-				img.remove();
-			}
-		});
 	}
 	_create_img(src: string, callback: (() => void) | null = null) {
 		const div = document.createElement('div');
@@ -260,7 +252,7 @@ export class GalleryScrollDynamic extends backbone4 {
 	_img_load(_img: HTMLImageElement) {
 	}
 	_rebuild_position(position: number) {
-		this._clear_imgs();
+		removeChildren(this._body);
 		let current = position - this.PRELOAD_EXCEED;
 		if (current < 0) {
 			current = 0;
