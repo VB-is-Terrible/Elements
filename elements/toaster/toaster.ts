@@ -51,6 +51,9 @@ export class Toaster extends backbone4 {
 		this._body.append(toast);
 		return toast;
 	}
+	get toasts() {
+		return [...this._body.children];
+	}
 }
 
 export default Toaster;
