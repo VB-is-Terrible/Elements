@@ -13,3 +13,6 @@ div.spacer {
 :host([hidden]) {
         display: none;
 }
+elements-toaster-toast {
+	margin-top: .25em;
+}

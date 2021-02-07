@@ -45,15 +45,10 @@ export class Toaster extends backbone4 {
 	addToast(toastData: ToastData) {
 		const toast = document.createElement('elements-toaster-toast') as ToasterToast;
 		toast.setToast(toastData);
-		const parent = document.createElement('div');
-		const spacer = document.createElement('div');
-		spacer.className = 'spacer';
-		parent.append(spacer);
-		parent.append(toast);
 		toast.addEventListener('toast_close', () => {
-			parent.remove();
+			toast.remove();
 		});
-		this._body.append(parent);
+		this._body.append(toast);
 		return toast;
 	}
 }
