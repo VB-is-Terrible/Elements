@@ -30,9 +30,9 @@ const ELEMENT_NAME = 'ToasterToast';
  * @fires Elements.elements.ToasterToast#toast_close
  */
 export class ToasterToast extends backbone4 {
-	_title: HTMLDivElement;
-	_body: HTMLDivElement;
-	_buttons: HTMLDivElement;
+	private _title: HTMLDivElement;
+	private _body: HTMLDivElement;
+	private _buttons: HTMLDivElement;
 	constructor() {
 		super();
 
@@ -58,13 +58,13 @@ export class ToasterToast extends backbone4 {
 	static get observedAttributes() {
 		return [];
 	}
-	_setTitle(title: string) {
+	private _setTitle(title: string) {
 		this._title.innerHTML = title;
 	}
-	_setBody(body: string) {
+	private _setBody(body: string) {
 		this._body.innerHTML = body;
 	}
-	_setButtons(button_text: Array<string>) {
+	private _setButtons(button_text: Array<string>) {
 		removeChildren(this._buttons);
 		for (const [index, text] of button_text.entries()) {
 			const button = ToasterToast.createButton(text);
@@ -81,12 +81,12 @@ export class ToasterToast extends backbone4 {
 			});
 		}
 	}
-	_hideButtons() {
+	private _hideButtons() {
 		requestAnimationFrame(() => {
 			this._buttons.style.display = 'none';
 		});
 	}
-	_hideBody() {
+	private _hideBody() {
 		requestAnimationFrame(() => {
 			this._body.style.display = 'none';
 		});

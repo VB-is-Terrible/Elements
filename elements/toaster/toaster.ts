@@ -13,7 +13,7 @@ const ELEMENT_NAME = 'Toaster';
  * @memberof Elements.elements
  */
 export class Toaster extends backbone4 {
-	_body: HTMLDivElement;
+	private _body: HTMLDivElement;
 	constructor() {
 		super();
 
