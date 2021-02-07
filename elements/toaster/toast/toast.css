@@ -43,3 +43,9 @@ div.split {
 #title_sidepane {
 	margin-left: .25em;
 }
+:host {
+	display: block;
+}
+:host([hidden]) {
+        display: none;
+}

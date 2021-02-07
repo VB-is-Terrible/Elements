@@ -7,3 +7,9 @@ div.spacer {
 	margin-top: .25em;
 	height: 0;
 }
+:host {
+	display: block;
+}
+:host([hidden]) {
+        display: none;
+}
