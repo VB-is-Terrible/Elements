@@ -131,11 +131,9 @@ export class GalleryScrollDynamic extends backbone4 {
 			i += 1;
 		}
 		above = this._body.children.length - i;
-		// console.log(below, this._body.children.length - below - above, above);
 		if (below <= this.PRELOAD_EXCEED) {
 			//TODO: Need to account for images loading
 			let to_load = this.PRELOAD_EXCEED - below + 1;
-			console.log('Would add ' + to_load.toString() + ' images below');
 			let first = this._body.children[0];
 			while (to_load > 0 && this._start > 0) {
 				const img = this._create_img(this._urls[this._start - 1]);
@@ -161,7 +159,6 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 		if (above < this.PRELOAD_EXCEED) {
 			let to_load = this.PRELOAD_EXCEED - above;
-			console.log('Would add ' + to_load.toString() + ' images above');
 			while (to_load > 0 && this._end < this._urls.length) {
 				const img = this._create_img(this._urls[this._end]);
 				requestAnimationFrame(() => {
@@ -193,7 +190,6 @@ export class GalleryScrollDynamic extends backbone4 {
 			);
 			this.dispatchEvent(event);
 		}
-		console.log(this._start, this._end);
 	}
 	set position(value) {
 		const old = this._position;
