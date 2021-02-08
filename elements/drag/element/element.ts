@@ -20,7 +20,10 @@ interface dragged {
         drag_reset: () => void;
         toTop: () => void;
         toggleWindow: () => void;
-}
+        readonly drag_parent_hidden: boolean;
+};
+
+
 /**
  * @event DragElement#elements-drag-hideWindow
  */
@@ -42,7 +45,9 @@ interface dragged {
 /**
  * @event DragElement#elements-drag-toTop
  */
-
+/**
+ * @event DragElement#elements-drag-query-hidden
+ */
 /**
  * Interface for things that go in drag-elements
  * @interface Draggable
@@ -172,6 +177,12 @@ export class DragElement extends backbone4 {
                 this._body.addEventListener('elements-drag-toTop', (e) => {
                         this.toTop();
                         e.stopPropagation();
+                });
+                // Yes, this is a hack
+                this._body.addEventListener('elements-drag-query-hidden', (e) => {
+                        if (!this.hidden) {
+                                e.preventDefault();
+                        }
                 });
 
 		shadow.appendChild(template);
@@ -537,6 +548,10 @@ export function dragged_mixin<TBase extends GConstructor<HTMLElement>>(Base: TBa
                 toTop() {
                 	const ev = CustomComposedEvent('elements-drag-toTop');
                 	this.dispatchEvent(ev);
+                }
+                get drag_parent_hidden() {
+                        const ev = CustomComposedEvent('elements-drag-query-hidden', undefined, true);
+                	return this.dispatchEvent(ev);
                 }
         };
 };
