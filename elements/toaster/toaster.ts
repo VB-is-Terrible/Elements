@@ -20,6 +20,10 @@ export class Toaster extends backbone4 {
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(ELEMENT_NAME);
 		this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
+		this._body.addEventListener('toast_close', (e) => {
+			(e.target as ToasterToast).remove();
+			e.stopPropagation();
+		});
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this.addToast({
@@ -45,9 +49,6 @@ export class Toaster extends backbone4 {
 	addToast(toastData: ToastData) {
 		const toast = document.createElement('elements-toaster-toast') as ToasterToast;
 		toast.setToast(toastData);
-		toast.addEventListener('toast_close', () => {
-			toast.remove();
-		});
 		this._body.append(toast);
 		return toast;
 	}

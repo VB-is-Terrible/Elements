@@ -54,8 +54,9 @@ export class ContainerDialog extends backbone4 {
 		//Fancy code goes here
 		shadow.appendChild(template);
 		applyPriorProperty(this, 'hidden', false);
-		this.addEventListener('dialog_close', () => {
+		this.addEventListener('dialog_close', (e) => {
 			this.hide();
+			e.stopPropagation();
 		});
 	}
 	connectedCallback() {

@@ -72,11 +72,14 @@ export class ToasterToast extends backbone4 {
 			const button = ToasterToast.createButton(text);
 			button.addEventListener('click', () => {
 				const ev = new CustomEvent('toast_button_click', {
-					bubbles: true,
+					bubbles: false,
 					cancelable: true,
 					detail: index,
 				});
-				this.dispatchEvent(ev);
+				const prevented = this.dispatchEvent(ev);
+				if (!prevented) {
+					this.close();
+				}
 			})
 			requestAnimationFrame(() => {
 				this._buttons.append(button);
@@ -117,7 +120,7 @@ export class ToasterToast extends backbone4 {
 	close() {
 		const ev = new CustomEvent('toast_close', {
 			bubbles: true,
-			cancelable: true,
+			composed: true,
 		});
 		this.dispatchEvent(ev);
 	}
