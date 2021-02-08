@@ -286,7 +286,8 @@ def walk(dirpath: str, root: str):
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
                 results[name] = parse(filename, root)
-        if isfile(dirpath + '/element.js'):
+        if (isfile(dirpath + '/element.js')
+                and not isfile(dirpath + '/element.ts')):
                 results[remove_prefix(dirpath, root)] = parse(dirpath, root)
         for file in os.listdir(dirpath):
                 if not file.endswith('.mjs'):
