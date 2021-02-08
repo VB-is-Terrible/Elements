@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import {applyPriorProperty} from '../../elements_helper.js'
+import {applyPriorProperty} from '../../elements_helper.js';
 
 // const animation_states = Object.freeze({
 // 	none: 0,

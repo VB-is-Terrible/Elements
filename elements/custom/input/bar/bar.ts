@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import {applyPriorProperties} from '../../../elements_helper.js'
+import {applyPriorProperties} from '../../../elements_helper.js';
 
 
 const ELEMENT_NAME = 'CustomInputBar';

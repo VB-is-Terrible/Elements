@@ -3,7 +3,7 @@ export const requires = ['toaster-toast'];
 
 import {Elements} from '../elements_core.js';
 import {backbone4} from '../elements_backbone.js';
-import {} from '../elements_helper.js'
+import {} from '../elements_helper.js';
 import type {ToastData, ToasterToast} from 'toast/toast.js';
 
 const ELEMENT_NAME = 'Toaster';

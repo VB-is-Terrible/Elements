@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import {removeChildren} from '../../elements_helper.js'
+import {removeChildren} from '../../elements_helper.js';
 
 
 export type ToastData = {
