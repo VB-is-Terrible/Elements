@@ -188,3 +188,20 @@ export function removeChildren(element: HTMLElement) {
                 }
         });
 };
+
+
+/**
+ * Create a CustomEvent with the composed option enabled
+ * @param {String} type The type of event to create
+ * @param {*} detail The detail of the event
+ * @param {Boolean} cancelable If the event can be canceled
+ * @return {CustomEvent} The created event
+ */
+export function CustomComposedEvent(type: string, detail: unknown = null, cancelable: boolean = false): CustomEvent {
+        return new CustomEvent(type, {
+                detail: detail,
+                bubbles: true,
+                composed: true,
+                cancelable: cancelable,
+        });
+};

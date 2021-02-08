@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
-import { applyPriorProperty } from '../../elements_helper.js';
+import { applyPriorProperty, CustomComposedEvent } from '../../elements_helper.js';
 import type {DragBody} from '../body/body.js';
 
 type TouchListener = (arg0: TouchEvent) => void;
@@ -212,11 +212,7 @@ export class DragElement extends backbone4 implements dragged {
 		body.addEventListener('touchcancel', this.events.end, false);
 		body.addEventListener('touchend', this.events.end, false);
 		body.removeEventListener('touchstart', this.events.start, false);
-                const ev = new CustomEvent('elements-drag-topZIndex', {
-                        detail: this,
-                        bubbles: true,
-                        composed: true,
-                });
+                const ev = CustomComposedEvent('elements-drag-topZIndex', this);
                 this.dispatchEvent(ev);
 	}
 	/**
@@ -268,11 +264,7 @@ export class DragElement extends backbone4 implements dragged {
 		let style = window.getComputedStyle(body, null);
 		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX);
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
-                const ev = new CustomEvent('elements-drag-top', {
-                        detail: this,
-                        bubbles: true,
-                        composed: true,
-                });
+                const ev = CustomComposedEvent('elements-drag-top', this);
                 this.dispatchEvent(ev);
 		body.addEventListener('mousemove', this.events.dMove, false);
 		body.addEventListener('mouseup', this.events.dEnd, false);
@@ -300,10 +292,7 @@ export class DragElement extends backbone4 implements dragged {
 		body.addEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
 		body.removeEventListener('mouseup', this.events.dEnd, false);
-                const ev = new CustomEvent('elements-drag-bottom', {
-                        bubbles: true,
-                        composed: true,
-                });
+                const ev = CustomComposedEvent('elements-drag-bottom');
                 this.dispatchEvent(ev);
 	}
 	/**
@@ -332,11 +321,7 @@ export class DragElement extends backbone4 implements dragged {
 	 * Put this drag-element on top of other drag-elements
 	 */
 	toTop () {
-                const ev = new CustomEvent('elements-drag-topZIndex', {
-                        detail: this,
-                        bubbles: true,
-                        composed: true,
-                });
+                const ev = CustomComposedEvent('elements-drag-topZIndex', this);
                 this.dispatchEvent(ev);
 	}
 	get hidden () {
