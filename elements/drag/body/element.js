@@ -86,8 +86,8 @@ Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 		// Place pseudoBody on top of everything else
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		requestAnimationFrame((e) => {
-			body.style.width = window.innerWidth + 'px';
-			body.style.height = window.innerHeight + 'px';
+			body.style.width = '100%';
+			body.style.height = '100%';
 		});
 		body.addEventListener('mousemove', this.callbacks.move);
 		body.addEventListener('mouseup', this.callbacks.end);
