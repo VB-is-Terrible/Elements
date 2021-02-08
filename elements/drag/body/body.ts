@@ -71,13 +71,21 @@ export class DragBody extends backbone4 {
 			end: (e) => {self.drag_end(e)},
 		};
                 this._body.addEventListener('elements-drag-top', (e) => {
-                        
+                        const ev = e as CustomEvent;
+                        const child = ev.detail as DragElement;
+                        this.subject = child;
+                        this.toTop(child);
+                        e.stopPropagation();
                 });
-                this._body.addEventListener('elements-drag-bottom', () => {
-
+                this._body.addEventListener('elements-drag-bottom', (e) => {
+                        this.toBottom();
+                        e.stopPropagation();
                 });
                 this._body.addEventListener('elements-drag-topZIndex', (e) => {
-
+                        const ev = e as CustomEvent;
+                        const child = ev.detail as DragElement;
+                        this.topZIndex(child);
+                        e.stopPropagation();
                 });
 		shadow.appendChild(template);
 	}
