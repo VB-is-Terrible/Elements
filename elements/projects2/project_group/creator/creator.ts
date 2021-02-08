@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import {} from '../../../elements_helper.js'
+import { CustomComposedEvent } from '../../../elements_helper.js'
 import {ProjectGroup} from '../../../projects2/Project/Project.js';
 
 
@@ -63,10 +63,7 @@ export class Projects2Project_groupCreator extends backbone4 {
 	}
 	_close() {
 		console.log('firing');
-		const ev = new CustomEvent('dialog_close', {
-			bubbles: true,
-			cancelable: true
-		});
+		const ev = CustomComposedEvent('dialog_close');
 		this.dispatchEvent(ev);
 	}
 }
