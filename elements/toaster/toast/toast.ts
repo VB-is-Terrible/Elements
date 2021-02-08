@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import {removeChildren} from '../../elements_helper.js';
+import {CustomComposedEvent, removeChildren} from '../../elements_helper.js'
 
 
 export type ToastData = {
@@ -71,12 +71,11 @@ export class ToasterToast extends backbone4 {
 		for (const [index, text] of button_text.entries()) {
 			const button = ToasterToast.createButton(text);
 			button.addEventListener('click', () => {
-				const ev = new CustomEvent('toast_button_click', {
-					bubbles: true,
-					cancelable: true,
-					detail: index,
-				});
-				this.dispatchEvent(ev);
+				const ev = CustomComposedEvent('toast_button_click', index);
+				const prevented = this.dispatchEvent(ev);
+				if (!prevented) {
+					this.close();
+				}
 			})
 			requestAnimationFrame(() => {
 				this._buttons.append(button);
@@ -115,10 +114,7 @@ export class ToasterToast extends backbone4 {
 		}
 	}
 	close() {
-		const ev = new CustomEvent('toast_close', {
-			bubbles: true,
-			cancelable: true,
-		});
+		const ev = CustomComposedEvent('toast_close');
 		this.dispatchEvent(ev);
 	}
 	private static createButton(text: string) {
