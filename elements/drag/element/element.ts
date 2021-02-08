@@ -4,7 +4,6 @@ export const requires = [];
 import {Elements} from '../../elements_core.js';
 import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
 import { applyPriorProperty, CustomComposedEvent } from '../../elements_helper.js';
-import type {DragBody} from '../body/body.js';
 
 type TouchListener = (arg0: TouchEvent) => void;
 type MouseListener = (arg0: MouseEvent) => void;
@@ -570,7 +569,7 @@ Elements.elements.dragged2 = Dragged2;
  * @augments Elements.elements.backbone
  * @implements Draggable
  */
-export const Dragged1 = dragged_mixin(backbone2);
+export const Dragged1 = dragged_mixin(backbone);
 Elements.elements.dragged = Dragged1;
 
 export default DragElement;
