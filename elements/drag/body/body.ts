@@ -1,4 +1,14 @@
-'use strict';
+export const recommends = ['drag-body'];
+export const requires = [];
+
+import {Elements} from '../../elements_core.js';
+import {backbone4} from '../../elements_backbone.js';
+import {} from '../../elements_helper.js';
+import type {DragElement} from '../element/element.js';
+const ELEMENT_NAME = 'DragBody';
+type MouseListener = (arg0: MouseEvent) => void;
+
+
 
 
 /**
@@ -34,18 +44,22 @@
  * Make sure internal elements are also draggable
  * @property {HTMLElement} subject drag-element been dragged
  * @implements DragParent
- * @augments Elements.elements.backbone2
+ * @augments Elements.elements.backbone4
  */
-Elements.elements.DragBody = class extends Elements.elements.backbone2 {
+export class DragBody extends backbone4 {
+        zIndexCount: number;
+        private _body: HTMLDivElement;
+        callbacks: { move: MouseListener; end: MouseListener; };
+        subject: null | DragElement;
 	constructor () {
 		super();
 
 		const self = this;
-		this.name = 'DragBody';
 		this.subject = null;
 		const shadow = this.attachShadow({mode: 'open'});
-		let template = Elements.importTemplate(this.name);
-		this.zIndexCount = parseInt(template.querySelector('#pseudoBody').style.zIndex) || 0;
+		let template = Elements.importTemplate(ELEMENT_NAME);
+                this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
+		this.zIndexCount = parseInt(this._body.style.zIndex) || 0;
 		/**
 		 * Wrapped event handlers.
 		 * Used to mantian consistent calls to add/remove-EventListener
@@ -56,6 +70,15 @@ Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 			move: (e) => {self.drag_move(e)},
 			end: (e) => {self.drag_end(e)},
 		};
+                this._body.addEventListener('elements-drag-top', (e) => {
+                        
+                });
+                this._body.addEventListener('elements-drag-bottom', () => {
+
+                });
+                this._body.addEventListener('elements-drag-topZIndex', (e) => {
+
+                });
 		shadow.appendChild(template);
 	}
 	/**
@@ -63,29 +86,33 @@ Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 	 * @param  {MouseEvent} event
 	 * @private
 	 */
-	drag_move (event) {
+	drag_move (event: MouseEvent) {
 		let target = this.subject;
-		target.drag_move(event);
+                if (target !== null) {
+                        target.drag_move(event);
+                }
 	}
 	/**
  	 * Ends a mouse based drag
  	 * @param  {MouseEvent} event
  	 * @private
  	 */
-	drag_end (event) {
+	drag_end (event: MouseEvent) {
 		let target = this.subject;
-		target.drag_end(event);
+                if (target !== null) {
+                        target.drag_end(event);
+                }
 	}
 	/**
 	 * Push childNode and dragBody to the top of z-Indexes
 	 * @param  {Node} childNode Node to place ontop of other nodes
 	 */
-	toTop (childNode) {
+	toTop (childNode: DragElement) {
 		// Place childNode on top of other floating elements
 		this.topZIndex(childNode);
 		// Place pseudoBody on top of everything else
-		let body = this.shadowRoot.querySelector('#pseudoBody');
-		requestAnimationFrame((e) => {
+		let body = this._body;
+		requestAnimationFrame(() => {
 			body.style.width = '100%';
 			body.style.height = '100%';
 		});
@@ -100,8 +127,8 @@ Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 	toBottom () {
 		// Place pseudoBody out of the way
 		// The high z-index is needed to keep child elements on top
-		let body = this.shadowRoot.querySelector('#pseudoBody');
-		requestAnimationFrame((e) => {
+		let body = this._body;
+		requestAnimationFrame(() => {
 			body.style.width = '0px';
 			body.style.height = '0px';
 		});
@@ -112,13 +139,16 @@ Elements.elements.DragBody = class extends Elements.elements.backbone2 {
 	 * Raise a drag element above other drag elements
 	 * @param  {Node} childNode Node to raise
 	 */
-	topZIndex (childNode) {
+	topZIndex (childNode: DragElement) {
 		this.zIndexCount += 1;
-		let index = this.zIndexCount;
-		requestAnimationFrame((e) => {
+		requestAnimationFrame(() => {
 			childNode.style.zIndex = this.zIndexCount.toString();
 		});
 	}
 };
 
-Elements.load(Elements.elements.DragBody, 'elements-drag-body');
+export default DragBody;
+
+Elements.elements.DragBody = DragBody;
+
+Elements.load(DragBody, 'elements-drag-body');

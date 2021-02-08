@@ -4,6 +4,7 @@ export const requires = [];
 import {Elements} from '../../elements_core.js';
 import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
 import { applyPriorProperty } from '../../elements_helper.js';
+import type {DragBody} from '../body/body.js';
 
 type TouchListener = (arg0: TouchEvent) => void;
 type MouseListener = (arg0: MouseEvent) => void;
@@ -176,12 +177,14 @@ export class DragElement extends backbone4 implements dragged {
 	 * @private
 	 */
         // TODO: Annotate with types once dragbody is done
-	get __parent (): HTMLElement {
+	get __parent (): DragBody {
+                let parent;
 		if (this.parent === null) {
-			return this.parentNode;
+			parent = this.parentNode;
 		} else {
-			return this.parent;
+			parent = this.parent;
 		}
+                return parent as unknown as DragBody;
 	}
 	connectedCallback () {
 		super.connectedCallback();
@@ -615,5 +618,9 @@ Elements.elements.dragged2 = class dragged2 extends backbone2 implements dragged
 }
 
 // TODO: Make a mixin for backbone4
+
+export default DragElement;
+
+Elements.elements.Toaster = DragElement;
 
 Elements.load(DragElement, 'elements-drag-element');
