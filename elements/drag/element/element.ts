@@ -13,34 +13,35 @@ const ELEMENT_NAME = 'DragElement';
 
 
 interface dragged {
-        readonly hidden: boolean;
         hideWindow: () => void;
         showWindow: () => void;
         centre: () => void;
         touch_reset: () => void;
         drag_reset: () => void;
         toTop: () => void;
+        toggleWindow: () => void;
 }
-
-const is_dragged = (object: any) => {
-        if (typeof object.hidden !== 'boolean') {
-                return false;
-        } else if (typeof object.hideWindow !== 'function') {
-                return false;
-        } else if (typeof object.showWindow !== 'function') {
-                return false;
-        } else if (typeof object.centre !== 'function') {
-                return false;
-        } else if (typeof object.touch_reset !== 'function') {
-                return false;
-        } else if (typeof object.drag_reset !== 'function') {
-                return false;
-        } else if (typeof object.toTop !== 'function') {
-                return false;
-        }
-        return true;
-};
-
+/**
+ * @event DragElement#elements-drag-hideWindow
+ */
+/**
+ * @event DragElement#elements-drag-showWindow
+ */
+/**
+ * @event DragElement#elements-drag-toggleWindow
+ */
+/**
+ * @event DragElement#elements-drag-centre
+ */
+/**
+ * @event DragElement#elements-drag-touch_reset
+ */
+/**
+ * @event DragElement#elements-drag-drag_reset
+ */
+/**
+ * @event DragElement#elements-drag-toTop
+ */
 
 /**
  * Interface for things that go in drag-elements
@@ -72,7 +73,6 @@ const is_dragged = (object: any) => {
  * @name Draggable.hideWindow
  */
 
-// TODO: Make this accept events
 /**
  * DragElement
  * Designed to hold contents to be dragged.
@@ -86,8 +86,15 @@ const is_dragged = (object: any) => {
  * @property {DragParent} parent DragParent to chain to
  * @augments Elements.elements.backbone2
  * @implements Draggable
+ * @listens DragElement#elements-drag-hideWindow
+ * @listens DragElement#elements-drag-showWindow
+ * @listens DragElement#elements-drag-toggleWindow
+ * @listens DragElement#elements-drag-centre
+ * @listens DragElement#elements-drag-touch_reset
+ * @listens DragElement#elements-drag-drag_reset
+ * @listens DragElement#elements-drag-toTop
  */
-export class DragElement extends backbone4 implements dragged {
+export class DragElement extends backbone4 {
         private __animation: null | Animation;
         private __animationCallback: null | (() => void);
         private __animationState: null | string;
@@ -134,7 +141,38 @@ export class DragElement extends backbone4 implements dragged {
                 this._body.addEventListener('dialog_close', (e) => {
                         this.hideWindow();
                         e.stopPropagation();
-                })
+                });
+                this._body.addEventListener('elements-drag-hideWindow', (e) => {
+                        this.hideWindow();
+                        e.stopPropagation();
+                });
+                this._body.addEventListener('elements-drag-showWindow', (e) => {
+                        this.showWindow();
+                        e.stopPropagation();
+                });
+                this._body.addEventListener('elements-drag-toggleWindow', (e) => {
+                        if (this.hidden) {
+                                this.showWindow();
+                        } else {
+                                this.hideWindow();
+                        }                        e.stopPropagation();
+                });
+                this._body.addEventListener('elements-drag-centre', (e) => {
+                        this.centre();
+                        e.stopPropagation();
+                });
+                this._body.addEventListener('elements-drag-touch_reset', (e) => {
+                        this.touch_reset();
+                        e.stopPropagation();
+                });
+                this._body.addEventListener('elements-drag-drag_reset', (e) => {
+                        this.drag_reset();
+                        e.stopPropagation();
+                });
+                this._body.addEventListener('elements-drag-toTop', (e) => {
+                        this.toTop();
+                        e.stopPropagation();
+                });
 
 		shadow.appendChild(template);
 		/**
@@ -175,21 +213,6 @@ export class DragElement extends backbone4 implements dragged {
 			left: 0,
 			top: 0,
 		};
-	}
-	/**
-	 * this.parent or if parent is null parentNode
-	 * @return {DragParent} DragParent to chain calls to
-	 * @private
-	 */
-        // TODO: Annotate with types once dragbody is done
-	get __parent (): DragBody {
-                let parent;
-		if (this.parent === null) {
-			parent = this.parentNode;
-		} else {
-			parent = this.parent;
-		}
-                return parent as unknown as DragBody;
 	}
 	connectedCallback () {
 		super.connectedCallback();
@@ -476,152 +499,64 @@ export class DragElement extends backbone4 implements dragged {
         }
 };
 
-// TODO: Make these fire events instead of parent chaining
+
+type GConstructor<T = {}> = new (...args: any[]) => T;
+
+// This mixin adds a scale property, with getters and setters
+// for changing it with an encapsulated private property:
+
 /**
- * Implements commonly used methods for things been dragged
- * @type {Object}
- * @property {Boolean} hidden Wheter this element is hidden
- * @property {Draggable} parent Element to chain [show/hide]Window, etc. calls to. Defaults to parentElement
- * @augments Elements.elements.backbone
- * @implements Draggable
+ * Adds methods to interact with a parent drag-element
  */
-Elements.elements.dragged = class extends backbone implements dragged {
-        parent: HTMLElement | null;
-	constructor () {
-		super();
-                //@ts-ignore
-		this.parent = this.parent || null;
-	}
-	get hidden () {
-		return this._parent.hidden;
-	}
-	/**
-	 * Hide this element
-	 */
-	hideWindow () {
-                this._parent.hideWindow();
-	}
-	/**
-	 * Unhide this element
-	 */
-	showWindow () {
-		this._parent.showWindow();
-	}
-	/**
-	 * Centre the element onscreen
-	 */
-	centre () {
-		this._parent.centre();
-	}
-	/**
-	 * Resets/Cancels a touch drag.
-	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
-	 */
-	touch_reset () {
-		this._parent.touch_reset();
-	}
-	/**
-	 * Reset/Cancel a drag. For completness
-	 */
-	drag_reset () {
-		this._parent.drag_reset();
-	}
-	/**
-	 * Push the drag element to the top
-	 */
-	toTop () {
-		this._parent.toTop();
-	}
-        private get _parent(): dragged & HTMLElement {
-                let parent;
-                if (this.parent === null) {
-                        parent = this.parentElement;
-                } else {
-                        parent = this.parent;
+export function dragged_mixin<TBase extends GConstructor<HTMLElement>>(Base: TBase) {
+        return class Dragged extends Base implements dragged {
+                hideWindow() {
+                	const ev = CustomComposedEvent('elements-drag-hideWindow');
+                	this.dispatchEvent(ev);
                 }
-                if (parent === null) {
-                        throw new Error('Draggable object is not in a drag-element');
+                showWindow() {
+                	const ev = CustomComposedEvent('elements-drag-showWindow');
+                	this.dispatchEvent(ev);
                 }
-                if (!is_dragged(parent)) {
-                        throw new Error('Draggable object is not in a drag-element chain')
+                toggleWindow() {
+                	const ev = CustomComposedEvent('elements-drag-toggleWindow');
+                	this.dispatchEvent(ev);
                 }
-                return parent as dragged & HTMLElement;
-        }
-}
+                centre() {
+                	const ev = CustomComposedEvent('elements-drag-centre');
+                	this.dispatchEvent(ev);
+                }
+                touch_reset() {
+                	const ev = CustomComposedEvent('elements-drag-touch_reset');
+                	this.dispatchEvent(ev);
+                }
+                drag_reset() {
+                	const ev = CustomComposedEvent('elements-drag-drag_reset');
+                	this.dispatchEvent(ev);
+                }
+                toTop() {
+                	const ev = CustomComposedEvent('elements-drag-toTop');
+                	this.dispatchEvent(ev);
+                }
+        };
+};
 
 /**
  * Implements commonly used methods for things been dragged
- * @type {Object}
- * @property {Boolean} hidden Wheter this element is hidden
- * @property {Draggable} parent Element to chain [show/hide]Window, etc. calls to. Defaults to parentElement
  * @implements Draggable
  * @augments Elements.elements.backbone2
  * @name Elements.elements.dragged2
  */
-Elements.elements.dragged2 = class dragged2 extends backbone2 implements dragged {
-        parent: null;
-	constructor () {
-		super();
-		this.applyPriorProperty('parent', null);
-	}
-        get hidden () {
-		return this._parent.hidden;
-	}
-	/**
-	 * Hide this element
-	 */
-	hideWindow () {
-                this._parent.hideWindow();
-	}
-	/**
-	 * Unhide this element
-	 */
-	showWindow () {
-		this._parent.showWindow();
-	}
-	/**
-	 * Centre the element onscreen
-	 */
-	centre () {
-		this._parent.centre();
-	}
-	/**
-	 * Resets/Cancels a touch drag.
-	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
-	 */
-	touch_reset () {
-		this._parent.touch_reset();
-	}
-	/**
-	 * Reset/Cancel a drag. For completness
-	 */
-	drag_reset () {
-		this._parent.drag_reset();
-	}
-	/**
-	 * Push the drag element to the top
-	 */
-	toTop () {
-		this._parent.toTop();
-	}
-        private get _parent(): dragged & HTMLElement {
-                let parent;
-                if (this.parent === null) {
-                        parent = this.parentElement;
-                } else {
-                        parent = this.parent;
-                }
-                if (parent === null) {
-                        throw new Error('Draggable object is not in a drag-element');
-                }
-                if (!is_dragged(parent)) {
-                        throw new Error('Draggable object is not in a drag-element chain')
-                }
-                return parent as dragged & HTMLElement;
-        }
-}
+export const Dragged2 = dragged_mixin(backbone2);
+Elements.elements.dragged2 = Dragged2;
 
-// TODO: Make a mixin for backbone4
+/**
+ * Implements commonly used methods for things been dragged
+ * @augments Elements.elements.backbone
+ * @implements Draggable
+ */
+export const Dragged1 = dragged_mixin(backbone2);
+Elements.elements.dragged = Dragged1;
 
 export default DragElement;
 
