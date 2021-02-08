@@ -33,6 +33,7 @@ export class ToasterToast extends backbone4 {
 	private _title: HTMLDivElement;
 	private _body: HTMLDivElement;
 	private _buttons: HTMLDivElement;
+	private _divider: HTMLHRElement;
 	constructor() {
 		super();
 
@@ -41,6 +42,7 @@ export class ToasterToast extends backbone4 {
 		this._title = template.querySelector('#title') as HTMLDivElement;
 		this._body = template.querySelector('#body') as HTMLDivElement;
 		this._buttons = template.querySelector('#buttons') as HTMLDivElement;
+		this._divider = template.querySelector('hr') as HTMLHRElement;
 		const close = template.querySelector('#close') as HTMLButtonElement;
 
 		close.addEventListener('click', () => {
@@ -91,6 +93,11 @@ export class ToasterToast extends backbone4 {
 			this._body.style.display = 'none';
 		});
 	}
+	private _hideDivider() {
+		requestAnimationFrame(() => {
+			this._divider.style.display = 'none';
+		});
+	}
 	setToast(data: ToastData) {
 		this._setTitle(data.title);
 		if (data.body !== undefined) {
@@ -102,6 +109,9 @@ export class ToasterToast extends backbone4 {
 			this._setButtons(data.buttons);
 		} else {
 			this._hideButtons();
+		}
+		if (data.body === undefined && data.buttons === undefined) {
+			this._hideDivider();
 		}
 	}
 	close() {
