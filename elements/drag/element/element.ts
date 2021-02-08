@@ -1,4 +1,45 @@
-'use strict';
+export const recommends = ['drag-body'];
+export const requires = [];
+
+import {Elements} from '../../elements_core.js';
+import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
+import { applyPriorProperty } from '../../elements_helper.js';
+
+type TouchListener = (arg0: TouchEvent) => void;
+type MouseListener = (arg0: MouseEvent) => void;
+
+const ELEMENT_NAME = 'DragElement';
+
+
+interface dragged {
+        readonly hidden: boolean;
+        hideWindow: () => void;
+        showWindow: () => void;
+        centre: () => void;
+        touch_reset: () => void;
+        drag_reset: () => void;
+        toTop: () => void;
+}
+
+const is_dragged = (object: any) => {
+        if (typeof object.hidden !== 'boolean') {
+                return false;
+        } else if (typeof object.hideWindow !== 'function') {
+                return false;
+        } else if (typeof object.showWindow !== 'function') {
+                return false;
+        } else if (typeof object.centre !== 'function') {
+                return false;
+        } else if (typeof object.touch_reset !== 'function') {
+                return false;
+        } else if (typeof object.drag_reset !== 'function') {
+                return false;
+        } else if (typeof object.toTop !== 'function') {
+                return false;
+        }
+        return true;
+};
+
 
 /**
  * Interface for things that go in drag-elements
@@ -30,8 +71,7 @@
  * @name Draggable.hideWindow
  */
 
-Elements.get('drag-body');
-{
+// TODO: Make this accept events
 /**
  * DragElement
  * Designed to hold contents to be dragged.
@@ -46,18 +86,25 @@ Elements.get('drag-body');
  * @augments Elements.elements.backbone2
  * @implements Draggable
  */
-Elements.elements.DragElement = class DragElement extends Elements.elements.backbone2 {
+export class DragElement extends backbone4 implements dragged {
+        private __animation: null | Animation;
+        private __animationCallback: null | (() => void);
+        private __animationState: null | string;
+        touch: { left: number; top: number; touchID: number; };
+        parent: null | (HTMLElement & dragged);
+        drag: { left: number; top: number; };
+        events: { start: TouchListener; end: TouchListener; move: TouchListener; dStart: MouseListener; dEnd: MouseListener; dMove: MouseListener; };
+        private _body: HTMLDivElement;
 	constructor () {
 		super();
 
 		const self = this;
-		this.name = 'DragElement';
 		/**
 		 * DragParent to chain to
 		 * @type {DragParent}
 		 */
 		this.parent = null;
-		this.applyPriorProperty('parent', null);
+		applyPriorProperty(this, 'parent', null);
 		/**
 		 * The currently playing animation
 		 * @type {Animation}
@@ -78,20 +125,11 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 		 * @private
 		 */
 		this.__animationState = null;
-		/**
-		 * Temp value for pseudoBody.style.left before its set in a animation frame
-		 * @type {?Number}
-		 * @private
-		 */
-		this.__left = null;
-		/**
-		 * Temp value for pseudoBody.style.top before its set in a animation frame
-		 * @type {?Number}
-		 * @private
-		 */
-		this.__top = null;
+
 		const shadow = this.attachShadow({mode: 'open'});
-		let template = Elements.importTemplate(this.name);
+		let template = Elements.importTemplate(ELEMENT_NAME);
+
+                this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
 		shadow.appendChild(template);
 		/**
 		 * Touch event data
@@ -114,7 +152,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 		 */
 		this.events = {
 			start: (e) => {self.touch_start(e);},
-			end: (e) => {self.touch_end(e);},
+			end: () => {self.touch_end();},
 			move: (e) => {self.touch_move(e);},
 			dStart: (e) => {self.drag_start(e);},
 			dEnd: (e) => {self.drag_end(e);},
@@ -137,7 +175,8 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * @return {DragParent} DragParent to chain calls to
 	 * @private
 	 */
-	get __parent () {
+        // TODO: Annotate with types once dragbody is done
+	get __parent (): HTMLElement {
 		if (this.parent === null) {
 			return this.parentNode;
 		} else {
@@ -154,9 +193,9 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * @param  {TouchEvent} event
 	 * @private
 	 */
-	touch_start (event) {
+	touch_start (event: TouchEvent) {
 		let touchEvent = event.changedTouches[0];
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		let style = window.getComputedStyle(body, null);
 		this.touch.touchID = touchEvent.identifier;
 		this.touch.left = (parseInt(style.getPropertyValue('left'),10) - touchEvent.clientX);
@@ -172,8 +211,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * @param  {TouchEvent} event
 	 * @private
 	 */
-	touch_move (event) {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+	touch_move (event: TouchEvent) {
 		for (let touch of event.changedTouches) {
 			if (touch.identifier === this.touch.touchID) {
 				if (event.cancelable) {
@@ -183,7 +221,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 				let topStyle = touch.clientY + this.touch.top;
 				this.setTop(topStyle);
 				this.setLeft(leftStyle);
-				return false;
+				return;
 			}
 		}
 	}
@@ -192,7 +230,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * @param  {TouchEvent} event
 	 * @private
 	 */
-	touch_end (event) {
+	touch_end () {
 		this.touch_reset();
 	}
 	/**
@@ -200,7 +238,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
 	 */
 	touch_reset () {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		body.removeEventListener('touchstart', this.events.start, false);
 		body.addEventListener('touchstart', this.events.start, false);
 		body.removeEventListener('touchmove', this.events.move, false);
@@ -211,10 +249,10 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Starts a mouse base drag
 	 * @param  {MouseEvent} event
 	 */
-	drag_start (event) {
+	drag_start (event: MouseEvent) {
 		// event.preventDefault();
-		let body = this.shadowRoot.querySelector('#pseudoBody');
-		let style = window.getComputedStyle(this.shadowRoot.querySelector('#pseudoBody'), null);
+		let body = this._body;
+		let style = window.getComputedStyle(body, null);
 		let left = (parseInt(style.getPropertyValue('left'),10) - event.clientX).toString();
 		let top = (parseInt(style.getPropertyValue('top'),10) - event.clientY).toString();
 		let id = this.id;
@@ -231,7 +269,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Updates a mouse based drag
 	 * @param  {MouseEvent} event
 	 */
-	drag_move (event) {
+	drag_move (event: MouseEvent) {
 		event.preventDefault();
 		let leftStyle = event.clientX + this.drag.left;
 		let topStyle = event.clientY + this.drag.top;
@@ -243,9 +281,9 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Ends a mouse based drag
 	 * @param  {MouseEvent} [event]
 	 */
-	drag_end (event) {
+	drag_end (event: MouseEvent) {
 		event.preventDefault();
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		body.addEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
 		body.removeEventListener('mouseup', this.events.dEnd, false);
@@ -255,7 +293,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Reset/Cancel a drag
 	 */
 	drag_reset () {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		body.removeEventListener('mousedown', this.events.dStart, false);
 		body.addEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
@@ -265,7 +303,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Moves drag-element to the centre of the window
 	 */
 	centre () {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		let height = body.offsetHeight;
 		let width = body.offsetWidth;
 		let top = (window.innerHeight - height) / 2;
@@ -285,10 +323,8 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 			switch (this.__animationState) {
 				case 'hide':
 					return true;
-					break;
 				case 'show':
 					return false;
-					break;
 				default:
 					console.error('Bad animation state', this.__animationState);
 			}
@@ -315,7 +351,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Hide this element
 	 */
 	hideWindow () {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		// If the element is hiding, do nothing
 		if (this.__animationState === 'hide') {
 			return;
@@ -326,7 +362,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 		}
 
 		let callback = () => {
-			requestAnimationFrame((e) => {
+			requestAnimationFrame(() => {
 				this.style.visibility = 'hidden';
 			});
 		}
@@ -356,7 +392,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * Unhide this element
 	 */
 	showWindow () {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
+		let body = this._body;
 		// If the element is hiding, do nothing
 		if (this.__animationState === 'show') {
 			return;
@@ -398,12 +434,10 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * causes really long style recalculations
 	 * @param {Number} value What to set top to
 	 */
-	setTop (value) {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
-		this.__top = value;
-		requestAnimationFrame((e) => {
+	setTop (value: number) {
+		let body = this._body;
+		requestAnimationFrame(() => {
 			body.style.top = value.toString() + 'px';
-			this.__top = null;
 		});
 	}
 	/**
@@ -412,12 +446,10 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
 	 * causes really long style recalculations
 	 * @param {Number} value What to set left to
 	 */
-	setLeft (value) {
-		let body = this.shadowRoot.querySelector('#pseudoBody');
-		this.__left = value;
-		requestAnimationFrame((e) => {
+	setLeft (value: number) {
+		let body = this._body;
+		requestAnimationFrame(() => {
 			body.style.left = value.toString() + 'px';
-			this.__left = null;
 		});
 	}
         /**
@@ -425,7 +457,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
          * For use in testing
          */
         disable () {
-                let body = this.shadowRoot.querySelector('#pseudoBody');
+                let body = this._body;
                 body.removeEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
@@ -437,6 +469,7 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
         }
 };
 
+// TODO: Make these fire events instead of parent chaining
 /**
  * Implements commonly used methods for things been dragged
  * @type {Object}
@@ -445,79 +478,68 @@ Elements.elements.DragElement = class DragElement extends Elements.elements.back
  * @augments Elements.elements.backbone
  * @implements Draggable
  */
-Elements.elements.dragged = class extends Elements.elements.backbone {
+Elements.elements.dragged = class extends backbone implements dragged {
+        parent: HTMLElement | null;
 	constructor () {
 		super();
+                //@ts-ignore
 		this.parent = this.parent || null;
 	}
 	get hidden () {
-		if (this.parent === null) {
-			return this.parentElement.hidden;
-		} else {
-			return this.parent.hidden;
-		}
+		return this._parent.hidden;
 	}
 	/**
 	 * Hide this element
 	 */
 	hideWindow () {
-		if (this.parent === null) {
-			this.parentElement.hideWindow();
-		} else {
-			this.parent.hideWindow();
-		}
+                this._parent.hideWindow();
 	}
 	/**
 	 * Unhide this element
 	 */
 	showWindow () {
-		if (this.parent === null) {
-			this.parentElement.showWindow();
-		} else {
-			this.parent.showWindow();
-		}
+		this._parent.showWindow();
 	}
 	/**
 	 * Centre the element onscreen
 	 */
 	centre () {
-		if (this.parent === null) {
-			this.parentElement.centre();
-		} else {
-			this.parent.centre();
-		}
+		this._parent.centre();
 	}
 	/**
 	 * Resets/Cancels a touch drag.
 	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
 	 */
 	touch_reset () {
-		if (this.parent === null) {
-			this.parentElement.touch_reset();
-		} else {
-			this.parent.touch_reset();
-		}
+		this._parent.touch_reset();
 	}
 	/**
 	 * Reset/Cancel a drag. For completness
 	 */
 	drag_reset () {
-		if (this.parent === null) {
-			this.parentElement.drag_reset();
-		} else {
-			this.parent.drag_reset();
-		}
+		this._parent.drag_reset();
 	}
 	/**
 	 * Push the drag element to the top
 	 */
 	toTop () {
-		if (this.parent === null) {
-			this.parentElement.toTop();
-		} else {
-			this.parent.toTop();
-		}
+		this._parent.toTop();
 	}
+        private get _parent(): dragged & HTMLElement {
+                let parent;
+                if (this.parent === null) {
+                        parent = this.parentElement;
+                } else {
+                        parent = this.parent;
+                }
+                if (parent === null) {
+                        throw new Error('Draggable object is not in a drag-element');
+                }
+                if (!is_dragged(parent)) {
+                        throw new Error('Draggable object is not in a drag-element chain')
+                }
+                return parent as dragged & HTMLElement;
+        }
 }
 
 /**
@@ -529,80 +551,69 @@ Elements.elements.dragged = class extends Elements.elements.backbone {
  * @augments Elements.elements.backbone2
  * @name Elements.elements.dragged2
  */
-Elements.elements.dragged2 = class dragged2 extends Elements.elements.backbone2 {
+Elements.elements.dragged2 = class dragged2 extends backbone2 implements dragged {
+        parent: null;
 	constructor () {
 		super();
 		this.applyPriorProperty('parent', null);
 	}
-	get hidden () {
-		if (this.parent === null) {
-			return this.parentElement.hidden;
-		} else {
-			return this.parent.hidden;
-		}
+        get hidden () {
+		return this._parent.hidden;
 	}
 	/**
 	 * Hide this element
 	 */
 	hideWindow () {
-		if (this.parent === null) {
-			this.parentElement.hideWindow();
-		} else {
-			this.parent.hideWindow();
-		}
+                this._parent.hideWindow();
 	}
 	/**
 	 * Unhide this element
 	 */
 	showWindow () {
-		if (this.parent === null) {
-			this.parentElement.showWindow();
-		} else {
-			this.parent.showWindow();
-		}
+		this._parent.showWindow();
 	}
 	/**
 	 * Centre the element onscreen
 	 */
 	centre () {
-		if (this.parent === null) {
-			this.parentElement.centre();
-		} else {
-			this.parent.centre();
-		}
+		this._parent.centre();
 	}
 	/**
 	 * Resets/Cancels a touch drag.
 	 * As touchs don't bubble along the DOM, use this instead of preventDefault/stopPropagation
 	 */
 	touch_reset () {
-		if (this.parent === null) {
-			this.parentElement.touch_reset();
-		} else {
-			this.parent.touch_reset();
-		}
+		this._parent.touch_reset();
 	}
 	/**
 	 * Reset/Cancel a drag. For completness
 	 */
 	drag_reset () {
-		if (this.parent === null) {
-			this.parentElement.drag_reset();
-		} else {
-			this.parent.drag_reset();
-		}
+		this._parent.drag_reset();
 	}
 	/**
 	 * Push the drag element to the top
 	 */
 	toTop () {
-		if (this.parent === null) {
-			this.parentElement.toTop();
-		} else {
-			this.parent.toTop();
-		}
+		this._parent.toTop();
 	}
-}
+        private get _parent(): dragged & HTMLElement {
+                let parent;
+                if (this.parent === null) {
+                        parent = this.parentElement;
+                } else {
+                        parent = this.parent;
+                }
+                if (parent === null) {
+                        throw new Error('Draggable object is not in a drag-element');
+                }
+                if (!is_dragged(parent)) {
+                        throw new Error('Draggable object is not in a drag-element chain')
+                }
+                return parent as dragged & HTMLElement;
+        }
 }
 
-Elements.load(Elements.elements.DragElement, 'elements-drag-element');
+// TODO: Make a mixin for backbone4
+
+Elements.load(DragElement, 'elements-drag-element');
