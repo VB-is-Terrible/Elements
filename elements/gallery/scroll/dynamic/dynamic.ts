@@ -17,7 +17,14 @@ const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 9;
 const KEEP_BEHIND = 20;
 
-
+/**
+ * @event GalleryScrollDynamic#gallery-load-fail
+ * @property {String} detail URL that failed to load
+ */
+/**
+ * @event GalleryScrollDynamic#position_changed
+ * @property {number} detail The new position
+ */
 /**
  * A image scroller with dynamic insertion/removal
  * @augments Elements.elements.backbone4
@@ -28,6 +35,8 @@ const KEEP_BEHIND = 20;
  * @property {Number} PRELOAD_HEIGHT The guess for the of the current image + any viewable images
  * @property {Number} PRELOAD_EXCEED The number of images that should be preloaded
  * @property {Number} KEEP_BEHIND The number of images behind the current that should be kept in the DOM
+ * @fires GalleryScrollDynamic#gallery-load-fail
+ * @fires GalleryScrollDynamic#position_changed
  */
 export class GalleryScrollDynamic extends backbone4 {
 	_body: HTMLElement;
@@ -96,7 +105,11 @@ export class GalleryScrollDynamic extends backbone4 {
 		img.addEventListener('load', callback);
 		img.addEventListener('error', () => {
 			console.log('Failed load for url: ', src);
-		})
+			const ev = new CustomEvent('gallery-load-fail', {
+				detail: src,
+			});
+			this.dispatchEvent(ev);
+		});
 		div.append(img);
 		return div;
 	}
