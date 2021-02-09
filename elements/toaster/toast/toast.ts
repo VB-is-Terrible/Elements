@@ -73,7 +73,7 @@ export class ToasterToast extends backbone4 {
 			button.addEventListener('click', () => {
 				const ev = CustomComposedEvent('toast_button_click', index);
 				const prevented = this.dispatchEvent(ev);
-				if (!prevented) {
+				if (prevented) {
 					this.close();
 				}
 			})
