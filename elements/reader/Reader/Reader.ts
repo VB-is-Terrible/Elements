@@ -5,6 +5,7 @@ import type {ContainerDialog} from '../../container/dialog/dialog.js';
 import type {CustomInputBar} from '../../custom/input/bar/bar.js';
 import type {Grid} from '../../grid/grid.js';
 import {Elements} from '../../elements_core.js';
+import { Toaster } from '../../toaster/toaster.js';
 
 export {};
 
@@ -15,27 +16,12 @@ const page_total = document.querySelector('#page_total')! as HTMLSpanElement;
 const main_input = document.querySelector('#main_input') as CustomInputBar;
 const dialog = document.querySelector('elements-container-dialog') as ContainerDialog;
 const preview_template = document.querySelector('#reader-preview') as HTMLTemplateElement;
+const toaster = document.querySelector('#toaster') as Toaster;
 
 
 const respond = async (e: CustomEvent) => {
 	main_input.value = '';
-	const form = new FormData();
-	form.append('url', e.detail);
-	//@ts-ignore
-	window.current_url = e.detail;
-	current_url = e.detail;
-	const response = await fetch('//127.0.0.1:5000', {
-		method: 'POST',
-		body: form,
-	});
-	const [urls, title] = await response.json();
-	document.title = title;
-	reader.img_urls = urls;
-	dialog.hide();
-	requestAnimationFrame(() => {
-		page_count.value = '0';
-		page_total.innerHTML = '/ ' + urls.length.toString();
-	});
+	query_pics(e.detail);
 };
 
 const redo = async () => {
@@ -63,6 +49,7 @@ const query_pics = async (url: string) => {
 	});
 	const [urls, title] = await response.json();
 	document.title = title;
+	reset_fails();
 	reader.img_urls = urls;
 	dialog.hide();
 	requestAnimationFrame(() => {
@@ -113,6 +100,7 @@ const main = () => {
 		}
 	});
 	reader.addEventListener('positionChange', update_page as EventListener);
+	reader.addEventListener('gallery-load-fail', (e) => {image_fail(e as CustomEvent, reader.img_urls);});
 	page_count.addEventListener('change', page_update);
 	const local_button = document.querySelector('#local') as HTMLButtonElement;
 	const remote_button = document.querySelector('#remote') as HTMLButtonElement;
@@ -182,6 +170,7 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 	}
 	reader;
 
+	reset_fails();
 	reader.img_urls = links;
 	document.title = gallery_name;
 	requestAnimationFrame(() => {
@@ -192,6 +181,76 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 	return false;
 };
 
+let seen_fails: number[] = [];
+let fails: number[] = [];
+const CHECK_BEHIND = 20;
+const ACCEPTED_FAILS = 2;
+const EXCLUSION_ZONE = 15;
+
+
+const reset_fails = () => {
+	seen_fails = [];
+	fails = [];
+	toaster.clearToasts();
+};
+
+
+const add_fail = (fail: number) => {
+	for (const seen_fail of seen_fails) {
+		if (Math.abs(seen_fail - fail) < EXCLUSION_ZONE) {
+			return;
+		}
+	}
+	fails.push(fail);
+	fails.sort();
+};
+
+
+const on_excess_fail = (fail :number) => {
+	let i = 0;
+	while (i < fails.length) {
+		if (Math.abs(fail - fails[i]) < EXCLUSION_ZONE) {
+			fails.shift();
+		} else {
+			i++;
+		}
+	}
+	seen_fails.push(fail);
+};
+
+
+const image_fail = (e: CustomEvent, urls: Array<string>) => {
+	const index = urls.indexOf(e.detail);
+	add_fail(index);
+	const fail = check_fails();
+	if (fail !== -1) {
+		on_excess_fail(fail);
+		const toast = toaster.addToast({
+			title: 'Excessive image load fails',
+			buttons: ['Reload images'],
+		});
+		toast.addEventListener('toast_button_click', () => {
+			redo();
+		});
+	}
+};
+
+const check_fails = () => {
+	let i = 0;
+	const tracked_fails = [];
+	while (i < fails.length) {
+		const current_fail = fails[i];
+		tracked_fails.push(current_fail);
+		while (tracked_fails[0] < current_fail - CHECK_BEHIND) {
+			tracked_fails.shift();
+		}
+		if (tracked_fails.length > ACCEPTED_FAILS) {
+			return fails[i];
+		}
+		i++;
+	}
+	return -1;
+}
 main();
 
 
