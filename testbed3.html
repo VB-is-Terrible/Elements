@@ -17,5 +17,19 @@
 	<script src='elements/manifest.js' async></script>
 	<script>
 		Elements.get('toaster');
+		const main = async () => {
+			await Elements.get('toaster');
+			toaster.addToast({
+				title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
+				body: 'Body text here',
+				buttons: ['Hello', 'Big World'],
+			});
+			toaster.addToast({
+				title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
+				body: 'Second',
+				buttons: ['Hello', 'Big World'],
+			});
+		}
+		main();
 	</script>
 </html>

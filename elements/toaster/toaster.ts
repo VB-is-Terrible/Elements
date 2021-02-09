@@ -26,16 +26,6 @@ export class Toaster extends backbone4 {
 		});
 		//Fancy code goes here
 		shadow.appendChild(template);
-		this.addToast({
-			title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
-			body: 'Body text here',
-			buttons: ['Hello', 'Big World'],
-		});
-		this.addToast({
-			title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
-			body: 'Body text here',
-			buttons: ['Hello', 'Big World'],
-		});
 	}
 	connectedCallback() {
 		super.connectedCallback();
