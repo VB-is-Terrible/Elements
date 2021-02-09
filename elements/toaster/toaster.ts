@@ -52,8 +52,13 @@ export class Toaster extends backbone4 {
 		this._body.append(toast);
 		return toast;
 	}
-	get toasts() {
-		return [...this._body.children];
+	get toasts(): Array<ToasterToast> {
+		return [...this._body.children] as Array<ToasterToast>;
+	}
+	clearToasts() {
+		for (const toast of this.toasts) {
+			toast.close();
+		}
 	}
 }
 
