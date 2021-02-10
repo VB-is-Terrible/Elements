@@ -76,7 +76,7 @@ export class ToasterToast extends backbone4 {
 				if (prevented) {
 					this.close();
 				}
-			})
+			});
 			requestAnimationFrame(() => {
 				this._buttons.append(button);
 			});
