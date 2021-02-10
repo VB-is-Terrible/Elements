@@ -72,8 +72,8 @@ export class ToasterToast extends backbone4 {
 			const button = ToasterToast.createButton(text);
 			button.addEventListener('click', () => {
 				const ev = CustomComposedEvent('toast_button_click', index);
-				const prevented = this.dispatchEvent(ev);
-				if (prevented) {
+				const not_canceled = this.dispatchEvent(ev);
+				if (not_canceled) {
 					this.close();
 				}
 			});
@@ -114,8 +114,12 @@ export class ToasterToast extends backbone4 {
 		}
 	}
 	close() {
-		const ev = CustomComposedEvent('toast_close');
-		this.dispatchEvent(ev);
+		const ev = CustomComposedEvent('toast_close', undefined, true);
+		const not_canceled = this.dispatchEvent(ev);
+		if (not_canceled) {
+			const ev2 = new CustomEvent('toast_close_final');
+			this.dispatchEvent(ev2);
+		}
 	}
 	private static createButton(text: string) {
 		const button = document.createElement('button');
