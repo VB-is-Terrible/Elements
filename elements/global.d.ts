@@ -14,10 +14,13 @@ interface ResizeObserverSize {
     readonly blockSize: number;
 };
 
+interface ResizeObserverCallback {
+    (entries: ResizeObserverEntry[], observer: ResizeObserver): void
+}
+
+
 declare global {
-    interface ResizeObserverCallback {
-        (entries: ResizeObserverEntry[], observer: ResizeObserver): void
-    }
+
 
     interface ResizeObserverEntry {
         readonly target: Element;
