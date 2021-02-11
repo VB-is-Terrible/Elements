@@ -9,6 +9,11 @@ interface DOMRectReadOnly {
     readonly left: number;
 }
 
+interface ResizeObserverSize {
+    readonly inlineSize: number;
+    readonly blockSize: number;
+};
+
 declare global {
     interface ResizeObserverCallback {
         (entries: ResizeObserverEntry[], observer: ResizeObserver): void
@@ -17,6 +22,9 @@ declare global {
     interface ResizeObserverEntry {
         readonly target: Element;
         readonly contentRect: DOMRectReadOnly;
+        readonly borderBoxSize: ResizeObserverSize;
+        readonly contentBoxSize: ResizeObserverSize;
+        readonly devicePixelContentBoxSize: ResizeObserverSize;
     }
 
     interface ResizeObserver {
@@ -40,6 +48,9 @@ interface ResizeObserver {
 interface ResizeObserverEntry {
     readonly target: Element;
     readonly contentRect: DOMRectReadOnly;
+    readonly borderBoxSize: ResizeObserverSize;
+    readonly contentBoxSize: ResizeObserverSize;
+    readonly devicePixelContentBoxSize: ResizeObserverSize;
 }
 
 interface WeakRef<T extends object> {
