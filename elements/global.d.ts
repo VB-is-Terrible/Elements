@@ -10,8 +10,8 @@ interface DOMRectReadOnly {
 }
 
 interface ResizeObserverSize {
-    readonly inlineSize: number;
-    readonly blockSize: number;
+    readonly inlineSize: number; // This means width
+    readonly blockSize: number; // This means height
 };
 
 interface ResizeObserverCallback {
