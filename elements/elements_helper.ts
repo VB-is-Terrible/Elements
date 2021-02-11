@@ -205,3 +205,17 @@ export function CustomComposedEvent(type: string, detail: unknown = null, cancel
                 cancelable: cancelable,
         });
 };
+
+
+/**
+ * Returns a promise that will resolve in at least <timeout> milliseconds
+ * @param  {Number} timeout Time in milliseconds to wait to resolve the promise
+ * @return {Promise}         Promise that resolves in <timeout> milliseconds
+ */
+export function wait (timeout: number): Promise<void> {
+        return new Promise<void>((resolve, _reject) => {
+                // This is just typescript being stupid
+                //@ts-ignore
+                setTimeout(resolve, timeout);
+        });
+}

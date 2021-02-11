@@ -3,13 +3,14 @@ export const requires = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import {CustomComposedEvent, removeChildren} from '../../elements_helper.js'
+import {CustomComposedEvent, removeChildren, wait} from '../../elements_helper.js'
 
 
 export type ToastData = {
 	title: string;
 	body? : string;
 	buttons? : Array<string>;
+	timeout? : number; // In ms
 };
 
 /**
@@ -34,6 +35,9 @@ export class ToasterToast extends backbone4 {
 	private _body: HTMLDivElement;
 	private _buttons: HTMLDivElement;
 	private _divider: HTMLHRElement;
+	private _data: ToastData | undefined;
+	private _closed: boolean = false;
+	private _timer: ReturnType<typeof setTimeout> = -1;
 	constructor() {
 		super();
 
@@ -60,6 +64,45 @@ export class ToasterToast extends backbone4 {
 	static get observedAttributes() {
 		return [];
 	}
+	setTitle(title: string) {
+		if (title === undefined) {
+			throw new Error('Cannot unset title');
+		}
+		if (this._data === undefined) {
+			this._data = {
+				title: title
+			};
+		} else {
+			this._data.title = title;
+		}
+		this._setTitle(title);
+	}
+	setBody(body: string | undefined) {
+		if (this._data === undefined) {
+			throw new Error("Can't set properties of a toast without a title");
+		}
+		this._data.body = body;
+		if (body !== undefined) {
+			this._setBody(body);
+		} else {
+			this._setBody('');
+		}
+		const hasContent = this._data.body === undefined && this._data.buttons === undefined;
+		this._hideDivider(hasContent);
+	}
+	setButtons(buttons: Array<string> | undefined) {
+		if (this._data === undefined) {
+			throw new Error("Can't set properties of a toast without a title");
+		}
+		this._data.buttons = buttons;
+		if (buttons !== undefined) {
+			this._setButtons(buttons);
+		} else {
+			this._setButtons([]);
+		}
+		const hasContent = this._data.body === undefined && this._data.buttons === undefined;
+		this._hideDivider(hasContent);
+	}
 	private _setTitle(title: string) {
 		this._title.innerHTML = title;
 	}
@@ -82,44 +125,70 @@ export class ToasterToast extends backbone4 {
 			});
 		}
 	}
-	private _hideButtons() {
+	private _hideButtons(hidden: boolean) {
 		requestAnimationFrame(() => {
-			this._buttons.style.display = 'none';
+			this._buttons.style.display = hidden ? 'none' : 'block';
 		});
 	}
-	private _hideBody() {
+	private _hideBody(hidden: boolean) {
 		requestAnimationFrame(() => {
-			this._body.style.display = 'none';
+			this._body.style.display = hidden ? 'none' : 'block';
 		});
 	}
-	private _hideDivider() {
+	private _hideDivider(hidden: boolean) {
 		requestAnimationFrame(() => {
-			this._divider.style.display = 'none';
+			this._divider.style.display = hidden ? 'none' : 'block';
 		});
+	}
+	setTimeout(time: number) {
+		if (this._data === undefined) {
+			throw new Error("Can't set properties of a toast without a title");
+		}
+		this._data.timeout = time;
+		this._setTimer(time);
+	}
+	private _setTimer(time: number) {
+		clearTimeout(this._timer);
+
+		this._timer = setTimeout(() => {
+			this.close();
+		}, time);
 	}
 	setToast(data: ToastData) {
+		this._data = data;
 		this._setTitle(data.title);
 		if (data.body !== undefined) {
+			this._hideBody(false)
 			this._setBody(data.body);
 		} else {
-			this._hideBody()
+			this._hideBody(true)
 		}
 		if (data.buttons !== undefined) {
 			this._setButtons(data.buttons);
+			this._hideButtons(false);
 		} else {
-			this._hideButtons();
+			this._hideButtons(true);
 		}
 		if (data.body === undefined && data.buttons === undefined) {
-			this._hideDivider();
+			this._hideDivider(true);
+		} else {
+			this._hideDivider(false);
+		}
+		if (data.timeout !== undefined) {
+			this._setTimer(data.timeout);
 		}
 	}
 	close() {
 		const ev = CustomComposedEvent('toast_close', undefined, true);
 		const not_canceled = this.dispatchEvent(ev);
 		if (not_canceled) {
+			this._closed = true;
 			const ev2 = new CustomEvent('toast_close_final');
 			this.dispatchEvent(ev2);
 		}
+	}
+	get closed() {
+		return this._closed;
 	}
 	private static createButton(text: string) {
 		const button = document.createElement('button');
