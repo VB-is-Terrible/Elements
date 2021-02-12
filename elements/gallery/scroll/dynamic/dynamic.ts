@@ -104,7 +104,6 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 		img.addEventListener('load', callback);
 		img.addEventListener('error', () => {
-			console.log('Failed load for url: ', src);
 			const ev = new CustomEvent('gallery-load-fail', {
 				detail: src,
 			});
