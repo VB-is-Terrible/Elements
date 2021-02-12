@@ -104,10 +104,14 @@ export class ToasterToast extends backbone4 {
 		this._hideDivider(hasContent);
 	}
 	private _setTitle(title: string) {
-		this._title.innerHTML = title;
+		requestAnimationFrame(() => {
+			this._title.innerHTML = title;
+		});
 	}
 	private _setBody(body: string) {
-		this._body.innerHTML = body;
+		requestAnimationFrame(() => {
+			this._body.innerHTML = body;
+		});
 	}
 	private _setButtons(button_text: Array<string>) {
 		removeChildren(this._buttons);
@@ -140,16 +144,19 @@ export class ToasterToast extends backbone4 {
 			this._divider.style.display = hidden ? 'none' : 'block';
 		});
 	}
-	setTimeout(time: number) {
+	setTimeout(time: number | undefined) {
 		if (this._data === undefined) {
 			throw new Error("Can't set properties of a toast without a title");
 		}
 		this._data.timeout = time;
-		this._setTimer(time);
+		if (time === undefined) {
+			clearTimeout(this._timer);
+		} else {
+			this._setTimer(time);
+		}
 	}
 	private _setTimer(time: number) {
 		clearTimeout(this._timer);
-
 		this._timer = setTimeout(() => {
 			this.close();
 		}, time);
@@ -162,11 +169,13 @@ export class ToasterToast extends backbone4 {
 			this._setBody(data.body);
 		} else {
 			this._hideBody(true)
+			this._setBody('');
 		}
 		if (data.buttons !== undefined) {
 			this._setButtons(data.buttons);
 			this._hideButtons(false);
 		} else {
+			this._setButtons([]);
 			this._hideButtons(true);
 		}
 		if (data.body === undefined && data.buttons === undefined) {
@@ -176,6 +185,8 @@ export class ToasterToast extends backbone4 {
 		}
 		if (data.timeout !== undefined) {
 			this._setTimer(data.timeout);
+		} else {
+			clearTimeout(this._timer);
 		}
 	}
 	close() {
