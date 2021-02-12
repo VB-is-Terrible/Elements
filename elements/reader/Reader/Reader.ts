@@ -5,7 +5,7 @@ import type {ContainerDialog} from '../../container/dialog/dialog.js';
 import type {CustomInputBar} from '../../custom/input/bar/bar.js';
 import type {Grid} from '../../grid/grid.js';
 import {Elements} from '../../elements_core.js';
-import { Toaster } from '../../toaster/toaster.js';
+import type { Toaster } from '../../toaster/toaster.js';
 import { ToasterContext } from '../../toaster/Common/Common.js';
 
 export {};
