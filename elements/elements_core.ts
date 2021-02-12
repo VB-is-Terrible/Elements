@@ -4,7 +4,7 @@ const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 
 import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
-import {getInitProperty, request} from './elements_helper.js';
+import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
 
 
 type ElementType =
@@ -364,7 +364,7 @@ class Elements {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
-		let name_tokens = this.tokenise(elementName);
+		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.mjs';
 		let link = document.createElement('link');
@@ -390,7 +390,7 @@ class Elements {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
-		let name_tokens = this.tokenise(elementName);
+		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.js';
 		let link = document.createElement('link');
@@ -407,7 +407,7 @@ class Elements {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
-		const name_tokens = this.tokenise(elementName);
+		const name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = this.location + elementName + '/' + module_name + '.js';
 		let link = document.createElement('link');
@@ -424,27 +424,6 @@ class Elements {
 
 		this._scriptLocation.appendChild(script);
 	}
-	/**
-	 * Loads a custom element from js files. Shim to elements.get
-	 * @param  {...String} elementNames name of element to import
-	 * @deprecated
-	 */
-	async require (...elementNames: string[]) {
-		console.warn('Using deprecated function require. Use Elements.get instead');
-		this.get(...elementNames);
-	}
-
-	/**
-	 * Callback a function once required elements are loaded
-	 * @param  {Function} callback    Function to call back
-	 * @param  {...String}   moduleNames elements to wait to load first
-	 * @deprecated
-	 */
-	async await (callback: () => void, ...moduleNames: string[]) {
-		console.warn('Using deprecated function require. This function is been aduited for removal');
-		await this.get(...moduleNames);
-		callback();
-	}
 
 	/**
 	 * Callback to process awaiting elements
@@ -459,18 +438,6 @@ class Elements {
 		}
 	}
 
-	/**
-	 * Removes the 'elements-' NS from a HTMLElement name
-	 * @param  {String} name name with 'elements-'
-	 * @return {String}      name without 'elements-'
-	 */
-	removeNSTag (name: string): string {
-		if (name.indexOf('elements-') !== 0) {
-			return name;
-		} else {
-			return name.substring(9);
-		}
-	}
 
 	/**
 	 * Helper to reduce an object to only properties needed to stringify
@@ -524,8 +491,9 @@ class Elements {
 	 * Implementation of get for a single request
 	 * @param  {String} elementName name of module requested
 	 * @return {Promise}            Promise resolving on load of module
+	 * @private
 	 */
-	async _get (elementName: string): Promise<void> {
+	private async _get (elementName: string): Promise<void> {
 		let name = this._nameResolver(elementName);
 		if (this._gottenElements.has(name)) {
 			return this._setPromise(name);
@@ -598,7 +566,7 @@ class Elements {
 	 * @return {Promise}          Promise resolving upon load of all requests
 	 * @private
 	 */
-	_getPromise (...jsName: string[]): Promise<void[]> {
+	private _getPromise (...jsName: string[]): Promise<void[]> {
 		let promises = [];
 		for (let name of jsName) {
 			name = this._nameResolver(name);
@@ -613,7 +581,7 @@ class Elements {
 	 * @return {Promise}       Promise resolving on load of request
 	 * @private
 	 */
-	_setPromise (jsName: string): Promise<void> {
+	private _setPromise (jsName: string): Promise<void> {
 		const promise = this._getPromiseStore.get(jsName);
 		if (promise !== undefined) {
 			return promise.promise;
@@ -638,8 +606,8 @@ class Elements {
 	 * @return {String}      name of .js for name e.g. dragDown
 	 * @private
 	 */
-	_nameResolver (name: string): string {
-		name = this.removeNSTag(name);
+	private _nameResolver (name: string): string {
+		name = removeNSTag(name);
 		if (name.includes('/')) {
 			return name;
 		}
@@ -655,7 +623,7 @@ class Elements {
 			// Module name, treat differently
 			return name.split('-').join('/');
 		} else {
-			let tokens = this.tokenise(name);
+			let tokens = tokenise(name);
 			return tokens.join('/');
 		}
 	}
@@ -683,24 +651,6 @@ class Elements {
 		// this.manifest = JSON.parse(response);
 		// this.manifestLoaded = true;
 		// this.__getBacklog();
-	}
-
-	/**
-	 * Make an async network request, returning response body
-	 * @param  {String} location location of file. Note: will not prefix .location for you
-	 * @return {Promise}         Promise that resolves to the response body, can error
-	 * @deprecated
-	 */
-	async request (location: string): Promise<any> {
-		return fetch(location).then(
-			(response) => {
-				if (response.ok) {
-					return response.text();
-				} else {
-					throw new Error(response.url);
-				}
-			}
-		);
 	}
 
 	/**
@@ -771,6 +721,7 @@ class Elements {
 	 * @deprecated
 	 */
 	booleaner (value: unknown): boolean {
+		console.warn('Using deprecated function \'booleaner\'');
 		switch (typeof(value)) {
 			case 'boolean':
 				return value;
@@ -788,6 +739,7 @@ class Elements {
 	 * @deprecated
 	 */
 	rafContext (): (f: (timestamp: number) => void) => void {
+		console.warn('Using deprecated function \'rafContext\'');
 		let raf: number | null = null;
 		return (f) => {
 			if (raf !== null) {
@@ -809,6 +761,7 @@ class Elements {
 	 * @deprecated
 	 */
 	nameDesanitizer (string: string): string {
+		console.warn('Using deprecated function \'nameDesanitizer\'');
 		string = string.replace(/&amp/g, '&');
 		string = string.replace(/&lt/g, '<');
 		string = string.replace(/&gt/g, '>');
@@ -822,6 +775,7 @@ class Elements {
 	 * @deprecated
 	 */
 	nameSanitizer (string: string): string {
+		console.warn('Using deprecated function \'nameSanitizer\'');
 		string = string.trim();
 		string = string.replace(/&/g, '&amp');
 		string = string.replace(/</g, '&lt');
@@ -847,6 +801,7 @@ class Elements {
 		eventTrigger: (value: unknown) => void = (_value: unknown) => {},
 		santizer: (value: unknown, old_value: T) => T = (value: any, _oldValue: any) => {return value;}) {
 
+		console.warn('Using deprecated function \'setUpAttrPropertyLink2\'');
 		const fail_message = 'Attr-Property must be in constructor.observedAttributes';
 		//@ts-ignore
 		console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
@@ -899,40 +854,6 @@ class Elements {
 		this._preloadLocation.appendChild(link);
 		this._loadedResources.add(location);
 	}
-
-	/**
-	 * Split an element name in seperated tokens
-	 * @param  {String} name Name to tokenise
-	 * @return {String[]}    Array of tokens
-	 */
-	tokenise (name: string): string[] {
-		if (name.includes('-')) {
-			return name.split('-');
-		} else if (name.includes('/')) {
-			return name.split('/');
-		} else {
-			let tokens = [];
-			let firstCharacter = /[A-Z]/;
-			let position;
-			while ((position = name.search(firstCharacter)) !== -1) {
-				let token = name.substring(0, position);
-				name = name.charAt(position).toLowerCase() + name.substring(position + 1, name.length);
-				tokens.push(token);
-			}
-			tokens.push(name);
-			return tokens;
-		}
-	}
-	/**
-	 * Uppercase the first letter, leave the rest
-	 * @param  {String} string String to captialize
-	 * @return {String}        Captialized string
-	 * @deprecated
-	 */
-	captialize (string: string): string {
-		return string.charAt(0).toUpperCase() + string.substring(1, string.length);
-	}
-
 	constructor () {
 		const head = document.head;
 		let insert_location = head.querySelector('#' + LINK_INSERT_DIV_ID);
@@ -979,25 +900,12 @@ class Elements {
 				return jsName + '/template.html';
 			case 3:
 			case 4:
-				let tokens = this.tokenise(jsName);
+				let tokens = tokenise(jsName);
 				let last = tokens[tokens.length - 1];
 				return jsName + '/' + last + 'Template.html';
 			default:
 				return jsName + '/template.html';
 		}
-	}
-	/**
-	 * Returns a promise that will resolve in at least <timeout> milliseconds
-	 * @param  {Number} timeout Time in milliseconds to wait to resolve the promise
-	 * @return {Promise}         Promise that resolves in <timeout> milliseconds
-	 * @deprecated
-	 */
-	wait (timeout: number): Promise<void> {
-		return new Promise<void>((resolve, _reject) => {
-			// This is just typescript being stupid
-			//@ts-ignore
-			setTimeout(resolve, timeout);
-		});
 	}
 }
 

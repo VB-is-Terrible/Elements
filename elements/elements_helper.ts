@@ -219,3 +219,52 @@ export function wait (timeout: number): Promise<void> {
                 setTimeout(resolve, timeout);
         });
 }
+
+
+/**
+ * Split an element name in seperated tokens
+ * @param  {String} name Name to tokenise
+ * @return {String[]}    Array of tokens
+ */
+export function tokenise (name: string): string[] {
+	if (name.includes('-')) {
+		return name.split('-');
+	} else if (name.includes('/')) {
+		return name.split('/');
+	} else {
+		let tokens = [];
+		let firstCharacter = /[A-Z]/;
+		let position;
+		while ((position = name.search(firstCharacter)) !== -1) {
+			let token = name.substring(0, position);
+			name = name.charAt(position).toLowerCase() + name.substring(position + 1, name.length);
+			tokens.push(token);
+		}
+		tokens.push(name);
+		return tokens;
+	}
+}
+
+
+/**
+ * Removes the 'elements-' NS from a HTMLElement name
+ * @param  {String} name name with 'elements-'
+ * @return {String}      name without 'elements-'
+ */
+export function removeNSTag (name: string): string {
+        if (name.indexOf('elements-') !== 0) {
+                return name;
+        } else {
+                return name.substring(9);
+        }
+}
+
+
+/**
+ * Uppercase the first letter, leave the rest
+ * @param  {String} string String to captialize
+ * @return {String}        Captialized string
+ */
+export function captialize (string: string): string {
+        return string.charAt(0).toUpperCase() + string.substring(1, string.length);
+}
