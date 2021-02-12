@@ -6,6 +6,7 @@ import type {CustomInputBar} from '../../custom/input/bar/bar.js';
 import type {Grid} from '../../grid/grid.js';
 import {Elements} from '../../elements_core.js';
 import { Toaster } from '../../toaster/toaster.js';
+import { ToasterContext } from '../../toaster/Common/Common.js';
 
 export {};
 
@@ -183,14 +184,19 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 
 let seen_fails: number[] = [];
 let fails: number[] = [];
+let fails_total = new Set();
+const notify_fail_toast = new ToasterContext(toaster);
+const redo_toast = new ToasterContext(toaster);
 const CHECK_BEHIND = 20;
 const ACCEPTED_FAILS = 2;
 const EXCLUSION_ZONE = 15;
+const FAIL_NOTIFICATION_TIMEOUT = 7000;
 
 
 const reset_fails = () => {
 	seen_fails = [];
 	fails = [];
+	fails_total = new Set();
 	toaster.clearToasts();
 };
 
@@ -203,6 +209,20 @@ const add_fail = (fail: number) => {
 	}
 	fails.push(fail);
 	fails.sort();
+};
+
+
+const notify_fail = (fail: number) => {
+	if (fails_total.has(fail)) {
+		return;
+	}
+	fails_total.add(fail);
+	const fail_line = `${fails_total.size} images have failed to load`;
+	notify_fail_toast.addToast({
+		title: 'Failed image loads',
+		body: fail_line,
+		timeout: FAIL_NOTIFICATION_TIMEOUT,
+	});
 };
 
 
@@ -222,16 +242,19 @@ const on_excess_fail = (fail :number) => {
 const image_fail = (e: CustomEvent, urls: Array<string>) => {
 	const index = urls.indexOf(e.detail);
 	add_fail(index);
+	notify_fail(index);
 	const fail = check_fails();
 	if (fail !== -1) {
 		on_excess_fail(fail);
-		const toast = toaster.addToast({
+		const new_toast = redo_toast.addToast({
 			title: 'Excessive image load fails',
 			buttons: ['Reload images'],
 		});
-		toast.addEventListener('toast_button_click', () => {
-			redo();
-		});
+		if (new_toast) {
+			redo_toast.toast!.addEventListener('toast_button_click', () => {
+				redo();
+			});
+		}
 	}
 };
 
