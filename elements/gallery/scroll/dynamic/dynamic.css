@@ -1,5 +1,7 @@
 img.scroll {
 	object-fit: contain;
+	min-width: 10px;
+	min-height: 10px;
 }
 #pseudoBody {
 	display: flex;
