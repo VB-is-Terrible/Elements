@@ -160,6 +160,13 @@
 			await Elements.get('custom-input-bar');
 			document.querySelector('#main_input').focus();
 		})();
+		redo_test = () => {
+			const current = main_scroller.position;
+			main_scroller.img_urls = main_scroller.img_urls;
+			requestAnimationFrame(() => {
+				main_scroller.position = current;
+			});
+		}
 	}
 	</script>
 </html>
