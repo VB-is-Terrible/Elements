@@ -233,6 +233,7 @@ const on_excess_fail = (fail :number) => {
 
 
 const image_fail = (e: CustomEvent, urls: Array<string>) => {
+	console.warn(`Failed load for ${e.detail}`);
 	const index = urls.indexOf(e.detail);
 	add_fail(index);
 	notify_fail(index);
