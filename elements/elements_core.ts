@@ -907,6 +907,19 @@ class Elements {
 				return jsName + '/template.html';
 		}
 	}
+	/**
+	 * Import a module named according to elements
+	 * @param {string} elementName Element name of the module to improt
+	 * @return             The imported module
+	 */
+	async importModule(elementName: string) {
+		const name = this._nameResolver(elementName);
+		let name_tokens = tokenise(name);
+		let module_name = name_tokens[name_tokens.length - 1];
+		let location = name + '/' + module_name + '.js';
+		await this.get(elementName);
+		return import('./' + location);
+	}
 }
 
 let _Elements = new Elements();
