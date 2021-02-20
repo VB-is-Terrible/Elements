@@ -299,7 +299,7 @@ class Elements {
 			window.customElements.define(HTMLname, newElement);
 			this._loadedElements.add(jsName);
 			this._loadingElements.delete(jsName);
-			this.awaitCallback(jsName);
+			this._awaitCallback(jsName);
 		} catch (e) {
 			this._loadingElements.delete(jsName);
 			throw e;
@@ -313,7 +313,7 @@ class Elements {
 	 */
 	async loaded (fileName: string) {
 		this._loadedElements.add(fileName);
-		this.awaitCallback(fileName);
+		this._awaitCallback(fileName);
 	}
 
 	/**
@@ -335,7 +335,7 @@ class Elements {
 	 * @private
 	 * @instance
 	 */
-	async _require (...elementNames: string[]) {
+	private async _require (...elementNames: string[]) {
 		for (let name of elementNames) {
 			name = this._nameResolver(name);
 			if (!(this._requestedElements.has(name))) {
@@ -360,7 +360,7 @@ class Elements {
 		}
 	}
 
-	async _loadModule (elementName: string, requires: string[]) {
+	private async _loadModule (elementName: string, requires: string[]) {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
@@ -386,7 +386,7 @@ class Elements {
 		}
 	}
 
-	async _loadTS (elementName: string, requires: string[]) {
+	private async _loadTS (elementName: string, requires: string[]): Promise<void> {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
@@ -403,7 +403,7 @@ class Elements {
 
 		import('./' + location);
 	}
-	async _loadScript(elementName: string, requires: string[]) {
+	private async _loadScript(elementName: string, requires: string[]) {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
@@ -429,7 +429,7 @@ class Elements {
 	 * Callback to process awaiting elements
 	 * @param  {String} loaded Name of element loaded
 	 */
-	async awaitCallback (loaded: string) {
+	private async _awaitCallback (loaded: string) {
 		loaded = this._nameResolver(loaded);
 		// New style
 		const promise = this._getPromiseStore.get(loaded);
@@ -506,7 +506,7 @@ class Elements {
 			return result;
 		}
 		if (this.manifest === undefined || this.manifest === {}) {
-			throw new Error('Elements v3 requires the manifest to be loaded before resolving packages');
+			throw new Error('Elements v3+ requires the manifest to be loaded before resolving packages');
 		}
 		let manifest = this.manifest[name];
 		if (manifest === undefined) {
@@ -888,7 +888,7 @@ class Elements {
 	 * @param  {HTMLElement} element The element to find the default template for
 	 * @return {String}         The location of the default template
 	 */
-	getDefaultTemplate (jsName: string, element: Backbone): string {
+	getDefaultTemplate(jsName: string, element: Backbone): string {
 		let version: number = element.__backbone_version;
 		if (version === undefined) {
 			console.log('Couldn\'t find version of element', element);
