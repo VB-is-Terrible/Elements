@@ -30,7 +30,7 @@ const main = async () => {
  * @param  {String} string String to captialize
  * @return {String}        Captialized string
  */
-function captialize (string: string): string {
+function captialize (string) {
         return string.charAt(0).toUpperCase() + string.substring(1, string.length);
 }
 
