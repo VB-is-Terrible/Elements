@@ -98,14 +98,11 @@ const main = () => {
 	reader.addEventListener('gallery-load-fail', (e) => {image_fail(e as CustomEvent, reader.img_urls);});
 	page_count.addEventListener('change', page_update);
 	const local_button = document.querySelector('#local') as HTMLButtonElement;
-	const remote_button = document.querySelector('#remote') as HTMLButtonElement;
 	local_button.addEventListener('click', () => {
-		dialog.show();
-	});
-	remote_button.addEventListener('click', () => {
-		dialog.hide();
+		dialog.toggle();
 	});
 	load_local();
+	dialog.show();
 }
 
 
