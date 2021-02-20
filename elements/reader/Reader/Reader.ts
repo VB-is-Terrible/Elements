@@ -9,7 +9,7 @@ import type { Toaster } from '../../toaster/toaster.js';
 import { ToasterContext } from '../../toaster/Common/Common.js';
 
 export {};
-
+export const requires = ['toaster', 'elements-container-dialog',];
 
 const reader = document.querySelector('#main_scroller')! as GalleryScrollDynamic;
 const page_count = document.querySelector('#page_count')! as HTMLInputElement;
@@ -269,7 +269,9 @@ const check_fails = () => {
 	}
 	return -1;
 }
-main();
+
+
+export default main;
 
 
 Elements.loaded('reader-Reader');

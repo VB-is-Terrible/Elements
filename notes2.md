@@ -62,3 +62,4 @@ backbone v5:
 	* Top level await
 	* Explicit manifest
 	* Coreless support (Maybe)
+	* Initless support (Move manifest loading back to core)
