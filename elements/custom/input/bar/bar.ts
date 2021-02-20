@@ -92,7 +92,10 @@ export class CustomInputBar extends backbone4 {
 	focus() {
 		this._input.focus();
 	}
-
+	blur() {
+		this._button.blur();
+		this._input.blur();
+	}
 }
 
 export default CustomInputBar;

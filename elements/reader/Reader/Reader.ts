@@ -22,6 +22,7 @@ const toaster = document.querySelector('#toaster') as Toaster;
 
 const respond = async (e: CustomEvent) => {
 	main_input.value = '';
+	main_input.blur();
 	query_pics(e.detail);
 };
 
