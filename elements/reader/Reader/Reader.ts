@@ -49,14 +49,7 @@ const query_pics = async (url: string) => {
 		body: form,
 	});
 	const [urls, title] = await response.json();
-	document.title = title;
-	reset_fails();
-	reader.img_urls = urls;
-	dialog.hide();
-	requestAnimationFrame(() => {
-		page_count.value = '0';
-		page_total.innerHTML = '/ ' + urls.length.toString();
-	});
+	set_urls(urls, title);
 };
 
 const update_page = (e: CustomEvent) => {
@@ -169,18 +162,20 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 	for (const pic of pic_names) {
 		links.push(url + '/' + pic);
 	}
-	reader;
 
+	set_urls(links, gallery_name);
+};
+
+export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader') => {
 	reset_fails();
-	reader.img_urls = links;
-	document.title = gallery_name;
+	reader.img_urls = img_urls;
+	document.title = title;
 	requestAnimationFrame(() => {
 		page_count.value = '0';
-		page_total.innerHTML = '/ ' + links.length.toString();
+		page_total.innerHTML = '/ ' + img_urls.length.toString();
 	});
 	dialog.hide();
-	return false;
-};
+}
 
 let seen_fails: number[] = [];
 let fails: number[] = [];
