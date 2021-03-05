@@ -126,7 +126,7 @@ export class GalleryScrollDynamic extends backbone4 {
 			below += 1;
 			i += 1;
 		}
-		if (height != scrollTop && i < this._body.children.length) {
+		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
 			this._position = this._start + i - 1;
 		} else if (i === this._body.children.length) {
 			if (this.img_urls.length === 0) {
