@@ -95,6 +95,8 @@ export class GalleryScrollDynamic extends backbone4 {
 		const div = document.createElement('div');
 		const img = document.createElement('img');
 		div.className = 'scroll';
+		//@ts-ignore
+		div.part = 'image-container';
 		img.className = 'scroll';
 		img.src = src;
 		if (callback === null) {
