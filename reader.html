@@ -76,6 +76,9 @@
 			align-items: center;
 			justify-content: center;
 		}
+		#zoom_count {
+			max-width: 5em;
+		}
 		</style>
 		<template id='reader-preview'>
 			<div class='folder'>
@@ -87,7 +90,7 @@
 		</template>
 	</head>
 	<body>
-		<div class='scroll'>
+		<div class='scroll' id='scroll_container'>
 			<elements-gallery-scroll-dynamic id='main_scroller'> </elements-gallery-scroll-dynamic>
 		</div>
 
@@ -96,12 +99,19 @@
 			<div class='topbar'>
 				<div id='page_div'>
 					<div class='right_align'>
-						<input type='number' id='page_count'></input>
+						<input type='number' id='page_count' min='0'></input>
 						<span id='page_total'> / asdf</span>
 					</div>
 					<div style='float:left;'>
 						<button id='local'>
 							Local Galleries
+						</button>
+						<button id='zoom_out'>
+							Zoom Out
+						</button>
+						<input type='number' id='zoom_count' max='2' min = '.1' step='.1' value='1'></input>
+						<button id='zoom_in'>
+							Zoom In
 						</button>
 					</div>
 				</div>

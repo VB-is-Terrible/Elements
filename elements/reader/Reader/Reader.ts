@@ -18,6 +18,7 @@ const main_input = document.querySelector('#main_input') as CustomInputBar;
 const dialog = document.querySelector('elements-container-dialog') as ContainerDialog;
 const preview_template = document.querySelector('#reader-preview') as HTMLTemplateElement;
 const toaster = document.querySelector('#toaster') as Toaster;
+const zoom_input = document.querySelector('#zoom_count') as HTMLInputElement;
 
 
 const respond = async (e: CustomEvent) => {
@@ -70,6 +71,8 @@ const load_local = async () => {
 	fill_folders_link(folders);
 };
 
+const ZOOM_STEP = .1;
+let zoom_factor = 1;
 const main = () => {
 	//@ts-ignore
 	main_input.addEventListener('accept', respond);
@@ -101,9 +104,25 @@ const main = () => {
 	local_button.addEventListener('click', () => {
 		dialog.toggle();
 	});
+	zoom_input.value = zoom_factor.toString();
+	zoom_input.addEventListener('change', () => {
+		zoom_factor = parseFloat(zoom_input.value);
+		set_zoom_factor(zoom_factor);
+	});
+	const zoom_out = document.querySelector('#zoom_out') as HTMLButtonElement;
+	const zoom_in = document.querySelector('#zoom_in') as HTMLButtonElement;
+	zoom_out.addEventListener('click', () => {
+		zoom_factor -= ZOOM_STEP;
+		set_zoom_factor(zoom_factor);
+	});
+	zoom_in.addEventListener('click', () => {
+		zoom_factor += ZOOM_STEP;
+		set_zoom_factor(zoom_factor);
+	});
 	load_local();
 	dialog.show();
-}
+	// setup_scroll_sense();
+};
 
 
 const fill_folders_link = (folders: {[key: number]: string}) => {
@@ -168,8 +187,11 @@ export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader') 
 	reset_fails();
 	reader.img_urls = img_urls;
 	document.title = title;
+	zoom_factor = 1;
+	set_zoom_factor(zoom_factor);
 	requestAnimationFrame(() => {
 		page_count.value = '0';
+		page_count.max = (img_urls.length - 1).toString();
 		page_total.innerHTML = '/ ' + img_urls.length.toString();
 	});
 	dialog.hide();
@@ -267,7 +289,27 @@ const check_fails = () => {
 		i++;
 	}
 	return -1;
-}
+};
+
+
+
+const zoom_factor_stylesheet = document.createElement('style');
+document.body.append(zoom_factor_stylesheet);
+const set_zoom_factor = (zoom: number) => {
+	const sheet = zoom_factor_stylesheet.sheet;
+	const rule = `elements-gallery-scroll-dynamic::part(image-container) {
+		max-height: ${zoom * 100}%;
+	}`;
+	requestAnimationFrame(() => {
+		zoom_input.value = zoom.toString();
+		if (sheet !== null) {
+			if (sheet.cssRules.length === 1) {
+				sheet.deleteRule(0);
+			}
+			sheet.insertRule(rule);
+		}
+	})
+};
 
 
 export default main;
