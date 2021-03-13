@@ -5,6 +5,7 @@ const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
+import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext} from './elements_helper.js';
 
 
 type ElementType =
@@ -722,14 +723,7 @@ class Elements {
 	 */
 	booleaner (value: unknown): boolean {
 		console.warn('Using deprecated function \'booleaner\'');
-		switch (typeof(value)) {
-			case 'boolean':
-				return value;
-			case 'string':
-				return !(value === 'false');
-			default:
-				return Boolean(value);
-		}
+		return booleaner(value);
 	}
 
 	/**
@@ -740,16 +734,7 @@ class Elements {
 	 */
 	rafContext (): (f: (timestamp: number) => void) => void {
 		console.warn('Using deprecated function \'rafContext\'');
-		let raf: number | null = null;
-		return (f) => {
-			if (raf !== null) {
-				cancelAnimationFrame(raf);
-			}
-			raf = requestAnimationFrame((e) => {
-				f(e);
-				raf = null;
-			});
-		};
+		return rafContext();
 	}
 
 	/**
@@ -762,10 +747,7 @@ class Elements {
 	 */
 	nameDesanitizer (string: string): string {
 		console.warn('Using deprecated function \'nameDesanitizer\'');
-		string = string.replace(/&amp/g, '&');
-		string = string.replace(/&lt/g, '<');
-		string = string.replace(/&gt/g, '>');
-		return string;
+		return nameDesanitizer(string);
 	}
 
 	/**
@@ -776,11 +758,7 @@ class Elements {
 	 */
 	nameSanitizer (string: string): string {
 		console.warn('Using deprecated function \'nameSanitizer\'');
-		string = string.trim();
-		string = string.replace(/&/g, '&amp');
-		string = string.replace(/</g, '&lt');
-		string = string.replace(/>/g, '&gt');
-		return string;
+		return nameSanitizer(string);
 	}
 
 	/**
@@ -801,29 +779,8 @@ class Elements {
 		eventTrigger: (value: unknown) => void = (_value: unknown) => {},
 		santizer: (value: unknown, old_value: T) => T = (value: any, _oldValue: any) => {return value;}) {
 
-		console.warn('Using deprecated function \'setUpAttrPropertyLink2\'');
-		const fail_message = 'Attr-Property must be in constructor.observedAttributes';
-		//@ts-ignore
-		console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
-
-		let hidden: T;
-		let getter = () => {return hidden;};
-		let setter = (value: T) => {
-			value = santizer(value, hidden);
-			if (value === hidden) {return;}
-			hidden = value;
-			if (object.attributeInit) {
-				object.setAttribute(property, value.toString());
-			}
-			eventTrigger(value);
-		};
-		Object.defineProperty(object, property, {
-			enumerable: true,
-			configurable: true,
-			get: getter,
-			set: setter,
-		});
-		object.applyPriorProperty(property, initial);
+		console.warn('Using deprecated function \'setUpAttrProperty\'');
+		setUpAttrPropertyLink(object, property, initial, eventTrigger, santizer);
 	}
 
 	/**
