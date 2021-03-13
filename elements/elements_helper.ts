@@ -268,3 +268,30 @@ export function removeNSTag (name: string): string {
 export function captialize (string: string): string {
         return string.charAt(0).toUpperCase() + string.substring(1, string.length);
 }
+
+/**
+ * Helper to reduce an object to only properties needed to stringify
+ * @param  {Object} object     object to reduce
+ * @param  {String[]} properties Properties to include
+ * @return {Object}            new object with properties copied over
+ */
+export function jsonIncludes<O, K extends keyof O> (object: O, properties: (K & string)[]): object {
+        let result: {[key: string]: unknown} = {};
+        for (let property of properties) {
+                result[property] = object[property];
+        }
+        return result;
+}
+
+/**
+ * Converts a set to array, for stringification
+ * @param  {Set} set Set to convert to array
+ * @return {Array}   Array version of set
+ */
+export function setToArray (set: Set<unknown>): Array<unknown> {
+        let result = [];
+        for (let entry of set.values()) {
+                result.push(entry);
+        }
+        return result;
+}

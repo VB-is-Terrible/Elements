@@ -5,7 +5,7 @@ const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
-import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext} from './elements_helper.js';
+import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray} from './elements_helper.js';
 
 
 type ElementType =
@@ -448,11 +448,8 @@ class Elements {
 	 * @deprecated
 	 */
 	jsonIncludes<O, K extends keyof O> (object: O, properties: (K & string)[]): object {
-		let result: {[key: string]: unknown} = {};
-		for (let property of properties) {
-			result[property] = object[property];
-		}
-		return result;
+		console.warn('Using deprecated function \'jsonIncludes\'');
+		return jsonIncludes(object, properties);
 	}
 
 	/**
@@ -462,11 +459,8 @@ class Elements {
 	 * @deprecated
 	 */
 	setToArray (set: Set<unknown>): Array<unknown> {
-		let result = [];
-		for (let entry of set.values()) {
-			result.push(entry);
-		}
-		return result;
+		console.warn('Using deprecated function \'setToArray\'');
+		return setToArray(set);
 	}
 
 	/**
