@@ -21,6 +21,9 @@
 		<script>
 			const main = async () => {
 				await Elements.get('KDB');
+				const randint = (lower: number, upper: number): number => {
+					return Math.floor(Math.random() * (upper - lower) + lower);
+				};
 				let display = document.body.querySelector('#main');
 				let kdb = KDB.fromJSON(testData4);
 				let groups = [];

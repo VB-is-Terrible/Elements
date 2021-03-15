@@ -289,3 +289,12 @@ export function setToArray<O> (set: Set<O> | Map<unknown, O>): Array<O> {
 
 export type GConstructor<T = {}> = new (...args: any[]) => T;
 
+/**
+ * Random integer
+ * @param  {Number} lower Lower bound
+ * @param  {Number} upper Upper bound
+ * @return {Number}       lower <= return <= upper
+ */
+export const randint = (lower: number, upper: number): number => {
+	return Math.floor(Math.random() * (upper - lower) + lower);
+};
