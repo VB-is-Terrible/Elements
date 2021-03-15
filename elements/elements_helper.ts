@@ -232,16 +232,7 @@ export function tokenise (name: string): string[] {
 	} else if (name.includes('/')) {
 		return name.split('/');
 	} else {
-		let tokens = [];
-		let firstCharacter = /[A-Z]/;
-		let position;
-		while ((position = name.search(firstCharacter)) !== -1) {
-			let token = name.substring(0, position);
-			name = name.charAt(position).toLowerCase() + name.substring(position + 1, name.length);
-			tokens.push(token);
-		}
-		tokens.push(name);
-		return tokens;
+		return [name];
 	}
 };
 
