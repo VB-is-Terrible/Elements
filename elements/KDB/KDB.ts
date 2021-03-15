@@ -1,5 +1,5 @@
 import {Elements} from '../elements_core.js';
-import {jsonIncludes, setToArray} from '../elements_helper.js';
+import {GConstructor, jsonIncludes, setToArray} from '../elements_helper.js';
 
 /**
  * Interface for display of a Kerbal

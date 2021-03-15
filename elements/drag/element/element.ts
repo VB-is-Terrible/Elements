@@ -3,7 +3,7 @@ export const requires = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
-import { applyPriorProperty, CustomComposedEvent } from '../../elements_helper.js';
+import { applyPriorProperty, CustomComposedEvent, GConstructor} from '../../elements_helper.js';
 
 type TouchListener = (arg0: TouchEvent) => void;
 type MouseListener = (arg0: MouseEvent) => void;
@@ -510,7 +510,6 @@ export class DragElement extends backbone4 {
 };
 
 
-type GConstructor<T = {}> = new (...args: any[]) => T;
 
 // This mixin adds a scale property, with getters and setters
 // for changing it with an encapsulated private property:

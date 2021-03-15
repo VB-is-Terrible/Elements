@@ -294,4 +294,7 @@ export function setToArray<O> (set: Set<O> | Map<unknown, O>): Array<O> {
                 result.push(entry);
         }
         return result;
-}
+};
+
+export type GConstructor<T = {}> = new (...args: any[]) => T;
+
