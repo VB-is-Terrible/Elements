@@ -80,7 +80,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 		this.applyPriorProperties('database')
 	}
 	get database () {
-		return self.__database;
+		return this.__database;
 	}
 	set database (value) {
 		this.newGroup();
