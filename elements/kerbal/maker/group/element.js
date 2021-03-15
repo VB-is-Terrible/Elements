@@ -24,7 +24,7 @@ Elements.elements.KerbalMakerGroup = class extends Elements.elements.tabbed2 {
 		this.group = new KNS.Group();
 		this.nameValid = false;
 		this.__displays = new Map();
-		this.sentinel = new BlankKDBDisplay();
+		this.sentinel = new Elements.classes.BlankKDBDisplay();
 		this.sentinel.deleteKerbal = (kerbal) => {self.deleteKerbal(kerbal);};
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(this.name);

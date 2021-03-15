@@ -12,7 +12,7 @@ await Elements.get('tab-window', 'KDB', 'kerbal-searcher-Common', 'drag-Common')
  * @augments KerbalJobDisplay
  * @implements KerbalDisplay
  */
-let KerbalChoiceDisplay = class extends KerbalJobDisplay {
+let KerbalChoiceDisplay = class extends Elements.inherits.KerbalJobDisplay {
 	/**
 	 * Make a display element
 	 * @param  {String} place Location

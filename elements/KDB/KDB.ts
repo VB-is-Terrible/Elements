@@ -982,6 +982,153 @@ let KNS =  {
 	KDBParseError: KDBParseError,
 };
 
+class empty {};
+
+/**
+ * A KerbalDisplay Mixin that does nothing. Use this when you don't need all the methods
+ * @param  superclss Class to mix KerbalDisplay methods into
+ * @return  Class that implements KerbalDisplay
+ */
+export const BlankKerbalDisplayMixin = (superclass: GConstructor) => {
+        abstract class BlankKerbalDisplayMixin extends superclass implements KerbalDisplay {
+                abstract data: Kerbal | null;
+                constructor (...args: any) {
+                        super(...args);
+                }
+                updateData () {}
+                showJob (_place: KSP_PLACES_T) {}
+                delete () {}
+        };
+        return BlankKerbalDisplayMixin;
+};
+Elements.common.BlankKerbalDisplayMixin = BlankKerbalDisplayMixin;
+
+
+/**
+ * A KerbalDisplay that only displays jobs
+ * re: delete - The consumer of this should deal with this
+ * re: updateData - This doesn't build a kerbal tag
+ * @implements KerbalDisplay
+ * @augments BlankKerbalDisplay
+ * @property {KNS.Kerbal} data kerbal that this represents
+ * @property {HTMLElement} display display of the kerbal's jobs
+ */
+class KerbalJobDisplay extends BlankKerbalDisplayMixin(empty) implements KerbalDisplay {
+        private __jobDisplay: Record<KSP_PLACES_T, null | HTMLParagraphElement>;
+        display: HTMLDivElement;
+        data: Kerbal | null = null;
+	constructor () {
+		super();
+		this.__jobDisplay = KNS.blankPlaceList(null);
+		this.display = document.createElement('div');
+	}
+	/**
+	 * Update the display for a job
+	 * @param  {String} place Place to update display
+	 */
+	showJob (place: KSP_PLACES_T) {
+		requestAnimationFrame(() => {
+                        if (this.data === null) {return;}
+			let value = this.data.jobs[place];
+			if (value > 0) {
+				if (this.__jobDisplay[place] === null) {
+					// A display element has not been made
+					this.__jobDisplay[place] = this.makeJobElement(place, value);
+					this.display.appendChild(this.__jobDisplay[place]!);
+				} else {
+					this.changeJobElement(this.__jobDisplay[place]!, place, value);
+					if (!(this.display.contains(this.__jobDisplay[place]))) {
+						// A display element has been made, but has since been removed
+						this.display.appendChild(this.__jobDisplay[place]!);
+					}
+				}
+			} else {
+				if (this.display.contains(this.__jobDisplay[place])) {
+					this.display.removeChild(this.__jobDisplay[place]!);
+				}
+			}
+		});
+	}
+	/**
+	* Make a display element
+	* @param  {String} place Location
+	* @param  {Number} value Depth of visited required
+	* @return {HTMLElement} Element representing place+value
+	*/
+	makeJobElement (place: KSP_PLACES_T, value: KSP_PLACE_DEPTH): HTMLParagraphElement {
+		let p = document.createElement('p');
+		p.innerHTML = place + ' ' + KNS.valueToJob(value);
+		return p;
+	}
+	/**
+	 * Update a job display element
+	 * @param  {HTMLElement} element Job display element
+	 * @param  {String} place   Destination of mission
+	 * @param  {int} value   Depth of mission
+	 */
+	changeJobElement (element: HTMLElement, place: KSP_PLACES_T, value: KSP_PLACE_DEPTH) {
+		element.innerHTML = place + ' ' + KNS.valueToJob(value);
+	}
+};
+Elements.inherits.KerbalJobDisplay = KerbalJobDisplay;
+
+/**
+* A KDBDisplay mixin that does nothing. Use this to implement methods you don't need.
+* Note: For now, it's a good idea to use this if you can't inherit BlankKDBDisplay,
+* as new methods WILL be added to KDBDisplay.
+* See BlankKDBDisplay for documentation
+* @param  superclass Class to mix KDBDisplay methods into
+* @return  Class that implements KDBDisplay
+*/
+export const BlankKDBDisplayMixin = (superclass: GConstructor) => {
+	abstract class mixin extends superclass implements KDBDisplay{
+                abstract database: string | null;
+		constructor (...args: any) {
+			super(...args);
+			// this.database = this.database || null;
+		}
+                /**
+        	 * Fired after addKerbal is called
+        	 * @param {KNS.Kerbal} kerbal The added kerbal
+        	 */
+		addKerbal (_name: Kerbal) {}
+                /**
+        	 * Fired after a kerbal has been deleted
+        	 * @param  {KNS.Kerbal} kerbal The deleted kerbal
+        	 */
+		deleteKerbal (_name: Kerbal) {}
+                /**
+        	 * Fired after a kerbal has been renamed
+        	 * @param  {String} oldName Name of kerbal before rename
+        	 * @param  {String} newName Current name of kerbal
+        	 */
+		renameKerbal (_oldName: string, _newName: string) {}
+                /**
+        	 * Fired after a group is added
+        	 * @param {KNS.Group} group The added group
+        	 */
+		addGroup (_groupID: Group) {}
+                /**
+        	 * Fired after a group is removed
+        	 * @param {KNS.Group} group The removed group
+        	 */
+		removeGroup (_groupID: Group) {}
+	};
+        return mixin;
+};
+Elements.common.BlankKDBDisplayMixin = BlankKDBDisplayMixin;
+
+
+/**
+ * A KDBDisplay that does nothing. Use this to implement methods you don't need.
+ * Note: For now, it's a good idea to inherit from this, as new methods WILL be added to KDBDisplay
+ * @implements KDBDisplay
+ * @property {KDBDisplay} data KDB that this represents
+ */
+const BlankKDBDisplay = BlankKDBDisplayMixin(empty);
+Elements.classes.BlankKDBDisplay = BlankKDBDisplay;
+
+
 //@ts-ignore
 window.KNS = KNS;
 //@ts-ignore
