@@ -226,7 +226,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		//TODO: Set scrollTop instead
 		if (this._start > value) {
 			this._rebuild_position(value);
-		} else if (this._end < value) {
+		} else if (this._end <= value) {
 			this._rebuild_position(value);
 		} else {
 			const index = value - this._start;
