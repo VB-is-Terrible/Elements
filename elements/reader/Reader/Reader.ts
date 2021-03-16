@@ -37,7 +37,9 @@ Elements.common.reader_reload = redo;
 window.redo = redo;
 
 
+const QUERY_NOTIFICATION_TIME = 10000;
 const query_pics = async (url: string, position?: number) => {
+	const start = Date.now();
 	const form = new FormData();
 	form.append('url', url);
 	//@ts-ignore
@@ -49,6 +51,10 @@ const query_pics = async (url: string, position?: number) => {
 	});
 	const [urls, title] = await response.json();
 	set_urls(urls, title, position);
+	const end = Date.now();
+	if (end - start > QUERY_NOTIFICATION_TIME) {
+		notify('Loaded Gallery', {body: title, silent: true});
+	}
 };
 
 const update_page = (e: CustomEvent) => {
@@ -142,7 +148,6 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 		inverse.set(name, url);
 	}
 	names.sort();
-
 	let count = 1;
 	for (const name of names) {
 		const url = inverse.get(name);
@@ -310,6 +315,23 @@ const set_zoom_factor = (zoom: number) => {
 			sheet.insertRule(rule);
 		}
 	})
+};
+
+
+export const notify = async (title: string, options?: NotificationOptions) => {
+	// new Notification(title, options)
+	if (Notification.permission == 'granted') {
+		return new Notification(title, options);
+	} else if (Notification.permission == 'default') {
+		const permission = await Notification.requestPermission();
+		if (permission) {
+			return new Notification(title, options);
+		} else {
+			return null;
+		}
+	} else {
+		return null;
+	}
 };
 
 
