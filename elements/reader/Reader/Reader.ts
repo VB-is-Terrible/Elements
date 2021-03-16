@@ -29,10 +29,7 @@ const respond = async (e: CustomEvent) => {
 
 const redo = async () => {
 	const current_page = reader.position;
-	await query_pics(current_url);
-	requestAnimationFrame(() => {
-		reader.position = current_page;
-	});
+	query_pics(current_url, current_page);
 };
 
 Elements.common.reader_reload = redo;
@@ -40,7 +37,7 @@ Elements.common.reader_reload = redo;
 window.redo = redo;
 
 
-const query_pics = async (url: string) => {
+const query_pics = async (url: string, position?: number) => {
 	const form = new FormData();
 	form.append('url', url);
 	//@ts-ignore
@@ -51,7 +48,7 @@ const query_pics = async (url: string) => {
 		body: form,
 	});
 	const [urls, title] = await response.json();
-	set_urls(urls, title);
+	set_urls(urls, title, position);
 };
 
 const update_page = (e: CustomEvent) => {
@@ -121,12 +118,10 @@ const main = () => {
 	});
 	load_local();
 	dialog.show();
-	// setup_scroll_sense();
 };
 
 
 const fill_folders_link = (folders: {[key: number]: string}) => {
-	// debugger;
 	const columns = 5;
 	const folder_grid = document.querySelector('#folder_grid')! as Grid;
 	const rows = Math.ceil((Object.keys(folders).length) / columns);
@@ -183,14 +178,20 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 	set_urls(links, gallery_name);
 };
 
-export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader') => {
+export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader', position?: number) => {
 	reset_fails();
-	reader.img_urls = img_urls;
+	requestAnimationFrame(() => {
+		page_count.value = '0';
+	});
+	if (position !== undefined) {
+		reader.set_and_jump(img_urls, position);
+	} else {
+		reader.img_urls = img_urls;
+	}
 	document.title = title;
 	zoom_factor = 1;
 	set_zoom_factor(zoom_factor);
 	requestAnimationFrame(() => {
-		page_count.value = '0';
 		page_count.max = (img_urls.length - 1).toString();
 		page_total.innerHTML = '/ ' + img_urls.length.toString();
 	});

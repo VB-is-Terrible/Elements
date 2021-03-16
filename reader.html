@@ -169,10 +169,7 @@
 		})();
 		redo_test = () => {
 			const current = main_scroller.position;
-			main_scroller.img_urls = main_scroller.img_urls;
-			requestAnimationFrame(() => {
-				main_scroller.position = current;
-			});
+			main_scroller.set_and_jump(main_scroller.img_urls, current);
 		}
 	}
 	</script>

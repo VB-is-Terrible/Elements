@@ -91,7 +91,7 @@ export class GalleryScrollDynamic extends backbone4 {
 	get img_urls() {
 		return this._urls;
 	}
-	_create_img(src: string, callback: (() => void) | null = null) {
+	private _create_img(src: string, callback: (() => void) | null = null) {
 		const div = document.createElement('div');
 		const img = document.createElement('img');
 		div.className = 'scroll';
@@ -114,7 +114,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		div.append(img);
 		return div;
 	}
-	_scrollUpdate() {
+	private _scrollUpdate() {
 		let i = 0;
 		let height = 0;
 		let below = 0;
@@ -259,9 +259,10 @@ export class GalleryScrollDynamic extends backbone4 {
 			this.position -= 1;
 		}
 	}
-	_img_load(_img: HTMLImageElement) {
+	private _img_load(_img: HTMLImageElement) {
 	}
-	_rebuild_position(position: number) {
+	private _rebuild_position(position: number) {
+		const old = this._position;
 		removeChildren(this._body);
 		let current = position - this.PRELOAD_EXCEED;
 		if (current < 0) {
@@ -314,7 +315,22 @@ export class GalleryScrollDynamic extends backbone4 {
 				this._body.children[position - this._start].scrollIntoView()
 			});
 		}
+		if (old != this._position) {
+			const event = new CustomEvent(
+				'positionChange',
+				{detail: this._position}
+			);
+			this.dispatchEvent(event);
+		}
 
+	}
+	set_and_jump(img_urls: Array<string>, position: number = 0) {
+		if (!(img_urls instanceof Array)) {
+			console.error('This is not a list of urls', img_urls);
+			throw new Error('Did not get a list of urls');
+			}
+		this._urls = img_urls;
+		this._rebuild_position(position)
 	}
 }
 
