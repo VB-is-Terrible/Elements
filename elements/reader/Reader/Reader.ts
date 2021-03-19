@@ -97,7 +97,7 @@ const main = () => {
 				e.preventDefault();
 				break;
 			default:
-				console.log(e.key);
+				break;
 		}
 	});
 	reader.addEventListener('positionChange', update_page as EventListener);
@@ -152,18 +152,24 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 	for (const name of names) {
 		const url = inverse.get(name);
 		const fragment = document.importNode(preview_template, true).content;
-		const p = fragment.querySelector('p.folder') as HTMLParagraphElement;
+		const a = fragment.querySelector('a.folder') as HTMLParagraphElement;
 		const div = fragment.querySelector('div.folder') as HTMLDivElement;
 		const img = fragment.querySelector('img.folder') as HTMLImageElement;
 		const folder_url = LOCAL_FILES_BASE + '/' + url
 
 		const event_listener = () => {
-			p.className += ' visited';
+			a.className += ' visited';
 			visit_local_link(folder_url, name);
 		};
 		img.addEventListener('click', event_listener);
-		p.addEventListener('click', event_listener);
-		p.innerHTML = name;
+		a.addEventListener('click', event_listener);
+		a.addEventListener('keypress', (e) => {
+			console.log(e.key);
+			if (e.key === 'Enter') {
+				event_listener();
+			}
+		});
+		a.innerHTML = name;
 		div.slot = 's' + count.toString();
 		img.src = folder_url + '/' + '0';
 		requestAnimationFrame(() => {

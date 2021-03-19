@@ -53,7 +53,7 @@
 		#grid_box {
 			/* width: 1400px; */
 		}
-		p.folder {
+		a.folder {
 			font-size: xx-small;
 			max-height: 8ex;
 			overflow: hidden;
@@ -62,8 +62,9 @@
 			color: blue;
 			text-decoration: underline;
 			cursor: pointer;
+			display: block;
 		}
-		p.folder.visited {
+		a.folder.visited {
 			color: rgb(99, 8, 140);
 		}
 		img.folder {
@@ -82,10 +83,10 @@
 		</style>
 		<template id='reader-preview'>
 			<div class='folder'>
-				<div class='centre'>
+				<div class='centre' >
 					<img class='folder'></img>
 				</div>
-				<p class='folder'></p>
+				<a class='folder' tabindex='0'></p>
 			</div>
 		</template>
 	</head>
