@@ -12,14 +12,14 @@ const ELEMENT_NAME = 'DragElement';
 
 
 interface dragged {
-        hideWindow: () => void;
-        showWindow: () => void;
-        centre: () => void;
-        touch_reset: () => void;
-        drag_reset: () => void;
-        toTop: () => void;
-        toggleWindow: () => void;
-        readonly drag_parent_hidden: boolean;
+	hideWindow: () => void;
+	showWindow: () => void;
+	centre: () => void;
+	touch_reset: () => void;
+	drag_reset: () => void;
+	toTop: () => void;
+	toggleWindow: () => void;
+	readonly drag_parent_hidden: boolean;
 };
 
 
@@ -99,14 +99,14 @@ interface dragged {
  * @listens DragElement#elements-drag-toTop
  */
 export class DragElement extends backbone4 {
-        private __animation: null | Animation;
-        private __animationCallback: null | (() => void);
-        private __animationState: null | string;
-        touch: { left: number; top: number; touchID: number; };
-        parent: null | (HTMLElement & dragged);
-        drag: { left: number; top: number; };
-        events: { start: TouchListener; end: TouchListener; move: TouchListener; dStart: MouseListener; dEnd: MouseListener; dMove: MouseListener; };
-        private _body: HTMLDivElement;
+	private __animation: null | Animation;
+	private __animationCallback: null | (() => void);
+	private __animationState: null | string;
+	touch: { left: number; top: number; touchID: number; };
+	parent: null | (HTMLElement & dragged);
+	drag: { left: number; top: number; };
+	events: { start: TouchListener; end: TouchListener; move: TouchListener; dStart: MouseListener; dEnd: MouseListener; dMove: MouseListener; };
+	private _body: HTMLDivElement;
 	constructor () {
 		super();
 
@@ -141,48 +141,48 @@ export class DragElement extends backbone4 {
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(ELEMENT_NAME);
 
-                this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
-                this._body.addEventListener('dialog_close', (e) => {
-                        this.hideWindow();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-hideWindow', (e) => {
-                        this.hideWindow();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-showWindow', (e) => {
-                        this.showWindow();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-toggleWindow', (e) => {
-                        if (this.hidden) {
-                                this.showWindow();
-                        } else {
-                                this.hideWindow();
-                        }                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-centre', (e) => {
-                        this.centre();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-touch_reset', (e) => {
-                        this.touch_reset();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-drag_reset', (e) => {
-                        this.drag_reset();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-toTop', (e) => {
-                        this.toTop();
-                        e.stopPropagation();
-                });
-                // Yes, this is a hack
-                this._body.addEventListener('elements-drag-query-hidden', (e) => {
-                        if (!this.hidden) {
-                                e.preventDefault();
-                        }
-                });
+		this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
+		this._body.addEventListener('dialog_close', (e) => {
+			this.hideWindow();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-hideWindow', (e) => {
+			this.hideWindow();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-showWindow', (e) => {
+			this.showWindow();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-toggleWindow', (e) => {
+			if (this.hidden) {
+				this.showWindow();
+			} else {
+				this.hideWindow();
+			}                        e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-centre', (e) => {
+			this.centre();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-touch_reset', (e) => {
+			this.touch_reset();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-drag_reset', (e) => {
+			this.drag_reset();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-toTop', (e) => {
+			this.toTop();
+			e.stopPropagation();
+		});
+		// Yes, this is a hack
+		this._body.addEventListener('elements-drag-query-hidden', (e) => {
+			if (!this.hidden) {
+				e.preventDefault();
+			}
+		});
 
 		shadow.appendChild(template);
 		/**
@@ -245,8 +245,8 @@ export class DragElement extends backbone4 {
 		body.addEventListener('touchcancel', this.events.end, false);
 		body.addEventListener('touchend', this.events.end, false);
 		body.removeEventListener('touchstart', this.events.start, false);
-                const ev = CustomComposedEvent('elements-drag-topZIndex', this);
-                this.dispatchEvent(ev);
+		const ev = CustomComposedEvent('elements-drag-topZIndex', this);
+		this.dispatchEvent(ev);
 	}
 	/**
 	 * Updates a touch based drag
@@ -297,8 +297,8 @@ export class DragElement extends backbone4 {
 		let style = window.getComputedStyle(body, null);
 		this.drag.left = (parseInt(style.getPropertyValue('left'),10) - event.clientX);
 		this.drag.top = (parseInt(style.getPropertyValue('top'),10) - event.clientY);
-                const ev = CustomComposedEvent('elements-drag-top', this);
-                this.dispatchEvent(ev);
+		const ev = CustomComposedEvent('elements-drag-top', this);
+		this.dispatchEvent(ev);
 		body.addEventListener('mousemove', this.events.dMove, false);
 		body.addEventListener('mouseup', this.events.dEnd, false);
 		body.removeEventListener('mousedown', this.events.dStart, false);
@@ -325,8 +325,8 @@ export class DragElement extends backbone4 {
 		body.addEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
 		body.removeEventListener('mouseup', this.events.dEnd, false);
-                const ev = CustomComposedEvent('elements-drag-bottom');
-                this.dispatchEvent(ev);
+		const ev = CustomComposedEvent('elements-drag-bottom');
+		this.dispatchEvent(ev);
 	}
 	/**
 	 * Reset/Cancel a drag
@@ -354,8 +354,8 @@ export class DragElement extends backbone4 {
 	 * Put this drag-element on top of other drag-elements
 	 */
 	toTop () {
-                const ev = CustomComposedEvent('elements-drag-topZIndex', this);
-                this.dispatchEvent(ev);
+		const ev = CustomComposedEvent('elements-drag-topZIndex', this);
+		this.dispatchEvent(ev);
 	}
 	get hidden () {
 		let computed = getComputedStyle(this);
@@ -492,21 +492,21 @@ export class DragElement extends backbone4 {
 			body.style.left = value.toString() + 'px';
 		});
 	}
-        /**
-         * Disables dragging of this element
-         * For use in testing
-         */
-        disable () {
-                let body = this._body;
-                body.removeEventListener('mousedown', this.events.dStart, false);
+	/**
+	 * Disables dragging of this element
+	 * For use in testing
+	 */
+	disable () {
+		let body = this._body;
+		body.removeEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousedown', this.events.dStart, false);
 		body.removeEventListener('mousemove', this.events.dMove, false);
 		body.removeEventListener('mouseup', this.events.dEnd, false);
-                body.removeEventListener('touchstart', this.events.start, false);
+		body.removeEventListener('touchstart', this.events.start, false);
 		body.removeEventListener('touchmove', this.events.move, false);
 		body.removeEventListener('touchend', this.events.end, false);
 		body.removeEventListener('touchcancel', this.events.end, false);
-        }
+	}
 };
 
 
@@ -518,40 +518,40 @@ export class DragElement extends backbone4 {
  * Adds methods to interact with a parent drag-element
  */
 export function dragged_mixin<TBase extends GConstructor<HTMLElement>>(Base: TBase) {
-        return class Dragged extends Base implements dragged {
-                hideWindow() {
-                	const ev = CustomComposedEvent('elements-drag-hideWindow');
-                	this.dispatchEvent(ev);
-                }
-                showWindow() {
-                	const ev = CustomComposedEvent('elements-drag-showWindow');
-                	this.dispatchEvent(ev);
-                }
-                toggleWindow() {
-                	const ev = CustomComposedEvent('elements-drag-toggleWindow');
-                	this.dispatchEvent(ev);
-                }
-                centre() {
-                	const ev = CustomComposedEvent('elements-drag-centre');
-                	this.dispatchEvent(ev);
-                }
-                touch_reset() {
-                	const ev = CustomComposedEvent('elements-drag-touch_reset');
-                	this.dispatchEvent(ev);
-                }
-                drag_reset() {
-                	const ev = CustomComposedEvent('elements-drag-drag_reset');
-                	this.dispatchEvent(ev);
-                }
-                toTop() {
-                	const ev = CustomComposedEvent('elements-drag-toTop');
-                	this.dispatchEvent(ev);
-                }
-                get drag_parent_hidden() {
-                        const ev = CustomComposedEvent('elements-drag-query-hidden', undefined, true);
-                	return this.dispatchEvent(ev);
-                }
-        };
+	return class Dragged extends Base implements dragged {
+		hideWindow() {
+			const ev = CustomComposedEvent('elements-drag-hideWindow');
+			this.dispatchEvent(ev);
+		}
+		showWindow() {
+			const ev = CustomComposedEvent('elements-drag-showWindow');
+			this.dispatchEvent(ev);
+		}
+		toggleWindow() {
+			const ev = CustomComposedEvent('elements-drag-toggleWindow');
+			this.dispatchEvent(ev);
+		}
+		centre() {
+			const ev = CustomComposedEvent('elements-drag-centre');
+			this.dispatchEvent(ev);
+		}
+		touch_reset() {
+			const ev = CustomComposedEvent('elements-drag-touch_reset');
+			this.dispatchEvent(ev);
+		}
+		drag_reset() {
+			const ev = CustomComposedEvent('elements-drag-drag_reset');
+			this.dispatchEvent(ev);
+		}
+		toTop() {
+			const ev = CustomComposedEvent('elements-drag-toTop');
+			this.dispatchEvent(ev);
+		}
+		get drag_parent_hidden() {
+			const ev = CustomComposedEvent('elements-drag-query-hidden', undefined, true);
+			return this.dispatchEvent(ev);
+		}
+	};
 };
 
 /**

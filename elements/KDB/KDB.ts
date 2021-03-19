@@ -98,92 +98,73 @@ import {GConstructor, jsonIncludes, setToArray} from '../elements_helper.js';
  */
 
 
-// enum KSP_PLACES_T {
-//         'Kerbin',
-//         'Mun',
-//         'Minmus',
-//         'Eve',
-//         'Gilly',
-//         'Duna',
-//         'Ike',
-//         'Dres',
-//         'Jool',
-//         'Laythe',
-//         'Vall',
-//         'Tylo',
-//         'Bop',
-//         'Pol',
-//         'Eeloo',
-//         'Kerbol',
-// };
-
 export interface Kerbal {
-        jobs: JobList;
-        displays: KerbalDisplay[];
-        type: 'Kerbal';
-        duplicate (): Kerbal;
+	jobs: JobList;
+	displays: KerbalDisplay[];
+	type: 'Kerbal';
+	duplicate (): Kerbal;
 };
 
 export interface KerbalDisplay {
-        data: Kerbal | null;
-        updateData: () => void;
-        showJob: (arg0: KSP_PLACES_T) => void;
-        delete: () => void;
+	data: Kerbal | null;
+	updateData: () => void;
+	showJob: (arg0: KSP_PLACES_T) => void;
+	delete: () => void;
 };
 
 interface KerbalObj {
-        name: string;
-        text: string;
-        type: string;
-        jobs: CompactJobList;
+	name: string;
+	text: string;
+	type: string;
+	jobs: CompactJobList;
 };
 
 export interface Group {
-        kerbals: Set<Kerbal>;
-        type: 'Group';
+	kerbals: Set<Kerbal>;
+	type: 'Group';
 };
 
 export interface GroupDisplay {
-        data: Group;
-        updateData: () => void;
-        addKerbal: (arg0: Kerbal) => void;
-        deleteKerbal: (arg0: Kerbal) => void;
+	data: Group;
+	updateData: () => void;
+	addKerbal: (arg0: Kerbal) => void;
+	deleteKerbal: (arg0: Kerbal) => void;
 };
 
 interface GroupObj {
-        name: string;
-        text: string;
-        type: string;
-        kerbals: Array<string>;
+	name: string;
+	text: string;
+	type: string;
+	kerbals: Array<string>;
 
 };
 
 export interface KDB {
-        groups: Map<number, Group>;
-        kerbalObjs: Map<string, Kerbal>;
-        type: 'KDB';
+	groups: Map<number, Group>;
+	kerbalObjs: Map<string, Kerbal>;
+	type: 'KDB';
 
 };
 
 export interface KDBDisplay {
-        addKerbal: (kerbalObj: Kerbal) => void;
-        deleteKerbal: (kerbal: Kerbal) => void;
-        renameKerbal: (oldName: string, newName: string) => void;
-        addGroup: (group: Group) => void;
-        removeGroup: (group: Group) => void;
-        database: string | null;
+	addKerbal: (kerbalObj: Kerbal) => void;
+	deleteKerbal: (kerbal: Kerbal) => void;
+	renameKerbal: (oldName: string, newName: string) => void;
+	addGroup: (group: Group) => void;
+	removeGroup: (group: Group) => void;
+	database: string | null;
 };
 
 interface KDBObj {
-        type: 'KDB';
-        kerbalObjs: Array<Kerbal>;
-        groups: Array<Group>;
+	type: 'KDB';
+	kerbalObjs: Array<Kerbal>;
+	groups: Array<Group>;
 };
 
 interface KDBJSONObj {
-        type: 'KDB';
-        kerbalObjs: Array<KerbalObj>;
-        groups: Array<GroupObj>;
+	type: 'KDB';
+	kerbalObjs: Array<KerbalObj>;
+	groups: Array<GroupObj>;
 };
 
 type KSP_PLACES_T = 'Kerbin'| 'Mun'| 'Minmus'| 'Eve'| 'Gilly'| 'Duna'| 'Ike'| 'Dres'| 'Jool'| 'Laythe'| 'Vall'| 'Tylo'| 'Bop'| 'Pol'| 'Eeloo'| 'Kerbol';
@@ -213,14 +194,14 @@ type CompactJobList = Partial<Record<KSP_PLACES_T, Exclude<KSP_PLACE_DEPTH, 0>>>
  * @return {CompactJobList}         A reduced jobList
  */
 const reducePlaceList = (jobList: JobList): CompactJobList => {
-        let placeList: CompactJobList = {};
-        for (let place of KSP_PLACES) {
-                const place_value = jobList[place];
-                if (place_value != 0) {
-                        placeList[place] = place_value;
-                }
-        }
-        return placeList;
+	let placeList: CompactJobList = {};
+	for (let place of KSP_PLACES) {
+		const place_value = jobList[place];
+		if (place_value != 0) {
+			placeList[place] = place_value;
+		}
+	}
+	return placeList;
 };
 
 /**
@@ -233,182 +214,182 @@ const reducePlaceList = (jobList: JobList): CompactJobList => {
  * @memberof KNS
  */
 export class Kerbal implements Kerbal {
-        private _name: string = 'Kerbal';
-        private _text: string = 'Desc';
-        jobs: JobList;
-        displays: KerbalDisplay[] = [];
-        type: 'Kerbal' = 'Kerbal';
-        constructor () {
-                this.jobs = KNS.blankPlaceList(0);
-        }
-        get name () {
-                return this._name;
-        }
-        set name (value) {
-                this._name = value;
-                this.dispatchUIUpdate();
-        }
-        get text () {
-                return this._text;
-        }
-        set text (value) {
-                this._text = value;
-                this.dispatchUIUpdate();
-        }
-        /**
-         * Update UIs for one place
-         * @param  {String} place Place name
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        dispatchUpdate (place: KSP_PLACES_T) {
-                for (let display of this.displays) {
-                        display.showJob(place);
-                }
+	private _name: string = 'Kerbal';
+	private _text: string = 'Desc';
+	jobs: JobList;
+	displays: KerbalDisplay[] = [];
+	type: 'Kerbal' = 'Kerbal';
+	constructor () {
+		this.jobs = KNS.blankPlaceList(0);
+	}
+	get name () {
+		return this._name;
+	}
+	set name (value) {
+		this._name = value;
+		this.dispatchUIUpdate();
+	}
+	get text () {
+		return this._text;
+	}
+	set text (value) {
+		this._text = value;
+		this.dispatchUIUpdate();
+	}
+	/**
+	 * Update UIs for one place
+	 * @param  {String} place Place name
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	dispatchUpdate (place: KSP_PLACES_T) {
+		for (let display of this.displays) {
+			display.showJob(place);
+		}
 
-        }
-        /**
-         * Updates name and place of UIs
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        dispatchUIUpdate () {
-                for (let display of this.displays) {
-                        display.updateData();
-                }
-        }
-        /**
-         * Add a job to kerbal
-         * @param {String} place Location to visit
-         * @param {Number} value Depth of visit
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        addJob (place: KSP_PLACES_T, value: KSP_PLACE_DEPTH) {
-                if (this.jobs[place] >= value) {
-                        return;
-                }
-                this.jobs[place] = value;
-                this.dispatchUpdate(place);
-        }
-        /**
-         * Remove a job, as if the kerbal has just completed one
-         * @param  {String} location Location visited
-         * @param  {Number} value    Depth of visited
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        removeJob (location: KSP_PLACES_T, value: KSP_PLACE_DEPTH) {
-                if (this.jobs[location] > value) {
-                        return;
-                }
-                this.jobs[location] = 0;
-                this.dispatchUpdate(location);
-        }
-        /**
-         * Register a display to kerbal
-         * @param {KerbalDisplay} display Display to register
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        addDisplay (display: KerbalDisplay) {
-                if (this.displays.includes(display)) {
-                        return;
-                }
-                this.displays.push(display);
-        }
-        /**
-         * Deregister a display to kerbal
-         * @param  {KerbalDisplay} display [description]
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        removeDisplay (display: KerbalDisplay) {
-                let index = this.displays.indexOf(display);
-                if (index < 0) {return;}
-                this.displays.splice(index, 1);
-        }
-        /**
-         * Number of destinations to visit
-         * @return {Number} Number of locations to visit
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        get size (): number {
-                let size = 0;
-                for (let location of KNS.places) {
-                        if (this.jobs[location] !== 0) {
-                                size += 1;
-                        }
-                }
-                return size;
-        }
-        toJSON () {
-                let result: KerbalObj = jsonIncludes(this, ['name', 'text', 'type']) as KerbalObj;
-                result.jobs = reducePlaceList(this.jobs);
-                return result;
-        }
-        /**
-         * Delete this kerbal
-         * @memberof KNS.Kerbal
-         * @instance
-         */
-        delete () {
-                for (let display of this.displays) {
-                        display.delete();
-                }
-        }
-        /**
-         * Construct an kerbal from the object returned from JSON.parse(JSON.stringify(kerbal))
-         * @param  {Object} jsonObj JSON.parse'd kerbal
-         * @return {KNS.Kerbal}     Reconstitued Kerbal
-         * @memberof KNS.Kerbal
-         */
-        static fromJSONObj (jsonObj: KerbalObj): Kerbal {
-                if (jsonObj.type !== 'Kerbal') {
-                        throw new KDBParseError('Not a kerbal');
-                }
-                let kerbal = new this();
-                let jobs = jsonObj.jobs;
-                //@ts-ignore
-                delete jsonObj.jobs;
-                //@ts-ignore
-                Object.assign(kerbal, jsonObj);
-                for (let location in jobs) {
-                        kerbal.jobs[location as KSP_PLACES_T] = jobs[location as KSP_PLACES_T]!;
-                }
+	}
+	/**
+	 * Updates name and place of UIs
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	dispatchUIUpdate () {
+		for (let display of this.displays) {
+			display.updateData();
+		}
+	}
+	/**
+	 * Add a job to kerbal
+	 * @param {String} place Location to visit
+	 * @param {Number} value Depth of visit
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	addJob (place: KSP_PLACES_T, value: KSP_PLACE_DEPTH) {
+		if (this.jobs[place] >= value) {
+			return;
+		}
+		this.jobs[place] = value;
+		this.dispatchUpdate(place);
+	}
+	/**
+	 * Remove a job, as if the kerbal has just completed one
+	 * @param  {String} location Location visited
+	 * @param  {Number} value    Depth of visited
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	removeJob (location: KSP_PLACES_T, value: KSP_PLACE_DEPTH) {
+		if (this.jobs[location] > value) {
+			return;
+		}
+		this.jobs[location] = 0;
+		this.dispatchUpdate(location);
+	}
+	/**
+	 * Register a display to kerbal
+	 * @param {KerbalDisplay} display Display to register
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	addDisplay (display: KerbalDisplay) {
+		if (this.displays.includes(display)) {
+			return;
+		}
+		this.displays.push(display);
+	}
+	/**
+	 * Deregister a display to kerbal
+	 * @param  {KerbalDisplay} display [description]
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	removeDisplay (display: KerbalDisplay) {
+		let index = this.displays.indexOf(display);
+		if (index < 0) {return;}
+		this.displays.splice(index, 1);
+	}
+	/**
+	 * Number of destinations to visit
+	 * @return {Number} Number of locations to visit
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	get size (): number {
+		let size = 0;
+		for (let location of KNS.places) {
+			if (this.jobs[location] !== 0) {
+				size += 1;
+			}
+		}
+		return size;
+	}
+	toJSON () {
+		let result: KerbalObj = jsonIncludes(this, ['name', 'text', 'type']) as KerbalObj;
+		result.jobs = reducePlaceList(this.jobs);
+		return result;
+	}
+	/**
+	 * Delete this kerbal
+	 * @memberof KNS.Kerbal
+	 * @instance
+	 */
+	delete () {
+		for (let display of this.displays) {
+			display.delete();
+		}
+	}
+	/**
+	 * Construct an kerbal from the object returned from JSON.parse(JSON.stringify(kerbal))
+	 * @param  {Object} jsonObj JSON.parse'd kerbal
+	 * @return {KNS.Kerbal}     Reconstitued Kerbal
+	 * @memberof KNS.Kerbal
+	 */
+	static fromJSONObj (jsonObj: KerbalObj): Kerbal {
+		if (jsonObj.type !== 'Kerbal') {
+			throw new KDBParseError('Not a kerbal');
+		}
+		let kerbal = new this();
+		let jobs = jsonObj.jobs;
+		//@ts-ignore
+		delete jsonObj.jobs;
+		//@ts-ignore
+		Object.assign(kerbal, jsonObj);
+		for (let location in jobs) {
+			kerbal.jobs[location as KSP_PLACES_T] = jobs[location as KSP_PLACES_T]!;
+		}
 
-                return kerbal;
-        }
-        /**
-         * Equality check for KDBs
-         * @param  {KNS.Kerbal} kerbal1 First kerbal to compare
-         * @param  {KNS.Kerbal} kerbal2 Second kerbal to compare
-         * @return {Boolean}   If the two kerbals are equalivalent
-         * @memberof KNS.Kerbal
-         */
-        static equals (kerbal1: Kerbal, kerbal2: Kerbal): boolean {
-                if (kerbal1.name !== kerbal2.name) {
-                        return false;
-                }
-                if (kerbal1.text !== kerbal2.text) {
-                        return false;
-                }
-                for (let place of KNS.places) {
-                        if (kerbal1.jobs[place] !== kerbal2.jobs[place]) {
-                                return false;
-                        }
-                }
-                return true;
-        }
-        /**
-         * Duplicate the kerbal
-         * @return {KNS.Kerbal} Duplicated kerbal
-         * @memberof KNS.Kerbal
-         */
-        duplicate (): Kerbal {
-                return Kerbal.fromJSONObj(JSON.parse(JSON.stringify(this)));
-        }
+		return kerbal;
+	}
+	/**
+	 * Equality check for KDBs
+	 * @param  {KNS.Kerbal} kerbal1 First kerbal to compare
+	 * @param  {KNS.Kerbal} kerbal2 Second kerbal to compare
+	 * @return {Boolean}   If the two kerbals are equalivalent
+	 * @memberof KNS.Kerbal
+	 */
+	static equals (kerbal1: Kerbal, kerbal2: Kerbal): boolean {
+		if (kerbal1.name !== kerbal2.name) {
+			return false;
+		}
+		if (kerbal1.text !== kerbal2.text) {
+			return false;
+		}
+		for (let place of KNS.places) {
+			if (kerbal1.jobs[place] !== kerbal2.jobs[place]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * Duplicate the kerbal
+	 * @return {KNS.Kerbal} Duplicated kerbal
+	 * @memberof KNS.Kerbal
+	 */
+	duplicate (): Kerbal {
+		return Kerbal.fromJSONObj(JSON.parse(JSON.stringify(this)));
+	}
 };
 
 /**
@@ -418,11 +399,11 @@ export class Kerbal implements Kerbal {
  * @memberof KNS
  */
 export const blankPlaceList = function<O> (value: O): Record<KSP_PLACES_T, O> {
-        let placeList = {} as Record<KSP_PLACES_T, O>;
-        for (let place of KSP_PLACES) {
-                placeList[place] = value;
-        }
-        return placeList;
+	let placeList = {} as Record<KSP_PLACES_T, O>;
+	for (let place of KSP_PLACES) {
+		placeList[place] = value;
+	}
+	return placeList;
 }
 
 /**
@@ -435,239 +416,239 @@ export const blankPlaceList = function<O> (value: O): Record<KSP_PLACES_T, O> {
  * @type {Object}
  */
 export class Group implements Group {
-        kerbals: Set<Kerbal>;
-        private __id: number;
-        private __displays: Set<GroupDisplay>;
-        private __name: string = 'Group';
-        private __text: string = 'Desc';
-        type: 'Group' = 'Group';
-        constructor (id: number) {
-                this.kerbals = new Set();
-                this.__id = id;
-                /**
-                 * Set of registered displays
-                 * @type {Set<GroupDisplay>}
-                 * @private
-                 */
-                this.__displays = new Set();
-        }
-        get name () {
-                return this.__name;
-        }
-        set name (value) {
-                this.__name = value;
-                this.updateData();
-        }
-        get text () {
-                return this.__text;
-        }
-        set text (value) {
-                this.__text = value;
-                this.updateData();
-        }
-        get id () {
-                return this.__id;
-        }
-        set id (value) {
-                this.__id = value;
-        }
-        get size () {
-                return this.kerbals.size;
-        }
-        /**
-         * Add a kerbal to this group
-         * @param {KNS.Kerbal} kerbal Kerbal to add
-         * @memberof KNS.Group
-         */
-        addKerbal (kerbal: Kerbal) {
-                if (this.kerbals.has(kerbal)) {
-                        return;
-                }
-                if (!(kerbal instanceof Kerbal)) {
-                        console.warn('Adding a non-kerbal to a group');
-                }
-                this.kerbals.add(kerbal);
-                for (let display of this.__displays) {
-                        display.addKerbal(kerbal);
-                }
-        }
-        /**
-         * Remove a kerbal from this group.
-         * Note - currently assuming that the KDB will inform us of a kerbal
-         * deletion, and that we don't have to listen for it
-         * @param  {KNS.Kerbal} kerbal Kerbal to remove
-         * @memberof KNS.Group
-         */
-        deleteKerbal (kerbal: Kerbal) {
-                if (!this.kerbals.has(kerbal)) {return;}
-                this.kerbals.delete(kerbal);
-                for (let display of this.__displays) {
-                        display.deleteKerbal(kerbal);
-                }
-        }
-        /**
-         * Renames a kerbal. Does not error if kerbal does not existNote - mainly for use by KDB
-         * @param  {String} _oldName Current name of kerbal
-         * @param  {String} _newName New name for kerbal
-         * @memberof KNS.Group
-         */
-        renameKerbal (_oldName: string, _newName: string) {}
-        /**
-         * Find kerbal by name
-         * @param  {String} name Kerbal name
-         * @return {?KNS.Kerbal} Kerbal if found, null if not
-         * @memberof KNS.Group
-         */
-        getKerbal (name: string): Kerbal | null {
-                let result = null;
-                for (let kerbal of this.kerbals) {
-                        if (kerbal.name === name) {
-                                result = kerbal;
-                        }
-                }
-                return result;
-        }
-        /**
-         * Call remove place on all member kerbals
-         * @param  {String} location Location visited
-         * @param  {Number} value    Depth of visited
-         * @memberof KNS.Group
-         */
-        removePlace (location: KSP_PLACES_T ,value: KSP_PLACE_DEPTH) {
-                for (let kerbal of this.kerbals.values()) {
-                        kerbal.removeJob(location, value);
-                }
-        }
-        /**
-         * Register a display to recieve callbacks on state changes
-         * @param {GroupDisplay} display Display to register
-         * @memberof KNS.Group
-         */
-        addDisplay (display: GroupDisplay) {
-                this.__displays.add(display);
-        }
-        /**
-         * Deregister a display
-         * @param  {GroupDisplay} display Display to deregister
-         * @memberof KNS.Group
-         */
-        removeDisplay (display: GroupDisplay) {
-                this.__displays.delete(display);
-        }
-        /**
-         * Trigger the updateData callback of registered listeners
-         * @private
-         * @memberof KNS.Group
-         */
-        updateData () {
-                for (let display of this.__displays) {
-                        display.updateData();
-                }
-        }
-        /**
-         * Check if a kerbal is in a group
-         * @param  {KNS.Kerbal}  kerbal Kerbal to check
-         * @return {Boolean}     If kerbal is in this group
-         * @memberof KNS.Group
-         */
-        hasKerbal (kerbal: Kerbal): boolean {
-                return this.kerbals.has(kerbal);
-        }
-        toJSON () {
-                let result: GroupObj = jsonIncludes(this, ['type', 'name', 'text']) as GroupObj;
-                let nameList = [];
-                for (let kerbal of this.kerbals) {
-                        nameList.push(kerbal.name);
-                }
-                result.kerbals = nameList;
-                return result;
-        }
-        /**
-         * Construct an group from the object returned from JSON.parse(JSON.stringify(group))
-         * @param  {Object} jsonObj JSON.parse'd group
-         * @param  {KDB} db         KDB to get kerbals from (Group stores names, not JS objects)
-         * @return {KNS.Group}      Revived Group
-         * @memberof KNS.Group
-         */
-        static fromJSONObj (jsonObj: GroupObj, db: KDB) {
-                if (jsonObj.type !== 'Group') {
-                        throw new KDBParseError('Not a group');
-                }
-                let group = new this(db.groupCounter);
-                let nameList = jsonObj.kerbals;
-                //@ts-ignore
-                delete jsonObj.kerbals;
-                //@ts-ignore
-                Object.assign(group, jsonObj);
-                for (let name of nameList) {
-                        const kerbal = db.getKerbal(name);
-                        if (kerbal === null) {
-                                throw new KDBParseError('Kerbal in group does not exist in KDB');
-                        }
-                        group.addKerbal(kerbal);
-                }
-                return group;
-        }
-        /**
-         * Equality check for groups
-         * @param  {KNS.Group} group1 First group to compare
-         * @param  {KNS.Group} group2 Second group to compare
-         * @return {Boolean}      If the two kerbals are equalivalent
-         * @memberof KNS.Group
-         */
-        static equals (group1: Group, group2: Group): boolean {
-                if (group1.name !== group2.name) {
-                        return false;
-                }
-                if (group1.text !== group2.text) {
-                        return false;
-                }
+	kerbals: Set<Kerbal>;
+	private __id: number;
+	private __displays: Set<GroupDisplay>;
+	private __name: string = 'Group';
+	private __text: string = 'Desc';
+	type: 'Group' = 'Group';
+	constructor (id: number) {
+		this.kerbals = new Set();
+		this.__id = id;
+		/**
+		 * Set of registered displays
+		 * @type {Set<GroupDisplay>}
+		 * @private
+		 */
+		this.__displays = new Set();
+	}
+	get name () {
+		return this.__name;
+	}
+	set name (value) {
+		this.__name = value;
+		this.updateData();
+	}
+	get text () {
+		return this.__text;
+	}
+	set text (value) {
+		this.__text = value;
+		this.updateData();
+	}
+	get id () {
+		return this.__id;
+	}
+	set id (value) {
+		this.__id = value;
+	}
+	get size () {
+		return this.kerbals.size;
+	}
+	/**
+	 * Add a kerbal to this group
+	 * @param {KNS.Kerbal} kerbal Kerbal to add
+	 * @memberof KNS.Group
+	 */
+	addKerbal (kerbal: Kerbal) {
+		if (this.kerbals.has(kerbal)) {
+			return;
+		}
+		if (!(kerbal instanceof Kerbal)) {
+			console.warn('Adding a non-kerbal to a group');
+		}
+		this.kerbals.add(kerbal);
+		for (let display of this.__displays) {
+			display.addKerbal(kerbal);
+		}
+	}
+	/**
+	 * Remove a kerbal from this group.
+	 * Note - currently assuming that the KDB will inform us of a kerbal
+	 * deletion, and that we don't have to listen for it
+	 * @param  {KNS.Kerbal} kerbal Kerbal to remove
+	 * @memberof KNS.Group
+	 */
+	deleteKerbal (kerbal: Kerbal) {
+		if (!this.kerbals.has(kerbal)) {return;}
+		this.kerbals.delete(kerbal);
+		for (let display of this.__displays) {
+			display.deleteKerbal(kerbal);
+		}
+	}
+	/**
+	 * Renames a kerbal. Does not error if kerbal does not existNote - mainly for use by KDB
+	 * @param  {String} _oldName Current name of kerbal
+	 * @param  {String} _newName New name for kerbal
+	 * @memberof KNS.Group
+	 */
+	renameKerbal (_oldName: string, _newName: string) {}
+	/**
+	 * Find kerbal by name
+	 * @param  {String} name Kerbal name
+	 * @return {?KNS.Kerbal} Kerbal if found, null if not
+	 * @memberof KNS.Group
+	 */
+	getKerbal (name: string): Kerbal | null {
+		let result = null;
+		for (let kerbal of this.kerbals) {
+			if (kerbal.name === name) {
+				result = kerbal;
+			}
+		}
+		return result;
+	}
+	/**
+	 * Call remove place on all member kerbals
+	 * @param  {String} location Location visited
+	 * @param  {Number} value    Depth of visited
+	 * @memberof KNS.Group
+	 */
+	removePlace (location: KSP_PLACES_T ,value: KSP_PLACE_DEPTH) {
+		for (let kerbal of this.kerbals.values()) {
+			kerbal.removeJob(location, value);
+		}
+	}
+	/**
+	 * Register a display to recieve callbacks on state changes
+	 * @param {GroupDisplay} display Display to register
+	 * @memberof KNS.Group
+	 */
+	addDisplay (display: GroupDisplay) {
+		this.__displays.add(display);
+	}
+	/**
+	 * Deregister a display
+	 * @param  {GroupDisplay} display Display to deregister
+	 * @memberof KNS.Group
+	 */
+	removeDisplay (display: GroupDisplay) {
+		this.__displays.delete(display);
+	}
+	/**
+	 * Trigger the updateData callback of registered listeners
+	 * @private
+	 * @memberof KNS.Group
+	 */
+	updateData () {
+		for (let display of this.__displays) {
+			display.updateData();
+		}
+	}
+	/**
+	 * Check if a kerbal is in a group
+	 * @param  {KNS.Kerbal}  kerbal Kerbal to check
+	 * @return {Boolean}     If kerbal is in this group
+	 * @memberof KNS.Group
+	 */
+	hasKerbal (kerbal: Kerbal): boolean {
+		return this.kerbals.has(kerbal);
+	}
+	toJSON () {
+		let result: GroupObj = jsonIncludes(this, ['type', 'name', 'text']) as GroupObj;
+		let nameList = [];
+		for (let kerbal of this.kerbals) {
+			nameList.push(kerbal.name);
+		}
+		result.kerbals = nameList;
+		return result;
+	}
+	/**
+	 * Construct an group from the object returned from JSON.parse(JSON.stringify(group))
+	 * @param  {Object} jsonObj JSON.parse'd group
+	 * @param  {KDB} db         KDB to get kerbals from (Group stores names, not JS objects)
+	 * @return {KNS.Group}      Revived Group
+	 * @memberof KNS.Group
+	 */
+	static fromJSONObj (jsonObj: GroupObj, db: KDB) {
+		if (jsonObj.type !== 'Group') {
+			throw new KDBParseError('Not a group');
+		}
+		let group = new this(db.groupCounter);
+		let nameList = jsonObj.kerbals;
+		//@ts-ignore
+		delete jsonObj.kerbals;
+		//@ts-ignore
+		Object.assign(group, jsonObj);
+		for (let name of nameList) {
+			const kerbal = db.getKerbal(name);
+			if (kerbal === null) {
+				throw new KDBParseError('Kerbal in group does not exist in KDB');
+			}
+			group.addKerbal(kerbal);
+		}
+		return group;
+	}
+	/**
+	 * Equality check for groups
+	 * @param  {KNS.Group} group1 First group to compare
+	 * @param  {KNS.Group} group2 Second group to compare
+	 * @return {Boolean}      If the two kerbals are equalivalent
+	 * @memberof KNS.Group
+	 */
+	static equals (group1: Group, group2: Group): boolean {
+		if (group1.name !== group2.name) {
+			return false;
+		}
+		if (group1.text !== group2.text) {
+			return false;
+		}
 
-                for (let kerbal of group1.kerbals) {
-                        let other = group2.getKerbal(kerbal.name);
-                        if (other === null) {
-                                return false;
-                        }
-                        if (!KNS.Kerbal.equals(kerbal, other)) {
-                                return false;
-                        }
-                }
-                for (let kerbal of group2.kerbals) {
-                        let other = group2.getKerbal(kerbal.name);
-                        if (other === null) {
-                                return false;
-                        }
-                }
-                return true;
-        }
-        /**
-         * Duplicate the group, (deep copy)
-         * @param  {Boolean} [deep=true] Whether to deep copy the kerbals
-         * @return {KNS.Group} Duplicated group
-         * @memberof KNS.Group
-         */
-        duplicate (deep = true): Group {
-                let result = new Group(0);
-                result.name = this.name;
-                result.text = this.text;
-                for (let kerbal of this.kerbals) {
-                        if (deep) {
-                                result.addKerbal(kerbal.duplicate());
-                        } else {
-                                result.addKerbal(kerbal);
-                        }
-                }
-                return result;
-        }
+		for (let kerbal of group1.kerbals) {
+			let other = group2.getKerbal(kerbal.name);
+			if (other === null) {
+				return false;
+			}
+			if (!KNS.Kerbal.equals(kerbal, other)) {
+				return false;
+			}
+		}
+		for (let kerbal of group2.kerbals) {
+			let other = group2.getKerbal(kerbal.name);
+			if (other === null) {
+				return false;
+			}
+		}
+		return true;
+	}
+	/**
+	 * Duplicate the group, (deep copy)
+	 * @param  {Boolean} [deep=true] Whether to deep copy the kerbals
+	 * @return {KNS.Group} Duplicated group
+	 * @memberof KNS.Group
+	 */
+	duplicate (deep = true): Group {
+		let result = new Group(0);
+		result.name = this.name;
+		result.text = this.text;
+		for (let kerbal of this.kerbals) {
+			if (deep) {
+				result.addKerbal(kerbal.duplicate());
+			} else {
+				result.addKerbal(kerbal);
+			}
+		}
+		return result;
+	}
 };
 
 
 export class KDBParseError extends Error {
-        constructor (...args: any) {
-                super(...args);
-                //@ts-ignore
-                Error.captureStackTrace(this, this.constructor);
-        }
+	constructor (...args: any) {
+		super(...args);
+		//@ts-ignore
+		Error.captureStackTrace(this, this.constructor);
+	}
 };
 
 
@@ -678,12 +659,12 @@ export class KDBParseError extends Error {
  * @property {Number} groupCounter Auto-incrementing counter for unique ids
  */
 export class KDB implements KDB {
-        kerbals: Set<string>;
-        private __groupCounter: number;
-        groups: Map<number, Group>;
-        kerbalObjs: Map<string, Kerbal>;
-        type: 'KDB' = 'KDB';
-        private __displays: Set<KDBDisplay>;
+	kerbals: Set<string>;
+	private __groupCounter: number;
+	groups: Map<number, Group>;
+	kerbalObjs: Map<string, Kerbal>;
+	type: 'KDB' = 'KDB';
+	private __displays: Set<KDBDisplay>;
 	constructor () {
 		this.kerbals = new Set();
 		this.__groupCounter = 0;
@@ -730,8 +711,8 @@ export class KDB implements KDB {
 		if (result === undefined) {
 			return null;
 		} else {
-                        return result;
-                }
+			return result;
+		}
 	}
 	/**
 	 * Rename a kerbal, cleanly
@@ -888,8 +869,8 @@ export class KDB implements KDB {
 		if (result === undefined) {
 			return null;
 		} else {
-                        return result
-                }
+			return result
+		}
 	}
 	/**
 	 * Remove a group
@@ -926,8 +907,8 @@ let KNS =  {
 	 * @memberof KNS
 	 */
 	places: KSP_PLACES,
-        Kerbal: Kerbal,
-        blankPlaceList: blankPlaceList,
+	Kerbal: Kerbal,
+	blankPlaceList: blankPlaceList,
 	/**
 	 * Converts a UI input to job value
 	 * @param  {String} value Text representing job
@@ -978,7 +959,7 @@ let KNS =  {
 	 * @memberof KNS
 	 */
 	MAX_JOB_VALUE: MAX_JOB_VALUE,
-        Group: Group,
+	Group: Group,
 	KDBParseError: KDBParseError,
 };
 
@@ -990,16 +971,16 @@ class empty {};
  * @return  Class that implements KerbalDisplay
  */
 export const BlankKerbalDisplayMixin = (superclass: GConstructor) => {
-        abstract class BlankKerbalDisplayMixin extends superclass implements KerbalDisplay {
-                abstract data: Kerbal | null;
-                constructor (...args: any) {
-                        super(...args);
-                }
-                updateData () {}
-                showJob (_place: KSP_PLACES_T) {}
-                delete () {}
-        };
-        return BlankKerbalDisplayMixin;
+	abstract class BlankKerbalDisplayMixin extends superclass implements KerbalDisplay {
+		abstract data: Kerbal | null;
+		constructor (...args: any) {
+			super(...args);
+		}
+		updateData () {}
+		showJob (_place: KSP_PLACES_T) {}
+		delete () {}
+	};
+	return BlankKerbalDisplayMixin;
 };
 Elements.common.BlankKerbalDisplayMixin = BlankKerbalDisplayMixin;
 
@@ -1014,9 +995,9 @@ Elements.common.BlankKerbalDisplayMixin = BlankKerbalDisplayMixin;
  * @property {HTMLElement} display display of the kerbal's jobs
  */
 class KerbalJobDisplay extends BlankKerbalDisplayMixin(empty) implements KerbalDisplay {
-        private __jobDisplay: Record<KSP_PLACES_T, null | HTMLParagraphElement>;
-        display: HTMLDivElement;
-        data: Kerbal | null = null;
+	private __jobDisplay: Record<KSP_PLACES_T, null | HTMLParagraphElement>;
+	display: HTMLDivElement;
+	data: Kerbal | null = null;
 	constructor () {
 		super();
 		this.__jobDisplay = KNS.blankPlaceList(null);
@@ -1028,7 +1009,7 @@ class KerbalJobDisplay extends BlankKerbalDisplayMixin(empty) implements KerbalD
 	 */
 	showJob (place: KSP_PLACES_T) {
 		requestAnimationFrame(() => {
-                        if (this.data === null) {return;}
+			if (this.data === null) {return;}
 			let value = this.data.jobs[place];
 			if (value > 0) {
 				if (this.__jobDisplay[place] === null) {
@@ -1082,39 +1063,39 @@ Elements.inherits.KerbalJobDisplay = KerbalJobDisplay;
 */
 export const BlankKDBDisplayMixin = (superclass: GConstructor) => {
 	abstract class mixin extends superclass implements KDBDisplay{
-                abstract database: string | null;
+		abstract database: string | null;
 		constructor (...args: any) {
 			super(...args);
 			// this.database = this.database || null;
 		}
-                /**
-        	 * Fired after addKerbal is called
-        	 * @param {KNS.Kerbal} kerbal The added kerbal
-        	 */
+		/**
+		 * Fired after addKerbal is called
+		 * @param {KNS.Kerbal} kerbal The added kerbal
+		 */
 		addKerbal (_name: Kerbal) {}
-                /**
-        	 * Fired after a kerbal has been deleted
-        	 * @param  {KNS.Kerbal} kerbal The deleted kerbal
-        	 */
+		/**
+		 * Fired after a kerbal has been deleted
+		 * @param  {KNS.Kerbal} kerbal The deleted kerbal
+		 */
 		deleteKerbal (_name: Kerbal) {}
-                /**
-        	 * Fired after a kerbal has been renamed
-        	 * @param  {String} oldName Name of kerbal before rename
-        	 * @param  {String} newName Current name of kerbal
-        	 */
+		/**
+		 * Fired after a kerbal has been renamed
+		 * @param  {String} oldName Name of kerbal before rename
+		 * @param  {String} newName Current name of kerbal
+		 */
 		renameKerbal (_oldName: string, _newName: string) {}
-                /**
-        	 * Fired after a group is added
-        	 * @param {KNS.Group} group The added group
-        	 */
+		/**
+		 * Fired after a group is added
+		 * @param {KNS.Group} group The added group
+		 */
 		addGroup (_groupID: Group) {}
-                /**
-        	 * Fired after a group is removed
-        	 * @param {KNS.Group} group The removed group
-        	 */
+		/**
+		 * Fired after a group is removed
+		 * @param {KNS.Group} group The removed group
+		 */
 		removeGroup (_groupID: Group) {}
 	};
-        return mixin;
+	return mixin;
 };
 Elements.common.BlankKDBDisplayMixin = BlankKDBDisplayMixin;
 

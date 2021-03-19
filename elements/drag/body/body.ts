@@ -47,10 +47,10 @@ type MouseListener = (arg0: MouseEvent) => void;
  * @augments Elements.elements.backbone4
  */
 export class DragBody extends backbone4 {
-        zIndexCount: number;
-        private _body: HTMLDivElement;
-        callbacks: { move: MouseListener; end: MouseListener; };
-        subject: null | DragElement;
+	zIndexCount: number;
+	private _body: HTMLDivElement;
+	callbacks: { move: MouseListener; end: MouseListener; };
+	subject: null | DragElement;
 	constructor () {
 		super();
 
@@ -58,7 +58,7 @@ export class DragBody extends backbone4 {
 		this.subject = null;
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(ELEMENT_NAME);
-                this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
+		this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
 		this.zIndexCount = parseInt(this._body.style.zIndex) || 0;
 		/**
 		 * Wrapped event handlers.
@@ -70,23 +70,23 @@ export class DragBody extends backbone4 {
 			move: (e) => {self.drag_move(e)},
 			end: (e) => {self.drag_end(e)},
 		};
-                this._body.addEventListener('elements-drag-top', (e) => {
-                        const ev = e as CustomEvent;
-                        const child = ev.detail as DragElement;
-                        this.subject = child;
-                        this.toTop(child);
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-bottom', (e) => {
-                        this.toBottom();
-                        e.stopPropagation();
-                });
-                this._body.addEventListener('elements-drag-topZIndex', (e) => {
-                        const ev = e as CustomEvent;
-                        const child = ev.detail as DragElement;
-                        this.topZIndex(child);
-                        e.stopPropagation();
-                });
+		this._body.addEventListener('elements-drag-top', (e) => {
+			const ev = e as CustomEvent;
+			const child = ev.detail as DragElement;
+			this.subject = child;
+			this.toTop(child);
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-bottom', (e) => {
+			this.toBottom();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('elements-drag-topZIndex', (e) => {
+			const ev = e as CustomEvent;
+			const child = ev.detail as DragElement;
+			this.topZIndex(child);
+			e.stopPropagation();
+		});
 		shadow.appendChild(template);
 	}
 	/**
@@ -96,20 +96,20 @@ export class DragBody extends backbone4 {
 	 */
 	drag_move (event: MouseEvent) {
 		let target = this.subject;
-                if (target !== null) {
-                        target.drag_move(event);
-                }
+		if (target !== null) {
+			target.drag_move(event);
+		}
 	}
 	/**
- 	 * Ends a mouse based drag
- 	 * @param  {MouseEvent} event
- 	 * @private
- 	 */
+	 * Ends a mouse based drag
+	 * @param  {MouseEvent} event
+	 * @private
+	 */
 	drag_end (event: MouseEvent) {
 		let target = this.subject;
-                if (target !== null) {
-                        target.drag_end(event);
-                }
+		if (target !== null) {
+			target.drag_end(event);
+		}
 	}
 	/**
 	 * Push childNode and dragBody to the top of z-Indexes

@@ -12,31 +12,31 @@ const upArrow = 'rotate(.5turn) translate(0px, -0.1em)';
 const downArrow = 'rotate(0turn)';
 
 const downToUp = [
-        {
-                transform: downArrow,
-        }, {
-                transform: 'rotate(.125turn) translate(0px, -0.025em)'
-        }, {
-                transform: 'rotate(.25turn) translate(0px, -0.05em)'
-        }, {
-                transform: 'rotate(.375turn) translate(0px, -0.075em)'
-        }, {
-                transform: upArrow
-        }
+	{
+		transform: downArrow,
+	}, {
+		transform: 'rotate(.125turn) translate(0px, -0.025em)'
+	}, {
+		transform: 'rotate(.25turn) translate(0px, -0.05em)'
+	}, {
+		transform: 'rotate(.375turn) translate(0px, -0.075em)'
+	}, {
+		transform: upArrow
+	}
 ];
 
 const upToDown = [
-        {
-                transform: upArrow
-        }, {
-                transform: 'rotate(.625turn) translate(0px, -0.025em)'
-        }, {
-                transform: 'rotate(.75turn) translate(0px, -0.05em)'
-        }, {
-                transform: 'rotate(.875turn) translate(0px, -0.075em)'
-        }, {
-                transform: 'rotate(1turn)',
-        }
+	{
+		transform: upArrow
+	}, {
+		transform: 'rotate(.625turn) translate(0px, -0.025em)'
+	}, {
+		transform: 'rotate(.75turn) translate(0px, -0.05em)'
+	}, {
+		transform: 'rotate(.875turn) translate(0px, -0.075em)'
+	}, {
+		transform: 'rotate(1turn)',
+	}
 ];
 
 
@@ -51,10 +51,10 @@ type callback = () => void;
  * @augments Elements.elements.backbone2
  */
 export class Dropdown extends backbone4 {
-        private __menuVisible: boolean;
-        private __animations: { menu: null | Animation; arrow: null | Animation; };
-        private __animationState: null | string;
-        private __animation_callback: { menu: null | callback; arrow: null | callback; };
+	private __menuVisible: boolean;
+	private __animations: { menu: null | Animation; arrow: null | Animation; };
+	private __animationState: null | string;
+	private __animation_callback: { menu: null | callback; arrow: null | callback; };
 	constructor () {
 		super();
 
@@ -153,8 +153,8 @@ export class Dropdown extends backbone4 {
 
 		// Check for reverse
 		if (oldState !== null) {
-                        this.__animations.arrow!.reverse();
-                        this.__animations.menu!.reverse();
+			this.__animations.arrow!.reverse();
+			this.__animations.menu!.reverse();
 			return;
 		}
 
@@ -173,10 +173,10 @@ export class Dropdown extends backbone4 {
 			transform: 'scaleY(1)',
 		}];
 		if (open) {
-                        arrowStates = downToUp;
+			arrowStates = downToUp;
 			[menuStates.start, menuStates.end] = states;
 		} else {
-                        arrowStates = upToDown;
+			arrowStates = upToDown;
 			[menuStates.end, menuStates.start] = states;
 		}
 		}

@@ -16,10 +16,10 @@ const ELEMENT_NAME = 'Grid';
  * @property {Boolean} coordnaming Switches to alternate slot naming, of '[x]-[y]'
  */
 export class Grid extends backbone4 {
-        rows!: number;
-        columns!: number;
-        coordnaming!: boolean
-        shadowRoot!: ShadowRoot;
+	rows!: number;
+	columns!: number;
+	coordnaming!: boolean
+	shadowRoot!: ShadowRoot;
 	constructor () {
 		super();
 		const shadow = this.attachShadow({ mode: 'open' });
@@ -40,11 +40,11 @@ export class Grid extends backbone4 {
 		};
 
 		setUpAttrPropertyLink(this, 'rows', 2,
-		                                        updateCallback, santizer);
+							updateCallback, santizer);
 		setUpAttrPropertyLink(this, 'columns', 2,
-		                                        updateCallback, santizer);
+							updateCallback, santizer);
 		setUpAttrPropertyLink(this, 'coordnaming', false,
-		                                        updateCallback, booleaner);
+							updateCallback, booleaner);
 		shadow.appendChild(template);
 	}
 	static get observedAttributes () {
@@ -168,25 +168,25 @@ export class Grid extends backbone4 {
 	 * @return {String}     Base 26 encoding
 	 */
 	static numToCharCode (num: number): string {
-                const base = 26;
-        	const a_point = 0x61;
-        	let result = [];
-        	{
-        		let mod = num % base;
-        		result.push(mod + a_point);
-        		num -= mod;
-        		num /= base;
-        	}
-        	while (num != 0) {
-        		num -= 1;
-        		let mod = num % base;
-        		result.push(mod + a_point);
-        		num -= mod;
-        		num /= base;
-        	}
+		const base = 26;
+		const a_point = 0x61;
+		let result = [];
+		{
+			let mod = num % base;
+			result.push(mod + a_point);
+			num -= mod;
+			num /= base;
+		}
+		while (num != 0) {
+			num -= 1;
+			let mod = num % base;
+			result.push(mod + a_point);
+			num -= mod;
+			num /= base;
+		}
 
-        	result.reverse();
-        	return String.fromCodePoint(...result);
+		result.reverse();
+		return String.fromCodePoint(...result);
 	}
 
 };
