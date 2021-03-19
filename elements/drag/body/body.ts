@@ -1,4 +1,4 @@
-export const recommends = ['drag-body'];
+export const recommends = ['drag-element'];
 export const requires = [];
 
 import {Elements} from '../../elements_core.js';
