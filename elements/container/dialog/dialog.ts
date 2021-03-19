@@ -58,6 +58,12 @@ export class ContainerDialog extends backbone4 {
 			this.hide();
 			e.stopPropagation();
 		});
+		this._body.addEventListener('keyup', (e) => {
+			if (e.key === 'Escape') {
+				this.hide();
+				e.stopPropagation();
+			}
+		});
 	}
 	connectedCallback() {
 		super.connectedCallback();
@@ -129,7 +135,6 @@ export class ContainerDialog extends backbone4 {
 	static get observedAttributes() {
 		return ['dialog_hidden'];
 	}
-
 }
 
 export default ContainerDialog;
