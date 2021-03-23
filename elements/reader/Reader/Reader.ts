@@ -308,6 +308,7 @@ const check_fails = () => {
 const zoom_factor_stylesheet = document.createElement('style');
 document.body.append(zoom_factor_stylesheet);
 const set_zoom_factor = (zoom: number) => {
+	const position = reader.position;
 	const sheet = zoom_factor_stylesheet.sheet;
 	const rule = `elements-gallery-scroll-dynamic::part(image-container) {
 		max-height: ${zoom * 100}%;
@@ -320,7 +321,8 @@ const set_zoom_factor = (zoom: number) => {
 			}
 			sheet.insertRule(rule);
 		}
-	})
+	});
+	reader.position = position;
 };
 
 
