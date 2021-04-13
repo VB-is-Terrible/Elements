@@ -45,6 +45,7 @@ const query_pics = async (url: string, position?: number) => {
 	//@ts-ignore
 	window.current_url = url;
 	current_url = url;
+	const notify_permission = notify_start();
 	const response = await fetch('//127.0.0.1:5000', {
 		method: 'POST',
 		body: form,
@@ -53,7 +54,14 @@ const query_pics = async (url: string, position?: number) => {
 	set_urls(urls, title, position);
 	const end = Date.now();
 	if (end - start > QUERY_NOTIFICATION_TIME) {
-		notify('Loaded Gallery', {body: title, silent: true});
+		if (notify_permission) {
+			notify_send('Loaded Gallery', {body: title, silent: true});
+		} else {
+			toaster.addToast({
+				title: 'Loaded Gallery',
+				body: title,
+			});
+		}
 	}
 };
 
@@ -288,7 +296,7 @@ const image_fail = (e: CustomEvent, urls: Array<string>) => {
 
 const check_fails = () => {
 	let i = 0;
-	const tracked_fails = [];
+	const tracked_fails: Array<number> = [];
 	while (i < fails.length) {
 		const current_fail = fails[i];
 		tracked_fails.push(current_fail);
@@ -326,20 +334,26 @@ const set_zoom_factor = (zoom: number) => {
 };
 
 
-export const notify = async (title: string, options?: NotificationOptions) => {
-	// new Notification(title, options)
+const notify_start = async () => {
 	if (Notification.permission == 'granted') {
-		return new Notification(title, options);
+		return true;
 	} else if (Notification.permission == 'default') {
 		const permission = await Notification.requestPermission();
 		if (permission) {
-			return new Notification(title, options);
+			return true;
 		} else {
-			return null;
+			return false;
 		}
 	} else {
-		return null;
+		return false;
 	}
+};
+
+const notify_send = (title: string, options?: NotificationOptions) => {
+	if (Notification.permission == 'granted') {
+		return new Notification(title, options);
+	}
+	return null;
 };
 
 
