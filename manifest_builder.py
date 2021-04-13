@@ -16,20 +16,19 @@ Elements.__getBacklog();
 '''
 
 EXCLUDES = set([
-        ('./elements/', 'elements_core.js'),
-        ('./elements/', 'elements_core.ts'),
-        ('./elements/', 'elements_helper.ts'),
-        ('./elements/', 'elements_helper.js'),
-        ('./elements/', 'backbone4.ts'),
-        ('./elements/', 'backbone4.js'),
-        ('./elements/', 'elements_backbone.js'),
-        ('./elements/', 'elements_backbone.ts'),
-        ('./elements/', 'Elements.js'),
-        ('./elements/', 'Elements.mjs'),
-        ('./elements/', 'elements_helper.js'),
-        ('./elements/', 'elements_backbone.mjs'),
-        ('./elements/', 'elements_backbone.js'),
-        ('./elements/', 'global.d.ts'),
+        (LOCATION, 'elements_core.js'),
+        (LOCATION, 'elements_core.ts'),
+        (LOCATION, 'elements_helper.ts'),
+        (LOCATION, 'elements_helper.js'),
+        (LOCATION, 'backbone4.ts'),
+        (LOCATION, 'backbone4.js'),
+        (LOCATION, 'elements_backbone.js'),
+        (LOCATION, 'elements_backbone.ts'),
+        (LOCATION, 'Elements.js'),
+        (LOCATION, 'Elements.mjs'),
+        (LOCATION, 'elements_helper.js'),
+        (LOCATION, 'elements_backbone.mjs'),
+        (LOCATION, 'elements_backbone.js'),
 ])
 
 
