@@ -13,7 +13,7 @@ await Elements.get('KDB', 'kerbal-display');
  * @augments BlankKDBDisplay
  * @type {Object}
  */
-Elements.elements.KdbKerbalDisplay = class extends BlankKDBDisplayMixin(Elements.elements.backbone) {
+Elements.elements.KdbKerbalDisplay = class extends Elements.common.BlankKDBDisplayMixin(Elements.elements.backbone) {
 	constructor () {
 		super();
 		const self = this;

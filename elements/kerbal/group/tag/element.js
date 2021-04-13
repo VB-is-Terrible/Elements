@@ -10,7 +10,7 @@ await Elements.get('KDB');
  * @implements GroupDisplay
  * @property {KNS.Group} data The group been displayed
  * @augments Elements.elements.backbone2
- * @augments BlankGroupDisplay
+ * @augments GroupDisplay
  * @implements GroupDisplay
  * @type {Object}
  */

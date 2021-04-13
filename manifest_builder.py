@@ -16,8 +16,23 @@ Elements.__getBacklog();
 '''
 
 EXCLUDES = set([
-        ('./elements/', 'Elements.mjs'),
-        ('./elements/', 'elements_backbone.mjs')
+        (LOCATION, 'elements_core.js'),
+        (LOCATION, 'elements_core.ts'),
+        (LOCATION, 'elements_helper.ts'),
+        (LOCATION, 'elements_helper.js'),
+        (LOCATION, 'backbone4.ts'),
+        (LOCATION, 'backbone4.js'),
+        (LOCATION, 'elements_backbone.js'),
+        (LOCATION, 'elements_backbone.ts'),
+        (LOCATION, 'Elements.js'),
+        (LOCATION, 'Elements.mjs'),
+        (LOCATION, 'elements_helper.js'),
+        (LOCATION, 'elements_backbone.mjs'),
+        (LOCATION, 'elements_backbone.js'),
+        (LOCATION, 'global.d.ts'),
+        (LOCATION, 'manifest.js'),
+        (LOCATION, 'backbone.js'),
+        (LOCATION, 'backbone3.js'),
 ])
 
 
@@ -274,7 +289,8 @@ def walk(dirpath: str, root: str):
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
                 results[name] = parse(filename, root)
-        if isfile(dirpath + '/element.js'):
+        if (isfile(dirpath + '/element.js')
+                and not isfile(dirpath + '/element.ts')):
                 results[remove_prefix(dirpath, root)] = parse(dirpath, root)
         for file in os.listdir(dirpath):
                 if not file.endswith('.mjs'):
@@ -285,6 +301,8 @@ def walk(dirpath: str, root: str):
                         name = remove_prefix(dirpath, root)
                         results[name] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
+                if (dirpath, file) in EXCLUDES:
+                        continue
                 if file.endswith('.ts'):
                         name = remove_prefix(dirpath, root)
                         results[name] = parse_ts(dirpath, root, file)

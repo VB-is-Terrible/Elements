@@ -6,14 +6,30 @@
 		<link rel='preload' href='elements/backbone4.js' as='script'></link>
 		<link rel='modulepreload' href='elements/elements_core.js'></link>
 		<link rel='modulepreload' href='elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='elements/elements_helper.js'></link>
 		<link rel='preload' href='elements/manifest.js' as='script'></link>
 	</head>
-	<body>
-		<elements-test-four></elements-test-four>
+	<body style='background: purple'>
+		<elements-toaster id='toaster'>
+		</elements-toaster>
 	</body>
 	<script src='elements/backbone4.js'></script>
 	<script src='elements/manifest.js' async></script>
 	<script>
-		// Elements.get('test-four');
+		Elements.get('toaster');
+		const main = async () => {
+			await Elements.get('toaster');
+			toaster.addToast({
+				title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
+				body: 'Body text here',
+				buttons: ['Hello', 'Big World'],
+			});
+			toaster.addToast({
+				title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
+				body: 'Second',
+				buttons: ['Hello', 'Big World'],
+			});
+		}
+		main();
 	</script>
 </html>

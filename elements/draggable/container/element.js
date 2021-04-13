@@ -25,6 +25,16 @@ Elements.get('draggable-Common');
 {
 const main = async () => {
 
+/**
+ * Uppercase the first letter, leave the rest
+ * @param  {String} string String to captialize
+ * @return {String}        Captialized string
+ */
+function captialize (string) {
+        return string.charAt(0).toUpperCase() + string.substring(1, string.length);
+}
+
+
 await Elements.get('draggable-Common');
 /**
  * [DraggableContainer Description]
@@ -170,6 +180,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	}
 	onDrop (event) {
 		// Clear drag notice;
+		event.preventDefault();
 		Elements.common.draggable_controller.drag_end(this.context);
 		let parent = Elements.classes.Draggable.getParent(this);
 		if (parent === null) {
@@ -226,7 +237,7 @@ Elements.elements.DraggableContainer = class DraggableContainer extends Elements
 	static joinEffects (effects) {
 		let result = effects[0];
 		for (let i = 1; i < effects.length; i++) {
-			result += Elements.captialize(effects[i]);
+			result += captialize(effects[i]);
 		}
 		return result;
 	}

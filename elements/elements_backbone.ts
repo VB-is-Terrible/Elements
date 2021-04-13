@@ -222,6 +222,7 @@ export class backbone4 extends backbone3 {
          * if the property was not present
          * @param  {String} property Property to restore
          * @param  {*} initial       What to set the property to if it was saved
+         * @deprecated
          * @instance
          */
         applyPriorProperty(property: string, initial: any) {

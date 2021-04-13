@@ -12,7 +12,8 @@
 
 #expander {
 	width: 100%;
-	transition: transform .5s;
+	transition-property: transform, padding-bottom;
+	transition-duration: .3s;
 	transform: translate(0, calc(-100% + .75em));
 	position: relative;
 }

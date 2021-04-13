@@ -1,7 +1,9 @@
 export const recommends = [];
 export const requires = [];
 
-import {Elements} from '../../Elements.mjs';
+import {Elements} from '../../elements_core.js';
+import {backbone4} from '../../elements_backbone.js';
+import {applyPriorProperty, booleaner} from '../../elements_helper.js';
 
 // const animation_states = Object.freeze({
 // 	none: 0,
@@ -9,7 +11,10 @@ import {Elements} from '../../Elements.mjs';
 // 	backwards: 2,
 // });
 
-const get_options = (hidden) => {
+const ELEMENT_NAME = 'ContainerDialog';
+
+
+const get_options = (hidden: boolean): KeyframeAnimationOptions => {
 	return {
 		fill: 'forwards',
 		duration : Elements.animation.MEDIUM_DURATION,
@@ -32,25 +37,33 @@ const get_states = () => {
 
 /**
  * [ContainerDialog Description]
- * @augments Elements.elements.backbone3
+ * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  */
-class ContainerDialog extends Elements.elements.backbone3 {
-	_animation = null;
-	_animation_state = false;
+export class ContainerDialog extends backbone4 {
+	_animation: null | Animation = null;
 	_hidden = false;
-	_body;
+	_body: HTMLElement;
 	_ready = false;
 	constructor() {
 		super();
 
-		this.name = 'ContainerDialog';
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(this.name);
-		this._body = template.querySelector('#animationBody');
+		const template = Elements.importTemplate(ELEMENT_NAME);
+		this._body = template.querySelector('#animationBody') as HTMLElement;
 		//Fancy code goes here
 		shadow.appendChild(template);
-		this.applyPriorProperty('hidden', false);
+		applyPriorProperty(this, 'hidden', false);
+		this.addEventListener('dialog_close', (e) => {
+			this.hide();
+			e.stopPropagation();
+		});
+		this._body.addEventListener('keyup', (e) => {
+			if (e.key === 'Escape') {
+				this.hide();
+				e.stopPropagation();
+			}
+		});
 	}
 	connectedCallback() {
 		super.connectedCallback();
@@ -61,25 +74,28 @@ class ContainerDialog extends Elements.elements.backbone3 {
 		this._ready = false;
 	}
 	hide() {
-		_set_hidden(true);
+		this._set_hidden(true);
 	}
 	show() {
-		_set_hidden(false);
+		this._set_hidden(false);
+	}
+	toggle() {
+		this._set_hidden(!this._hidden);
 	}
 	get dialog_hidden() {
 		return this._hidden;
 	}
 	set dialog_hidden(value) {
-		const real_value = Elements.booleaner(value);
+		const real_value = booleaner(value);
 		if (real_value === this._hidden) {return;}
 		this._set_hidden(real_value);
 		if (this.attributeInit) {
-			this.setAttribute('dialog_hidden', real_value);
+			this.setAttribute('dialog_hidden', real_value.toString());
 		}
 	}
-	_set_hidden(value) {
+	_set_hidden(value: boolean) {
 		if (this._hidden === value) {return;}
-		if (!this.ready) {
+		if (!this._ready) {
 			if (value) {
 				this._body.style.display = 'none';
 			} else {
@@ -90,7 +106,7 @@ class ContainerDialog extends Elements.elements.backbone3 {
 		} else {
 
 		}
-		if (this._animation_state === true) {
+		if (this._animation !== null) {
 			this._animation.reverse();
 		} else {
 			if (this._hidden) {
@@ -110,7 +126,6 @@ class ContainerDialog extends Elements.elements.backbone3 {
 	}
 	_post_animation() {
 		this._animation = null;
-		this._animation_state = false;
 		if (this._hidden) {
 			requestAnimationFrame(() => {
 				this._body.style.display = 'none';
@@ -120,10 +135,8 @@ class ContainerDialog extends Elements.elements.backbone3 {
 	static get observedAttributes() {
 		return ['dialog_hidden'];
 	}
-
 }
 
-export {ContainerDialog};
 export default ContainerDialog;
 
 Elements.elements.ContainerDialog = ContainerDialog;

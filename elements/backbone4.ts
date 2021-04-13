@@ -29,6 +29,7 @@ interface _ElementsBootLoader {
 	manifestLoaded: boolean;
 	get(...elementNames: string[]): Promise<void[]>;
 	request (location: string): Promise<void>;
+	importModule(elementName: string) : Promise<any>;
 	getBacklog: Array<string>;
 	initializedPromise: Promise<void> | null;
 
@@ -83,6 +84,10 @@ class ElementsBootloader {
 	async request (location: string): Promise<void> {
 		await this.initializedPromise;
 		return Elements.request(location);
+	}
+	async importModule(elementName: string): Promise<any> {
+		await this.initializedPromise;
+		return Elements.importModule(elementName);
 	}
 	/**
 	 * Empty function. This has empty for a while

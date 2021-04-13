@@ -1,7 +1,7 @@
 let Elements;
 let importValue;
 {
-const ELEMENTS_BASE_CLASS_LOCATION = './Elements.mjs';
+const ELEMENTS_BASE_CLASS_LOCATION = './elements_core.js';
 /**
  * Skeleton elements standin and bootloader.
  * Pretends to be the elements class

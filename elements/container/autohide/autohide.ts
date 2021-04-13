@@ -1,26 +1,37 @@
 export const recommends = [];
 export const requires = [];
 
-import {Elements} from '../../Elements.mjs';
+import {Elements} from '../../elements_core.js';
+import {backbone4} from '../../elements_backbone.js';
+import {applyPriorProperties} from '../../elements_helper.js';
+
+const ELEMENT_NAME = 'ContainerAutohide';
+
+const get_animation_duration = () => {
+	const num = Elements.animation.LONG_DURATION / 1000;
+	return num.toString() + 's';
+}
 
 /**
  * [ContainerAutohide Description]
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
-class ContainerAutohide extends Elements.elements.backbone3 {
+class ContainerAutohide extends backbone4 {
 	_show_offset = '.75em';
-	_expander;
+	_expander: HTMLDivElement;
 	constructor() {
 		super();
 
-		this.name = 'ContainerAutohide';
 		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(this.name);
-		this._expander = template.querySelector('#expander');
+		const template = Elements.importTemplate(ELEMENT_NAME);
+		this._expander = template.querySelector('#expander') as HTMLDivElement;
+		requestAnimationFrame(() => {
+			this._expander.style.transitionDuration = get_animation_duration();
+		});
 		//Fancy code goes here
 		shadow.appendChild(template);
-		this.applyPriorProperties('show_offset')
+		applyPriorProperties(this, 'show_offset')
 	}
 	get show_offset() {
 		return this._show_offset;

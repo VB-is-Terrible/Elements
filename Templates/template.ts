@@ -4,7 +4,7 @@ export const requires = [];
 
 import {Elements} from '$4elements_core.js';
 import {backbone4} from '$4elements_backbone.js';
-import {} from '$4elements_helper.js'
+import {} from '$4elements_helper.js';
 
 
 const ELEMENT_NAME = '$1';
@@ -35,7 +35,6 @@ export class $1 extends backbone4 {
 
 }
 
-export {$1};
 export default $1;
 
 Elements.elements.$1 = $1;

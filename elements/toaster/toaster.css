@@ -1,0 +1,18 @@
+#pseudoBody {
+	right: 3em;
+	bottom: 3em;
+	position: absolute;
+}
+div.spacer {
+	margin-top: .25em;
+	height: 0;
+}
+:host {
+	display: block;
+}
+:host([hidden]) {
+        display: none;
+}
+elements-toaster-toast {
+	margin-top: .25em;
+}

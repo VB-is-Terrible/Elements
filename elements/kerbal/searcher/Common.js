@@ -14,7 +14,7 @@ await Elements.get('KDB', 'tab-window');
  * @augments BlankKDBDisplay
  * @implements KDBDisplay
  */
-let KDBListener = class extends BlankKDBDisplay {
+let KDBListener = class extends Elements.classes.BlankKDBDisplay {
 	/**
 	 * Build a listener
 	 * @param  {String} database Name of database to listen

@@ -4,6 +4,9 @@ const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 
 import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
+import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
+import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray} from './elements_helper.js';
+
 
 type ElementType =
 	"module" |
@@ -29,7 +32,7 @@ interface manifest_t {
 	[key: string]: manifest_single;
 };
 
-type PromiseCallback = () => void;
+type PromiseCallback = (value: void | PromiseLike<void>) => void;
 
 
 /**
@@ -203,22 +206,6 @@ class Elements {
 		 */
 		DROP_AMOUNT: 50,
 	};
-	/**
-	 * Helper function to generate function to perform attribute overwrite
-	 * @param  {HTMLElement} object   object to observe attribute on
-	 * @param  {String} property property to observe
-	 * @return {Function}          function to set value to attribute if it exists
-	 */
-	getInitProperty (object: backbone, property: string): () => void {
-		return (() => {
-			// If the attribute is been written to, it should be handled by
-			// the attribute changed callback
-			if (object.getAttribute(property) === null) {
-				//@ts-ignore
-				object.setAttribute(property, object[property]);
-			}
-		});
-	}
 
 	/**
 	 * Sets up a linked object property/attribute, as if the property and
@@ -231,6 +218,7 @@ class Elements {
 	 * @param  {Function} [eventTrigger] Function to call after property has been set
 	 * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
 	 * @return {{get: Function, set: Function}} The get and set function for the property
+	 * @deprecated
 	 */
 	setUpAttrPropertyLink<O, K extends keyof O> (
 		object: backbone & O,
@@ -267,7 +255,7 @@ class Elements {
 			set: setter,
 		});
 
-		object.getDict[property] = this.getInitProperty(object, property);
+		object.getDict[property] = getInitProperty(object, property);
 		object.setDict[property] = setter;
 
 		setter(inital);
@@ -276,12 +264,6 @@ class Elements {
 			get: getter,
 			set: setter,
 		};
-	}
-
-	setUpSanitizedAttrPropertyLink (...args: any[]) {
-		console.warn('Using deprecated function setUpSanitizedAttrPropertyLink, it has now been merged with setUpAttrPropertyLink');
-		//@ts-ignore
-		this.setUpAttrPropertyLink(...args);
 	}
 
 	/**
@@ -318,7 +300,7 @@ class Elements {
 			window.customElements.define(HTMLname, newElement);
 			this._loadedElements.add(jsName);
 			this._loadingElements.delete(jsName);
-			this.awaitCallback(jsName);
+			this._awaitCallback(jsName);
 		} catch (e) {
 			this._loadingElements.delete(jsName);
 			throw e;
@@ -332,7 +314,7 @@ class Elements {
 	 */
 	async loaded (fileName: string) {
 		this._loadedElements.add(fileName);
-		this.awaitCallback(fileName);
+		this._awaitCallback(fileName);
 	}
 
 	/**
@@ -340,7 +322,7 @@ class Elements {
 	 * @param  {String} name name of element
 	 * @return {Node}      imported Node
 	 */
-	importTemplate (name: string): Node {
+	importTemplate (name: string): Element {
 		let id = '#templateElements' + name;
 		let template = this._templateLocation.querySelector(id)!;
 		//@ts-ignore
@@ -354,7 +336,7 @@ class Elements {
 	 * @private
 	 * @instance
 	 */
-	async _require (...elementNames: string[]) {
+	private async _require (...elementNames: string[]) {
 		for (let name of elementNames) {
 			name = this._nameResolver(name);
 			if (!(this._requestedElements.has(name))) {
@@ -379,11 +361,11 @@ class Elements {
 		}
 	}
 
-	async _loadModule (elementName: string, requires: string[]) {
+	private async _loadModule (elementName: string, requires: string[]) {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
-		let name_tokens = this.tokenise(elementName);
+		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.mjs';
 		let link = document.createElement('link');
@@ -405,11 +387,11 @@ class Elements {
 		}
 	}
 
-	async _loadTS (elementName: string, requires: string[]) {
+	private async _loadTS (elementName: string, requires: string[]): Promise<void> {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
-		let name_tokens = this.tokenise(elementName);
+		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.js';
 		let link = document.createElement('link');
@@ -422,11 +404,11 @@ class Elements {
 
 		import('./' + location);
 	}
-	async _loadScript(elementName: string, requires: string[]) {
+	private async _loadScript(elementName: string, requires: string[]) {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
-		const name_tokens = this.tokenise(elementName);
+		const name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = this.location + elementName + '/' + module_name + '.js';
 		let link = document.createElement('link');
@@ -434,7 +416,7 @@ class Elements {
 		link.as = 'script';
 		link.href = location;
 		this._preloadLocation.append(link);
-		this._requestedElements.add(name);
+		this._requestedElements.add(elementName);
 		let script = document.createElement('script');
 		script.src = location;
 		script.async = true;
@@ -443,33 +425,12 @@ class Elements {
 
 		this._scriptLocation.appendChild(script);
 	}
-	/**
-	 * Loads a custom element from js files. Shim to elements.get
-	 * @param  {...String} elementNames name of element to import
-	 * @deprecated
-	 */
-	async require (...elementNames: string[]) {
-		console.warn('Using deprecated function require. Use Elements.get instead');
-		this.get(...elementNames);
-	}
-
-	/**
-	 * Callback a function once required elements are loaded
-	 * @param  {Function} callback    Function to call back
-	 * @param  {...String}   moduleNames elements to wait to load first
-	 * @deprecated
-	 */
-	async await (callback: () => void, ...moduleNames: string[]) {
-		console.warn('Using deprecated function require. This function is been aduited for removal');
-		await this.get(...moduleNames);
-		callback();
-	}
 
 	/**
 	 * Callback to process awaiting elements
 	 * @param  {String} loaded Name of element loaded
 	 */
-	async awaitCallback (loaded: string) {
+	private async _awaitCallback (loaded: string) {
 		loaded = this._nameResolver(loaded);
 		// New style
 		const promise = this._getPromiseStore.get(loaded);
@@ -478,44 +439,28 @@ class Elements {
 		}
 	}
 
-	/**
-	 * Removes the 'elements-' NS from a HTMLElement name
-	 * @param  {String} name name with 'elements-'
-	 * @return {String}      name without 'elements-'
-	 */
-	removeNSTag (name: string): string {
-		if (name.indexOf('elements-') !== 0) {
-			return name;
-		} else {
-			return name.substring(9);
-		}
-	}
 
 	/**
 	 * Helper to reduce an object to only properties needed to stringify
 	 * @param  {Object} object     object to reduce
 	 * @param  {String[]} properties Properties to include
 	 * @return {Object}            new object with properties copied over
+	 * @deprecated
 	 */
 	jsonIncludes<O, K extends keyof O> (object: O, properties: (K & string)[]): object {
-		let result: {[key: string]: unknown} = {};
-		for (let property of properties) {
-			result[property] = object[property];
-		}
-		return result;
+		console.warn('Using deprecated function \'jsonIncludes\'');
+		return jsonIncludes(object, properties);
 	}
 
 	/**
 	 * Converts a set to array, for stringification
 	 * @param  {Set} set Set to convert to array
 	 * @return {Array}   Array version of set
+	 * @deprecated
 	 */
 	setToArray (set: Set<unknown>): Array<unknown> {
-		let result = [];
-		for (let entry of set.values()) {
-			result.push(entry);
-		}
-		return result;
+		console.warn('Using deprecated function \'setToArray\'');
+		return setToArray(set);
 	}
 
 	/**
@@ -541,8 +486,9 @@ class Elements {
 	 * Implementation of get for a single request
 	 * @param  {String} elementName name of module requested
 	 * @return {Promise}            Promise resolving on load of module
+	 * @private
 	 */
-	async _get (elementName: string): Promise<void> {
+	private async _get (elementName: string): Promise<void> {
 		let name = this._nameResolver(elementName);
 		if (this._gottenElements.has(name)) {
 			return this._setPromise(name);
@@ -555,7 +501,7 @@ class Elements {
 			return result;
 		}
 		if (this.manifest === undefined || this.manifest === {}) {
-			throw new Error('Elements v3 requires the manifest to be loaded before resolving packages');
+			throw new Error('Elements v3+ requires the manifest to be loaded before resolving packages');
 		}
 		let manifest = this.manifest[name];
 		if (manifest === undefined) {
@@ -615,7 +561,7 @@ class Elements {
 	 * @return {Promise}          Promise resolving upon load of all requests
 	 * @private
 	 */
-	_getPromise (...jsName: string[]): Promise<void[]> {
+	private _getPromise (...jsName: string[]): Promise<void[]> {
 		let promises = [];
 		for (let name of jsName) {
 			name = this._nameResolver(name);
@@ -630,7 +576,7 @@ class Elements {
 	 * @return {Promise}       Promise resolving on load of request
 	 * @private
 	 */
-	_setPromise (jsName: string): Promise<void> {
+	private _setPromise (jsName: string): Promise<void> {
 		const promise = this._getPromiseStore.get(jsName);
 		if (promise !== undefined) {
 			return promise.promise;
@@ -655,8 +601,8 @@ class Elements {
 	 * @return {String}      name of .js for name e.g. dragDown
 	 * @private
 	 */
-	_nameResolver (name: string): string {
-		name = this.removeNSTag(name);
+	private _nameResolver (name: string): string {
+		name = removeNSTag(name);
 		if (name.includes('/')) {
 			return name;
 		}
@@ -672,7 +618,7 @@ class Elements {
 			// Module name, treat differently
 			return name.split('-').join('/');
 		} else {
-			let tokens = this.tokenise(name);
+			let tokens = tokenise(name);
 			return tokens.join('/');
 		}
 	}
@@ -700,23 +646,6 @@ class Elements {
 		// this.manifest = JSON.parse(response);
 		// this.manifestLoaded = true;
 		// this.__getBacklog();
-	}
-
-	/**
-	 * Make an async network request, returning response body
-	 * @param  {String} location location of file. Note: will not prefix .location for you
-	 * @return {Promise}         Promise that resolves to the response body, can error
-	 */
-	async request (location: string): Promise<any> {
-		return fetch(location).then(
-			(response) => {
-				if (response.ok) {
-					return response.text();
-				} else {
-					throw new Error(response.url);
-				}
-			}
-		);
 	}
 
 	/**
@@ -748,7 +677,7 @@ class Elements {
 
 		let fetcher = async (resolve: (_value: string) => void, reject: PromiseCallback) => {
 			try {
-				template = await this.request(this.location + location);
+				template = await request(this.location + location);
 			} catch (e) {
 				console.log('Failed network request for: ' + e.message);
 				this._loadingTemplates.delete(location);
@@ -782,32 +711,24 @@ class Elements {
 
 	/**
 	 * Function to santize boolean attributes
-	 * @param  {Boolean|String} value A boolean or a string representing a boolean
+	 * @param  {*} value A boolean or a string representing a boolean
 	 * @return {Boolean}              Input converted to boolean
+	 * @deprecated
 	 */
-	booleaner (value: boolean | string): boolean {
-		if (typeof(value) == 'boolean') {
-			return value;
-		}
-		return !(value === 'false');
+	booleaner (value: unknown): boolean {
+		console.warn('Using deprecated function \'booleaner\'');
+		return booleaner(value);
 	}
 
 	/**
 	 * Returns a equivalent requestAnimationFrame, but subsequent calls
 	 * before frame trigger cancel previous ones
 	 * @return {Function} Pretends to be requestAnimationFrame
+	 * @deprecated
 	 */
 	rafContext (): (f: (timestamp: number) => void) => void {
-		let raf: number | null = null;
-		return (f) => {
-			if (raf !== null) {
-				cancelAnimationFrame(raf);
-			}
-			raf = requestAnimationFrame((e) => {
-				f(e);
-				raf = null;
-			});
-		};
+		console.warn('Using deprecated function \'rafContext\'');
+		return rafContext();
 	}
 
 	/**
@@ -816,25 +737,22 @@ class Elements {
 	 * e.g. placeholder value set via js
 	 * @param  {String} string Sanitized string
 	 * @return {String}        Unsafe string
+	 * @deprecated
 	 */
 	nameDesanitizer (string: string): string {
-		string = string.replace(/&amp/g, '&');
-		string = string.replace(/&lt/g, '<');
-		string = string.replace(/&gt/g, '>');
-		return string;
+		console.warn('Using deprecated function \'nameDesanitizer\'');
+		return nameDesanitizer(string);
 	}
 
 	/**
 	 * Sanitizes a string for HTML.
 	 * @param  {String} string Unsafe string
 	 * @return {String}        Sanitized string
+	 * @deprecated
 	 */
 	nameSanitizer (string: string): string {
-		string = string.trim();
-		string = string.replace(/&/g, '&amp');
-		string = string.replace(/</g, '&lt');
-		string = string.replace(/>/g, '&gt');
-		return string;
+		console.warn('Using deprecated function \'nameSanitizer\'');
+		return nameSanitizer(string);
 	}
 
 	/**
@@ -846,36 +764,17 @@ class Elements {
 	 * @param  {*} [initial=null]         value to intialize the type as
 	 * @param  {Function} [eventTrigger] Function to call after property has been set
 	 * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
+	 * @deprecated
 	 */
-	setUpAttrPropertyLink2<O, K extends keyof O> (
+	setUpAttrPropertyLink2<O, K extends keyof O, T extends {toString: () => string}> (
 		object: backbone2 & O,
 		property: K & string,
-		initial: unknown = null,
+		initial: T | null = null,
 		eventTrigger: (value: unknown) => void = (_value: unknown) => {},
-		santizer: (value: unknown, old_value: unknown) => void = (value: any, _oldValue: any) => {return value;}) {
+		santizer: (value: unknown, old_value: T) => T = (value: any, _oldValue: any) => {return value;}) {
 
-		const fail_message = 'Attr-Property must be in constructor.observedAttributes';
-		//@ts-ignore
-		console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
-
-		let hidden: unknown;
-		let getter = () => {return hidden;};
-		let setter = (value: unknown) => {
-			value = santizer(value, hidden);
-			if (value === hidden) {return;}
-			hidden = value;
-			if (object.attributeInit) {
-				object.setAttribute(property, value as string);
-			}
-			eventTrigger(value);
-		};
-		Object.defineProperty(object, property, {
-			enumerable: true,
-			configurable: true,
-			get: getter,
-			set: setter,
-		});
-		object.applyPriorProperty(property, initial);
+		console.warn('Using deprecated function \'setUpAttrProperty\'');
+		setUpAttrPropertyLink(object, property, initial, eventTrigger, santizer);
 	}
 
 	/**
@@ -906,39 +805,6 @@ class Elements {
 		this._preloadLocation.appendChild(link);
 		this._loadedResources.add(location);
 	}
-
-	/**
-	 * Split an element name in seperated tokens
-	 * @param  {String} name Name to tokenise
-	 * @return {String[]}    Array of tokens
-	 */
-	tokenise (name: string): string[] {
-		if (name.includes('-')) {
-			return name.split('-');
-		} else if (name.includes('/')) {
-			return name.split('/');
-		} else {
-			let tokens = [];
-			let firstCharacter = /[A-Z]/;
-			let position;
-			while ((position = name.search(firstCharacter)) !== -1) {
-				let token = name.substring(0, position);
-				name = name.charAt(position).toLowerCase() + name.substring(position + 1, name.length);
-				tokens.push(token);
-			}
-			tokens.push(name);
-			return tokens;
-		}
-	}
-	/**
-	 * Uppercase the first letter, leave the rest
-	 * @param  {String} string String to captialize
-	 * @return {String}        Captialized string
-	 */
-	captialize (string: string): string {
-		return string.charAt(0).toUpperCase() + string.substring(1, string.length);
-	}
-
 	constructor () {
 		const head = document.head;
 		let insert_location = head.querySelector('#' + LINK_INSERT_DIV_ID);
@@ -973,7 +839,7 @@ class Elements {
 	 * @param  {HTMLElement} element The element to find the default template for
 	 * @return {String}         The location of the default template
 	 */
-	getDefaultTemplate (jsName: string, element: Backbone): string {
+	getDefaultTemplate(jsName: string, element: Backbone): string {
 		let version: number = element.__backbone_version;
 		if (version === undefined) {
 			console.log('Couldn\'t find version of element', element);
@@ -985,7 +851,7 @@ class Elements {
 				return jsName + '/template.html';
 			case 3:
 			case 4:
-				let tokens = this.tokenise(jsName);
+				let tokens = tokenise(jsName);
 				let last = tokens[tokens.length - 1];
 				return jsName + '/' + last + 'Template.html';
 			default:
@@ -993,16 +859,17 @@ class Elements {
 		}
 	}
 	/**
-	 * Returns a promise that will resolve in at least <timeout> milliseconds
-	 * @param  {Number} timeout Time in milliseconds to wait to resolve the promise
-	 * @return {Promise}         Promise that resolves in <timeout> milliseconds
+	 * Import a module named according to elements
+	 * @param {string} elementName Element name of the module to improt
+	 * @return             The imported module
 	 */
-	wait (timeout: number): Promise<void> {
-		return new Promise<void>((resolve, _reject) => {
-			// This is just typescript being stupid
-			//@ts-ignore
-			setTimeout(resolve, timeout);
-		});
+	async importModule(elementName: string) {
+		const name = this._nameResolver(elementName);
+		let name_tokens = tokenise(name);
+		let module_name = name_tokens[name_tokens.length - 1];
+		let location = name + '/' + module_name + '.js';
+		await this.get(elementName);
+		return import('./' + location);
 	}
 }
 

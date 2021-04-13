@@ -253,10 +253,6 @@ Elements = {
 			set: setter,
 		};
 	},
-	setUpSanitizedAttrPropertyLink: function (...args) {
-		console.warn('Using deprecated function setUpSanitizedAttrPropertyLink, it has now been merged with setUpAttrPropertyLink');
-		this.setUpAttrPropertyLink(...args);
-	},
 	initalized: true,
 	/**
 	 * Async fetch a HTML file, load into document.head,

@@ -3,7 +3,10 @@
 	<head>
 		<meta charset='utf-8'>
 		<title>Monorail prototype</title>
-		<link rel='preload' href='elements/backbone.js' as='script'></link>
+		<link rel='preload' href='elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='elements/elements_core.js'></link>
+		<link rel='modulepreload' href='elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='elements/elements_helper.js'></link>
 		<link rel='preload' href='elements/manifest.js' as='script'></link>
 		<style>
 		elements-drag-element {
@@ -19,8 +22,8 @@
 		</elements-drag-body>
 		<elements-monorail-output></elements-monorail-output>
 	</body>
-	<script src='elements/backbone.js'></script>
-	<script src='elements/manifest.js'></script>
+	<script src='elements/backbone4.js'></script>
+	<script src='elements/manifest.js' async></script>
 	<script>
 		Elements.get('drag-element', 'monorail-keypad', 'Monorail', 'monorail-output');
 	</script>

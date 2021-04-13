@@ -55,3 +55,11 @@ kerbal-editor-group:
 	* Clearing
 	* Disabling
 	* Listening for kerbal deletion
+
+
+backbone v5:
+	* Private fields + members
+	* Top level await
+	* Explicit manifest
+	* Coreless support (Maybe)
+	* Initless support (Move manifest loading back to core)
