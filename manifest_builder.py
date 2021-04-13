@@ -29,6 +29,10 @@ EXCLUDES = set([
         (LOCATION, 'elements_helper.js'),
         (LOCATION, 'elements_backbone.mjs'),
         (LOCATION, 'elements_backbone.js'),
+        (LOCATION, 'global.d.ts'),
+        (LOCATION, 'manifest.js'),
+        (LOCATION, 'backbone.js'),
+        (LOCATION, 'backbone3.js'),
 ])
 
 
