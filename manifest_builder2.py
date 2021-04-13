@@ -68,7 +68,6 @@ def find_modules(dirpath: str):
                         modules[file] = 2
                 elif check_module1(file, files):
                         modules[file] = 1
-                        print('Ver 1: ' + file)
                 else:
                         raise Exception(f'Could not detect version for module {os.path.join(dirpath, file)}')
         return modules
@@ -142,6 +141,7 @@ def scan_module(version: int, module: str, dirpath: str, root: str):
                         raise Exception(f'No new V1 elements ({module_name}) are supported')
                 name = module
                 manifest = new_manifest()
+                print('Ver 1: ' + module)
                 return name, manifest
         else:
                 raise Exception(f'Invalid version for module {os.path.join(dirpath, module)}')
