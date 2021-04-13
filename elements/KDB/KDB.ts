@@ -570,7 +570,7 @@ export class Group implements Group {
 	 * @return {KNS.Group}      Revived Group
 	 * @memberof KNS.Group
 	 */
-	static fromJSONObj (jsonObj: GroupObj, db: KDB) {
+	static fromJSONObj (jsonObj: GroupObj, db: KDB): Group {
 		if (jsonObj.type !== 'Group') {
 			throw new KDBParseError('Not a group');
 		}
@@ -627,7 +627,7 @@ export class Group implements Group {
 	 * @return {KNS.Group} Duplicated group
 	 * @memberof KNS.Group
 	 */
-	duplicate (deep = true): Group {
+	duplicate (deep: boolean = true): Group {
 		let result = new Group(0);
 		result.name = this.name;
 		result.text = this.text;
