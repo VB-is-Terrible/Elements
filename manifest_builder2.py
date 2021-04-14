@@ -24,6 +24,8 @@ def walk(dirpath: str, root: str):
         for module in manifests:
                 if module == '':
                         results[current_path] = manifests['']
+                elif current_path == '':
+                        results[f'{module}'] = manifests[module]
                 else:
                         results[f'{current_path}/{module}'] = manifests[module]
 
