@@ -687,17 +687,18 @@ class Elements {
 			// Rewrite css links with Elements.location
 			let div = document.createElement('div');
 			div.innerHTML = template;
-			let node = div.querySelector('template');
-			if (node === null) {
-				throw new Error('Template file ' + location + 'does not have template');
+			for (const node of div.querySelectorAll('template')) {
+				if (node === null) {
+					throw new Error('Template file ' + location + 'does not have template');
+				}
+				for (let link of node.content.querySelectorAll('link')) {
+					link.href = this.location + link.getAttribute('href');
+				}
+				for (let link of node.content.querySelectorAll('img')) {
+					link.src = this.location + link.getAttribute('src');
+				}
+				this._templateLocation.append(node);
 			}
-			for (let link of node.content.querySelectorAll('link')) {
-				link.href = this.location + link.getAttribute('href');
-			}
-			for (let link of node.content.querySelectorAll('img')) {
-				link.src = this.location + link.getAttribute('src');
-			}
-			this._templateLocation.append(node);
 			this._loadedTemplates.add(location);
 			this._loadingTemplates.delete(location);
 			resolve(location);
