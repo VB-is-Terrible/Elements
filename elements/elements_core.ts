@@ -767,7 +767,7 @@ class Elements {
 	 * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
 	 * @deprecated
 	 */
-	setUpAttrPropertyLink2<O, K extends keyof O, T extends {toString: () => string}> (
+	setUpAttrPropertyLink2<O, K extends keyof O, T extends {toString: () => string} & O[K]> (
 		object: backbone2 & O,
 		property: K & string,
 		initial: T | null = null,

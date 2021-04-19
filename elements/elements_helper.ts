@@ -64,12 +64,12 @@ export function booleaner (value: unknown): boolean {
  * @param  {Function} [eventTrigger] Function to call after property has been set
  * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
  */
-export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString: () => string}> (
+export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString: () => string} & O[K]> (
         object: backbone2 & O,
         property: K & string,
         initial: T | null = null,
-        eventTrigger: (value: unknown) => void = (_value: unknown) => {},
-        santizer: (value: unknown, old_value: T) => T = (value: any, _oldValue: any) => {return value;}) {
+        eventTrigger: (value: T) => void = (_value: T) => {},
+        santizer: (value: T & string, old_value: T) => T = (value: T & string, _oldValue: T) => {return value;}) {
 
         const fail_message = 'Attr-Property must be in constructor.observedAttributes';
         //@ts-ignore
@@ -77,8 +77,8 @@ export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString:
 
         let hidden: T;
         let getter = () => {return hidden;};
-        let setter = (value: T) => {
-                value = santizer(value, hidden);
+        let setter = (raw_value: T & string) => {
+                const value = santizer(raw_value, hidden);
                 if (value === hidden) {return;}
                 hidden = value;
                 if (object.attributeInit) {
