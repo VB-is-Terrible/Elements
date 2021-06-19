@@ -28,8 +28,7 @@ const respond = async (e: CustomEvent) => {
 };
 
 const redo = async () => {
-	const current_page = reader.position;
-	query_pics(current_url, current_page);
+	query_pics(current_url, -1);
 };
 
 Elements.common.reader_reload = redo;
@@ -51,10 +50,13 @@ const query_pics = async (url: string, position?: number) => {
 		body: form,
 	});
 	const [urls, title] = await response.json();
+	if (position === -1) {
+		position = reader.position;
+	}
 	set_urls(urls, title, position);
 	const end = Date.now();
 	if (end - start > QUERY_NOTIFICATION_TIME) {
-		if (notify_permission) {
+		if (await notify_permission) {
 			notify_send('Loaded Gallery', {body: title, silent: true});
 		} else {
 			toaster.addToast({
