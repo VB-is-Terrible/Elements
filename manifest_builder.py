@@ -253,10 +253,16 @@ def parse_ts(dirpath: str, root: str, name: str):
                 _parse_mjs(f, manifest, name)
 
         parser = linkParser()
+        not_found = []
         for template in manifest['templates']:
+                if not os.path.isfile(root + template):
+                        not_found.append(template)
+                        continue
                 with open(root + template) as f:
                         file_string = f.read()
                 parser.feed(file_string)
+        for missing in not_found:
+                manifest['templates'].remove(missing)
         manifest['css'] = parser.css
         manifest['resources'] = parser.resources
         return manifest
