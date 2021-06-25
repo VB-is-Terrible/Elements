@@ -322,10 +322,12 @@ class Elements {
 	 * @param  {String} name name of element
 	 * @return {Node}      imported Node
 	 */
-	importTemplate (name: string): Element {
+	importTemplate (name: string): DocumentFragment {
 		let id = '#templateElements' + name;
-		let template = this._templateLocation.querySelector(id)!;
-		//@ts-ignore
+		let template = this._templateLocation.querySelector(id) as HTMLTemplateElement | null;
+		if (template === null) {
+			throw new Error(`No loaded template for ${name}`);
+		}
 		return document.importNode(template, true).content;
 	}
 
