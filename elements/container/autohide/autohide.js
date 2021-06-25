@@ -14,9 +14,10 @@ const get_animation_duration = () => {
  * @memberof Elements.elements
  */
 class ContainerAutohide extends backbone4 {
+    _show_offset = '.75em';
+    _expander;
     constructor() {
         super();
-        this._show_offset = '.75em';
         const shadow = this.attachShadow({ mode: 'open' });
         const template = Elements.importTemplate(ELEMENT_NAME);
         this._expander = template.querySelector('#expander');
