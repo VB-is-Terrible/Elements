@@ -18,8 +18,7 @@ const ELEMENT_NAME = 'Grid';
 export class Grid extends backbone4 {
 	rows!: number;
 	columns!: number;
-	coordnaming!: boolean
-	shadowRoot!: ShadowRoot;
+	coordnaming!: boolean;
 	constructor () {
 		super();
 		const shadow = this.attachShadow({ mode: 'open' });
@@ -39,13 +38,11 @@ export class Grid extends backbone4 {
 			}
 		};
 
-		setUpAttrPropertyLink(this, 'rows', 2,
-							updateCallback, santizer);
-		setUpAttrPropertyLink(this, 'columns', 2,
-							updateCallback, santizer);
+                shadow.appendChild(template);
+		setUpAttrPropertyLink(this, 'rows', 2, updateCallback, santizer);
+		setUpAttrPropertyLink(this, 'columns', 2, updateCallback, santizer);
 		setUpAttrPropertyLink(this, 'coordnaming', false,
-							updateCallback, booleaner);
-		shadow.appendChild(template);
+                                      updateCallback, booleaner);
 	}
 	static get observedAttributes () {
 		return ['rows', 'columns', 'coordnaming'];
@@ -97,9 +94,9 @@ export class Grid extends backbone4 {
 	 * @param  {Number} columns Number of columns to have
 	 */
 	updateDivs (rows: number, columns: number) {
-		let insertionPoint = this.shadowRoot.querySelector('#gridHolder') as HTMLDivElement;
+		let insertionPoint = this.shadowRoot!.querySelector('#gridHolder') as HTMLDivElement;
 		let current = insertionPoint.childElementCount;
-		let template = this.shadowRoot.querySelector('#templateHolderDiv') as HTMLTemplateElement;
+		let template = this.shadowRoot!.querySelector('#templateHolderDiv') as HTMLTemplateElement;
 		let slots = insertionPoint.querySelectorAll('slot');
 		let amount = rows * columns;
 		if (this.coordnaming) {
