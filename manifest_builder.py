@@ -70,4 +70,5 @@ def walk(dirpath: str, root: str):
 
 
 if __name__ == '__main__':
+        raise Warning('manifest_builder.py is deprecated, please use manifest_builder2.py')
         build(LOCATION)
