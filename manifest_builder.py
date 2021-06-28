@@ -6,6 +6,10 @@ from os.path import isfile, isdir
 import json
 from parser import name_resolver
 from config import location as LOCATION
+import manifest_explicit
+from manifest_explicit import Manifest
+
+
 JSHEADER = ''''use strict'
 
 console.log('Got manifest', performance.now());
@@ -177,65 +181,57 @@ def _parse_mjs(file, manifest, name: str):
         for template in template_regex.findall(lines):
                 templates.add(template)
 
-        manifest['provides'] = sorted(list(provides))
-        manifest['templates'] = sorted(list(templates))
-        manifest['requires'] = sorted(list(requires))
-        manifest['recommends'] = sorted(list(recommends))
+        manifest.provides = sorted(list(provides))
+        manifest.templates = sorted(list(templates))
+        manifest.requires = sorted(list(requires))
+        manifest.recommends = sorted(list(recommends))
 
 
 def new_manifest():
-        return {
-                "type": None,
-                "requires": [],
-                "recommends": [],
-                "templates": [],
-                "css": [],
-                "resources": [],
-                "provides": [],
-        }
+        return Manifest.blank()
 
 
 def parse(filepath: str, root: str):
         manifest = new_manifest()
         if isfile(filepath):
-                manifest['type'] = 'module'
+                manifest.type = 'module'
         else:
-                manifest['type'] = 'element'
-        if manifest['type'] == 'module':
+                manifest.type = 'element'
+        if manifest.type == 'module':
                 location = filepath
         else:
                 location = filepath + '/element.js'
         with open(location) as f:
                 lines = f.read()
-        (manifest['requires'],
-         manifest['templates'],
-         manifest['provides']) = parse_js(lines)
+        (manifest.requires,
+         manifest.templates,
+         manifest.provides) = parse_js(lines)
         parser = linkParser()
-        for template in manifest['templates']:
+        for template in manifest.templates:
                 with open(root + template) as f:
                         lines = f.read()
                 parser.feed(lines)
-        manifest['css'], manifest['resources'] = parser.css, parser.resources
+        manifest.css, manifest.resources = parser.css, parser.resources
         return manifest
 
 
 def parse_mjs(dirpath: str, root: str, name: str):
         manifest = new_manifest()
         if name[0].isupper():
-                manifest['type'] = 'module3'
+                manifest.type = 'module3'
         else:
-                manifest['type'] = 'element3'
+                manifest.type = 'element3'
         location = os.path.join(dirpath, name)
         with open(location) as f:
                 _parse_mjs(f, manifest, name)
 
         parser = linkParser()
-        for template in manifest['templates']:
+        for template in manifest.templates:
                 with open(root + template) as f:
                         file_string = f.read()
                 parser.feed(file_string)
-        manifest['css'] = parser.css
-        manifest['resources'] = parser.resources
+        manifest.css = parser.css
+        manifest.resources = parser.resources
         return manifest
 
 
@@ -244,17 +240,17 @@ def parse_ts(dirpath: str, root: str, name: str):
         location = os.path.join(dirpath, name)
         if name[0].isupper():
                 if is_module(location):
-                        manifest['type'] = 'module4'
+                        manifest.type = 'module4'
                 else:
-                        manifest['type'] = 'script4'
+                        manifest.type = 'script4'
         else:
-                manifest['type'] = 'element4'
+                manifest.type = 'element4'
         with open(location) as f:
                 _parse_mjs(f, manifest, name)
 
         parser = linkParser()
         not_found = []
-        for template in manifest['templates']:
+        for template in manifest.templates:
                 if not os.path.isfile(root + template):
                         not_found.append(template)
                         continue
@@ -262,9 +258,9 @@ def parse_ts(dirpath: str, root: str, name: str):
                         file_string = f.read()
                 parser.feed(file_string)
         for missing in not_found:
-                manifest['templates'].remove(missing)
-        manifest['css'] = parser.css
-        manifest['resources'] = parser.resources
+                manifest.templates.remove(missing)
+        manifest.css = parser.css
+        manifest.resources = parser.resources
         return manifest
 
 
@@ -284,7 +280,7 @@ def build(dirpath: str):
 
 
 def walk(dirpath: str, root: str):
-        results = {}
+        manifests = {}
         modules = []
         # Check for element module js files
         for file in os.listdir(dirpath):
@@ -294,10 +290,10 @@ def walk(dirpath: str, root: str):
                         modules.append(os.path.join(dirpath, file))
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
-                results[name] = parse(filename, root)
+                manifests[name] = parse(filename, root)
         if (isfile(dirpath + '/element.js')
                 and not isfile(dirpath + '/element.ts')):
-                results[remove_prefix(dirpath, root)] = parse(dirpath, root)
+                manifests[remove_prefix(dirpath, root)] = parse(dirpath, root)
         for file in os.listdir(dirpath):
                 if not file.endswith('.mjs'):
                         continue
@@ -305,13 +301,18 @@ def walk(dirpath: str, root: str):
                         pass
                 else:
                         name = remove_prefix(dirpath, root)
-                        results[name] = parse_mjs(dirpath, root, file)
+                        manifests[name] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
                 if (dirpath, file) in EXCLUDES:
                         continue
                 if file.endswith('.ts'):
                         name = remove_prefix(dirpath, root)
-                        results[name] = parse_ts(dirpath, root, file)
+                        manifests[name] = parse_ts(dirpath, root, file)
+        manifests = manifest_explicit.add_explicit_manifests(
+                    manifests, dirpath)
+        results = {}
+        for name in manifests:
+                results[name] = manifests[name].desugar()
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
                 if isdir(dirname):

@@ -4,6 +4,7 @@ from manifest_builder import JSFOOTER, JSHEADER, EXCLUDES, remove_prefix
 from manifest_builder import parse_ts, parse_mjs, parse, new_manifest
 from config import location as LOCATION
 from typing import List, Dict
+import manifest_explicit
 
 
 MODULE_EXTENSION = ['.js', '.mjs', '.ts']
@@ -15,19 +16,25 @@ ELEMENTS_V1 = set([
 ])
 
 
+def rename_modules(manifests, current_path):
+        renamed = {}
+        for module in manifests:
+                if module == '':
+                        renamed[current_path] = manifests['']
+                elif current_path == '':
+                        renamed[f'{module}'] = manifests[module]
+                else:
+                        renamed[f'{current_path}/{module}'] = manifests[module]
+        return renamed
+
+
 def walk(dirpath: str, root: str):
         modules = find_modules(dirpath)
         manifests = scan_modules(modules, dirpath, root)
 
-        results = {}
-        current_path = remove_prefix(dirpath, root)
-        for module in manifests:
-                if module == '':
-                        results[current_path] = manifests['']
-                elif current_path == '':
-                        results[f'{module}'] = manifests[module]
-                else:
-                        results[f'{current_path}/{module}'] = manifests[module]
+        manifests = manifest_explicit.add_explicit_manifests(manifests, dirpath)
+        manifests = rename_modules(manifests, remove_prefix(dirpath, root))
+        results = manifest_explicit.desugar_manifests(manifests)
 
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
