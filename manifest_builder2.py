@@ -1,10 +1,10 @@
 import json
 import os
-from manifest_builder import JSFOOTER, JSHEADER, EXCLUDES, remove_prefix
-from manifest_builder import parse_ts, parse_mjs, parse, new_manifest
+from manifest_common import JSFOOTER, JSHEADER, EXCLUDES
+from parser import parse_ts, parse_mjs, parse, new_manifest, remove_prefix
 from config import location as LOCATION
 from typing import List, Dict
-import manifest_explicit
+from manifest_explicit import add_explicit_manifests, desugar_manifests
 
 
 MODULE_EXTENSION = ['.js', '.mjs', '.ts']
@@ -32,9 +32,9 @@ def walk(dirpath: str, root: str):
         modules = find_modules(dirpath)
         manifests = scan_modules(modules, dirpath, root)
 
-        manifests = manifest_explicit.add_explicit_manifests(manifests, dirpath)
+        manifests = add_explicit_manifests(manifests, dirpath)
         manifests = rename_modules(manifests, remove_prefix(dirpath, root))
-        results = manifest_explicit.desugar_manifests(manifests)
+        results = desugar_manifests(manifests)
 
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
@@ -146,7 +146,9 @@ def scan_module(version: int, module: str, dirpath: str, root: str):
                         return name, manifest
         elif version == 1:
                 if (dirpath, module) not in ELEMENTS_V1:
-                        module_name = os.path.join(remove_prefix(dirpath, root), module)
+                        module_name = os.path.join(
+                                          remove_prefix(dirpath, root),
+                                          module)
                         raise Exception(f'No new V1 elements ({module_name}) are supported')
                 name = module
                 manifest = new_manifest()
