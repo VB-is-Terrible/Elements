@@ -1,10 +1,13 @@
-export const recommends = [];
-export const requires = ['toaster-toast'];
+// Elements VERSION 5
+const requires = ['toaster-toast'];
 
 import {Elements} from '../elements_core.js';
 import {backbone4} from '../elements_backbone.js';
 import {} from '../elements_helper.js';
 import type {ToastData, ToasterToast} from 'toast/toast.js';
+
+await Elements.get(...requires);
+
 
 const ELEMENT_NAME = 'Toaster';
 /**

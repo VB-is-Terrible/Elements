@@ -1,3 +1,5 @@
+// Elements VERSION 5
+const requires = ['toaster', 'elements-container-dialog', 'grid'];
 let current_url: string = '';
 
 import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
@@ -8,8 +10,7 @@ import {Elements} from '../../elements_core.js';
 import type { Toaster } from '../../toaster/toaster.js';
 import { ToasterContext } from '../../toaster/Common/Common.js';
 
-export {};
-export const requires = ['toaster', 'elements-container-dialog',];
+await Elements.get(...requires);
 
 const reader = document.querySelector('#main_scroller')! as GalleryScrollDynamic;
 const page_count = document.querySelector('#page_count')! as HTMLInputElement;
