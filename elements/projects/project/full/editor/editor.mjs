@@ -1,7 +1,10 @@
-export const recommends = ['projects-Project'];
-export const requires = [];
+const recommends = ['projects-Project'];
+const requires = [];
 
 import {Elements} from '../../../../elements_core.js';
+
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 /**
  * [ProjectsProjectFullEditor Description]

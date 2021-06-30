@@ -1,11 +1,13 @@
-export const recommends = ['projects2-Project'];
-export const requires = [];
+const recommends: Array<string> = ['projects2-Project'];
+const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
 import {applyPriorProperties, nameSanitizer} from '../../../elements_helper.js';
 import {Project, UpdateWrapper} from '../../Project/Project.js'
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Projects2ProjectDisplay';
 /**

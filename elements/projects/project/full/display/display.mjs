@@ -1,7 +1,10 @@
-export const recommends = ['grid'];
-export const requires = [];
+const recommends = ['grid'];
+const requires = [];
 
 import {Elements} from '../../../../elements_core.js';
+
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const LENGTH_LIMIT = 30;
 

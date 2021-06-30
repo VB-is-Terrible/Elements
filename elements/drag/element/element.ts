@@ -1,9 +1,12 @@
-export const recommends = ['drag-body'];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
 import { applyPriorProperty, CustomComposedEvent, GConstructor} from '../../elements_helper.js';
+
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 type TouchListener = (arg0: TouchEvent) => void;
 type MouseListener = (arg0: MouseEvent) => void;

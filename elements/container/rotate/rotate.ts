@@ -1,10 +1,12 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
 import { applyPriorProperties, wait } from '../../elements_helper.js'
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const SLOT_TEMPLATE = 'ContainerRotate-Stackable';
 const template_promise = Elements.loadTemplate('container/rotate/stackableTemplate.html');

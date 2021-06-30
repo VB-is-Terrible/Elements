@@ -1,5 +1,5 @@
-export const recommends = [];
-export const requires = ['projects2-project-display', 'projects2-Project'];
+const recommends: Array<string> = [];
+const requires: Array<string> = ['projects2-project-display', 'projects2-Project'];
 
 import {Elements} from '../../elements_core.js';
 import * as Projects from '../Project/Project.js';
@@ -7,7 +7,8 @@ import type {UpdateWrapper} from '../Project/Project.js';
 import { Projects2Project_groupDisplay } from '../project_group/display/display.js';
 import type {ContainerDialog} from '../../container/dialog/dialog.js';
 
-
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 // export const testData = [[{'id': 0, 'name': 'etypically', 'desc': 'polymery'}, {'id': 1, 'name': 'carrollite', 'desc': 'soudge'}, {'id': 2, 'name': 'subseres', 'desc': 'frisolee'}, {'id': 3, 'name': 'aladfar', 'desc': 'consummated'}, {'id': 4, 'name': 'fleeted', 'desc': 'vespiform'}], [{'id': 5, 'name': 'goldsmith', 'desc': 'hideousness'}, {'id': 6, 'name': 'malayan', 'desc': 'commensally'}, {'id': 7, 'name': 'dextropedal', 'desc': 'reedling'}, {'id': 8, 'name': 'rufofuscous', 'desc': 'influx'}, {'id': 9, 'name': 'nonmultiplicative', 'desc': 'ulemas'}], [{'id': 10, 'name': 'heregild', 'desc': 'predeny'}, {'id': 11, 'name': 'corrosion', 'desc': 'bullocky'}, {'id': 12, 'name': 'acrobatics', 'desc': 'clemence'}, {'id': 13, 'name': 'conational', 'desc': 'obligationary'}, {'id': 14, 'name': 'ploughstaff', 'desc': 'caecostomy'}], [{'id': 15, 'name': 'encreel', 'desc': 'ruthlessly'}, {'id': 16, 'name': 'anfractuosity', 'desc': 'alethea'}, {'id': 17, 'name': 'chubsucker', 'desc': 'semialbinism'}, {'id': 18, 'name': 'dissuading', 'desc': 'toadpipes'}, {'id': 19, 'name': 'unobedient', 'desc': 'avanti'}], [{'id': 20, 'name': 'torpedoplane', 'desc': 'goalie'}, {'id': 21, 'name': 'chondromyoma', 'desc': 'analphabetical'}, {'id': 22, 'name': 'basibranchial', 'desc': 'reburnish'}, {'id': 23, 'name': 'besnare', 'desc': 'datos'}, {'id': 24, 'name': 'zavijava', 'desc': 'sarcinas'}]];
 

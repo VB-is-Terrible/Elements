@@ -1,6 +1,6 @@
 // @ts-nocheck
-const recommends = [];
-const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '$4elements_core.js';
 import {backbone4} from '$4elements_backbone.js';
