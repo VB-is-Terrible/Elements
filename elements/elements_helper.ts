@@ -1,4 +1,5 @@
 import type {backbone, backbone2} from './elements_backbone.js'
+import type {manifest_single, manifest_optional, manifest_type_array} from './elements_types';
 
 /**
  * Apply the properties saved in the constructor
@@ -298,3 +299,15 @@ export type GConstructor<T = {}> = new (...args: any[]) => T;
 export const randint = (lower: number, upper: number): number => {
 	return Math.floor(Math.random() * (upper - lower) + lower);
 };
+
+
+const manifest_array_fields: manifest_type_array = ['css', 'provides', 'recommends', 'requires', 'resources', 'templates'];
+
+export const upgradeManifest = (partial: manifest_optional): manifest_single => {
+        for (const array of manifest_array_fields) {
+                if (!(array in partial)) {
+                        partial[array] = [];
+                }
+        }
+        return partial as manifest_single;
+}

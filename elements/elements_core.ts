@@ -5,34 +5,8 @@ const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
-import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray} from './elements_helper.js';
-
-
-type ElementType =
-	"module" |
-	"element" |
-	"element3" |
-	"module3" |
-	"element4" |
-	"module4" |
-	"script4";
-
-
-interface manifest_single {
-	"css": Array<string>,
-	"provides": Array<string>,
-	"recommends": Array<string>,
-	"requires": Array<string>,
-	"resources": Array<string>,
-	"templates": Array<string>,
-	"type": ElementType;
-};
-
-interface manifest_t {
-	[key: string]: manifest_single;
-};
-
-type PromiseCallback = (value: void | PromiseLike<void>) => void;
+import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
+import type {manifest_t, PromiseCallback, manifest_t_optional} from './elements_types'
 
 
 /**
@@ -631,7 +605,7 @@ class Elements {
 	private async _loadManifest () {
 		console.log('Requested manifest', performance.now())
 		if (this.manifestLoaded) {return;}
-		let request, response;
+		let request, response: manifest_t_optional;
 		request = await fetch(this.location + 'elements_manifest.json', {
 			credentials: 'include',
 		});
@@ -642,7 +616,10 @@ class Elements {
 			return;
 		}
 		console.log('Got manifest', performance.now())
-		this.manifest = response;
+		for (const item in response) {
+			this.manifest[item] = upgradeManifest(response[item]);
+		}
+
 		this.manifestLoaded = true;
 		this.__getBacklog();
 	}

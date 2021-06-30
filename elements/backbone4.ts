@@ -1,13 +1,15 @@
 let importValue;
 
-type ElementType =
+export type ElementType =
 	"module" |
 	"element" |
 	"element3" |
-	"module3";
+	"module3" |
+	"element4" |
+	"module4" |
+	"script4";
 
-
-interface manifest_single {
+export interface manifest_single {
 	"css": Array<string>,
 	"provides": Array<string>,
 	"recommends": Array<string>,
@@ -17,11 +19,11 @@ interface manifest_single {
 	"type": ElementType;
 };
 
-interface manifest_t {
+export interface manifest_t {
 	[key: string]: manifest_single;
 };
 
-type PromiseCallback = () => void;
+export type PromiseCallback = (value: void | PromiseLike<void>) => void;
 
 interface _ElementsBootLoader {
 	manifest: manifest_t;
@@ -43,7 +45,7 @@ const ELEMENTS_BASE_CLASS_LOCATION = './elements_core.js';
  * Skeleton elements standin and bootloader.
  * Pretends to be the elements class
  */
-class ElementsBootloader {
+class ElementsBootloader implements _ElementsBootLoader {
 	/**
 	 * The elements manifest. Contains information about modules and their dependencies
 	 * While optional in v1 and v2, in order to combine v2 and v3 elements, this is now mandatory

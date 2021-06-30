@@ -26,7 +26,7 @@ class Manifest:
                 result = {}
                 for i in self.props:
                         value = getattr(self, i)
-                        if value is None:
+                        if value is None or value == []:
                                 continue
                         result[i] = value
                 return result

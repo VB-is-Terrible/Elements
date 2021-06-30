@@ -1,6 +1,6 @@
 import json
 import os
-from manifest_common import JSFOOTER, JSHEADER, EXCLUDES
+from manifest_common import EXCLUDES
 from parser import parse_ts, parse_mjs, parse, new_manifest, remove_prefix
 from config import location as LOCATION
 from typing import List, Dict
@@ -61,7 +61,7 @@ def find_modules(dirpath: str):
         files = set(os.listdir(dirpath))
         found = set()
         for file in files:
-                if (dirpath, file) in EXCLUDES:
+                if (os.path.abspath(dirpath), file) in EXCLUDES:
                         continue
                 name = check_if_module(file)
                 if name:
