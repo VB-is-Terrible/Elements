@@ -788,7 +788,7 @@ class Elements {
 	async loadCSS (location: string): Promise<any> {
 		if (this._loadedCSS.has(location)) {return;}
 		let link = document.createElement('link');
-		link.rel = 'preload';
+		link.rel = 'prefetch';
 		link.as = 'style';
 		link.href = this.location + location;
 		this._preloadLocation.appendChild(link);
@@ -802,7 +802,7 @@ class Elements {
 	async loadResource (location: string): Promise<any> {
 		if (this._loadedResources.has(location)) {return;}
 		let link = document.createElement('link');
-		link.rel = 'preload';
+		link.rel = 'prefetch';
 		link.as = 'image';
 		link.href = this.location + location;
 		this._preloadLocation.appendChild(link);
