@@ -65,3 +65,4 @@ backbone v5:
 	* Initless support (Move manifest loading back to core)
 
 Chrome's resize observer constantly fires. Chrome's fault
+Chrome freaks out with no-mode CORS prefetch tags.

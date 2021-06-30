@@ -7,7 +7,7 @@
 		<link rel='modulepreload' href='elements/elements_core.js'></link>
 		<link rel='modulepreload' href='elements/elements_backbone.js'></link>
 		<link rel='modulepreload' href='elements/elements_helper.js'></link>
-		<link rel='preload' href='elements/manifest.js' as='script'></link>
+		<link rel='preload' href='elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
 		<link rel="icon" href="/favicon.png">
 	</head>
 	<body>
@@ -29,7 +29,6 @@
 		<p> after </p>
 	</body>
 	<script src='elements/backbone4.js'></script>
-	<script src='elements/manifest.js' async></script>
 	<script>
 	{
 		const main = async (e) => {

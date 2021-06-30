@@ -45,16 +45,16 @@ def walk(dirpath: str, root: str):
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
         output = json.dumps(results, indent=4, sort_keys=True)
-        out = open(dirpath + 'manifest.json', 'w')
+        out = open(dirpath + 'elements_manifest.json', 'w')
         out.write(output)
         out.write('\n')
         out.close()
-        # Hack around chrome not preloading json
-        out2 = open(dirpath + 'manifest.js', 'w')
-        out2.write(JSHEADER)
-        out2.write(output)
-        out2.write(JSFOOTER)
-        out2.close()
+        # # Hack around chrome not preloading json
+        # out2 = open(dirpath + 'manifest.js', 'w')
+        # out2.write(JSHEADER)
+        # out2.write(output)
+        # out2.write(JSFOOTER)
+        # out2.close()
 
 
 def find_modules(dirpath: str):

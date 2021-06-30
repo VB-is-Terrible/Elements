@@ -628,26 +628,23 @@ class Elements {
 	/**
 	 * Load the elements manifest from network
 	 */
-	async loadManifest () {
+	private async _loadManifest () {
 		console.log('Requested manifest', performance.now())
 		if (this.manifestLoaded) {return;}
-		// let request, response;
-		// let header = new Headers({
-		// 	'Content-Type': 'application/json',
-		// });
-		// request = await fetch(this.location + 'elementsManifest.json', {
-		// 	headers: header,
-		// });
-		// if (request.ok) {
-		// 	response = await request.text();
-		// } else {
-		// 	console.log('Failed network request for: ' + request.url);
-		// 	return;
-		// }
-		// console.log('Got manifest', performance.now())
-		// this.manifest = JSON.parse(response);
-		// this.manifestLoaded = true;
-		// this.__getBacklog();
+		let request, response;
+		request = await fetch(this.location + 'elements_manifest.json', {
+			credentials: 'include',
+		});
+		if (request.ok) {
+			response = await request.json();
+		} else {
+			console.log('Failed network request for: ' + request.url);
+			return;
+		}
+		console.log('Got manifest', performance.now())
+		this.manifest = response;
+		this.manifestLoaded = true;
+		this.__getBacklog();
 	}
 
 	/**
@@ -834,6 +831,7 @@ class Elements {
 			this._scriptLocation = script_point;
 		}
 		this._templateLocation = document.createElement('div');
+		this._loadManifest();
 	}
 
 	/**
