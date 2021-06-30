@@ -7,7 +7,8 @@
 		<link rel='modulepreload' href='elements/elements_core.js'></link>
 		<link rel='modulepreload' href='elements/elements_backbone.js'></link>
 		<link rel='modulepreload' href='elements/elements_helper.js'></link>
-		<link rel='preload' href='elements/manifest.js' as='script'></link>
+		<link rel='preload' href='elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="./icon.png">
 		<style>
 			elements-grid {
 				width: 100%;
@@ -70,7 +71,6 @@
 		</div>
 	</body>
 	<script src='elements/backbone4.js'></script>
-	<script src='elements/manifest.js' async></script>
 	<script>
 		Elements.get('draggable-container', 'draggable-item', 'grid', 'draggable-dummy-listener');
 	</script>
