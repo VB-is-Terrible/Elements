@@ -1,4 +1,3 @@
-// Elements VERSION 5
 const requires = ['toaster-toast'];
 
 import {Elements} from '../elements_core.js';

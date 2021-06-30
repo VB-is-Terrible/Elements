@@ -1,4 +1,3 @@
-// Elements VERSION 5
 const requires = ['toaster', 'elements-container-dialog', 'grid'];
 let current_url: string = '';
 
