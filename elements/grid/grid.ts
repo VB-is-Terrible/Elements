@@ -51,7 +51,9 @@ export class Grid extends backbone4 {
 		super.connectedCallback();
 		this.updateGrid();
 	}
-	disconnectedCallback () {}
+	disconnectedCallback () {
+		super.disconnectedCallback();
+	}
 	/**
 	 * Updates the grid to new row & col amounts
 	 */

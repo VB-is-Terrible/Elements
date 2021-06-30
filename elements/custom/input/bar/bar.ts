@@ -80,12 +80,6 @@ export class CustomInputBar extends backbone4 {
 	set value(value) {
 		this._input.value = value;
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes (): Array<string & keyof CustomInputBar> {
 		return ['text', 'type'];
 	}

@@ -48,12 +48,6 @@ class ContainerAutohide extends backbone4 {
 			this.setAttribute('show_offset', value);
 		}
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes() {
 		return ['show_offset'];
 	}

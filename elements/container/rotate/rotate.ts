@@ -87,12 +87,6 @@ export class ContainerRotate extends backbone4 {
 			(this.shadowQuery('#rotate1') as HTMLDivElement).style.transform = show_style;
 		});
 	}
-	connectedCallback () {
-		super.connectedCallback();
-	}
-	disconnectedCallback () {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes () {
 		return ['current'];
 	}

@@ -55,12 +55,6 @@ export class ToasterToast extends backbone4 {
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes() {
 		return [];
 	}

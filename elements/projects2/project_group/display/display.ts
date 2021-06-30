@@ -67,12 +67,6 @@ export class Projects2Project_groupDisplay extends backbone4 {
 		}
 		this._refresh();
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes() {
 		return [];
 	}

@@ -27,12 +27,6 @@ export class TestFour extends backbone4 {
 		applyPriorProperties(this, 'derp')
 		shadow.appendChild(template);
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes() {
 		return ['test'];
 	}
