@@ -63,3 +63,5 @@ backbone v5:
 	* Explicit manifest
 	* Coreless support (Maybe)
 	* Initless support (Move manifest loading back to core)
+
+Chrome's resize observer constantly fires. Chrome's fault

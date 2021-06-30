@@ -35,6 +35,21 @@ const get_options = (): {fill: 'forwards', duration: number} => {
 		duration : Elements.animation.LONG_DURATION,
 	};
 }
+const resizeObserverBorderHeight = (entry: ResizeObserverEntry): number => {
+	if (entry.borderBoxSize) {
+		// Firefox compat
+		// @ts-ignore
+		if (entry.borderBoxSize.blockSize) {
+			// @ts-ignore Firefox path
+			return entry.borderBoxSize.blockSize;
+		} else {
+			// @ts-ignore Chrome path
+			return entry.borderBoxSize[0].blockSize;
+		}
+	} else {
+		return entry.contentRect.height;
+	}
+};
 
 const selector_re = /^s([0-9]*)/
 
@@ -319,7 +334,7 @@ export class ContainerRotate extends backbone4 {
 	private _resize (resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
 		console.log(resizeList)
 		for (let entry of resizeList) {
-			let height = entry.borderBoxSize ? entry.borderBoxSize.blockSize : entry.contentRect.height;
+			let height = resizeObserverBorderHeight(entry);
 			this._div_sizes.set(entry.target as HTMLDivElement, height);
 		}
 		let largest_height = Math.max(...this._div_sizes.values()) + 1;
