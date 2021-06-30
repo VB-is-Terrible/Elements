@@ -21,10 +21,9 @@ def rename_modules(manifests, current_path):
         for module in manifests:
                 if module == '':
                         renamed[current_path] = manifests['']
-                elif current_path == '':
-                        renamed[f'{module}'] = manifests[module]
                 else:
-                        renamed[f'{current_path}/{module}'] = manifests[module]
+                        name = os.path.join(current_path, module)
+                        renamed[name] = manifests[module]
         return renamed
 
 
