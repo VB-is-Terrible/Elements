@@ -145,7 +145,6 @@ Elements.elements.KerbalSearcherGroup = class extends Elements.elements.KerbalSe
 	search_trigger (override = false, excludes = []) {
 		let searcher = this.shadowRoot.querySelector('#nameInput');
 		let search = searcher.value;
-		search = Elements.nameSanitizer(search);
 		if (search !== this.__lastValue || override) {
 			let results = this.search(search, excludes);
 			this.display_results(results);

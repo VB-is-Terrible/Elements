@@ -3,7 +3,7 @@ const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import {applyPriorProperties, nameSanitizer} from '../../../elements_helper.js';
+import {applyPriorProperties} from '../../../elements_helper.js';
 import {Project, UpdateWrapper} from '../../Project/Project.js'
 
 Elements.get(...recommends);

@@ -263,7 +263,7 @@ Elements.elements.KerbalEditorKerbal = class extends Elements.elements.tabbed2 {
                     this.disableAll(true);
                 }
                 // Desantize the name
-                this.UI.nameInput.value = Elements.nameDesanitizer(this.data.name);
+                this.UI.nameInput.value = this.data.name;
                 this.UI.typeInput.value = this.data.text;
                 // Reset the UI
                 this.UI.warn.style.display = 'none';

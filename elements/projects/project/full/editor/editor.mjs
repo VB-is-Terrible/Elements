@@ -415,7 +415,7 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			let title = this.shadowQuery('#Title');
 			if (title.value === this.data.name) {
 				requestAnimationFrame((e) => {
-					title.textContent = Elements.nameSanitizer(change_set.name)
+					title.textContent = change_set.name;
 				});
 			}
 		}
