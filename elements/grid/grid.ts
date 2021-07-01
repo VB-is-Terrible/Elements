@@ -163,31 +163,26 @@ export class Grid extends backbone4 {
 		}
 		return result;
 	}
+
 	/**
 	 * Convert a number to an alphabetic code
 	 * @param  {Number} num Number to convert
-	 * @return {String}     Base 26 encoding
+	 * @return {String}     Base 16 encoding
 	 */
-	static numToCharCode (num: number): string {
-		const base = 26;
+	static numToCharCode(num: number): string {
+		const base = 16;
 		const a_point = 0x61;
-		let result = [];
-		{
-			let mod = num % base;
-			result.push(mod + a_point);
-			num -= mod;
-			num /= base;
-		}
+		const mod = num % base;
+		let result = String.fromCodePoint(mod + a_point);
+		num -= mod;
+		num /= base;
 		while (num != 0) {
-			num -= 1;
-			let mod = num % base;
-			result.push(mod + a_point);
+			const mod = num % base;
+			result += String.fromCodePoint(mod + a_point);
 			num -= mod;
 			num /= base;
 		}
-
-		result.reverse();
-		return String.fromCodePoint(...result);
+		return result;
 	}
 
 };
