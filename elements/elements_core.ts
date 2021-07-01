@@ -337,23 +337,16 @@ class Elements {
 		}
 	}
 
-	private async _loadModule (elementName: string, requires: string[]) {
+	private async _loadModule (elementName: string) {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
 		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.mjs';
-		let link = document.createElement('link');
-		link.rel = 'modulepreload';
-		link.href = this.location + location;
-		this._preloadLocation.append(link);
 		this._requestedElements.add(elementName);
 
-		await this.get(...requires);
-
-		let promise = import('./' + location);
-		let module = await promise;
+		let module = await import('./' + location);
 		let last = module_name.charAt(0);
 		if (!/[A-Z]/.test(last)) {
 			if ('name' in module.default) {
@@ -361,22 +354,23 @@ class Elements {
 				this.elements[name] = module.default;
 			}
 		}
+		if ('elements_loaded' in module) {
+			const load_array = await module.elements_loaded;
+			for (const load of load_array) {
+				this.loaded(load);
+			}
+		}
+
 	}
 
-	private async _loadTS (elementName: string, requires: string[]): Promise<void> {
+	private async _loadTS (elementName: string): Promise<void> {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
 		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
 		let location = elementName + '/' + module_name + '.js';
-		let link = document.createElement('link');
-		link.rel = 'modulepreload';
-		link.href = this.location + location;
-		this._preloadLocation.append(link);
 		this._requestedElements.add(elementName);
-
-		await this.get(...requires);
 
 		import('./' + location);
 	}
@@ -487,11 +481,11 @@ class Elements {
 			switch (manifest['type']) {
 				case 'element3':
 				case 'module3':
-					this._loadModule(name, manifest['requires']);
+					this._loadModule(name);
 					break;
 				case 'element4':
 				case 'module4':
-					this._loadTS(name, manifest['requires']);
+					this._loadTS(name);
 					break;
 				case 'script4':
 					this._loadScript(name, manifest['requires']);
