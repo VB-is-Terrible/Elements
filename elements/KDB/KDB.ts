@@ -1038,7 +1038,7 @@ class KerbalJobDisplay extends BlankKerbalDisplayMixin(empty) implements KerbalD
 	*/
 	makeJobElement (place: KSP_PLACES_T, value: KSP_PLACE_DEPTH): HTMLParagraphElement {
 		let p = document.createElement('p');
-		p.innerHTML = place + ' ' + KNS.valueToJob(value);
+		p.textContent = place + ' ' + KNS.valueToJob(value);
 		return p;
 	}
 	/**
@@ -1048,7 +1048,7 @@ class KerbalJobDisplay extends BlankKerbalDisplayMixin(empty) implements KerbalD
 	 * @param  {int} value   Depth of mission
 	 */
 	changeJobElement (element: HTMLElement, place: KSP_PLACES_T, value: KSP_PLACE_DEPTH) {
-		element.innerHTML = place + ' ' + KNS.valueToJob(value);
+		element.textContent = place + ' ' + KNS.valueToJob(value);
 	}
 };
 Elements.inherits.KerbalJobDisplay = KerbalJobDisplay;

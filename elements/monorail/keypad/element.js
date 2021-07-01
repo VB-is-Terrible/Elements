@@ -156,7 +156,7 @@ Elements.elements.MonorailKeypad = class MonorailKeypad extends Elements.element
 	update_display () {
 		let p = this.shadowRoot.querySelector('#out');
 		requestAnimationFrame((e) => {
-			p.innerHTML = this.query_string + this.display;
+			p.textContent = this.query_string + this.display;
 		});
 	}
 	update_temp_display () {
@@ -171,7 +171,7 @@ Elements.elements.MonorailKeypad = class MonorailKeypad extends Elements.element
 			letter = String.fromCharCode(code);
 		}
 		requestAnimationFrame((e) => {
-			p.innerHTML = letter;
+			p.textContent = letter;
 		})
 	}
 	reset () {

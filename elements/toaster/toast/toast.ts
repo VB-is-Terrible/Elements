@@ -101,12 +101,12 @@ export class ToasterToast extends backbone4 {
 	}
 	private _setTitle(title: string) {
 		requestAnimationFrame(() => {
-			this._title.innerHTML = title;
+			this._title.textContent = title;
 		});
 	}
 	private _setBody(body: string) {
 		requestAnimationFrame(() => {
-			this._body.innerHTML = body;
+			this._body.textContent = body;
 		});
 	}
 	private _setButtons(button_text: Array<string>) {
@@ -200,7 +200,7 @@ export class ToasterToast extends backbone4 {
 	private static createButton(text: string) {
 		const button = document.createElement('button');
 		button.className = 'notification_button';
-		button.innerHTML = text;
+		button.textContent = text;
 		return button;
 	}
 }

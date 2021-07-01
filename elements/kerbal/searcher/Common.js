@@ -120,7 +120,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 			for (let display of queue) {
 				itemHolder.appendChild(display);
 			}
-			name.innerHTML = string;
+			name.textContent = string;
 			if (results.length === 0) {
 				itemHolder.style.display = 'none';
 			} else {
@@ -171,7 +171,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		let display = this.makeDisplay(result);
 		div.appendChild(display);
 		let button = document.createElement('button');
-		button.innerHTML = this.action;
+		button.textContent = this.action;
 		button.classList.add('results');
 		button.addEventListener('click', (e) => {
 			this.editor(result);
@@ -191,7 +191,7 @@ Elements.elements.KerbalSearcherCommon = class extends Elements.elements.tabbed2
 		let string = this.constructor.resultsString(this.__results_length);
 		requestAnimationFrame((e) => {
 			display.remove();
-			results.innerHTML = string;
+			results.textContent = string;
 		});
 	}
 	/**

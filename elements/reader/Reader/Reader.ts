@@ -179,7 +179,7 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 				event_listener();
 			}
 		});
-		a.innerHTML = name;
+		a.textContent = name;
 		div.slot = 's' + count.toString();
 		img.src = folder_url + '/' + '0';
 		requestAnimationFrame(() => {
@@ -214,7 +214,7 @@ export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader', 
 	set_zoom_factor(zoom_factor);
 	requestAnimationFrame(() => {
 		page_count.max = (img_urls.length - 1).toString();
-		page_total.innerHTML = '/ ' + img_urls.length.toString();
+		page_total.textContent = '/ ' + img_urls.length.toString();
 	});
 	dialog.hide();
 }

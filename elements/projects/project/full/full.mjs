@@ -115,7 +115,7 @@ class ProjectsProjectFull extends Elements.elements.backbone3 {
 	_writeTitle (title) {
 		let title_display = this.shadowQuery('#pageTitle');
 		requestAnimationFrame((e) => {
-			title_display.innerHTML = Elements.nameSanitizer(title);
+			title_display.textContent = title;
 		});
 	}
 	_accept (e) {

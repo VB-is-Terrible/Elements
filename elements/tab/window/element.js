@@ -58,7 +58,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 		}
 		let titleSpan = this.shadowRoot.querySelector('#tabTitle');
 		requestAnimationFrame((e) => {
-			titleSpan.innerHTML = value;
+			titleSpan.textContent = value;
 		});
 	}
 	get tabs () {
@@ -110,7 +110,7 @@ Elements.elements.TabWindow = class extends Elements.elements.dragged2 {
 			for (let i = 0; i < tabText.length; i++) {
 				let span = document.createElement('span');
 				span.slot = 's' + (i + 1).toString();
-				span.innerHTML = tabText[i];
+				span.textContent = tabText[i];
 				tabs.appendChild(span);
 			}
 			slots.innerHTML = '';

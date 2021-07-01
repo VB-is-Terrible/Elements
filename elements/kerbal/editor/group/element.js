@@ -278,7 +278,7 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		display.data = kerbal;
 		div.appendChild(display);
 		let button = document.createElement('button');
-		button.innerHTML = 'Remove';
+		button.textContent = 'Remove';
 		button.classList.add('results');
 		button.addEventListener('click', (e) => {
 			this.deleteKerbal(kerbal);
@@ -315,9 +315,9 @@ Elements.elements.KerbalEditorGroup = class KerbalEditorGroup extends Elements.e
 		let counter = this.shadowRoot.querySelector(('#kerbalCount'));
 		requestAnimationFrame((e) => {
 			if (this.group.size !== 0) {
-				counter.innerHTML = '(' + this.group.size.toString() + ')';
+				counter.textContent = '(' + this.group.size.toString() + ')';
 			} else {
-				counter.innerHTML = '';
+				counter.textContent = '';
 			}
 		});
 	}

@@ -27,7 +27,7 @@ let KerbalChoiceDisplay = class extends Elements.inherits.KerbalJobDisplay {
 		div.appendChild(p);
 		let button = document.createElement('button');
 		button.value = place;
-		button.innerHTML = 'Remove';
+		button.textContent = 'Remove';
 		button.classList.add('results');
 		button.classList.add('remove_place');
 		button.addEventListener('click', (e) => {
@@ -44,7 +44,7 @@ let KerbalChoiceDisplay = class extends Elements.inherits.KerbalJobDisplay {
 	 * @param  {int} value   Depth of mission
 	 */
 	changeJobElement (element, place, value) {
-		element.querySelector('p').innerHTML = place + ' ' + KNS.valueToJob(value);
+		element.querySelector('p').textContent = place + ' ' + KNS.valueToJob(value);
 	}
 };
 

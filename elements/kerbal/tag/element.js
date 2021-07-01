@@ -21,10 +21,10 @@ Elements.elements.KerbalTag = class extends Elements.elements.backbone {
 
 		this.change = {
 			name: (value) => {
-				title.innerHTML = value;
+				title.textContent = value;
 			},
 			subText: (value) => {
-				subText.innerHTML = value;
+				subText.textContent = value;
 			},
 		};
 

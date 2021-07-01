@@ -3,7 +3,7 @@ const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import {applyPriorProperties, nameSanitizer} from '../../../elements_helper.js';
+import {applyPriorProperties} from '../../../elements_helper.js';
 import { Project, ProjectGroup, UpdateWrapper } from '../../Project/Project.js';
 import { Projects2ProjectDisplay } from '../../project/display/display.js';
 
@@ -49,8 +49,8 @@ export class Projects2Project_groupDisplay extends backbone4 {
 		}
 		requestAnimationFrame(() => {
 			this._project_list.textContent = '';
-			this._name.textContent = nameSanitizer(value.name);
-			this._desc.textContent = nameSanitizer(value.desc);
+			this._name.textContent = value.name;
+			this._desc.textContent = value.desc;
 			for (const project of projects) {
 				this._project_list.append(project);
 			}

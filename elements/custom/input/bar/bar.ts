@@ -52,7 +52,7 @@ export class CustomInputBar extends backbone4 {
 
 		this._button_text = value;
 		requestAnimationFrame(() => {
-			this._button.innerHTML = value;
+			this._button.textContent = value;
 		});
 
 		if (this.attributeInit) {

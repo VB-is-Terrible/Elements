@@ -131,7 +131,7 @@ Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 					this.jobDisplay[location] = this.constructor.makeJobElement(location, value);
 					insertLocation.appendChild(this.jobDisplay[location]);
 				} else {
-					this.jobDisplay[location].innerHTML = location + ' ' + KNS.valueToJob(value);
+					this.jobDisplay[location].textContent = location + ' ' + KNS.valueToJob(value);
 					if (!(insertLocation.contains(this.jobDisplay[location]))) {
 						// A display element has been made, but has since been removed
 						insertLocation.appendChild(this.jobDisplay[location]);
@@ -177,7 +177,7 @@ Elements.elements.KerbalDisplay = class extends Elements.elements.backbone2 {
 	*/
 	static makeJobElement (place, value) {
 		let p = document.createElement('p');
-		p.innerHTML = place + ' ' + KNS.valueToJob(value);
+		p.textContent = place + ' ' + KNS.valueToJob(value);
 		return p;
 	}
 }

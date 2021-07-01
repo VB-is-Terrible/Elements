@@ -41,7 +41,7 @@ Elements.elements.MonorailOutput = class MonorailOutput extends Elements.element
 	}
 	set speed (value) {
 		let speed = this.shadowRoot.querySelector('#speed');
-		speed.innerHTML = value;
+		speed.textContent = value;
 		this._speed = value;
 	}
 	get led0 () {
@@ -49,7 +49,7 @@ Elements.elements.MonorailOutput = class MonorailOutput extends Elements.element
 	}
 	set led0 (value) {
 		let led = this.shadowRoot.querySelector('#led0');
-		led.innerHTML = value ? '1' : '0';
+		led.textContent = value ? '1' : '0';
 		this._led0 = value;
 	}
 	get led1 () {
@@ -57,7 +57,7 @@ Elements.elements.MonorailOutput = class MonorailOutput extends Elements.element
 	}
 	set led1 (value) {
 		let led = this.shadowRoot.querySelector('#led1');
-		led.innerHTML = value ? '1' : '0';
+		led.textContent = value ? '1' : '0';
 		this._led1 = value;
 	}
 };

@@ -82,14 +82,14 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 		let value = this.data;
 		if (this.data === null) {return;}
 
-		this.shadowRoot.querySelector('.name').innerHTML = Elements.nameSanitizer(value.name);
+		this.shadowRoot.querySelector('.name').textContent = value.name;
 		let status = value.status;
 		let display = this.shadowRoot.querySelector('#status');
 		let desc = this.shadowRoot.querySelector('p.desc');
 		let link = this.shadowRoot.querySelector('#editlink');
-		this.shadowRoot.querySelector('p.status').innerHTML = status.minor_code;
+		this.shadowRoot.querySelector('p.status').textContent = status.minor_code;
 		requestAnimationFrame((e) => {
-			desc.innerHTML = value.desc;
+			desc.textContent = value.desc;
 			display.className = 'border';
 			link.href = Projects.base_location + PROJECT_SUBPAGE + this.__data.id.toString();
 			if (status.minor === 0) {
@@ -119,7 +119,7 @@ Elements.elements.ProjectsProjectDisplay = class ProjectsProjectDisplay extends 
 		if (this.data.counter) {
 			let progress = this.shadowRoot.querySelector('p.progress');
 			requestAnimationFrame((e) => {
-				progress.innerHTML = this.data.progress.toString() + ' / ' +
+				progress.textContent = this.data.progress.toString() + ' / ' +
 						     this.data.required.toString();
 			});
 		}

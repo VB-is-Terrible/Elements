@@ -126,14 +126,14 @@ class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 		if (!counter) {
 			let p = this.shadowRoot.querySelector('#projectProgressOverall');
 			requestAnimationFrame((e) => {
-				p.innerHTML = Projects.STATUS_CODES_MAJOR[progress];
+				p.textContent = Projects.STATUS_CODES_MAJOR[progress];
 			});
 		} else {
 			let progress_current = this.shadowRoot.querySelector('#projectProgressCurrent');
 			let progress_total = this.shadowRoot.querySelector('#projectProgressTotal');
 			requestAnimationFrame((e) => {
-				progress_current.innerHTML = progress.toString();
-				progress_total.innerHTML = required.toString();
+				progress_current.textContent = progress.toString();
+				progress_total.textContent = required.toString();
 				progress_bar.value = progress;
 				progress_bar.max = required;
 			});
@@ -160,10 +160,10 @@ class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 			let p = document.createElement('p');
 			p.className = 'spacer';
 			a.href = './' + id.toString();
-			p.innerHTML = limitLength(Projects.main_project.get_event_by_id(id).name);
+			p.textContent = limitLength(Projects.main_project.get_event_by_id(id).name);
 			a.append(p);
 			let comma = document.createElement('p');
-			comma.innerHTML = ', ';
+			comma.textContent = ', ';
 			requestAnimationFrame((e) => {
 				if (!first) {
 					dependDiv.append(comma);
@@ -175,15 +175,15 @@ class ProjectsProjectFullDisplay extends Elements.elements.backbone3 {
 	}
 	/**
 	 * Find an element in the shadowRoot by the selector, then set
-	 * the innerHTML to the updateValue
-	 * @param  {String} updateValue String to update innerHTML to
+	 * the textContent to the updateValue
+	 * @param  {String} updateValue String to update textContent to
 	 * @param  {String} selector    CSS selector to find element to update
 	 * @private
 	 */
 	_writeElement (updateValue, selector) {
 		const writeElement = this.shadowRoot.querySelector(selector);
 		requestAnimationFrame((e) => {
-			writeElement.innerHTML = updateValue;
+			writeElement.textContent = updateValue;
 		});
 	}
 }

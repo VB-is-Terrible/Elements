@@ -44,8 +44,8 @@ export class Projects2ProjectDisplay extends backbone4 {
 		}
 		const value = this.updater.data;
 		requestAnimationFrame(() => {
-			this._name.innerHTML = nameSanitizer(value.name);
-			this._desc.innerHTML = nameSanitizer(value.desc);
+			this._name.textContent = value.name;
+			this._desc.textContent = value.desc;
 		});
 	}
 	get updater() {

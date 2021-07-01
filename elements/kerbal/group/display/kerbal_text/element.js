@@ -82,8 +82,8 @@ Elements.elements.KerbalGroupDisplayKerbal_text = class extends Elements.element
 	updateData () {
 		let name = this.shadowRoot.querySelector('#name');
 		let text = this.shadowRoot.querySelector('#text');
-		name.innerHTML = Elements.nameSanitizer(this.data.name);
-		text.innerHTML = Elements.nameSanitizer(this.data.text);
+		name.textContent = this.data.name;
+		text.textContent = this.data.text;
 	}
 }
 
