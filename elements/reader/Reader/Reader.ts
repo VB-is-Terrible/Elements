@@ -1,4 +1,5 @@
-const requires = ['toaster', 'elements-container-dialog', 'grid'];
+const requires = ['toaster', 'container-dialog', 'grid', 'gallery-scroll-dynamic'];
+const recommends = ['custom-input-bar'];
 let current_url: string = '';
 
 import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
@@ -9,6 +10,7 @@ import {Elements} from '../../elements_core.js';
 import type { Toaster } from '../../toaster/toaster.js';
 import { ToasterContext } from '../../toaster/Common/Common.js';
 
+Elements.get(...recommends);
 await Elements.get(...requires);
 
 const reader = document.querySelector('#main_scroller')! as GalleryScrollDynamic;
