@@ -406,6 +406,12 @@ class Elements {
 		const promise = this._getPromiseStore.get(loaded);
 		if (promise !== undefined) {
 			promise.resolve();
+		} else {
+			this._getPromiseStore.set(loaded, {
+				promise: Promise.resolve(),
+				resolve: () => {},
+				reject: () => {},
+			});
 		}
 	}
 
