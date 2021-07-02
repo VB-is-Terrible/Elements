@@ -66,3 +66,6 @@ backbone v5:
 
 Chrome's resize observer constantly fires. Chrome's fault
 Chrome freaks out with no-mode CORS prefetch tags.
+
+
+e = (await import ('./elements/elements_core.js')).Elements
