@@ -30,9 +30,19 @@ const respond = async (e: CustomEvent) => {
 };
 
 const redo = async () => {
+	toaster.addToast({
+		title: 'Reloading'
+	});
 	query_pics(current_url, -1);
 };
 
+let loading = false;
+const ui_redo = async () => {
+	if (loading) {
+		return;
+	}
+	redo();
+}
 Elements.common.reader_reload = redo;
 //@ts-ignore
 window.redo = redo;
@@ -40,6 +50,7 @@ window.redo = redo;
 
 const QUERY_NOTIFICATION_TIME = 10000;
 const query_pics = async (url: string, position?: number) => {
+	loading = true;
 	const start = Date.now();
 	const form = new FormData();
 	form.append('url', url);
@@ -67,6 +78,7 @@ const query_pics = async (url: string, position?: number) => {
 			});
 		}
 	}
+	loading = false;
 };
 
 const update_page = (e: CustomEvent) => {
@@ -292,7 +304,7 @@ const image_fail = (e: CustomEvent, urls: Array<string>) => {
 		});
 		if (new_toast) {
 			redo_toast.toast!.addEventListener('toast_button_click', () => {
-				redo();
+				ui_redo();
 			});
 		}
 	}
