@@ -13,7 +13,7 @@ const ELEMENT_NAME = 'GalleryScrollDynamic';
 
 
 
-
+const video_formats = new Set(['.mp4', '.webm', '.ogv', '.avi']);
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 9;
@@ -89,7 +89,22 @@ export class GalleryScrollDynamic extends backbone4 {
 	}
 	private _create_img(src: string, callback: (() => void) | null = null) {
 		const div = document.createElement('div');
-		const img = document.createElement('img');
+		let img: HTMLImageElement | HTMLVideoElement;
+		let video = false;
+		const under_string = src.toLowerCase();
+		for (const extension of video_formats) {
+			if (under_string.endsWith(extension)) {
+				video = true;
+				break;
+			}
+		}
+		if (!video) {
+			img = document.createElement('img');
+		} else {
+			img = document.createElement('video');
+			img.autoplay = true;
+			img.muted = true;
+		}
 		div.className = 'scroll';
 		//@ts-ignore
 		div.part = 'image-container';
@@ -255,7 +270,7 @@ export class GalleryScrollDynamic extends backbone4 {
 			this.position -= 1;
 		}
 	}
-	private _img_load(_img: HTMLImageElement) {
+	private _img_load(_img: HTMLImageElement | HTMLVideoElement) {
 	}
 	private _rebuild_position(position: number) {
 		const old = this._position;

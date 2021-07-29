@@ -1,8 +1,11 @@
-img.scroll {
+img.scroll, video.scroll {
 	object-fit: contain;
 	min-width: 5em;
 	min-height: 5em;
 	background-color: pink;
+}
+video.scroll {
+	display: block;
 }
 #pseudoBody {
 	display: flex;
