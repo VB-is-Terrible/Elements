@@ -183,7 +183,7 @@ export class Dropdown extends backbone4 {
 		}
 		}
 
-		let setup = requestAnimationFrame((e) => {
+		let setup = requestAnimationFrame(() => {
 			// menu.style.visibility = 'visible';
 			menu.style.display = 'block';
 		});
