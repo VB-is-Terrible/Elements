@@ -194,6 +194,7 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 			}
 		});
 		a.textContent = name;
+		a.title = name;
 		div.slot = 's' + count.toString();
 		img.src = folder_url + '/' + '0';
 		requestAnimationFrame(() => {
