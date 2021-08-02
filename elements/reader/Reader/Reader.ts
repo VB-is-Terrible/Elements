@@ -214,16 +214,12 @@ const visit_local_link = async (url: string, gallery_name: string) => {
 	set_urls(links, gallery_name);
 };
 
-export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader', position?: number) => {
+export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader', position: number = 0) => {
 	reset_fails();
 	requestAnimationFrame(() => {
-		page_count.value = '0';
+		page_count.value = position.toString();
 	});
-	if (position !== undefined) {
-		reader.set_and_jump(img_urls, position);
-	} else {
-		reader.img_urls = img_urls;
-	}
+	reader.set_and_jump(img_urls, position);
 	document.title = title;
 	zoom_factor = 1;
 	set_zoom_factor(zoom_factor);
