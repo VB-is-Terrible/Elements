@@ -55,8 +55,8 @@ kerbal-editor-group:
 	* Clearing
 	* Disabling
 	* Listening for kerbal deletion
-
-
+gallery:
+	* Skipping images when zoomed
 backbone v5:
 	* Private fields + members
 	* Top level await
