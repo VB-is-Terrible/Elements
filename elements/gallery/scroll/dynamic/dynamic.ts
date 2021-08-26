@@ -169,7 +169,7 @@ export class GalleryScrollDynamic extends backbone4 {
 					first = img;
 				});
 				this._start -= 1;
-				to_load -= 1
+				to_load -= 1;
 			}
 		} else if (below > this.KEEP_BEHIND) {
 			let to_remove = below - this.KEEP_BEHIND;
