@@ -19,6 +19,8 @@ const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 9;
 const KEEP_BEHIND = 20;
 
+console.assert(PRELOAD_EXCEED < KEEP_BEHIND);
+
 /**
  * @event GalleryScrollDynamic#gallery-load-fail
  * @property {String} detail URL that failed to load
