@@ -1,7 +1,6 @@
 const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {} from '../../../elements_backbone.js';
 import {GalleryScroll, template_promise} from '../scroll.js';
 import { rafContext, removeChildren } from '../../../elements_helper.js';
 

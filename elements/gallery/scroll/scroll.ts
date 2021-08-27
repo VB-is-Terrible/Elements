@@ -4,7 +4,7 @@ const requires: Array<string> = [];
 // TODO: Make this coreless
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import {} from '../../elements_helper.js';
+import {applyPriorProperties} from '../../elements_helper.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -32,6 +32,7 @@ export abstract class GalleryScroll extends backbone4 {
 
 		this._body = template.querySelector('#pseudoBody')! as HTMLDivElement;
 		shadow.appendChild(template);
+		applyPriorProperties(this, 'img_urls', 'position');
 	}
 	static get observedAttributes() {
 		return [];
