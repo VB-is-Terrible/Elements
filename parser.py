@@ -181,7 +181,7 @@ def parse_ts(dirpath: str, root: str, name: str):
         parser = linkParser()
         not_found = []
         for template in manifest.templates:
-                if not os.path.isfile(root + template):
+                if not os.path.isfile(os.path.join(root, template)):
                         not_found.append(template)
                         continue
                 with open(root + template) as f:
