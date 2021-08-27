@@ -152,8 +152,8 @@ def parse_mjs(dirpath: str, root: str, name: str):
         else:
                 manifest.type = 'element3'
         location = os.path.join(dirpath, name)
-        with open(location) as f:
-                _parse_mjs(f, manifest, name)
+
+        _parse_mjs(location, manifest, name)
 
         parser = linkParser()
         for template in manifest.templates:
@@ -175,8 +175,8 @@ def parse_ts(dirpath: str, root: str, name: str):
                         manifest.type = 'script4'
         else:
                 manifest.type = 'element4'
-        with open(location) as f:
-                _parse_mjs(f, manifest, name)
+
+        _parse_mjs(location, manifest, name)
 
         parser = linkParser()
         not_found = []
@@ -238,8 +238,10 @@ def _parse_mjs_recommends(lines, constants, auto_get_regex, depend_regex):
         return recommends
 
 
-def _parse_mjs(file, manifest, name: str):
-        lines = file.read()
+def _parse_mjs(location, manifest, name: str):
+        with open(location) as file:
+                lines = file.read()
+
         constants_arrays = read_constants(lines)
 
         recommends = _parse_mjs_recommends(lines, constants_arrays,
