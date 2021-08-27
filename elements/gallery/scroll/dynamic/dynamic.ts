@@ -6,8 +6,6 @@ import { rafContext, removeChildren } from '../../../elements_helper.js';
 
 Elements.get(...recommends);
 
-const ELEMENT_NAME = 'GalleryScrollDynamic';
-
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
