@@ -6,8 +6,8 @@ import {Elements} from '$4elements_core.js';
 import {backbone4} from '$4elements_backbone.js';
 import {} from '$4elements_helper.js';
 
-Elements.get(recommends);
-await Elements.get(requires);
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = '$1';
 /**
