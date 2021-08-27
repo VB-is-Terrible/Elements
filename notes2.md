@@ -28,43 +28,40 @@ Definitions:
 7.	Due to bugs in chrome, within the constructor, within arrow functions,
 	self should be used instead of this
 
-Project Requirements:
-	Every method must have a jsdoc, unless:
-		The method will show up as global, even if the @private tag is Used
-		The method is deprecated
-	Every js file must use strict mode
 
 Manifest format:
-"require-name": {
-	"type": "element", // ["element"|"module"] Defines resoultion behaviour
-	"requires": ["element", "dependancies"], // Things that this will require()
-	"templates": ["kerbalEditorTemplate.html"], // Templates used by this elements
-	"css": ["kerbalEditor.css"], // CSS used by this (needs service worker to take advantage of)
-	"resources": ["warning.svg"], // Other files used by this (needs service worker to take advantage of)
-	"provides": ["kerbal-editor"], // Useful for meta-packages and modules
-	// Maybe I can require a element, and the dependancy system automatically finds the appropriate file
-	// And includes it?
-},
+
+| Field | Use | Example |
+| - | | |
+| type | Defines resoultion behaviour | "element"\|"module"|
+| requires | Things that this will require | ["element", "dependancies"] |
+| templates | Templates used by this elements | ["kerbalEditorTemplate.html"] |
+| css | CSS used by this | ["kerbalEditor.css"] |
+| resources | Other files used by this | ["warning.svg"] | |
+| provides | Useful for meta-packages and modules | ["kerbal-editor"]
 
 TODO:
 kerbal-editor-group:
-	* Add kerbals Done
-	* Remove Kerbals Done
-	* Delete Group Done
-	* Loading Done
-	* Clearing
-	* Disabling
-	* Listening for kerbal deletion
-gallery:
-	* Skipping images when zoomed
-backbone v5:
-	* Private fields + members
-	* Top level await
-	* Explicit manifest
-	* Coreless support (Maybe)
-	* Initless support (Move manifest loading back to core)
 
-Chrome's resize observer constantly fires. Chrome's fault
+* Add kerbals Done
+* Remove Kerbals Done
+* Delete Group Done
+* Loading Done
+* Clearing
+* Disabling
+* Listening for kerbal deletion gallery:
+* Skipping images when zoomed
+
+backbone v5:
+
+| Feature | Status |
+| - | - |
+Private fields + members | Dropped
+Top level await | Done
+Explicit manifest | Testing
+Coreless support (Maybe)
+Initless support (Move manifest loading back to core) | Done
+
 Chrome freaks out with no-mode CORS prefetch tags.
 
 
