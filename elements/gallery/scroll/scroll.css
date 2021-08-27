@@ -1,3 +1,9 @@
+:host {
+	display: block;
+}
+:host([hidden]) {
+        display: none;
+}
 img.scroll, video.scroll {
 	object-fit: contain;
 	min-width: 5em;
@@ -14,6 +20,7 @@ video.scroll {
 	height: 100%;
 	width: 100%;
 	overflow-x: hidden;
+	/* overflow-anchor: none; */
 }
 div.scroll {
 	display: flex;

@@ -1,19 +1,15 @@
 const recommends: Array<string> = [];
-const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {backbone4} from '../../../elements_backbone.js';
+import {} from '../../../elements_backbone.js';
+import {GalleryScroll, template_promise} from '../scroll.js';
 import { rafContext, removeChildren } from '../../../elements_helper.js';
 
 Elements.get(...recommends);
-await Elements.get(...requires);
 
 const ELEMENT_NAME = 'GalleryScrollDynamic';
 
 
-
-
-const video_formats = new Set(['.mp4', '.webm', '.ogv', '.avi']);
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 9;
@@ -42,14 +38,11 @@ console.assert(PRELOAD_EXCEED < KEEP_BEHIND);
  * @fires GalleryScrollDynamic#gallery-load-fail
  * @fires GalleryScrollDynamic#position_changed
  */
-export class GalleryScrollDynamic extends backbone4 {
-	_body: HTMLElement;
-	_urls: Array<string> = [];
-	_position = 0;
-	_start = 0;
-	_end = 0;
-	_ticking = false;
-	_final_scroll: ReturnType<typeof rafContext>;
+export class GalleryScrollDynamic extends GalleryScroll {
+	private _start = 0;
+	private _end = 0;
+	private _ticking = false;
+	private _final_scroll: ReturnType<typeof rafContext>;
 	PRELOAD_GUESS = PRELOAD_GUESS;
 	PRELOAD_HEIGHT = PRELOAD_HEIGHT;
 	PRELOAD_EXCEED = PRELOAD_EXCEED;
@@ -57,10 +50,6 @@ export class GalleryScrollDynamic extends backbone4 {
 	constructor() {
 		super();
 
-		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME);
-
-		this._body = template.querySelector('#pseudoBody')! as HTMLDivElement;
 		this._body.addEventListener('scroll', (_e) => {
 			if (!this._ticking) {
 				this._ticking = true;
@@ -71,61 +60,9 @@ export class GalleryScrollDynamic extends backbone4 {
 			}
 		})
 		this._final_scroll = rafContext();
-		//Fancy code goes here
-		shadow.appendChild(template);
 	}
 	static get observedAttributes() {
 		return [];
-	}
-	set img_urls(urls: Array<string>) {
-		if (!(urls instanceof Array)) {
-			console.error('This is not a list of urls', urls);
-			throw new Error('Did not get a list of urls');
-			}
-		this._urls = urls;
-
-		this._rebuild_position(0);
-	}
-	get img_urls() {
-		return this._urls;
-	}
-	private _create_img(src: string, callback: (() => void) | null = null) {
-		const div = document.createElement('div');
-		let img: HTMLImageElement | HTMLVideoElement;
-		let video = false;
-		const under_string = src.toLowerCase();
-		for (const extension of video_formats) {
-			if (under_string.endsWith(extension)) {
-				video = true;
-				break;
-			}
-		}
-		if (!video) {
-			img = document.createElement('img');
-		} else {
-			img = document.createElement('video');
-			img.autoplay = true;
-			img.muted = true;
-		}
-		div.className = 'scroll';
-		//@ts-ignore
-		div.part = 'image-container';
-		img.className = 'scroll';
-		img.src = src;
-		if (callback === null) {
-			callback = () => {
-				this._img_load(img);
-			}
-		}
-		img.addEventListener('load', callback);
-		img.addEventListener('error', () => {
-			const ev = new CustomEvent('gallery-load-fail', {
-				detail: src,
-			});
-			this.dispatchEvent(ev);
-		});
-		div.append(img);
-		return div;
 	}
 	private _scrollUpdate() {
 		let i = 0;
@@ -158,6 +95,9 @@ export class GalleryScrollDynamic extends backbone4 {
 			i += 1;
 		}
 		above = this._body.children.length - i;
+
+		console.log(`{below: ${below}, position: ${this._position}, above: ${above}}`)
+		console.log(`{scrollback: ${scrollTop}}`);
 		if (below <= this.PRELOAD_EXCEED) {
 			//TODO: Need to account for images loading
 			let to_load = this.PRELOAD_EXCEED - below + 1;
@@ -262,19 +202,7 @@ export class GalleryScrollDynamic extends backbone4 {
 	get position() {
 		return this._position;
 	}
-	next() {
-		if (this._position < this._urls.length - 1) {
-			this.position += 1;
-		}
-	}
-	back() {
-		if (this._position > 0) {
-			this.position -= 1;
-		}
-	}
-	private _img_load(_img: HTMLImageElement | HTMLVideoElement) {
-	}
-	private _rebuild_position(position: number) {
+	protected _rebuild_position(position: number) {
 		const old = this._position;
 		removeChildren(this._body);
 		let current = position - this.PRELOAD_EXCEED;
@@ -337,18 +265,10 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 
 	}
-	set_and_jump(img_urls: Array<string>, position: number = 0) {
-		if (!(img_urls instanceof Array)) {
-			console.error('This is not a list of urls', img_urls);
-			throw new Error('Did not get a list of urls');
-			}
-		this._urls = img_urls;
-		this._rebuild_position(position)
-	}
 }
 
 export default GalleryScrollDynamic;
 
 Elements.elements.GalleryScrollDynamic = GalleryScrollDynamic;
 
-Elements.load(GalleryScrollDynamic, 'elements-gallery-scroll-dynamic');
+Elements.load(GalleryScrollDynamic, 'elements-gallery-scroll-dynamic', false, template_promise);
