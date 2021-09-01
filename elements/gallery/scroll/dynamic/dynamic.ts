@@ -6,6 +6,7 @@ import { rafContext, removeChildren } from '../../../elements_helper.js';
 
 Elements.get(...recommends);
 
+const class_version = 4725153;
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
@@ -55,11 +56,18 @@ export class GalleryScrollDynamic extends GalleryScroll {
 					this._scrollUpdate();
 				});
 			}
-		})
+		});
 		this._final_scroll = rafContext();
+
+		if (class_version === this.__final_version){
+			this.post_init();
+		}
 	}
 	static get observedAttributes() {
 		return [];
+	}
+	protected get __final_version() {
+		return class_version;
 	}
 	private _scrollUpdate() {
 		let i = 0;

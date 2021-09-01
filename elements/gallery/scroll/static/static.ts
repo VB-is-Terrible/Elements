@@ -6,6 +6,7 @@ import {removeChildren} from '../../../elements_helper.js';
 
 Elements.get(...recommends);
 
+const class_version = 27666431;
 /**
  * [GalleryScrollStatic Description]
  * @augments Elements.elements.backbone4
@@ -14,9 +15,15 @@ Elements.get(...recommends);
 export class GalleryScrollStatic extends GalleryScroll {
 	constructor() {
 		super();
+		if (class_version === this.__final_version) {
+			this.post_init();
+		}
 	}
 	static get observedAttributes() {
 		return [];
+	}
+	protected get __final_version() {
+		return class_version;
 	}
 	protected _rebuild_position(position: number) {
 		const old = this._position;
