@@ -66,4 +66,7 @@ Initless support (Move manifest loading back to core) | Done
 
 Chrome freaks out with no-mode CORS prefetch tags.
 
+gallery-static:
 
+ - Zooming in freaks out when near the bottom
+ - Reloading when not at the top causes the result position to freak out
