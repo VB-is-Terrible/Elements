@@ -7,14 +7,62 @@ import {removeChildren} from '../../../elements_helper.js';
 Elements.get(...recommends);
 
 const class_version = 27666431;
+
+interface img_info {
+	position: number;
+	size: number;
+}
+
+let firebacks = 0;
+
+
+const read_border_box = (entry: ResizeObserverEntry): ResizeObserverSize => {
+	if (entry.borderBoxSize) {
+		// Firefox compat
+		// @ts-ignore
+		if (entry.borderBoxSize.blockSize) {
+			// @ts-ignore Firefox path
+			return entry.borderBoxSize;
+		} else {
+			// @ts-ignore Chrome path
+			return entry.borderBoxSize[0];
+		}
+	} else {
+		// @ts-ignore
+		return entry.contentRect;
+	}
+};
+
+
 /**
  * [GalleryScrollStatic Description]
  * @augments Elements.elements.backbone4
  * @memberof Elements.elements
  */
 export class GalleryScrollStatic extends GalleryScroll {
+	private _ticking = false;
+	private _ro: ResizeObserver;
+	private _img_map = new WeakMap<Element, img_info>();
+	private _pos_size = new Map<number, number>();
+	private _portion: number = 0;
+	private _scroll_offset = 0;
 	constructor() {
 		super();
+
+		this._body.addEventListener('scroll', (_e) => {
+			if (!this._ticking) {
+				this._ticking = true;
+				//@ts-ignore
+				requestIdleCallback(() => {
+					this._scrollUpdate();
+					this._ticking = false;
+				});
+			}
+		});
+		this._ro = new ResizeObserver((resizeList: ResizeObserverEntry[], observer: ResizeObserver) => {
+			this._resize(resizeList, observer)
+		});
+
 		if (class_version === this.__final_version) {
 			this.post_init();
 		}
@@ -44,36 +92,20 @@ export class GalleryScrollStatic extends GalleryScroll {
 	}
 	private _fill_imgs() {
 		removeChildren(this._body);
-		for (const url of this._urls) {
+		for (let i = 0; i < this._urls.length; i++) {
+			const url = this._urls[i];
 			const img = this._create_img(url);
+			this._img_map.set(img, {position: i, size: 0});
+			this._pos_size.set(i, 0);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
 		}
 	}
 	get position() {
-		const scrollTop = this._body.scrollTop;
-		let i = 0;
-		let height = 0;
-		while (i < this._body.children.length && height < scrollTop) {
-			let img = this._body.children[i];
-			height += img.getBoundingClientRect().height;
-			i += 1;
-		}
-		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
-			this._position = i - 1;
-		} else if (i === this._body.children.length) {
-			if (this.img_urls.length === 0) {
-				return 0;
-			} else {
-				this._position = i - 1;
-			}
-		} else {
-			this._position = i;
-		}
 		return this._position;
 	}
-	set position(value) {
+	set position(value: number) {
 		const old = this._position;
 		if (!Number.isInteger(value)) {
 			throw new Error('Cannot set position to a non integer');
@@ -94,6 +126,8 @@ export class GalleryScrollStatic extends GalleryScroll {
 			this._body.children[value].scrollIntoView();
 		});
 		this._position = value;
+		this._portion = 0;
+		this.setAttribute('position', value.toString());
 		if (old != this._position) {
 			const event = new CustomEvent(
 				'positionChange',
@@ -111,6 +145,82 @@ export class GalleryScrollStatic extends GalleryScroll {
 			first.remove();
 			this._body.scroll(0, scrollTop - size);
 		});
+	}
+	private _scrollUpdate() {
+		const scrollTop = this._body.scrollTop;
+		let i = 0;
+		let height = 0;
+		let diff = 0;
+		let elem_height = -1;
+		while (i < this._body.children.length && height < scrollTop) {
+			// let img = this._body.children[i];
+			// elem_height = img.getBoundingClientRect().height;
+			elem_height = this._pos_size.get(i)!;
+			diff = scrollTop - height;
+			height += elem_height;
+			i += 1;
+		}
+
+		this._portion = diff / elem_height;
+		console.log(this._portion);
+
+		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
+			this._position = i - 1;
+		} else if (i === this._body.children.length) {
+			if (this.img_urls.length === 0) {
+				return 0;
+			} else {
+				this._position = i - 1;
+			}
+		} else {
+			this._position = i;
+		}
+		this.setAttribute('position', this._position.toString());
+		return this._position;
+	}
+	_create_img(src: string, callback: (() => void) | null = null) {
+		const img = super._create_img(src, callback);
+		this._img_map.set(img, {position: -1, size: -1});
+		this._ro.observe(img);
+		return img;
+	}
+	_resize(resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
+		let total = 0;
+		for (const entry of resizeList) {
+			if (!this._img_map.has(entry.target)) {
+				console.error('img_map is missing entry');
+				throw new Error('img_map is missing entry');
+			}
+			const old = this._img_map.get(entry.target)!;
+			const current_size = read_border_box(entry).blockSize;
+			if (old.position < this._position) {
+				const diff = current_size - old.size;
+				total += diff;
+			} else if (old.position === this._position) {
+				const diff = current_size - old.size;
+				total += diff * this._portion;
+			}
+
+			old.size = current_size;
+			this._img_map.set(entry.target, old);
+			this._pos_size.set(old.position, current_size);
+		}
+		// requestAnimationFrame(() => {
+			this._body.scrollBy(0, total);
+		// });
+	}
+	set img_urls(urls: Array<string>) {
+		if (!(urls instanceof Array)) {
+			console.error('This is not a list of urls', urls);
+			throw new Error('Did not get a list of urls');
+			}
+		this._urls = urls;
+
+		this._img_map = new WeakMap();
+		this._rebuild_position(0);
+	}
+	get img_urls() {
+		return this._urls;
 	}
 }
 
