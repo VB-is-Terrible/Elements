@@ -101,8 +101,6 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		}
 		above = this._body.children.length - i;
 
-		console.log(`{below: ${below}, position: ${this._position}, above: ${above}}`)
-		console.log(`{scrollback: ${scrollTop}}`);
 		if (below <= this.PRELOAD_EXCEED) {
 			//TODO: Need to account for images loading
 			let to_load = this.PRELOAD_EXCEED - below + 1;
