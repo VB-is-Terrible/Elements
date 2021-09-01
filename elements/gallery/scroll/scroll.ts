@@ -21,9 +21,9 @@ const ELEMENT_NAME = 'GalleryScroll';
  * @memberof Elements.elements
  */
 export abstract class GalleryScroll extends backbone4 {
-	_body: HTMLElement;
-	_urls: Array<string> = [];
-	_position = 0;
+	protected _body: HTMLElement;
+	protected _urls: Array<string> = [];
+	protected _position = 0;
 	abstract position: number;
 	constructor() {
 		super();
