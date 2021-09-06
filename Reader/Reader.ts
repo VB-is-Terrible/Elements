@@ -2,13 +2,13 @@ const requires = ['toaster', 'container-dialog', 'grid', 'gallery-scroll-dynamic
 const recommends = ['custom-input-bar'];
 let current_url: string = '';
 
-import type {GalleryScrollDynamic} from '../../gallery/scroll/dynamic/dynamic.js'
-import type {ContainerDialog} from '../../container/dialog/dialog.js';
-import type {CustomInputBar} from '../../custom/input/bar/bar.js';
-import type {Grid} from '../../grid/grid.js';
-import {Elements} from '../../elements_core.js';
-import type { Toaster } from '../../toaster/toaster.js';
-import { ToasterContext } from '../../toaster/Common/Common.js';
+import type {GalleryScrollDynamic} from '../elements/gallery/scroll/dynamic/dynamic.js'
+import type {ContainerDialog} from '../elements/container/dialog/dialog.js';
+import type {CustomInputBar} from '../elements/custom/input/bar/bar.js';
+import type {Grid} from '../elements/grid/grid.js';
+import {Elements} from '../elements/elements_core.js';
+import type { Toaster } from '../elements/toaster/toaster.js';
+import { ToasterContext } from '../elements/toaster/Common/Common.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -371,6 +371,3 @@ const notify_send = (title: string, options?: NotificationOptions) => {
 
 
 export default main;
-
-
-Elements.loaded('reader-Reader');
