@@ -1,38 +1,10 @@
-let importValue;
-
-export type ElementType =
-	"module" |
-	"element" |
-	"element3" |
-	"module3" |
-	"element4" |
-	"module4" |
-	"script4";
-
-export interface manifest_single {
-	"css": Array<string>,
-	"provides": Array<string>,
-	"recommends": Array<string>,
-	"requires": Array<string>,
-	"resources": Array<string>,
-	"templates": Array<string>,
-	"type": ElementType;
-};
-
-export interface manifest_t {
-	[key: string]: manifest_single;
-};
-
+// Copied from elements_types to avoid making this a module
 export type PromiseCallback = (value: void | PromiseLike<void>) => void;
 
 interface _ElementsBootLoader {
-	manifest: manifest_t;
-	location: string;
-	manifestLoaded: boolean;
 	get(...elementNames: string[]): Promise<void[]>;
 	request (location: string): Promise<void>;
 	importModule(elementName: string) : Promise<any>;
-	getBacklog: Array<string>;
 	initializedPromise: Promise<void> | null;
 
 };
@@ -40,36 +12,12 @@ interface _ElementsBootLoader {
 let Elements: _ElementsBootLoader;
 
 {
-const ELEMENTS_BASE_CLASS_LOCATION = './elements_core.js';
+const _ELEMENTS_CORE_LOCATION = './elements_core.js';
 /**
  * Skeleton elements standin and bootloader.
  * Pretends to be the elements class
  */
 class ElementsBootloader implements _ElementsBootLoader {
-	/**
-	 * The elements manifest. Contains information about modules and their dependencies
-	 * While optional in v1 and v2, in order to combine v2 and v3 elements, this is now mandatory
-	 * @type {Object}
-	 */
-	manifest: manifest_t = {};
-	/**
-	 * Location to prefix file requests by, i.e. location of elements folder
-	 * Can be set before load by setting ELEMENTS_PRELOAD_LOCATION
-	 * @type {String}
-	 */
-	location: string = 'elements/';
-	/**
-	 * flag for if the manifest has loaded
-	 * @type {Boolean}
-	 */
-	manifestLoaded: boolean = false;
-	/**
-	 * Empty __getBacklog, can't do anything without the elements class loaded,
-	 * And the main class will be called based on manifestLoaded
-	 */
-	__getBacklog () {
-		this.manifestLoaded = true;
-	}
 	/** Sets the requested resources to be loaded once the elements class has loaded.
 	 * May preemptively load dependencies as shown in the manifest
 	 * @param  {...String} elementNames names of things to load
@@ -91,15 +39,6 @@ class ElementsBootloader implements _ElementsBootLoader {
 		await this.initializedPromise;
 		return Elements.importModule(elementName);
 	}
-	/**
-	 * Empty function. This has empty for a while
-	 */
-	loadManifest () {}
-	/**
-	 * Backlog of request awaiting the manifest and main class to load
-	 * @type {Array<String>}
-	 */
-	getBacklog: Array<string> = [];
 	/**
 	 * A promise that resolves once the elements class has loaded
 	 * For functions that need the real thing
@@ -123,26 +62,20 @@ class ElementsBootloader implements _ElementsBootLoader {
 		this.initializedPromise = new Promise((resolve, _reject) => {
 			this._resolve = resolve;
 		});
+		let core_location: string;
 		try {
-                        //@ts-ignore
-			this.location = ELEMENTS_PRELOAD_LOCATION;
+			//@ts-ignore
+			core_location = ELEMENTS_CORE_LOCATION;
 		} catch (e) {
+			core_location = _ELEMENTS_CORE_LOCATION;
 			if (!(e instanceof ReferenceError)) {
 				throw e;
 			}
 		}
-		import(ELEMENTS_BASE_CLASS_LOCATION).then((module) => {
+		import(core_location).then((module) => {
 			const base = module.Elements;
 			Elements = base;
-			base.manifest = this.manifest;
-			base.location = this.location;
-			base.manifestLoaded = this.manifestLoaded;
-			base.getBacklog = this.getBacklog;
-			if (this.manifestLoaded) {
-				base.__getBacklog();
-			}
 			this._resolve();
-                        importValue = module;
 		})
 	}
 }

@@ -57,9 +57,10 @@ class Elements {
 	private _requestedElements: Set<string> = new Set();
 	/**
 	 * Location to prefix file requests by, i.e. location of elements folder
+	 * Now autodected based on the core location
 	 * @type {String}
 	 */
-	location: string = 'elements/';
+	location: string;
 	/**
 	 * Set of gotten elements (requested through get, not require)
 	 * @type {Set}
@@ -77,6 +78,7 @@ class Elements {
 		reject: PromiseCallback}> = new Map();
 	/**
 	 * The elements manifest. Contains information about modules and their dependencies
+	 * While optional in v1 and v2, in order to combine v2 and v3/4 elements, this is now mandatory
 	 * @type {Object}
 	 */
 	private manifest: manifest_t = {};
@@ -783,6 +785,14 @@ class Elements {
 		this._loadedResources.add(location);
 	}
 	constructor () {
+		const url = new URL(import.meta.url as string);
+		const path = url.pathname;
+		const folders = path.split('/');
+		folders.pop();
+		const new_path = folders.join('/');
+		url.pathname = new_path;
+		this.location = url.href + '/';
+
 		const head = document.head;
 		let insert_location = head.querySelector('#' + LINK_INSERT_DIV_ID);
 		if (insert_location === null) {
