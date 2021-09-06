@@ -657,7 +657,7 @@ class Elements {
 			try {
 				template = await request(this.location + location);
 			} catch (e) {
-				console.log('Failed network request for: ' + e.message);
+				console.log('Failed network request for: ' + (e as Error).message);
 				this._loadingTemplates.delete(location);
 				reject();
 				throw e;
@@ -785,7 +785,7 @@ class Elements {
 		this._loadedResources.add(location);
 	}
 	constructor () {
-		const url = new URL(import.meta.url as string);
+		const url = new URL(import.meta.url);
 		const path = url.pathname;
 		const folders = path.split('/');
 		folders.pop();
