@@ -4,7 +4,7 @@ const requires: Array<string> = [];
 // TODO: Make this coreless
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import {applyPriorProperties} from '../../elements_helper.js';
+import {applyPriorProperties, wait, randint} from '../../elements_helper.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -15,6 +15,8 @@ const video_formats = new Set(['.mp4', '.webm', '.ogv', '.avi']);
 
 const class_version = -55283902;
 const ELEMENT_NAME = 'GalleryScroll';
+
+
 /**
  * [GalleryScroll Description]
  * @augments Elements.elements.backbone4
@@ -55,7 +57,7 @@ export abstract class GalleryScroll extends backbone4 {
 	get img_urls() {
 		return this._urls;
 	}
-	protected _create_img(src: string, callback: (() => void) | null = null) {
+	protected _create_img(src: string, callback: (() => void) | null = null, delay: boolean = false) {
 		const div = document.createElement('div');
 		let img: HTMLImageElement | HTMLVideoElement;
 		let video = false;
@@ -77,7 +79,14 @@ export abstract class GalleryScroll extends backbone4 {
 		//@ts-ignore
 		div.part = 'image-container';
 		img.className = 'scroll';
-		img.src = src;
+		if (delay) {
+			(async () => {
+				await wait(randint(2000, 5000));
+				img.src = src;
+			})();
+		} else {
+			img.src = src;
+		}
 		if (callback === null) {
 			callback = () => {
 				this._img_load(img);
