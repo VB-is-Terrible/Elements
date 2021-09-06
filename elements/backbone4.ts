@@ -1,5 +1,5 @@
 // Copied from elements_types to avoid making this a module
-export type PromiseCallback = (value: void | PromiseLike<void>) => void;
+type PromiseCallback = (value: void | PromiseLike<void>) => void;
 
 interface _ElementsBootLoader {
 	get(...elementNames: string[]): Promise<void[]>;
