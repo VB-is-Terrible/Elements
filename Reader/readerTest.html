@@ -40,7 +40,7 @@
 		(async () => {
 			await import('./elements/gallery/scroll/static/static.js');
 			const img_urls = ['elements/screenshots/20190212005724_1.jpg', 'elements/screenshots/20190212134210_1.jpg', 'elements/screenshots/20190212134652_1.jpg', 'elements/screenshots/20190215103805_1.jpg', 'elements/screenshots/20190215104019_1.jpg', 'elements/screenshots/20190215104029_1.jpg', 'elements/screenshots/20190215104030_1.jpg', 'elements/screenshots/20190215104321_1.jpg', 'elements/screenshots/20190215104622_1.jpg', 'elements/screenshots/20190215104643_1.jpg', 'elements/screenshots/20190215104644_1.jpg', 'elements/screenshots/20190215111452_1.jpg', 'elements/screenshots/20190215111458_1.jpg', 'elements/screenshots/20190215111607_1.jpg', 'elements/screenshots/20190215111610_1.jpg', 'elements/screenshots/20190215113047_1.jpg', 'elements/screenshots/20190215113052_1.jpg', 'elements/screenshots/20190224003845_1.jpg', 'elements/screenshots/20190227150113_1.jpg', 'elements/screenshots/20190314004133_1.jpg', 'elements/screenshots/20190314004816_1.jpg', 'elements/screenshots/20190314004824_1.jpg', 'elements/screenshots/20190314010951_1.jpg', 'elements/screenshots/20190314010955_1.jpg', 'elements/screenshots/20190314011015_1.jpg', 'elements/screenshots/20190314011754_1.jpg', 'elements/screenshots/20190314011757_1.jpg', 'elements/screenshots/20190329010626_1.jpg', 'elements/screenshots/20190329010644_1.jpg', 'elements/screenshots/20190329011209_1.jpg', 'elements/screenshots/20190329011218_1.jpg']
-			main_scroller.img_urls = img_urls;
+			main_scroller.img_urls = img_urls.splice(0, 10);
 		}
 
 		)();
