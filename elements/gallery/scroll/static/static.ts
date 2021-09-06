@@ -2,19 +2,18 @@ const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
 import {GalleryScroll, template_promise} from '../scroll.js';
-import {removeChildren} from '../../../elements_helper.js';
+import {removeChildren, wait} from '../../../elements_helper.js';
 
 Elements.get(...recommends);
 
 const class_version = 27666431;
+const LOAD_LEWAY = 3000;
+const DELAY = false;
 
 interface img_info {
 	position: number;
 	size: number;
 }
-
-let firebacks = 0;
-
 
 const read_border_box = (entry: ResizeObserverEntry): ResizeObserverSize => {
 	if (entry.borderBoxSize) {
@@ -45,7 +44,7 @@ export class GalleryScrollStatic extends GalleryScroll {
 	private _img_map = new WeakMap<Element, img_info>();
 	private _pos_size = new Map<number, number>();
 	private _portion: number = 0;
-	private _scroll_offset = 0;
+	private _last_rebuild = 0;
 	constructor() {
 		super();
 
@@ -81,7 +80,6 @@ export class GalleryScrollStatic extends GalleryScroll {
 		requestAnimationFrame(() => {
 			this._body.children[position].scrollIntoView();
 		});
-
 		if (old != this._position) {
 			const event = new CustomEvent(
 				'positionChange',
@@ -147,45 +145,46 @@ export class GalleryScrollStatic extends GalleryScroll {
 		});
 	}
 	private _scrollUpdate() {
+		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {
+			return;
+		}
 		const scrollTop = this._body.scrollTop;
 		let i = 0;
 		let height = 0;
 		let diff = 0;
 		let elem_height = -1;
 		while (i < this._body.children.length && height < scrollTop) {
-			// let img = this._body.children[i];
-			// elem_height = img.getBoundingClientRect().height;
 			elem_height = this._pos_size.get(i)!;
 			diff = scrollTop - height;
 			height += elem_height;
 			i += 1;
 		}
 
-		this._portion = diff / elem_height;
-		console.log(this._portion);
 
 		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
+			this._portion = diff / elem_height;
 			this._position = i - 1;
 		} else if (i === this._body.children.length) {
+			this._portion = 0;
 			if (this.img_urls.length === 0) {
 				return 0;
 			} else {
 				this._position = i - 1;
 			}
 		} else {
+			this._portion = 0;
 			this._position = i;
 		}
 		this.setAttribute('position', this._position.toString());
 		return this._position;
 	}
 	_create_img(src: string, callback: (() => void) | null = null) {
-		const img = super._create_img(src, callback);
+		const img = super._create_img(src, callback, DELAY);
 		this._img_map.set(img, {position: -1, size: -1});
 		this._ro.observe(img);
 		return img;
 	}
 	_resize(resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
-		let total = 0;
 		for (const entry of resizeList) {
 			if (!this._img_map.has(entry.target)) {
 				console.error('img_map is missing entry');
@@ -193,30 +192,35 @@ export class GalleryScrollStatic extends GalleryScroll {
 			}
 			const old = this._img_map.get(entry.target)!;
 			const current_size = read_border_box(entry).blockSize;
-			if (old.position < this._position) {
-				const diff = current_size - old.size;
-				total += diff;
-			} else if (old.position === this._position) {
-				const diff = current_size - old.size;
-				total += diff * this._portion;
-			}
-
 			old.size = current_size;
 			this._img_map.set(entry.target, old);
 			this._pos_size.set(old.position, current_size);
 		}
-		// requestAnimationFrame(() => {
-			this._body.scrollBy(0, total);
-		// });
+		let newTop = 0;
+		for (let i = 0; i < this._position; i++) {
+			newTop += this._pos_size.get(i)!;
+		}
+		newTop += this._pos_size.get(this._position)! * this._portion;
+		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {
+			return;
+		}
+		this._body.scroll(0, newTop);
 	}
 	set img_urls(urls: Array<string>) {
 		if (!(urls instanceof Array)) {
 			console.error('This is not a list of urls', urls);
 			throw new Error('Did not get a list of urls');
-			}
+		}
 		this._urls = urls;
 
 		this._img_map = new WeakMap();
+		this._pos_size.clear();
+		this._last_rebuild = Date.now();
+		setTimeout(() => {
+			this._scrollUpdate();
+		}, LOAD_LEWAY);
+
+
 		this._rebuild_position(0);
 	}
 	get img_urls() {
