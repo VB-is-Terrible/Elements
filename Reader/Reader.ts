@@ -37,7 +37,7 @@ const redo = async () => {
 };
 
 let loading = false;
-const ui_redo = async () => {
+export const ui_redo = async () => {
 	if (loading) {
 		return;
 	}
