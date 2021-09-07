@@ -380,6 +380,4 @@ export class ContainerRotate extends backbone4 {
 
 export default ContainerRotate;
 
-Elements.elements.ContainerRotate = ContainerRotate;
-
 Elements.load(ContainerRotate, 'elements-container-rotate', true, template_promise);

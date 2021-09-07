@@ -227,5 +227,5 @@ export class Dropdown extends backbone4 {
 }
 
 export default Dropdown;
-Elements.elements.Dropdown = Dropdown;
+
 Elements.load(Dropdown, 'elements-dropdown');

@@ -207,6 +207,4 @@ export class ToasterToast extends backbone4 {
 
 export default ToasterToast;
 
-Elements.elements.ToasterToast = ToasterToast;
-
 Elements.load(ToasterToast, 'elements-toaster-toast');

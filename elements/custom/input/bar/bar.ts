@@ -96,6 +96,4 @@ export class CustomInputBar extends backbone4 {
 
 export default CustomInputBar;
 
-Elements.elements.CustomInputBar = CustomInputBar;
-
 Elements.load(CustomInputBar, 'elements-custom-input-bar');

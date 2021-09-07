@@ -576,6 +576,4 @@ Elements.elements.dragged = Dragged1;
 
 export default DragElement;
 
-Elements.elements.Toaster = DragElement;
-
 Elements.load(DragElement, 'elements-drag-element');

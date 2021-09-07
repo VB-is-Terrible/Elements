@@ -387,6 +387,4 @@ export class GalleryScrollDynamic extends GalleryScroll {
 
 export default GalleryScrollDynamic;
 
-Elements.elements.GalleryScrollDynamic = GalleryScrollDynamic;
-
 Elements.load(GalleryScrollDynamic, 'elements-gallery-scroll-dynamic', false, template_promise);

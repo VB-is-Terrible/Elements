@@ -20,7 +20,7 @@ const get_animation_duration = () => {
  * @augments Elements.elements.backbone3
  * @memberof Elements.elements
  */
-class ContainerAutohide extends backbone4 {
+export class ContainerAutohide extends backbone4 {
 	_show_offset = '.75em';
 	_expander: HTMLDivElement;
 	constructor() {
@@ -58,9 +58,6 @@ class ContainerAutohide extends backbone4 {
 }
 
 
-export {ContainerAutohide};
 export default ContainerAutohide;
-
-Elements.elements.ContainerAutohide = ContainerAutohide;
 
 Elements.load(ContainerAutohide, 'elements-container-autohide');

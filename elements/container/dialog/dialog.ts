@@ -142,6 +142,4 @@ export class ContainerDialog extends backbone4 {
 
 export default ContainerDialog;
 
-Elements.elements.ContainerDialog = ContainerDialog;
-
 Elements.load(ContainerDialog, 'elements-container-dialog');

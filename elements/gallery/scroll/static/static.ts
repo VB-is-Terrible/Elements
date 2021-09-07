@@ -204,6 +204,4 @@ export class GalleryScrollStatic extends GalleryScroll {
 
 export default GalleryScrollStatic;
 
-Elements.elements.GalleryScrollStatic = GalleryScrollStatic;
-
 Elements.load(GalleryScrollStatic, 'elements-gallery-scroll-static', false, template_promise);

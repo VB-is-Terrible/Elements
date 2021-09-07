@@ -61,7 +61,7 @@ backbone v5:
 Private fields + members | Dropped
 Top level await | Done
 Explicit manifest | Testing
-Coreless support (Maybe)
+Coreless support (Done)
 Initless support (Move manifest loading back to core) | Done
 
 Chrome freaks out with no-mode CORS prefetch tags.

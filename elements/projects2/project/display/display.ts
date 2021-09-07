@@ -76,6 +76,4 @@ export class Projects2ProjectDisplay extends backbone4 {
 
 export default Projects2ProjectDisplay;
 
-Elements.elements.Projects2ProjectDisplay = Projects2ProjectDisplay;
-
 Elements.load(Projects2ProjectDisplay, 'elements-projects2-project-display');

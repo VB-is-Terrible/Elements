@@ -158,6 +158,4 @@ export class DragBody extends backbone4 {
 
 export default DragBody;
 
-Elements.elements.DragBody = DragBody;
-
 Elements.load(DragBody, 'elements-drag-body');

@@ -1,7 +1,3 @@
-export const recommends = [];
-export const requires = [];
-
-import {Elements} from '../../elements_core.js';
 import type { ToastData, ToasterToast } from '../toast/toast.js';
 import type { Toaster } from '../toaster.js';
 
@@ -30,4 +26,4 @@ export class ToasterContext {
 	}
 }
 
-Elements.loaded('toaster/Common');
+export const elements_loaded = ['toaster/Common'];

@@ -40,6 +40,4 @@ console.log('adfsklj');
 
 export default TestFour;
 
-Elements.elements.TestFour = TestFour;
-
 Elements.load(TestFour, 'elements-test-four');

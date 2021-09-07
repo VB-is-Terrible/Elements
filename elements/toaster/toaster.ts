@@ -49,6 +49,4 @@ export class Toaster extends backbone4 {
 
 export default Toaster;
 
-Elements.elements.Toaster = Toaster;
-
 Elements.load(Toaster, 'elements-toaster');

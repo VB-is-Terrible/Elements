@@ -33,6 +33,4 @@ export class $1 extends backbone4 {
 
 export default $1;
 
-Elements.elements.$1 = $1;
-
 Elements.load($1, 'elements-$2');

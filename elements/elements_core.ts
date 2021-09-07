@@ -339,19 +339,19 @@ class Elements {
 		}
 	}
 
-	private async _loadModule (elementName: string) {
+	private async _loadModule (elementName: string, extension = '.mjs') {
 		if ((this._requestedElements.has(elementName))) {
 			return;
 		}
 		let name_tokens = tokenise(elementName);
 		let module_name = name_tokens[name_tokens.length - 1];
-		let location = elementName + '/' + module_name + '.mjs';
+		let location = elementName + '/' + module_name + extension;
 		this._requestedElements.add(elementName);
 
 		let module = await import('./' + location);
 		let last = module_name.charAt(0);
 		if (!/[A-Z]/.test(last)) {
-			if ('name' in module.default) {
+			if ('observedAttributes' in module.default) {
 				let name = module.default.name;
 				this.elements[name] = module.default;
 			}
@@ -363,18 +363,6 @@ class Elements {
 			}
 		}
 
-	}
-
-	private async _loadTS (elementName: string): Promise<void> {
-		if ((this._requestedElements.has(elementName))) {
-			return;
-		}
-		let name_tokens = tokenise(elementName);
-		let module_name = name_tokens[name_tokens.length - 1];
-		let location = elementName + '/' + module_name + '.js';
-		this._requestedElements.add(elementName);
-
-		import('./' + location);
 	}
 	private async _loadScript(elementName: string, requires: string[]) {
 		if ((this._requestedElements.has(elementName))) {
@@ -493,7 +481,7 @@ class Elements {
 					break;
 				case 'element4':
 				case 'module4':
-					this._loadTS(name);
+					this._loadModule(name, '.js');
 					break;
 				case 'script4':
 					this._loadScript(name, manifest['requires']);

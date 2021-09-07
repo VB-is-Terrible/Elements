@@ -189,6 +189,4 @@ export class Grid extends backbone4 {
 
 export default Grid;
 
-Elements.elements.Grid = Grid;
-
 Elements.load(Grid, 'elements-grid');
