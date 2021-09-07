@@ -17,12 +17,27 @@ console.assert(PRELOAD_EXCEED < KEEP_BEHIND);
 
 const LOAD_LEWAY = 3000;
 const DELAY = false;
+const STATIONARY_WAIT = 1000;
 
 interface img_info {
 	position: number;
 	size: number;
 }
 
+const ricContext = (): (f: (timestamp: number) => void) => void => {
+        let raf: number | null = null;
+        return (f) => {
+                if (raf !== null) {
+			//@ts-ignore
+                        cancelIdleCallback(raf);
+                }
+		//@ts-ignore
+                raf = requestIdleCallback((e) => {
+                        f(e);
+                        raf = null;
+                });
+        };
+};
 
 
 /**
@@ -49,13 +64,20 @@ interface img_info {
 export class GalleryScrollDynamic extends GalleryScroll {
 	private _start = 0;
 	private _end = 0;
-	private _ticking = false;
 	private _final_scroll: ReturnType<typeof rafContext>;
 	private _ro: ResizeObserver;
 	private _img_map = new WeakMap<Element, img_info>();
 	private _pos_size = new Map<number, number>();
 	private _portion: number = 0;
-	private _last_rebuild = 0;
+	private _last_rebuild = Date.now();
+	private _scroll_update_context = ricContext();
+	private _check_preload_context = ricContext();
+	private _wait_stationary = ricContext();
+	private _above = 0;
+	private _below = 0;
+	private _to_remove: Array<Element> | null = null;
+	private _last_movement = 0;
+	private _remove_behind: () => void;
 	PRELOAD_GUESS = PRELOAD_GUESS;
 	PRELOAD_HEIGHT = PRELOAD_HEIGHT;
 	PRELOAD_EXCEED = PRELOAD_EXCEED;
@@ -64,13 +86,10 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		super();
 
 		this._body.addEventListener('scroll', (_e) => {
-			if (!this._ticking) {
-				this._ticking = true;
-				//@ts-ignore
-				requestIdleCallback(() => {
-					this._scrollUpdate();
-				});
-			}
+			this._scroll_update_context(() => {
+				this._scrollUpdate();
+			});
+			this._last_movement = Date.now();
 		});
 
 		this._ro = new ResizeObserver((resizeList: ResizeObserverEntry[], observer: ResizeObserver) => {
@@ -79,6 +98,20 @@ export class GalleryScrollDynamic extends GalleryScroll {
 
 		this._final_scroll = rafContext();
 
+		this._remove_behind = () => {
+			if (Date.now() - STATIONARY_WAIT > this._last_movement) {
+				requestAnimationFrame(() => {
+					if (this._to_remove === null) {return;}
+					this._start += this._to_remove.length;
+					for (const img of this._to_remove) {
+						img.remove();
+					}
+					this._to_remove = null;
+				});
+			} else {
+				this._wait_stationary(this._remove_behind);
+			}
+		}
 		if (class_version === this.__final_version){
 			this.post_init();
 		}
@@ -96,7 +129,6 @@ export class GalleryScrollDynamic extends GalleryScroll {
 
 		let i = 0;
 		let height = 0;
-		let above;
 		const old = this._position;
 		const scrollTop = this._body.scrollTop;
 		const scrollBottom = this._body.clientHeight + this._body.scrollTop;
@@ -111,7 +143,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			i += 1;
 		}
 
-		const below = i;
+		this._below = i;
 
 		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
 			this._portion = diff / elem_height;
@@ -132,13 +164,27 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			height += img.clientHeight;
 			i += 1;
 		}
-		above = this._body.children.length - i;
+		this._above = this._body.children.length - i;
 
 		// Start adding/removing images
 
+		this._check_preload_context(() => {
+			this._check_preload();
+		});
+		// End adding/removing images
 
+		if (old != this._position) {
+			const event = new CustomEvent(
+				'positionChange',
+				{detail: this._position}
+			);
+			this.dispatchEvent(event);
+		}
+	}
+	private _check_preload() {
+		const below = this._below;
+		const above = this._above;
 		if (below <= this.PRELOAD_EXCEED) {
-			//TODO: Need to account for images loading
 			let to_load = this.PRELOAD_EXCEED - below + 1;
 			let first = this._body.children[0];
 			while (to_load > 0 && this._start > 0) {
@@ -151,17 +197,13 @@ export class GalleryScrollDynamic extends GalleryScroll {
 				to_load -= 1;
 			}
 		} else if (below > this.KEEP_BEHIND) {
-			// let to_remove = below - this.KEEP_BEHIND;
-			// const imgs: Element[] = [];
-			// for (let i = 0; i < to_remove; i++) {
-			// 	imgs.push(this._body.children[i]);
-			// }
-			// this._start += to_remove;
-			// requestAnimationFrame(() => {
-			// 	for (const img of imgs) {
-			// 		img.remove();
-			// 	}
-			// });
+			let to_remove = below - this.KEEP_BEHIND;
+			const imgs: Element[] = [];
+			for (let i = 0; i < to_remove; i++) {
+				imgs.push(this._body.children[i]);
+			}
+			this._to_remove = imgs;
+			this._wait_stationary(this._remove_behind);
 		}
 		if (above < this.PRELOAD_EXCEED) {
 			let to_load = this.PRELOAD_EXCEED - above;
@@ -179,27 +221,14 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[this._body.children.length - i - 1]);
 			}
-			this._end -= to_remove;
 			requestAnimationFrame(() => {
+				this._end -= to_remove;
 				for (const img of imgs) {
 					img.remove();
 				}
 			});
 		}
 
-		// End adding/removing images
-
-
-		requestAnimationFrame(() => {
-			this._ticking = false;
-		});
-		if (old != this._position) {
-			const event = new CustomEvent(
-				'positionChange',
-				{detail: this._position}
-			);
-			this.dispatchEvent(event);
-		}
 	}
 	set position(value) {
 		const old = this._position;
@@ -218,8 +247,6 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			}
 			throw new Error('Invalid position ' + value.toString());
 		}
-		//TODO: May reqiure repopulating the gallery
-		//TODO: Set scrollTop instead
 		if (this._start > value) {
 			this._rebuild_position(value);
 		} else if (this._end <= value) {
@@ -306,9 +333,9 @@ export class GalleryScrollDynamic extends GalleryScroll {
 					(this._body.children[position - this._start] as HTMLElement).offsetTop -
 					this._body.offsetTop);
 
-				// this._body.children[position - this._start].scrollIntoView()
 			});
 		}
+
 		if (old != this._position) {
 			const event = new CustomEvent(
 				'positionChange',
