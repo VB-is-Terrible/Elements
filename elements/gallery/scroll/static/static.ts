@@ -21,7 +21,6 @@ interface img_info {
  * @memberof Elements.elements
  */
 export class GalleryScrollStatic extends GalleryScroll {
-	private _ticking = false;
 	private _ro: ResizeObserver;
 	private _img_map = new WeakMap<Element, img_info>();
 	private _pos_size = new Map<number, number>();
@@ -31,14 +30,7 @@ export class GalleryScrollStatic extends GalleryScroll {
 		super();
 
 		this._body.addEventListener('scroll', (_e) => {
-			if (!this._ticking) {
-				this._ticking = true;
-				//@ts-ignore
-				requestIdleCallback(() => {
-					this._scrollUpdate();
-					this._ticking = false;
-				});
-			}
+			this._scrollUpdate();
 		});
 		this._ro = new ResizeObserver((resizeList: ResizeObserverEntry[], observer: ResizeObserver) => {
 			this._resize(resizeList, observer)
@@ -197,7 +189,7 @@ export class GalleryScrollStatic extends GalleryScroll {
 		this._img_map = new WeakMap();
 		this._pos_size.clear();
 		this._last_rebuild = Date.now();
-		
+
 		setTimeout(() => {
 			this._scrollUpdate();
 		}, LOAD_LEWAY);
