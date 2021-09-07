@@ -3,7 +3,7 @@ const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
-import { applyPriorProperties, wait } from '../../elements_helper.js'
+import { applyPriorProperties, wait, get_border_box as resizeObserverBorderHeight } from '../../elements_helper.js'
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -37,21 +37,6 @@ const get_options = (): {fill: 'forwards', duration: number} => {
 		duration : Elements.animation.LONG_DURATION,
 	};
 }
-const resizeObserverBorderHeight = (entry: ResizeObserverEntry): number => {
-	if (entry.borderBoxSize) {
-		// Firefox compat
-		// @ts-ignore
-		if (entry.borderBoxSize.blockSize) {
-			// @ts-ignore Firefox path
-			return entry.borderBoxSize.blockSize;
-		} else {
-			// @ts-ignore Chrome path
-			return entry.borderBoxSize[0].blockSize;
-		}
-	} else {
-		return entry.contentRect.height;
-	}
-};
 
 const selector_re = /^s([0-9]*)/
 
@@ -336,7 +321,7 @@ export class ContainerRotate extends backbone4 {
 	private _resize (resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
 		console.log(resizeList)
 		for (let entry of resizeList) {
-			let height = resizeObserverBorderHeight(entry);
+			let height = resizeObserverBorderHeight(entry).blockSize;
 			this._div_sizes.set(entry.target as HTMLDivElement, height);
 		}
 		let largest_height = Math.max(...this._div_sizes.values()) + 1;

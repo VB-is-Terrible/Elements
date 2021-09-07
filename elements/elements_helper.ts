@@ -311,3 +311,20 @@ export const upgradeManifest = (partial: manifest_optional): manifest_single => 
         }
         return partial as manifest_single;
 }
+
+export const get_border_box = (entry: ResizeObserverEntry): ResizeObserverSize => {
+	if (entry.borderBoxSize) {
+		// Firefox compat
+		// @ts-ignore
+		if (entry.borderBoxSize.blockSize !== undefined) {
+			// @ts-ignore Firefox path
+			return entry.borderBoxSize;
+		} else {
+			// @ts-ignore Chrome path
+			return entry.borderBoxSize[0];
+		}
+	} else {
+		// @ts-ignore
+		return entry.contentRect;
+	}
+};

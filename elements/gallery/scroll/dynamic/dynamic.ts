@@ -1,8 +1,8 @@
 const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {GalleryScroll, template_promise, read_border_box} from '../scroll.js';
-import { rafContext, removeChildren } from '../../../elements_helper.js';
+import {GalleryScroll, template_promise} from '../scroll.js';
+import { rafContext, removeChildren, get_border_box as read_border_box } from '../../../elements_helper.js';
 
 Elements.get(...recommends);
 
