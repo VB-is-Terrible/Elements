@@ -15,13 +15,13 @@ const ELEMENT_NAME = 'Toaster';
  * @memberof Elements.elements
  */
 export class Toaster extends backbone4 {
-	private _body: HTMLDivElement;
+	#body: HTMLDivElement;
 	constructor() {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(ELEMENT_NAME);
-		this._body = template.querySelector('#pseudoBody') as HTMLDivElement;
+		this.#body = template.querySelector('#pseudoBody') as HTMLDivElement;
 		//Fancy code goes here
 		shadow.appendChild(template);
 	}
@@ -31,14 +31,14 @@ export class Toaster extends backbone4 {
 	addToast(toastData: ToastData) {
 		const toast = document.createElement('elements-toaster-toast') as ToasterToast;
 		toast.setToast(toastData);
-		this._body.append(toast);
+		this.#body.append(toast);
 		toast.addEventListener('toast_close_final', () => {
 			toast.remove();
 		});
 		return toast;
 	}
 	get toasts(): Array<ToasterToast> {
-		return [...this._body.children] as Array<ToasterToast>;
+		return [...this.#body.children] as Array<ToasterToast>;
 	}
 	clearToasts() {
 		for (const toast of this.toasts) {
