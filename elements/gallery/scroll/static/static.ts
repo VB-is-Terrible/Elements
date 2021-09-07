@@ -1,8 +1,8 @@
 const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {removeChildren, wait} from '../../../elements_helper.js';
 import {GalleryScroll, template_promise, read_border_box} from '../scroll.js';
+import {removeChildren} from '../../../elements_helper.js';
 
 Elements.get(...recommends);
 
@@ -164,7 +164,7 @@ export class GalleryScrollStatic extends GalleryScroll {
 		this._ro.observe(img);
 		return img;
 	}
-	_resize(resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
+	private _resize(resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
 		for (const entry of resizeList) {
 			if (!this._img_map.has(entry.target)) {
 				console.error('img_map is missing entry');
@@ -193,9 +193,11 @@ export class GalleryScrollStatic extends GalleryScroll {
 		}
 		this._urls = urls;
 
+		this._ro.disconnect();
 		this._img_map = new WeakMap();
 		this._pos_size.clear();
 		this._last_rebuild = Date.now();
+		
 		setTimeout(() => {
 			this._scrollUpdate();
 		}, LOAD_LEWAY);
