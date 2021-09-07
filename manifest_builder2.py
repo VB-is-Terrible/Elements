@@ -49,12 +49,6 @@ def build(dirpath: str):
         out.write(output)
         out.write('\n')
         out.close()
-        # # Hack around chrome not preloading json
-        # out2 = open(dirpath + 'manifest.js', 'w')
-        # out2.write(JSHEADER)
-        # out2.write(output)
-        # out2.write(JSFOOTER)
-        # out2.close()
 
 
 def find_modules(dirpath: str):
