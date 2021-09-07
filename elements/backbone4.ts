@@ -50,7 +50,7 @@ class ElementsBootloader implements _ElementsBootLoader {
 	 * @type {Function}
 	 * @private
 	 */
-        private _resolve!: PromiseCallback;
+        #resolve!: PromiseCallback;
         /**
          * Property to indicate to replace this shell
          * @type {Boolean}
@@ -60,7 +60,7 @@ class ElementsBootloader implements _ElementsBootLoader {
 
 	constructor () {
 		this.initializedPromise = new Promise((resolve, _reject) => {
-			this._resolve = resolve;
+			this.#resolve = resolve;
 		});
 		let core_location: string;
 		try {
@@ -75,7 +75,7 @@ class ElementsBootloader implements _ElementsBootLoader {
 		import(core_location).then((module) => {
 			const base = module.Elements;
 			Elements = base;
-			this._resolve();
+			this.#resolve();
 		})
 	}
 }
