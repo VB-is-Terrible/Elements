@@ -91,10 +91,7 @@ export class GalleryScrollStatic extends GalleryScroll {
 	private _fill_imgs() {
 		removeChildren(this._body);
 		for (let i = 0; i < this._urls.length; i++) {
-			const url = this._urls[i];
-			const img = this._create_img(url);
-			this._img_map.set(img, {position: i, size: 0});
-			this._pos_size.set(i, 0);
+			const img = this._create_img(i);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
@@ -178,9 +175,10 @@ export class GalleryScrollStatic extends GalleryScroll {
 		this.setAttribute('position', this._position.toString());
 		return this._position;
 	}
-	_create_img(src: string, callback: (() => void) | null = null) {
-		const img = super._create_img(src, callback, DELAY);
-		this._img_map.set(img, {position: -1, size: -1});
+	protected _create_img(position: number, callback: (() => void) | null = null) {
+		const img = super._create_img(position, callback, DELAY);
+		this._img_map.set(img, {position: position, size: 0});
+		this._pos_size.set(position, 0);
 		this._ro.observe(img);
 		return img;
 	}

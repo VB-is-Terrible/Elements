@@ -57,7 +57,7 @@ export abstract class GalleryScroll extends backbone4 {
 	get img_urls() {
 		return this._urls;
 	}
-	protected _create_img(src: string, callback: (() => void) | null = null, delay: boolean = false) {
+	protected _create_img_from_src(src: string, callback: (() => void) | null = null, delay: boolean = false) {
 		const div = document.createElement('div');
 		let img: HTMLImageElement | HTMLVideoElement;
 		let video = false;
@@ -101,6 +101,9 @@ export abstract class GalleryScroll extends backbone4 {
 		});
 		div.append(img);
 		return div;
+	}
+	protected _create_img(position: number, callback: (() => void) | null, delay: boolean) {
+		return this._create_img_from_src(this._urls[position], callback, delay)
 	}
 	next() {
 		if (this._position < this._urls.length - 1) {

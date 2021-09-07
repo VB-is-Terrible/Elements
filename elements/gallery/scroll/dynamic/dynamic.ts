@@ -106,7 +106,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			let to_load = this.PRELOAD_EXCEED - below + 1;
 			let first = this._body.children[0];
 			while (to_load > 0 && this._start > 0) {
-				const img = this._create_img(this._urls[this._start - 1]);
+				const img = this._create_img(this._start - 1);
 				requestAnimationFrame(() => {
 					this._body.insertBefore(img, first);
 					first = img;
@@ -130,7 +130,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		if (above < this.PRELOAD_EXCEED) {
 			let to_load = this.PRELOAD_EXCEED - above;
 			while (to_load > 0 && this._end < this._urls.length) {
-				const img = this._create_img(this._urls[this._end]);
+				const img = this._create_img(this._end);
 				requestAnimationFrame(() => {
 					this._body.append(img);
 				});
@@ -214,7 +214,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		}
 		this._start = current;
 		while (current < position && current < this._urls.length) {
-			const img = this._create_img(this._urls[current]);
+			const img = this._create_img(current);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
@@ -222,7 +222,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		}
 		let height = 0;
 		if (current < this._urls.length) {
-			const img = this._create_img(this._urls[current], () => {
+			const img = this._create_img(current, () => {
 				this._final_scroll(() => {
 					img.scrollIntoView();
 				});
@@ -237,7 +237,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 
 
 		while (height < this.PRELOAD_HEIGHT && current < this._urls.length) {
-			const img = this._create_img(this._urls[current]);
+			const img = this._create_img(current);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
@@ -246,7 +246,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		}
 		let i = 0;
 		while (i < this.PRELOAD_EXCEED && current + i < this._urls.length) {
-			const img = this._create_img(this._urls[current + i]);
+			const img = this._create_img(current + i);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
