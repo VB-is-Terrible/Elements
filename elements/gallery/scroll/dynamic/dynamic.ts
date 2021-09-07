@@ -24,7 +24,8 @@ interface img_info {
 	size: number;
 }
 
-const ricContext = (): (f: (timestamp: number) => void) => void => {
+//@ts-ignore
+const ricContext = (): (f: (timestamp: IdleDeadline) => void) => void => {
         let raf: number | null = null;
         return (f) => {
                 if (raf !== null) {
