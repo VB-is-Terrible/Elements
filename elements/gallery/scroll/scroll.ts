@@ -20,7 +20,7 @@ export const read_border_box = (entry: ResizeObserverEntry): ResizeObserverSize 
 	if (entry.borderBoxSize) {
 		// Firefox compat
 		// @ts-ignore
-		if (entry.borderBoxSize.blockSize) {
+		if (entry.borderBoxSize.blockSize !== undefined) {
 			// @ts-ignore Firefox path
 			return entry.borderBoxSize;
 		} else {

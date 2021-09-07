@@ -134,7 +134,6 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		}
 		above = this._body.children.length - i;
 
-		// console.log(`position ${this._position}, portion ${this._portion}`);
 		// Start adding/removing images
 
 
@@ -342,7 +341,6 @@ export class GalleryScrollDynamic extends GalleryScroll {
 				below = true;
 			}
 		}
-		console.log('derp');
 		if (below) {
 			this._fix_resize();
 		}
