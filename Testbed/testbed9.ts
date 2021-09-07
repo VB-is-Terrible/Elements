@@ -9,3 +9,10 @@ export class A {
 }
 
 const a = new A();
+
+export class B extends A {
+	constructor() {
+		super();
+		// this.#testValue = 20;
+	}
+}

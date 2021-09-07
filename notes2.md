@@ -58,7 +58,7 @@ backbone v5:
 
 | Feature | Status |
 | - | - |
-Private fields + members | Dropped
+Private fields + members | Done
 Top level await | Done
 Explicit manifest | Testing
 Coreless support (Done)
