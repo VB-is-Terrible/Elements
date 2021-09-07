@@ -28,7 +28,7 @@ export class Grid extends backbone4 {
 
 		// Needed to bind the this value
 		let updateCallback = () => {
-			this.updateGrid();
+			this.#updateGrid();
 		};
 
 		let santizer = (value: unknown, oldValue: number) => {
@@ -51,7 +51,7 @@ export class Grid extends backbone4 {
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.updateGrid();
+		this.#updateGrid();
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
@@ -59,7 +59,7 @@ export class Grid extends backbone4 {
 	/**
 	 * Updates the grid to new row & col amounts
 	 */
-	updateGrid () {
+	#updateGrid () {
 		// Don't bother resizing before connection
 		if (this.attributeInit) {
 			let rows = this.rows;
@@ -75,7 +75,7 @@ export class Grid extends backbone4 {
 				gridElement.style.gridTemplateColumns = '1fr '.repeat(cols);
 				gridElement.style.gridTemplateAreas = Grid.generateGridNames(rows, cols);
 
-				this.updateDivs(rows, cols);
+				this.#updateDivs(rows, cols);
 
 				let holderDivs = gridElement.querySelectorAll('div.HolderDiv') as unknown as HTMLDivElement[];
 
@@ -97,7 +97,7 @@ export class Grid extends backbone4 {
 	 * @param  {Number} rows    Number of rows to have
 	 * @param  {Number} columns Number of columns to have
 	 */
-	updateDivs (rows: number, columns: number) {
+	#updateDivs (rows: number, columns: number) {
 		let insertionPoint = this.shadowRoot!.querySelector('#gridHolder') as HTMLDivElement;
 		let current = insertionPoint.childElementCount;
 		let template = this.shadowRoot!.querySelector('#templateHolderDiv') as HTMLTemplateElement;
