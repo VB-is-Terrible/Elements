@@ -1,7 +1,7 @@
 const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {GalleryScroll, template_promise} from '../scroll.js';
+import {GalleryScroll, template_promise, read_border_box} from '../scroll.js';
 import { rafContext, removeChildren } from '../../../elements_helper.js';
 
 Elements.get(...recommends);
@@ -14,6 +14,16 @@ const PRELOAD_EXCEED = 9;
 const KEEP_BEHIND = 20;
 
 console.assert(PRELOAD_EXCEED < KEEP_BEHIND);
+
+const LOAD_LEWAY = 3000;
+const DELAY = false;
+
+interface img_info {
+	position: number;
+	size: number;
+}
+
+
 
 /**
  * @event GalleryScrollDynamic#gallery-load-fail
@@ -41,6 +51,11 @@ export class GalleryScrollDynamic extends GalleryScroll {
 	private _end = 0;
 	private _ticking = false;
 	private _final_scroll: ReturnType<typeof rafContext>;
+	private _ro: ResizeObserver;
+	private _img_map = new WeakMap<Element, img_info>();
+	private _pos_size = new Map<number, number>();
+	private _portion: number = 0;
+	private _last_rebuild = 0;
 	PRELOAD_GUESS = PRELOAD_GUESS;
 	PRELOAD_HEIGHT = PRELOAD_HEIGHT;
 	PRELOAD_EXCEED = PRELOAD_EXCEED;
@@ -57,6 +72,11 @@ export class GalleryScrollDynamic extends GalleryScroll {
 				});
 			}
 		});
+
+		this._ro = new ResizeObserver((resizeList: ResizeObserverEntry[], observer: ResizeObserver) => {
+			this._resize(resizeList, observer)
+		});
+
 		this._final_scroll = rafContext();
 
 		if (class_version === this.__final_version){
@@ -70,28 +90,41 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		return class_version;
 	}
 	private _scrollUpdate() {
+		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {
+			return;
+		}
+
 		let i = 0;
 		let height = 0;
-		let below = 0;
 		let above;
 		const old = this._position;
 		const scrollTop = this._body.scrollTop;
 		const scrollBottom = this._body.clientHeight + this._body.scrollTop;
+
+		let diff = 0;
+		let elem_height = -1;
+
 		while (i < this._body.children.length && height < scrollTop) {
-			let img = this._body.children[i];
-			height += img.getBoundingClientRect().height;
-			below += 1;
+			elem_height = this._pos_size.get(i + this._start)!;
+			diff = scrollTop - height;
+			height += elem_height;
 			i += 1;
 		}
+
+		const below = i;
+
 		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
+			this._portion = diff / elem_height;
 			this._position = this._start + i - 1;
 		} else if (i === this._body.children.length) {
+			this._portion = 0;
 			if (this.img_urls.length === 0) {
 				this._position = 0;
 			} else {
 				this._position = this._start + i - 1;
 			}
 		} else {
+			this._portion = 0;
 			this._position = this._start + i;
 		}
 		while (i < this._body.children.length && height < scrollBottom) {
@@ -100,6 +133,10 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			i += 1;
 		}
 		above = this._body.children.length - i;
+
+		// console.log(`position ${this._position}, portion ${this._portion}`);
+		// Start adding/removing images
+
 
 		if (below <= this.PRELOAD_EXCEED) {
 			//TODO: Need to account for images loading
@@ -115,17 +152,17 @@ export class GalleryScrollDynamic extends GalleryScroll {
 				to_load -= 1;
 			}
 		} else if (below > this.KEEP_BEHIND) {
-			let to_remove = below - this.KEEP_BEHIND;
-			const imgs: Element[] = [];
-			for (let i = 0; i < to_remove; i++) {
-				imgs.push(this._body.children[i]);
-			}
-			this._start += to_remove;
-			requestAnimationFrame(() => {
-				for (const img of imgs) {
-					img.remove();
-				}
-			});
+			// let to_remove = below - this.KEEP_BEHIND;
+			// const imgs: Element[] = [];
+			// for (let i = 0; i < to_remove; i++) {
+			// 	imgs.push(this._body.children[i]);
+			// }
+			// this._start += to_remove;
+			// requestAnimationFrame(() => {
+			// 	for (const img of imgs) {
+			// 		img.remove();
+			// 	}
+			// });
 		}
 		if (above < this.PRELOAD_EXCEED) {
 			let to_load = this.PRELOAD_EXCEED - above;
@@ -150,6 +187,10 @@ export class GalleryScrollDynamic extends GalleryScroll {
 				}
 			});
 		}
+
+		// End adding/removing images
+
+
 		requestAnimationFrame(() => {
 			this._ticking = false;
 		});
@@ -192,6 +233,7 @@ export class GalleryScrollDynamic extends GalleryScroll {
 					this._body.offsetTop);
 			});
 			this._position = value;
+			this._portion = 0;
 		}
 		if (old != this._position) {
 			const event = new CustomEvent(
@@ -207,7 +249,12 @@ export class GalleryScrollDynamic extends GalleryScroll {
 	}
 	protected _rebuild_position(position: number) {
 		const old = this._position;
+
+		this._ro.disconnect();
 		removeChildren(this._body);
+		this._img_map = new WeakMap();
+		this._pos_size.clear();
+
 		let current = position - this.PRELOAD_EXCEED;
 		if (current < 0) {
 			current = 0;
@@ -256,7 +303,11 @@ export class GalleryScrollDynamic extends GalleryScroll {
 		this._position = position;
 		if (this._end - this._start) {
 			this._final_scroll(() => {
-				this._body.children[position - this._start].scrollIntoView()
+				this._body.scrollTop = (
+					(this._body.children[position - this._start] as HTMLElement).offsetTop -
+					this._body.offsetTop);
+
+				// this._body.children[position - this._start].scrollIntoView()
 			});
 		}
 		if (old != this._position) {
@@ -267,6 +318,45 @@ export class GalleryScrollDynamic extends GalleryScroll {
 			this.dispatchEvent(event);
 		}
 
+	}
+	protected _create_img(position: number, callback: (() => void) | null = null) {
+		const img = super._create_img(position, callback, DELAY);
+		this._img_map.set(img, {position: position, size: 0});
+		this._pos_size.set(position, 0);
+		this._ro.observe(img);
+		return img;
+	}
+	private _resize(resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
+		let below = false;
+		for (const entry of resizeList) {
+			if (!this._img_map.has(entry.target)) {
+				console.error('img_map is missing entry');
+				throw new Error('img_map is missing entry');
+			}
+			const old = this._img_map.get(entry.target)!;
+			const current_size = read_border_box(entry).blockSize;
+			old.size = current_size;
+			this._img_map.set(entry.target, old);
+			this._pos_size.set(old.position, current_size);
+			if (old.position <= this._position) {
+				below = true;
+			}
+		}
+		console.log('derp');
+		if (below) {
+			this._fix_resize();
+		}
+	}
+	private _fix_resize() {
+		let newTop = 0;
+		for (let i = this._start; i < this._position; i++) {
+			newTop += this._pos_size.get(i)!;
+		}
+		newTop += this._pos_size.get(this._position)! * this._portion;
+		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {
+			return;
+		}
+		this._body.scroll(0, newTop);
 	}
 }
 

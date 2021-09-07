@@ -1,8 +1,8 @@
 const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {GalleryScroll, template_promise} from '../scroll.js';
 import {removeChildren, wait} from '../../../elements_helper.js';
+import {GalleryScroll, template_promise, read_border_box} from '../scroll.js';
 
 Elements.get(...recommends);
 
@@ -14,24 +14,6 @@ interface img_info {
 	position: number;
 	size: number;
 }
-
-const read_border_box = (entry: ResizeObserverEntry): ResizeObserverSize => {
-	if (entry.borderBoxSize) {
-		// Firefox compat
-		// @ts-ignore
-		if (entry.borderBoxSize.blockSize) {
-			// @ts-ignore Firefox path
-			return entry.borderBoxSize;
-		} else {
-			// @ts-ignore Chrome path
-			return entry.borderBoxSize[0];
-		}
-	} else {
-		// @ts-ignore
-		return entry.contentRect;
-	}
-};
-
 
 /**
  * [GalleryScrollStatic Description]
