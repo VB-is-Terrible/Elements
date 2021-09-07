@@ -1,13 +1,6 @@
-const recommends: Array<string> = [];
-const requires: Array<string> = [];
-
-// TODO: Make this coreless
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
 import {applyPriorProperties, wait, randint} from '../../elements_helper.js';
-
-Elements.get(...recommends);
-await Elements.get(...requires);
 
 export const template_promise = Elements.loadTemplate('gallery/scroll/scrollTemplate.html');
 const video_formats = new Set(['.mp4', '.webm', '.ogv', '.avi']);
@@ -147,6 +140,7 @@ export abstract class GalleryScroll extends backbone4 {
 
 export default GalleryScroll;
 
-Elements.classes.GalleryScroll = GalleryScroll;
-
-Elements.loaded('gallery-scroll');
+export const elements_loaded = (async () => {
+	await template_promise;
+	return ['gallery-scroll'];
+})();
