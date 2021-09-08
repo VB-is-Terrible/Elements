@@ -58,10 +58,19 @@ const query_pics = async (url: string, position?: number) => {
 	window.current_url = url;
 	current_url = url;
 	const notify_permission = notify_start();
-	const response = await fetch('//127.0.0.1:5000', {
-		method: 'POST',
-		body: form,
-	});
+	let response;
+	try {
+		response = await fetch('//127.0.0.1:5000', {
+			method: 'POST',
+			body: form,
+		});
+	} catch (e) {
+		toaster.addToast({
+			title: 'Error connecting to server',
+			body: 'Check that the server is running',
+		});
+		throw e;
+	}
 	const [urls, title] = await response.json();
 	if (position === -1) {
 		position = reader.position;
