@@ -64,4 +64,11 @@ Explicit manifest | Testing
 Coreless support (Done)
 Initless support (Move manifest loading back to core) | Done
 
+| Optional Features | Status |
+| - | - |
+| Globaling in core | Not possible |
+| Private applyPriorProperties | Done |
+
+Take a look at drag, seems to have stopped dying
+
 Chrome freaks out with no-mode CORS prefetch tags.

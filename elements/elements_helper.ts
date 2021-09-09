@@ -224,8 +224,18 @@ export const randint = (lower: number, upper: number): number => {
 };
 
 
+/**
+ * Contains the valid values of the manifest type
+ * @type {Array<string>}
+ */
 const manifest_array_fields: manifest_type_array = ['css', 'provides', 'recommends', 'requires', 'resources', 'templates'];
 
+
+/**
+ * Upgrade a network optimized manifest to a program ready manifest
+ * @param {manifest_optional} partial The network optimized partial manifest
+ * @return                            The full manifest
+ */
 export const upgradeManifest = (partial: manifest_optional): manifest_single => {
         for (const array of manifest_array_fields) {
                 if (!(array in partial)) {
@@ -235,6 +245,12 @@ export const upgradeManifest = (partial: manifest_optional): manifest_single => 
         return partial as manifest_single;
 }
 
+
+/**
+ * Read a ResizeObserverEntry and return the borderBoxSize, regardless of browser
+ * @param {ResizeObserverEntry} entry Entry to read
+ * @return {ResizeObserverSize}
+ */
 export const get_border_box = (entry: ResizeObserverEntry): ResizeObserverSize => {
 	if (entry.borderBoxSize) {
 		// Firefox compat

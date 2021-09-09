@@ -188,6 +188,12 @@ export class backbone2 extends HTMLElement {
 };
 
 
+/**
+ * Get the property saved in the constuctor
+ * @param  {object} object Object to retrieve property from
+ * @param  {string} property Property to fetch
+ * @return                 Fetched property
+ */
 export const getPriorProperty = <O extends backbone2, K extends keyof O>(object: O, property: K & string): unknown => {
         if (!global_property_store.has(object)) {
                 console.warn('It\'s too late to apply properties. Do this before connectedCallback');
@@ -200,8 +206,8 @@ export const getPriorProperty = <O extends backbone2, K extends keyof O>(object:
 
 /**
  * Apply the properties saved in the constructor
+ * @param  {object} object Object to retrieve properties from
  * @param  {...Strings} properties Properties to restore
- * @instance
  */
 export const applyPriorProperties = <O extends backbone2, K extends keyof O>(object: O, ...properties: Array<K & string>) => {
         if (!global_property_store.has(object)) {
@@ -219,9 +225,9 @@ export const applyPriorProperties = <O extends backbone2, K extends keyof O>(obj
 /**
  * Apply the property saved in the constructor, or initial
  * if the property was not present
+ * @param  {object} object Object to retrieve property from
  * @param  {String} property Property to restore
  * @param  {*} initial       What to set the property to if it was saved
- * @instance
  */
 export const applyPriorProperty = <O extends backbone2, K extends keyof O>(object: O, property: string & K, initial: any) => {
         if (!global_property_store.has(object)) {
