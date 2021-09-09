@@ -319,7 +319,6 @@ export class ContainerRotate extends backbone4 {
 	 * @private
 	 */
 	private _resize (resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
-		console.log(resizeList)
 		for (let entry of resizeList) {
 			let height = resizeObserverBorderHeight(entry).blockSize;
 			this._div_sizes.set(entry.target as HTMLDivElement, height);
@@ -333,7 +332,6 @@ export class ContainerRotate extends backbone4 {
 			}
 			sheet.insertRule(rule);
 		}
-		console.log(rule);
 	}
 	/**
 	 * Make the first child the displayed slot
