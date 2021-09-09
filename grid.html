@@ -10,7 +10,7 @@
 		<link rel='preload' href='elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
 		<link rel="icon" href="./icon.png">
 		<style>
-		#backer {
+		#backer, #coord {
 			--width:  100%;
 			--margin: 15px;
 			top:      0px;
@@ -26,6 +26,9 @@
 			display: flex;
 			flex-direction: column;
 			flex-wrap: nowrap;
+		}
+		elements-grid > button {
+			width: 100%;
 		}
 		</style>
 	</head>
@@ -49,6 +52,28 @@
 				<button slot='s3'> A </button>
 				<button slot='s4'> TEST </button>
 			</div>
+		</elements-grid>
+		<elements-grid id='coord' columns='4' rows='5' coordnaming='true'>
+			<button slot='2-3'> charge, </button>
+			<button slot='3-3'> obtaining </button>
+			<button slot='4-2'> of </button>
+			<button slot='4-1'> copy </button>
+			<button slot='5-1'> and </button>
+			<button slot='2-1'> free </button>
+			<button slot='4-4'> software </button>
+			<button slot='1-2'> is </button>
+			<button slot='1-1'> Permission </button>
+			<button slot='1-3'> hereby </button>
+			<button slot='3-1'> any </button>
+			<button slot='5-3'> documentation </button>
+			<button slot='3-2'> person </button>
+			<button slot='5-2'> associated </button>
+			<button slot='2-4'> to </button>
+			<button slot='5-4'> files </button>
+			<button slot='4-3'> this </button>
+			<button slot='3-4'> a </button>
+			<button slot='2-2'> of </button>
+			<button slot='1-4'> granted, </button>
 		</elements-grid>
 	</body>
 	<script src='elements/backbone4.js'></script>
