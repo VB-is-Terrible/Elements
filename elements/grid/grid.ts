@@ -122,7 +122,7 @@ export class Grid extends backbone4 {
 				let div = newDiv.content.querySelector('div.HolderDiv') as HTMLDivElement;
 				let slot = newDiv.content.querySelector('slot.link') as HTMLSlotElement;
 
-				div.style.gridArea = Grid.numToCharCode(count + 1);
+				div.style.gridArea = Grid.numToCharCode(count);
 				slot.name = currentRow.toString() + '-' + currentCol.toString();
 				insertionPoint.appendChild(newDiv.content);
 				next();
