@@ -3,9 +3,9 @@ const PRELOAD_LOCATION = 'Elements_Preload_Location'
 const SCRIPT_LOCATION = 'Elements_Script_Location'
 
 
-import {backbone, backbone2, backbone3, Backbone} from './elements_backbone.js';
+import {backbone, backbone2, backbone3, Backbone, setUpAttrPropertyLink} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
-import {setUpAttrPropertyLink, booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
+import {booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
 import type {manifest_t, PromiseCallback, manifest_t_optional} from './elements_types'
 
 

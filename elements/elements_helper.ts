@@ -1,42 +1,6 @@
-import type {backbone, backbone2} from './elements_backbone.js'
+import type {backbone} from './elements_backbone.js'
 import type {manifest_single, manifest_optional, manifest_type_array} from './elements_types';
 
-/**
- * Apply the properties saved in the constructor
- * @param  {...Strings} properties Properties to restore
- * @instance
- */
-export function applyPriorProperties<O extends backbone2, K extends keyof O>(object: O, ...properties: Array<K & string>) {
-        if (object.___propertyStore === null) {
-                console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-                return;
-        }
-        for (let prop of properties) {
-                if (object.___propertyStore.has(prop)) {
-                        object[prop] = object.___propertyStore.get(prop);
-                }
-        }
-};
-
-/**
- * Apply the property saved in the constructor, or initial
- * if the property was not present
- * @param  {String} property Property to restore
- * @param  {*} initial       What to set the property to if it was saved
- * @instance
- */
-export function applyPriorProperty<O extends backbone2, K extends keyof O>(object: O, property: string & K, initial: any) {
-        if (object.___propertyStore === null) {
-                console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-                return;
-        }
-        // Because inheritance, typescript can't figure this out :(
-        if (object.___propertyStore.has(property)) {
-                object[property] = object.___propertyStore.get(property);
-        } else {
-                object[property] = initial;
-        }
-};
 
 /**
  * Function to santize boolean attributes
@@ -54,47 +18,6 @@ export function booleaner (value: unknown): boolean {
         }
 };
 
-
-/**
- * Sets up a linked object property/attribute, for backbone2. Does things like copy attribute value to
- * property value once inserted into DOM, checking if the property
- * already has a value.
- * @param  {HTMLElement} object      Element to set up link on
- * @param  {String} property         property/attribute to link
- * @param  {*} [initial=null]         value to intialize the type as
- * @param  {Function} [eventTrigger] Function to call after property has been set
- * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
- */
-export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString: () => string} & O[K]> (
-        object: backbone2 & O,
-        property: K & string,
-        initial: T | null = null,
-        eventTrigger: (value: T) => void = (_value: T) => {},
-        santizer: (value: T & string, old_value: T) => T = (value: T & string, _oldValue: T) => {return value;}) {
-
-        const fail_message = 'Attr-Property must be in constructor.observedAttributes';
-        //@ts-ignore
-        console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
-
-        let hidden: T;
-        let getter = () => {return hidden;};
-        let setter = (raw_value: T & string) => {
-                const value = santizer(raw_value, hidden);
-                if (value === hidden) {return;}
-                hidden = value;
-                if (object.attributeInit) {
-                        object.setAttribute(property, value.toString());
-                }
-                eventTrigger(value);
-        };
-        Object.defineProperty(object, property, {
-                enumerable: true,
-                configurable: true,
-                get: getter,
-                set: setter,
-        });
-        applyPriorProperty(object, property, initial);
-};
 
 /**
  * Desanitizes a string for HTML.

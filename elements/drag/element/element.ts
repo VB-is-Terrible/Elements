@@ -2,8 +2,8 @@ const recommends: Array<string> = [];
 const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
-import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
-import { applyPriorProperty, CustomComposedEvent, GConstructor} from '../../elements_helper.js';
+import {backbone, backbone2, backbone4, applyPriorProperty} from '../../elements_backbone.js';
+import { CustomComposedEvent, GConstructor} from '../../elements_helper.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);

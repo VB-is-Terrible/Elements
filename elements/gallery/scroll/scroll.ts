@@ -1,6 +1,6 @@
 import {Elements} from '../../elements_core.js';
-import {backbone4} from '../../elements_backbone.js';
-import {applyPriorProperties, wait, randint} from '../../elements_helper.js';
+import {backbone4, applyPriorProperties} from '../../elements_backbone.js';
+import {wait, randint} from '../../elements_helper.js';
 
 export const template_promise = Elements.loadTemplate('gallery/scroll/scrollTemplate.html');
 const video_formats = new Set(['.mp4', '.webm', '.ogv', '.avi']);

@@ -2,8 +2,8 @@ const recommends: Array<string> = [];
 const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
-import {backbone4} from '../../elements_backbone.js';
-import { applyPriorProperties, wait, get_border_box as resizeObserverBorderHeight } from '../../elements_helper.js'
+import {backbone4, applyPriorProperties} from '../../elements_backbone.js';
+import { wait, get_border_box as resizeObserverBorderHeight } from '../../elements_helper.js'
 
 Elements.get(...recommends);
 await Elements.get(...requires);
