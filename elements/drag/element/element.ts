@@ -1,4 +1,4 @@
-const recommends: Array<string> = [];
+const recommends: Array<string> = ['drag-body'];
 const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
