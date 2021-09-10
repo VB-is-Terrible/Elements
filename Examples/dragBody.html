@@ -2,10 +2,7 @@
 <html>
 	<head>
 		<meta charset='utf-8'>
-		<script src='elements/backbone.js'></script>
-		<script>
-			Elements.get('dragBody', 'dragElement');
-		</script>
+		<title> </title>
 	</head>
 	<body>
 		<elements-drag-body>
@@ -22,4 +19,10 @@
 		</elements-drag-body>
 		<img src='editor sketch.png' style='left:200px;top:200px;position:absolute' draggable='false' onclick='console.log("hi");'></img>
 	</body>
+	<script>
+	(async () => {
+		const Elements = (await import('../elements/elements_core.js')).default;
+		Elements.get('drag-body', 'drag-element');
+	})();
+	</script>
 </html>
