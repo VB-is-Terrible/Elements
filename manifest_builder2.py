@@ -120,11 +120,17 @@ def scan_modules(modules: Dict[str, int], dirpath: str, root: str):
 
 def scan_module(version: int, module: str, dirpath: str, root: str):
         if version == 4:
-                name = ''
+                if os.path.basename(dirpath) == module:
+                        name = ''
+                else:
+                        name = module
                 manifest = parse_ts(dirpath, root, f'{module}.ts')
                 return name, manifest
         elif version == 3:
-                name = ''
+                if os.path.basename(dirpath) == module:
+                        name = ''
+                else:
+                        name = module
                 manifest = parse_mjs(dirpath, root, f'{module}.mjs')
                 return name, manifest
         elif version == 2:
