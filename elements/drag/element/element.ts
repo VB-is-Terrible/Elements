@@ -162,7 +162,8 @@ export class DragElement extends backbone4 {
 				this.showWindow();
 			} else {
 				this.hideWindow();
-			}                        e.stopPropagation();
+			}                        
+			e.stopPropagation();
 		});
 		this._body.addEventListener('elements-drag-centre', (e) => {
 			this.centre();
