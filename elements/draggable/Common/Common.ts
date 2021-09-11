@@ -193,7 +193,7 @@ export class DragController {
 			this.contexts.get(context)!.drag_end();
 		}
 	}
-	registerResourceHandle () {
+	registerHandle () {
 		this.#resource_count++;
 		this.#open_handles.add(this.#resource_count);
 		return this.#resource_count;

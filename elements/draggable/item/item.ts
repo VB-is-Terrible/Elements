@@ -3,10 +3,9 @@ import {Elements} from '../../elements_core.js';
 import {backbone4, setUpAttrPropertyLink} from '../../elements_backbone.js';
 import {CustomComposedEvent} from '../../elements_helper.js';
 import {draggable_controller} from '../Common/Common.js'
-import type {item_drag_start_t} from '../types';
+import type {item_drag_start_t, drag_callback} from '../types';
 
 const ELEMENT_NAME = 'DraggableItem';
-type drag_callback = (e: DragEvent) => void;
 type event_t = {
 	start: drag_callback,
 	end: drag_callback,
@@ -51,7 +50,7 @@ export class DraggableItem extends backbone4 {
 		console.log(e);
 	}
 	notify (event: DragEvent) {
-		const resource_id = draggable_controller.registerResourceHandle();
+		const resource_id = draggable_controller.registerHandle();
 		const data: item_drag_start_t = {
 			effect_allowed: resource_id,
 			event: event,
