@@ -8,8 +8,8 @@ import type {item_drag_start_t, drag_callback, item_drag_start2_t, item_drop_t} 
 const ELEMENT_NAME = 'DraggableContainer';
 
 type event_t = {
-        drop: drag_callback;
-        over: drag_callback;
+	drop: drag_callback;
+	over: drag_callback;
 };
 
 const mutation_options = {
@@ -42,16 +42,16 @@ const mutation_options = {
  * @type {Object}
  */
 export class DraggableContainer extends backbone4 {
-        #mutator: MutationObserver;
-        #events: event_t;
-        #context: string = '';
-        context!: string;
-        #overlay: HTMLDivElement;
-        #body: HTMLDivElement;
-        effect_allowed: DataTransfer['effectAllowed'];
-        drop_effect: DataTransfer['dropEffect'];
-        #slot_counter: number = 0;
-        #drag_subject: boolean = false;
+	#mutator: MutationObserver;
+	#events: event_t;
+	#context: string = '';
+	context!: string;
+	#overlay: HTMLDivElement;
+	#slots: HTMLDivElement;
+	effect_allowed: DataTransfer['effectAllowed'];
+	drop_effect: DataTransfer['dropEffect'];
+	#slot_counter: number = 0;
+	#drag_subject: boolean = false;
 	constructor () {
 		super();
 
@@ -73,13 +73,13 @@ export class DraggableContainer extends backbone4 {
 			over: (e) => {this.onDragOver(e);},
 		};
 
-                this.#overlay = template.querySelector('#overlay') as HTMLDivElement;
-                this.#body = template.querySelector('#pseudoBody') as HTMLDivElement;
+		this.#overlay = template.querySelector('#overlay') as HTMLDivElement;
+		this.#slots = template.querySelector('#slots') as HTMLDivElement;
 
-                this.addEventListener('elements-item-drag-start', (event) => {
-                        this.#item_drag_start(event);
-                        event.stopPropagation();
-                });
+		this.addEventListener('elements-item-drag-start', (event) => {
+			this.#item_drag_start(event);
+			event.stopPropagation();
+		});
 
 		//Fancy code goes here
 		shadow.appendChild(template);
@@ -89,7 +89,8 @@ export class DraggableContainer extends backbone4 {
 		setUpAttrPropertyLink(this, 'drop_effect');
 		this.effect_allowed = 'link';
 		this.drop_effect = 'link';
-                setUpAttrPropertyLink(this, 'context', '', (value: string) => {this.#change_context(value);});
+
+		setUpAttrPropertyLink(this, 'context', '', (value: string) => {this.#change_context(value);});
 		applyPriorProperties(this, 'effect_allowed', 'drop_effect');
 	}
 	connectedCallback () {
@@ -115,7 +116,7 @@ export class DraggableContainer extends backbone4 {
 		this.#slot_counter += 1;
 		let slot = document.createElement('slot');
 		slot.name = slot_name;
-		this.#body.append(slot);
+		this.#slots.append(slot);
 		node.slot = slot_name;
 	}
 	drag_start (effectAllowed: string) {
@@ -135,8 +136,8 @@ export class DraggableContainer extends backbone4 {
 		this.#detach_drop();
 		console.log('drop ended');
 	}
-        #change_context (value: string) {
-                if (this.connected) {
+	#change_context (value: string) {
+		if (this.connected) {
 			// Remove self from old context
 			if (this.#context !== null) {
 				draggable_controller.removeListener(this, this.#context);
@@ -144,30 +145,31 @@ export class DraggableContainer extends backbone4 {
 			draggable_controller.addListener(this, value);
 		}
 		this.#context = value;
-        }
+	}
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
 	}
 	#item_drag_start (event: Event) {
-                const details_1 = (event as CustomEvent<item_drag_start_t>).detail;
-                const drag_event = details_1.event;
+		const details_1 = (event as CustomEvent<item_drag_start_t>).detail;
+		const drag_event = details_1.event;
 		drag_event.dataTransfer!.effectAllowed = this.effect_allowed;
-                const details_2: item_drag_start2_t = {
-                        rv: draggable_controller.registerHandle(),
-                        event: drag_event,
-                };
-                const ev = CustomComposedEvent('elements-item-drag-start2', details_2);
-                this.dispatchEvent(ev);
-                const rv = draggable_controller.retriveResource(details_2.rv);
-                if (rv === undefined) {
-                        // Not setting dataTransfer automatically cancels drag on firefox
-                        // preventDefault is needed for chrome
-                        // event.preventDefault();
-                        console.warn('Could not find parent to notify of drag');
-                        return;
-                }
+		const details_2: item_drag_start2_t = {
+			rv: draggable_controller.registerHandle(),
+			event: drag_event,
+			source: details_1.source,
+		};
+		const ev = CustomComposedEvent('elements-item-drag-start2', details_2);
+		this.dispatchEvent(ev);
+		const rv = draggable_controller.retriveResource(details_2.rv);
+		if (rv === undefined) {
+			// Not setting dataTransfer automatically cancels drag on firefox
+			// preventDefault is needed for chrome
+			// event.preventDefault();
+			console.warn('Could not find parent to notify of drag');
+			return;
+		}
 		this.#drag_subject = true;
-                draggable_controller.setResource(details_1.effect_allowed, this.effect_allowed);
+		draggable_controller.setResource(details_1.effect_allowed, this.effect_allowed);
 		return this.effect_allowed;
 	}
 	#attach_drop () {
@@ -183,24 +185,24 @@ export class DraggableContainer extends backbone4 {
 		event.preventDefault();
 		draggable_controller.drag_end(this.context);
 
-                const details: item_drop_t = {
-                        event: event,
-                        rv: draggable_controller.registerHandle(),
-                };
-                const ev = CustomComposedEvent('elements-item-drop', details);
-                this.dispatchEvent(ev);
-                const rv = draggable_controller.retriveResource(details.rv);
-                if (rv === undefined) {
-                        // event.preventDefault();
-                        console.warn('Could not find parent to notify of drop');
-                        return;
-                }
+		const details: item_drop_t = {
+			event: event,
+			rv: draggable_controller.registerHandle(),
+		};
+		const ev = CustomComposedEvent('elements-item-drop', details);
+		this.dispatchEvent(ev);
+		const rv = draggable_controller.retriveResource(details.rv);
+		if (rv === undefined) {
+			// event.preventDefault();
+			console.warn('Could not find parent to notify of drop');
+			return;
+		}
 	}
 	onDragOver (event: DragEvent) {
 		event.preventDefault();
-                if (event.dataTransfer === null) {
-                        return;
-                }
+		if (event.dataTransfer === null) {
+			return;
+		}
 		event.dataTransfer.dropEffect = this.drop_effect;
 	}
 	matches (effectAllowed: string) {
@@ -213,16 +215,16 @@ export class DraggableContainer extends backbone4 {
 	}
 	item_drop () {
 	}
-        static setEffects (...effects: Array<string>) {
-                if (effects.length === 0) {
-                        return 'none';
-                } else if (effects.length === 3) {
-                        return 'all';
-                } else {
-                        effects.sort();
-                        return this.#joinEffects(effects);
-                }
-        }
+	static setEffects (...effects: Array<string>) {
+		if (effects.length === 0) {
+			return 'none';
+		} else if (effects.length === 3) {
+			return 'all';
+		} else {
+			effects.sort();
+			return this.#joinEffects(effects);
+		}
+	}
 	static splitEffects (effectAllowed: string) {
 		if (effectAllowed === 'unintialized' || effectAllowed === 'none') {
 			return [];
@@ -231,9 +233,9 @@ export class DraggableContainer extends backbone4 {
 		}
 		let pattern = /([a-z]*)([A-Z][a-z]*)?/;
 		let match = effectAllowed.match(pattern);
-                if (match === null) {
-                        return [];
-                }
+		if (match === null) {
+			return [];
+		}
 		if (match[2] === undefined) {
 			return [match[1]];
 		} else {

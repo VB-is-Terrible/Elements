@@ -54,6 +54,7 @@ export class DraggableItem extends backbone4 {
 		const data: item_drag_start_t = {
 			effect_allowed: resource_id,
 			event: event,
+			source: this,
 		};
 		const ev = CustomComposedEvent('elements-item-drag-start', data);
 		this.dispatchEvent(ev);

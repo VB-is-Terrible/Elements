@@ -26,11 +26,11 @@ export class DraggableDummyListener extends backbone4 {
 		});
 		this.addEventListener('elements-item-drop', (e) => {
 			this.item_drop(e);
-		})
+		});
 	}
 	protected item_drag_start (event: Event) {
 		const details = (event as CustomEvent<item_drag_start2_t>).detail;
-		let target = draggable_controller.registerResource(details.event.target);
+		let target = draggable_controller.registerResource(details.source);
 		if (details.event.dataTransfer === null) {
 			return;
 		}
