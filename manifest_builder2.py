@@ -32,6 +32,7 @@ def walk(dirpath: str, root: str):
         manifests = scan_modules(modules, dirpath, root)
 
         manifests = add_explicit_manifests(manifests, dirpath)
+        manifests = remove_excludes(manifests)
         manifests = rename_modules(manifests, remove_prefix(dirpath, root))
         results = desugar_manifests(manifests)
 
@@ -155,6 +156,16 @@ def scan_module(version: int, module: str, dirpath: str, root: str):
                 return name, manifest
         else:
                 raise Exception(f'Invalid version for module {os.path.join(dirpath, module)}')
+
+
+def remove_excludes(manifests):
+        excludes = []
+        for module in manifests:
+                if manifests[module].type == 'exclude':
+                        excludes.append(module)
+        for module in excludes:
+                del manifests[module]
+        return manifests
 
 
 if __name__ == '__main__':

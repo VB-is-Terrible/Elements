@@ -35,12 +35,14 @@ Manifest format:
 
 | Field | Use | Example |
 | - | | |
-| type | Defines resoultion behaviour | "element"\|"module"|
+| type | Defines resoultion behaviour | "element"\|"module"\|"exclude"*|
 | requires | Things that this will require | ["element", "dependancies"] |
 | templates | Templates used by this elements | ["kerbalEditorTemplate.html"] |
 | css | CSS used by this | ["kerbalEditor.css"] |
 | resources | Other files used by this | ["warning.svg"] | |
 | provides | Useful for meta-packages and modules | ["kerbal-editor"]
+
+\* Exclude removes the module from the manifest
 
 TODO:
 kerbal-editor-group:
