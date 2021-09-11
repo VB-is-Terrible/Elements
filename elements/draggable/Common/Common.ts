@@ -1,7 +1,8 @@
-'use strict'
-
-{
 const CONSOLE = true;
+
+import {Elements} from '../../elements_core.js';
+
+
 /**
  * Namespace for draggable helper objects
  * @type {Object}
@@ -54,12 +55,18 @@ Elements.classes.Draggable = {};
  * Error in draggable module
  * @extends Error
  */
-class DraggableError extends Error {}
+export class DraggableError extends Error {}
+
+interface DraggableListener {
+	drag_start: (effect: string) => void;
+	drag_end: () => void;
+};
 
 /**
  * Stores listeners for a drag context
  */
-class DragContext {
+export class DragContext {
+	listeners: Set<DraggableListener>;
 	constructor () {
 		/**
 		 * Set of listeners
@@ -71,20 +78,20 @@ class DragContext {
 	 * Add a listener to this context
 	 * @param {DraggableListener} listener Listener to register
 	 */
-	addListener (listener) {
+	addListener (listener: DraggableListener) {
 		this.listeners.add(listener);
 	}
 	/**
 	 * Remove a listener from this context
 	 * @param {DraggableListener} listener Listener to remove
 	 */
-	removeListener (listener) {
+	removeListener (listener: DraggableListener) {
 		this.listeners.delete(listener);
 	}
 	/**
 	 * Inform all listeners of this context that a drag & drop has started
 	 */
-	drag_start (effectAllowed) {
+	drag_start (effectAllowed: string) {
 		for (let listener of this.listeners) {
 			listener.drag_start(effectAllowed);
 		}
@@ -101,7 +108,7 @@ class DragContext {
 	 * Number of listeners to this context
 	 * @return {Number} Number of listeners
 	 */
-	get size () {
+	get size (): number {
 		return this.listeners.size;
 	}
 }
@@ -111,18 +118,19 @@ class DragContext {
  * Also performs sanity checks
  * Note: Contexts are referred to as strings.
  */
-class DragController {
+export class DragController {
+	contexts: Map<string, DragContext> = new Map();
+	resources: Map<number, unknown> = new Map();
+	#open_handles: Set<number> = new Set();
+	#resource_count: number = 0;
 	constructor () {
-		this.contexts = new Map();
-		this.resources = new Map();
-		this._resource_count = 0;
 	}
 	/**
 	 * Check if a context name is valid
 	 * @param  {String} context Name of context to check
 	 * @return {Boolean}         Whether the context is valid
 	 */
-	validContext (context) {
+	validContext (context: string): boolean {
 		if (context === null || context === '') {
 			return false;
 		} else {
@@ -134,24 +142,24 @@ class DragController {
 	 * @param {DraggableListener} listener Listener to add
 	 * @param {String} context  Context to add to
 	 */
-	addListener (listener, context) {
+	addListener (listener: DraggableListener, context: string) {
 		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			this.contexts.set(context, new DragContext());
 		}
-		this.contexts.get(context).addListener(listener);
+		this.contexts.get(context)!.addListener(listener);
 	}
 	/**
 	 * Remove the listener from the context
 	 * @param  {DraggableListener} listener Listener to remove
 	 * @param  {String} context  Context to remove from
 	 */
-	removeListener (listener, context) {
+	removeListener (listener: DraggableListener, context: string) {
 		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			throw new DraggableError(`Context ${context} does not exist`);
 		}
-		let context_obj = this.contexts.get(context);
+		let context_obj = this.contexts.get(context)!;
 		context_obj.removeListener(listener);
 		if (context_obj.size === 0) {
 			this.contexts.delete(context);
@@ -161,81 +169,71 @@ class DragController {
 	 * Inform all listeners of the context that a drag & drop has started
 	 * @param  {String} context Context to inform
 	 */
-	drag_start (context, effectAllowed) {
+	drag_start (context: string, effectAllowed: string) {
 		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			if (CONSOLE) {
 				console.warn('drag_started on empty context');
 			}
 		} else {
-			this.contexts.get(context).drag_start(effectAllowed);
+			this.contexts.get(context)!.drag_start(effectAllowed);
 		}
 	}
 	/**
 	 * Inform all listeners of the context that a drag & drop has ended
 	 * @param  {String} context Context to inform
 	 */
-	drag_end (context) {
+	drag_end (context: string) {
 		if (!this.validContext(context)) {return;}
 		if (!this.contexts.has(context)) {
 			if (CONSOLE) {
 				console.warn('drag_ended on empty context');
 			}
 		} else {
-			this.contexts.get(context).drag_end();
+			this.contexts.get(context)!.drag_end();
 		}
 	}
-	registerResource (resource) {
-		this._resource_count++;
-		this.resources.set(this._resource_count, resource);
-		return this._resource_count;
+	registerResourceHandle () {
+		this.#resource_count++;
+		this.#open_handles.add(this.#resource_count);
+		return this.#resource_count;
 	}
-	retriveResource (resource_id) {
+	setResource (resource_id: number, resource: unknown) {
+		if (this.#open_handles.has(resource_id)) {
+			this.#open_handles.delete(resource_id);
+			this.resources.set(resource_id, resource);
+		} else {
+			throw new Error('Invalid resource id');
+		}
+	}
+	registerResource (resource: unknown) {
+		this.#resource_count++;
+		this.resources.set(this.#resource_count, resource);
+		return this.#resource_count;
+	}
+	readResource(resource_id: number) {
+		return this.resources.get(resource_id);
+	}
+	retriveResource (resource_id: number) {
 		let result = this.resources.get(resource_id);
 		this.resources.delete(resource_id);
 		return result;
 	}
 }
 
-{
-	let _check_parent = (parent) => {
-		if (parent === undefined || parent === null) {
-			return false;
-		}
-		let functions = ['item_drag_start', 'item_drop'];
-		for (let func of functions) {
-			if (!(typeof parent[func] === 'function')) {
-				return false;
-			}
-		}
-		return true;
-	};
-	Elements.classes.Draggable.getParent = (childObject) => {
-		let parent = childObject.parentElement;
-		while (parent !== null && !(_check_parent(parent))) {
-			parent = parent.parentElement;
-		}
-		// Final check for shadowRoot parents
-		if (parent === null) {
-			let shadowParent = childObject.getRootNode().host;
-			if (shadowParent !== null) {
-				if (_check_parent(shadowParent)) {
-					parent = shadowParent;
-				}
-			}
-		}
-		return parent;
-	};
-}
 
+//@ts-ignore
 Elements.classes.Draggable.DragController = DragController;
+//@ts-ignore
 Elements.classes.Draggable.DraggableError = DraggableError;
+//@ts-ignore
 Elements.classes.Draggable.DragContext = DragContext;
+
+export const draggable_controller = new DragController();
 /**
 * Main drag controller for general contexts
 * @type {DragController}
 */
-Elements.common.draggable_controller = new DragController();
+Elements.common.draggable_controller = draggable_controller;
 
 Elements.loaded('draggable-Common');
-}
