@@ -350,7 +350,7 @@ class Elements {
 
 		let module = await import('./' + location);
 		let last = module_name.charAt(0);
-		if (!/[A-Z]/.test(last)) {
+		if (!/[A-Z]/.test(last) && module.default !== undefined) {
 			if ('observedAttributes' in module.default) {
 				let name = module.default.name;
 				this.elements[name] = module.default;
