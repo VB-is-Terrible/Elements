@@ -13,6 +13,7 @@ let Elements: _ElementsBootLoader;
 
 {
 const _ELEMENTS_CORE_LOCATION = './elements_core.js';
+const _ELEMENTS_HELPER_LOCATION = './elements_helper.js';
 /**
  * Skeleton elements standin and bootloader.
  * Pretends to be the elements class
@@ -32,13 +33,16 @@ class ElementsBootloader implements _ElementsBootLoader {
 	 * @return {Promise}         Promise that resolves to the response body, can error
 	 */
 	async request (location: string): Promise<void> {
-		await this.initializedPromise;
-		return Elements.request(location);
+		await this.#helperPromise;
+		return this.#request!(location);
 	}
 	async importModule(elementName: string): Promise<any> {
 		await this.initializedPromise;
 		return Elements.importModule(elementName);
 	}
+	#request: ((location: string) => Promise<any>) | null = null;
+	#helperPromise: Promise<void>;
+	#helperResolve!: PromiseCallback;
 	/**
 	 * A promise that resolves once the elements class has loaded
 	 * For functions that need the real thing
@@ -62,6 +66,9 @@ class ElementsBootloader implements _ElementsBootLoader {
 		this.initializedPromise = new Promise((resolve, _reject) => {
 			this.#resolve = resolve;
 		});
+		this.#helperPromise = new Promise((resolve, _reject) => {
+			this.#helperResolve = resolve;
+		});
 		let core_location: string;
 		try {
 			//@ts-ignore
@@ -71,12 +78,16 @@ class ElementsBootloader implements _ElementsBootLoader {
 			if (!(e instanceof ReferenceError)) {
 				throw e;
 			}
-		}
+		};
 		import(core_location).then((module) => {
 			const base = module.Elements;
 			Elements = base;
 			this.#resolve();
-		})
+		});
+		import(_ELEMENTS_HELPER_LOCATION).then((module) => {
+			this.#request = module.request;
+			this.#helperResolve();
+		});
 	}
 }
 
