@@ -6,8 +6,6 @@ import { rafContext, removeChildren, get_border_box as read_border_box } from '.
 
 Elements.get(...recommends);
 
-const class_version = 4725153;
-
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 9;
@@ -113,15 +111,12 @@ export class GalleryScrollDynamic extends GalleryScroll {
 				this._wait_stationary(this._remove_behind);
 			}
 		}
-		if (class_version === this.__final_version){
+		if (this.constructor === GalleryScrollDynamic){
 			this.post_init();
 		}
 	}
 	static get observedAttributes() {
 		return [];
-	}
-	protected get __final_version() {
-		return class_version;
 	}
 	private _scrollUpdate() {
 		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {

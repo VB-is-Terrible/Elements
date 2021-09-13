@@ -6,7 +6,6 @@ export const template_promise = Elements.loadTemplate('gallery/scroll/scrollTemp
 const video_formats = new Set(['.mp4', '.webm', '.ogv', '.avi']);
 
 
-const class_version = -55283902;
 const ELEMENT_NAME = 'GalleryScroll';
 
 
@@ -35,9 +34,6 @@ export abstract class GalleryScroll extends backbone4 {
 	}
 	protected post_init() {
 		applyPriorProperties(this, 'img_urls', 'position');
-	}
-	protected get __final_version() {
-		return class_version;
 	}
 	set img_urls(urls: Array<string>) {
 		if (!(urls instanceof Array)) {

@@ -6,7 +6,6 @@ import {removeChildren, get_border_box as read_border_box} from '../../../elemen
 
 Elements.get(...recommends);
 
-const class_version = 27666431;
 const LOAD_LEWAY = 3000;
 const DELAY = false;
 
@@ -36,15 +35,12 @@ export class GalleryScrollStatic extends GalleryScroll {
 			this._resize(resizeList, observer)
 		});
 
-		if (class_version === this.__final_version) {
+		if (this.constructor === GalleryScrollStatic) {
 			this.post_init();
 		}
 	}
 	static get observedAttributes() {
 		return [];
-	}
-	protected get __final_version() {
-		return class_version;
 	}
 	protected _rebuild_position(position: number) {
 		const old = this._position;
