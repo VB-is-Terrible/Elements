@@ -1,6 +1,8 @@
+import type {GConstructor} from '../elements_helper.js'
+
 export type resource_id = number;
 
-class DragDetail {}
+export class DragDetail {}
 
 export const read_details = <T extends DragDetail>(event: CustomEvent<T>, returnClass: { new(...args: any[]): T }): T => {
 	const detail = event.detail;
@@ -52,5 +54,6 @@ export class ItemDrop extends DragDetail {
 	}
 	static readonly event_string = 'elements-item-drop';
 };
+
 
 export type drag_callback = (e: DragEvent) => void;
