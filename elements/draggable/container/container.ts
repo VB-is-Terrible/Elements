@@ -2,7 +2,8 @@ import {Elements} from '../../elements_core.js';
 import {backbone4, setUpAttrPropertyLink, applyPriorProperties} from '../../elements_backbone.js';
 import {CustomComposedEvent, captialize} from '../../elements_helper.js';
 import {draggable_controller} from '../Common/Common.js'
-import type {item_drag_start_t, drag_callback, item_drag_start2_t, item_drop_t} from '../types';
+import type {drag_callback} from '../types';
+import {ItemDragStartP1, ItemDragStartP2, ItemDrop, read_details} from '../types.js';
 
 
 const ELEMENT_NAME = 'DraggableContainer';
@@ -76,8 +77,8 @@ export class DraggableContainer extends backbone4 {
 		this.#overlay = template.querySelector('#overlay') as HTMLDivElement;
 		this.#slots = template.querySelector('#slots') as HTMLDivElement;
 
-		this.addEventListener('elements-item-drag-start', (event) => {
-			this.#item_drag_start(event);
+		this.addEventListener(ItemDragStartP1.event_string, (event) => {
+			this.#item_drag_start(event as CustomEvent);
 			event.stopPropagation();
 		});
 
@@ -149,16 +150,12 @@ export class DraggableContainer extends backbone4 {
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
 	}
-	#item_drag_start (event: Event) {
-		const details_1 = (event as CustomEvent<item_drag_start_t>).detail;
+	#item_drag_start (event: CustomEvent) {
+		const details_1 = read_details(event, ItemDragStartP2);
 		const drag_event = details_1.event;
 		drag_event.dataTransfer!.effectAllowed = this.effect_allowed;
-		const details_2: item_drag_start2_t = {
-			rv: draggable_controller.registerHandle(),
-			event: drag_event,
-			source: details_1.source,
-		};
-		const ev = CustomComposedEvent('elements-item-drag-start2', details_2);
+		const details_2 = new ItemDragStartP2(drag_event, draggable_controller.registerHandle(), details_1.source);
+		const ev = CustomComposedEvent(ItemDragStartP2.event_string, details_2);
 		this.dispatchEvent(ev);
 		const rv = draggable_controller.retriveResource(details_2.rv);
 		if (rv === undefined) {
@@ -185,11 +182,8 @@ export class DraggableContainer extends backbone4 {
 		event.preventDefault();
 		draggable_controller.drag_end(this.context);
 
-		const details: item_drop_t = {
-			event: event,
-			rv: draggable_controller.registerHandle(),
-		};
-		const ev = CustomComposedEvent('elements-item-drop', details);
+		const details = new ItemDrop(event, draggable_controller.registerHandle());
+		const ev = CustomComposedEvent(ItemDrop.event_string, details);
 		this.dispatchEvent(ev);
 		const rv = draggable_controller.retriveResource(details.rv);
 		if (rv === undefined) {
