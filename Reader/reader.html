@@ -11,16 +11,14 @@
 		<link rel="icon" href="../favicon.png">
 		<style>
 		div.topbar {
-			/* position: sticky; */
-			/* top: 1em; */
-			display: flex;
-			justify-content: center;
-			padding-top: .5em;
-			/* z-index: 999; */
-			/* transform: translate(0, -10px); */
+			display: inline-grid;
+			grid-template-rows: 1fr;
+			grid-template-columns: [left] auto 1fr [middle] auto 1fr [right] auto;
+			width: 100%;
 		}
 		#main_input {
 			z-index: 999;
+			grid-column: middle;
 		}
 		div.scroll {
 			height: 100vh;
@@ -32,13 +30,10 @@
 			box-sizing: border-box;
 		}
 		div.right_align {
-			float: right;
+			grid-column: right;
 		}
-		#page_div {
-			position: absolute;
-			width: 100%;
-			padding: 0 1em;
-			box-sizing: border-box;
+		div.left_align {
+			grid-column: left;
 		}
 		#page_total {
 			background: white;
@@ -96,26 +91,23 @@
 
 		<elements-container-autohide>
 			<div class='topbar'>
-				<div id='page_div'>
-					<div class='right_align'>
-						<input type='number' id='page_count' min='0'></input>
-						<span id='page_total'> / asdf</span>
-					</div>
-					<div style='float:left;'>
-						<button id='local'>
-							Local Galleries
-						</button>
-						<button id='zoom_out'>
-							Zoom Out
-						</button>
-						<input type='number' id='zoom_count' max='2' min = '.1' step='.1' value='1'></input>
-						<button id='zoom_in'>
-							Zoom In
-						</button>
-					</div>
+				<div class='left_align'>
+					<button id='local'>
+						Local Galleries
+					</button>
+					<button id='zoom_out'>
+						Zoom Out
+					</button>
+					<input type='number' id='zoom_count' max='2' min = '.1' step='.1' value='1'></input>
+					<button id='zoom_in'>
+						Zoom In
+					</button>
 				</div>
 				<elements-custom-input-bar text='Go!' id='main_input'></elements-custom-input-bar>
-
+				<div class='right_align'>
+					<input type='number' id='page_count' min='0'></input>
+					<span id='page_total'> / asdf</span>
+				</div>
 			</div>
 		</elements-container-autohide>
 		<elements-container-dialog dialog_hidden='false'>
