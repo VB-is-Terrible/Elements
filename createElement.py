@@ -1,6 +1,7 @@
 import os
 from parser import name_resolver, tokenise
 from config import location
+import subprocess
 # $0 = file path name
 # $1 = capitlized name
 # $2 = name with dashes
@@ -75,6 +76,7 @@ def main():
 	else:
 		print('Invalid version number: {}'.format(version))
 		return
+	subprocess.call(['python3', 'manifest_builder2.py'])
 
 
 def create2(name0, name1, name2):
