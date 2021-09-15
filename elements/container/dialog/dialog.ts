@@ -44,10 +44,10 @@ const get_states = () => {
  * @memberof Elements.elements
  */
 export class ContainerDialog extends backbone4 {
-	_animation: null | Animation = null;
-	_hidden = false;
-	_body: HTMLElement;
-	_ready = false;
+	private _animation: null | Animation = null;
+	private _hidden = false;
+	private _body: HTMLElement;
+	private _ready = false;
 	constructor() {
 		super();
 
@@ -96,7 +96,7 @@ export class ContainerDialog extends backbone4 {
 			this.setAttribute('dialog_hidden', real_value.toString());
 		}
 	}
-	_set_hidden(value: boolean) {
+	private _set_hidden(value: boolean) {
 		if (this._hidden === value) {return;}
 		if (!this._ready) {
 			if (value) {
@@ -127,7 +127,7 @@ export class ContainerDialog extends backbone4 {
 		}
 		this._hidden = value;
 	}
-	_post_animation() {
+	private _post_animation() {
 		this._animation = null;
 		if (this._hidden) {
 			requestAnimationFrame(() => {
