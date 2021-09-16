@@ -55,7 +55,7 @@ export class Projects3ProjectDisplay extends backbone4 {
 			this.#item_drag_start(e as CustomEvent);
 		});
 	}
-	#item_drag_start(event: CustomEvent) {
+	#item_drag_start(event: CustomEvent<ItemDragStartP1>) {
 		const detail = read_details(event, ItemDragStartP1);
 		//// TODO: Hook up
 		// const detail_2 =
