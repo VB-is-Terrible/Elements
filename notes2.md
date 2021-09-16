@@ -76,7 +76,10 @@ Initless support (Move manifest loading back to core) | Done
 | Globaling in core | Not possible |
 | Private applyPriorProperties | Done |
 
-Take a look at drag, seems to have stopped dying
 Fix gallery dynamic screwing up when at the bottom
+
+Transplant support - Move projects3 out of elements, basically nothing is reuseable
+Change autohide to an efficient JS implementation
+
 
 Chrome freaks out with no-mode CORS prefetch tags.
