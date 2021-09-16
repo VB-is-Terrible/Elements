@@ -2,7 +2,7 @@ export type resource_id = number;
 
 class DragDetail {}
 
-export const read_details = <T extends DragDetail>(event: CustomEvent<T>, returnClass: { new(...args: any[]): T }) => {
+export const read_details = <T extends DragDetail>(event: CustomEvent<T>, returnClass: { new(...args: any[]): T }): T => {
 	const detail = event.detail;
 	if (detail.constructor === returnClass) {
 		return detail as T;

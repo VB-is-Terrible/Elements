@@ -28,7 +28,7 @@ export class DraggableDummyListener extends backbone4 {
 			this.item_drop(e as CustomEvent);
 		});
 	}
-	protected item_drag_start (event: CustomEvent) {
+	protected item_drag_start (event: CustomEvent<ItemDragStartP2>) {
 		const details = read_details(event, ItemDragStartP2);
 		let target = draggable_controller.registerResource(details.source);
 		if (details.event.dataTransfer === null) {
@@ -38,7 +38,7 @@ export class DraggableDummyListener extends backbone4 {
 		draggable_controller.setResource(details.rv, true);
 		return;
 	}
-	protected item_drop (event: CustomEvent) {
+	protected item_drop (event: CustomEvent<ItemDrop>) {
 		const details = read_details(event, ItemDrop);
 		const drag_event = details.event;
 		if (drag_event.dataTransfer === null) {

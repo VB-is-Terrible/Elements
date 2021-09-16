@@ -150,7 +150,7 @@ export class DraggableContainer extends backbone4 {
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
 	}
-	#item_drag_start (event: CustomEvent) {
+	#item_drag_start (event: CustomEvent<ItemDragStartP1>) {
 		const details_1 = read_details(event, ItemDragStartP1);
 		const drag_event = details_1.event;
 		drag_event.dataTransfer!.effectAllowed = this.effect_allowed;
