@@ -311,7 +311,7 @@ export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString:
         property: K & string,
         initial: T | null = null,
         eventTrigger: (value: T) => void = (_value: T) => {},
-        santizer: (value: T & string, old_value: T) => T = (value: T & string, _oldValue: T) => {return value;}) {
+        santizer: (value: T & string, old_value: T) => T = (value: T & string, oldValue: T) => {return value !== null ? value : oldValue;}) {
 
         const fail_message = 'Attr-Property must be in constructor.observedAttributes';
         //@ts-ignore
