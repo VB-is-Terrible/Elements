@@ -68,13 +68,14 @@ backbone v5:
 Private fields + members | Done
 Top level await | Done
 Explicit manifest | Testing
-Coreless support (Done)
+Coreless support | Done
 Initless support (Move manifest loading back to core) | Done
 
 | Optional Features | Status |
 | - | - |
 | Globaling in core | Not possible |
 | Private applyPriorProperties | Done |
+| Transplant support | ? |
 
 Fix gallery dynamic screwing up when at the bottom
 
