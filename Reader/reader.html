@@ -13,12 +13,13 @@
 		div.topbar {
 			display: inline-grid;
 			grid-template-rows: 1fr;
-			grid-template-columns: [left] auto 1fr [middle] auto 1fr [right] auto;
+			grid-template-columns: [left] 1fr [middle] auto [right] 1fr;
 			width: 100%;
 		}
 		#main_input {
 			z-index: 999;
 			grid-column: middle;
+			justify-self: center;
 		}
 		div.scroll {
 			height: 100vh;
@@ -31,6 +32,7 @@
 		}
 		div.right_align {
 			grid-column: right;
+			justify-self: right;
 		}
 		div.left_align {
 			grid-column: left;
