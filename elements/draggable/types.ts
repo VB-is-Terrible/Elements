@@ -7,7 +7,7 @@ export const read_details = <T extends DragDetail>(event: CustomEvent<T>, return
 	if (detail.constructor === returnClass) {
 		return detail as T;
 	} else {
-		throw new Error(`Invalid event data, ${detail} is not an instance of ${returnClass}`);
+		throw new Error(`Invalid event data, ${detail.constructor.name} is not ${returnClass.name}`);
 	}
 };
 
