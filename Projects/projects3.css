@@ -1,0 +1,16 @@
+#stage {
+
+}
+#groups {
+
+}
+#unsorted {
+
+}
+div.topbar {
+	width: 100%;
+	display: inline-grid;
+	grid-template-rows: 1fr;
+	grid-template-columns: auto auto;
+
+}

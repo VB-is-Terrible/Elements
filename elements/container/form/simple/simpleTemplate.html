@@ -1,0 +1,21 @@
+<template id='templateElementsContainerFormSimple'>
+	<link rel='stylesheet' type='text/css' href='container/form/simple/simple.css'>
+	<div class='title'>
+		<slot name='title'>
+			<span> Your title here </span>
+		</slot>
+		<button class='title_close'>
+			X
+		</button>
+	</div>
+	<div class='tabline'><hr></hr></div>
+	<div class='body'>
+		<slot name='body'>
+			<p> Form questions here </p>
+		</slot>
+	</div>
+	<div class='footer'>
+		<button class='footer' id='accept'> Accept</button>
+		<button class='footer' id='cancel'> Cancel </button>
+	</div>
+</template>

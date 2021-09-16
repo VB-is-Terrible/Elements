@@ -1,0 +1,26 @@
+:host {
+	display: block;
+}
+:host([hidden]) {
+        display: none;
+}
+button.title_close {
+	border: 1px solid black;
+	border-radius: 3px;
+	float: right;
+}
+div.title {
+	display: grid;
+	margin-bottom: 1ex;
+	grid-template-columns: 1fr auto;
+	justify-content: space-between;
+}
+div.footer {
+	width: 100%;
+	display: inline-grid;
+	justify-content: end;
+	grid-template-columns: auto auto;
+}
+button.footer {
+	margin-left: 1em;
+}

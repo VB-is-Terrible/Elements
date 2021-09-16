@@ -1,4 +1,4 @@
-import {GConstructor} from '../elements_helper.js';
+import {GConstructor, setToArray, jsonIncludes} from '../elements_helper.js';
 
 
 export interface UpdateListener {
@@ -74,7 +74,6 @@ export interface ProjectObj {
 	name: string;
 	desc: string;
 	tags: string[];
-	parent: id;
 }
 
 export class Project extends UpdateWrapperBase implements ProjectObj {
@@ -82,18 +81,19 @@ export class Project extends UpdateWrapperBase implements ProjectObj {
         name: string;
         desc: string;
 	tags: string[];
-	parent: id;
-	constructor(id: id, name: string, desc = '', tags = [], parent = -1) {
+	constructor(id: id, name: string, desc = '', tags = []) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
 		this.tags = tags;
-		this.parent = parent;
 	}
 	static fromJSONObj(obj: ProjectObj) {
 		// TODO: Fill out
 		return new Project(obj.id, obj.name, obj.desc);
+	}
+	toJSON() {
+		return jsonIncludes(this, ['id', 'name', 'desc', 'tags']);
 	}
 };
 
@@ -123,8 +123,11 @@ export class ProjectGroup extends UpdateWrapperBase implements ProjectGroupObj {
 	static fromJSONObj(obj: ProjectGroupObj) {
 		return new ProjectGroup(obj.id, obj.name, obj.desc, obj.projects, obj.primary)
 	}
-
+	toJSON() {
+		return jsonIncludes(this, ['id', 'name', 'desc', 'projects', 'primary']);
+	}
 }
+
 
 
 export interface SystemNetworkObj {
@@ -159,5 +162,11 @@ export class System implements SystemObj {
 	}
 	get_project_group_by_id(id: number) {
 		return this.project_groups.get(id);
+	}
+	toJSON() {
+		return {
+			projects: Object.fromEntries(this.projects),
+			project_groups: Object.fromEntries(this.project_groups),
+		}
 	}
 }

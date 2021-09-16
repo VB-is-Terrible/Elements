@@ -3,23 +3,37 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
-		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
 		<link rel='modulepreload' href='../elements/elements_core.js'></link>
 		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
 		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
 		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
 		<link rel="icon" href="../icon.png">
+		<link rel='stylesheet' type='text/css' href='projects3.css'>
 		<style media="screen">
-			elements-container-autohide {
-				padding: 10em;
-			}
 		</style>
 	</head>
 	<body>
+		<div id='stage'>
+			<div id='groups'>
+
+			</div>
+			<div id='unsorted'>
+
+			</div>
+		</div>
+		<elements-container-dialog dialog_hidden='false' id='create_dialog'>
+			<elements-projects3-project-creator></elements-projects3-project-creator>
+		</elements-container-dialog>
+
 		<elements-container-autohide>
-			<button id='createProject'> New Project </button>
+			<div class='topbar'>
+				<button id='createProject'> New Project </button>
+			</div>
 		</elements-container-autohide>
 	</body>
-	<script src='../elements/backbone4.js'></script>
-	<script src='projects3.js'></script>
+	<script>
+		(async () => {
+			(await import('./projects3.js')).main();
+		})();
+	</script>
 </html>

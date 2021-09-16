@@ -58,6 +58,7 @@ const setUpListeners = () => {
 
 const main = () => {
 	setUpListeners();
+	//@ts-ignore
 	populate(testData);
 
 };

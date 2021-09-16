@@ -1,0 +1,13 @@
+:host {
+	display: block;
+}
+:host([hidden]) {
+        display: none;
+}
+div.formBody {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 1ex 1em;
+	margin-bottom: 1ex;
+	min-width: 35em;
+}

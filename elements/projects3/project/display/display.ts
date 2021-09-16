@@ -34,7 +34,7 @@ export class Projects3ProjectDisplay extends backbone4 {
 
 		this.#title = template.querySelector('.name') as HTMLParagraphElement;
 		this.#desc = template.querySelector('p.desc') as HTMLParagraphElement;
-		this.#link = template.querySelector('#editLink') as HTMLAnchorElement;
+		this.#link = template.querySelector('#editlink') as HTMLAnchorElement;
 
 		//Fancy code goes here
 		shadow.appendChild(template);
