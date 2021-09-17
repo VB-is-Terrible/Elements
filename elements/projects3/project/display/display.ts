@@ -4,7 +4,7 @@ const requires: Array<string> = [];
 import {Elements} from '../../../elements_core.js';
 import {backbone4, setUpAttrPropertyLink} from '../../../elements_backbone.js';
 import {} from '../../../elements_helper.js';
-import {ProjectObj} from '../../Common.js';
+import {ProjectObj} from '../../Common/Common.js';
 import {ItemDragStartP1, read_details} from '../../../draggable/types.js'
 
 

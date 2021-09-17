@@ -5,7 +5,7 @@ import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
 import {CustomComposedEvent} from '../../../elements_helper.js';
 import {FormWrapper} from '../../../container/form/Common.js';
-import {ProjectObj} from '../../Common.js';
+import {ProjectObj} from '../../Common/Common.js';
 
 
 

@@ -2,8 +2,8 @@ import {Elements} from '../elements/elements_core.js';
 import {randint} from '../elements/elements_helper.js';
 import {accept_event_string as project_creator_accept, reset_event_string as project_creator_reset} from '../elements/projects3/project/creator/creator.js';
 import type {Projects3ProjectCreator} from '../elements/projects3/project/creator/creator.js';
-import type {ProjectObj, SystemNetworkObj} from '../elements/projects3/Common.js';
-import {System, Project} from '../elements/projects3/Common.js';
+import type {ProjectObj, SystemNetworkObj} from '../elements/projects3/Common/Common.js';
+import {System, Project} from '../elements/projects3/Common/Common.js';
 import type {ContainerDialog} from '../elements/container/dialog/dialog.js'
 import {Projects3ProjectDisplay} from '../elements/projects3/project/display/display.js';
 
