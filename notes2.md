@@ -76,6 +76,7 @@ Initless support (Move manifest loading back to core) | Done
 | Globaling in core | Not possible |
 | Private applyPriorProperties | Done |
 | Transplant support | ? |
+| Manifest builder reading import statements | ? 
 
 Fix gallery dynamic screwing up when at the bottom
 
