@@ -13,9 +13,6 @@ type event_t = {
 	over: drag_callback;
 };
 
-const mutation_options = {
-	childList: true,
-};
 /**
  * External interface for parents of draggable-containers
  * @Interface DraggableParent
@@ -43,39 +40,25 @@ const mutation_options = {
  * @type {Object}
  */
 export class DraggableContainer extends backbone4 {
-	#mutator: MutationObserver;
 	#events: event_t;
 	#context: string = '';
 	context!: string;
 	#overlay: HTMLDivElement;
-	#slots: HTMLDivElement;
-	effect_allowed: DataTransfer['effectAllowed'];
-	drop_effect: DataTransfer['dropEffect'];
-	#slot_counter: number = 0;
+	effect_allowed!: DataTransfer['effectAllowed'];
+	drop_effect!: DataTransfer['dropEffect'];
 	#drag_subject: boolean = false;
 	constructor () {
 		super();
 
 		const shadow = this.attachShadow({mode: 'open'});
 		let template = Elements.importTemplate(ELEMENT_NAME);
-		let mutation_react: MutationCallback = (mutationsList, _observer) => {
-			for (let mutation of mutationsList) {
-				console.log('A child node has been added or removed.');
-				console.log(mutation);
-				for (let addedNode of mutation.addedNodes) {
-					this.#append(addedNode as Element);
-				}
-			}
-		};
 
-		this.#mutator = new MutationObserver (mutation_react);
 		this.#events = {
 			drop: (e) => {this.onDrop(e);},
 			over: (e) => {this.onDragOver(e);},
 		};
 
 		this.#overlay = template.querySelector('#overlay') as HTMLDivElement;
-		this.#slots = template.querySelector('#slots') as HTMLDivElement;
 
 		this.addEventListener(ItemDragStartP1.event_string, (event) => {
 			this.#item_drag_start(event as CustomEvent);
@@ -86,39 +69,20 @@ export class DraggableContainer extends backbone4 {
 		shadow.appendChild(template);
 		applyPriorProperties(this, 'context');
 
-		setUpAttrPropertyLink(this, 'effect_allowed');
-		setUpAttrPropertyLink(this, 'drop_effect');
-		this.effect_allowed = 'link';
-		this.drop_effect = 'link';
+		setUpAttrPropertyLink(this, 'effect_allowed', 'link');
+		setUpAttrPropertyLink(this, 'drop_effect', 'link');
 
 		setUpAttrPropertyLink(this, 'context', '', (value: string) => {this.#change_context(value);});
-		applyPriorProperties(this, 'effect_allowed', 'drop_effect');
 	}
 	connectedCallback () {
-		let initialized = this.attributeInit;
 		super.connectedCallback();
-		if (!initialized) {
-			for (let child of this.children) {
-				this.#append(child);
-			}
-		}
-		this.#mutator.observe(this, mutation_options);
 		// Attach listener
 		draggable_controller.addListener(this, this.#context);
 	}
 	disconnectedCallback () {
 		super.disconnectedCallback();
-		this.#mutator.disconnect();
 
 		draggable_controller.removeListener(this, this.#context);
-	}
-	#append(node: Element) {
-		let slot_name = 's' + this.#slot_counter.toString();
-		this.#slot_counter += 1;
-		let slot = document.createElement('slot');
-		slot.name = slot_name;
-		this.#slots.append(slot);
-		node.slot = slot_name;
 	}
 	drag_start (effectAllowed: string) {
 		if (this.#drag_subject) {
