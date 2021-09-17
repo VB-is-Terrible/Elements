@@ -1,12 +1,10 @@
-import type {GConstructor} from '../elements_helper.js'
-
 export type resource_id = number;
 
 export class DragDetail {}
 
-export const read_details = <T extends DragDetail>(event: CustomEvent<T>, returnClass: { new(...args: any[]): T }): T => {
-	const detail = event.detail;
-	if (detail.constructor === returnClass) {
+export const read_details = <T extends DragDetail>(event: CustomEvent<unknown>, returnClass: { new(...args: any[]): T }): T => {
+	const detail = (event as CustomEvent<T>).detail;
+	if (detail instanceof returnClass) {
 		return detail as T;
 	} else {
 		throw new Error(`Invalid event data, ${detail.constructor.name} is not ${returnClass.name}`);
