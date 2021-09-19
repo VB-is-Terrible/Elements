@@ -27,10 +27,14 @@ export class ContainerAutohide extends backbone4 {
 
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(ELEMENT_NAME);
+		const padding = template.querySelector('div.padding') as HTMLDivElement;
 		// this._expander = template.querySelector('#expander') as HTMLDivElement;
 		requestAnimationFrame(() => {
-			this.style.transitionDuration = get_animation_duration();
+			const animation_duration = get_animation_duration();
+			this.style.transitionDuration = animation_duration;
+			padding.style.transitionDuration = animation_duration;
 		});
+
 		//Fancy code goes here
 		shadow.appendChild(template);
 		setUpAttrPropertyLink(this, 'show_offset', '1em', (offset: string) => {

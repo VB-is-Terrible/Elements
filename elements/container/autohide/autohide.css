@@ -6,16 +6,28 @@
 	padding: .5em 1em;
 	width: 100%;
 	box-sizing: border-box;
+	width: 100%;
+	transition-property: transform;
+	transition-duration: .3s;
+	/* background: blue; */
 }
 :host([hidden]) {
         display: none;
 }
-:host {
-	width: 100%;
-	transition-property: transform, padding-bottom;
-	transition-duration: .3s;
-}
 :host(:hover) {
 	transform: translate(0, 0) !important;
-	padding-bottom: 1em;
+}
+div.padding {
+	/* background: purple; */
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 2em;
+	transition-duration: .3s;
+	transition-property: transform;
+	transform: translate(0, 0);
+}
+:host(:hover) > div.padding {
+	transform: translate(0, 100%);
 }
