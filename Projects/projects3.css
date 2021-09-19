@@ -4,8 +4,20 @@
 #groups {
 
 }
+div.unsorted {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+}
 #unsorted {
-
+	display: grid;
+	grid-auto-flow: column;
+	grid-column-gap: .5em;
+	margin-bottom: 0;
+}
+#unsorted > elements-projects3-project-display {
+	height: 100%;
+	min-width: 10em;
 }
 div.topbar {
 	width: 100%;

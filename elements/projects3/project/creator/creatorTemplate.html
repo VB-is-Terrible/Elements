@@ -2,11 +2,14 @@
 	<link rel='stylesheet' type='text/css' href='projects3/project/creator/creator.css'>
 	<elements-container-form-simple>
 		<span slot='title'> Project Creator </span>
-		<div class='formBody' slot='body'>
-			<span> Title </span>
-			<input class='ans' type='text' name='name' value='' id='project_title' placeholder='Project title'></input>
+		<div class='formBody title query' slot='body'>
+			<div class='form_multi'>
+				<span> Title </span>
+				<img class=''
+			</div>
+			<input class='ans' type='text' name='name' value='' id='project_title' placeholder='Project title' minlength='1'></input>
 			<span> Description </span>
-			<textarea class='ans' name='desc' rows='16' cols='60' id='proj_desc' placeholder='Project Description\nUse this to recreate the fancy shit'></textarea>
+			<textarea class='ans' name='desc' rows='16' cols='60' id='proj_desc' placeholder='Project Description&#10Use this to recreate the fancy shit'></textarea>
 		</div>
 	</elements-container-form-simple>
 </template>

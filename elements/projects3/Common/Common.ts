@@ -1,5 +1,7 @@
 import {GConstructor, jsonIncludes} from '../../elements_helper.js';
 import {} from '../../draggable/Common/Common.js'
+import {ItemDragStartP1, ItemDrop, DragDetail} from '../../draggable/types.js';
+import type {resource_id} from '../../draggable/types.js';
 
 
 export interface UpdateListener {
@@ -65,7 +67,7 @@ export const UpdateWrapper = (Base: GConstructor) => {
 	}
 }
 
-type id = number;
+export type id = number;
 
 const UpdateWrapperBase = UpdateWrapper(class {});
 
@@ -170,4 +172,36 @@ export class System implements SystemObj {
 			project_groups: Object.fromEntries(this.project_groups),
 		}
 	}
+}
+
+export class Projects3DragStart extends ItemDragStartP1 {
+	readonly source_id: id;
+	constructor(effect_allowed: resource_id,
+	            event: DragEvent,
+	            source: Element,
+	            source_id: id) {
+		super(effect_allowed, event, source);
+		this.source_id = source_id;
+	}
+}
+
+export class Projects3DragTransfer {
+	readonly source_id: id;
+	readonly group_id: id;
+	constructor(source_id: id, group_id: id) {
+		this.source_id = source_id;
+		this.group_id = group_id;
+	}
+}
+
+export class Projects3Drop {
+	readonly project_id: id;
+	readonly src_group: id;
+	readonly dst_group: id;
+	constructor(proj_id: id, src_group: id, dst_group: id) {
+		this.project_id = proj_id
+		this.src_group = src_group;
+		this.dst_group = dst_group;
+	}
+	static readonly event_string = 'projects3-item-drop';
 }

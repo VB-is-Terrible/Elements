@@ -5,7 +5,7 @@ const elements_helper = (await import ('../elements/elements_helper.js'));
 
 How shit works
 
-e = (await import ('./elements/elements_core.js')).Elements
+e = (await import ('../elements/elements_core.js')).Elements
 
 Definitions:
 	Module: a standalone js file
@@ -76,7 +76,7 @@ Initless support (Move manifest loading back to core) | Done
 | Globaling in core | Not possible |
 | Private applyPriorProperties | Done |
 | Transplant support | ? |
-| Manifest builder reading import statements | ? 
+| Manifest builder reading import statements | ?
 
 Fix gallery dynamic screwing up when at the bottom
 

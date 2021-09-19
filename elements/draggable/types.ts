@@ -1,8 +1,13 @@
+import {GConstructor} from '../elements_helper.js';
+
 export type resource_id = number;
 
-export class DragDetail {}
+export abstract class DragDetail {
+	static readonly event_string: string;
+}
 
-export const read_details = <T extends DragDetail>(event: CustomEvent<unknown>, returnClass: { new(...args: any[]): T }): T => {
+
+export const read_details = <T extends DragDetail>(event: CustomEvent<unknown>, returnClass: GConstructor<T>): T => {
 	const detail = (event as CustomEvent<T>).detail;
 	if (detail instanceof returnClass) {
 		return detail as T;
@@ -24,7 +29,7 @@ export class ItemDragStartP1 extends DragDetail {
 		this.event = event;
 		this.source = source;
 	}
-	static readonly event_string = 'elements-item-drag-start';
+	static readonly event_string: string = 'elements-item-drag-start';
 }
 
 
@@ -38,7 +43,7 @@ export class ItemDragStartP2 extends DragDetail {
 		this.rv = rv;
 		this.source = source;
 	}
-	static readonly event_string = 'elements-item-drag-start2';
+	static readonly event_string: string = 'elements-item-drag-start2';
 }
 
 
@@ -50,7 +55,7 @@ export class ItemDrop extends DragDetail {
 		this.event = event;
 		this.rv = rv;
 	}
-	static readonly event_string = 'elements-item-drop';
+	static readonly event_string: string = 'elements-item-drop';
 };
 
 

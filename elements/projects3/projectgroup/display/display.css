@@ -1,0 +1,6 @@
+:host {
+	margin: .5em;
+	border: 1px black solid;
+	border-radius: .25em;
+	padding: .5em;
+}

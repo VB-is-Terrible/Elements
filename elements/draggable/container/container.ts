@@ -54,15 +54,14 @@ export class DraggableContainer extends backbone4 {
 		let template = Elements.importTemplate(ELEMENT_NAME);
 
 		this.#events = {
-			drop: (e) => {this.onDrop(e);},
-			over: (e) => {this.onDragOver(e);},
+			drop: (e) => {this.#on_drop(e);},
+			over: (e) => {this.#onDragOver(e);},
 		};
 
 		this.#overlay = template.querySelector('#overlay') as HTMLDivElement;
 
 		this.addEventListener(ItemDragStartP1.event_string, (event) => {
-			this.#item_drag_start(event as CustomEvent);
-			event.stopPropagation();
+			this.#on_drag(event as CustomEvent);
 		});
 
 		//Fancy code goes here
@@ -114,24 +113,29 @@ export class DraggableContainer extends backbone4 {
 	static get observedAttributes () {
 		return ['context', 'effect_allowed', 'drop_effect'];
 	}
-	#item_drag_start (event: CustomEvent<ItemDragStartP1>) {
+	#on_drag(event: CustomEvent) {
 		const details_1 = read_details(event, ItemDragStartP1);
 		const drag_event = details_1.event;
 		drag_event.dataTransfer!.effectAllowed = this.effect_allowed;
-		const details_2 = new ItemDragStartP2(drag_event, draggable_controller.registerHandle(), details_1.source);
-		const ev = CustomComposedEvent(ItemDragStartP2.event_string, details_2);
-		this.dispatchEvent(ev);
-		const rv = draggable_controller.retriveResource(details_2.rv);
-		if (rv === undefined) {
+		const valid = this.on_drag(event);
+		event.stopPropagation();
+		if (valid) {
+			this.#drag_subject = true;
+			draggable_controller.setResource(details_1.effect_allowed, this.effect_allowed);
+		} else {
 			// Not setting dataTransfer automatically cancels drag on firefox
 			// preventDefault is needed for chrome
 			// event.preventDefault();
 			console.warn('Could not find parent to notify of drag');
 			return;
 		}
-		this.#drag_subject = true;
-		draggable_controller.setResource(details_1.effect_allowed, this.effect_allowed);
-		return this.effect_allowed;
+	}
+	protected on_drag(event: CustomEvent): boolean {
+		const details_1 = read_details(event, ItemDragStartP1);
+		const details_2 = new ItemDragStartP2(details_1.event, draggable_controller.registerHandle(), details_1.source);
+		const ev = CustomComposedEvent(ItemDragStartP2.event_string, details_2);
+		this.dispatchEvent(ev);
+		return draggable_controller.retriveResource(details_2.rv) !== undefined;
 	}
 	#attach_drop () {
 		this.#overlay.addEventListener('drop', this.#events.drop);
@@ -141,11 +145,13 @@ export class DraggableContainer extends backbone4 {
 		this.#overlay.removeEventListener('drop', this.#events.drop);
 		this.#overlay.removeEventListener('dragover', this.#events.over);
 	}
-	onDrop (event: DragEvent) {
+	#on_drop (event: DragEvent) {
 		// Clear drag notice;
 		event.preventDefault();
 		draggable_controller.drag_end(this.context);
-
+		this.on_drop(event);
+	}
+	protected on_drop (event: DragEvent): void {
 		const details = new ItemDrop(event, draggable_controller.registerHandle());
 		const ev = CustomComposedEvent(ItemDrop.event_string, details);
 		this.dispatchEvent(ev);
@@ -156,7 +162,7 @@ export class DraggableContainer extends backbone4 {
 			return;
 		}
 	}
-	onDragOver (event: DragEvent) {
+	#onDragOver (event: DragEvent) {
 		event.preventDefault();
 		if (event.dataTransfer === null) {
 			return;
@@ -170,8 +176,6 @@ export class DraggableContainer extends backbone4 {
 		} else {
 			return false;
 		}
-	}
-	item_drop () {
 	}
 	static setEffects (...effects: Array<string>) {
 		if (effects.length === 0) {

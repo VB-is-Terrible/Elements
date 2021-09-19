@@ -40,6 +40,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		return [];
 	}
 	protected accept() {
+		//TODO: check that name is filled out
 		const detail: ProjectObj = {
 			id: -1,
 			name: this.#name.value,

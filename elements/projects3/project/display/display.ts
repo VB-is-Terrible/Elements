@@ -1,14 +1,15 @@
-const recommends: Array<string> = [];
+const recommends: Array<string> = ['draggable-item'];
 const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4, setUpAttrPropertyLink} from '../../../elements_backbone.js';
-import {} from '../../../elements_helper.js';
-import {ProjectObj} from '../../Common/Common.js';
+import {CustomComposedEvent} from '../../../elements_helper.js';
+import {ProjectObj, Projects3DragStart} from '../../Common/Common.js';
 import {ItemDragStartP1, read_details} from '../../../draggable/types.js'
 
 
 Elements.get(...recommends);
+console.log(recommends);
 await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Projects3ProjectDisplay';
@@ -21,11 +22,12 @@ export class Projects3ProjectDisplay extends backbone4 {
 	#title: HTMLParagraphElement;
 	#desc: HTMLParagraphElement;
 	#link: HTMLAnchorElement;
+	#firing = false;
 	project_id: number = -1;
 	name!: string;
 	desc!: string;
 	tags: string[] = [];
-	href!: string | null;
+	href!: string;
 	constructor() {
 		super();
 
@@ -44,21 +46,32 @@ export class Projects3ProjectDisplay extends backbone4 {
 		setUpAttrPropertyLink(this, 'desc', '', (desc: string) => {
 			this.#desc.textContent = desc;
 		});
-		setUpAttrPropertyLink(this, 'href', null, (href: string | null) => {
-			if (href === null) {
+		setUpAttrPropertyLink(this, 'href', '', (href: string) => {
+			if (href === '') {
 				this.#link.removeAttribute('href');
 			} else {
 				this.#link.href = href;
 			}
 		});
 		this.addEventListener(ItemDragStartP1.event_string, (e) => {
+			if (this.#firing) {
+				this.#firing = false;
+				return;
+			}
 			this.#item_drag_start(e as CustomEvent);
+			e.stopPropagation();
 		});
 	}
 	#item_drag_start(event: CustomEvent<ItemDragStartP1>) {
 		const detail = read_details(event, ItemDragStartP1);
-		//// TODO: Hook up
-		// const detail_2 =
+		const new_detail = new Projects3DragStart(
+			detail.effect_allowed,
+			detail.event,
+			detail.source,
+			this.project_id);
+		const ev = CustomComposedEvent(Projects3DragStart.event_string, new_detail);
+		this.#firing = true;
+		this.dispatchEvent(ev);
 	}
 	static get observedAttributes() {
 		return ['name', 'desc', 'href'];
