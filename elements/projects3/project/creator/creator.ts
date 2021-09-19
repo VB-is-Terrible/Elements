@@ -25,6 +25,7 @@ export const reset_event_string = 'elements-project3-creator-reset';
 export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	#name: HTMLInputElement;
 	#desc: HTMLTextAreaElement;
+	#warn: HTMLImageElement;
 	constructor() {
 		super();
 
@@ -32,6 +33,14 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		const template = Elements.importTemplate(ELEMENT_NAME);
 		this.#name = template.querySelector('#project_title') as HTMLInputElement;
 		this.#desc = template.querySelector('#proj_desc') as HTMLTextAreaElement;
+		this.#warn = template.querySelector('img.warn') as HTMLImageElement;
+		this.#name.addEventListener('blur', () => {
+			if (this.#name.value === '') {
+				requestAnimationFrame(() => {
+					this.#warn.style.display = 'block';
+				});
+			}
+		});
 
 		//Fancy code goes here
 		shadow.appendChild(template);
@@ -40,6 +49,9 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		return [];
 	}
 	protected accept() {
+		if (this.#name.value === '') {
+			return;
+		}
 		//TODO: check that name is filled out
 		const detail: ProjectObj = {
 			id: -1,
@@ -54,6 +66,9 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	protected reset() {
 		this.#name.value = '';
 		this.#desc.value = '';
+		requestAnimationFrame(() => {
+			this.#warn.style.display = 'none';
+		});
 	}
 }
 

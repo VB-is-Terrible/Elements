@@ -11,3 +11,14 @@ div.formBody {
 	margin-bottom: 1ex;
 	min-width: 35em;
 }
+div.form_multi_warn {
+	display: grid;
+	grid-template-columns: 1fr auto;
+}
+img.warn {
+	height: 1em;
+	width: 1em;
+	float: right;
+	place-self: center;
+	display: none;
+}
