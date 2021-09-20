@@ -1,0 +1,16 @@
+<template id='templateElementsContainerSidebar'>
+	<link rel='stylesheet' type='text/css' href='container/sidebar/sidebar.css'>
+	<div class='slotcontainer'>
+		<slot></slot>
+	</div>
+	<div class='offset'>
+		<div class='toggle'>
+			<div class='toggle_inner'>
+				<button class='toggle'>
+					<span class='arrows'>>></span>
+					<slot name='title'></slot>
+				</button>
+			</div>
+		</div>
+	</div>
+</template>

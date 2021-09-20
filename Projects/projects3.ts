@@ -15,6 +15,8 @@ const load_promise = Elements.get(
 	'projects3-project-creator',
 	'projects3-projectgroup-display',
 	'projects3-project-display',
+	'container-sidebar',
+	'grid',
 )
 
 

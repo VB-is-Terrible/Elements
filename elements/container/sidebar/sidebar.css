@@ -1,0 +1,47 @@
+:host {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+}
+:host([hidden]) {
+        display: none;
+}
+.slotcontainer {
+	transition-property: transform;
+	transition-duration: var(--animation_duration_long);
+	transform-origin: bottom;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+:host([toggled='true']) .slotcontainer {
+	transform: scaleY(0);
+}
+:host([toggled='true']) .arrows {
+	transform: rotate(270deg);
+}
+:host([toggled='true']) div.toggle_inner {
+	transform: translateY(calc(var(--popupHeight) * -1));
+}
+div.offset {
+	position: absolute;
+	bottom: 0;
+	left: 2em;
+}
+div.toggle {
+	position: relative;
+	transform: translateY(var(--popupHeight));
+}
+.arrows {
+	display: block;
+	transform: rotate(90deg);
+	transition-property: transform;
+	transition-duration: var(--animation_duration_long);
+}
+button.toggle {
+	display: flex;
+}
+div.toggle_inner {
+	transition-property: transform;
+	transition-duration: var(--animation_duration_long);
+}
