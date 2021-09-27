@@ -43,7 +43,6 @@ export class Projects3ProjectgroupDisplay extends DraggableContainer {
 		const start_data = draggable_controller.retriveResource(parseInt(event.dataTransfer.getData(transfer_datatype))) as Projects3DragTransfer;
 		const details = new Projects3Drop(start_data.source_id, start_data.group_id, this.project_id);
 		this.dispatchEvent(CustomComposedEvent(Projects3Drop.event_string, details));
-		console.log(details);
 	}
 }
 

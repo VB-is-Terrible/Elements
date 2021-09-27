@@ -105,38 +105,46 @@ export interface ProjectGroupObj {
 	name: string;
 	desc: string;
 	projects: Array<id>;
-	primary: boolean;
 };
+
+export interface ProjectGroupNetwork {
+	id: id;
+	name: string;
+	desc: string | undefined;
+	projects: Array<id>;
+}
 
 export class ProjectGroup extends UpdateWrapperBase implements ProjectGroupObj {
 	id: id;
 	name: string;
 	desc: string;
 	projects: Array<id>;
-	primary: boolean;
-	constructor(id: id, name: string, desc: string, projects: Array<number> = [], primary = false) {
+	constructor(id: id, name: string, desc: string, projects: Array<number> = []) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
 		this.projects = projects;
-		this.primary = primary
 	}
 	/// TODO: Add json methods
 	static fromJSONObj(obj: ProjectGroupObj) {
-		return new ProjectGroup(obj.id, obj.name, obj.desc, obj.projects, obj.primary)
+		return new ProjectGroup(obj.id, obj.name, obj.desc, obj.projects)
+	}
+	static fromNetworkObj(obj: ProjectGroupNetwork) {
+		return new ProjectGroup(obj.id, obj.name, obj.desc ?? '', obj.projects)
 	}
 	toJSON() {
-		return jsonIncludes(this, ['id', 'name', 'desc', 'projects', 'primary']);
+		return jsonIncludes(this, ['id', 'name', 'desc', 'projects']);
 	}
 }
 
 
 
-export interface SystemNetworkObj {
-	projects: {[key: number]: ProjectObj};
-	project_groups: {[key: number]: ProjectGroupObj}
-}
+export type SystemNetworkObj = {
+	name: string,
+	groups: ProjectGroupNetwork[],
+	projects: ProjectObj[],
+};
 
 
 export interface SystemObj {
@@ -146,17 +154,22 @@ export interface SystemObj {
 
 export class System implements SystemObj {
 	projects: Map<id, Project> = new Map();
-	project_groups: Map<number, ProjectGroup> = new Map();
-	remote_location = '';
-	static fromNetworkObj(obj: SystemNetworkObj) {
-		const result = new System();
-		for (const id in obj.projects) {
-			const project = Project.fromJSONObj(obj.projects[id]);
-			result.projects.set(parseInt(id), project);
+	project_groups: Map<id, ProjectGroup> = new Map();
+	remote_location: string;
+	name: string;
+	constructor(name: string, remote_location: string) {
+		this.remote_location = remote_location;
+		this.name = name;
+	}
+	static fromNetworkObj(obj: SystemNetworkObj, remote_location: string) {
+		const result = new System(obj.name, remote_location);
+		for (const project_obj of obj.projects) {
+			const project = Project.fromJSONObj(project_obj);
+			result.projects.set(project_obj.id, project);
 		}
-		for (const id in obj.project_groups) {
-			const project_group = ProjectGroup.fromJSONObj(obj.project_groups[id]);
-			result.project_groups.set(parseInt(id), project_group);
+		for (const group_obj of obj.groups) {
+			const project_group = ProjectGroup.fromNetworkObj(group_obj);
+			result.project_groups.set(group_obj.id, project_group);
 		}
 		return result;
 	}
