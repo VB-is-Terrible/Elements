@@ -1,3 +1,8 @@
+Snippets:
+
+const Elements = (await import ('../elements/elements_core.js')).Elements;
+const elements_helper = (await import ('../elements/elements_helper.js'));
+
 How shit works
 
 Definitions:
