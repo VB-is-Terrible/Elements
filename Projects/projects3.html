@@ -9,14 +9,16 @@
 		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
 		<link rel="icon" href="../icon.png">
 		<link rel='stylesheet' type='text/css' href='projects3.css'>
-		<style media="screen">
-		</style>
 	</head>
 	<body>
 		<button id='test' type="button" onclick="(e) => console.log(e)">This is a test</button>
 		<div id='stage'>
-			<elements-grid id='groups' rows='1'>
-			</elements-grid>
+			<div id='groups' rows='1'>
+				<elements-projects3-projectgroup-display context='projects3/project' class='test' slot = 's1'>
+					<p class='group_title'>Title</p>
+					<p class='group_desc'>description goes here Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				</elements-projects3-projectgroup-display>
+			</div>
 		</div>
 		<elements-container-sidebar class='unsorted'>
 			<elements-projects3-projectgroup-display context='projects3/project' id='unsorted' class='unsorted'>
@@ -32,6 +34,7 @@
 				<button id='createProject'> New Project </button>
 			</div>
 		</elements-container-autohide>
+		<elements-toaster id='toaster'></elements-toaster>
 	</body>
 	<script>
 		(async () => {

@@ -5,8 +5,7 @@ import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
 import {CustomComposedEvent} from '../../../elements_helper.js';
 import {FormWrapper} from '../../../container/form/Common.js';
-import {ProjectObj} from '../../Common/Common.js';
-
+import type {ProjectObj, id} from '../../Common/Common.js';
 
 
 Elements.get(...recommends);
@@ -14,8 +13,25 @@ await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Projects3ProjectCreator';
 
-export const accept_event_string = 'elements-project3-creator-accept';
-export const reset_event_string = 'elements-project3-creator-reset';
+
+export class AcceptDetail implements ProjectObj {
+	static readonly event_string = 'elements-project3-creator-accept';
+	id: id;
+	name: string;
+	desc: string;
+	tags: string[];
+	constructor(
+		id: id,
+		name: string,
+		desc: string,
+		tags: string[],
+	) {
+		this.id = id;
+		this.name = name;
+		this.desc = desc;
+		this.tags = tags;
+	}
+}
 
 /**
  * [Projects3ProjectCreator Description]
@@ -53,13 +69,13 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 			return;
 		}
 		//TODO: check that name is filled out
-		const detail: ProjectObj = {
-			id: -1,
-			name: this.#name.value,
-			desc: this.#desc.value,
-			tags: [],
-		};
-		const ev = CustomComposedEvent(accept_event_string, detail);
+		const detail = new AcceptDetail(
+			-1,
+			this.#name.value,
+			this.#desc.value,
+			[],
+		);
+		const ev = CustomComposedEvent(AcceptDetail.event_string, detail);
 		this.dispatchEvent(ev);
 		this.reset();
 	}

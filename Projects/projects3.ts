@@ -1,6 +1,6 @@
 import {Elements} from '../elements/elements_core.js';
 import {randint, removeChildren} from '../elements/elements_helper.js';
-import {accept_event_string as project_creator_accept} from '../elements/projects3/project/creator/creator.js';
+import {AcceptDetail} from '../elements/projects3/project/creator/creator.js';
 import type {Projects3ProjectCreator} from '../elements/projects3/project/creator/creator.js';
 import type {ProjectObj, SystemNetworkObj, id, ProjectGroupNetwork, ProjectGroup} from '../elements/projects3/Common/Common.js';
 import {System, Project, Projects3Drop,} from '../elements/projects3/Common/Common.js';
@@ -9,6 +9,7 @@ import type {ContainerDialog} from '../elements/container/dialog/dialog.js';
 import type {Projects3ProjectgroupDisplay} from '../elements/projects3/projectgroup/display/display.js';
 import {read_details} from '../elements/draggable/types.js';
 import type {Grid} from '../elements/grid/grid.js'
+import type {Toaster} from '../elements/toaster/toaster.js';
 
 
 const load_promise = Elements.get(
@@ -19,35 +20,34 @@ const load_promise = Elements.get(
 	'projects3-project-display',
 	'container-sidebar',
 	'grid',
-)
+	'elements-toaster',
+);
 
 
 const project_creator = document.querySelector('elements-projects3-project-creator') as Projects3ProjectCreator;
 const project_creator_dialog = document.querySelector('#create_dialog') as ContainerDialog;
 const unsorted = document.querySelector('#unsorted') as Projects3ProjectgroupDisplay;
 const group_grid = document.querySelector('#groups') as Grid;
-
-
-const new_id = () => randint(0, Math.pow(2, 24));
-
-
-const load_location = 'projects3'
-const load_string = localStorage.getItem(load_location) ?? '{"projects": {}, "project_groups": {}}';
-console.log(load_string);
-const load_obj = JSON.parse(load_string) as SystemNetworkObj;
+const toaster = document.querySelector('#toaster') as Toaster;
 
 
 export let system: System;
 const grid_display = new Map<id, Projects3ProjectgroupDisplay>();
 
 
+const getRemoteLocation = () => {
+	const params = new URL(document.location.href).searchParams;
+	return `//127.0.0.1:5002/${params.get('meta')}`;
+}
+const remote_location = getRemoteLocation();
+
+
 await load_promise;
 export const main = () => {
-	project_creator.addEventListener(project_creator_accept, (e: Event) => {
-		const detail = (e as CustomEvent<ProjectObj>).detail;
+	project_creator.addEventListener(AcceptDetail.event_string, (e: Event) => {
+		const detail = read_details(e as CustomEvent, AcceptDetail);
 		detail.id = -1;
-		const project_obj = Project.fromJSONObj(detail)
-		console.log(project_obj);
+		createNetworkProject(detail);
 	});
 	const new_project = document.querySelector('#createProject')!;
 	new_project.addEventListener('click', () => {
@@ -61,9 +61,8 @@ export const main = () => {
 
 
 const load_remote = async () => {
-	const remote = '//127.0.0.1:5002/2';
-	const remote_data: SystemNetworkObj = await (await fetch(remote)).json();
-	const system = System.fromNetworkObj(remote_data, remote);
+	const remote_data: SystemNetworkObj = await (await fetch(remote_location)).json();
+	const system = System.fromNetworkObj(remote_data, remote_location);
 	load(system);
 	return system;
 };
@@ -117,5 +116,54 @@ const createGroupDisplay = (group: ProjectGroup) => {
 	result.context = 'projects3/project';
 	result.addEventListener(Projects3Drop.event_string, (e) => {on_drop(e as CustomEvent)});
 	result.project_id = group.id;
+	const title = document.createElement('p');
+	title.className = 'group_title';
+	title.textContent = group.name;
+	result.append(title);
+	const desc = document.createElement('p');
+	desc.className = 'group_desc';
+	desc.textContent = group.desc;
+	result.append(desc);
 	return result;
+}
+
+
+const createNetworkProject = async (project_obj: ProjectObj) => {
+	console.log(project_obj);
+	const form = new FormData();
+	form.append('name', project_obj.name);
+	form.append('desc', project_obj.desc);
+	form.append('tags', JSON.stringify(project_obj.tags));
+	let response;
+	try {
+		try {
+			response = await fetch(remote_location + '/projects', {
+				method: 'PUT',
+				body: form,
+			});
+		} catch (e) {
+			toaster.addToast({
+				title: 'Error connecting to server',
+				body: 'Check that the server is running',
+			});
+			throw e;
+		}
+	} catch (e) {
+		toaster.addToast({
+			title: 'Error connecting to server',
+			body: 'Check that the server is running',
+		});
+		throw e;
+	}
+	const new_project_obj = await response.json();
+	if (new_project_obj === {}) {
+		console.log('Got empty response');
+		return;
+	}
+	const project = Project.fromJSONObj(new_project_obj);
+	system.projects.set(project.id, project);
+	const display = Projects3ProjectDisplay.fromProject(project);
+	requestAnimationFrame(() => {
+		unsorted.append(display);
+	});
 }
