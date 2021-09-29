@@ -77,6 +77,7 @@ Initless support (Move manifest loading back to core) | Done
 | Private applyPriorProperties | Done |
 | Transplant support | ? |
 | Manifest builder reading import statements | ?
+| Grid 2 | ?
 
 Fix gallery dynamic screwing up when at the bottom
 
