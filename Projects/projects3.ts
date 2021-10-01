@@ -20,7 +20,7 @@ const load_promise = Elements.get(
 	'projects3-project-display',
 	'container-sidebar',
 	'grid',
-	'elements-toaster',
+	'toaster',
 );
 
 
@@ -33,6 +33,7 @@ const toaster = document.querySelector('#toaster') as Toaster;
 
 export let system: System;
 const grid_display = new Map<id, Projects3ProjectgroupDisplay>();
+const project_displays = new Map<id, Projects3ProjectDisplay>();
 
 
 const getRemoteLocation = () => {
@@ -87,6 +88,7 @@ const load = (system: System) => {
 			);
 			seen.add(project_id);
 			display.append(project_display);
+			project_displays.set(project_id, project_display);
 		}
 		requestAnimationFrame(() => {
 			group_grid.append(display);
@@ -98,6 +100,7 @@ const load = (system: System) => {
 			const project_display = Projects3ProjectDisplay.fromProject(
 				system.get_project_by_id(id)!
 			);
+			project_displays.set(id, project_display);
 			requestAnimationFrame(() => {
 				unsorted.append(project_display);
 			});
@@ -105,15 +108,50 @@ const load = (system: System) => {
 	}
 }
 
-const on_drop = (e: CustomEvent) => {
+const on_drop = async (e: CustomEvent) => {
 	const details = read_details(e, Projects3Drop);
 	console.log(details);
+	const form = new FormData();
+	form.append('operation', 'move');
+	form.append('src', details.src_group.toString());
+	form.append('dst', details.dst_group.toString());
+	form.append('id', details.project_id.toString());
+	let response;
+	try {
+		response = await fetch(remote_location + '/projects', {
+			method: 'POST',
+			body: form,
+		});
+	} catch (e) {
+		toaster.addToast({
+			title: 'Error connecting to server',
+			body: 'Check that the server is running',
+		});
+		throw e;
+	}
+	const return_code = await response.json();
+	console.log(return_code);
+	if (return_code !== true) {
+		return;
+	}
+
+	if (details.src_group !== -1) {
+		const src_group = system.get_project_group_by_id(details.src_group)!;
+		src_group.projects.filter(item => item !== details.project_id);
+	}
+	const dst = grid_display.get(details.dst_group)!;
+	const dst_group = system.get_project_group_by_id(details.dst_group)!;
+	dst_group.projects.push(details.project_id);
+	const project = project_displays.get(details.project_id)!;
+	dst.append(project);
 }
 
 
 const createGroupDisplay = (group: ProjectGroup) => {
 	const result = document.createElement('elements-projects3-projectgroup-display') as Projects3ProjectgroupDisplay;
 	result.context = 'projects3/project';
+	result.drop_effect = 'move';
+	result.effect_allowed = 'all';
 	result.addEventListener(Projects3Drop.event_string, (e) => {on_drop(e as CustomEvent)});
 	result.project_id = group.id;
 	const title = document.createElement('p');
@@ -136,18 +174,10 @@ const createNetworkProject = async (project_obj: ProjectObj) => {
 	form.append('tags', JSON.stringify(project_obj.tags));
 	let response;
 	try {
-		try {
-			response = await fetch(remote_location + '/projects', {
-				method: 'PUT',
-				body: form,
-			});
-		} catch (e) {
-			toaster.addToast({
-				title: 'Error connecting to server',
-				body: 'Check that the server is running',
-			});
-			throw e;
-		}
+		response = await fetch(remote_location + '/projects', {
+			method: 'PUT',
+			body: form,
+		});
 	} catch (e) {
 		toaster.addToast({
 			title: 'Error connecting to server',

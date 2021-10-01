@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>Projects 3</title>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../icon.png">
+		<link rel='stylesheet' type='text/css' href='index.css'>
+	</head>
+	<body>
+		<div id='stage'>
+			<div class="">
+				test
+			</div>
+			<div class="">
+				test
+			</div>
+		</div>
+		<elements-container-dialog dialog_hidden='true' id='create_dialog'>
+			<elements-container-form-simple id='create'>
+				<span slot='title'> Project Creator </span>
+				<div class='formBody' slot='body'>
+					<span> Name </span>
+					<input class='ans' type='text' name='name' value='' id='project_title' placeholder='Project title' minlength='1'></input>
+				</div>
+			</elements-container-form-simple>
+		</elements-container-dialog>
+
+		<elements-container-autohide>
+			<div class='topbar'>
+				<button id='createProject'> New Project </button>
+			</div>
+		</elements-container-autohide>
+		<elements-toaster id='toaster'></elements-toaster>
+
+	</body>
+	<script>
+		(async () => {
+			(await import('./index.js')).main();
+		})();
+	</script>
+</html>

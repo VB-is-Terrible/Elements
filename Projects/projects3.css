@@ -16,6 +16,7 @@ div.unsorted {
 	grid-auto-flow: column;
 	grid-column-gap: .5em;
 	margin: 0;
+	min-width: 8em;
 	/* border-top: 0; */
 	/* background: purple; */
 }
@@ -43,6 +44,10 @@ body {
 	box-sizing: border-box;
 	height: max-content;
 }
+#groups elements-projects3-projectgroup-display > elements-projects3-project-display{
+	margin-top: .5em;
+}
+
 .group_title {
 	margin: 0;
 	font-size: x-large;

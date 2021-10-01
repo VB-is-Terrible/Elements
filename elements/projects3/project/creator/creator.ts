@@ -68,7 +68,6 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		if (this.#name.value === '') {
 			return;
 		}
-		//TODO: check that name is filled out
 		const detail = new AcceptDetail(
 			-1,
 			this.#name.value,
