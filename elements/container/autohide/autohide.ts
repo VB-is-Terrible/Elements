@@ -30,9 +30,11 @@ export class ContainerAutohide extends backbone4 {
 		const padding = template.querySelector('div.padding') as HTMLDivElement;
 		// this._expander = template.querySelector('#expander') as HTMLDivElement;
 		requestAnimationFrame(() => {
-			const animation_duration = get_animation_duration();
-			this.style.transitionDuration = animation_duration;
-			padding.style.transitionDuration = animation_duration;
+			requestAnimationFrame(() => {
+				const animation_duration = get_animation_duration();
+				this.style.transitionDuration = animation_duration;
+				padding.style.transitionDuration = animation_duration;
+			});
 		});
 
 		//Fancy code goes here
