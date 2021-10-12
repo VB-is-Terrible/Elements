@@ -26,6 +26,9 @@ const zoom_input = document.querySelector('#zoom_count') as HTMLInputElement;
 const respond = async (e: CustomEvent) => {
 	main_input.value = '';
 	main_input.blur();
+	toaster.addToast({
+		title: 'Loading'
+	});
 	query_pics(e.detail);
 };
 
