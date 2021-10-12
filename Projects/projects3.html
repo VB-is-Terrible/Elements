@@ -11,6 +11,12 @@
 		<link rel='stylesheet' type='text/css' href='projects3.css'>
 	</head>
 	<body>
+		<elements-container-autohide>
+			<div class='topbar'>
+				<button id='createProject'> New Task </button>
+				<button id='createGroup'> New Task Group </button>
+			</div>
+		</elements-container-autohide>
 		<button id='test' type="button" onclick="(e) => console.log(e)">This is a test</button>
 		<div id='stage'>
 			<div id='groups' rows='1'>
@@ -29,11 +35,6 @@
 			<elements-projects3-project-creator></elements-projects3-project-creator>
 		</elements-container-dialog>
 
-		<elements-container-autohide>
-			<div class='topbar'>
-				<button id='createProject'> New Project </button>
-			</div>
-		</elements-container-autohide>
 		<elements-toaster id='toaster'></elements-toaster>
 	</body>
 	<script>

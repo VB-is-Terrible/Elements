@@ -63,3 +63,6 @@ body {
 	margin-bottom: .5em;
 	contain: content;
 }
+elements-container-autohide {
+	z-index: 9000;
+}
