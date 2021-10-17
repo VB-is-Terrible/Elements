@@ -1,6 +1,7 @@
 import {Elements} from '../elements/elements_core.js';
 import {randint, removeChildren} from '../elements/elements_helper.js';
 import {AcceptDetail} from '../elements/projects3/project/creator/creator.js';
+import {AcceptDetail as GroupDetail} from '../elements/projects3/projectgroup/creator/creator.js';
 import type {Projects3ProjectCreator} from '../elements/projects3/project/creator/creator.js';
 import type {ProjectObj, SystemNetworkObj, id, ProjectGroupNetwork, ProjectGroup} from '../elements/projects3/Common/Common.js';
 import {System, Project, Projects3Drop,} from '../elements/projects3/Common/Common.js';
@@ -16,6 +17,7 @@ const load_promise = Elements.get(
 	'container-autohide',
 	'container-dialog',
 	'projects3-project-creator',
+	'projects3-projectgroup-creator',
 	'projects3-projectgroup-display',
 	'projects3-project-display',
 	'container-sidebar',
@@ -26,6 +28,8 @@ const load_promise = Elements.get(
 
 const project_creator = document.querySelector('elements-projects3-project-creator') as Projects3ProjectCreator;
 const project_creator_dialog = document.querySelector('#create_dialog') as ContainerDialog;
+const group_creator = document.querySelector('elements-projects3-projectgroup-creator') as Projects3ProjectCreator;
+const group_creator_dialog = document.querySelector('#group_dialog') as ContainerDialog;
 const unsorted = document.querySelector('#unsorted') as Projects3ProjectgroupDisplay;
 const group_grid = document.querySelector('#groups') as Grid;
 const toaster = document.querySelector('#toaster') as Toaster;
@@ -50,10 +54,18 @@ export const main = () => {
 		detail.id = -1;
 		createNetworkProject(detail);
 	});
+	group_creator.addEventListener(GroupDetail.event_string, (e) => {
+		const detail = read_details(e as CustomEvent, GroupDetail);
+		console.log(detail);
+	})
 	const new_project = document.querySelector('#createProject')!;
 	new_project.addEventListener('click', () => {
 		project_creator_dialog.toggle();
 	});
+	const new_group = document.querySelector('#createGroup') as HTMLButtonElement;
+	new_group.addEventListener('click', () => {
+		group_creator_dialog.toggle();
+	})
 	unsorted.addEventListener(Projects3Drop.event_string, (e) => {on_drop(e as CustomEvent)});
 	(async () => {
 		system = await load_remote();

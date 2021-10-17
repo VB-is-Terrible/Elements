@@ -28,7 +28,8 @@ div.topbar {
 	width: 100%;
 	display: inline-grid;
 	grid-template-rows: 1fr;
-
+	grid-auto-flow: column;
+	grid-gap: 1em;
 }
 body {
 	/* background: green; */
