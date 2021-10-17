@@ -84,7 +84,7 @@ export class Project extends UpdateWrapperBase implements ProjectObj {
         name: string;
         desc: string;
 	tags: string[];
-	constructor(id: id, name: string, desc = '', tags = []) {
+	constructor(id: id, name: string, desc = '', tags: string[] = []) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -93,7 +93,7 @@ export class Project extends UpdateWrapperBase implements ProjectObj {
 	}
 	static fromJSONObj(obj: ProjectObj) {
 		// TODO: Fill out
-		return new Project(obj.id, obj.name, obj.desc);
+		return new Project(obj.id, obj.name, obj.desc, obj.tags);
 	}
 	toJSON() {
 		return jsonIncludes(this, ['id', 'name', 'desc', 'tags']);
