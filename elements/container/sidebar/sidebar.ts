@@ -36,7 +36,9 @@ export class ContainerSidebar extends backbone4 {
 		button.addEventListener('click', () => {
 			this.toggled = !this.toggled;
 		});
-		this.style.setProperty('--animation_duration_long', `${Elements.animation.LONG_DURATION/1000}s`);
+		requestAnimationFrame(() => {
+			this.style.setProperty('--animation_duration_long', `${Elements.animation.LONG_DURATION/1000}s`);
+		});
 		//Fancy code goes here
 		shadow.appendChild(template);
 		setUpAttrPropertyLink(this, 'toggled', false, () => {}, booleaner);

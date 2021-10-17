@@ -2,6 +2,7 @@
 	position: fixed;
 	left: 0;
 	bottom: 0;
+	--animation_duration_long: 0;
 }
 :host([hidden]) {
         display: none;
