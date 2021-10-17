@@ -92,9 +92,6 @@ export class ContainerDialog extends backbone4 {
 		const real_value = booleaner(value);
 		if (real_value === this._hidden) {return;}
 		this._set_hidden(real_value);
-		if (this.attributeInit) {
-			this.setAttribute('dialog_hidden', real_value.toString());
-		}
 	}
 	private _set_hidden(value: boolean) {
 		if (this._hidden === value) {return;}
@@ -126,6 +123,10 @@ export class ContainerDialog extends backbone4 {
 			}
 		}
 		this._hidden = value;
+
+		if (this.attributeInit) {
+			this.setAttribute('dialog_hidden', value.toString());
+		}
 	}
 	private _post_animation() {
 		this._animation = null;
