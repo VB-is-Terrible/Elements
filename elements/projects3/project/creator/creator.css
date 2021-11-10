@@ -22,3 +22,30 @@ img.warn {
 	place-self: center;
 	display: none;
 }
+div.tags {
+	display: grid;
+	grid-gap: .5em;
+}
+div.tag_input {
+	width: 100%;
+	display: grid;
+	grid-auto-columns: 1fr auto;
+	grid-auto-flow: column;
+	grid-gap: .5em;
+}
+.tag_x {
+	max-width: 1em;
+	max-height: 1em;
+	display: inline;
+}
+button.tag_remove {
+	/* margin-right: .5em;
+	margin-top: .5em; */
+	flex: 0 0 auto;
+}
+.tag_holder {
+	/* NOTE: This is a hack */
+	max-width: 50vw;
+	display: flex;
+	flex-wrap: wrap;
+}

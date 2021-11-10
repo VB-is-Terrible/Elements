@@ -10,6 +10,21 @@
 			<input class='ans' type='text' name='name' value='' id='project_title' placeholder='Project title' minlength='1'></input>
 			<span> Description </span>
 			<textarea class='ans' name='desc' rows='16' cols='60' id='proj_desc' placeholder='Project Description&#10Use this to recreate the fancy shit'></textarea>
+			<span> Tags </span>
+			<div class='tags'>
+				<div class='tag_input'>
+					<input class='ans' type='text' name='tag' value='' id='tag_input' placeholder='Tag' minlength='1'></input>
+					<button> Add Tag </button>
+				</div>
+				<div class='tag_holder'>
+					<button class='tag_remove'>
+						<span class='tag_name'>
+							TAG!
+						</span>
+					</button>
+				</div>
+			</div>
+
 		</div>
 	</elements-container-form-simple>
 </template>
