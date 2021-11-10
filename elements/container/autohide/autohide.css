@@ -18,6 +18,9 @@
 :host(:hover) {
 	transform: translate(0, 0) !important;
 }
+:host(:focus-within) {
+	transform: translate(0, 0) !important;
+}
 div.padding {
 	/* background: purple; */
 	width: 100%;
@@ -30,5 +33,8 @@ div.padding {
 	transform: translate(0, 0);
 }
 :host(:hover) > div.padding {
+	transform: translate(0, 100%);
+}
+:host(:focus-within) > div.padding {
 	transform: translate(0, 100%);
 }
