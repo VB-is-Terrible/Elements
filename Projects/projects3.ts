@@ -14,17 +14,19 @@ import type {Toaster} from '../elements/toaster/toaster.js';
 
 
 const load_promise = Elements.get(
-	'container-autohide',
-	'container-dialog',
 	'projects3-project-creator',
 	'projects3-projectgroup-creator',
 	'projects3-projectgroup-display',
-	'projects3-project-display',
-	'container-sidebar',
 	'grid',
 	'toaster',
+	'container-dialog',
 );
 
+Elements.get(
+	'container-autohide',
+	'container-sidebar',
+	'projects3-project-display',
+);
 
 const project_creator = document.querySelector('elements-projects3-project-creator') as Projects3ProjectCreator;
 const project_creator_dialog = document.querySelector('#create_dialog') as ContainerDialog;
