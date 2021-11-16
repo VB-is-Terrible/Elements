@@ -1,0 +1,52 @@
+/* https://github.com/jonathanchu/atom-one-dark-theme/blob/master/atom-one-dark-theme.el */
+:root {
+	--atom-one-dark-accent:     #528BFF;
+	--atom-one-dark-fg:         #ABB2BF;
+	--atom-one-dark-bg:         #282C34;
+	--atom-one-dark-bg-1:       #121417;
+	--atom-one-dark-bg-hl:      #2C323C;
+	--atom-one-dark-gutter:     #4B5363;
+	--atom-one-dark-mono-1:     #ABB2BF;
+	--atom-one-dark-mono-2:     #828997;
+	--atom-one-dark-mono-3:     #5C6370;
+	--atom-one-dark-cyan:       #56B6C2;
+	--atom-one-dark-blue:       #61AFEF;
+	--atom-one-dark-purple:     #C678DD;
+	--atom-one-dark-green:      #98C379;
+	--atom-one-dark-red-1:      #E06C75;
+	--atom-one-dark-red-2:      #BE5046;
+	--atom-one-dark-orange-1:   #D19A66;
+	--atom-one-dark-orange-2:   #E5C07B;
+	--atom-one-dark-gray:       #3E4451;
+	--atom-one-dark-silver:     #9DA5B4;
+	--atom-one-dark-black:      #21252B;
+	--atom-one-dark-border:     #181A1F;
+	--elements-dark-input-border:    2px var(--atom-one-dark-border) solid;
+	--elements-dark-input-radius:    .125em;
+
+
+	--elements-theme-accent:         var(--atom-one-dark-accent);
+	--elements-theme-fg:             var(--atom-one-dark-fg);
+	--elements-theme-bg:             var(--atom-one-dark-bg);
+	--elements-theme-bg-1:           var(--atom-one-dark-bg-1);
+	--elements-theme-bg-hl:          var(--atom-one-dark-bg-hl);
+	--elements-theme-gutter:         var(--atom-one-dark-gutter);
+	--elements-theme-mono-1:         var(--atom-one-dark-mono-1);
+	--elements-theme-mono-2:         var(--atom-one-dark-mono-2);
+	--elements-theme-mono-3:         var(--atom-one-dark-mono-3);
+	--elements-theme-cyan:           var(--atom-one-dark-cyan);
+	--elements-theme-blue:           var(--atom-one-dark-blue);
+	--elements-theme-purple:         var(--atom-one-dark-purple);
+	--elements-theme-green:          var(--atom-one-dark-green);
+	--elements-theme-red-1:          var(--atom-one-dark-red-1);
+	--elements-theme-red-2:          var(--atom-one-dark-red-2);
+	--elements-theme-orange-1:       var(--atom-one-dark-orange-1);
+	--elements-theme-orange-2:       var(--atom-one-dark-orange-2);
+	--elements-theme-gray:           var(--atom-one-dark-gray);
+	--elements-theme-silver:         var(--atom-one-dark-silver);
+	--elements-theme-black:          var(--atom-one-dark-black);
+	--elements-theme-border:         var(--atom-one-dark-border);
+	--elements-theme-input-border:   var(--elements-dark-input-border);
+	--elements-theme-input-radius:   var(--elements-dark-input-radius);
+
+}
