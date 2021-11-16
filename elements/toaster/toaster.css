@@ -2,6 +2,7 @@
 	right: 3em;
 	bottom: 3em;
 	position: absolute;
+	background: none;
 }
 div.spacer {
 	margin-top: .25em;

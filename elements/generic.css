@@ -1,0 +1,25 @@
+body, #pseudoBody, :host {
+	background: var(--elements-theme-bg, revert);
+	color: var(--elements-theme-fg, revert);
+}
+button {
+	background: var(--elements-theme-gutter, revert);
+	color: var(--elements-theme-fg, revert);
+}
+button:active {
+	background: var(--elements-theme-bg-1, revert);
+}
+input, textarea {
+	background: var(--elements-theme-bg-hl, revert);
+	color: var(--elements-theme-fg, revert);
+}
+button, input, textarea {
+	border: var(--elements-theme-input-border, revert);
+	border-radius: var(--elements-theme-input-radius, revert);
+}
+a:link {
+	color: var(--elements-theme-blue, revert);
+}
+a:visited {
+	color: var(--elements-theme-purple, revert);
+}

@@ -39,8 +39,8 @@ div.tag_input {
 	display: inline;
 }
 button.tag_remove {
-	/* margin-right: .5em;
-	margin-top: .5em; */
+	margin-right: .5em;
+	margin-top: .5em;
 	flex: 0 0 auto;
 }
 .tag_holder {

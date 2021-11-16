@@ -663,6 +663,11 @@ class Elements {
 				for (let link of node.content.querySelectorAll('img')) {
 					link.src = this.location + link.getAttribute('src');
 				}
+				const theme = document.createElement('link')
+				theme.rel = 'stylesheet';
+				theme.type = 'text/css';
+				theme.href = this.location + 'generic.css';
+				node.content.prepend(theme);
 				this.#templateLocation.append(node);
 			}
 			this.#loadedTemplates.add(location);
