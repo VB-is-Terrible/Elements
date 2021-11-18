@@ -115,7 +115,6 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 			for (const tag of tag_buttons) {
 				this.#tags.append(tag);
 			}
-			// this.#tags.textContent = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 		});
 	}
 	#createTag(tag: string) {
@@ -144,6 +143,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	#tagInsert() {
 		const new_tag = this.#tag_input.value;
 		this.#tags_store.push(new_tag);
+		this.#tag_input.value = '';
 		const button = this.#createTag(new_tag);
 		this.#tags.append(button);
 	}
