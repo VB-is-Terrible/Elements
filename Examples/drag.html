@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Drag & Drop playground</title>
+		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../icon.png">
+		<style>
+			elements-grid {
+				width: 100%;
+				--width: 100%;
+			}
+			#test, #test2{
+				background: purple;
+				height: 2em;
+				width: 15em;
+			}
+			#a {
+				height: 400px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='main'>
+			<elements-grid rows='1' columns='3'>
+				<elements-draggable-dummy-listener slot='s1'>
+					<elements-draggable-container id='a' context='hel'>
+						<elements-draggable-item context='hel'>
+							<p draggable='true'> Something 1 </p>
+						</elements-draggable-item>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
+				<elements-draggable-dummy-listener slot='s2'>
+					<elements-draggable-container id='c' context='hel'>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
+				<elements-draggable-container slot='s3' context='hel'>
+				</elements-draggable-container>
+			</elements-grid>
+			<div style='height: 100px'>
+				<elements-draggable-dummy-listener>
+					<elements-draggable-container id='b' context='hel' effect_allowed='none'>
+						<elements-draggable-item context='hel'>
+							<p draggable='true'> Something 2 </p>
+						</elements-draggable-item>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
+			</div>
+			<div style='height: 100px'>
+				<elements-draggable-dummy-listener>
+					<elements-draggable-container>
+						<elements-draggable-item context='hel'>
+							<p draggable='true'> Something 3 </p>
+						</elements-draggable-item>
+					</elements-draggable-container>
+				</elements-draggable-dummy-listener>
+			</div>
+		</div>
+		<div>
+			<div id='test' draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">
+				sadkljafddflakj
+			</div>
+			<br></br>
+			<div id='test2' ondrop='event.preventDefault(); console.log(event)'>
+				sdlkjsadfl;jksadfjl;kfsdakljsadf
+			</div>
+		</div>
+	</body>
+	<script src='../elements/backbone4.js'></script>
+	<script>
+		Elements.get('draggable-container', 'draggable-item', 'grid', 'draggable-dummy-listener');
+	</script>
+	<script>
+	const main = async () => {
+		await Elements.get('grid');
+		document.querySelector('elements-grid').shadowRoot.querySelector('#pseudoBody').style.height = '400px';
+	}
+	main();
+	</script>
+</html>

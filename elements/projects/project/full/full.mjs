@@ -1,7 +1,10 @@
-export const recommends = ['projects-project-full-display', 'projects-project-full-editor', 'container-rotate', 'projects-project-selection'];
-export const requires = [];
+const recommends = ['projects-project-full-display', 'projects-project-full-editor', 'container-rotate', 'projects-project-selection'];
+const requires = [];
 
 import {Elements} from '../../../elements_core.js';
+
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const DISPLAY_SELECTOR = 'elements-projects-project-full-display';
 const EDIT_SELECTOR = 'elements-projects-project-full-editor';
@@ -112,7 +115,7 @@ class ProjectsProjectFull extends Elements.elements.backbone3 {
 	_writeTitle (title) {
 		let title_display = this.shadowQuery('#pageTitle');
 		requestAnimationFrame((e) => {
-			title_display.innerHTML = Elements.nameSanitizer(title);
+			title_display.textContent = title;
 		});
 	}
 	_accept (e) {

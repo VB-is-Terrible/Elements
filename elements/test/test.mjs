@@ -3,6 +3,9 @@ export const requires = [];
 
 import {Elements} from '../elements_core.js';
 
+Elements.get(...recommends);
+await Elements.get(...requires);
+
 /**
  * Test page for display a project
  * @augments Elements.elements.backbone2

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title> </title>
+	</head>
+	<body>
+		<elements-drag-body>
+			<elements-drag-element id='test'>
+				<div>
+					<p>HI!</p>
+				</div>
+			</elements-drag-element>
+			<elements-drag-element id='ing'>
+				<div>
+					<p>THERE!</p>
+				</div>
+			</elements-drag-element>
+		</elements-drag-body>
+		<img src='editor sketch.png' style='left:200px;top:200px;position:absolute' draggable='false' onclick='console.log("hi");'></img>
+	</body>
+	<script>
+	(async () => {
+		const Elements = (await import('../elements/elements_core.js')).default;
+		Elements.get('drag-body', 'drag-element');
+	})();
+	</script>
+</html>

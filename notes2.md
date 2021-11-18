@@ -5,6 +5,8 @@ const elements_helper = (await import ('../elements/elements_helper.js'));
 
 How shit works
 
+e = (await import ('./elements/elements_core.js')).Elements
+
 Definitions:
 	Module: a standalone js file
 	Element: a module that loads a custom element
@@ -33,38 +35,48 @@ Definitions:
 7.	Due to bugs in chrome, within the constructor, within arrow functions,
 	self should be used instead of this
 
-Project Requirements:
-	Every method must have a jsdoc, unless:
-		The method will show up as global, even if the @private tag is Used
-		The method is deprecated
-	Every js file must use strict mode
 
 Manifest format:
-"require-name": {
-	"type": "element", // ["element"|"module"] Defines resoultion behaviour
-	"requires": ["element", "dependancies"], // Things that this will require()
-	"templates": ["kerbalEditorTemplate.html"], // Templates used by this elements
-	"css": ["kerbalEditor.css"], // CSS used by this (needs service worker to take advantage of)
-	"resources": ["warning.svg"], // Other files used by this (needs service worker to take advantage of)
-	"provides": ["kerbal-editor"], // Useful for meta-packages and modules
-	// Maybe I can require a element, and the dependancy system automatically finds the appropriate file
-	// And includes it?
-},
+
+| Field | Use | Example |
+| - | | |
+| type | Defines resoultion behaviour | "element"\|"module"\|"exclude"*|
+| requires | Things that this will require | ["element", "dependancies"] |
+| templates | Templates used by this elements | ["kerbalEditorTemplate.html"] |
+| css | CSS used by this | ["kerbalEditor.css"] |
+| resources | Other files used by this | ["warning.svg"] | |
+| provides | Useful for meta-packages and modules | ["kerbal-editor"]
+
+\* Exclude removes the module from the manifest
 
 TODO:
 kerbal-editor-group:
-	* Add kerbals Done
-	* Remove Kerbals Done
-	* Delete Group Done
-	* Loading Done
-	* Clearing
-	* Disabling
-	* Listening for kerbal deletion
 
+* Add kerbals Done
+* Remove Kerbals Done
+* Delete Group Done
+* Loading Done
+* Clearing
+* Disabling
+* Listening for kerbal deletion gallery:
+* Skipping images when zoomed
 
 backbone v5:
-	* Private fields + members
-	* Top level await
-	* Explicit manifest
-	* Coreless support (Maybe)
-	* Initless support (Move manifest loading back to core)
+
+| Feature | Status |
+| - | - |
+Private fields + members | Done
+Top level await | Done
+Explicit manifest | Testing
+Coreless support (Done)
+Initless support (Move manifest loading back to core) | Done
+
+| Optional Features | Status |
+| - | - |
+| Globaling in core | Not possible |
+| Private applyPriorProperties | Done |
+
+Take a look at drag, seems to have stopped dying
+Fix gallery dynamic screwing up when at the bottom
+
+Chrome freaks out with no-mode CORS prefetch tags.

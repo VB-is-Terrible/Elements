@@ -1,0 +1,31 @@
+:host {
+	display: block;
+	height: 100%;
+}
+:host([hidden]) {
+        display: none;
+}
+img.scroll, video.scroll {
+	object-fit: contain;
+	min-width: 5em;
+	min-height: 5em;
+	background-color: pink;
+}
+video.scroll {
+	display: block;
+}
+#pseudoBody {
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+	height: 100%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-anchor: none;
+}
+div.scroll {
+	display: flex;
+	justify-content: center;
+	max-width: 100%;
+	max-height: 100%;
+}

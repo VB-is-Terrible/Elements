@@ -49,7 +49,7 @@ Elements.elements.KerbalImporterExport = class extends Elements.elements.tabbed 
 		let link = this.shadowRoot.querySelector('#exportDownloadLink');
 		link.href = uri;
 		requestAnimationFrame((e) => {
-			exporter.innerHTML = json;
+			exporter.textContent = json;
 			exporter.select();
 		});
 	}

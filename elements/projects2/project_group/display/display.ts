@@ -1,12 +1,14 @@
-export const recommends = ['projects2-Project', 'projects2-project-display'];
-export const requires = [];
+const recommends: Array<string> = ['projects2-Project', 'projects2-project-display'];
+const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {backbone4} from '../../../elements_backbone.js';
-import {applyPriorProperties, nameSanitizer} from '../../../elements_helper.js';
+import {backbone4, applyPriorProperties} from '../../../elements_backbone.js';
+import {} from '../../../elements_helper.js';
 import { Project, ProjectGroup, UpdateWrapper } from '../../Project/Project.js';
 import { Projects2ProjectDisplay } from '../../project/display/display.js';
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Projects2Project_groupDisplay';
 /**
@@ -47,8 +49,8 @@ export class Projects2Project_groupDisplay extends backbone4 {
 		}
 		requestAnimationFrame(() => {
 			this._project_list.textContent = '';
-			this._name.textContent = nameSanitizer(value.name);
-			this._desc.textContent = nameSanitizer(value.desc);
+			this._name.textContent = value.name;
+			this._desc.textContent = value.desc;
 			for (const project of projects) {
 				this._project_list.append(project);
 			}
@@ -66,12 +68,6 @@ export class Projects2Project_groupDisplay extends backbone4 {
 			value.addListener(this._refresh_callback);
 		}
 		this._refresh();
-	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
 	}
 	static get observedAttributes() {
 		return [];

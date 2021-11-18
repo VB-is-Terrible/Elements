@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../favicon.png">
+		<style>
+		#button_holder {
+			display: flex;
+		}
+		#button_holder > button {
+			margin-right: 1em;
+		}
+		</style>
+	</head>
+	<body>
+		<elements-container-rotate current = 's3' id='thing'>
+			<div>
+				1
+				<p> sdafkjl;fsakl;jfsda </p>
+				<p> sdafkjl;fsakl;jfsda </p>
+				<p> sdafkjl;fsakl;jfsda </p>
+			</div>
+			<div>
+				2
+				<p> sdafkjl;fsakl;jfsda </p>
+			</div>
+			<p>
+				3
+			</p>
+		</elements-container-rotate>
+		<p> after </p>
+		<div id='button_holder' style='display: flex; flex-'>
+			<button id='prev'> Prev </button>
+			<button id='next'> Next </button>
+		</div>
+	</body>
+	<script src='../elements/backbone4.js'></script>
+	<script>
+	{
+		const main = async (e) => {
+			Elements.get('container-rotate');
+		};
+		window.addEventListener('load', main);
+		f = () => {
+			let p = document.createElement('p');
+			p.textContent = 'testing';
+			// thing.prepend(p);
+			thing.insertBefore(p, thing.children[2]);
+			// thing.last();
+		}
+		prev.addEventListener('click', () => {thing.previous();});
+		next.addEventListener('click', () => {thing.next();});
+
+	}
+	</script>
+</html>

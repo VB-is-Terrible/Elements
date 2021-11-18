@@ -1,11 +1,12 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
-import {backbone4} from '../../elements_backbone.js';
-import {applyPriorProperties, applyPriorProperty} from '../../elements_helper.js'
+import {backbone4, applyPriorProperties, applyPriorProperty} from '../../elements_backbone.js';
+import {} from '../../elements_helper.js'
 
-
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'TestFour';
 /**
@@ -27,12 +28,6 @@ export class TestFour extends backbone4 {
 		applyPriorProperties(this, 'derp')
 		shadow.appendChild(template);
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes() {
 		return ['test'];
 	}
@@ -44,7 +39,5 @@ export class TestFour extends backbone4 {
 console.log('adfsklj');
 
 export default TestFour;
-
-Elements.elements.TestFour = TestFour;
 
 Elements.load(TestFour, 'elements-test-four');

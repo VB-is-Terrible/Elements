@@ -1,9 +1,10 @@
 import json
 import os
-from manifest_builder import JSFOOTER, JSHEADER, EXCLUDES, remove_prefix
-from manifest_builder import parse_ts, parse_mjs, parse, new_manifest
+from manifest_common import EXCLUDES
+from parser import parse_ts, parse_mjs, parse, new_manifest, remove_prefix
 from config import location as LOCATION
 from typing import List, Dict
+from manifest_explicit import add_explicit_manifests, desugar_manifests
 
 
 MODULE_EXTENSION = ['.js', '.mjs', '.ts']
@@ -15,19 +16,25 @@ ELEMENTS_V1 = set([
 ])
 
 
+def rename_modules(manifests, current_path):
+        renamed = {}
+        for module in manifests:
+                if module == '':
+                        renamed[current_path] = manifests['']
+                else:
+                        name = os.path.join(current_path, module)
+                        renamed[name] = manifests[module]
+        return renamed
+
+
 def walk(dirpath: str, root: str):
         modules = find_modules(dirpath)
         manifests = scan_modules(modules, dirpath, root)
 
-        results = {}
-        current_path = remove_prefix(dirpath, root)
-        for module in manifests:
-                if module == '':
-                        results[current_path] = manifests['']
-                elif current_path == '':
-                        results[f'{module}'] = manifests[module]
-                else:
-                        results[f'{current_path}/{module}'] = manifests[module]
+        manifests = add_explicit_manifests(manifests, dirpath)
+        manifests = remove_excludes(manifests)
+        manifests = rename_modules(manifests, remove_prefix(dirpath, root))
+        results = desugar_manifests(manifests)
 
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
@@ -39,23 +46,17 @@ def walk(dirpath: str, root: str):
 def build(dirpath: str):
         results = walk(dirpath, dirpath)
         output = json.dumps(results, indent=4, sort_keys=True)
-        out = open(dirpath + 'manifest.json', 'w')
+        out = open(dirpath + 'elements_manifest.json', 'w')
         out.write(output)
         out.write('\n')
         out.close()
-        # Hack around chrome not preloading json
-        out2 = open(dirpath + 'manifest.js', 'w')
-        out2.write(JSHEADER)
-        out2.write(output)
-        out2.write(JSFOOTER)
-        out2.close()
 
 
 def find_modules(dirpath: str):
         files = set(os.listdir(dirpath))
         found = set()
         for file in files:
-                if (dirpath, file) in EXCLUDES:
+                if (os.path.abspath(dirpath), file) in EXCLUDES:
                         continue
                 name = check_if_module(file)
                 if name:
@@ -120,11 +121,17 @@ def scan_modules(modules: Dict[str, int], dirpath: str, root: str):
 
 def scan_module(version: int, module: str, dirpath: str, root: str):
         if version == 4:
-                name = ''
+                if os.path.basename(dirpath) == module:
+                        name = ''
+                else:
+                        name = module
                 manifest = parse_ts(dirpath, root, f'{module}.ts')
                 return name, manifest
         elif version == 3:
-                name = ''
+                if os.path.basename(dirpath) == module:
+                        name = ''
+                else:
+                        name = module
                 manifest = parse_mjs(dirpath, root, f'{module}.mjs')
                 return name, manifest
         elif version == 2:
@@ -139,7 +146,9 @@ def scan_module(version: int, module: str, dirpath: str, root: str):
                         return name, manifest
         elif version == 1:
                 if (dirpath, module) not in ELEMENTS_V1:
-                        module_name = os.path.join(remove_prefix(dirpath, root), module)
+                        module_name = os.path.join(
+                                          remove_prefix(dirpath, root),
+                                          module)
                         raise Exception(f'No new V1 elements ({module_name}) are supported')
                 name = module
                 manifest = new_manifest()
@@ -147,6 +156,16 @@ def scan_module(version: int, module: str, dirpath: str, root: str):
                 return name, manifest
         else:
                 raise Exception(f'Invalid version for module {os.path.join(dirpath, module)}')
+
+
+def remove_excludes(manifests):
+        excludes = []
+        for module in manifests:
+                if manifests[module].type == 'exclude':
+                        excludes.append(module)
+        for module in excludes:
+                del manifests[module]
+        return manifests
 
 
 if __name__ == '__main__':

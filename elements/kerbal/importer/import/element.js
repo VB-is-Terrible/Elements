@@ -37,7 +37,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 			reader.onload = (e) => {
 				let json = e.target.result;
 				importRaf((e) => {
-					importArea.innerHTML = json;
+					importArea.textContent = json;
 				});
 			}
 			reader.readAsText(file);
@@ -114,7 +114,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 				warning.style.display = 'none';
 			} else {
 				warning.style.display = 'flex';
-				warningText.innerHTML = errorMessage;
+				warningText.textContent = errorMessage;
 			}
 		});
 	}
@@ -125,7 +125,7 @@ Elements.elements.KerbalImporterImport = class extends Elements.elements.tabbed 
 		let importArea = this.shadowRoot.querySelector('#importArea');
 		let importFile = this.shadowRoot.querySelector('#importFile');
 		this.__importRaf((e) => {
-			importArea.innerHTML = '';
+			importArea.textContent = '';
 		});
 		importFile.value = '';
 		this.showWarning(null);

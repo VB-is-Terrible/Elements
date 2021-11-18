@@ -1,271 +1,16 @@
-from html.parser import HTMLParser
-import re
-from typing import List, Tuple
 import os
-from os.path import isfile, isdir
 import json
-from parser import name_resolver
 from config import location as LOCATION
-JSHEADER = ''''use strict'
-
-console.log('Got manifest', performance.now());
-Elements.manifest = '''
-JSFOOTER = '''
-Elements.manifestLoaded = true;
-Elements.__getBacklog();
-'''
-
-EXCLUDES = set([
-        (LOCATION, 'elements_core.js'),
-        (LOCATION, 'elements_core.ts'),
-        (LOCATION, 'elements_helper.ts'),
-        (LOCATION, 'elements_helper.js'),
-        (LOCATION, 'backbone4.ts'),
-        (LOCATION, 'backbone4.js'),
-        (LOCATION, 'elements_backbone.js'),
-        (LOCATION, 'elements_backbone.ts'),
-        (LOCATION, 'Elements.js'),
-        (LOCATION, 'Elements.mjs'),
-        (LOCATION, 'elements_helper.js'),
-        (LOCATION, 'elements_backbone.mjs'),
-        (LOCATION, 'elements_backbone.js'),
-        (LOCATION, 'global.d.ts'),
-        (LOCATION, 'manifest.js'),
-        (LOCATION, 'backbone.js'),
-        (LOCATION, 'backbone3.js'),
-])
-
-
-class linkParser(HTMLParser):
-        def __init__(self):
-                super().__init__()
-                self._css = set()
-                self._resources = set()
-
-        def handle_starttag(self, tag, attrs):
-                if tag == 'link':
-                        props = to_dict(attrs)
-                        if (props['rel'] == 'stylesheet'
-                                and props['type'] == 'text/css'):
-                                self._css.add(props['href'])
-                elif tag == 'img':
-                        props = to_dict(attrs)
-                        if 'src' in props:
-                                self._resources.add(props['src'])
-                else:
-                        return
-
-        def reset(self):
-                super().reset()
-                self._css = set()
-                self._resources = set()
-
-        @property
-        def css(self):
-                return sorted(list(self._css))
-
-        @property
-        def resources(self):
-                return sorted(list(self._resources))
-
-
-def strip_quotes(s: str) -> str:
-        return s.strip("'").strip('"')
-
-
-def to_dict(properties: List[Tuple[str, str]]) -> dict:
-        result = {}
-        for prop, value in properties:
-                result[prop] = value
-        return result
-
-
-def parse_js(lines):
-        get_regex = re.compile(r'Elements\.get\((.*?)\)')
-        load_regex = re.compile(r'Elements\.load\((.*?)\)')
-        loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
-        template_regex = re.compile(r'Elements\.loadTemplate\(\'(.*?)\'\)')
-
-        requires = set()
-        matches = get_regex.findall(lines)
-        for match in matches:
-                require = [strip_quotes(x.strip()) for x in match.split(',')]
-                for req in require:
-                        if ' ' not in req and req != '':
-                                requires.add(req)
-        provides = set()
-        templates = set()
-        for load in load_regex.findall(lines):
-                js_name, html_name = [x.strip() for x in load.split(',')]
-                html_name = strip_quotes(html_name)
-                name = name_resolver(html_name)
-                templates.add(name + '/template.html')
-                provides.add(name)
-        for loaded in loaded_regex.findall(lines):
-                loaded = strip_quotes(loaded)
-                provides.add(loaded)
-        for template in template_regex.findall(lines):
-                templates.add(template)
-        return (
-                sorted(list(requires)),
-                sorted(list(templates)),
-                sorted(list(provides)))
+from os.path import isfile, isdir
+import manifest_explicit
+from manifest_common import EXCLUDES, JSFOOTER, JSHEADER
+from parser import parse_ts, parse_mjs, parse, parse_js, remove_prefix
 
 
 def test():
         with open('elements/kerbal/maker/element.js') as f:
                 s = f.read()
         return parse_js(s)
-
-
-def remove_prefix(s: str, prefix: str) -> str:
-        if s.startswith(prefix):
-                return s[len(prefix):]
-        else:
-                return s
-
-
-def _parse_mjs(file, manifest, name: str):
-        lines = file.read()
-        get_regex = re.compile(r'Elements\.get\((.*?)\)')
-        recommends_regex = re.compile(r'export const recommends = \[(.*?)\]',
-                                      re.M)
-        requires_regex = re.compile(r'export const requires = \[(.*?)\]', re.M)
-        load_regex = re.compile(r'Elements\.load\((.*?)\)')
-        loaded_regex = re.compile(r'Elements\.loaded\((.*?)\)')
-        template_regex = re.compile(r'Elements\.loadTemplate\(\'(.*?)\'\)')
-
-        recommends = set()
-        matches = get_regex.findall(lines)
-
-        def strip(x):
-                return strip_quotes(x.strip())
-
-        for match in matches:
-                require = [strip(x) for x in match.split(',')]
-                for req in require:
-                        if ' ' not in req and req != '':
-                                recommends.add(req)
-
-        match = recommends_regex.search(lines)
-        if match is not None:
-                recommend = [strip(x) for x in match.group(1).split(',')]
-                for req in recommend:
-                        if req != '':
-                                recommends.add(req)
-
-        requires = set()
-        match = requires_regex.search(lines)
-        if match is not None:
-                require = [strip(x) for x in match.group(1).split(',')]
-                for req in require:
-                        if req != '':
-                                requires.add(req)
-
-        provides = set()
-        templates = set()
-        for load in load_regex.findall(lines):
-                js_name, html_name = [x.strip() for x in load.split(',')][0:2]
-                html_name = strip_quotes(html_name)
-                name = name_resolver(html_name)
-                moduleName = name.split('/')[-1]
-                templates.add(name + '/' + moduleName + 'Template.html')
-                provides.add(name)
-        for loaded in loaded_regex.findall(lines):
-                loaded = strip_quotes(loaded)
-                provides.add(loaded)
-        for template in template_regex.findall(lines):
-                templates.add(template)
-
-        manifest['provides'] = sorted(list(provides))
-        manifest['templates'] = sorted(list(templates))
-        manifest['requires'] = sorted(list(requires))
-        manifest['recommends'] = sorted(list(recommends))
-
-
-def new_manifest():
-        return {
-                "type": None,
-                "requires": [],
-                "recommends": [],
-                "templates": [],
-                "css": [],
-                "resources": [],
-                "provides": [],
-        }
-
-
-def parse(filepath: str, root: str):
-        manifest = new_manifest()
-        if isfile(filepath):
-                manifest['type'] = 'module'
-        else:
-                manifest['type'] = 'element'
-        if manifest['type'] == 'module':
-                location = filepath
-        else:
-                location = filepath + '/element.js'
-        with open(location) as f:
-                lines = f.read()
-        (manifest['requires'],
-         manifest['templates'],
-         manifest['provides']) = parse_js(lines)
-        parser = linkParser()
-        for template in manifest['templates']:
-                with open(root + template) as f:
-                        lines = f.read()
-                parser.feed(lines)
-        manifest['css'], manifest['resources'] = parser.css, parser.resources
-        return manifest
-
-
-def parse_mjs(dirpath: str, root: str, name: str):
-        manifest = new_manifest()
-        if name[0].isupper():
-                manifest['type'] = 'module3'
-        else:
-                manifest['type'] = 'element3'
-        location = os.path.join(dirpath, name)
-        with open(location) as f:
-                _parse_mjs(f, manifest, name)
-
-        parser = linkParser()
-        for template in manifest['templates']:
-                with open(root + template) as f:
-                        file_string = f.read()
-                parser.feed(file_string)
-        manifest['css'] = parser.css
-        manifest['resources'] = parser.resources
-        return manifest
-
-
-def parse_ts(dirpath: str, root: str, name: str):
-        manifest = new_manifest()
-        location = os.path.join(dirpath, name)
-        if name[0].isupper():
-                if is_module(location):
-                        manifest['type'] = 'module4'
-                else:
-                        manifest['type'] = 'script4'
-        else:
-                manifest['type'] = 'element4'
-        with open(location) as f:
-                _parse_mjs(f, manifest, name)
-
-        parser = linkParser()
-        not_found = []
-        for template in manifest['templates']:
-                if not os.path.isfile(root + template):
-                        not_found.append(template)
-                        continue
-                with open(root + template) as f:
-                        file_string = f.read()
-                parser.feed(file_string)
-        for missing in not_found:
-                manifest['templates'].remove(missing)
-        manifest['css'] = parser.css
-        manifest['resources'] = parser.resources
-        return manifest
 
 
 def build(dirpath: str):
@@ -284,7 +29,7 @@ def build(dirpath: str):
 
 
 def walk(dirpath: str, root: str):
-        results = {}
+        manifests = {}
         modules = []
         # Check for element module js files
         for file in os.listdir(dirpath):
@@ -294,10 +39,10 @@ def walk(dirpath: str, root: str):
                         modules.append(os.path.join(dirpath, file))
         for filename in modules:
                 name = remove_prefix(filename[:-3], root)
-                results[name] = parse(filename, root)
+                manifests[name] = parse(filename, root)
         if (isfile(dirpath + '/element.js')
                 and not isfile(dirpath + '/element.ts')):
-                results[remove_prefix(dirpath, root)] = parse(dirpath, root)
+                manifests[remove_prefix(dirpath, root)] = parse(dirpath, root)
         for file in os.listdir(dirpath):
                 if not file.endswith('.mjs'):
                         continue
@@ -305,13 +50,18 @@ def walk(dirpath: str, root: str):
                         pass
                 else:
                         name = remove_prefix(dirpath, root)
-                        results[name] = parse_mjs(dirpath, root, file)
+                        manifests[name] = parse_mjs(dirpath, root, file)
         for file in os.listdir(dirpath):
                 if (dirpath, file) in EXCLUDES:
                         continue
                 if file.endswith('.ts'):
                         name = remove_prefix(dirpath, root)
-                        results[name] = parse_ts(dirpath, root, file)
+                        manifests[name] = parse_ts(dirpath, root, file)
+        manifests = manifest_explicit.add_explicit_manifests(
+                    manifests, dirpath)
+        results = {}
+        for name in manifests:
+                results[name] = manifests[name].desugar()
         for file in os.listdir(dirpath):
                 dirname = os.path.join(dirpath, file)
                 if isdir(dirname):
@@ -319,13 +69,6 @@ def walk(dirpath: str, root: str):
         return results
 
 
-def is_module(filename):
-        with open(filename) as fin:
-                for line in fin:
-                        if line.startswith('export'):
-                                return True
-        return False
-
-
 if __name__ == '__main__':
+        raise Warning('manifest_builder.py is deprecated, please use manifest_builder2.py')
         build(LOCATION)

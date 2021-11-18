@@ -1,5 +1,5 @@
-export const recommends = ['drag-element'];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4} from '../../elements_backbone.js';
@@ -8,7 +8,8 @@ import type {DragElement} from '../element/element.js';
 const ELEMENT_NAME = 'DragBody';
 type MouseListener = (arg0: MouseEvent) => void;
 
-
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 
 /**
@@ -156,7 +157,5 @@ export class DragBody extends backbone4 {
 };
 
 export default DragBody;
-
-Elements.elements.DragBody = DragBody;
 
 Elements.load(DragBody, 'elements-drag-body');

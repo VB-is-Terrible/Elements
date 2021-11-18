@@ -1,7 +1,10 @@
-export const recommends = ['projects-Project'];
-export const requires = [];
+const recommends = ['projects-Project'];
+const requires = [];
 
 import {Elements} from '../../../../elements_core.js';
+
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 /**
  * [ProjectsProjectFullEditor Description]
@@ -161,19 +164,6 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		this._writeCounter(project.counter);
 	}
 	/**
-	 * Find an element in the shadowRoot by the selector, then set
-	 * the innerHTML to the updateValue
-	 * @param  {String} updateValue String to update innerHTML to
-	 * @param  {String} selector    CSS selector to find element to update
-	 * @private
-	 */
-	_writeElement (updateValue, selector) {
-		const writeElement = this.shadowRoot.querySelector(selector);
-		requestAnimationFrame((e) => {
-			writeElement.innerHTML = updateValue;
-		});
-	}
-	/**
 	 * Update the displayed Meta value
 	 * @param  {Boolean} updateValue Meta value to display
 	 */
@@ -220,19 +210,6 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		// : Make an element that shows dependencies
 	}
 	/**
-	 * Find an element in the shadowRoot by the selector, then set
-	 * the innerHTML to the updateValue
-	 * @param  {String} updateValue String to update innerHTML to
-	 * @param  {String} selector    CSS selector to find element to update
-	 * @private
-	 */
-	_writeElement (updateValue, selector) {
-		const writeElement = this.shadowQuery(selector);
-		requestAnimationFrame((e) => {
-			writeElement.innerHTML = updateValue;
-		});
-	}
-	/**
 	 * Display the required, progress and counter in this._changes
 	 */
 	_writeProgressFromChanges () {
@@ -260,7 +237,7 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 
 		const progress_value = this.shadowQuery('#projectProgressValue');
 		const progress_range = this.shadowQuery('#projectProgressRange');
-		progress_value.innerHTML = progress.toString();
+		progress_value.textContent = progress.toString();
 		progress_range.max = required;
 		progress_range.value = progress;
 	}
@@ -438,7 +415,7 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 			let title = this.shadowQuery('#Title');
 			if (title.value === this.data.name) {
 				requestAnimationFrame((e) => {
-					title.innerHTML = Elements.nameSanitizer(change_set.name)
+					title.textContent = change_set.name;
 				});
 			}
 		}
@@ -458,7 +435,7 @@ class ProjectsProjectFullEditor extends Elements.elements.backbone3 {
 		if (change_set.progress !== undefined) {
 			let progress_value = this.shadowQuery('#projectProgressValue');
 			let progress_range = this.shadowQuery('#projectProgressRange');
-			progress_value.innerHTML = change_set.progress.toString();
+			progress_value.textContent = change_set.progress.toString();
 			progress_range.value = change_set.value;
 		}
 		if (change_set.meta !== undefined) {

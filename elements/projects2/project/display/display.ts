@@ -1,11 +1,13 @@
-export const recommends = ['projects2-Project'];
-export const requires = [];
+const recommends: Array<string> = ['projects2-Project'];
+const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {backbone4} from '../../../elements_backbone.js';
-import {applyPriorProperties, nameSanitizer} from '../../../elements_helper.js';
+import {backbone4, applyPriorProperties} from '../../../elements_backbone.js';
+import {} from '../../../elements_helper.js';
 import {Project, UpdateWrapper} from '../../Project/Project.js'
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Projects2ProjectDisplay';
 /**
@@ -42,8 +44,8 @@ export class Projects2ProjectDisplay extends backbone4 {
 		}
 		const value = this.updater.data;
 		requestAnimationFrame(() => {
-			this._name.innerHTML = nameSanitizer(value.name);
-			this._desc.innerHTML = nameSanitizer(value.desc);
+			this._name.textContent = value.name;
+			this._desc.textContent = value.desc;
 		});
 	}
 	get updater() {
@@ -73,7 +75,5 @@ export class Projects2ProjectDisplay extends backbone4 {
 }
 
 export default Projects2ProjectDisplay;
-
-Elements.elements.Projects2ProjectDisplay = Projects2ProjectDisplay;
 
 Elements.load(Projects2ProjectDisplay, 'elements-projects2-project-display');

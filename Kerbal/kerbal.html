@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>KDB.js prototype</title>
+		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel="icon" href="../icon.png">
+		<style>
+		#g {
+			--width:  100%;
+			--margin: 15px;
+			--height: blue;
+			margin:   var(--margin);
+			width:    calc(100% - 2 * var(--margin));
+			/*position: absolute;*/
+			top: 0px;
+			left: 0px;
+		}
+		elements-drag-element {
+			visibility: hidden;
+		}
+		</style>
+	</head>
+	<body>
+		<elements-drag-body>
+			<elements-drag-element id='drag1'>
+				<elements-kerbal-maker></elements-kerbal-maker>
+			</elements-drag-element>
+			<elements-drag-element id='drag2'>
+                <elements-kerbal-editor></elements-kerbal-editor>
+            </elements-drag-element>
+			<elements-drag-element id='drag3'>
+				<elements-kerbal-searcher></elements-kerbal-searcher>
+			</elements-drag-element>
+			<elements-drag-element id='drag4'>
+				<elements-kerbal-importer></elements-kerbal-importer>
+			</elements-drag-element>
+			<elements-confirm_dialog></elements-confirm_dialog>
+		</elements-drag-body>
+		KDB.js progress: <progress value='75' max='100'>0%</progress>
+		<elements-grid id='g' rows='1' columns='2'>
+			<elements-kdb-kerbal_display slot='s1' id='mainDisplay'>
+			</elements-kdb-kerbal_display>
+			<elements-kdb-group_display slot='s2' id='mainGroupDisplay'>
+			</elements-kdb-group_display>
+		</elements-grid>
+		<elements-kerbal-footer id='footer'></elements-kerbal-footer>
+	</body>
+	<script src='../elements/backbone4.js'></script>
+	<script>
+		Elements.get('drag-element', 'grid',
+			'kerbal-maker', 'kerbal-editor', 'KDB',
+			'kerbal-searcher', 'kerbal-footer', 'kerbal-importer',
+			'kdb-kerbal_display', 'kdb-group_display', 'confirm_dialog');
+	</script>
+	<script>
+	{
+		const test = async () => {
+			await Elements.get('kerbal-searcher');
+			let a = KerbalLink.get('default').getKerbal('Caltrey');
+			let b = document.body.querySelector('elements-kerbal-editor');
+			b.data = a;
+			window.a = a;
+			window.b = b;
+		}
+		const uiInit = async (e) => {
+			await Elements.get('Kerbal_link');
+			KerbalLink.registerUI('default', 'maker', document.body.querySelector('#drag1').children[0]);
+			KerbalLink.registerUI('default', 'editor', document.body.querySelector('#drag2').children[0]);
+			KerbalLink.registerUI('default', 'searcher', document.body.querySelector('#drag3').children[0]);
+			KerbalLink.registerUI('default', 'importer', document.body.querySelector('#drag4').children[0]);
+			KerbalLink.registerUI('default', 'kerbal-display-0', document.body.querySelector('#mainDisplay'));
+			KerbalLink.registerUI('default', 'group-display-0', document.body.querySelector('#mainGroupDisplay'));
+			KerbalLink.registerUI('default', 'footer', document.body.querySelector('#footer'));
+		}
+		const main = async (e) => {
+			const revive = (string) => {return KDB.fromJSON(string);};
+			await Elements.get('Kerbal_link', 'KDB');
+			let display = document.body.querySelector('#mainDisplay');
+			KerbalLink.loadDefault(revive);
+			uiInit(e);
+			display.database = 'default';
+			document.body.querySelector('#mainGroupDisplay').database = 'default';
+			Elements.loaded('main');
+		}
+		window.addEventListener('load', main);
+	}
+	</script>
+</html>

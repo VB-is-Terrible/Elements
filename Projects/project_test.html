@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset='utf-8'>
+		<title>Testbed</title>
+		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../icon.png">
+		<style>
+		#p1 {
+			width: 300px;
+		}
+		#main {
+		}
+		#disabler {
+			margin-left: 50px;
+			font-size: large;
+		}
+		</style>
+	</head>
+	<body>
+		<script src='../elements/backbone4.js'></script>
+		<script type="text/javascript">
+			Elements.get('projects-project-selection');
+		</script>
+		<div id='main'>
+			<elements-projects-project-selection>
+			</elements-projects-project-selection>
+		</div>
+	</body>
+</html>

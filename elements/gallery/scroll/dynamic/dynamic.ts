@@ -1,21 +1,43 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {backbone4} from '../../../elements_backbone.js';
-import { rafContext, removeChildren } from '../../../elements_helper.js';
+import {GalleryScroll, template_promise} from '../scroll.js';
+import { rafContext, removeChildren, get_border_box as read_border_box } from '../../../elements_helper.js';
 
-
-const ELEMENT_NAME = 'GalleryScrollDynamic';
-
-
-
-
+Elements.get(...recommends);
 
 const PRELOAD_GUESS = 1000;
 const PRELOAD_HEIGHT = 3000;
 const PRELOAD_EXCEED = 9;
 const KEEP_BEHIND = 20;
+
+console.assert(PRELOAD_EXCEED < KEEP_BEHIND);
+
+const LOAD_LEWAY = 3000;
+const DELAY = false;
+const STATIONARY_WAIT = 1000;
+
+interface img_info {
+	position: number;
+	size: number;
+}
+
+//@ts-ignore
+const ricContext = (): (f: (timestamp: IdleDeadline) => void) => void => {
+        let raf: number | null = null;
+        return (f) => {
+                if (raf !== null) {
+			//@ts-ignore
+                        cancelIdleCallback(raf);
+                }
+		//@ts-ignore
+                raf = requestIdleCallback((e) => {
+                        f(e);
+                        raf = null;
+                });
+        };
+};
+
 
 /**
  * @event GalleryScrollDynamic#gallery-load-fail
@@ -38,14 +60,23 @@ const KEEP_BEHIND = 20;
  * @fires GalleryScrollDynamic#gallery-load-fail
  * @fires GalleryScrollDynamic#position_changed
  */
-export class GalleryScrollDynamic extends backbone4 {
-	_body: HTMLElement;
-	_urls: Array<string> = [];
-	_position = 0;
-	_start = 0;
-	_end = 0;
-	_ticking = false;
-	_final_scroll: ReturnType<typeof rafContext>;
+export class GalleryScrollDynamic extends GalleryScroll {
+	private _start = 0;
+	private _end = 0;
+	private _final_scroll: ReturnType<typeof rafContext>;
+	private _ro: ResizeObserver;
+	private _img_map = new WeakMap<Element, img_info>();
+	private _pos_size = new Map<number, number>();
+	private _portion: number = 0;
+	private _last_rebuild = Date.now();
+	private _scroll_update_context = ricContext();
+	private _check_preload_context = ricContext();
+	private _wait_stationary = ricContext();
+	private _above = 0;
+	private _below = 0;
+	private _to_remove: Array<Element> | null = null;
+	private _last_movement = 0;
+	private _remove_behind: () => void;
 	PRELOAD_GUESS = PRELOAD_GUESS;
 	PRELOAD_HEIGHT = PRELOAD_HEIGHT;
 	PRELOAD_EXCEED = PRELOAD_EXCEED;
@@ -53,90 +84,75 @@ export class GalleryScrollDynamic extends backbone4 {
 	constructor() {
 		super();
 
-		const shadow = this.attachShadow({mode: 'open'});
-		const template = Elements.importTemplate(ELEMENT_NAME);
-
-		this._body = template.querySelector('#pseudoBody')! as HTMLDivElement;
 		this._body.addEventListener('scroll', (_e) => {
-			if (!this._ticking) {
-				this._ticking = true;
-				//@ts-ignore
-				requestIdleCallback(() => {
-					this._scrollUpdate();
-				});
-			}
-		})
+			this._scroll_update_context(() => {
+				this._scrollUpdate();
+			});
+			this._last_movement = Date.now();
+		});
+
+		this._ro = new ResizeObserver((resizeList: ResizeObserverEntry[], observer: ResizeObserver) => {
+			this._resize(resizeList, observer)
+		});
+
 		this._final_scroll = rafContext();
-		//Fancy code goes here
-		shadow.appendChild(template);
-	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
+
+		this._remove_behind = () => {
+			if (Date.now() - STATIONARY_WAIT > this._last_movement) {
+				requestAnimationFrame(() => {
+					if (this._to_remove === null) {return;}
+					this._start += this._to_remove.length;
+					for (const img of this._to_remove) {
+						img.remove();
+					}
+					this._to_remove = null;
+				});
+			} else {
+				this._wait_stationary(this._remove_behind);
+			}
+		}
+		if (this.constructor === GalleryScrollDynamic){
+			this.post_init();
+		}
 	}
 	static get observedAttributes() {
 		return [];
 	}
-	set img_urls(urls: Array<string>) {
-		if (!(urls instanceof Array)) {
-			console.error('This is not a list of urls', urls);
-			throw new Error('Did not get a list of urls');
-			}
-		this._urls = urls;
-
-		this._rebuild_position(0);
-	}
-	get img_urls() {
-		return this._urls;
-	}
-	private _create_img(src: string, callback: (() => void) | null = null) {
-		const div = document.createElement('div');
-		const img = document.createElement('img');
-		div.className = 'scroll';
-		//@ts-ignore
-		div.part = 'image-container';
-		img.className = 'scroll';
-		img.src = src;
-		if (callback === null) {
-			callback = () => {
-				this._img_load(img);
-			}
-		}
-		img.addEventListener('load', callback);
-		img.addEventListener('error', () => {
-			const ev = new CustomEvent('gallery-load-fail', {
-				detail: src,
-			});
-			this.dispatchEvent(ev);
-		});
-		div.append(img);
-		return div;
-	}
 	private _scrollUpdate() {
+		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {
+			return;
+		}
+
 		let i = 0;
 		let height = 0;
-		let below = 0;
-		let above;
 		const old = this._position;
 		const scrollTop = this._body.scrollTop;
 		const scrollBottom = this._body.clientHeight + this._body.scrollTop;
+
+		let diff = 0;
+		let elem_height = -1;
+
 		while (i < this._body.children.length && height < scrollTop) {
-			let img = this._body.children[i];
-			height += img.getBoundingClientRect().height;
-			below += 1;
+			elem_height = this._pos_size.get(i + this._start)!;
+			diff = scrollTop - height;
+			height += elem_height;
 			i += 1;
 		}
+
+		this._below = i;
+
 		if (Math.abs(height - scrollTop) > .99 && i < this._body.children.length) {
+			this._portion = diff / elem_height;
 			this._position = this._start + i - 1;
 		} else if (i === this._body.children.length) {
+			this._portion = 0;
 			if (this.img_urls.length === 0) {
 				this._position = 0;
 			} else {
 				this._position = this._start + i - 1;
 			}
 		} else {
+			this._portion = 0;
 			this._position = this._start + i;
 		}
 		while (i < this._body.children.length && height < scrollBottom) {
@@ -144,19 +160,37 @@ export class GalleryScrollDynamic extends backbone4 {
 			height += img.clientHeight;
 			i += 1;
 		}
-		above = this._body.children.length - i;
+		this._above = this._body.children.length - i;
+
+		// Start adding/removing images
+
+		this._check_preload_context(() => {
+			this._check_preload();
+		});
+		// End adding/removing images
+
+		if (old != this._position) {
+			const event = new CustomEvent(
+				'positionChange',
+				{detail: this._position}
+			);
+			this.dispatchEvent(event);
+		}
+	}
+	private _check_preload() {
+		const below = this._below;
+		const above = this._above;
 		if (below <= this.PRELOAD_EXCEED) {
-			//TODO: Need to account for images loading
 			let to_load = this.PRELOAD_EXCEED - below + 1;
 			let first = this._body.children[0];
 			while (to_load > 0 && this._start > 0) {
-				const img = this._create_img(this._urls[this._start - 1]);
+				const img = this._create_img(this._start - 1);
 				requestAnimationFrame(() => {
 					this._body.insertBefore(img, first);
 					first = img;
 				});
 				this._start -= 1;
-				to_load -= 1
+				to_load -= 1;
 			}
 		} else if (below > this.KEEP_BEHIND) {
 			let to_remove = below - this.KEEP_BEHIND;
@@ -164,17 +198,13 @@ export class GalleryScrollDynamic extends backbone4 {
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[i]);
 			}
-			this._start += to_remove;
-			requestAnimationFrame(() => {
-				for (const img of imgs) {
-					img.remove();
-				}
-			});
+			this._to_remove = imgs;
+			this._wait_stationary(this._remove_behind);
 		}
 		if (above < this.PRELOAD_EXCEED) {
 			let to_load = this.PRELOAD_EXCEED - above;
 			while (to_load > 0 && this._end < this._urls.length) {
-				const img = this._create_img(this._urls[this._end]);
+				const img = this._create_img(this._end);
 				requestAnimationFrame(() => {
 					this._body.append(img);
 				});
@@ -187,23 +217,14 @@ export class GalleryScrollDynamic extends backbone4 {
 			for (let i = 0; i < to_remove; i++) {
 				imgs.push(this._body.children[this._body.children.length - i - 1]);
 			}
-			this._end -= to_remove;
 			requestAnimationFrame(() => {
+				this._end -= to_remove;
 				for (const img of imgs) {
 					img.remove();
 				}
 			});
 		}
-		requestAnimationFrame(() => {
-			this._ticking = false;
-		});
-		if (old != this._position) {
-			const event = new CustomEvent(
-				'positionChange',
-				{detail: this._position}
-			);
-			this.dispatchEvent(event);
-		}
+
 	}
 	set position(value) {
 		const old = this._position;
@@ -222,8 +243,6 @@ export class GalleryScrollDynamic extends backbone4 {
 			}
 			throw new Error('Invalid position ' + value.toString());
 		}
-		//TODO: May reqiure repopulating the gallery
-		//TODO: Set scrollTop instead
 		if (this._start > value) {
 			this._rebuild_position(value);
 		} else if (this._end <= value) {
@@ -236,6 +255,7 @@ export class GalleryScrollDynamic extends backbone4 {
 					this._body.offsetTop);
 			});
 			this._position = value;
+			this._portion = 0;
 		}
 		if (old != this._position) {
 			const event = new CustomEvent(
@@ -249,28 +269,21 @@ export class GalleryScrollDynamic extends backbone4 {
 	get position() {
 		return this._position;
 	}
-	next() {
-		if (this._position < this._urls.length - 1) {
-			this.position += 1;
-		}
-	}
-	back() {
-		if (this._position > 0) {
-			this.position -= 1;
-		}
-	}
-	private _img_load(_img: HTMLImageElement) {
-	}
-	private _rebuild_position(position: number) {
+	protected _rebuild_position(position: number) {
 		const old = this._position;
+
+		this._ro.disconnect();
 		removeChildren(this._body);
+		this._img_map = new WeakMap();
+		this._pos_size.clear();
+
 		let current = position - this.PRELOAD_EXCEED;
 		if (current < 0) {
 			current = 0;
 		}
 		this._start = current;
 		while (current < position && current < this._urls.length) {
-			const img = this._create_img(this._urls[current]);
+			const img = this._create_img(current);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
@@ -278,7 +291,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 		let height = 0;
 		if (current < this._urls.length) {
-			const img = this._create_img(this._urls[current], () => {
+			const img = this._create_img(current, () => {
 				this._final_scroll(() => {
 					img.scrollIntoView();
 				});
@@ -293,7 +306,7 @@ export class GalleryScrollDynamic extends backbone4 {
 
 
 		while (height < this.PRELOAD_HEIGHT && current < this._urls.length) {
-			const img = this._create_img(this._urls[current]);
+			const img = this._create_img(current);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
@@ -302,7 +315,7 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 		let i = 0;
 		while (i < this.PRELOAD_EXCEED && current + i < this._urls.length) {
-			const img = this._create_img(this._urls[current + i]);
+			const img = this._create_img(current + i);
 			requestAnimationFrame(() => {
 				this._body.append(img);
 			});
@@ -312,9 +325,13 @@ export class GalleryScrollDynamic extends backbone4 {
 		this._position = position;
 		if (this._end - this._start) {
 			this._final_scroll(() => {
-				this._body.children[position - this._start].scrollIntoView()
+				this._body.scrollTop = (
+					(this._body.children[position - this._start] as HTMLElement).offsetTop -
+					this._body.offsetTop);
+
 			});
 		}
+
 		if (old != this._position) {
 			const event = new CustomEvent(
 				'positionChange',
@@ -324,18 +341,46 @@ export class GalleryScrollDynamic extends backbone4 {
 		}
 
 	}
-	set_and_jump(img_urls: Array<string>, position: number = 0) {
-		if (!(img_urls instanceof Array)) {
-			console.error('This is not a list of urls', img_urls);
-			throw new Error('Did not get a list of urls');
+	protected _create_img(position: number, callback: (() => void) | null = null) {
+		const img = super._create_img(position, callback, DELAY);
+		this._img_map.set(img, {position: position, size: 0});
+		this._pos_size.set(position, 0);
+		this._ro.observe(img);
+		return img;
+	}
+	private _resize(resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
+		let below = false;
+		for (const entry of resizeList) {
+			if (!this._img_map.has(entry.target)) {
+				console.error('img_map is missing entry');
+				throw new Error('img_map is missing entry');
 			}
-		this._urls = img_urls;
-		this._rebuild_position(position)
+			const old = this._img_map.get(entry.target)!;
+			const current_size = read_border_box(entry).blockSize;
+			old.size = current_size;
+			this._img_map.set(entry.target, old);
+			this._pos_size.set(old.position, current_size);
+			if (old.position <= this._position) {
+				below = true;
+			}
+		}
+		if (below) {
+			this._fix_resize();
+		}
+	}
+	private _fix_resize() {
+		let newTop = 0;
+		for (let i = this._start; i < this._position; i++) {
+			newTop += this._pos_size.get(i)!;
+		}
+		newTop += this._pos_size.get(this._position)! * this._portion;
+		if (Date.now() - LOAD_LEWAY < this._last_rebuild) {
+			return;
+		}
+		this._body.scroll(0, newTop);
 	}
 }
 
 export default GalleryScrollDynamic;
 
-Elements.elements.GalleryScrollDynamic = GalleryScrollDynamic;
-
-Elements.load(GalleryScrollDynamic, 'elements-gallery-scroll-dynamic');
+Elements.load(GalleryScrollDynamic, 'elements-gallery-scroll-dynamic', false, template_promise);

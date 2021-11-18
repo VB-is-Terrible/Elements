@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../icon.png">
+	</head>
+	<body>
+		<!-- <div style='width: 20%'>
+			<elements-kerbal-group-display-kerbal_text id='main'></elements-kerbal-group-display-kerbal_text>
+		</div> -->
+		<!-- <div style='width: 20%'>
+			<elements-kerbal-group-tag id='main'></elements-kerbal-group-tag>
+		</div> -->
+		<div style='width: 20%'>
+			<elements-kerbal-group-display id='main'></elements-kerbal-group-display>
+		</div>
+		<script src='../elements/backbone4.js'></script>
+		<script>
+			Elements.get('kerbal-group-display-kerbal_text', 'KDB', 'kerbal-group-tag', 'kerbal-group-display');
+		</script>
+		<script>
+			const main = async () => {
+				await Elements.get('KDB');
+				const testData4 = (await Elements.importModule('KDB-test')).testData4;
+				const randint = (await import('../elements/elements_helper.js')).randint;
+				let display = document.body.querySelector('#main');
+				let kdb = KDB.fromJSON(testData4);
+				let groups = [];
+				for (let group of kdb.groups.values()) {
+					groups.push(group)
+				}
+				let group = groups[randint(0, groups.length)];
+				display.data = group;
+			}
+			main();
+		</script>
+	</body>
+</html>

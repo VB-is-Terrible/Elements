@@ -1,10 +1,12 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../elements_core.js';
-import {backbone4} from '../elements_backbone.js';
-import {applyPriorProperty, booleaner} from '../elements_helper.js';
+import {backbone4, applyPriorProperty} from '../elements_backbone.js';
+import {booleaner} from '../elements_helper.js';
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Dropdown';
 
@@ -181,7 +183,7 @@ export class Dropdown extends backbone4 {
 		}
 		}
 
-		let setup = requestAnimationFrame((e) => {
+		let setup = requestAnimationFrame(() => {
 			// menu.style.visibility = 'visible';
 			menu.style.display = 'block';
 		});
@@ -225,5 +227,5 @@ export class Dropdown extends backbone4 {
 }
 
 export default Dropdown;
-Elements.elements.Dropdown = Dropdown;
+
 Elements.load(Dropdown, 'elements-dropdown');

@@ -46,9 +46,9 @@ Elements.elements.KerbalDisplay_text = class extends Elements.common.BlankKerbal
 	}
 	updateDisplay () {
 		if (this.data === null) {
-			this.__main.innerHTML = 'Miising Kerbal';
+			this.__main.textContent = 'Miising Kerbal';
 		} else {
-			this.__main.innerHTML = Elements.nameSanitizer(this.data.name);
+			this.__main.textContent = this.data.name;
 		}
 	}
 	delete () {

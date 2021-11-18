@@ -100,7 +100,7 @@ Elements.elements.ProjectsProjectSelection = class ProjectsProjectSelection exte
 		let title = template.querySelector('#title')
 		Elements.setUpAttrPropertyLink2(this, 'title', 'Dependencies', (value) => {
 			requestAnimationFrame((e) => {
-				title.innerHTML = value;
+				title.textContent = value;
 			});
 		})
 		this.applyPriorProperties('title');

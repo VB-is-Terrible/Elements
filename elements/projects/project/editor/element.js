@@ -84,8 +84,8 @@ Elements.elements.ProjectsProjectEditor = class ProjectsProjectEditor extends El
 				progressTotal.value = '';
 			}
 			meta.checked = project.meta;
-			statusMajor.innerHTML = project.status.major_code;
-			statusMinor.innerHTML = project.status.minor_code;
+			statusMajor.textContent = project.status.major_code;
+			statusMinor.textContent = project.status.minor_code;
 
 		});
 		selection.clear();

@@ -4,3 +4,5 @@ elements_helper.js
 backbone4.js
 manifest.js
 manifest.json
+elements_manifest.json
+elements_types.js

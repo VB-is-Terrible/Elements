@@ -1,10 +1,12 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../elements_core.js';
-import {backbone4} from '../elements_backbone.js';
-import {booleaner, setUpAttrPropertyLink} from '../elements_helper.js';
+import {backbone4, setUpAttrPropertyLink} from '../elements_backbone.js';
+import {booleaner} from '../elements_helper.js';
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Grid';
 /**
@@ -26,7 +28,7 @@ export class Grid extends backbone4 {
 
 		// Needed to bind the this value
 		let updateCallback = () => {
-			this.updateGrid();
+			this.#updateGrid();
 		};
 
 		let santizer = (value: unknown, oldValue: number) => {
@@ -49,13 +51,15 @@ export class Grid extends backbone4 {
 	}
 	connectedCallback () {
 		super.connectedCallback();
-		this.updateGrid();
+		this.#updateGrid();
 	}
-	disconnectedCallback () {}
+	disconnectedCallback () {
+		super.disconnectedCallback();
+	}
 	/**
 	 * Updates the grid to new row & col amounts
 	 */
-	updateGrid () {
+	#updateGrid () {
 		// Don't bother resizing before connection
 		if (this.attributeInit) {
 			let rows = this.rows;
@@ -71,7 +75,7 @@ export class Grid extends backbone4 {
 				gridElement.style.gridTemplateColumns = '1fr '.repeat(cols);
 				gridElement.style.gridTemplateAreas = Grid.generateGridNames(rows, cols);
 
-				this.updateDivs(rows, cols);
+				this.#updateDivs(rows, cols);
 
 				let holderDivs = gridElement.querySelectorAll('div.HolderDiv') as unknown as HTMLDivElement[];
 
@@ -93,7 +97,7 @@ export class Grid extends backbone4 {
 	 * @param  {Number} rows    Number of rows to have
 	 * @param  {Number} columns Number of columns to have
 	 */
-	updateDivs (rows: number, columns: number) {
+	#updateDivs (rows: number, columns: number) {
 		let insertionPoint = this.shadowRoot!.querySelector('#gridHolder') as HTMLDivElement;
 		let current = insertionPoint.childElementCount;
 		let template = this.shadowRoot!.querySelector('#templateHolderDiv') as HTMLTemplateElement;
@@ -118,7 +122,7 @@ export class Grid extends backbone4 {
 				let div = newDiv.content.querySelector('div.HolderDiv') as HTMLDivElement;
 				let slot = newDiv.content.querySelector('slot.link') as HTMLSlotElement;
 
-				div.style.gridArea = Grid.numToCharCode(count + 1);
+				div.style.gridArea = Grid.numToCharCode(count);
 				slot.name = currentRow.toString() + '-' + currentCol.toString();
 				insertionPoint.appendChild(newDiv.content);
 				next();
@@ -159,37 +163,30 @@ export class Grid extends backbone4 {
 		}
 		return result;
 	}
+
 	/**
 	 * Convert a number to an alphabetic code
 	 * @param  {Number} num Number to convert
-	 * @return {String}     Base 26 encoding
+	 * @return {String}     Base 16 encoding
 	 */
-	static numToCharCode (num: number): string {
-		const base = 26;
+	static numToCharCode(num: number): string {
+		const base = 16;
 		const a_point = 0x61;
-		let result = [];
-		{
-			let mod = num % base;
-			result.push(mod + a_point);
-			num -= mod;
-			num /= base;
-		}
+		const mod = num % base;
+		let result = String.fromCodePoint(mod + a_point);
+		num -= mod;
+		num /= base;
 		while (num != 0) {
-			num -= 1;
-			let mod = num % base;
-			result.push(mod + a_point);
+			const mod = num % base;
+			result += String.fromCodePoint(mod + a_point);
 			num -= mod;
 			num /= base;
 		}
-
-		result.reverse();
-		return String.fromCodePoint(...result);
+		return result;
 	}
 
 };
 
 export default Grid;
-
-Elements.elements.Grid = Grid;
 
 Elements.load(Grid, 'elements-grid');

@@ -1,10 +1,12 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
-import {backbone4} from '../../../elements_backbone.js';
-import {applyPriorProperties} from '../../../elements_helper.js';
+import {backbone4, applyPriorProperties} from '../../../elements_backbone.js';
+import {} from '../../../elements_helper.js';
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const ELEMENT_NAME = 'CustomInputBar';
 
@@ -50,7 +52,7 @@ export class CustomInputBar extends backbone4 {
 
 		this._button_text = value;
 		requestAnimationFrame(() => {
-			this._button.innerHTML = value;
+			this._button.textContent = value;
 		});
 
 		if (this.attributeInit) {
@@ -80,12 +82,6 @@ export class CustomInputBar extends backbone4 {
 	set value(value) {
 		this._input.value = value;
 	}
-	connectedCallback() {
-		super.connectedCallback();
-	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
-	}
 	static get observedAttributes (): Array<string & keyof CustomInputBar> {
 		return ['text', 'type'];
 	}
@@ -99,7 +95,5 @@ export class CustomInputBar extends backbone4 {
 }
 
 export default CustomInputBar;
-
-Elements.elements.CustomInputBar = CustomInputBar;
 
 Elements.load(CustomInputBar, 'elements-custom-input-bar');

@@ -28,13 +28,13 @@ Elements.elements.FakebookPost = class FakebookPost extends Elements.elements.ba
 	setName (name) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let name_out = body.querySelector('p.name');
-		name_out.innerHTML = Elements.nameSanitizer(name);
+		name_out.textContent = name;
 	}
 	setTime (time) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let time_out = body.querySelector('p.time');
 		let time_obj = new Date(time);
-		time_out.innerHTML = time_obj.toLocaleString();
+		time_out.textContent = time_obj.toLocaleString();
 	}
 	setProfile (img_location) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
@@ -44,7 +44,7 @@ Elements.elements.FakebookPost = class FakebookPost extends Elements.elements.ba
 	setText (text) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');
 		let text_out = body.querySelector('.text');
-		text_out.innerHTML = Elements.nameSanitizer(text);
+		text_out.textContent = text;
 	}
 	setPicture (img_location) {
 		let body = this.shadowRoot.querySelector('#pseudoBody');

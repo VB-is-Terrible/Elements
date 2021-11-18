@@ -28,8 +28,8 @@ Elements.elements.KerbalGroupTag = class extends Elements.elements.backbone2 {
 		if (this.__data !== null) {
 			let name = this.shadowRoot.querySelector('p.name');
 			let text = this.shadowRoot.querySelector('p.subText');
-			name.innerHTML = Elements.nameSanitizer(this.data.name);
-			text.innerHTML = Elements.nameSanitizer(this.data.text);
+			name.textContent = this.data.name;
+			text.textContent = this.data.text;
 		}
 	}
 	get data () {
@@ -62,8 +62,8 @@ Elements.elements.KerbalGroupTag = class extends Elements.elements.backbone2 {
 		let name = this.shadowRoot.querySelector('p.name');
 		let text = this.shadowRoot.querySelector('p.subText');
 		requestAnimationFrame((e) => {
-		    name.innerHTML = Elements.nameSanitizer(this.data.name);
-			text.innerHTML = Elements.nameSanitizer(this.data.text);
+			name.textContent = this.data.name;
+			text.textContent = this.data.text;
 		});
 	}
 }

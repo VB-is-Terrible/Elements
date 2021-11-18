@@ -160,7 +160,7 @@ export class UpdateWrapper<T> {
 	data: T;
 	listeners: Set<WeakRef<UpdateListener<T>>> = new Set();
 	_last_cleanup: number;
-	finalizer: FinalizationRegistry;
+	finalizer: FinalizationRegistry<WeakRef<UpdateListener<T>>>;
 	_callback: (heldValue: WeakRef<UpdateListener<T>>) => void;
 	constructor(data: T) {
 		this.data = data;

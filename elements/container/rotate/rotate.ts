@@ -1,10 +1,12 @@
-export const recommends = [];
-export const requires = [];
+const recommends: Array<string> = [];
+const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
-import {backbone4} from '../../elements_backbone.js';
-import { applyPriorProperties, wait } from '../../elements_helper.js'
+import {backbone4, applyPriorProperties} from '../../elements_backbone.js';
+import { wait, get_border_box as resizeObserverBorderHeight } from '../../elements_helper.js'
 
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 const SLOT_TEMPLATE = 'ContainerRotate-Stackable';
 const template_promise = Elements.loadTemplate('container/rotate/stackableTemplate.html');
@@ -86,12 +88,6 @@ export class ContainerRotate extends backbone4 {
 		requestAnimationFrame(() => {
 			(this.shadowQuery('#rotate1') as HTMLDivElement).style.transform = show_style;
 		});
-	}
-	connectedCallback () {
-		super.connectedCallback();
-	}
-	disconnectedCallback () {
-		super.disconnectedCallback();
 	}
 	static get observedAttributes () {
 		return ['current'];
@@ -323,9 +319,8 @@ export class ContainerRotate extends backbone4 {
 	 * @private
 	 */
 	private _resize (resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
-		console.log(resizeList)
 		for (let entry of resizeList) {
-			let height = entry.borderBoxSize ? entry.borderBoxSize.blockSize : entry.contentRect.height;
+			let height = resizeObserverBorderHeight(entry).blockSize;
 			this._div_sizes.set(entry.target as HTMLDivElement, height);
 		}
 		let largest_height = Math.max(...this._div_sizes.values()) + 1;
@@ -337,7 +332,6 @@ export class ContainerRotate extends backbone4 {
 			}
 			sheet.insertRule(rule);
 		}
-		console.log(rule);
 	}
 	/**
 	 * Make the first child the displayed slot
@@ -368,7 +362,5 @@ export class ContainerRotate extends backbone4 {
 }
 
 export default ContainerRotate;
-
-Elements.elements.ContainerRotate = ContainerRotate;
 
 Elements.load(ContainerRotate, 'elements-container-rotate', true, template_promise);

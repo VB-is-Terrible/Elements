@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel='preload' href='../elements/backbone4.js' as='script'></link>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../icon.png">
+	</head>
+	<body style='background: purple'>
+		<elements-toaster id='toaster'>
+		</elements-toaster>
+	</body>
+	<script src='../elements/backbone4.js'></script>
+	<script>
+		Elements.get('toaster');
+		const main = async () => {
+			await Elements.get('toaster');
+			toaster.addToast({
+				title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
+				body: 'Body text here',
+				buttons: ['Hello', 'Big World'],
+			});
+			toaster.addToast({
+				title: '0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789',
+				body: 'Second',
+				buttons: ['Hello', 'Big World'],
+			});
+			import('./testbed9.js')
+		}
+		main();
+	</script>
+</html>

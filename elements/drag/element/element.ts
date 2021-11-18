@@ -1,9 +1,12 @@
-export const recommends = ['drag-body'];
-export const requires = [];
+const recommends: Array<string> = ['drag-body'];
+const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
-import {backbone, backbone2, backbone4} from '../../elements_backbone.js';
-import { applyPriorProperty, CustomComposedEvent, GConstructor} from '../../elements_helper.js';
+import {backbone, backbone2, backbone4, applyPriorProperty} from '../../elements_backbone.js';
+import { CustomComposedEvent, GConstructor} from '../../elements_helper.js';
+
+Elements.get(...recommends);
+await Elements.get(...requires);
 
 type TouchListener = (arg0: TouchEvent) => void;
 type MouseListener = (arg0: MouseEvent) => void;
@@ -159,7 +162,8 @@ export class DragElement extends backbone4 {
 				this.showWindow();
 			} else {
 				this.hideWindow();
-			}                        e.stopPropagation();
+			}                        
+			e.stopPropagation();
 		});
 		this._body.addEventListener('elements-drag-centre', (e) => {
 			this.centre();
@@ -572,7 +576,5 @@ export const Dragged1 = dragged_mixin(backbone);
 Elements.elements.dragged = Dragged1;
 
 export default DragElement;
-
-Elements.elements.Toaster = DragElement;
 
 Elements.load(DragElement, 'elements-drag-element');
