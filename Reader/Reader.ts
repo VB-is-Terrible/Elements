@@ -9,6 +9,7 @@ import type {Grid} from '../elements/grid/grid.js';
 import {Elements} from '../elements/elements_core.js';
 import type { Toaster } from '../elements/toaster/toaster.js';
 import { ToasterContext } from '../elements/toaster/Common/Common.js';
+import type {ToastData} from '../elements/toaster/toast/toast.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -23,17 +24,18 @@ const toaster = document.querySelector('#toaster') as Toaster;
 const zoom_input = document.querySelector('#zoom_count') as HTMLInputElement;
 
 
+const load_toast = new ToasterContext(toaster);
 const respond = async (e: CustomEvent) => {
 	main_input.value = '';
 	main_input.blur();
-	toaster.addToast({
+	load_toast.addToast({
 		title: 'Loading'
 	});
 	query_pics(e.detail);
 };
 
 const redo = async () => {
-	toaster.addToast({
+	load_toast.addToast({
 		title: 'Reloading'
 	});
 	query_pics(current_url, -1);
@@ -68,7 +70,7 @@ const query_pics = async (url: string, position?: number) => {
 			body: form,
 		});
 	} catch (e) {
-		toaster.addToast({
+		load_toast.addToast({
 			title: 'Error connecting to server',
 			body: 'Check that the server is running',
 		});
@@ -84,7 +86,7 @@ const query_pics = async (url: string, position?: number) => {
 		if (await notify_permission) {
 			notify_send('Loaded Gallery', {body: title, silent: true});
 		} else {
-			toaster.addToast({
+			load_toast.addToast({
 				title: 'Loaded Gallery',
 				body: title,
 			});
@@ -246,17 +248,54 @@ let seen_fails: number[] = [];
 let fails: number[] = [];
 let fails_total = new Set();
 const notify_fail_toast = new ToasterContext(toaster);
-const redo_toast = new ToasterContext(toaster);
 const CHECK_BEHIND = 20;
 const ACCEPTED_FAILS = 2;
 const EXCLUSION_ZONE = 15;
 const FAIL_NOTIFICATION_TIMEOUT = 7000;
 
 
+const fail_toast_manager = (() => {
+	class FailToastManager {
+		redo = false;
+		body = '';
+		title = '';
+		toast = new ToasterContext(toaster);
+		make_fail_toast (): ToastData {
+			const toast_data: ToastData = {
+				title: this.title,
+				body: this.body,
+			}
+			if (this.redo) {
+				toast_data.buttons = ['Reload images'];
+			} else {
+				toast_data.timeout = FAIL_NOTIFICATION_TIMEOUT;
+			}
+			return toast_data;
+		}
+		update_fail_toast () {
+			const toast_data = this.make_fail_toast();
+			const previous = notify_fail_toast.toast === null;
+			notify_fail_toast.addToast(toast_data);
+			if (previous) {
+				notify_fail_toast.toast!.addEventListener('toast_button_click', () => {
+					ui_redo();
+				});
+			}
+		};
+		reset() {
+			this.redo = false;
+			this.body = '';
+			this.title = '';
+		}
+	}
+	return new FailToastManager();
+})();
+
 const reset_fails = () => {
 	seen_fails = [];
 	fails = [];
 	fails_total = new Set();
+	fail_toast_manager.reset();
 	toaster.clearToasts();
 };
 
@@ -277,12 +316,13 @@ const notify_fail = (fail: number) => {
 		return;
 	}
 	fails_total.add(fail);
+	console.log(fails_total);
 	const fail_line = `${fails_total.size} images have failed to load`;
-	notify_fail_toast.addToast({
-		title: 'Failed image loads',
-		body: fail_line,
-		timeout: FAIL_NOTIFICATION_TIMEOUT,
-	});
+	if (!fail_toast_manager.redo) {
+		fail_toast_manager.title = 'Failed image loads';
+	}
+	fail_toast_manager.body = fail_line;
+	fail_toast_manager.update_fail_toast();
 };
 
 
@@ -307,15 +347,9 @@ const image_fail = (e: CustomEvent, urls: Array<string>) => {
 	const fail = check_fails();
 	if (fail !== -1) {
 		on_excess_fail(fail);
-		const new_toast = redo_toast.addToast({
-			title: 'Excessive image load fails',
-			buttons: ['Reload images'],
-		});
-		if (new_toast) {
-			redo_toast.toast!.addEventListener('toast_button_click', () => {
-				ui_redo();
-			});
-		}
+		fail_toast_manager.title = 'Excessive image load fails';
+		fail_toast_manager.redo = true;
+		fail_toast_manager.update_fail_toast();
 	}
 };
 
