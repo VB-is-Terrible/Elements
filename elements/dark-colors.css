@@ -21,7 +21,8 @@
 	--atom-one-dark-silver:     #9DA5B4;
 	--atom-one-dark-black:      #21252B;
 	--atom-one-dark-border:     #181A1F;
-	--elements-dark-input-border:    2px var(--atom-one-dark-border) solid;
+	--elements-dark-border-color:    var(--atom-one-dark-mono-2);
+	--elements-dark-input-border:    2px var(--atom-one-dark-mono-2) solid;
 	--elements-dark-input-radius:    .125em;
 
 
@@ -48,5 +49,5 @@
 	--elements-theme-border:         var(--atom-one-dark-border);
 	--elements-theme-input-border:   var(--elements-dark-input-border);
 	--elements-theme-input-radius:   var(--elements-dark-input-radius);
-
+	--elements-theme-border-color:   var(--elements-dark-border-color);
 }
