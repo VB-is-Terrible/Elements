@@ -1,5 +1,5 @@
 #pseudoBody {
-	border: 1px solid;
+	border: 1px solid var(--elements-theme-border-color, revert);
 	padding: .25em;
 	width: 32ex;
 	background-color: var(--elements-theme-bg, white);
