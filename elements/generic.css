@@ -1,16 +1,16 @@
 body, #pseudoBody, :host {
-	background: var(--elements-theme-bg, revert);
+	background-color: var(--elements-theme-bg, revert);
 	color: var(--elements-theme-fg, revert);
 }
 button {
-	background: var(--elements-theme-gutter, revert);
+	background-color: var(--elements-theme-gutter, revert);
 	color: var(--elements-theme-fg, revert);
 }
 button:active {
-	background: var(--elements-theme-bg-1, revert);
+	background-color: var(--elements-theme-bg-1, revert);
 }
 input, textarea {
-	background: var(--elements-theme-bg-hl, revert);
+	background-color: var(--elements-theme-bg-hl, revert);
 	color: var(--elements-theme-fg, revert);
 }
 button, input, textarea {
