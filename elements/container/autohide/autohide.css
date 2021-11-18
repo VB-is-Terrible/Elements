@@ -10,7 +10,7 @@
 	transition-property: transform;
 	/* transition-duration: .3s; Set in JS */
 	/* transition-duration: 0s; */
-	/* background: blue; */
+	background: none;
 }
 :host([hidden]) {
         display: none;
