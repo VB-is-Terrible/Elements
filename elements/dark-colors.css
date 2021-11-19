@@ -24,6 +24,7 @@
 	--elements-dark-border-color:    var(--atom-one-dark-mono-2);
 	--elements-dark-input-border:    2px var(--atom-one-dark-mono-2) solid;
 	--elements-dark-input-radius:    .125em;
+	--elements-dark-bg-blur:    #282C34A9;
 
 
 	--elements-theme-accent:         var(--atom-one-dark-accent);
@@ -50,4 +51,5 @@
 	--elements-theme-input-border:   var(--elements-dark-input-border);
 	--elements-theme-input-radius:   var(--elements-dark-input-radius);
 	--elements-theme-border-color:   var(--elements-dark-border-color);
+	--elements-theme-bg-blur:        var(--elements-dark-bg-blur);
 }

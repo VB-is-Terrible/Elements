@@ -6,8 +6,8 @@
 	top: var(--top);
 	left: var(--left);
 	width: auto;
-	background: rgba(255,255,255,0.66);
-	border: 2px  solid rgba(0,0,0,0.5);
+	background: var(--elements-theme-bg-blur, rgba(255,255,255,0.66));
+	border: var(--elements-theme-input-border, 2px  solid rgba(0,0,0,0.5));
 	border-radius: 4px;
 	padding: 8px;
 	position: var(--position);
