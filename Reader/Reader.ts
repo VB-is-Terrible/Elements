@@ -162,6 +162,7 @@ const main = () => {
 	});
 	load_local();
 	dialog.show();
+	toaster.addToast({'title': 'Testing theme background', timeout: 10000});
 };
 
 
