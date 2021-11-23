@@ -1,5 +1,6 @@
 const excludedProperties = new Set(['attributeInit', 'connected']);
 const defaultProperties = new Set();
+const REPORTING_MODE = true;
 
 /**
  * Create a new empty custom element, then place all the properties into
@@ -141,6 +142,9 @@ export class backbone2 extends HTMLElement {
 	 * @deprecated
 	 */
 	applyPriorProperties<K extends keyof backbone2>(...properties: (K & string)[]) {
+                if (REPORTING_MODE) {
+                        console.warn('Using deprecated function \'applyPriorProperties\'');
+                }
                 applyPriorProperties(this, ...properties);
 	}
 	/**
@@ -152,6 +156,9 @@ export class backbone2 extends HTMLElement {
 	 * @deprecated
 	 */
 	applyPriorProperty<K extends keyof backbone2>(property: K & string, initial: any) {
+                if (REPORTING_MODE) {
+                        console.warn('Using deprecated function \'applyPriorProperty\'');
+                }
                 applyPriorProperty(this, property, initial)
 	}
 	/**
@@ -251,28 +258,6 @@ export class backbone3 extends backbone2 {
 
 export class backbone4 extends backbone3 {
         static __backbone_version = 4;
-        /**
-         * Apply the properties saved in the constructor
-         * @param  {...Strings} properties Properties to restore
-         * @deprecated
-         * @instance
-         */
-        applyPriorProperties(...properties: (string)[]) {
-                console.warn('Using deprecated function applyPriorProperties');
-                return super.applyPriorProperties(...properties);
-        }
-        /**
-         * Apply the property saved in the constructor, or initial
-         * if the property was not present
-         * @param  {String} property Property to restore
-         * @param  {*} initial       What to set the property to if it was saved
-         * @deprecated
-         * @instance
-         */
-        applyPriorProperty(property: string, initial: any) {
-                console.warn('Using deprecated function applyPriorProperty');
-                return super.applyPriorProperty(property, initial);
-        }
 }
 
 
