@@ -4,7 +4,7 @@
 }
 #pseudoBody {
 	width: var(--width);
-	background: rgba(255,255,255,.66);
+	background: var(--elements-theme-bg-blur, rgba(255,255,255,.66));
 	font-size: var(--font-size);
 }
 p {
@@ -26,9 +26,14 @@ elements-grid {
 	--grid-gap: 1em;
 }
 select, button, input{
-	background-color: #f6f6f6;
-	border: 1px solid black;
-	border-radius: 3px;
+	border: var(--elements-theme-input-border, 1px solid black);
+	border-radius: var(--elements-theme-border-radius, 3px);
+}
+select, button {
+	background-color: var(--elements-theme-gutter, #f6f6f6);
+}
+input {
+	background-color: var(--elements-theme-bg-hl, #f6f6f6);
 }
 #editBody {
 	font-size: var(--font-size);

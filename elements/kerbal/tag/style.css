@@ -25,7 +25,7 @@ p.name {
 p.subText {
 	font-size: small;
 	margin: 0px 20px;
-	background: lightgrey;
+	background: var(--elements-theme-gutter, lightgrey);
 	border-radius: 5px;
 	padding: 0px;
 }
@@ -38,4 +38,5 @@ img {
 }
 :host {
 	width: 100%;
+	background: none;
 }

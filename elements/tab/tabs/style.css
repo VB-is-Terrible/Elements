@@ -1,15 +1,14 @@
 .tabs {
 	display: inline-flex;
-	border-left: 1px solid black;
+	border-left: var(--elements-theme-input-border, 1px solid black);
 }
 button.tab {
-	border: 1px solid black;
+	border: var(--elements-theme-input-border, 1px solid black);
 	float: left;
 	border-radius: 0px;
 	border-left: 0px;
-	background: white;
+	background-color: var(--elements-theme-bg, #f8f8f8);
 	font-size: var(--size);
-	background-color: #f8f8f8;
 }
 :host {
 	--size: initial;
@@ -17,5 +16,5 @@ button.tab {
 }
 button.tab:active, button.tab-selected {
 	border-bottom: 0px;
-	background-color: white;
+	background-color: var(--elements-theme-bg, white);
 }

@@ -17,9 +17,13 @@ button {
 	margin-left: 0px;
 	margin-right: 0px;
 	border: 1px solid black;
-	background: white;
+	border-radius: 0;
+	background: var(--elements-theme-bg, white);
 	font-size: 1em;
 	height: 100%;
+}
+button:active {
+	background: var(--elements-theme-bg-1);
 }
 #multi {
 	width: 100%;

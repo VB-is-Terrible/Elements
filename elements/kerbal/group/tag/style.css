@@ -1,5 +1,5 @@
 #pseudoBody {
-	border: 1px solid grey;
+	border: 1px solid var(--elements-theme-border-color, grey);
 	border-radius: 5px;
 	display: flex;
 	/*width: var(--width);*/
@@ -26,7 +26,7 @@ p.name {
 p.subText {
 	font-size: small;
 	margin: 0px 20px;
-	background: lightgrey;
+	background: var(--elements-theme-gutter, lightgrey);
 	border-radius: 5px;
 	padding: 0px;
 	white-space: normal;
@@ -40,4 +40,5 @@ img {
 }
 :host {
 	width: 100%;
+	background: none;
 }

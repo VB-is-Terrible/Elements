@@ -1,8 +1,7 @@
 body, #pseudoBody, :host {
-	background-color: var(--elements-theme-bg, revert);
 	color: var(--elements-theme-fg, revert);
 }
-button {
+button, select {
 	background-color: var(--elements-theme-gutter, revert);
 	color: var(--elements-theme-fg, revert);
 }
@@ -13,7 +12,7 @@ input, textarea {
 	background-color: var(--elements-theme-bg-hl, revert);
 	color: var(--elements-theme-fg, revert);
 }
-button, input, textarea {
+button, input, textarea, select {
 	border: var(--elements-theme-input-border, revert);
 	border-radius: var(--elements-theme-input-radius, revert);
 }

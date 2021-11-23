@@ -9,7 +9,7 @@ img.scroll, video.scroll {
 	object-fit: contain;
 	min-width: 5em;
 	min-height: 5em;
-	background-color: pink;
+	background-color: var(--elements-theme-orange-1, pink);
 }
 video.scroll {
 	display: block;

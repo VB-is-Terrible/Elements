@@ -1,0 +1,4 @@
+body, #pseudoBody, :host {
+	background-color: var(--elements-theme-bg, revert);
+	color: var(--elements-theme-fg, revert);
+}

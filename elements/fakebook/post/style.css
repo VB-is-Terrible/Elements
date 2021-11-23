@@ -49,7 +49,7 @@ p.subText {
 	width: 100%;
 	contain: content;
 	width: 700px;
-	background: whitesmoke;
+	background: var(--elements-theme-bg, whitesmoke);
 	margin-bottom: 1em;
 	padding-bottom: 1em;
 }

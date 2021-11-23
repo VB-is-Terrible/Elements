@@ -11,7 +11,7 @@ div.flex {
 button {
 	font-size: calc(var(--arrow-size) * 1em);
 	border-radius: 5px;
-	border: 2px solid darkblue;
+	border: var(--elements-theme-input-border, 2px solid darkblue);
 }
 :host {
 	--arrow-size: 3;

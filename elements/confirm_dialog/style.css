@@ -6,3 +6,6 @@ elements-drag-element {
 	width: 400px;
 	/* height: 10px; */
 }
+#footer {
+	padding-right: 0;
+}

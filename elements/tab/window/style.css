@@ -21,13 +21,13 @@ div.fill {
 }
 button, input, select {
 	font-size: var(--font-size);
-	border: 1px solid black;
-	border-radius: 3px;
+	/* border: 1px solid black;
+	border-radius: 3px; */
 }
 #Close {
 	float: right;
 	/* margin-right: .5em; */
-	background-color: white;
+	/* background-color: white; */
 }
 div.slot {
 	display: none;
@@ -37,6 +37,6 @@ div.slot {
 	height: 2px;
 	bottom: 0px;
 	z-index: -200;
-	background: black;
+	background: var(--elements-theme-border-color, black);
 	position: absolute;
 }

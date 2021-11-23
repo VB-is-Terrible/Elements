@@ -78,7 +78,8 @@ Initless support (Move manifest loading back to core) | Done
 | Transplant support | ? |
 | Manifest builder reading import statements | ?
 | Grid 2 | ?
-| Have ToasterContext pass through events from managed toasts | ? 
+| Have ToasterContext pass through events from managed toasts | ?
+| Have kerbal-group-tag invert the color of the picture if in dark mode | ?
 
 Fix gallery dynamic screwing up when at the bottom
 

@@ -8,7 +8,7 @@ elements-dropdown.danger {
 #line {
 	height: 2px;
 	margin: 0px 20px;
-	background: black;
+	background: var(--elements-theme-fg, black);
 }
 #lineContain {
 	display: flex;
@@ -31,7 +31,7 @@ div.dangerLine {
 	position: relative;
 }
 p.textOverlay {
-	background: white;
+	background: var(--elements-theme-bg, white);
 	padding: 0px 10px;
 }
 div.flex-column {

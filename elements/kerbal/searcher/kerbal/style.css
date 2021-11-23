@@ -7,7 +7,7 @@ input[type=checkbox] {
 	height: 1em;
 }
 input[type=text] {
-	background: white;
+	background: var(--elements-theme-bg-hl, white);
 }
 .drag_inside {
 	margin-top: 10px;
