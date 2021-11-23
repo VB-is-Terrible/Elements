@@ -68,7 +68,7 @@ export class backbone extends HTMLElement {
 }
 
 
-const global_property_store = new WeakMap<backbone2, Map<string, any>>();
+const property_store_sym = Symbol('elements property_store');
 
 
 /**
@@ -87,6 +87,7 @@ export class backbone2 extends HTMLElement {
         attributeInit: boolean = false;
         connected: boolean = false;
         static __backbone_version: number = 2;
+        [property_store_sym]?: Map<string, unknown>;
 	constructor () {
 		super();
 		const propertyStore = new Map();
@@ -99,15 +100,15 @@ export class backbone2 extends HTMLElement {
 				delete this[property];
 			}
 		}
-                global_property_store.set(this, propertyStore);
+                this[property_store_sym] = propertyStore;
 	}
 	/**
 	 * Called once inserted into DOM
 	 * @instance
 	 */
 	connectedCallback () {
-		if (this.attributeInit === false){
-			global_property_store.delete(this);
+		if (this.attributeInit === false) {
+                        delete this[property_store_sym];
                         // @ts-ignore
 			for (let attribute of this.constructor.observedAttributes) {
                                 //@ts-ignore
@@ -137,20 +138,10 @@ export class backbone2 extends HTMLElement {
 	 * Apply the properties saved in the constructor
 	 * @param  {...Strings} properties Properties to restore
 	 * @instance
+	 * @deprecated
 	 */
-	applyPriorProperties(...properties: (string)[]) {
-		if (!global_property_store.has(this)) {
-			console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-			return;
-		}
-		// Because inheritance, typescript can't figure this out :(
-                const property_store = global_property_store.get(this)!;
-		for (let prop of properties) {
-			if (property_store.has(prop)) {
-				//@ts-ignore
-				this[prop] = property_store.get(prop);
-			}
-		}
+	applyPriorProperties<K extends keyof backbone2>(...properties: (K & string)[]) {
+                applyPriorProperties(this, ...properties);
 	}
 	/**
 	 * Apply the property saved in the constructor, or initial
@@ -158,21 +149,10 @@ export class backbone2 extends HTMLElement {
 	 * @param  {String} property Property to restore
 	 * @param  {*} initial       What to set the property to if it was saved
 	 * @instance
+	 * @deprecated
 	 */
-	applyPriorProperty(property: string, initial: any) {
-		if (!global_property_store.has(this)) {
-			console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-			return;
-		}
-		// Because inheritance, typescript can't figure this out :(
-                const property_store = global_property_store.get(this)!;
-		if (property_store.has(property)) {
-			//@ts-ignore
-			this[property] = property_store.get(property);
-		} else {
-			//@ts-ignore
-			this[property] = initial;
-		}
+	applyPriorProperty<K extends keyof backbone2>(property: K & string, initial: any) {
+                applyPriorProperty(this, property, initial)
 	}
 	/**
 	 * Called when removed from the dom.
@@ -195,11 +175,11 @@ export class backbone2 extends HTMLElement {
  * @return                 Fetched property
  */
 export const getPriorProperty = <O extends backbone2, K extends keyof O>(object: O, property: K & string): unknown => {
-        if (!global_property_store.has(object)) {
+        const property_store = object[property_store_sym];
+        if (property_store === undefined) {
                 console.warn('It\'s too late to apply properties. Do this before connectedCallback');
                 return;
         }
-        const property_store = global_property_store.get(object)!;
         return property_store.get(property);
 };
 
@@ -210,14 +190,14 @@ export const getPriorProperty = <O extends backbone2, K extends keyof O>(object:
  * @param  {...Strings} properties Properties to restore
  */
 export const applyPriorProperties = <O extends backbone2, K extends keyof O>(object: O, ...properties: Array<K & string>) => {
-        if (!global_property_store.has(object)) {
+        const property_store = object[property_store_sym];
+        if (property_store === undefined) {
                 console.warn('It\'s too late to apply properties. Do this before connectedCallback');
                 return;
         }
-        const property_store = global_property_store.get(object)!;
         for (let prop of properties) {
                 if (property_store.has(prop)) {
-                        object[prop] = property_store.get(prop);
+                        object[prop] = property_store.get(prop) as any;
                 }
         }
 };
@@ -230,13 +210,13 @@ export const applyPriorProperties = <O extends backbone2, K extends keyof O>(obj
  * @param  {*} initial       What to set the property to if it was saved
  */
 export const applyPriorProperty = <O extends backbone2, K extends keyof O>(object: O, property: string & K, initial: any) => {
-        if (!global_property_store.has(object)) {
+        const property_store = object[property_store_sym];
+        if (property_store === undefined) {
                 console.warn('It\'s too late to apply properties. Do this before connectedCallback');
                 return;
         }
-        const property_store = global_property_store.get(object)!;
         if (property_store.has(property)) {
-                object[property] = property_store.get(property);
+                object[property] = property_store.get(property) as any;
         } else {
                 object[property] = initial;
         }
