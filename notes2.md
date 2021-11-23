@@ -5,8 +5,6 @@ const elements_helper = (await import ('../elements/elements_helper.js'));
 
 How shit works
 
-e = (await import ('../elements/elements_core.js')).Elements
-
 Definitions:
 	Module: a standalone js file
 	Element: a module that loads a custom element
