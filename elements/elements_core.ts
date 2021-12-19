@@ -1,12 +1,15 @@
 const LINK_INSERT_DIV_ID = 'Elements_Link_Insert_Location';
-const PRELOAD_LOCATION = 'Elements_Preload_Location'
-const SCRIPT_LOCATION = 'Elements_Script_Location'
+const PRELOAD_LOCATION = 'Elements_Preload_Location';
+const SCRIPT_LOCATION = 'Elements_Script_Location';
+const THEME_LOCATION = 'Elements_Theme_Location';
 
 
 import {backbone, backbone2, backbone3, Backbone, setUpAttrPropertyLink} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
 import {booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
+import {get_setting, set_setting} from './elements_options.js';
 import type {manifest_t, PromiseCallback, manifest_t_optional} from './elements_types'
+
 
 
 /**
@@ -141,6 +144,11 @@ class Elements {
 	 * @private
 	 */
 	#templateLocation: Element;
+	/**
+	 * Link to the current theme's stylesheet
+	 * @private
+	 */
+	#themeLocation: HTMLLinkElement;
 	/**
 	 * Property to prevent setup from been run twice
 	 * @type {Boolean}
@@ -805,6 +813,21 @@ class Elements {
 		} else {
 			this.#scriptLocation = script_point;
 		}
+		const theme_point = head.querySelector('link#' + THEME_LOCATION);
+		if (theme_point === null) {
+			const theme = get_setting('theme', '');
+			this.#themeLocation = document.createElement('link');
+			this.#themeLocation.rel = 'stylesheet';
+			this.#themeLocation.type = 'text/css';
+			this.#themeLocation.href = this.location + 'Themes/' + theme;
+			if (theme === '') {
+				this.#themeLocation.disabled = true;
+			}
+			head.append(this.#themeLocation);
+
+		} else {
+			this.#themeLocation = theme_point as HTMLLinkElement;
+		}
 		this.#templateLocation = document.createElement('div');
 		this.#loadManifest();
 	}
@@ -846,6 +869,15 @@ class Elements {
 		let location = name + '/' + module_name + '.js';
 		await this.get(elementName);
 		return import('./' + location);
+	}
+	setTheme(theme_file: string) {
+		this.#themeLocation.href = this.location + 'Themes/' + theme_file;
+		if (theme_file === '') {
+			this.#themeLocation.disabled = true;
+		} else {
+			this.#themeLocation.disabled = false;
+		}
+		set_setting('theme', theme_file);
 	}
 }
 
