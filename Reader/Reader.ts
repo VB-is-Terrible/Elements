@@ -162,7 +162,6 @@ const main = () => {
 	});
 	load_local();
 	dialog.show();
-	toaster.addToast({'title': 'Testing theme background', timeout: 10000});
 };
 
 
@@ -266,7 +265,7 @@ const fail_toast_manager = (() => {
 				title: this.title,
 				body: this.body,
 			}
-			if (this.redo) {
+			if (!loading && this.redo) {
 				toast_data.buttons = ['Reload images'];
 			} else {
 				toast_data.timeout = FAIL_NOTIFICATION_TIMEOUT;
@@ -278,8 +277,10 @@ const fail_toast_manager = (() => {
 			const previous = notify_fail_toast.toast === null;
 			notify_fail_toast.addToast(toast_data);
 			if (previous) {
-				notify_fail_toast.toast!.addEventListener('toast_button_click', () => {
+				notify_fail_toast.toast!.addEventListener('toast_button_click', (e) => {
+					e.preventDefault();
 					ui_redo();
+					this.make_fail_toast();
 				});
 			}
 		};
