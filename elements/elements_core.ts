@@ -7,7 +7,7 @@ const THEME_LOCATION = 'Elements_Theme_Location';
 import {backbone, backbone2, backbone3, Backbone, setUpAttrPropertyLink} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
 import {booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
-import {get_setting, set_setting} from './elements_options.js';
+import {get_setting, remove_setting, set_setting} from './elements_options.js';
 import type {manifest_t, PromiseCallback, manifest_t_optional} from './elements_types'
 
 
@@ -167,28 +167,28 @@ class Elements {
 		 * @memberof Elements.animation
 		 * @constant
 		 */
-		SHORT_DURATION: 100,
+		SHORT_DURATION: get_setting('short_duration', 100),
 		/**
 		 * Normal animation duration (ms)
 		 * @type {Number}
 		 * @memberof Elements.animation
 		 * @constant
 		 */
-		MEDIUM_DURATION: 150,
+		MEDIUM_DURATION: get_setting('medium_duration', 150),
 		/**
 		 * Long animation duration (ms)
 		 * @type {Number}
 		 * @memberof Elements.animation
 		 * @constant
 		 */
-		LONG_DURATION: 300,
+		LONG_DURATION: get_setting('long_duration', 300),
 		/**
 		 * Offset to drop/raise (pixels)
 		 * @type {Number}
 		 * @memberof Elements.animation
 		 * @constant
 		 */
-		DROP_AMOUNT: 50,
+		DROP_AMOUNT: get_setting('drop_amount', 50),
 	};
 
 	/**
@@ -819,10 +819,7 @@ class Elements {
 			this.#themeLocation = document.createElement('link');
 			this.#themeLocation.rel = 'stylesheet';
 			this.#themeLocation.type = 'text/css';
-			this.#themeLocation.href = this.location + 'Themes/' + theme;
-			if (theme === '') {
-				this.#themeLocation.disabled = true;
-			}
+			this.#setTheme(theme);
 			head.append(this.#themeLocation);
 
 		} else {
@@ -870,14 +867,23 @@ class Elements {
 		await this.get(elementName);
 		return import('./' + location);
 	}
-	setTheme(theme_file: string) {
-		this.#themeLocation.href = this.location + 'Themes/' + theme_file;
+	#setTheme(theme_file: string) {
 		if (theme_file === '') {
+			this.#themeLocation.href = ''
 			this.#themeLocation.disabled = true;
 		} else {
+			this.#themeLocation.href = this.location + 'Themes/' + theme_file;
 			this.#themeLocation.disabled = false;
 		}
-		set_setting('theme', theme_file);
+	}
+	setTheme(theme_file: string | null) {
+		if (theme_file === null) {
+			remove_setting('theme');
+			this.#setTheme(get_setting('theme', ''));
+		} else {
+			this.#setTheme(theme_file);
+			set_setting('theme', theme_file);
+		}
 	}
 }
 

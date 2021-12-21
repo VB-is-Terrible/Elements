@@ -32,3 +32,13 @@ export interface manifest_t_optional {
 export type manifest_type_array = Array<'css' | 'provides' | 'recommends' | 'requires' | 'resources' | 'templates'>;
 
 export type PromiseCallback = (value: void | PromiseLike<void>) => void;
+
+
+export type Elements_Options = Partial<{
+	'ELEMENTS_CORE_LOCATION': string;
+	'short_duration': number;
+	'medium_duration': number;
+	'long_duration': number;
+	'drop_amount': number;
+	'theme': string;
+}> | undefined;

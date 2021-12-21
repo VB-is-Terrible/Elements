@@ -9,11 +9,15 @@ interface _ElementsBootLoader {
 
 };
 
+type Elements_Options = Partial<{
+	'ELEMENTS_CORE_LOCATION': string;
+}> | undefined;
+
 let Elements: _ElementsBootLoader;
 
 {
-const _ELEMENTS_CORE_LOCATION = './elements_core.js';
-const _ELEMENTS_HELPER_LOCATION = './elements_helper.js';
+const _ELEMENTS_CORE_LOCATION = 'elements_core.js';
+const _ELEMENTS_HELPER_LOCATION = 'elements_helper.js';
 /**
  * Skeleton elements standin and bootloader.
  * Pretends to be the elements class
@@ -69,22 +73,24 @@ class ElementsBootloader implements _ElementsBootLoader {
 		this.#helperPromise = new Promise((resolve, _reject) => {
 			this.#helperResolve = resolve;
 		});
-		let core_location: string;
+		let options: Elements_Options;
 		try {
 			//@ts-ignore
-			core_location = ELEMENTS_CORE_LOCATION;
+			options = ELEMENTS_OPTIONS;
 		} catch (e) {
-			core_location = _ELEMENTS_CORE_LOCATION;
-			if (!(e instanceof ReferenceError)) {
+			if (e instanceof ReferenceError) {
+				options = {};
+			} else {
 				throw e;
 			}
 		};
-		import(core_location).then((module) => {
+		const core_location = options!.ELEMENTS_CORE_LOCATION ?? './';
+		import(core_location + _ELEMENTS_CORE_LOCATION).then((module) => {
 			const base = module.Elements;
 			Elements = base;
 			this.#resolve();
 		});
-		import(_ELEMENTS_HELPER_LOCATION).then((module) => {
+		import(core_location + _ELEMENTS_HELPER_LOCATION).then((module) => {
 			this.#request = module.request;
 			this.#helperResolve();
 		});

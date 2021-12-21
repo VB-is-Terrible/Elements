@@ -1,10 +1,24 @@
+import type {Elements_Options} from './elements_types';
+
 const STORAGE_STRING = 'ELEMENTS_ELEMENTS_OPTIONS';
+let global_options: Elements_Options;
+
+try {
+	//@ts-ignore
+	global_options = ELEMENTS_OPTIONS;
+} catch (e) {
+	if (e instanceof ReferenceError) {
+		global_options = {};
+	} else {
+		throw e;
+	}
+}
 
 
 let options: {[key: string]: unknown};
 {
-	const storage_string = localStorage[STORAGE_STRING];
-	if (storage_string === undefined) {
+	const storage_string = localStorage.getItem(STORAGE_STRING);
+	if (storage_string === null) {
 		options = {};
 	} else {
 		options = JSON.parse(storage_string);
@@ -15,21 +29,35 @@ let timeout: ReturnType<typeof requestIdleCallback> = 0;
 
 
 const updateChanges = () => {
-	console.log('test');
-	localStorage[STORAGE_STRING] = JSON.stringify(options);
+	localStorage.setItem(STORAGE_STRING, JSON.stringify(options));
 	timeout = 0;
 	document.removeEventListener('visvisibilitychange', updateChanges);
 }
 
 export const get_setting = <T>(property: string, initial: T): T => {
-	return options[property] as T ?? initial;
+	if (options[property] !== undefined) {
+		return options[property] as T;
+	} else if (property in global_options!) {
+		return global_options![property as keyof typeof global_options]! as T;
+	} else {
+		return  initial;
+	}
 };
 
 
-export const set_setting = <T>(property: string, value: T) => {
-	options[property] = value;
+const queueUpdate = () => {
 	if (timeout === 0) {
 		timeout = requestIdleCallback(updateChanges);
 		document.addEventListener('visibilitychange', updateChanges, {passive: true});
 	}
+};
+
+export const set_setting = <T>(property: string, value: T) => {
+	options[property] = value;
+	queueUpdate();
+};
+
+export const remove_setting = (property: string) => {
+	delete options[property];
+	queueUpdate();
 };
