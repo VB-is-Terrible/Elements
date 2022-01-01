@@ -9,7 +9,6 @@ import {ItemDragStartP1, read_details} from '../../../draggable/types.js'
 
 
 Elements.get(...recommends);
-console.log(recommends);
 await Elements.get(...requires);
 
 const ELEMENT_NAME = 'Projects3ProjectDisplay';
