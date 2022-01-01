@@ -4,6 +4,7 @@ const requires: Array<string> = [];
 import {Elements} from '../../elements_core.js';
 import {backbone4, applyPriorProperty} from '../../elements_backbone.js';
 import {booleaner} from '../../elements_helper.js';
+import { get_setting } from '../../elements_options.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -20,7 +21,7 @@ const ELEMENT_NAME = 'ContainerDialog';
 const get_options = (hidden: boolean): KeyframeAnimationOptions => {
 	return {
 		fill: 'forwards',
-		duration : Elements.animation.MEDIUM_DURATION,
+		duration : get_setting<number>('medium_duration'),
 		direction: hidden ? 'normal' : 'reverse',
 	};
 };
@@ -32,7 +33,7 @@ const get_states = () => {
 			opacity: 1
 		},
 		{
-			transform:'translate(0, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)',
+			transform:'translate(0, ' + get_setting<string>('drop_amount') + ')',
 			opacity: 0,
 		},
 	]

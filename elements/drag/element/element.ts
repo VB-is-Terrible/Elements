@@ -4,6 +4,7 @@ const requires: Array<string> = [];
 import {Elements} from '../../elements_core.js';
 import {backbone, backbone2, backbone4, applyPriorProperty} from '../../elements_backbone.js';
 import { CustomComposedEvent, GConstructor} from '../../elements_helper.js';
+import { get_setting } from '../../elements_options.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -162,7 +163,7 @@ export class DragElement extends backbone4 {
 				this.showWindow();
 			} else {
 				this.hideWindow();
-			}                        
+			}
 			e.stopPropagation();
 		});
 		this._body.addEventListener('elements-drag-centre', (e) => {
@@ -417,7 +418,7 @@ export class DragElement extends backbone4 {
 			return;
 		}
 		// Else, start a new animation
-		let translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)';
+		let translate = 'translate(0px, ' + get_setting<string>('drop_amount') + ')';
 		this.__animation = body.animate([{
 			opacity: 1,
 			transform: 'translate(0px, 0px)',
@@ -456,7 +457,7 @@ export class DragElement extends backbone4 {
 			this.style.display = 'block';
 			this.style.visibility = 'visible';
 		});
-		let translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)';
+		let translate = 'translate(0px, ' + get_setting<string>('drop_amount') + ')';
 		this.__animation = body.animate([{
 			opacity: 0,
 			transform: translate,

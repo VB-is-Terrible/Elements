@@ -184,11 +184,11 @@ class Elements {
 		LONG_DURATION: get_setting('long_duration', 300),
 		/**
 		 * Offset to drop/raise (pixels)
-		 * @type {Number}
+		 * @type {string}
 		 * @memberof Elements.animation
 		 * @constant
 		 */
-		DROP_AMOUNT: get_setting('drop_amount', 50),
+		DROP_AMOUNT: get_setting('drop_amount', '3em'),
 	};
 
 	/**

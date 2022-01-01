@@ -203,7 +203,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 		requestAnimationFrame((e) => {
 			main.style.visibility = 'visible';
 		});
-		let drop_translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)';
+		let drop_translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT + ')';
 		this.__animation = body.animate([{
 			opacity: 0,
 			transform: drop_translate,
@@ -236,7 +236,7 @@ Elements.elements.KerbalPanelMenu = class extends Elements.elements.backbone {
 			return;
 		}
 		// Else, start a new animation
-		let drop_translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT.toString() + 'px)';
+		let drop_translate = 'translate(0px, ' + Elements.animation.DROP_AMOUNT + ')';
 		this.__animation = body.animate([{
 			opacity: 1,
 			transform: 'translate(0px, 0px)',

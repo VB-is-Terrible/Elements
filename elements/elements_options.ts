@@ -21,7 +21,7 @@ const default_options: {[key: string]: unknown} = {
 	'short_duration': 100,
 	'medium_duration': 150,
 	'long_duration': 300,
-	'drop_amount': '4em',
+	'drop_amount': '3em',
 };
 
 
@@ -74,3 +74,9 @@ export const remove_setting = (property: string) => {
 	delete options[property];
 	queueUpdate();
 };
+
+
+export const get_theme_options = () => {
+	return [{name: 'Vanilla', location: ''},
+	        {name: 'Dark', location: 'dark-colors.css'}];
+}

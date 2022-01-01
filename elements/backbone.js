@@ -118,11 +118,11 @@ Elements = {
 		LONG_DURATION: 300,
 		/**
 		 * Offset to drop/raise (pixels)
-		 * @type {Number}
+		 * @type {string}
 		 * @memberof Elements.animation
 		 * @constant
 		 */
-		DROP_AMOUNT: 50,
+		DROP_AMOUNT: '3em',
 	},
 	/**
 	 * Properties to exclude from stashing. These are normally properties
