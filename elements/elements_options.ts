@@ -3,6 +3,7 @@ import type {Elements_Options} from './elements_types';
 const STORAGE_STRING = 'ELEMENTS_ELEMENTS_OPTIONS';
 let global_options: Elements_Options;
 
+
 try {
 	//@ts-ignore
 	global_options = ELEMENTS_OPTIONS;
@@ -16,6 +17,14 @@ try {
 
 
 let options: {[key: string]: unknown};
+const default_options: {[key: string]: unknown} = {
+	'short_duration': 100,
+	'medium_duration': 150,
+	'long_duration': 300,
+	'drop_amount': '4em',
+};
+
+
 {
 	const storage_string = localStorage.getItem(STORAGE_STRING);
 	if (storage_string === null) {
@@ -34,13 +43,17 @@ const updateChanges = () => {
 	document.removeEventListener('visvisibilitychange', updateChanges);
 }
 
-export const get_setting = <T>(property: string, initial: T): T => {
+export const get_setting = <T>(property: string, initial: T | undefined = undefined): T => {
 	if (options[property] !== undefined) {
 		return options[property] as T;
 	} else if (property in global_options!) {
 		return global_options![property as keyof typeof global_options]! as T;
+	} else if (initial !== undefined) {
+		return initial;
+	} else if (property in default_options) {
+		return default_options[property] as T;
 	} else {
-		return  initial;
+		throw Error('');
 	}
 };
 
