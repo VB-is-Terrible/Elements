@@ -25,6 +25,7 @@ export function booleaner (value: unknown): boolean {
  * e.g. placeholder value set via js
  * @param  {String} string Sanitized string
  * @return {String}        Unsafe string
+ * @deprecated
  */
 export function nameDesanitizer (string: string): string {
         string = string.replace(/&amp/g, '&');
@@ -37,6 +38,7 @@ export function nameDesanitizer (string: string): string {
  * Sanitizes a string for HTML.
  * @param  {String} string Unsafe string
  * @return {String}        Sanitized string
+ * @deprecated
  */
 export function nameSanitizer (string: string): string {
         string = string.trim();
