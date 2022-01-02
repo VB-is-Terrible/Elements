@@ -79,4 +79,12 @@ export const remove_setting = (property: string) => {
 export const get_theme_options = () => {
 	return [{name: 'Vanilla', location: ''},
 	        {name: 'Dark', location: 'dark-colors.css'}];
-}
+};
+
+export const get_default_setting = <T>(property: string): T => {
+	if (property in default_options) {
+		return default_options[property] as T;
+	} else {
+		throw Error('');
+	}
+};
