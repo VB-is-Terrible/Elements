@@ -57,7 +57,8 @@ export class ContainerRotate extends backbone4 {
 	private _slot_count: number;
 	private _current: string;
 	private _rotate_divs: Map<string, HTMLDivElement>;
-	private _div_sizes: Map<HTMLDivElement, number>;
+	#div_heights: Map<HTMLDivElement, number> = new Map();
+	#div_widths: Map<HTMLDivElement, number> = new Map();
 	private _child_indexes: WeakMap<object, number>;
 	private _animation_next: string;
 	private _in_animation: boolean;
@@ -77,7 +78,6 @@ export class ContainerRotate extends backbone4 {
 		this._mo.observe(this, mutation_options);
 		this._current = 's1';
 		this._rotate_divs = new Map();
-		this._div_sizes = new Map();
 		this._child_indexes = new WeakMap();
 		this._rotate_divs.set('s1', template.querySelector('div.rotate') as HTMLDivElement);
 		this._animation_next= '';
@@ -321,16 +321,22 @@ export class ContainerRotate extends backbone4 {
 	private _resize (resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
 		for (let entry of resizeList) {
 			let height = resizeObserverBorderHeight(entry).blockSize;
-			this._div_sizes.set(entry.target as HTMLDivElement, height);
+			const width = entry.borderBoxSize[0].inlineSize;
+			this.#div_heights.set(entry.target as HTMLDivElement, height);
+			this.#div_widths.set(entry.target as HTMLDivElement, width);
 		}
-		let largest_height = Math.max(...this._div_sizes.values()) + 1;
-		const rule = 'div.rotate {min-height: ' + largest_height.toString() + 'px}';
+		let largest_height = Math.max(...this.#div_heights.values()) + 1;
+		const largest_width = Math.max(...this.#div_widths.values()) + 1;
+		const rule_height = 'div.rotate {min-height: ' + largest_height.toString() + 'px}';
+		const rule_width = 'div.rotate {min-width: ' + largest_width.toString() + 'px}';
 		let sheet = (this.shadowQuery('#rotate_expander') as HTMLStyleElement).sheet;
 		if (sheet !== null) {
-			if (sheet.rules.length === 1) {
+			if (sheet.cssRules.length === 2) {
+				sheet.deleteRule(0);
 				sheet.deleteRule(0);
 			}
-			sheet.insertRule(rule);
+			sheet.insertRule(rule_height);
+			sheet.insertRule(rule_width);
 		}
 	}
 	/**
