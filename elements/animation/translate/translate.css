@@ -1,0 +1,15 @@
+:host {
+	/* display: block; */
+}
+:host([hidden]) {
+        display: none;
+}
+.translate {
+}
+.slotcontainer {
+	width: fit-content;
+	height: fit-content;
+}
+#pseudoBody, :host {
+	background: blue;
+}

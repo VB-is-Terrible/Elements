@@ -17,8 +17,19 @@
 		<p>a</p>
 		<p>a</p>
 		<p>a</p>
-		<elements-settings-control>
-		</elements-settings-control>
+		<elements-animation-translate id='a' vertical='down' horizontal='right' toggled='true'>
+			<div class='panel_test'>
+				<p>Test Panel</p>
+			</div>
+		</elements-animation-translate>
+		<p>a</p>
+		<div id='options_pane'>
+			<elements-animation-translate id='pane' horizontal='right'>
+				<button type="button" name="options" onclick='pane.toggle()'>&lt;-</button>
+				<elements-settings-control>
+				</elements-settings-control>
+			</elements-animation-translate>
+		</div>
 		<elements-toaster id='toaster'>
 		</elements-toaster>
 	</body>
@@ -29,7 +40,7 @@
 	</script>
 	<script src='../elements/backbone4.js'></script>
 	<script>
-		Elements.get('toaster', 'container-sidepanel', 'settings-control');
+		Elements.get('toaster', 'animation-translate', 'settings-control');
 		const main = async () => {
 			await Elements.get('toaster');
 			toaster.addToast({
