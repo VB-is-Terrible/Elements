@@ -1,0 +1,12 @@
+div.panel_test {
+	width: 20em;
+	background: green;
+}
+button[name='options'] {
+	position: absolute;
+	right: 100%;
+}
+#options_pane {
+	position: absolute;
+	right: 0;
+}
