@@ -13,8 +13,8 @@ Definitions:
 2.	Modules are packaged into standalone js files.
 	As files are loaded async, other than backbone.js, there are no
 	execution order guarantees.
-	a.	Use Elements.get to load any dependancies
-	b.	Await a Elements.get call to wait until those dependancies are loaded
+	a.	Use Elements.get to load any dependencies
+	b.	Await a Elements.get call to wait until those dependencies are loaded
 3.	Modules must to call either Elements.load or Elements.loaded eventually
 	a.	Elements should call Elements.load, which loads any needed templates
 		and then registers the element
@@ -23,7 +23,7 @@ Definitions:
 4.	Elements should inherit from Elements.elements.backbone or Elements.elements.backbone2.
 	This is required for setUpAttrPropertyLink to work
 5. 	Modules should correctly declare their dependencies in elementsManifest.json
-	This is required for network optimization
+	This is required for network optimisation
 6.	Elements should fully support custom element upgrading.
 	a. backbone 1
 		This unfortunately means that generally ES6 class getter/setter pairs can't be used, and
@@ -38,8 +38,8 @@ Manifest format:
 
 | Field | Use | Example |
 | - | | |
-| type | Defines resoultion behaviour | "element"\|"module"\|"exclude"*|
-| requires | Things that this will require | ["element", "dependancies"] |
+| type | Defines resolution behaviour | "element"\|"module"\|"exclude"*|
+| requires | Things that this will require | ["element", "dependencies"] |
 | templates | Templates used by this elements | ["kerbalEditorTemplate.html"] |
 | css | CSS used by this | ["kerbalEditor.css"] |
 | resources | Other files used by this | ["warning.svg"] | |
