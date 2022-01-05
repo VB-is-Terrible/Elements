@@ -27,6 +27,7 @@ export abstract class AnimationDirection extends backbone4 {
 	[horizontal]: Direction_Horizontal = Direction_Horizontal.off;
 	vertical!: string;
 	horizontal!: string;
+	abstract toggled: boolean;
 	constructor() {
 		super();
 	}
