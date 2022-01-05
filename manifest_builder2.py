@@ -152,7 +152,7 @@ def scan_module(version: int, module: str, dirpath: str, root: str):
                         raise Exception(f'No new V1 elements ({module_name}) are supported')
                 name = module
                 manifest = new_manifest()
-                print('Ver 1: ' + module)
+                # print('Ver 1: ' + module)
                 return name, manifest
         else:
                 raise Exception(f'Invalid version for module {os.path.join(dirpath, module)}')
