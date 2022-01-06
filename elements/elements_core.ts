@@ -6,7 +6,7 @@ const THEME_LOCATION = 'Elements_Theme_Location';
 
 import {backbone, backbone2, backbone3, Backbone, setUpAttrPropertyLink} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
-import {booleaner, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
+import {booleaner, rafContext, jsonIncludes, upgradeManifest} from './elements_helper.js';
 import {get_setting, remove_setting, set_setting} from './elements_options.js';
 import type {manifest_t, PromiseCallback, manifest_t_optional} from './elements_types'
 
@@ -120,12 +120,6 @@ class Elements {
 	 */
 	#loadedResources: Set<string> = new Set();
 
-	/**
-	 * Place to insert templates, scripts, preloads, etc.
-	 * @type {Node}
-	 * @private
-	 */
-	#linkLocation: Element;
 	/**
 	 * Place to insert preloads
 	 * @type {Node}
@@ -424,17 +418,6 @@ class Elements {
 	jsonIncludes<O, K extends keyof O> (object: O, properties: (K & string)[]): object {
 		console.warn('Using deprecated function \'jsonIncludes\'');
 		return jsonIncludes(object, properties);
-	}
-
-	/**
-	 * Converts a set to array, for stringification
-	 * @param  {Set} set Set to convert to array
-	 * @return {Array}   Array version of set
-	 * @deprecated
-	 */
-	setToArray (set: Set<unknown>): Array<unknown> {
-		console.warn('Using deprecated function \'setToArray\'');
-		return setToArray(set);
 	}
 
 	/**
@@ -772,7 +755,6 @@ class Elements {
 			insert_location.id = LINK_INSERT_DIV_ID;
 			head.append(insert_location);
 		}
-		this.#linkLocation = insert_location;
 		const insertion_point = insert_location.querySelector('#' + PRELOAD_LOCATION);
 		if (insertion_point === null) {
 			this.#preloadLocation = document.createElement('div');
