@@ -17,7 +17,7 @@
 		<p>a</p>
 		<p>a</p>
 		<p>a</p>
-		<elements-animation-translate id='a' vertical='down' horizontal='right' toggled='true'>
+		<elements-animation-translate vertical='down' horizontal='right' toggled='true'>
 			<div class='panel_test'>
 				<p>Test Panel</p>
 			</div>
@@ -32,6 +32,15 @@
 		</div>
 		<elements-toaster id='toaster'>
 		</elements-toaster>
+		<elements-animation-sidepanel id='a'>
+			<div class='panel_body'>
+				<p>Test Panel</p>
+			</div>
+			<div class='panel_title' slot='title'>
+				<span class='arrows'>&#10140;</span>
+				<span>Test Panel</span>
+			</div>
+		</elements-animation-sidepanel>
 	</body>
 	<script>
 		const ELEMENTS_OPTIONS = {
@@ -40,7 +49,7 @@
 	</script>
 	<script src='../elements/backbone4.js'></script>
 	<script>
-		Elements.get('toaster', 'animation-translate', 'settings-control');
+		Elements.get('toaster', 'animation-translate', 'settings-control', 'animation-sidepanel');
 		const main = async () => {
 			await Elements.get('toaster');
 			toaster.addToast({
