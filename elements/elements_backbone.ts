@@ -28,16 +28,16 @@ export interface Backbone {
  * @alias Elements.elements.backbone
  */
 export class backbone extends HTMLElement {
-        getDict: {[key: string]: () => void} = {};
-        setDict: {[key: string]: (_value: any) => void} = {};
-        attributeInit: boolean = false;
-        static __backbone_version: number = 1;
+	getDict: {[key: string]: () => void} = {};
+	setDict: {[key: string]: (_value: any) => void} = {};
+	attributeInit: boolean = false;
+	static __backbone_version: number = 1;
 	/**
 	 * Make a new element
 	 */
 	constructor () {
-                super();
-        }
+		super();
+	}
 	/**
 	 * Called once inserted into DOM
 	 */
@@ -84,11 +84,11 @@ const property_store_sym = Symbol('elements property_store');
  */
 // Note: Does weird polymorphic stuff, type checking doesn't really work
 export class backbone2 extends HTMLElement {
-        // This member must never be used by any children
-        attributeInit: boolean = false;
-        connected: boolean = false;
-        static __backbone_version: number = 2;
-        [property_store_sym]?: Map<string, unknown>;
+	// This member must never be used by any children
+	attributeInit: boolean = false;
+	connected: boolean = false;
+	static __backbone_version: number = 2;
+	[property_store_sym]?: Map<string, unknown>;
 	constructor () {
 		super();
 		const propertyStore = new Map();
@@ -101,7 +101,7 @@ export class backbone2 extends HTMLElement {
 				delete this[property];
 			}
 		}
-                this[property_store_sym] = propertyStore;
+		this[property_store_sym] = propertyStore;
 	}
 	/**
 	 * Called once inserted into DOM
@@ -143,10 +143,10 @@ export class backbone2 extends HTMLElement {
 	 * @deprecated
 	 */
 	applyPriorProperties<K extends keyof backbone2>(...properties: (K & string)[]) {
-                if (REPORTING_MODE) {
-                        console.warn('Using deprecated function \'applyPriorProperties\'');
-                }
-                applyPriorProperties(this, ...properties);
+		if (REPORTING_MODE) {
+			console.warn('Using deprecated function \'applyPriorProperties\'');
+		}
+		applyPriorProperties(this, ...properties);
 	}
 	/**
 	 * Apply the property saved in the constructor, or initial
@@ -157,10 +157,10 @@ export class backbone2 extends HTMLElement {
 	 * @deprecated
 	 */
 	applyPriorProperty<K extends keyof backbone2>(property: K & string, initial: any) {
-                if (REPORTING_MODE) {
-                        console.warn('Using deprecated function \'applyPriorProperty\'');
-                }
-                applyPriorProperty(this, property, initial)
+		if (REPORTING_MODE) {
+			console.warn('Using deprecated function \'applyPriorProperty\'');
+		}
+		applyPriorProperty(this, property, initial)
 	}
 	/**
 	 * Called when removed from the dom.
@@ -170,9 +170,9 @@ export class backbone2 extends HTMLElement {
 	disconnectedCallback () {
 		this.connected = false;
 	}
-        static get observedAttributes(): Array<string> {
-                return [];
-        }
+	static get observedAttributes(): Array<string> {
+		return [];
+	}
 };
 
 
@@ -183,12 +183,12 @@ export class backbone2 extends HTMLElement {
  * @return                 Fetched property
  */
 export const getPriorProperty = <O extends backbone2, K extends keyof O>(object: O, property: K & string): unknown => {
-        const property_store = object[property_store_sym];
-        if (property_store === undefined) {
-                console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-                return;
-        }
-        return property_store.get(property);
+	const property_store = object[property_store_sym];
+	if (property_store === undefined) {
+		console.warn('It\'s too late to apply properties. Do this before connectedCallback');
+		return;
+	}
+	return property_store.get(property);
 };
 
 
@@ -198,16 +198,16 @@ export const getPriorProperty = <O extends backbone2, K extends keyof O>(object:
  * @param  {...Strings} properties Properties to restore
  */
 export const applyPriorProperties = <O extends backbone2, K extends keyof O>(object: O, ...properties: Array<K & string>) => {
-        const property_store = object[property_store_sym];
-        if (property_store === undefined) {
-                console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-                return;
-        }
-        for (let prop of properties) {
-                if (property_store.has(prop)) {
-                        object[prop] = property_store.get(prop) as any;
-                }
-        }
+	const property_store = object[property_store_sym];
+	if (property_store === undefined) {
+		console.warn('It\'s too late to apply properties. Do this before connectedCallback');
+		return;
+	}
+	for (let prop of properties) {
+		if (property_store.has(prop)) {
+			object[prop] = property_store.get(prop) as any;
+		}
+	}
 };
 
 /**
@@ -218,16 +218,16 @@ export const applyPriorProperties = <O extends backbone2, K extends keyof O>(obj
  * @param  {*} initial       What to set the property to if it was saved
  */
 export const applyPriorProperty = <O extends backbone2, K extends keyof O>(object: O, property: string & K, initial: any) => {
-        const property_store = object[property_store_sym];
-        if (property_store === undefined) {
-                console.warn('It\'s too late to apply properties. Do this before connectedCallback');
-                return;
-        }
-        if (property_store.has(property)) {
-                object[property] = property_store.get(property) as any;
-        } else {
-                object[property] = initial;
-        }
+	const property_store = object[property_store_sym];
+	if (property_store === undefined) {
+		console.warn('It\'s too late to apply properties. Do this before connectedCallback');
+		return;
+	}
+	if (property_store.has(property)) {
+		object[property] = property_store.get(property) as any;
+	} else {
+		object[property] = initial;
+	}
 };
 
 
@@ -241,7 +241,7 @@ export const applyPriorProperty = <O extends backbone2, K extends keyof O>(objec
  * @alias Elements.elements.backbone3
  */
 export class backbone3 extends backbone2 {
-        static __backbone_version = 3;
+	static __backbone_version = 3;
 	constructor () {
 		super();
 	}
@@ -258,10 +258,11 @@ export class backbone3 extends backbone2 {
 }
 
 export class backbone4 extends backbone3 {
-        static __backbone_version = 4;
+	static __backbone_version = 4;
 }
 
 
+const fail_message = 'Attr-Property must be in constructor.observedAttributes';
 /**
  * Sets up a linked object property/attribute, for backbone2. Does things like copy attribute value to
  * property value once inserted into DOM, checking if the property
@@ -273,34 +274,32 @@ export class backbone4 extends backbone3 {
  * @param  {Function} [santizer]     Function passed (new value, old value) before value is set. returns value to set property to.
  */
 export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString: () => string} & O[K]> (
-        object: backbone2 & O,
-        property: K & string,
-        initial: T | null = null,
-        eventTrigger: (value: T) => void = (_value: T) => {},
-        santizer: (value: T & string, old_value: T) => T = (value: T & string, oldValue: T) => {return value !== null ? value : oldValue;}) {
+	object: backbone2 & O,
+	property: K & string,
+	initial: T | null = null,
+	eventTrigger: (value: T) => void = (_value: T) => {},
+	santizer: (value: T & string, old_value: T) => T = (value: T & string, oldValue: T) => {return value !== null ? value : oldValue;}) {
 
-        const fail_message = 'Attr-Property must be in constructor.observedAttributes';
-        //@ts-ignore
-        console.assert((object.constructor.observedAttributes as unknown as Array<string>).includes(property), fail_message);
+	console.assert(((object.constructor as typeof backbone2).observedAttributes as unknown as Array<string>).includes(property), fail_message);
 
-        let hidden: T;
-        let getter = () => {return hidden;};
-        let setter = (raw_value: T & string) => {
-                const value = santizer(raw_value, hidden);
-                if (value === hidden) {return;}
-                hidden = value;
-                if (object.attributeInit) {
-                        object.setAttribute(property, value.toString());
-                }
-                eventTrigger(value);
-        };
-        Object.defineProperty(object, property, {
-                enumerable: true,
-                configurable: true,
-                get: getter,
-                set: setter,
-        });
-        applyPriorProperty(object, property, initial);
+	let hidden: T;
+	let getter = () => {return hidden;};
+	let setter = (raw_value: T & string) => {
+		const value = santizer(raw_value, hidden);
+		if (value === hidden) {return;}
+		hidden = value;
+		if (object.attributeInit) {
+			object.setAttribute(property, value.toString());
+		}
+		eventTrigger(value);
+	};
+	Object.defineProperty(object, property, {
+		enumerable: true,
+		configurable: true,
+		get: getter,
+		set: setter,
+	});
+	applyPriorProperty(object, property, initial);
 };
 
 
