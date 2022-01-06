@@ -129,7 +129,8 @@ export class backbone2 extends HTMLElement {
 	 * @param  {String} newValue Value after change
 	 * @instance
 	 */
-	attributeChangedCallback<K extends keyof backbone2>(attrName: K & string, _oldValue: string, newValue: string) {
+	attributeChangedCallback(attrName: string, _oldValue: string, newValue: string) {
+		//@ts-ignore
 		if (this[attrName] !== newValue) {
 			//@ts-ignore
 			this[attrName] = newValue;
