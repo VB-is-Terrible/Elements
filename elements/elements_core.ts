@@ -6,7 +6,7 @@ const THEME_LOCATION = 'Elements_Theme_Location';
 
 import {backbone, backbone2, backbone3, Backbone, setUpAttrPropertyLink} from './elements_backbone.js';
 import {getInitProperty, removeNSTag, request, tokenise} from './elements_helper.js';
-import {booleaner, nameSanitizer, nameDesanitizer, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
+import {booleaner, rafContext, jsonIncludes, setToArray, upgradeManifest} from './elements_helper.js';
 import {get_setting, remove_setting, set_setting} from './elements_options.js';
 import type {manifest_t, PromiseCallback, manifest_t_optional} from './elements_types'
 
@@ -704,30 +704,6 @@ class Elements {
 	rafContext (): (f: (timestamp: number) => void) => void {
 		console.warn('Using deprecated function \'rafContext\'');
 		return rafContext();
-	}
-
-	/**
-	 * Desanitizes a string for HTML.
-	 * Used for UI output where escaping is not required, i.e. not HTML.
-	 * e.g. placeholder value set via js
-	 * @param  {String} string Sanitized string
-	 * @return {String}        Unsafe string
-	 * @deprecated
-	 */
-	nameDesanitizer (string: string): string {
-		console.warn('Using deprecated function \'nameDesanitizer\'');
-		return nameDesanitizer(string);
-	}
-
-	/**
-	 * Sanitizes a string for HTML.
-	 * @param  {String} string Unsafe string
-	 * @return {String}        Sanitized string
-	 * @deprecated
-	 */
-	nameSanitizer (string: string): string {
-		console.warn('Using deprecated function \'nameSanitizer\'');
-		return nameSanitizer(string);
 	}
 
 	/**
