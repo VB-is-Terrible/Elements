@@ -20,7 +20,6 @@ export class AnimationTranslate extends AnimationDirection {
 	#toggled: boolean = false;
 	#animation!: Animation;
 	#translator: HTMLDivElement;
-	#ready = false;
 	constructor() {
 		super();
 
@@ -28,7 +27,6 @@ export class AnimationTranslate extends AnimationDirection {
 		const template = Elements.importTemplate(ELEMENT_NAME);
 		this.#translator = template.querySelector('div.slotcontainer') as HTMLDivElement;
 
-		this.#ready = true;
 		this.#generateAnimations();
 		shadow.appendChild(template);
 		if (this.constructor === AnimationTranslate) {
@@ -55,7 +53,6 @@ export class AnimationTranslate extends AnimationDirection {
 		}
 	}
 	#generateAnimations() {
-		if (!this.#ready) {return;}
 		const frames = new KeyframeEffect(this.#translator, [
 			{'transform':'translate(0px, 0px)'},
 			{'transform':`translate(${100*this[horizontal]}%, ${100*this[vertical]}%)`},
@@ -71,10 +68,7 @@ export class AnimationTranslate extends AnimationDirection {
 		this.#animation.finish();
 	}
 	protected direction_change() {
-		console.log('hi')
-		if (this.#ready) {
-			this.#generateAnimations();
-		}
+		this.#generateAnimations();
 	}
 }
 
