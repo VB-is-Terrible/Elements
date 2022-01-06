@@ -5,7 +5,7 @@
 	--animation_duration_long: 0;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 .slotcontainer {
 	transition-property: transform;

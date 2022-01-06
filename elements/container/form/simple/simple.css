@@ -2,7 +2,7 @@
 	display: block;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 button.title_close {
 	border: 1px solid black;

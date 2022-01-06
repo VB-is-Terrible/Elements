@@ -30,5 +30,5 @@ slot {
 	min-height: 5em;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }

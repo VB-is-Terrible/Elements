@@ -3,7 +3,7 @@
 	height: 100%;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 img.scroll, video.scroll {
 	object-fit: contain;

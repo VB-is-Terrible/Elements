@@ -2,7 +2,7 @@
 	display: block;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 :host {
 	background: var(--elements-theme-bg);

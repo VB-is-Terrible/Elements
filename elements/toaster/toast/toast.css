@@ -46,5 +46,5 @@ div.split {
 	display: block;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }

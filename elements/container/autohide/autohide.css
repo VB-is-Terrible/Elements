@@ -13,7 +13,7 @@
 	background: none;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 :host(:hover) {
 	transform: translate(0, 0) !important;

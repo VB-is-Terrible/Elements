@@ -12,7 +12,7 @@ div.spacer {
 	display: block;
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 elements-toaster-toast {
 	margin-top: .25em;

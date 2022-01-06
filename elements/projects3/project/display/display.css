@@ -3,7 +3,7 @@
 	color: var(--elements-theme-fg, revert);
 }
 :host([hidden]) {
-        display: none;
+	display: none;
 }
 #main {
 	border: 1px solid grey;
