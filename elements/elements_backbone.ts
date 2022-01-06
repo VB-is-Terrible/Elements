@@ -109,18 +109,24 @@ export class backbone2 extends HTMLElement {
 	 */
 	connectedCallback () {
 		if (this.attributeInit === false) {
-                        delete this[property_store_sym];
-                        // @ts-ignore
-			for (let attribute of this.constructor.observedAttributes) {
-                                //@ts-ignore
-				if (this.getAttribute(attribute) === null && this[attribute] !== null) {
-                                        //@ts-ignore
-					this.setAttribute(attribute, this[attribute]);
-				}
-			}
+			delete this[property_store_sym];
+			this._InitializeAttributes();
 		}
 		this.attributeInit = true;
 		this.connected = true;
+	}
+	/**
+	 * Called on first insertion to copy over properties to attributese
+	 * @return [description]
+	 */
+	protected _InitializeAttributes() {
+		for (let attribute of (this.constructor as typeof backbone2).observedAttributes) {
+			//@ts-ignore
+			if (this.getAttribute(attribute) === null && this[attribute] !== null) {
+				//@ts-ignore
+				this.setAttribute(attribute, this[attribute]);
+			}
+		}
 	}
 	/**
 	 * Called when a attribute changes
