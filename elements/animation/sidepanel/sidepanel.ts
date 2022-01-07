@@ -1,14 +1,27 @@
 const recommends: Array<string> = [];
 const requires: Array<string> = [];
 
-import { applyPriorProperties } from '../../elements_backbone.js';
+import { applyPriorProperties, setUpAttrPropertyLink } from '../../elements_backbone.js';
 import {Elements} from '../../elements_core.js';
 import { booleaner } from '../../elements_helper.js';
 import { get_setting } from '../../elements_options.js';
-import { AnimationDirection, horizontal, vertical } from '../direction/direction.js';
+import { AnimationDirection, horizontal, vertical, Direction_Horizontal, Direction_Vertical } from '../direction/direction.js';
 
 Elements.get(...recommends);
 await Elements.get(...requires);
+
+const HORIZONTAL_MAP = new Map([
+	[Direction_Horizontal.off, ''],
+	[Direction_Horizontal.left, 'left'],
+	[Direction_Horizontal.right, 'right']
+]);
+
+const VERTICAL_MAP = new Map([
+	[Direction_Vertical.off, ''],
+	[Direction_Vertical.down, 'bottom'],
+	[Direction_Vertical.up, 'top'],
+]);
+
 
 const ELEMENT_NAME = 'AnimationSidepanel';
 /**
@@ -24,7 +37,7 @@ export class AnimationSidepanel extends AnimationDirection {
 	#title: HTMLDivElement;
 	#title_slot: HTMLSlotElement;
 	#ro;
-	protected direction_change = () => {};
+	sidebar!: 'horizontal' | 'vertical';
 	constructor() {
 		super();
 
@@ -43,10 +56,22 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#generateAnimations();
 		//Fancy code goes here
 		shadow.appendChild(template);
+		this.style.setProperty('--animation_duration_long', get_setting<number>('long_duration').toString());
 		if (this.constructor === AnimationSidepanel) {
 			this._post_init();
 		}
 		applyPriorProperties(this, 'toggled');
+		setUpAttrPropertyLink(this, 'sidebar', 'horizontal', () => {
+			this.#generateAnimations();
+		}, (value: string, oldValue: 'horizontal' | 'vertical') => {
+			if (value === 'horizontal') {
+				return value;
+			} else if (value === 'vertical') {
+				return value;
+			} else {
+				return oldValue;
+			}
+		});
 	}
 	get toggled(): boolean {
 		return this.#toggled;
@@ -59,8 +84,9 @@ export class AnimationSidepanel extends AnimationDirection {
 	}
 	#generateAnimations() {
 		const frames_main = new KeyframeEffect(this.#translator, [
-			{'transform': 'scaleY(1)'},
-			{'transform': `scaleY(0)`},
+			{'transform': 'scale(1, 1)'},
+			{'transform': `scale(${1 - Math.abs(this[horizontal])}, ${1 - Math.abs(this[vertical])})`},
+			// {'transform': 'scale(0, 0)'},
 		], {
 			fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
@@ -73,15 +99,27 @@ export class AnimationSidepanel extends AnimationDirection {
 			fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
 		});
+		requestAnimationFrame(() => {
+			this.#translator.style.transformOrigin = `${HORIZONTAL_MAP.get(this[horizontal])} ${VERTICAL_MAP.get(this[vertical])}`;
+
+		});
 		this.#animation_title = new Animation(frames_title);
+
+		this.#animation_title.addEventListener('remove', (e: Event) => {
+			console.log(`Fuck1! ${e.timeStamp}`);
+		});
+		this.#animation_main.addEventListener('remove', (e) => {
+			console.log(`Fuck2! ${e.timeStamp}`);
+		});
+
 		this.#animation_main.pause();
 		this.#animation_title.pause();
 		if (!this.#toggled) {
 			this.#animation_main.reverse();
 			this.#animation_title.reverse();
 		}
-		// this.#animation_title.persist();
-		// this.#animation_main.persist();
+		this.#animation_title.persist();
+		this.#animation_main.persist();
 		this.#animation_title.finish();
 		this.#animation_main.finish();
 
@@ -89,9 +127,9 @@ export class AnimationSidepanel extends AnimationDirection {
 	toggle() {
 		this.#animation_main.reverse();
 		this.#animation_title.reverse();
+		this.#animation_title.persist();
+		this.#animation_main.persist();
 		if (!this.attributeInit) {
-			// this.#animation_title.persist();
-			// this.#animation_main.persist();
 			this.#animation_main.finish();
 			this.#animation_title.finish();
 		}
@@ -106,6 +144,15 @@ export class AnimationSidepanel extends AnimationDirection {
 	}
 	get animations() {
 		return [this.#animation_main, this.#animation_title];
+	}
+	regen() {
+		this.#generateAnimations();
+	}
+	protected direction_change() {
+		this.#generateAnimations();
+	};
+	static get observedAttributes() {
+		return ['vertical', 'horizontal', 'toggled', 'sidebar'];
 	}
 }
 

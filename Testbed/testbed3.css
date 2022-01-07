@@ -24,7 +24,7 @@ div.panel_title {
 span.arrows {
 	transform: rotate(-90deg);
 	transition-property: transform;
-	transition-duration: var(--animation_duration_long);
+	transition-duration: calc(var(--animation_duration_long)*1ms);
 }
 elements-animation-sidepanel[toggled='true'] span.arrows {
 	transform: rotate(90deg);

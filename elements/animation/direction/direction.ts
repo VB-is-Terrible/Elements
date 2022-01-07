@@ -25,8 +25,8 @@ export const horizontal = Symbol('animation horizontal');
 export abstract class AnimationDirection extends backbone4 {
 	[vertical]: Direction_Vertical = Direction_Vertical.off;
 	[horizontal]: Direction_Horizontal = Direction_Horizontal.off;
-	vertical!: string;
-	horizontal!: string;
+	vertical!: '' | 'down' | 'up';
+	horizontal!: '' | 'right' | 'left';
 	abstract toggled: boolean;
 	constructor() {
 		super();
