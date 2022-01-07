@@ -284,7 +284,7 @@ export function setUpAttrPropertyLink<O, K extends keyof O, T extends {toString:
 	property: K & string,
 	initial: T | null = null,
 	eventTrigger: (value: T) => void = (_value: T) => {},
-	santizer: (value: T & string, old_value: T) => T = (value: T & string, oldValue: T) => {return value !== null ? value : oldValue;}) {
+	santizer: (value: T | string, old_value: T) => T = (value: T | string, oldValue: T) => {return (value !== null ? value : oldValue) as T;}) {
 
 	console.assert(((object.constructor as typeof backbone2).observedAttributes as unknown as Array<string>).includes(property), fail_message);
 
