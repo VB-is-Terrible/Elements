@@ -56,7 +56,7 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#generateAnimations();
 		//Fancy code goes here
 		shadow.appendChild(template);
-		this.style.setProperty('--animation_duration_long', get_setting<number>('long_duration').toString());
+		this.style.setProperty('--animation_duration_long', get_setting<number>('long_duration').toString() + 'ms');
 		if (this.constructor === AnimationSidepanel) {
 			this._post_init();
 		}
