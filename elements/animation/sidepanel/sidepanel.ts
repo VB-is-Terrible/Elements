@@ -36,6 +36,8 @@ export class AnimationSidepanel extends AnimationDirection {
 	#translator: HTMLDivElement;
 	#title: HTMLDivElement;
 	#title_slot: HTMLSlotElement;
+	#keyframe_main!: KeyframeEffect;
+	#keyframe_title!: KeyframeEffect;
 	#ro;
 	sidebar!: 'horizontal' | 'vertical';
 	constructor() {
@@ -51,6 +53,7 @@ export class AnimationSidepanel extends AnimationDirection {
 			const box = (resizeList[resizeList.length - 1]).borderBoxSize[0];
 			this.#title.style.setProperty('--popupHeight', `${-(box.blockSize + 1)}px`);
 			this.#title.style.setProperty('--popupWidth', `${-(box.inlineSize + 1)}px`);
+			this.#generateAnimations();
 		});
 		this.#ro.observe(this.#translator);
 		this.#generateAnimations();
@@ -83,33 +86,42 @@ export class AnimationSidepanel extends AnimationDirection {
 		}
 	}
 	#generateAnimations() {
-		const frames_main = new KeyframeEffect(this.#translator, [
+		this.#keyframe_main = new KeyframeEffect(this.#translator, [
 			{'transform': 'scale(1, 1)'},
 			{'transform': `scale(${1 - Math.abs(this[horizontal])}, ${1 - Math.abs(this[vertical])})`},
 			// {'transform': 'scale(0, 0)'},
 		], {
-			fill: 'forwards',
+			// fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
 		});
-		this.#animation_main = new Animation(frames_main);
-		const frames_title = new KeyframeEffect(this.#title, [
+		this.#keyframe_title = new KeyframeEffect(this.#title, [
 			{'transform': 'translateY(var(--popupHeight))'},
 			{'transform': 'translateY(0)'},
 		], {
-			fill: 'forwards',
+			// fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
 		});
 		requestAnimationFrame(() => {
 			this.#translator.style.transformOrigin = `${HORIZONTAL_MAP.get(this[horizontal])} ${VERTICAL_MAP.get(this[vertical])}`;
-
 		});
-		this.#animation_title = new Animation(frames_title);
+	}
+	#regenerateAnimations() {
+		this.#animation_main = new Animation(this.#keyframe_main);
+		this.#animation_title = new Animation(this.#keyframe_title);
 
 		this.#animation_title.addEventListener('remove', (e: Event) => {
-			console.log(`Fuck1! ${e.timeStamp}`);
+			console.log(`Fuck2! ${e.timeStamp}`);
 		});
 		this.#animation_main.addEventListener('remove', (e) => {
-			console.log(`Fuck2! ${e.timeStamp}`);
+			console.log(`Fuck1! ${e.timeStamp}`);
+		});
+		this.#animation_title.addEventListener('finish', (e: Event) => {
+			this.#animation_title.commitStyles();
+		});
+		this.#animation_main.addEventListener('finish', (e) => {
+			console.log(`Yay1! ${e.timeStamp}`);
+
+			// this.#animation_main.commitStyles();
 		});
 
 		this.#animation_main.pause();
@@ -122,9 +134,11 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#animation_main.persist();
 		this.#animation_title.finish();
 		this.#animation_main.finish();
-
+		// this.#animation_title.commitStyles();
+		// this.#animation_main.commitStyles();
 	}
 	toggle() {
+		this.#regenerateAnimations()
 		this.#animation_main.reverse();
 		this.#animation_title.reverse();
 		this.#animation_title.persist();
