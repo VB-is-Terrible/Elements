@@ -26,6 +26,7 @@ span.arrows {
 	transform: rotate(-90deg);
 	transition-property: transform;
 	transition-duration: var(--animation_duration_long);
+	transition-timing-function: linear;
 }
 elements-animation-sidepanel[toggled='true'] span.arrows {
 	transform: rotate(90deg);

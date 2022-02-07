@@ -96,20 +96,16 @@ export class AnimationSidepanel extends AnimationDirection {
 			// fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
 			// easing: 'ease',
+			direction: this.#toggled ? 'reverse' : 'normal',
 		});
-		let title_frames: Keyframe[];
-		const frames_neutral = {'transform': 'translateY(0px)'};
-		const frames_up = {'transform': `translateY(${-this.#popupHeight}px)`};
-		if (this.#toggled) {
-			title_frames = [frames_up, frames_neutral];
-		} else {
-			title_frames = [frames_neutral, frames_up];
-		}
-		console.log(title_frames);
-		this.#keyframe_title = new KeyframeEffect(this.#title, title_frames, {
+		this.#keyframe_title = new KeyframeEffect(this.#title, [
+			{'transform': `translateY(${-this.#popupHeight}px)`},
+			{'transform': 'translateY(0px)'},
+		], {
 			// fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
 			// easing: 'ease',
+			direction: this.#toggled ? 'reverse' : 'normal',
 		});
 		requestAnimationFrame(() => {
 			this.#translator.style.transformOrigin = `${HORIZONTAL_MAP.get(this[horizontal])} ${VERTICAL_MAP.get(this[vertical])}`;
@@ -119,44 +115,25 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#animation_main = new Animation(this.#keyframe_main);
 		this.#animation_title = new Animation(this.#keyframe_title);
 
-		this.#animation_title.addEventListener('remove', (e: Event) => {
-			console.log(`Fuck2! ${e.timeStamp}`);
-		});
-		this.#animation_main.addEventListener('remove', (e) => {
-			console.log(`Fuck1! ${e.timeStamp}`);
-		});
-		this.#animation_title.addEventListener('finish', (e: Event) => {
+		this.#animation_title.addEventListener('finish', () => {
 			this.#commitTitleStyles();
-			// this.#animation_title.commitStyles();
 		});
 		this.#animation_main.addEventListener('finish', (e) => {
 			this.#commitMainStyles();
 			console.log(`Yay1! ${e.timeStamp}`);
-
-			// this.#animation_main.commitStyles();
 		});
 
 		this.#animation_main.pause();
 		this.#animation_title.pause();
-		if (!this.#toggled) {
-			this.#animation_main.reverse();
-			// this.#animation_title.reverse();
-		}
-		// this.#animation_title.persist();
-		// this.#animation_main.persist();
-		// this.#animation_title.finish();
-		// this.#animation_main.finish();
-		// this.#animation_title.commitStyles();
-		// this.#animation_main.commitStyles();
 	}
 	#commitMainStyles() {
-		// requestAnimationFrame(() => {
-		// 	this.#translator.style.transform = this.#toggled ? `scale(${1 - Math.abs(this[horizontal])}, ${1 - Math.abs(this[vertical])})` : 'scale(1, 1)';
-		// });
+		requestAnimationFrame(() => {
+			this.#translator.style.transform = this.#toggled ? `scale(${1 - Math.abs(this[horizontal])}, ${1 - Math.abs(this[vertical])})` : 'scale(1, 1)';
+		});
 	}
 	#commitTitleStyles() {
 		requestAnimationFrame(() => {
-			this.#title.style.transform = !this.#toggled ? 'translateY(0)' : 'translateY(var(--popupHeight))';
+			this.#title.style.transform = this.#toggled ? 'translateY(0)' : 'translateY(var(--popupHeight))';
 		});
 
 	}
@@ -165,12 +142,8 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#regenerateAnimations()
 		this.#animation_main.play();
 		this.#animation_title.play();
-		// this.#animation_main.reverse();
-		// this.#animation_title.reverse();
-		// this.#animation_title.persist();
-		// this.#animation_main.persist();
 		if (!this.attributeInit) {
-			// this.#animation_main.finish();
+			this.#animation_main.finish();
 			this.#animation_title.finish();
 		}
 		this.#toggled = !this.#toggled;
@@ -181,10 +154,6 @@ export class AnimationSidepanel extends AnimationDirection {
 				child.setAttribute('toggled', toggled_str);
 			}
 		}
-		// requestAnimationFrame(() => {
-		// 	this.#translator.style.transform = this.#toggled ? `scale(${1 - Math.abs(this[horizontal])}, ${1 - Math.abs(this[vertical])})` : 'scale(1, 1)';
-		// 	this.#title.style.transform = this.#toggled ? 'translateY(0)' : 'translateY(var(--popupHeight))';
-		// });
 	}
 	get animations() {
 		return [this.#animation_main, this.#animation_title];
