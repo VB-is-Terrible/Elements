@@ -24,15 +24,15 @@
 		</elements-animation-translate>
 		<p>a</p>
 		<div id='options_pane'>
-			<elements-animation-translate id='pane' horizontal='right'>
-				<button type="button" name="options" onclick='pane.toggle()'>&lt;-</button>
+			<elements-animation-sidepanel id='pane' horizontal='right' align='begin'>
+				<button type="button" name="options" onclick='pane.toggle()' slot='title'>&lt;-</button>
 				<elements-settings-control>
 				</elements-settings-control>
-			</elements-animation-translate>
+			</elements-animation-sidepanel>
 		</div>
 		<elements-toaster id='toaster'>
 		</elements-toaster>
-		<elements-animation-sidepanel id='a' vertical='down', horizontal='left'>
+		<elements-animation-sidepanel id='a' vertical='down', horizontal='left' align='end'>
 			<div class='panel_body'>
 				<p>Test Panel</p>
 			</div>
@@ -41,7 +41,7 @@
 				<span>Test Panel</span>
 			</div>
 		</elements-animation-sidepanel>
-		<elements-animation-sidepanel id='b' vertical='down', horizontal='left' toggled='true'>
+		<elements-animation-sidepanel id='b' vertical='down', horizontal='left' toggled='true' align='end'>
 			<div class='panel_body'>
 				<p>Test Panel</p>
 			</div>

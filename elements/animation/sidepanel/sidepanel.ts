@@ -92,7 +92,7 @@ export class AnimationSidepanel extends AnimationDirection {
 				return oldValue;
 			}
 		});
-		setUpAttrPropertyLink(this, 'align', 'end', () => {
+		setUpAttrPropertyLink(this, 'align', 'begin', () => {
 			this.#commitMainStyles();
 			this.#commitTitleStyles();
 		}, (value: string, oldValue: typeof this.align) => {
@@ -104,8 +104,6 @@ export class AnimationSidepanel extends AnimationDirection {
 				return oldValue;
 			}
 		});
-		console.log('done');
-		this.testUpdate();
 	}
 	get toggled(): boolean {
 		return this.#toggled;
@@ -142,9 +140,8 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#animation_title.addEventListener('finish', () => {
 			this.#commitTitleStyles();
 		});
-		this.#animation_main.addEventListener('finish', (e) => {
+		this.#animation_main.addEventListener('finish', () => {
 			this.#commitMainStyles();
-			console.log(`Yay1! ${e.timeStamp}`);
 		});
 
 		this.#animation_main.pause();
@@ -232,7 +229,6 @@ export class AnimationSidepanel extends AnimationDirection {
 				}
 			}
 		}
-		console.log(toggled, base);
 		return base;
 	}
 	toggle() {
