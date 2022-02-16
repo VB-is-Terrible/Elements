@@ -22,6 +22,15 @@ const VERTICAL_MAP = new Map([
 	[Direction_Vertical.up, 'top'],
 ]);
 
+type Styles = Partial<CSSStyleDeclaration>;
+
+const applyStyles = (element: HTMLElement, styles: Styles) => {
+	requestAnimationFrame(() => {
+		for (const prop in styles) {
+			element.style[prop] = styles[prop] as string;
+		}
+	});
+}
 
 const ELEMENT_NAME = 'AnimationSidepanel';
 /**
@@ -40,7 +49,9 @@ export class AnimationSidepanel extends AnimationDirection {
 	#keyframe_title!: KeyframeEffect;
 	#ro;
 	#popupHeight = 0;
-	sidebar!: 'horizontal' | 'vertical';
+	#popupWidth = 0;
+	sidebar!: 'horizontal' | 'vertical' | 'auto';
+	align!: 'begin' | 'end';
 	constructor() {
 		super();
 
@@ -55,10 +66,11 @@ export class AnimationSidepanel extends AnimationDirection {
 			this.#title.style.setProperty('--popupHeight', `${-(box.blockSize + 1)}px`);
 			this.#title.style.setProperty('--popupWidth', `${-(box.inlineSize + 1)}px`);
 			this.#popupHeight = box.blockSize;
-			this.#generateAnimations();
+			this.#popupWidth = box.inlineSize;
+			this.#commitMainStyles();
+			this.#commitTitleStyles();
 		});
 		this.#ro.observe(this.#translator);
-		this.#generateAnimations();
 		//Fancy code goes here
 		shadow.appendChild(template);
 		this.style.setProperty('--animation_duration_long', get_setting<number>('long_duration').toString() + 'ms');
@@ -66,17 +78,34 @@ export class AnimationSidepanel extends AnimationDirection {
 			this._post_init();
 		}
 		applyPriorProperties(this, 'toggled');
-		setUpAttrPropertyLink(this, 'sidebar', 'horizontal', () => {
-			this.#generateAnimations();
-		}, (value: string, oldValue: 'horizontal' | 'vertical') => {
+		setUpAttrPropertyLink(this, 'sidebar', 'auto', () => {
+			this.#commitMainStyles();
+			this.#commitTitleStyles();
+		}, (value: string, oldValue: 'horizontal' | 'vertical' | 'auto') => {
 			if (value === 'horizontal') {
 				return value;
 			} else if (value === 'vertical') {
+				return value;
+			} else if (value === 'auto') {
 				return value;
 			} else {
 				return oldValue;
 			}
 		});
+		setUpAttrPropertyLink(this, 'align', 'end', () => {
+			this.#commitMainStyles();
+			this.#commitTitleStyles();
+		}, (value: string, oldValue: typeof this.align) => {
+			if (value === 'begin') {
+				return value;
+			} else if (value === 'end') {
+				return value;
+			} else {
+				return oldValue;
+			}
+		});
+		console.log('done');
+		this.testUpdate();
 	}
 	get toggled(): boolean {
 		return this.#toggled;
@@ -91,20 +120,15 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#keyframe_main = new KeyframeEffect(this.#translator, [
 			{'transform': 'scale(1, 1)'},
 			{'transform': `scale(${1 - Math.abs(this[horizontal])}, ${1 - Math.abs(this[vertical])})`},
-			// {'transform': 'scale(0, 0)'},
 		], {
-			// fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
-			// easing: 'ease',
 			direction: this.#toggled ? 'reverse' : 'normal',
 		});
 		this.#keyframe_title = new KeyframeEffect(this.#title, [
-			{'transform': `translateY(${-this.#popupHeight}px)`},
-			{'transform': 'translateY(0px)'},
+			{'transform': this.titleStyles(false).transform},
+			{'transform': this.titleStyles(true).transform},
 		], {
-			// fill: 'forwards',
 			duration: get_setting<number>('long_duration'),
-			// easing: 'ease',
 			direction: this.#toggled ? 'reverse' : 'normal',
 		});
 		requestAnimationFrame(() => {
@@ -132,10 +156,84 @@ export class AnimationSidepanel extends AnimationDirection {
 		});
 	}
 	#commitTitleStyles() {
-		requestAnimationFrame(() => {
-			this.#title.style.transform = this.#toggled ? 'translateY(0)' : 'translateY(var(--popupHeight))';
-		});
+		applyStyles(this.#title, this.titleStyles(this.#toggled));
 
+	}
+	testUpdate() {
+		applyStyles(this.#title, this.titleStyles(this.#toggled));
+	}
+	titleStyles(toggled: boolean): Styles {
+		const base = {
+			'left': 'unset',
+			'right': 'unset',
+			'bottom': 'unset',
+			'top': 'unset',
+			'transform': `translateY(${-this.#popupHeight}px)`
+		};
+		const horizontal_v = this[horizontal];
+		const vertical_v = this[vertical];
+		let sidebar = this.sidebar;
+		if (sidebar === 'auto') {
+			if (vertical_v !== Direction_Vertical.off) {
+				sidebar = 'vertical';
+			} else if (horizontal_v !== Direction_Horizontal.off) {
+				sidebar = 'horizontal';
+			} else {
+				sidebar = 'vertical';
+			}
+		}
+		console.log(sidebar)
+		if (sidebar === 'vertical') {
+			if (this.align === 'begin') {
+				base.left = '0';
+			} else {
+				base.right = '0';
+			}
+			if (vertical_v === Direction_Vertical.off) {
+				base.bottom = '0';
+				base.transform = `translateY(${-this.#popupHeight}px)`;
+			} else if (vertical_v === Direction_Vertical.down) {
+				base.bottom = '0';
+				if (toggled) {
+					base.transform = 'translateY(0)';
+				} else {
+					base.transform = `translateY(${-this.#popupHeight}px)`;
+				}
+			} else {
+				base.top = '0';
+				if (toggled) {
+					base.transform = 'translateY(0)';
+				} else {
+					base.transform = `translateY(${this.#popupHeight}px)`;
+				}
+			}
+		} else {
+			if (this.align === 'begin') {
+				base.top = '0';
+			} else {
+				base.bottom = '0';
+			}
+			if (horizontal_v === Direction_Horizontal.off) {
+				base.left = '0';
+				base.transform = `translateX(${this.#popupWidth}px)`;
+			} else if (horizontal_v === Direction_Horizontal.left) {
+				base.left = '0';
+				if (toggled) {
+					base.transform = 'translateX(0)';
+				} else {
+					base.transform = `translateX(${this.#popupWidth}px)`;
+				}
+			} else {
+				base.right = '0'
+				if (toggled) {
+					base.transform = 'translateX(0)';
+				} else {
+					base.transform = `translateX(${-this.#popupWidth}px)`;
+				}
+			}
+		}
+		console.log(toggled, base);
+		return base;
 	}
 	toggle() {
 		this.#generateAnimations()
@@ -162,10 +260,11 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#generateAnimations();
 	}
 	protected direction_change() {
-		this.#generateAnimations();
+		this.#commitMainStyles();
+		this.#commitTitleStyles();
 	};
 	static get observedAttributes() {
-		return ['vertical', 'horizontal', 'toggled', 'sidebar'];
+		return ['vertical', 'horizontal', 'toggled', 'sidebar', 'align'];
 	}
 }
 
