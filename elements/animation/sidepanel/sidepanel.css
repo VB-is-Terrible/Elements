@@ -1,0 +1,17 @@
+:host {
+	display: block;
+	position: relative;
+	width: fit-content;
+}
+:host([hidden]) {
+	display: none;
+}
+div.toggle {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	transform: translateY(var(--popupHeight));
+}
+div.slotcontainer {
+	transform-origin: bottom;
+}

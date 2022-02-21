@@ -10,3 +10,24 @@ button[name='options'] {
 	position: absolute;
 	right: 0;
 }
+div.panel_body {
+	width: 20em;
+	height: 20ex;
+	background: yellow;
+}
+div.panel_title {
+	background: brown;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	width: fit-content;
+}
+span.arrows {
+	transform: rotate(-90deg);
+	transition-property: transform;
+	transition-duration: var(--animation_duration_long);
+	transition-timing-function: linear;
+}
+elements-animation-sidepanel[toggled='true'] span.arrows {
+	transform: rotate(90deg);
+}

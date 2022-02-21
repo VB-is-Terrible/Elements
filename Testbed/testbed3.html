@@ -17,21 +17,39 @@
 		<p>a</p>
 		<p>a</p>
 		<p>a</p>
-		<elements-animation-translate id='a' vertical='down' horizontal='right' toggled='true'>
+		<elements-animation-translate vertical='down' horizontal='right' toggled='true'>
 			<div class='panel_test'>
 				<p>Test Panel</p>
 			</div>
 		</elements-animation-translate>
 		<p>a</p>
 		<div id='options_pane'>
-			<elements-animation-translate id='pane' horizontal='right'>
-				<button type="button" name="options" onclick='pane.toggle()'>&lt;-</button>
+			<elements-animation-sidepanel id='pane' horizontal='right' align='begin'>
+				<button type="button" name="options" onclick='pane.toggle()' slot='title'>&lt;-</button>
 				<elements-settings-control>
 				</elements-settings-control>
-			</elements-animation-translate>
+			</elements-animation-sidepanel>
 		</div>
 		<elements-toaster id='toaster'>
 		</elements-toaster>
+		<elements-animation-sidepanel id='a' vertical='down', horizontal='left' align='end'>
+			<div class='panel_body'>
+				<p>Test Panel</p>
+			</div>
+			<div class='panel_title' slot='title'>
+				<span class='arrows'>&#10140;</span>
+				<span>Test Panel</span>
+			</div>
+		</elements-animation-sidepanel>
+		<elements-animation-sidepanel id='b' vertical='down', horizontal='left' toggled='true' align='end'>
+			<div class='panel_body'>
+				<p>Test Panel</p>
+			</div>
+			<div class='panel_title' slot='title'>
+				<span class='arrows'>&#10140;</span>
+				<span>Test Panel</span>
+			</div>
+		</elements-animation-sidepanel>
 	</body>
 	<script>
 		const ELEMENTS_OPTIONS = {
@@ -40,7 +58,7 @@
 	</script>
 	<script src='../elements/backbone4.js'></script>
 	<script>
-		Elements.get('toaster', 'animation-translate', 'settings-control');
+		Elements.get('toaster', 'animation-translate', 'settings-control', 'animation-sidepanel');
 		const main = async () => {
 			await Elements.get('toaster');
 			toaster.addToast({

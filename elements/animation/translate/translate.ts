@@ -43,7 +43,7 @@ export class AnimationTranslate extends AnimationDirection {
 			this.setAttribute('toggled', String(this.#toggled));
 		}
 	}
-	get toggled() {
+	get toggled(): boolean {
 		return this.#toggled;
 	}
 	set toggled(value: boolean | string) {
