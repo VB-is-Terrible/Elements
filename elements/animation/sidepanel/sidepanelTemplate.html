@@ -1,12 +1,15 @@
 <template id='templateElementsAnimationSidepanel'>
 	<link rel='stylesheet' type='text/css' href='Themes/generic_text.css'></link>
 	<link rel='stylesheet' type='text/css' href='animation/sidepanel/sidepanel.css'>
-	<div class='slotcontainer'>
-		<slot></slot>
-	</div>
-	<div class='toggle'>
-		<div class='toggle_inner'>
-			<slot name='title'></slot>
+	<div class='inner_body'>
+		<div class='slotcontainer'>
+			<slot></slot>
+		</div>
+		<div class='toggle'>
+			<div class='toggle_inner'>
+				<slot name='title'></slot>
+			</div>
 		</div>
 	</div>
+	<div class='spacer'></div>
 </template>

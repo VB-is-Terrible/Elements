@@ -33,24 +33,27 @@
 		</div>
 		<elements-toaster id='toaster'>
 		</elements-toaster>
-		<elements-animation-sidepanel id='a' vertical='down', horizontal='left' align='end'>
-			<div class='panel_body'>
-				<p>Test Panel</p>
-			</div>
-			<div class='panel_title' slot='title'>
-				<span class='arrows'>&#10140;</span>
-				<span>Test Panel</span>
-			</div>
-		</elements-animation-sidepanel>
-		<elements-animation-sidepanel id='b', horizontal='left' toggled='true' align='end'>
-			<div class='panel_body'>
-				<p>Test Panel</p>
-			</div>
-			<div class='panel_title' slot='title'>
-				<span class='arrows'>&#10140;</span>
-				<span>Test Panel</span>
-			</div>
-		</elements-animation-sidepanel>
+		<div class="">
+			<elements-animation-sidepanel id='a' vertical='down', horizontal='left' align='end'>
+				<div class='panel_body'>
+					<p>Test Panel</p>
+				</div>
+				<div class='panel_title' slot='title'>
+					<span class='arrows'>&#10140;</span>
+					<span>Test Panel</span>
+				</div>
+			</elements-animation-sidepanel>
+			<elements-animation-sidepanel id='b', horizontal='left' toggled='false' align='end'>
+				<div class='panel_body'>
+					<p>Test Panel</p>
+				</div>
+				<div class='panel_title' slot='title'>
+					<span class='arrows'>&#10140;</span>
+					<span>Test Panel</span>
+				</div>
+			</elements-animation-sidepanel>
+
+		</div>
 	</body>
 	<script>
 		const ELEMENTS_OPTIONS = {

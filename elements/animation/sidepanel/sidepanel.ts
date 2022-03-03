@@ -61,6 +61,7 @@ export class AnimationSidepanel extends AnimationDirection {
 		this.#translator = template.querySelector('div.slotcontainer') as HTMLDivElement;
 		this.#title = template.querySelector('div.toggle') as HTMLDivElement;
 		this.#title_slot = template.querySelector('div.toggle slot') as HTMLSlotElement;
+		const spacer = template.querySelector('div.spacer') as HTMLDivElement;
 		this.#ro = new ResizeObserver((resizeList: ResizeObserverEntry[]) => {
 			const box = (resizeList[resizeList.length - 1]).borderBoxSize[0];
 			this.#title.style.setProperty('--popupHeight', `${-(box.blockSize + 1)}px`);
@@ -69,6 +70,10 @@ export class AnimationSidepanel extends AnimationDirection {
 			this.#popupWidth = box.inlineSize;
 			this.#commitMainStyles();
 			this.#commitTitleStyles();
+			requestAnimationFrame(() => {
+				spacer.style.height = `${box.blockSize}px`;
+				console.log('fuck');
+			});
 		});
 		this.#ro.observe(this.#translator);
 		//Fancy code goes here
@@ -179,7 +184,6 @@ export class AnimationSidepanel extends AnimationDirection {
 				sidebar = 'vertical';
 			}
 		}
-		console.log(sidebar)
 		if (sidebar === 'vertical') {
 			if (this.align === 'begin') {
 				base.left = '0';
@@ -229,7 +233,6 @@ export class AnimationSidepanel extends AnimationDirection {
 					base.transform = `translateX(${-this.#popupWidth}px)`;
 				}
 			}
-			// console.log(base);
 		}
 		return base;
 	}

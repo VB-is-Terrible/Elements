@@ -1,12 +1,15 @@
 :host {
 	display: block;
+}
+:host([hidden]) {
+	display: none;
+}
+div.inner_body {
+	display: block;
 	position: relative;
 	width: fit-content;
 	background: green;
 	height: 0;
-}
-:host([hidden]) {
-	display: none;
 }
 div.toggle {
 	position: absolute;
@@ -16,4 +19,7 @@ div.toggle {
 }
 div.slotcontainer {
 	transform-origin: bottom;
+}
+div.spacer {
+	width: 0;
 }
