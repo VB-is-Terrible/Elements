@@ -2,6 +2,8 @@
 	display: block;
 	position: relative;
 	width: fit-content;
+	background: green;
+	height: 0;
 }
 :host([hidden]) {
 	display: none;

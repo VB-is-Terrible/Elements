@@ -188,13 +188,13 @@ export class AnimationSidepanel extends AnimationDirection {
 			}
 			if (vertical_v === Direction_Vertical.off) {
 				base.bottom = '0';
-				base.transform = `translateY(${-this.#popupHeight}px)`;
+				base.transform = 'translateY(0)';
 			} else if (vertical_v === Direction_Vertical.down) {
 				base.bottom = '0';
 				if (toggled) {
-					base.transform = 'translateY(0)';
+					base.transform = `translateY(${this.#popupHeight}px)`;
 				} else {
-					base.transform = `translateY(${-this.#popupHeight}px)`;
+					base.transform = 'translateY(0)';
 				}
 			} else {
 				base.top = '0';
@@ -208,7 +208,8 @@ export class AnimationSidepanel extends AnimationDirection {
 			if (this.align === 'begin') {
 				base.top = '0';
 			} else {
-				base.bottom = '0';
+				// base.bottom = `-${this.#popupHeight}`;
+				base.bottom = `-${this.#popupHeight}px`;
 			}
 			if (horizontal_v === Direction_Horizontal.off) {
 				base.left = '0';
@@ -228,6 +229,7 @@ export class AnimationSidepanel extends AnimationDirection {
 					base.transform = `translateX(${-this.#popupWidth}px)`;
 				}
 			}
+			// console.log(base);
 		}
 		return base;
 	}

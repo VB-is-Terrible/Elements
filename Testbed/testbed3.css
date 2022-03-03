@@ -9,6 +9,8 @@ button[name='options'] {
 #options_pane {
 	position: absolute;
 	right: 0;
+	/* width: 0;
+	height: 0; */
 }
 div.panel_body {
 	width: 20em;
@@ -30,4 +32,11 @@ span.arrows {
 }
 elements-animation-sidepanel[toggled='true'] span.arrows {
 	transform: rotate(90deg);
+}
+#back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
