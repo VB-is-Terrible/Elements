@@ -72,7 +72,6 @@ export class AnimationSidepanel extends AnimationDirection {
 			this.#commitTitleStyles();
 			requestAnimationFrame(() => {
 				spacer.style.height = `${box.blockSize}px`;
-				console.log('fuck');
 			});
 		});
 		this.#ro.observe(this.#translator);

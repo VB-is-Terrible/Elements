@@ -63,3 +63,22 @@ div.centre {
 #zoom_count {
 	max-width: 5em;
 }
+elements-settings-control {
+	border: var(--elements-theme-input-border);
+	border-radius: var(--elements-theme-input-radius);
+}
+div.right_panel {
+	position: fixed;
+	width: 0;
+	height: 100%;
+	top: 0;
+	/* bottom: 0; */
+	right: 0;
+	display: grid;
+	align-items: center;
+	justify-content: flex-end;
+	/* z-index: -1; */
+}
+#right_sidepanel {
+	z-index: 10000;
+}

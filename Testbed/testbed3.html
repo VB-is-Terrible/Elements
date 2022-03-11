@@ -16,6 +16,13 @@
 	<body style='background: purple'>
 		<div id='back' onclick='console.log("background")'></div>
 		<p>a</p>
+		<div id='options_pane'>
+			<elements-animation-sidepanel id='pane' horizontal='right' align='begin'>
+				<button type="button" name="options" onclick='pane.toggle()' slot='title'>&lt;-</button>
+				<elements-settings-control>
+				</elements-settings-control>
+			</elements-animation-sidepanel>
+		</div>
 		<p>a</p>
 		<p>a</p>
 		<elements-animation-translate vertical='down' horizontal='right' toggled='true'>
@@ -24,13 +31,6 @@
 			</div>
 		</elements-animation-translate>
 		<p>a</p>
-		<div id='options_pane'>
-			<elements-animation-sidepanel id='pane' horizontal='right' align='begin'>
-				<button type="button" name="options" onclick='pane.toggle()' slot='title'>&lt;-</button>
-				<elements-settings-control>
-				</elements-settings-control>
-			</elements-animation-sidepanel>
-		</div>
 		<elements-toaster id='toaster'>
 		</elements-toaster>
 		<div class="">
