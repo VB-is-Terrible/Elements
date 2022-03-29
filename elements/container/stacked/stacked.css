@@ -1,0 +1,12 @@
+/* :host {
+	display: block;
+}
+:host([hidden]) {
+	display: none;
+} */
+div.size_sensor {
+	width: fit-content;
+}
+div.not_first {
+	visibility: hidden;
+}
