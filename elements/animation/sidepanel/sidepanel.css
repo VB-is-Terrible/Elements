@@ -1,6 +1,7 @@
 :host {
 	display: block;
 	width: fit-content;
+	pointer-events: none;
 }
 :host([hidden]) {
 	display: none;
@@ -11,6 +12,7 @@ div.inner_body {
 	width: fit-content;
 	background: green;
 	height: 0;
+	pointer-events: auto;
 }
 div.toggle {
 	position: absolute;
