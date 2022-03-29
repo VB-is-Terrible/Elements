@@ -64,7 +64,6 @@ export class ContainerRotate extends backbone4 {
 	private _in_animation: boolean;
 	constructor () {
 		super();
-
 		const shadow = this.attachShadow({mode: 'open'});
 		const template = Elements.importTemplate(ELEMENT_NAME);
 
@@ -338,6 +337,10 @@ export class ContainerRotate extends backbone4 {
 			sheet.insertRule(rule_height);
 			sheet.insertRule(rule_width);
 		}
+		requestAnimationFrame(() => {
+			this.style.setProperty('--innerWidth', `${largest_height}px`);
+			this.style.setProperty('--innerWidth', `${largest_width}px`);
+		});
 	}
 	/**
 	 * Make the first child the displayed slot
