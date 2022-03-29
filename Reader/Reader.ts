@@ -26,6 +26,17 @@ const zoom_input = document.querySelector('#zoom_count') as HTMLInputElement;
 
 const load_toast = new ToasterContext(toaster);
 const respond = async (e: CustomEvent) => {
+	if (e.detail === '') {
+		toaster.addToast({
+			title: 'Invalid URL'
+		});
+		return;
+	} else if (e.detail === current_url) {
+		toaster.addToast({
+			title: 'Duplicate URL'
+		});
+		return;
+	}
 	main_input.value = '';
 	main_input.blur();
 	load_toast.addToast({
