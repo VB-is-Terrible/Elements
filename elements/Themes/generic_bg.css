@@ -1,4 +1,4 @@
 body, #pseudoBody, :host {
-	background-color: var(--elements-theme-bg, revert);
-	color: var(--elements-theme-fg, revert);
+	background-color: var(--elements-theme-bg, Canvas);
+	color: var(--elements-theme-fg, CanvasText);
 }

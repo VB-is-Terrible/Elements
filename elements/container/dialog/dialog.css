@@ -9,7 +9,7 @@
 #animationBody {
 	border-radius: .5em;
 	border: 3px solid black;
-	background-color: var(--elements-theme-bg, white);
+	background-color: var(--elements-theme-bg, canvas);
 	max-width: 80vw;
 	max-height: 80vh;
 	box-sizing: border-box;

@@ -5,7 +5,7 @@
 	display: none;
 }
 :host {
-	background: var(--elements-theme-bg);
+	background: var(--elements-theme-bg, Canvas);
 	padding: .5em;
 }
 h5 {

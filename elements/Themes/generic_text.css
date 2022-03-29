@@ -1,24 +1,24 @@
 body, #pseudoBody, :host {
-	color: var(--elements-theme-fg, revert);
+	color: var(--elements-theme-fg, CanvasText);
 }
 button, select {
-	background-color: var(--elements-theme-gutter, revert);
-	color: var(--elements-theme-fg, revert);
+	background-color: var(--elements-theme-gutter, ButtonFace);
+	color: var(--elements-theme-fg, ButtonText);
 }
 button:active {
-	background-color: var(--elements-theme-bg-1, revert);
+	background-color: var(--elements-theme-bg-1, GrayText);
 }
 input, textarea {
-	background-color: var(--elements-theme-bg-hl, revert);
-	color: var(--elements-theme-fg, revert);
+	background-color: var(--elements-theme-bg-hl, Field);
+	color: var(--elements-theme-fg, FieldText);
 }
 button, input, textarea, select {
 	border: var(--elements-theme-input-border, revert);
 	border-radius: var(--elements-theme-input-radius, revert);
 }
 a:link {
-	color: var(--elements-theme-blue, revert);
+	color: var(--elements-theme-link, LinkText);
 }
 a:visited {
-	color: var(--elements-theme-purple, revert);
+	color: var(--elements-theme-link-visited, VisitedText);
 }

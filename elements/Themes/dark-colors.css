@@ -33,6 +33,8 @@
 	--elements-theme-bg-1:           var(--atom-one-dark-bg-1);
 	--elements-theme-bg-hl:          var(--atom-one-dark-bg-hl);
 	--elements-theme-gutter:         var(--atom-one-dark-gutter);
+	--elements-theme-link:           var(--elements-theme-blue);
+	--elements-theme-link-visited:   var(--elements-theme-purple);
 	--elements-theme-mono-1:         var(--atom-one-dark-mono-1);
 	--elements-theme-mono-2:         var(--atom-one-dark-mono-2);
 	--elements-theme-mono-3:         var(--atom-one-dark-mono-3);
@@ -52,4 +54,6 @@
 	--elements-theme-input-radius:   var(--elements-dark-input-radius);
 	--elements-theme-border-color:   var(--elements-dark-border-color);
 	--elements-theme-bg-blur:        var(--elements-dark-bg-blur);
+
+	color-scheme: light dark;
 }
