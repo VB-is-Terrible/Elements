@@ -45,6 +45,7 @@
 				</div>
 				<elements-custom-input-bar text='Go!' id='main_input'></elements-custom-input-bar>
 				<div class='right_align'>
+					<button id='right_panel_toggle'> Options </button>
 					<input type='number' id='page_count' min='0'></input>
 					<span id='page_total'> / asdf</span>
 				</div>
@@ -71,8 +72,28 @@
 		</div> -->
 		<div class='right_panel'>
 			<elements-animation-sidepanel id='right_sidepanel' horizontal='right' toggled='true'>
-				<elements-settings-control>
-				</elements-settings-control>
+				<div class='right_sidepanel_border'>
+					<div class='right_sidepanel_tabs'>
+						<button class='right_sidepanel_tab' id='right_sidepanel_settings'>Settings</button>
+						<button class='right_sidepanel_tab' id='right_sidepanel_debug'>Debug</button>
+					</div>
+					<elements-container-stacked class='right_panel_bottom'>
+						<elements-settings-control>
+						</elements-settings-control>
+						<div class='debug_spacer'>
+							<div class='debug_menu'>
+								<div class='debug_entry'>
+									Redo
+								</div>
+								<button class='debug_value' id='debug_redo'>Redo</button>
+								<div class='debug_entry'>
+									Current URL
+								</div>
+								<button class='debug_value' id='debug_current_url'> Copy </button>
+							</div>
+						</div>
+					</elements-container-stacked>
+				</div>
 			</elements-animation-sidepanel>
 		</div>
 		<elements-toaster id='toaster'></elements-toaster>
@@ -93,6 +114,7 @@
 			'toaster',
 			'settings-control',
 			'animation-sidepanel',
+			'container-stacked',
 		);
 	</script>
 	<script>

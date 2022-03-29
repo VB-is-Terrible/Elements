@@ -10,6 +10,9 @@ import {Elements} from '../elements/elements_core.js';
 import type { Toaster } from '../elements/toaster/toaster.js';
 import { ToasterContext } from '../elements/toaster/Common/Common.js';
 import type {ToastData} from '../elements/toaster/toast/toast.js';
+import type {AnimationSidepanel} from '../elements/animation/sidepanel/sidepanel.js';
+import type {ContainerStacked} from '../elements/container/stacked/stacked.js'
+
 
 Elements.get(...recommends);
 await Elements.get(...requires);
@@ -22,6 +25,7 @@ const dialog = document.querySelector('elements-container-dialog') as ContainerD
 const preview_template = document.querySelector('#reader-preview') as HTMLTemplateElement;
 const toaster = document.querySelector('#toaster') as Toaster;
 const zoom_input = document.querySelector('#zoom_count') as HTMLInputElement;
+const right_sidepanel = document.querySelector('#right_sidepanel') as AnimationSidepanel;
 
 
 const load_toast = new ToasterContext(toaster);
@@ -171,6 +175,33 @@ const main = () => {
 		zoom_factor += ZOOM_STEP;
 		set_zoom_factor(zoom_factor);
 	});
+
+	// Set up debug menu
+	{
+		const toggle_right_pane = document.querySelector('#right_panel_toggle') as HTMLButtonElement;
+		toggle_right_pane.addEventListener('click', () => {
+			right_sidepanel.toggle();
+		});
+
+		const right_panel_stacked = document.querySelector('#right_sidepanel elements-container-stacked') as ContainerStacked;
+		const right_settings = document.querySelector('#right_sidepanel_settings') as HTMLButtonElement;
+		const right_debug = document.querySelector('#right_sidepanel_debug') as HTMLButtonElement;
+		right_settings.addEventListener('click', () => {
+			right_panel_stacked.current = 's1';
+		});
+		right_debug.addEventListener('click', () => {
+			right_panel_stacked.current = 's2';
+		});
+
+		const redo_button = right_panel_stacked.querySelector('#debug_redo') as HTMLButtonElement;
+		const copy_current_url = right_panel_stacked.querySelector('#debug_current_url') as HTMLButtonElement;
+		redo_button.addEventListener('click', redo);
+		copy_current_url.addEventListener('click', () => {
+			navigator.clipboard.writeText(current_url);
+		});
+	}
+
+
 	load_local();
 	dialog.show();
 };
