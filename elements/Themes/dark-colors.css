@@ -55,5 +55,5 @@
 	--elements-theme-border-color:   var(--elements-dark-border-color);
 	--elements-theme-bg-blur:        var(--elements-dark-bg-blur);
 
-	color-scheme: light dark;
+	color-scheme: dark;
 }

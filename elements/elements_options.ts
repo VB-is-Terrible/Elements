@@ -77,7 +77,9 @@ export const remove_setting = (property: string) => {
 
 
 export const get_theme_options = () => {
-	return [{name: 'Vanilla', location: ''},
+	return [{name: 'None', location: ''},
+	        {name: 'System', location: 'system-colors.css'},
+		{name: 'Light', location: 'light-colors.css'},
 	        {name: 'Dark', location: 'dark-colors.css'}];
 };
 

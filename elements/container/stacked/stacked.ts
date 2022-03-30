@@ -232,7 +232,6 @@ export class ContainerStacked extends backbone4 {
 	 * @private
 	 */
 	#switch (old_selector: string, new_selector: string) {
-		console.log(old_selector, new_selector)
 		let old_div = this.#rotate_divs.get(old_selector)!;
 		let new_div = this.#rotate_divs.get(new_selector)!;
 		requestAnimationFrame(() => {

@@ -1,0 +1,58 @@
+:root {
+	--atom-one-light-accent:     #528BFF;
+	--atom-one-light-fg:         #494B53;
+	--atom-one-light-bg:         #FAFAFA;
+	--atom-one-light-bg-1:       #FFFFFF;
+	--atom-one-light-bg-hl:      #F0F0F0;
+	--atom-one-light-gutter:     #C2C2C3;
+	--atom-one-light-mono-1:     #494B53;
+	--atom-one-light-mono-2:     #696C77;
+	--atom-one-light-mono-3:     #A0A1A7;
+	--atom-one-light-cyan:       #0184BC;
+	--atom-one-light-blue:       #4078F2;
+	--atom-one-light-purple:     #A626A4;
+	--atom-one-light-green:      #50A14F;
+	--atom-one-light-red-1:      #E45649;
+	--atom-one-light-red-2:      #CA1243;
+	--atom-one-light-orange-1:   #986801;
+	--atom-one-light-orange-2:   #C18401;
+	--atom-one-light-gray:       #D0D0D0;
+	--atom-one-light-silver:     #9DA5B4;
+	--atom-one-light-black:      #FAFAFA;
+	--atom-one-light-border:     #9E9E9E;
+	--elements-light-border-color:    var(--atom-one-light-mono-2);
+	--elements-light-input-border:    2px var(--atom-one-light-mono-2) solid;
+	--elements-light-input-radius:    .125em;
+	--elements-light-bg-blur:    #FAFAFAA9;
+
+
+	--elements-theme-accent:         var(--atom-one-light-accent);
+	--elements-theme-fg:             var(--atom-one-light-fg);
+	--elements-theme-bg:             var(--atom-one-light-bg);
+	--elements-theme-bg-1:           var(--atom-one-light-bg-1);
+	--elements-theme-bg-hl:          var(--atom-one-light-bg-hl);
+	--elements-theme-gutter:         var(--atom-one-light-gutter);
+	--elements-theme-link:           var(--elements-theme-blue);
+	--elements-theme-link-visited:   var(--elements-theme-purple);
+	--elements-theme-mono-1:         var(--atom-one-light-mono-1);
+	--elements-theme-mono-2:         var(--atom-one-light-mono-2);
+	--elements-theme-mono-3:         var(--atom-one-light-mono-3);
+	--elements-theme-cyan:           var(--atom-one-light-cyan);
+	--elements-theme-blue:           var(--atom-one-light-blue);
+	--elements-theme-purple:         var(--atom-one-light-purple);
+	--elements-theme-green:          var(--atom-one-light-green);
+	--elements-theme-red-1:          var(--atom-one-light-red-1);
+	--elements-theme-red-2:          var(--atom-one-light-red-2);
+	--elements-theme-orange-1:       var(--atom-one-light-orange-1);
+	--elements-theme-orange-2:       var(--atom-one-light-orange-2);
+	--elements-theme-gray:           var(--atom-one-light-gray);
+	--elements-theme-silver:         var(--atom-one-light-silver);
+	--elements-theme-black:          var(--atom-one-light-black);
+	--elements-theme-border:         var(--atom-one-light-border);
+	--elements-theme-input-border:   var(--elements-light-input-border);
+	--elements-theme-input-radius:   var(--elements-light-input-radius);
+	--elements-theme-border-color:   var(--elements-light-border-color);
+	--elements-theme-bg-blur:        var(--elements-light-bg-blur);
+
+	color-scheme: light;
+}
