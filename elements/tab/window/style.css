@@ -37,6 +37,6 @@ div.slot {
 	height: 2px;
 	bottom: 0px;
 	z-index: -200;
-	background: var(--elements-theme-border-color, black);
+	background: var(--elements-theme-border-color, CanvasText);
 	position: absolute;
 }

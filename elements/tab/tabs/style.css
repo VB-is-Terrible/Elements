@@ -7,7 +7,7 @@ button.tab {
 	float: left;
 	border-radius: 0px;
 	border-left: 0px;
-	background-color: var(--elements-theme-bg, #f8f8f8);
+	background-color: var(--elements-theme-bg, ButtonFace);
 	font-size: var(--size);
 }
 :host {
@@ -16,5 +16,5 @@ button.tab {
 }
 button.tab:active, button.tab-selected {
 	border-bottom: 0px;
-	background-color: var(--elements-theme-bg, white);
+	background-color: var(--elements-theme-bg, Canvas);
 }

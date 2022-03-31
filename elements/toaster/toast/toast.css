@@ -2,7 +2,7 @@
 	border: 1px solid var(--elements-theme-border-color, revert);
 	padding: .25em;
 	width: 32ex;
-	background-color: var(--elements-theme-bg, white);
+	background-color: var(--elements-theme-bg, Canvas);
 }
 hr {
 	margin: .25em;
@@ -22,7 +22,7 @@ hr {
 button.notification_button {
 	border-radius: .25em;
 	border: var(--elements-theme-input-border, 1px solid var(--elements-theme-border, black));
-	color: var(--elements-theme-fg, black);
+	color: var(--elements-theme-fg, CanvasText);
 	margin: 0 .25em;
 	padding-top: .25ex;
 	padding-bottom: .25ex;

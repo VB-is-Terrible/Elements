@@ -47,6 +47,6 @@ div.fill {
 	padding: 10px;
 	border-radius: 5px;
 	border: 1px solid black;
-	background: var(--elements-theme-bg, white);
+	background: var(--elements-theme-bg, Canvas);
 	position: relative;
 }

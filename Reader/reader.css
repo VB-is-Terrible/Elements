@@ -26,7 +26,7 @@ div.left_align {
 	grid-column: left;
 }
 #page_total {
-	background: var(--elements-theme-bg, white);
+	background: var(--elements-theme-bg, Canvas);
 }
 #folder_grid {
 	--width: 100%;
@@ -42,13 +42,13 @@ a.folder {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	margin: 0;
-	color: var(--elements-theme-blue, blue);
+	color: var(--elements-theme-blue, LinkText);
 	text-decoration: underline;
 	cursor: pointer;
 	display: block;
 }
 a.folder.visited {
-	color: var(--elements-theme-purple, rgb(99, 8, 140));
+	color: var(--elements-theme-purple, VisitedText);
 }
 img.folder {
 	max-width: 17ex;
@@ -100,7 +100,7 @@ div.right_sidepanel_tabs {
 }
 .debug_menu {
 	padding: .5em;
-	background: var(--elements-theme-bg, white);
+	background: var(--elements-theme-bg, Canvas);
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-gap: 1em;
