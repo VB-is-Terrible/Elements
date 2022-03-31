@@ -5,6 +5,9 @@ button, select {
 	background-color: var(--elements-theme-gutter, ButtonFace);
 	color: var(--elements-theme-fg, ButtonText);
 }
+button:hover, select:hover {
+	background-color: var(--elements-theme-bg-hl, revert);
+}
 button:active {
 	background-color: var(--elements-theme-bg-1, GrayText);
 }
