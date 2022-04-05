@@ -125,6 +125,7 @@ export class AnimationSidepanel extends AnimationDirection {
 		], {
 			duration: get_setting<number>('long_duration'),
 			direction: this.#toggled ? 'reverse' : 'normal',
+			easing: this.#toggled ? 'ease-in' : 'ease-out',
 		});
 		this.#keyframe_title = new KeyframeEffect(this.#title, [
 			{'transform': this.titleStyles(false).transform},
@@ -132,6 +133,7 @@ export class AnimationSidepanel extends AnimationDirection {
 		], {
 			duration: get_setting<number>('long_duration'),
 			direction: this.#toggled ? 'reverse' : 'normal',
+			easing: this.#toggled ? 'ease-in' : 'ease-out',
 		});
 		requestAnimationFrame(() => {
 			this.#translator.style.transformOrigin = `${HORIZONTAL_MAP.get(this[horizontal])} ${VERTICAL_MAP.get(this[vertical])}`;
