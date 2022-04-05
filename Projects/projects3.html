@@ -31,10 +31,17 @@
 			</div>
 		</div>
 		<elements-container-sidebar class='unsorted'>
-			<elements-projects3-projectgroup-display context='projects3/project' id='unsorted' class='unsorted' drop_effect='none'>
+			<elements-projects3-projectgroup-display context='projects3/project' id='unsorted' class='unsorted' drop_effect='none' effect_allowed='move'>
 			</elements-projects3-projectgroup-display>
 			<span slot='title' class='unsorted_title'> Unsorted </span>
 		</elements-container-sidebar>
+		<!-- <div class='unsorted'>
+			<elements-animation-sidepanel class='unsorted' vertical='down'>
+				<elements-projects3-projectgroup-display context='projects3/project' id='unsorted' class='unsorted' drop_effect='none' effect_allowed='move'>
+				</elements-projects3-projectgroup-display>
+				<span slot='title' class='unsorted_title'> Unsorted </span>
+			</elements-animation-sidepanel>
+		</div> -->
 		<elements-container-dialog dialog_hidden='true' id='create_dialog'>
 			<elements-projects3-project-creator></elements-projects3-project-creator>
 		</elements-container-dialog>
