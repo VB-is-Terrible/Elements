@@ -76,6 +76,7 @@ const query_pics = async (url: string, position?: number) => {
 	form.append('url', url);
 	//@ts-ignore
 	window.current_url = url;
+	window.location.hash = encodeURIComponent(`urlstore-remote-${url}`);
 	current_url = url;
 	const notify_permission = notify_start();
 	let response;
@@ -129,6 +130,7 @@ const load_local = async () => {
 
 const ZOOM_STEP = .1;
 let zoom_factor = 1;
+let RETITLE: null | string = null;
 const main = () => {
 	//@ts-ignore
 	main_input.addEventListener('accept', respond);
@@ -202,6 +204,7 @@ const main = () => {
 	}
 
 
+	read_hash();
 	load_local();
 	dialog.show();
 };
@@ -223,6 +226,10 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 	const inverse = new Map<string, string>();
 	const names = [];
 	for (const url in folders) {
+		if (url === RETITLE) {
+			RETITLE = null;
+			document.title = folders[url];
+		}
 		const name = folders[url];
 		names.push(name);
 		inverse.set(name, url);
@@ -230,16 +237,15 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 	names.sort();
 	let count = 1;
 	for (const name of names) {
-		const url = inverse.get(name);
+		const url = inverse.get(name)!;
 		const fragment = document.importNode(preview_template, true).content;
 		const a = fragment.querySelector('a.folder') as HTMLParagraphElement;
 		const div = fragment.querySelector('div.folder') as HTMLDivElement;
 		const img = fragment.querySelector('img.folder') as HTMLImageElement;
-		const folder_url = LOCAL_FILES_BASE + '/' + url
 
 		const event_listener = () => {
 			a.className += ' visited';
-			visit_local_link(folder_url, name);
+			visit_local_link(url, name);
 		};
 		img.addEventListener('click', event_listener);
 		a.addEventListener('click', event_listener);
@@ -252,7 +258,7 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 		a.textContent = name;
 		a.title = name;
 		div.slot = 's' + count.toString();
-		img.src = folder_url + '/' + '0';
+		img.src = `${LOCAL_FILES_BASE}/${url}/0`;
 		requestAnimationFrame(() => {
 			folder_grid.append(fragment);
 		});
@@ -260,14 +266,21 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 	}
 };
 
-const visit_local_link = async (url: string, gallery_name: string) => {
-	const pic_names: Array<string> = await (await fetch(url)).json();
+const visit_local_link = async (url: string, gallery_name: string | null) => {
+	const folder_url = `${LOCAL_FILES_BASE}/${url}`
+	window.location.hash = encodeURIComponent(`urlstore-local-${url}`);
+	const pic_names: Array<string> = await (await fetch(folder_url)).json();
 	const links = []
 	for (const pic of pic_names) {
-		links.push(url + '/' + pic);
+		links.push(folder_url + '/' + pic);
 	}
 
-	set_urls(links, gallery_name);
+	if (gallery_name === null) {
+		set_urls(links);
+	} else {
+		set_urls(links, gallery_name);
+	}
+
 };
 
 export const set_urls = (img_urls: Array<string>, title: string = 'MPV Reader', position: number = 0) => {
@@ -457,5 +470,20 @@ const notify_send = (title: string, options?: NotificationOptions) => {
 	return null;
 };
 
+
+const HASH_RE = /^#urlstore-(remote|local)-(.*)$/
+const read_hash = () => {
+	const hash = decodeURIComponent(window.location.hash);
+	const matches = hash.match(HASH_RE);
+	if (matches === null) {
+		return;
+	}
+	if (matches[1] === 'remote') {
+		query_pics(matches[2]);
+	} else {
+		RETITLE = matches[2];
+		visit_local_link(matches[2], null);
+	}
+};
 
 export default main;
