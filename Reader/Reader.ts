@@ -1,6 +1,7 @@
 const requires = ['toaster', 'container-dialog', 'grid', 'gallery-scroll-dynamic'];
 const recommends = ['custom-input-bar'];
 let current_url: string = '';
+let is_local = true;
 
 import type {GalleryScrollDynamic} from '../elements/gallery/scroll/dynamic/dynamic.js'
 import type {ContainerDialog} from '../elements/container/dialog/dialog.js';
@@ -77,6 +78,7 @@ const query_pics = async (url: string, position?: number) => {
 	//@ts-ignore
 	window.current_url = url;
 	window.location.hash = encodeURIComponent(`urlstore-remote-${url}`);
+	is_local = false;
 	current_url = url;
 	const notify_permission = notify_start();
 	let response;
@@ -196,11 +198,17 @@ const main = () => {
 		});
 
 		const redo_button = right_panel_stacked.querySelector('#debug_redo') as HTMLButtonElement;
-		const copy_current_url = right_panel_stacked.querySelector('#debug_current_url') as HTMLButtonElement;
+		const copy_current_url = right_panel_stacked.querySelector('#debug_current_url_copy') as HTMLButtonElement;
+		const open_current_url = right_panel_stacked.querySelector('#debug_current_url_open') as HTMLButtonElement;
 		redo_button.addEventListener('click', redo);
 		copy_current_url.addEventListener('click', () => {
 			navigator.clipboard.writeText(current_url);
 		});
+		open_current_url.addEventListener('click', () => {
+			if (is_local) {return;}
+			window.open(current_url, '_blank', 'noreferrer');
+		});
+
 	}
 
 
@@ -269,6 +277,7 @@ const fill_folders_link = (folders: {[key: number]: string}) => {
 const visit_local_link = async (url: string, gallery_name: string | null) => {
 	const folder_url = `${LOCAL_FILES_BASE}/${url}`
 	window.location.hash = encodeURIComponent(`urlstore-local-${url}`);
+	is_local = true;
 	const pic_names: Array<string> = await (await fetch(folder_url)).json();
 	const links = []
 	for (const pic of pic_names) {
