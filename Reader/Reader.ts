@@ -208,7 +208,12 @@ const main = () => {
 			if (is_local) {return;}
 			window.open(current_url, '_blank', 'noreferrer');
 		});
-
+		const rebuild_hashes = document.querySelector('#debug_rebuild_hashes') as HTMLButtonElement;
+		rebuild_hashes.addEventListener('click', () => {
+			fetch('//127.0.0.1:5000/rebuild_hashes', {
+				method: 'POST',
+			});
+		});
 	}
 
 
