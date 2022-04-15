@@ -11,6 +11,7 @@ import type {Projects3ProjectgroupDisplay} from '../elements/projects3/projectgr
 import {read_details} from '../elements/draggable/types.js';
 import type {Grid} from '../elements/grid/grid.js'
 import type {Toaster} from '../elements/toaster/toaster.js';
+import {get_setting} from '../elements/elements_options.js';
 
 
 const load_promise = Elements.get(
@@ -67,7 +68,8 @@ export const main = () => {
 	const new_group = document.querySelector('#createGroup') as HTMLButtonElement;
 	new_group.addEventListener('click', () => {
 		group_creator_dialog.toggle();
-	})
+	});
+	document.body.style.setProperty('--animation_duration_long', get_setting<number>('long_duration').toString());
 	unsorted.addEventListener(Projects3Drop.event_string, (e) => {on_drop(e as CustomEvent)});
 	(async () => {
 		system = await load_remote();
