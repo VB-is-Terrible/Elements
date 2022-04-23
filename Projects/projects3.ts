@@ -3,8 +3,8 @@ import {randint, removeChildren} from '../elements/elements_helper.js';
 import {AcceptDetail} from '../elements/projects3/project/creator/creator.js';
 import {AcceptDetail as GroupDetail} from '../elements/projects3/projectgroup/creator/creator.js';
 import type {Projects3ProjectCreator} from '../elements/projects3/project/creator/creator.js';
-import type {ProjectObj, SystemNetworkObj, id, ProjectGroupNetwork, ProjectGroup} from '../elements/projects3/Common/Common.js';
-import {System, Project, Projects3Drop,} from '../elements/projects3/Common/Common.js';
+import type {ProjectObj, SystemNetworkObj, id, ProjectGroupNetwork} from '../elements/projects3/Common/Common.js';
+import {System, Project, Projects3Drop, ProjectGroup} from '../elements/projects3/Common/Common.js';
 import {Projects3ProjectDisplay} from '../elements/projects3/project/display/display.js';
 import type {ContainerDialog} from '../elements/container/dialog/dialog.js';
 import type {Projects3ProjectgroupDisplay} from '../elements/projects3/projectgroup/display/display.js';
@@ -61,6 +61,7 @@ export const main = () => {
 	group_creator.addEventListener(GroupDetail.event_string, (e) => {
 		const detail = read_details(e as CustomEvent, GroupDetail);
 		console.log(detail);
+		createNetworkGroupProject(detail);
 	})
 	const new_project = document.querySelector('#createProject')!;
 	new_project.addEventListener('click', () => {
@@ -71,7 +72,7 @@ export const main = () => {
 		group_creator_dialog.toggle();
 	});
 	document.body.style.setProperty('--animation_duration_long', get_setting<number>('long_duration').toString());
-	unsorted.addEventListener(Projects3Drop.event_string, (e) => {on_drop(e as CustomEvent)});
+	unsorted.addEventListener(Projects3Drop.event_string, (e) => {project_move(e as CustomEvent)});
 	(async () => {
 		system = await load_remote();
 	})();
@@ -125,7 +126,7 @@ const load = (system: System) => {
 	}
 }
 
-const on_drop = async (e: CustomEvent) => {
+const project_move = async (e: CustomEvent) => {
 	const details = read_details(e, Projects3Drop);
 	console.log(details);
 	const form = new FormData();
@@ -169,7 +170,7 @@ const createGroupDisplay = (group: ProjectGroup) => {
 	result.context = 'projects3/project';
 	result.drop_effect = 'move';
 	result.effect_allowed = 'all';
-	result.addEventListener(Projects3Drop.event_string, (e) => {on_drop(e as CustomEvent)});
+	result.addEventListener(Projects3Drop.event_string, (e) => {project_move(e as CustomEvent)});
 	result.project_id = group.id;
 	const title = document.createElement('p');
 	title.className = 'group_title';
@@ -214,3 +215,38 @@ const createNetworkProject = async (project_obj: ProjectObj) => {
 		unsorted.append(display);
 	});
 }
+
+
+const createNetworkGroupProject = async (group_obj: GroupDetail) => {
+	const form = new FormData();
+	form.append('name', group_obj.name);
+	if (group_obj.desc !== undefined) {
+		form.append('desc', group_obj.desc);
+	}
+	form.append('projects', JSON.stringify(group_obj.projects));
+	let response;
+	try {
+		response = await fetch(remote_location + '/groups', {
+			method: 'PUT',
+			body: form,
+		});
+	} catch (e) {
+		toaster.addToast({
+			title: 'Error connecting to server',
+			body: 'Check that the server is running',
+		});
+		throw e;
+	}
+	const new_group_project_obj = await response.json();
+	if (new_group_project_obj === {}) {
+		console.log('Got empty response');
+		return;
+	}
+	const project_group = ProjectGroup.fromJSONObj(new_group_project_obj);
+	system.project_groups.set(project_group.id, project_group);
+	const display = createGroupDisplay(project_group);
+	requestAnimationFrame(() => {
+		group_grid.append(display);
+		group_grid.columns++;
+	});
+};
