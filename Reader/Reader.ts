@@ -33,7 +33,8 @@ const load_toast = new ToasterContext(toaster);
 const respond = async (e: CustomEvent) => {
 	if (e.detail === '') {
 		toaster.addToast({
-			title: 'Invalid URL'
+			title: 'Invalid URL',
+			timeout: FAIL_NOTIFICATION_TIMEOUT,
 		});
 		return;
 	} else if (e.detail === current_url) {
