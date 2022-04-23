@@ -27,6 +27,7 @@ Elements.get(
 	'container-autohide',
 	'container-sidebar',
 	'projects3-project-display',
+	'animation-sidepanel',
 );
 
 const project_creator = document.querySelector('elements-projects3-project-creator') as Projects3ProjectCreator;

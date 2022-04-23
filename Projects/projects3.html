@@ -30,18 +30,21 @@
 				</elements-projects3-projectgroup-display>
 			</div>
 		</div>
-		<elements-container-sidebar class='unsorted'>
+		<!-- <elements-container-sidebar class='unsorted'>
 			<elements-projects3-projectgroup-display context='projects3/project' id='unsorted' class='unsorted' drop_effect='none' effect_allowed='move'>
 			</elements-projects3-projectgroup-display>
 			<span slot='title' class='unsorted_title'> Unsorted </span>
-		</elements-container-sidebar>
-		<!-- <div class='unsorted'>
-			<elements-animation-sidepanel class='unsorted' vertical='down'>
+		</elements-container-sidebar> -->
+		<div class='unsorted'>
+			<elements-animation-sidepanel class='unsorted' vertical='down' id='unsorted_panel'>
 				<elements-projects3-projectgroup-display context='projects3/project' id='unsorted' class='unsorted' drop_effect='none' effect_allowed='move'>
 				</elements-projects3-projectgroup-display>
-				<span slot='title' class='unsorted_title'> Unsorted </span>
+				<button slot='title' onclick='unsorted_panel.toggle()' class='unsorted'>
+					<span class='arrows'>>></span>
+					<span class='unsorted_title'> Unsorted </span>
+				</button>
 			</elements-animation-sidepanel>
-		</div> -->
+		</div>
 		<elements-container-dialog dialog_hidden='true' id='create_dialog'>
 			<elements-projects3-project-creator></elements-projects3-project-creator>
 		</elements-container-dialog>

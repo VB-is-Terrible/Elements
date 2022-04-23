@@ -67,3 +67,16 @@ body {
 elements-container-autohide {
 	z-index: 9000;
 }
+button.unsorted {
+	margin-left: 3em;
+	display: flex;
+}
+.arrows {
+	display: block;
+	transform: rotate(90deg);
+	transition-property: transform;
+	transition-duration: var(--animation_duration_long);
+}
+button.unsorted[toggled='true'] .arrows {
+	transform: rotate(270deg);
+}
