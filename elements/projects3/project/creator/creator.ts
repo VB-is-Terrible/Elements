@@ -3,7 +3,7 @@ const requires: Array<string> = [];
 
 import {Elements} from '../../../elements_core.js';
 import {backbone4} from '../../../elements_backbone.js';
-import {CustomComposedEvent, removeChildren} from '../../../elements_helper.js';
+import {CustomComposedEvent, removeChildren, setToArray} from '../../../elements_helper.js';
 import {FormWrapper} from '../../../container/form/Common.js';
 import type {ProjectObj, id} from '../../Common/Common.js';
 
@@ -45,7 +45,8 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	#warn: HTMLImageElement;
 	#tags: HTMLDivElement;
 	#tag_input: HTMLInputElement;
-	#tags_store: string[] = [];
+	#tags_store: Set<string> = new Set();
+	#edit_mode = false;
 	constructor() {
 		super();
 
@@ -88,7 +89,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 			this.#project_id,
 			this.#name.value,
 			this.#desc.value,
-			[],
+			setToArray(this.#tags_store),
 		);
 		const ev = CustomComposedEvent(AcceptDetail.event_string, detail);
 		this.dispatchEvent(ev);
@@ -100,15 +101,18 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		requestAnimationFrame(() => {
 			this.#warn.style.display = 'none';
 		});
-		this.#tags_store = [];
-		this.setTags(['this', 'is', 'a', 'test', 'nothing but a really', 'long test phrase', 'to test when the tags', 'should overflow', 'and it turns out that', 'this list of strings is not', 'big enough']);
+		this.#tags_store = new Set();
+		// this.setTags(['this', 'is', 'a', 'test', 'nothing but a really', 'long test phrase', 'to test when the tags', 'should overflow', 'and it turns out that', 'this list of strings is not', 'big enough']);
+		this.setTags([]);
+
 
 	}
-	private setTags(tags: string[]) {
+	private setTags(tags: Iterable<string>) {
 		removeChildren(this.#tags);
-		this.#tags_store = tags;
+		this.#tags_store = new Set();
 		const tag_buttons: HTMLElement[] = [];
 		for (const tag of tags) {
+			this.#tags_store.add(tag);
 			tag_buttons.push(this.#createTag(tag));
 		}
 		requestAnimationFrame(() => {
@@ -126,13 +130,12 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		result.append(name);
 		result.addEventListener('click', () => {
 			this.#removeTag(tag, result);
-		})
+		});
 		return result;
 	}
 	#removeTag(tag: string, button: HTMLButtonElement) {
 		button.remove();
-		const index = this.#tags_store.indexOf(tag);
-		this.#tags_store.splice(index);
+		this.#tags_store.delete(tag);
 	}
 	setEdit(project: ProjectObj) {
 		this.#project_id = project.id;
@@ -142,7 +145,10 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	}
 	#tagInsert() {
 		const new_tag = this.#tag_input.value;
-		this.#tags_store.push(new_tag);
+		if (this.#tags_store.has(new_tag)) {
+			throw new Error(`Duplicate tag ${new_tag}`);
+		}
+		this.#tags_store.add(new_tag);
 		this.#tag_input.value = '';
 		const button = this.#createTag(new_tag);
 		this.#tags.append(button);
