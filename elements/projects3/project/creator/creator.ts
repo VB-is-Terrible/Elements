@@ -20,16 +20,19 @@ export class AcceptDetail implements ProjectObj {
 	name: string;
 	desc: string;
 	tags: string[];
+	edit: boolean;
 	constructor(
 		id: id,
 		name: string,
 		desc: string,
 		tags: string[],
+		edit: boolean,
 	) {
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
 		this.tags = tags;
+		this.edit = edit;
 	}
 }
 
@@ -90,6 +93,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 			this.#name.value,
 			this.#desc.value,
 			setToArray(this.#tags_store),
+			this.#edit_mode,
 		);
 		const ev = CustomComposedEvent(AcceptDetail.event_string, detail);
 		this.dispatchEvent(ev);
@@ -98,6 +102,8 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	protected reset() {
 		this.#name.value = '';
 		this.#desc.value = '';
+		this.#project_id = -1;
+		this.#edit_mode = false;
 		requestAnimationFrame(() => {
 			this.#warn.style.display = 'none';
 		});
@@ -142,6 +148,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		this.#name.value = project.name
 		this.#desc.value = project.desc;
 		this.setTags(project.tags);
+		this.#edit_mode = true;
 	}
 	#tagInsert() {
 		const new_tag = this.#tag_input.value;
