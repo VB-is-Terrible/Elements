@@ -443,6 +443,10 @@ const check_fails = () => {
 };
 
 
+const round = (num: number, decimal: number) => {
+	const mult = Math.pow(10, decimal);
+	return Math.round(num * mult) / mult;
+}
 
 const zoom_factor_stylesheet = document.createElement('style');
 document.body.append(zoom_factor_stylesheet);
@@ -452,7 +456,7 @@ const set_zoom_factor = (zoom: number) => {
 		max-height: ${zoom * 100}%;
 	}`;
 	requestAnimationFrame(() => {
-		zoom_input.value = zoom.toString();
+		zoom_input.value = round(zoom, 2).toString();
 		if (sheet !== null) {
 			if (sheet.cssRules.length === 1) {
 				sheet.deleteRule(0);
