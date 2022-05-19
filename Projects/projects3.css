@@ -34,11 +34,6 @@ div.topbar {
 body {
 	/* background: green; */
 }
-#test {
-	position: absolute;
-	top: 900px;
-	left: 500px;
-}
 #groups elements-projects3-projectgroup-display {
 	min-width: 10em;
 	max-width: 20em;
