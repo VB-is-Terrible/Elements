@@ -211,6 +211,7 @@ const createNetworkProject = async (project_obj: ProjectObj) => {
 	const project = Project.fromJSONObj(new_project_obj);
 	system.projects.set(project.id, project);
 	const display = Projects3ProjectDisplay.fromProject(project);
+	project_displays.set(project.id, display)
 	requestAnimationFrame(() => {
 		unsorted.append(display);
 	});
