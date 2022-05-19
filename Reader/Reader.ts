@@ -201,13 +201,18 @@ const main = () => {
 		const redo_button = right_panel_stacked.querySelector('#debug_redo') as HTMLButtonElement;
 		const copy_current_url = right_panel_stacked.querySelector('#debug_current_url_copy') as HTMLButtonElement;
 		const open_current_url = right_panel_stacked.querySelector('#debug_current_url_open') as HTMLButtonElement;
-		redo_button.addEventListener('click', redo);
+		redo_button.addEventListener('click', () => {
+			redo();
+			right_sidepanel.toggled = true;
+		});
 		copy_current_url.addEventListener('click', () => {
 			navigator.clipboard.writeText(current_url);
+			right_sidepanel.toggled = true;
 		});
 		open_current_url.addEventListener('click', () => {
 			if (is_local) {return;}
 			window.open(current_url, '_blank', 'noreferrer');
+			right_sidepanel.toggled = true;
 		});
 		const rebuild_hashes = document.querySelector('#debug_rebuild_hashes') as HTMLButtonElement;
 		rebuild_hashes.addEventListener('click', () => {
