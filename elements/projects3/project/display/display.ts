@@ -43,7 +43,8 @@ export class Projects3ProjectDisplay extends backbone4 {
 			this.#title.textContent = name;
 		});
 		setUpAttrPropertyLink(this, 'desc', '', (desc: string) => {
-			this.#desc.textContent = desc;
+			const one_line = desc.split('\n')[0];
+			this.#desc.textContent = one_line;
 		});
 		setUpAttrPropertyLink(this, 'href', '', (href: string) => {
 			if (href === '') {
