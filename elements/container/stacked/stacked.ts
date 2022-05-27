@@ -284,7 +284,7 @@ export class ContainerStacked extends backbone4 {
 			sheet.insertRule(rule_width);
 		}
 		requestAnimationFrame(() => {
-			this.style.setProperty('--innerWidth', `${largest_height}px`);
+			this.style.setProperty('--innerHeight', `${largest_height}px`);
 			this.style.setProperty('--innerWidth', `${largest_width}px`);
 		});
 	}
