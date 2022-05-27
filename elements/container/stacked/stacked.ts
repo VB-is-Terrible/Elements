@@ -270,8 +270,8 @@ export class ContainerStacked extends backbone4 {
 			this.#div_heights.set(entry.target as HTMLDivElement, height);
 			this.#div_widths.set(entry.target as HTMLDivElement, width);
 		}
-		const largest_height = Math.max(...this.#div_heights.values()) + 1;
-		const largest_width = Math.max(...this.#div_widths.values()) + 1;
+		const largest_height = Math.max(...this.#div_heights.values());
+		const largest_width = Math.max(...this.#div_widths.values());
 		const rule_height = 'div.rotate {min-height: ' + largest_height.toString() + 'px}';
 		const rule_width = 'div.rotate {min-width: ' + largest_width.toString() + 'px}';
 		let sheet = (this.shadowQuery('#rotate_expander') as HTMLStyleElement).sheet;
