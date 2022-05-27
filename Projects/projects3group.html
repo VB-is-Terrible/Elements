@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel='modulepreload' href='../elements/elements_core.js'></link>
+		<link rel='modulepreload' href='../elements/elements_backbone.js'></link>
+		<link rel='modulepreload' href='../elements/elements_helper.js'></link>
+		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
+		<link rel="icon" href="../icon.png">
+		<link rel='stylesheet' type='text/css' href='projects3group.css'>
+		<link rel='stylesheet' type='text/css' href='../elements/Themes/generic_text.css'></link>
+		<link rel='stylesheet' type='text/css' href='../elements/Themes/generic_bg.css'></link>
+	</head>
+	<body>
+		<header>
+			<a href='./index.html'>
+				<p class='header'>
+					Index
+				</p>
+			</a>
+			<a class='project_link'>
+				<p class='header'>
+					Main
+				</p>
+			</a>
+		</header>
+		<div class='title_stack_holder'>
+			<div class='stacked centre stacked_high'>
+				<p class='group_title'> Test Group</p>
+			</div>
+			<div class='stacked centre stacked_high'>
+				<input type="text" id='group_name_edit' class='stacked_wide'></input>
+			</div>
+			<!-- <elements-container-stacked align='center' justify='center' id='title_stack'>
+			</elements-container-stacked> -->
+		</div>
+		<div class='group_desc_container'>
+			<textarea class='group_desc'></textarea>
+			<div class='bottom_buttons'>
+				<elements-container-stacked justify='end'>
+					<div>
+						<button id='group_edit_enable'> Edit </button>
+					</div>
+					<div style='width: max-content;'>
+						<button id='group_edit_accept'> Accept </button>
+						<button id='group_edit_cancel'> Cancel </button>
+
+					</div>
+				</elements-container-stacked>
+			</div>
+		</div>
+		<!-- <div class="">
+			<main>
+			</main>
+		</div> -->
+		<elements-toaster id='toaster'></elements-toaster>
+	</body>
+	<script>
+		(async () => {
+			(await import('./projects3group.js')).main();
+		})();
+	</script>
+
+</html>

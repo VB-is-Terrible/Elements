@@ -1,0 +1,76 @@
+header {
+	display: flex;
+	justify-self: normal;
+}
+header > * {
+	margin-right: 1em;
+}
+.group_title {
+	/* font-size: x-large; */
+}
+.group_desc {
+	width: 100%;
+	height: 100%;
+	resize: none;
+	box-sizing: border-box;
+}
+.group_desc_container {
+	padding: 0 7%;
+	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-rows: 1fr auto;
+	grid-row-gap: 1ex;
+}
+.group_desc_container, .title_stack_holder {
+	padding: 0 7%;
+	box-sizing: border-box;
+}
+html {
+	height: 100%;
+	width: 100%;
+}
+body {
+	padding: 1em;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-rows: auto auto 1fr;
+	justify-content: stretch;
+	justify-items: center;
+}
+.bottom_buttons {
+	justify-self: end;
+}
+.test {
+	display: flex;
+}
+.stacked {
+	overflow: auto;
+	font-size: x-large;
+}
+#group_name_edit {
+	font-size: x-large;
+}
+.centre {
+	display: grid;
+	place-items: center;
+	place-content: stretch;
+	/* width: max(max-content, var(--innerWidth)); */
+}
+.stacked_high {
+	height: 6.5ex;
+	box-sizing: border-box;
+	width: 100%;
+}
+.stacked_wide {
+	width: 100%;
+	box-sizing: border-box;
+}
+.title_stack_holder, #title_stack, .title_stack {
+	width: 100%;
+}
