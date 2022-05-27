@@ -2,7 +2,7 @@ const recommends: Array<string> = [];
 const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
-import {backbone4, applyPriorProperties} from '../../elements_backbone.js';
+import {backbone4, applyPriorProperties, setUpAttrPropertyLink} from '../../elements_backbone.js';
 import {wait, get_border_box} from '../../elements_helper.js';
 
 Elements.get(...recommends);
@@ -32,6 +32,10 @@ export class ContainerStacked extends backbone4 {
 	#div_heights: Map<HTMLDivElement, number> = new Map();
 	#div_widths: Map<HTMLDivElement, number> = new Map();
 	#child_indexes: WeakMap<object, number>;
+	#justify_style: HTMLStyleElement;
+	#align_style: HTMLStyleElement;
+	justify!: string;
+	align!: string;
 	constructor() {
 		super();
 
@@ -52,6 +56,10 @@ export class ContainerStacked extends backbone4 {
 
 		this.#mo.observe(this, mutation_options);
 
+		this.#justify_style = template.querySelector('#justify_style') as HTMLStyleElement;
+		this.#align_style = template.querySelector('#align_style') as HTMLStyleElement;
+
+
 		//Fancy code goes here
 		shadow.appendChild(template);
 		applyPriorProperties(this, 'current');
@@ -60,6 +68,28 @@ export class ContainerStacked extends backbone4 {
 			(this.shadowQuery('#rotate1') as HTMLDivElement).style.visibility = 'visible';
 		});
 
+		setUpAttrPropertyLink(this, 'justify', '', (value: string) => {
+			let sheet = this.#justify_style.sheet;
+			if (sheet !== null) {
+				if (sheet.cssRules.length === 1) {
+					sheet.deleteRule(0);
+				}
+				if (value !== '') {
+					sheet.insertRule(`div.rotate {justify-items: ${value}}`);
+				}
+			}
+		});
+		setUpAttrPropertyLink(this, 'align', '', (value: string) => {
+			let sheet = this.#align_style.sheet;
+			if (sheet !== null) {
+				if (sheet.cssRules.length === 1) {
+					sheet.deleteRule(0);
+				}
+				if (value !== '') {
+					sheet.insertRule(`div.rotate {align-items: ${value}}`);
+				}
+			}
+		});
 	}
 	/**
 	 * Add slots to the inner stack until there are enough
@@ -90,7 +120,7 @@ export class ContainerStacked extends backbone4 {
 		}
 	}
 	static get observedAttributes() {
-		return ['current'];
+		return ['current', 'justify', 'align'];
 	}
 	/**
 	 * Reassign the slots children are placed in, in case the order changed

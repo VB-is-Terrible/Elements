@@ -10,3 +10,7 @@ div.size_sensor {
 div.not_first {
 	visibility: hidden;
 }
+div.rotate {
+	display: grid;
+	place-content: stretch;
+}
