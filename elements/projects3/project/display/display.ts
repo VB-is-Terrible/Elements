@@ -77,12 +77,15 @@ export class Projects3ProjectDisplay extends backbone4 {
 	static get observedAttributes() {
 		return ['name', 'desc', 'href'];
 	}
-	static fromProject(project: ProjectObj): Projects3ProjectDisplay {
+	static fromProject(project: ProjectObj, root = ''): Projects3ProjectDisplay {
 		const result = new this();
 		result.project_id = project.id;
 		result.desc = project.desc;
 		result.name = project.name;
 		result.tags = project.tags;
+		if (root !== '') {
+			result.href = `${root}/projects3project.html?project=${project.id}`;
+		}
 		return result;
 	}
 

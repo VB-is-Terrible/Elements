@@ -111,7 +111,8 @@ const load = (system: System) => {
 		i++;
 		for (const project_id of group.projects) {
 			const project_display = Projects3ProjectDisplay.fromProject(
-				system.get_project_by_id(project_id)!
+				system.get_project_by_id(project_id)!,
+				root_link
 			);
 			seen.add(project_id);
 			display.append(project_display);
@@ -125,7 +126,8 @@ const load = (system: System) => {
 	for (const id of system.projects.keys()) {
 		if (!seen.has(id)) {
 			const project_display = Projects3ProjectDisplay.fromProject(
-				system.get_project_by_id(id)!
+				system.get_project_by_id(id)!,
+				root_link
 			);
 			project_displays.set(id, project_display);
 			requestAnimationFrame(() => {
@@ -222,7 +224,7 @@ const createNetworkProject = async (project_obj: ProjectObj) => {
 	}
 	const project = Project.fromJSONObj(new_project_obj);
 	system.projects.set(project.id, project);
-	const display = Projects3ProjectDisplay.fromProject(project);
+	const display = Projects3ProjectDisplay.fromProject(project, root_link);
 	project_displays.set(project.id, display)
 	requestAnimationFrame(() => {
 		unsorted.append(display);
