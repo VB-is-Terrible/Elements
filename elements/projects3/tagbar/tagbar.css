@@ -1,0 +1,49 @@
+:host {
+	display: block;
+}
+:host([hidden]) {
+	display: none;
+}
+#pseudoBody {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-gap: 1ex;
+	/* font-size: var(--font-size, inherit); */
+
+}
+#bar_input {
+	width: 100%;
+	font-size: var(--font-size, inherit);
+}
+.suggestion_holder {
+	position: absolute;
+	/* background: green; */
+	width: 100%;
+	/* border: var(--elements-theme-input-border, revert); */
+	box-sizing: border-box;
+}
+#bar_button {
+	font-size: var(--font-size, inherit);
+	width: 150px;
+}
+.suggestion {
+	background-color: var(--elements-theme-bg, Canvas);
+	box-sizing: border-box;
+	border-left: var(--elements-theme-input-border, revert);
+	border-right: var(--elements-theme-input-border, revert);
+}
+.suggestion:hover {
+	text-decoration: underline;
+	background-color: var(--elements-theme-bg-1, revert);
+}
+.suggestion:first-child {
+	border-top: var(--elements-theme-input-border, revert);
+	border-top-left-radius: var(--elements-theme-input-radius, revert);
+	border-top-right-radius: var(--elements-theme-input-radius, revert);
+
+}
+.suggestion:last-child {
+	border-bottom: var(--elements-theme-input-border, revert);
+	border-bottom-left-radius: var(--elements-theme-input-radius, revert);
+	border-bottom-right-radius: var(--elements-theme-input-radius, revert);
+}

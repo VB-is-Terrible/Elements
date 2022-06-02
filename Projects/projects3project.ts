@@ -4,6 +4,7 @@ import {Project} from '../elements/projects3/Common/Common.js';
 import type {ContainerStacked} from '../elements/container/stacked/stacked.js';
 import type {Toaster} from '../elements/toaster/toaster.js';
 import {remote as ROOT_LOCATION} from './projects3base.js'
+import type {Projects3Tagbar} from '../elements/projects3/tagbar/tagbar.js';
 
 
 type ProjectData = {
@@ -27,6 +28,7 @@ const title_editor = document.querySelector('#group_name_edit') as HTMLInputElem
 const button_stack = document.querySelector('div.bottom_buttons > elements-container-stacked') as ContainerStacked;
 const title_stack = document.querySelectorAll('.title_stack_holder > .stacked.centre') as NodeListOf<HTMLDivElement>;
 const toaster = document.querySelector('#toaster') as Toaster;
+const tagbar = document.querySelector('elements-projects3-tagbar') as Projects3Tagbar;
 
 
 export let system: Project;
@@ -54,7 +56,6 @@ export const main = () => {
 	accept_button.addEventListener('click', () => {
 		// modifyNetworkGroup(title_editor.value, desc.value);
 	});
-
 	(async () => {
 		load_remote();
 	})();
@@ -71,7 +72,7 @@ const load_remote = async () => {
 
 const load = (system: Project, owner: number, owner_name: string, tags: Record<string, string>) => {
 	document.title = system.name;
-
+	tagbar.remote = `${ROOT_LOCATION}/${owner}/tag_names`;
 	{
 		const folders = window.location.pathname.split('/');
 		folders.pop();

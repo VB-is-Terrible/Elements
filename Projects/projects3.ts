@@ -91,6 +91,7 @@ export const main = () => {
 const load_remote = async () => {
 	const remote_data: SystemNetworkObj = await (await fetch(remote_location)).json();
 	const system = System.fromNetworkObj(remote_data, remote_location);
+	console.log(remote_data, system);
 	load(system);
 	return system;
 };
