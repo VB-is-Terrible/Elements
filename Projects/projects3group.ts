@@ -1,14 +1,14 @@
 import {Elements} from '../elements/elements_core.js';
-import type {ProjectGroupNetwork, ProjectObj} from '../elements/projects3/Common/Common.js';
-import {ProjectGroup, Project} from '../elements/projects3/Common/Common.js';
+import type {ProjectGroupNetwork} from '../elements/projects3/Common/Common.js';
+import {ProjectGroup} from '../elements/projects3/Common/Common.js';
 import type {ContainerStacked} from '../elements/container/stacked/stacked.js';
 import type {Toaster} from '../elements/toaster/toaster.js';
 
 
 type GroupData = {
 	group: ProjectGroupNetwork,
-	projects: ProjectObj[],
 	owner: number,
+	owner_name: string,
 };
 
 const load_promise = Elements.get('toaster');
@@ -63,16 +63,20 @@ const load_remote = async () => {
 	const remote_data: GroupData = await (await fetch(remote_location)).json();
 	console.log(remote_data);
 	system = ProjectGroup.fromNetworkObj(remote_data.group);
-	load(system, remote_data.owner);
+	load(system, remote_data.owner, remote_data.owner_name);
 	return system;
 };
 
-const load = (system: ProjectGroup, owner: number) => {
+const load = (system: ProjectGroup, owner: number, owner_name: string) => {
 	document.title = system.name;
+
 	{
 		const folders = window.location.pathname.split('/');
 		folders.pop();
 		project_link.href = `${window.location.origin}${folders.join('/')}/projects3.html?meta=${owner}`
+		requestAnimationFrame(() => {
+			meta_title.textContent = owner_name;
+		});
 	}
 	reset();
 };
