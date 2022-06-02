@@ -52,6 +52,14 @@ const getRemoteLocation = () => {
 const remote_location = getRemoteLocation();
 
 
+let root_link: string;
+{
+	const folders = window.location.pathname.split('/');
+	folders.pop();
+	root_link = `${window.location.origin}${folders.join('/')}`
+}
+
+
 await load_promise;
 export const main = () => {
 	project_creator.addEventListener(AcceptDetail.event_string, (e: Event) => {
@@ -173,10 +181,13 @@ const createGroupDisplay = (group: ProjectGroup) => {
 	result.effect_allowed = 'all';
 	result.addEventListener(Projects3Drop.event_string, (e) => {project_move(e as CustomEvent)});
 	result.project_id = group.id;
+	const link = document.createElement('a');
+	link.href = `${root_link}/projects3group.html?group=${group.id}`;
 	const title = document.createElement('p');
 	title.className = 'group_title';
 	title.textContent = group.name;
-	result.append(title);
+	link.append(title);
+	result.append(link);
 	const desc = document.createElement('p');
 	desc.className = 'group_desc';
 	desc.textContent = group.desc;
