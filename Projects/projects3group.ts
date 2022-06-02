@@ -3,6 +3,7 @@ import type {ProjectGroupNetwork} from '../elements/projects3/Common/Common.js';
 import {ProjectGroup} from '../elements/projects3/Common/Common.js';
 import type {ContainerStacked} from '../elements/container/stacked/stacked.js';
 import type {Toaster} from '../elements/toaster/toaster.js';
+import {remote as ROOT_LOCATION} from './projects3base.js'
 
 
 type GroupData = {
@@ -16,9 +17,8 @@ const load_promise = Elements.get('toaster');
 Elements.get('container-stacked');
 
 
-const ROOT_LOCATION = '//127.0.0.1:5002'
-
 const project_link = document.querySelector('a.project_link') as HTMLAnchorElement;
+const meta_title = project_link.querySelector('p.header') as HTMLParagraphElement;
 const title = document.querySelector('p.group_title') as HTMLParagraphElement;
 const desc = document.querySelector('textarea.group_desc') as HTMLTextAreaElement;
 const title_editor = document.querySelector('#group_name_edit') as HTMLInputElement;

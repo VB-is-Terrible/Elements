@@ -12,6 +12,7 @@ import {read_details} from '../elements/draggable/types.js';
 import type {Grid} from '../elements/grid/grid.js'
 import type {Toaster} from '../elements/toaster/toaster.js';
 import {get_setting} from '../elements/elements_options.js';
+import {remote} from './projects3base.js'
 
 
 const load_promise = Elements.get(
@@ -46,7 +47,7 @@ const project_displays = new Map<id, Projects3ProjectDisplay>();
 
 const getRemoteLocation = () => {
 	const params = new URL(document.location.href).searchParams;
-	return `//127.0.0.1:5002/${params.get('meta')}`;
+	return `${remote}/${params.get('meta')}`;
 }
 const remote_location = getRemoteLocation();
 
