@@ -52,6 +52,7 @@ body {
 .stacked {
 	overflow: auto;
 	font-size: x-large;
+	--font-size: x-large;
 }
 #group_name_edit {
 	font-size: x-large;
@@ -71,6 +72,6 @@ body {
 	width: 100%;
 	box-sizing: border-box;
 }
-.title_stack_holder, #title_stack, .title_stack {
+.title_stack_holder, #title_stack, .title_stack, elements-projects3-tagbar {
 	width: 100%;
 }
