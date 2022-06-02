@@ -22,15 +22,13 @@ interface img_info {
 	size: number;
 }
 
-//@ts-ignore
+
 const ricContext = (): (f: (timestamp: IdleDeadline) => void) => void => {
         let raf: number | null = null;
         return (f) => {
                 if (raf !== null) {
-			//@ts-ignore
                         cancelIdleCallback(raf);
                 }
-		//@ts-ignore
                 raf = requestIdleCallback((e) => {
                         f(e);
                         raf = null;
