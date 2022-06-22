@@ -3,7 +3,7 @@ const requires: Array<string> = [];
 
 import {Elements} from '../../elements_core.js';
 import {backbone4, applyPriorProperties} from '../../elements_backbone.js';
-import {get_border_box, removeChildren, wait} from '../../elements_helper.js';
+import {get_border_box, removeChildren, wait, CustomComposedEvent, booleaner} from '../../elements_helper.js';
 import {fuzzy} from '../../common/Searcher.js';
 
 Elements.get(...recommends);
@@ -88,7 +88,7 @@ export class Projects3Tagbar extends backbone4 {
 		applyPriorProperties(this, 'remote');
 	}
 	static get observedAttributes() {
-		return [];
+		return ['disabled'];
 	}
 	#resize(resizeList: ResizeObserverEntry[]) {
 		const width = get_border_box(resizeList[resizeList.length - 1]).inlineSize;
@@ -160,6 +160,16 @@ export class Projects3Tagbar extends backbone4 {
 		this.#remote = value;
 		this.#ready = false;
 	}
+        get disabled() {
+                return this.#input.disabled;
+        }
+        set disabled(value: boolean | null | string) {
+                if (booleaner(value) === this.#input.disabled) {return;}
+                this.#input.disabled = booleaner(value);
+                if (this.attributeInit && value !== null) {
+                        this.setAttribute('disabled', value.toString());
+                }
+        }
 }
 
 export default Projects3Tagbar;

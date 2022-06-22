@@ -73,7 +73,7 @@ class PageState {
 		button_stack.current = !this.#edit ? 's1' : 's2';
 		title_editor.disabled = !this.#edit;
 		desc.disabled = !this.#edit;
-		// tagbar.disabled = !this.#edit;
+		tagbar.disabled = !this.#edit;
 	}
 	get tags() {
 		return this.#tags;
