@@ -76,9 +76,13 @@ export class Projects3Tagbar extends backbone4 {
 		});
 		this.#input = input;
 		const accept = template.querySelector('#bar_button') as HTMLButtonElement;
-		accept.addEventListener('click', () => {
+		accept.addEventListener('click', this.#accept);
+                this.#input.addEventListener('keypress', (e: KeyboardEvent) => {
+                        if (e.key === "Enter") {
+                                this.#accept();
+                        }
+                });
 
-		});
 		//Fancy code goes here
 		shadow.appendChild(template);
 		applyPriorProperties(this, 'remote');
@@ -136,6 +140,19 @@ export class Projects3Tagbar extends backbone4 {
 			this.#predict();
 		}
 	}
+        #accept () {
+                let valid = false;
+                for (const option of this.#tags_possible) {
+                        if (option === this.#input.value) {
+                                valid = true;
+                                break;
+                        }
+                }
+                if (!valid) {
+                        return;
+                }
+                this.dispatchEvent(CustomComposedEvent('accept', this.#input.value));
+        };
 	get remote() {
 		return this.#remote;
 	}
