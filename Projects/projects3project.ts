@@ -33,6 +33,71 @@ const tagbar = document.querySelector('elements-projects3-tagbar') as Projects3T
 
 export let system: Project;
 
+class PageState {
+	#tags = false;
+	#edit = false;
+	update_page_state () {
+		if (this.#edit) {
+			requestAnimationFrame(() => {
+				title_stack[0].style.display = 'none';
+			});
+			if (this.#tags) {
+				requestAnimationFrame(() => {
+					title_stack[1].style.display = 'none';
+					title_stack[2].style.display = 'grid';
+					tagbar.focus();
+				});
+			} else {
+				requestAnimationFrame(() => {
+					title_stack[1].style.display = 'grid';
+					title_stack[2].style.display = 'none';
+					title_editor.focus();
+				});
+			}
+		} else {
+			requestAnimationFrame(() => {
+				title_stack[1].style.display = 'none';
+			});
+			if (this.#tags) {
+				requestAnimationFrame(() => {
+					title_stack[0].style.display = 'none';
+					title_stack[2].style.display = 'grid';
+				});
+			} else {
+				requestAnimationFrame(() => {
+					title_stack[0].style.display = 'grid';
+					title_stack[2].style.display = 'none';
+				});
+			}
+		}
+		button_stack.current = !this.#edit ? 's1' : 's2';
+		title_editor.disabled = !this.#edit;
+		desc.disabled = !this.#edit;
+		// tagbar.disabled = !this.#edit;
+	}
+	get tags() {
+		return this.#tags;
+	}
+	set tags(value) {
+		this.#tags = value;
+		this.update_page_state();
+	}
+	get edit() {
+		return this.#edit;
+	}
+	set edit(value) {
+		this.#edit = value;
+		this.update_page_state();
+	}
+	set(value: {tags: boolean, edit: boolean}) {
+		this.#tags = value.tags;
+		this.#edit = value.edit;
+		this.update_page_state();
+	}
+}
+
+let PAGE_STATE = new PageState();
+
 const getRemoteLocation = () => {
 	const params = new URL(document.location.href).searchParams;
 	return `${ROOT_LOCATION}/projects/${params.get('project')}`;
@@ -46,7 +111,7 @@ await load_promise;
 export const main = () => {
 	const edit_button = document.querySelector('#group_edit_enable') as HTMLButtonElement;
 	edit_button.addEventListener('click', () => {
-		toggle_edit(true);
+		PAGE_STATE.edit = true;
 	});
 	const cancel_button = document.querySelector('#group_edit_cancel') as HTMLButtonElement;
 	cancel_button.addEventListener('click', () => {
@@ -56,6 +121,18 @@ export const main = () => {
 	accept_button.addEventListener('click', () => {
 		// modifyNetworkGroup(title_editor.value, desc.value);
 	});
+
+	{
+		const description_button = document.querySelector('#description_change') as HTMLButtonElement;
+		const tags_button = document.querySelector('#tags_change') as HTMLButtonElement;
+		description_button.addEventListener('click', () => {
+			PAGE_STATE.tags = false;
+		});
+		tags_button.addEventListener('click', () => {
+			PAGE_STATE.tags = true;
+		});
+
+	}
 	(async () => {
 		load_remote();
 	})();
@@ -86,30 +163,13 @@ const load = (system: Project, owner: number, owner_name: string, tags: Record<s
 
 
 const reset = () => {
-	toggle_edit(false);
+	PAGE_STATE.edit = false;
 	title.textContent = system.name;
 	title_editor.value = system.name;
 	desc.value = system.desc;
 };
 
 
-const toggle_edit = (editmode: boolean) => {
-	if (editmode) {
-		requestAnimationFrame(() => {
-			title_stack[0].style.display = 'none';
-			title_stack[1].style.display = 'grid';
-			title_editor.focus();
-		});
-	} else {
-		requestAnimationFrame(() => {
-			title_stack[0].style.display = 'grid';
-			title_stack[1].style.display = 'none';
-		});
-	}
-	button_stack.current = !editmode ? 's1' : 's2';
-	title_editor.disabled = !editmode;
-	desc.disabled = !editmode;
-}
 
 // const modifyNetworkGroup = async (title: string, desc: string) => {
 // 	const form = new FormData();
