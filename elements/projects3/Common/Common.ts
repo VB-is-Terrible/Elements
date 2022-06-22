@@ -92,7 +92,6 @@ export class Project extends UpdateWrapperBase implements ProjectObj {
 		this.tags = tags;
 	}
 	static fromJSONObj(obj: ProjectObj) {
-		// TODO: Fill out
 		return new Project(obj.id, obj.name, obj.desc, obj.tags);
 	}
 	toJSON() {
@@ -126,7 +125,6 @@ export class ProjectGroup extends UpdateWrapperBase implements ProjectGroupObj {
 		this.desc = desc;
 		this.projects = projects;
 	}
-	/// TODO: Add json methods
 	static fromJSONObj(obj: ProjectGroupObj) {
 		return new ProjectGroup(obj.id, obj.name, obj.desc, obj.projects)
 	}
