@@ -23,7 +23,7 @@ const title = document.querySelector('p.group_title') as HTMLParagraphElement;
 const desc = document.querySelector('textarea.group_desc') as HTMLTextAreaElement;
 const title_editor = document.querySelector('#group_name_edit') as HTMLInputElement;
 const button_stack = document.querySelector('div.bottom_buttons > elements-container-stacked') as ContainerStacked;
-const title_stack = document.querySelectorAll('.title_stack_holder > .stacked.centre') as NodeListOf<HTMLDivElement>;
+const title_stack = document.querySelectorAll('.title_stack_holder > .title') as NodeListOf<HTMLDivElement>;
 const toaster = document.querySelector('#toaster') as Toaster;
 
 
