@@ -76,7 +76,7 @@ export class Projects3Tagbar extends backbone4 {
 		});
 		this.#input = input;
 		const accept = template.querySelector('#bar_button') as HTMLButtonElement;
-		accept.addEventListener('click', this.#accept);
+		accept.addEventListener('click', () => {this.#accept});
                 this.#input.addEventListener('keypress', (e: KeyboardEvent) => {
                         if (e.key === "Enter") {
                                 this.#accept();
