@@ -9,6 +9,7 @@
 		<link rel='preload' href='../elements/elements_manifest.json' as='fetch' crossorigin="use-credentials"></link>
 		<link rel="icon" href="../icon.png">
 		<link rel='stylesheet' type='text/css' href='projects3group.css'>
+		<link rel='stylesheet' type='text/css' href='projects3project.css'>
 		<link rel='stylesheet' type='text/css' href='../elements/Themes/generic_text.css'></link>
 		<link rel='stylesheet' type='text/css' href='../elements/Themes/generic_bg.css'></link>
 	</head>
@@ -47,7 +48,15 @@
 			</elements-container-stacked> -->
 		</div>
 		<div class='group_desc_container'>
-			<textarea class='group_desc'></textarea>
+			<div class='desc_holder'>
+				<textarea class='group_desc'></textarea>
+				<div class='tags_desc'>
+					<p>Current Tags: </p>
+					<div class='current_tags'></div>
+					<p>Removed Tags: </p>
+					<div class='removed_tags'></div>
+				</div>
+			</div>
 			<div class='bottom_buttons'>
 				<elements-container-stacked justify='end'>
 					<div>

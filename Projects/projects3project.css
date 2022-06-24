@@ -1,0 +1,13 @@
+.tags_desc {
+	display: none;
+	grid-template-columns: auto 1fr;
+	grid-column-gap: 1em;
+}
+button.tag {
+	margin: 1em 0 1em .5em;
+	padding: .25em;
+}
+.tag_name {
+	text-shadow: -1px 0 var(--elements-theme-bg), 0 1px var(--elements-theme-bg), 1px 0 var(--elements-theme-bg), 0 -1px var(--elements-theme-bg), -1px -1px var(--elements-theme-bg), 1px 1px var(--elements-theme-bg), 1px -1px var(--elements-theme-bg), -1px 1px var(--elements-theme-bg);
+	/* text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, -1px -1px black, 1px 1px black, 1px -1px black, -1px 1px black; */
+}
