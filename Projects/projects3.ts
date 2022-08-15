@@ -101,6 +101,7 @@ const load = (system: System) => {
 	document.title = system.name;
 
 	removeChildren(unsorted);
+	removeChildren(group_grid);
 
 	const seen = new Set<id>();
 	group_grid.columns = system.project_groups.size;
