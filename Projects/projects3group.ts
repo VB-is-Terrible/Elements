@@ -113,7 +113,7 @@ const modifyNetworkGroup = async (title: string, desc: string) => {
 	if (title !== system.name) {
 		form.append('name', title);
 	}
-	if (title !== system.desc) {
+	if (desc !== system.desc) {
 		form.append('desc', desc);
 	}
 	let response;
