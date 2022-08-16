@@ -363,11 +363,6 @@ type collectT = {
 }
 
 const collect = () => {
-	// const result = {
-	// 	name: title_editor.value,
-	// 	desc: group_desc.value,
-	//
-	// }
 	const result: collectT = {
 		name: null,
 		desc: null,
