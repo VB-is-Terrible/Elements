@@ -296,15 +296,15 @@ const addTag = async (tag: string) => {
 	if (modified_tags.has(tag)) {
 		throw new Error('Tag to add is already present');
 	}
+	if (system_tags[tag] === undefined) {
+		await queryTag(tag);
+	}
 	const tag_button = createTagDisplay(tag, system_tags[tag]);
 	modified_tags.add(tag);
 	if (!removed_tags.has(tag)) {
 		added_tags.add(tag);
 	}
 	removed_tags.delete(tag);
-	if (system_tags[tag] === undefined) {
-		await queryTag(tag);
-	}
 	console.log(tag, system_tags[tag], system_tags);
 	requestAnimationFrame(() => {
 		current_tags.append(tag_button);
