@@ -42,6 +42,8 @@ let removed_tags: Set<string> = new Set();
 let modified_tags: Set<string> = new Set();
 let existing_tags: Set<string> = new Set();
 let owner: number = -1;
+const tag_buttons: Map<string, HTMLButtonElement> = new Map();
+const tag_button_listeners: Map<string, EventListener> = new Map();
 
 
 class PageState {
@@ -200,6 +202,8 @@ const reset = () => {
 	group_desc.value = system.desc;
 	removeChildren(current_tags);
 	removeChildren(removed_tags_display);
+	tag_buttons.clear();
+	tag_button_listeners.clear();
 	for (const tag of system.tags) {
 		const tag_button = createTagDisplay(tag, system_tags[tag]);
 		requestAnimationFrame(() => {
@@ -216,23 +220,31 @@ const reset = () => {
 };
 
 const createTagDisplay = (tag: string, color: string | null = '') => {
-	const result = document.createElement('button');
-	result.className = 'tag';
-	const name = document.createElement('span');
-	name.className = 'tag_name';
-	name.textContent = tag;
-	if (color !== null && color !== '') {
-		result.style.backgroundColor = color;
+	let result: HTMLButtonElement;
+	if (tag_buttons.has(tag)) {
+		result = tag_buttons.get(tag)!;
+		result.removeEventListener('click', tag_button_listeners.get(tag)!);
 	} else {
-		name.style.textShadow = 'initial';
+		result = document.createElement('button');
+		result.className = 'tag';
+		const name = document.createElement('span');
+		name.className = 'tag_name';
+		name.textContent = tag;
+		if (color !== null && color !== '') {
+			result.style.backgroundColor = color;
+		} else {
+			name.style.textShadow = 'initial';
+		}
+		result.append(name);
 	}
-	result.append(name);
 	const listener = () => {
 		console.log('hi')
 		removeTag(tag, result, listener);
 	};
 	result.addEventListener('click', listener);
 	result.disabled = !PAGE_STATE.edit;
+	tag_buttons.set(tag, result);
+	tag_button_listeners.set(tag, listener);
 	return result;
 }
 
@@ -245,10 +257,10 @@ const modifyNetworkProject = async (data: collectT) => {
 	if (data.desc !== null) {
 		form.append('desc', data.desc);
 	}
-	if (data.added_tags !== []) {
+	if (data.added_tags.length !== 0) {
 		form.append('added_tags', JSON.stringify(data.added_tags));
 	}
-	if (data.removed_tags !== []) {
+	if (data.removed_tags.length !== 0) {
 		form.append('removed_tags', JSON.stringify(data.removed_tags));
 	}
 	let response;
@@ -277,7 +289,6 @@ const modifyNetworkProject = async (data: collectT) => {
 	for (const tag in return_value.tags) {
 		system_tags[tag] = return_value.tags[tag];
 	}
-	// console.log('a')
 	reset();
 }
 
@@ -285,14 +296,16 @@ const addTag = async (tag: string) => {
 	if (modified_tags.has(tag)) {
 		throw new Error('Tag to add is already present');
 	}
+	const tag_button = createTagDisplay(tag, system_tags[tag]);
 	modified_tags.add(tag);
+	if (!removed_tags.has(tag)) {
+		added_tags.add(tag);
+	}
 	removed_tags.delete(tag);
-	added_tags.add(tag);
 	if (system_tags[tag] === undefined) {
 		await queryTag(tag);
 	}
 	console.log(tag, system_tags[tag], system_tags);
-	const tag_button = createTagDisplay(tag, system_tags[tag]);
 	requestAnimationFrame(() => {
 		current_tags.append(tag_button);
 	});
@@ -313,6 +326,7 @@ const removeTag = (tag: string, button: HTMLButtonElement, listener: () => void)
 			undoRemoveTag(tag, button, new_listener);
 		};
 		button.addEventListener('click', new_listener);
+		tag_button_listeners.set(tag, new_listener);
 		requestAnimationFrame(() => {
 			removed_tags_display.append(button);
 		});
@@ -333,6 +347,7 @@ const undoRemoveTag = (tag: string, button: HTMLButtonElement, listener: () => v
 		removeTag(tag, button, new_listener);
 	};
 	button.addEventListener('click', new_listener);
+	tag_button_listeners.set(tag, new_listener);
 	requestAnimationFrame(() => {
 		current_tags.append(button);
 	});
@@ -342,8 +357,8 @@ const undoRemoveTag = (tag: string, button: HTMLButtonElement, listener: () => v
 type collectT = {
 	name: string | null;
 	desc: string | null;
-	added_tags: Array<string> | null;
-	removed_tags: Array<string> | null;
+	added_tags: Array<string>;
+	removed_tags: Array<string>;
 	modified_tags: Array<string>;
 }
 
