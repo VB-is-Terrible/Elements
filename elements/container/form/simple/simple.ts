@@ -32,12 +32,14 @@ export class ContainerFormSimple extends backbone4 {
 		const cancel = template.querySelector('#cancel') as HTMLButtonElement;
 		const accept = template.querySelector('#accept') as HTMLButtonElement;
 		cancel.addEventListener('click', () => {
-			this.reset();
-			this.close();
+			if (this.reset()) {
+				this.close();
+			}
 		});
 		accept.addEventListener('click', () => {
-			this.accept();
-			this.close();
+			if (this.accept()) {
+				this.close();
+			}
 		});
 
 		shadow.appendChild(template);
@@ -46,18 +48,17 @@ export class ContainerFormSimple extends backbone4 {
 		return [];
 	}
 	reset() {
-		const ev = CustomComposedEvent(reset_event_string);
-		this.dispatchEvent(ev);
+		const ev = CustomComposedEvent(reset_event_string, null, true);
+		return this.dispatchEvent(ev);
 	}
 	accept() {
-		const ev = CustomComposedEvent(accept_event_string);
-		this.dispatchEvent(ev);
+		const ev = CustomComposedEvent(accept_event_string, null, true);
+		return this.dispatchEvent(ev);
 	}
 	close() {
 		const ev = CustomComposedEvent('dialog_close');
-		this.dispatchEvent(ev);
+		return this.dispatchEvent(ev);
 	}
-
 }
 
 export default ContainerFormSimple;

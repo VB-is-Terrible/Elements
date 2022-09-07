@@ -6,15 +6,19 @@ export const FormWrapper = <T extends GConstructor<HTMLElement>>(Base: T) => {
 	abstract class FormWrapped extends Base {
 		constructor(...args: any[]) {
 			super(args);
-			this.addEventListener(accept_event_string, () => {
-				this.accept();
+			this.addEventListener(accept_event_string, (event) => {
+				if (!this.accept()) {
+					event.preventDefault();
+				}
 			});
-			this.addEventListener(reset_event_string, () => {
-				this.reset();
+			this.addEventListener(reset_event_string, (event) => {
+				if (!this.reset()) {
+					event.preventDefault();
+				}
 			});
 		}
-		protected abstract accept(): void;
-		protected abstract reset(): void;
+		protected abstract accept(): boolean;
+		protected abstract reset(): boolean;
 	}
 	return FormWrapped;
 }

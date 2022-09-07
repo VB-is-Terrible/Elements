@@ -86,7 +86,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 	}
 	protected accept() {
 		if (this.#name.value === '') {
-			return;
+			return false;
 		}
 		const detail = new AcceptDetail(
 			this.#project_id,
@@ -98,6 +98,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		const ev = CustomComposedEvent(AcceptDetail.event_string, detail);
 		this.dispatchEvent(ev);
 		this.reset();
+		return true;
 	}
 	protected reset() {
 		this.#name.value = '';
@@ -110,8 +111,7 @@ export class Projects3ProjectCreator extends FormWrapper(backbone4) {
 		this.#tags_store = new Set();
 		// this.setTags(['this', 'is', 'a', 'test', 'nothing but a really', 'long test phrase', 'to test when the tags', 'should overflow', 'and it turns out that', 'this list of strings is not', 'big enough']);
 		this.setTags([]);
-
-
+		return true;
 	}
 	private setTags(tags: Iterable<string>) {
 		removeChildren(this.#tags);

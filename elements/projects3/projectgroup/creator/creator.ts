@@ -65,7 +65,7 @@ export class Projects3ProjectgroupCreator extends FormWrapper(backbone4) {
 	}
 	protected accept() {
 		if (this.#name.value === '') {
-			return;
+			return false;
 		}
 		const detail = new AcceptDetail(
 			-1,
@@ -76,6 +76,7 @@ export class Projects3ProjectgroupCreator extends FormWrapper(backbone4) {
 		const ev = CustomComposedEvent(AcceptDetail.event_string, detail);
 		this.dispatchEvent(ev);
 		this.reset();
+		return true;
 	}
 	protected reset() {
 		this.#name.value = '';
@@ -83,6 +84,7 @@ export class Projects3ProjectgroupCreator extends FormWrapper(backbone4) {
 		requestAnimationFrame(() => {
 			this.#warn.style.display = 'none';
 		});
+		return true;
 	}
 }
 
