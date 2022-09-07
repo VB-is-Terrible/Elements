@@ -34,6 +34,7 @@ export class ContainerStacked extends backbone4 {
 	#child_indexes: WeakMap<object, number>;
 	#justify_style: HTMLStyleElement;
 	#align_style: HTMLStyleElement;
+	#spacer: HTMLDivElement;
 	justify!: string;
 	align!: string;
 	constructor() {
@@ -58,7 +59,7 @@ export class ContainerStacked extends backbone4 {
 
 		this.#justify_style = template.querySelector('#justify_style') as HTMLStyleElement;
 		this.#align_style = template.querySelector('#align_style') as HTMLStyleElement;
-
+		this.#spacer = template.querySelector('#spacer') as HTMLDivElement;
 
 		//Fancy code goes here
 		shadow.appendChild(template);
@@ -293,7 +294,7 @@ export class ContainerStacked extends backbone4 {
 	 * @param  {ResizeObserver} _observer     The ResizeObserver that saw these changes
 	 * @private
 	 */
-	#resize (resizeList: ResizeObserverEntry[], _observer: ResizeObserver) {
+	#resize (resizeList: ResizeObserverEntry[], _observer: unknown) {
 		for (let entry of resizeList) {
 			let height = get_border_box(entry).blockSize;
 			const width = entry.borderBoxSize[0].inlineSize;
@@ -330,7 +331,30 @@ export class ContainerStacked extends backbone4 {
 	last () {
 		this.current = 's' + this.childElementCount.toString();
 	}
-
+	connectedCallback() {
+		super.connectedCallback();
+		this.jolt()
+	}
+	#jolt() {
+		const sheet = (this.shadowQuery('#rotate_expander') as HTMLStyleElement).sheet;
+		if (sheet !== null) {
+			if (sheet.cssRules.length === 2) {
+				sheet.deleteRule(0);
+				sheet.deleteRule(0);
+			}
+		}
+	}
+	jolt() {
+		requestIdleCallback(() => {
+			requestAnimationFrame(() => {
+				this.#jolt()
+				requestAnimationFrame(() => {
+					this.#resize([], null);
+					console.log('jolted')
+				});
+			});
+		});
+	}
 }
 
 export default ContainerStacked;
